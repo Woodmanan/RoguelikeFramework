@@ -10,14 +10,14 @@ using UnityEngine.Tilemaps;
 */
 public class MapRender : MonoBehaviour
 {
-    private Map map;
-    private List<Sprite> icons;
-
-    private Tilemap tilemap;
+    [SerializeField] private Map map;
+    [SerializeField] private TileList tilelist;
+    
+    [SerializeField] private Tilemap tilemap;
     // Start is called before the first frame update
     void Start()
     {
-        map = GetComponent<Map>();
+        
     }
 
     // Update is called once per frame
@@ -25,8 +25,10 @@ public class MapRender : MonoBehaviour
     {
         
     }
+    
+    
 
-    void UpdateAllTiles()
+    public void UpdateAllTiles()
     {
         for (int i = 0; i < map.width; i++)
         {
@@ -37,9 +39,20 @@ public class MapRender : MonoBehaviour
         }
     }
 
-    void UpdateTile(int x, int y)
+    public void UpdateTile(int x, int y)
     {
+        //Expensive-ish assertion for while we're in the editor
+        #if UNITY_EDITOR
+        int iconCount = map.getTile(x, y).icon;
+        if (tilelist.tiles.Length <= iconCount)
+        {
+            Debug.LogError($"Error with tile count at ({x}, {y}): Tile is #{iconCount}, but there are only {tilelist.tiles.Length} tiles.");
+        }
+        #endif
+        
+        //Get the sprite the Tilemap[x, y] should be set to.
+        TileBase newTile = tilelist.tiles[map.getTile(x, y).icon];
 
-        int z =map.getTile(x, y).icon;
+        tilemap.SetTile(new Vector3Int(x, y, 0), newTile);
     }
 }

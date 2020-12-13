@@ -7,7 +7,7 @@ using UnityEngine;
  * structs and has functionality for getting and setting information about the world
  */
 
-public struct Tile
+public struct TileInfo
 {
     [CanBeNull] public string name;
     public float movementCost;
@@ -20,16 +20,17 @@ public struct Tile
 public class Map : MonoBehaviour
 {
 
-    public Tile[,] tiles;
+    public TileInfo[,] tiles;
 
     public int width;
+    
 
     public int height;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+       SetUp30x30(); 
     }
 
     // Update is called once per frame
@@ -37,13 +38,29 @@ public class Map : MonoBehaviour
     {
         
     }
+    
+    //Setup function, for testing
+    void SetUp30x30()
+    {
+       allocateMap(30, 30);
+       for (int i = 0; i < width; i++)
+       {
+           for (int j = 0; j < height; j++)
+           {
+               tiles[i, j].icon = 0;
+           }
+       }
+       GetComponent<MapRender>().UpdateAllTiles();
+    }
 
     public void allocateMap(int xSize, int ySize)
     {
-        tiles = new Tile[xSize, ySize];
+        tiles = new TileInfo[xSize, ySize];
+        width = xSize;
+        height = ySize;
     }
 
-    public Tile getTile(int x, int y)
+    public TileInfo getTile(int x, int y)
     {
         return tiles[x, y];
     }
