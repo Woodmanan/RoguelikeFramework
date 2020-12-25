@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Row
+{
+    public int depth;
+    public fraction startSlope;
+    public fraction endSlope;
+    private Map map; //For speed purposes, we want to grab this just once
+    public Quadrant quad;
+
+    public Row(int depth, fraction startSlope, fraction endSlope, Quadrant q)
+    {
+        this.depth = depth;
+        this.startSlope = startSlope;
+        this.endSlope = endSlope;
+        this.quad = quad;
+        map = Map.singleton;
+        quad = q;
+    }
+
+    public System.Collections.Generic.IEnumerable<Vector2Int> tiles()
+    {
+        int min = Mathf.CeilToInt(depth * startSlope);
+        int max = Mathf.FloorToInt(depth * endSlope);
+        for (int i = min; i < max + 1; i++)
+        {
+            yield return new Vector2Int(i, depth);
+        }
+    }
+
+    public Vector2Int transform(Vector2Int input)
+    {
+        return quad.transformWorld(input.y, input.x);
+    }
+    
+    public Row next()
+    {
+        return new Row(depth + 1, startSlope, endSlope, quad);
+    }
+}

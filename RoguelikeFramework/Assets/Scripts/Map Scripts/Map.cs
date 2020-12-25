@@ -1,26 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /* Map class that  is used as a handler and container for the game maps. Holds a the
  * structs and has functionality for getting and setting information about the world
  */
 
-public struct TileInfo
-{
-    [CanBeNull] public string name;
-    public float movementCost;
-    public float visionCost;
-    public int icon;
-    [CanBeNull] public GameObject currentlyStanding;
-    [CanBeNull] public List<GameObject> containedItmes;
-}
 
 public class Map : MonoBehaviour
 {
+    private static Map Singleton;
+    public static Map singleton
+    {
+        get
+        {
+            if (!Singleton)
+            {
+                Map m = GameObject.FindObjectOfType<Map>();
+                if (m)
+                {
+                    Singleton = m;
+                }
+                else
+                {
+                    Debug.LogError("No map found!");
+                }
+            }
 
-    public TileInfo[,] tiles;
+            return Singleton;
+        }
+        set { Singleton = value; }
+    }
+
+    public int depth;
+
+    public TileList tilesAvailable;
+
+
+    public CustomTile[,] tiles;
+    public bool[,] blocksVision;
+    public float[,] moveCosts;
 
     public int width;
     
@@ -30,7 +52,27 @@ public class Map : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       SetUp30x30(); 
+        transform.position = Vector3.zero;
+        if (singleton != this)
+        {
+            if (singleton)
+            {
+                if (singleton.depth > this.depth)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Destroy(Singleton);
+                    singleton = this;
+                }
+            }
+            else
+            {
+                singleton = this;
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -38,30 +80,108 @@ public class Map : MonoBehaviour
     {
         
     }
-    
-    //Setup function, for testing
-    void SetUp30x30()
+
+    public void PerformTesting()
     {
-       allocateMap(30, 30);
-       for (int i = 0; i < width; i++)
-       {
-           for (int j = 0; j < height; j++)
-           {
-               tiles[i, j].icon = 0;
-           }
-       }
-       GetComponent<MapRender>().UpdateAllTiles();
+        allocateMap(100, 100);
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (Random.Range(0.0f, 1.0f) < .2f)
+                {
+                    tiles[i, j].blocksVision = true;
+                    tiles[i,j].color = Color.blue;
+                    tiles[i,j].RebuildMapData();
+                }
+            }
+        }
     }
+    
 
     public void allocateMap(int xSize, int ySize)
     {
-        tiles = new TileInfo[xSize, ySize];
+        tiles = new CustomTile[xSize, ySize];
+        blocksVision = new bool[xSize, ySize];
+        moveCosts = new float[xSize, ySize];
         width = xSize;
         height = ySize;
+        for (int j = 0; j < height; j++)
+        {
+            GameObject row = new GameObject {name = $"Row {j}"};
+            row.transform.parent = transform;
+            for (int i = 0; i < width; i++)
+            {
+                GameObject g = Instantiate(tilesAvailable.tiles[0], row.transform, true);
+                g.name = $"Tile ({i}, {j})";
+                CustomTile custom = g.GetComponent<CustomTile>();
+                if (!custom)
+                {
+                    Debug.LogError("Tile did not have tile component.");
+                }
+                g.transform.position = new Vector3(i, j, 0);
+                tiles[i, j] = custom;
+                custom.x = i;
+                custom.y = j;
+            }
+        }
+        
+        //Now that map data is finished, go rebuild it
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                tiles[i,j].RebuildMapData();
+            }
+        }
     }
 
-    public TileInfo getTile(int x, int y)
+    public CustomTile GetTile(int x, int y)
     {
         return tiles[x, y];
+    }
+
+    public bool BlocksSight(int x, int y)
+    {
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            return blocksVision[x, y];
+        }
+        return true;
+    }
+
+    public void SetMapVision(int x, int y, bool val)
+    {
+        blocksVision[x, y] = val;
+    }
+
+    public void Reveal(Vector2Int loc)
+    {
+        if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
+        {
+            return;
+        }
+
+        tiles[loc.x, loc.y].Reveal();
+    }
+
+    public void ClearLOS(Vector2Int loc)
+    {
+        if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
+        {
+            return;
+        }
+
+        tiles[loc.x, loc.y].Clear();
+    }
+
+    public bool BlocksSight(Vector2Int loc)
+    {
+        if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
+        {
+            return true;
+        }
+
+        return tiles[loc.x, loc.y].blocksVision;
     }
 }
