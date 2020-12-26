@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>OptimizedPriorityQueue</id>
+    <version>5.0.0</version>
+    <title>Highly Optimized Priority Queue</title>
+    <authors>BlueRaja</authors>
+    <owners>BlueRaja</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/BlueRaja/High-Speed-Priority-Queue-for-C-Sharp/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/BlueRaja/High-Speed-Priority-Queue-for-C-Sharp</projectUrl>
+    <description>A highly optimized Priority Queue for path-finding and related applications</description>
+    <releaseNotes>Added SourceLinks and latest compiler flags for .Net Standard; Removed space from assembly name for OSes that don't support them</releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>C# priority-queue pathfinding optimized</tags>
+  </metadata>
+</package>

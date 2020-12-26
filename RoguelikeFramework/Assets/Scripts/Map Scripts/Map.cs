@@ -34,6 +34,9 @@ public class Map : MonoBehaviour
         }
         set { Singleton = value; }
     }
+    
+    //Map space, which controls how movement is allowed
+    public static Space space = Space.Chebyshev;
 
     public int depth;
 

@@ -14,6 +14,17 @@ public enum Direction
     SOUTH_EAST
 }
 
+/*
+ * Different types of space:
+ * 1. Chebyshev: 8 way movement
+ * 2. Euclidean: 8 way movement, corners are sqrt(2)
+ */
+public enum Space
+{
+    Chebyshev,
+    Euclidean,
+    Manhattan
+}
 
 /* Really can't decide if this should be plural or not.
  * If you have a stronger opinion than I, feel free to
