@@ -42,16 +42,16 @@ public class LOSData
     {
         switch (dir)
         {
-            case Direction.South:
+            case Direction.SOUTH:
                 definedArea[radius + col, radius - row] = val;
                 break;
-            case Direction.North:
+            case Direction.NORTH:
                 definedArea[radius + col, radius + row] = val;
                 break;
-            case Direction.East:
+            case Direction.EAST:
                 definedArea[radius + row, radius + col] = val;
                 break;
-            case Direction.West:
+            case Direction.WEST:
                 definedArea[radius - row, radius + col] = val;
                 break;
         }
@@ -61,13 +61,13 @@ public class LOSData
     {
         switch (dir)
         {
-            case Direction.South:
+            case Direction.SOUTH:
                 return precalculatedSight[radius + col, radius - row];
-            case Direction.North:
+            case Direction.NORTH:
                 return precalculatedSight[radius + col, radius + row];
-            case Direction.East:
+            case Direction.EAST:
                 return precalculatedSight[radius + row, radius + col];
-            case Direction.West:
+            case Direction.WEST:
                 return precalculatedSight[radius - row, radius + col];
         }
 
@@ -113,14 +113,6 @@ public class LOSData
             }
         }
     }
-}
-
-public enum Direction
-{
-    North,
-    East,
-    South,
-    West
 }
 
 public struct fraction
@@ -179,7 +171,7 @@ public class LOS : MonoBehaviour
        }
        LOSData toReturn = new LOSData(distance, position);
        toReturn.PrecalculateValues();
-       toReturn.setAt(0,0, Direction.North, true);
+       toReturn.setAt(0,0, Direction.NORTH, true);
        for (int d = 0; d < 4; d++)
        {
            Quadrant q = new Quadrant((Direction) d, position);

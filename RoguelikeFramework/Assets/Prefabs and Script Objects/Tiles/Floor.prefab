@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7376377351548235661}
   - component: {fileID: 7376377351548235658}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4101030637876210395, guid: 6e1496fa40083ce44a141ba227bd284d, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -8882469605151552031, guid: 6e1496fa40083ce44a141ba227bd284d, type: 3}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,9 +102,9 @@ MonoBehaviour:
   y: 0
   name: 
   description: 
-  sprite: {fileID: -4101030637876210395, guid: 6e1496fa40083ce44a141ba227bd284d, type: 3}
-  movementCost: 0
+  sprite: {fileID: -1712091410509502996, guid: 6e1496fa40083ce44a141ba227bd284d, type: 3}
+  movementCost: 1
   blocksVision: 0
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   currentlyStanding: {fileID: 0}
   containedItmes: []

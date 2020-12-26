@@ -17,13 +17,13 @@ public class Quadrant
     {
         switch (dir)
         {
-            case Direction.South:
+            case Direction.SOUTH:
                 return new Vector2Int(origin.x + col, origin.y - row);
-            case Direction.North:
+            case Direction.NORTH:
                 return new Vector2Int(origin.x + col, origin.y + row);
-            case Direction.East:
+            case Direction.EAST:
                 return new Vector2Int(origin.x + row, origin.y + col);
-            case Direction.West:
+            case Direction.WEST:
                 return new Vector2Int(origin.x - row, origin.y + col);
         }
         

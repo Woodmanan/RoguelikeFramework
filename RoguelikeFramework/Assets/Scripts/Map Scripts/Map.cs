@@ -83,17 +83,11 @@ public class Map : MonoBehaviour
 
     public void PerformTesting()
     {
-        allocateMap(100, 100);
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                if (Random.Range(0.0f, 1.0f) < .2f)
-                {
-                    tiles[i, j].blocksVision = true;
-                    tiles[i,j].color = Color.blue;
-                    tiles[i,j].RebuildMapData();
-                }
+                
             }
         }
     }
@@ -112,7 +106,7 @@ public class Map : MonoBehaviour
             row.transform.parent = transform;
             for (int i = 0; i < width; i++)
             {
-                GameObject g = Instantiate(tilesAvailable.tiles[0], row.transform, true);
+                GameObject g = Instantiate(tilesAvailable.tiles[Random.Range(0,2)], row.transform, true);
                 g.name = $"Tile ({i}, {j})";
                 CustomTile custom = g.GetComponent<CustomTile>();
                 if (!custom)
@@ -134,6 +128,11 @@ public class Map : MonoBehaviour
                 tiles[i,j].RebuildMapData();
             }
         }
+    }
+
+    public float MovementCostAt(Vector2Int position)
+    {
+        return moveCosts[position.x, position.y];
     }
 
     public CustomTile GetTile(int x, int y)

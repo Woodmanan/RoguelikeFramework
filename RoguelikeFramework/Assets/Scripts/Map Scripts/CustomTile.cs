@@ -26,7 +26,7 @@ public class CustomTile : MonoBehaviour
     public float movementCost;
     public bool blocksVision;
     public Color color = Color.white;
-    public GameObject currentlyStanding;
+    public Monster currentlyStanding;
     public List<GameObject> containedItmes;
 
     private bool hidden = true;
@@ -88,6 +88,11 @@ public class CustomTile : MonoBehaviour
         Map.singleton.moveCosts[x, y] = movementCost;
     }
 
+    public bool BlocksMovement()
+    {
+        return movementCost < 0;
+    }
+
     private void RebuildGraphics()
     {
         renderer.sprite = sprite;
@@ -104,7 +109,7 @@ public class CustomTile : MonoBehaviour
         {
             if (beenSeen)
             {
-                float gray = color.grayscale;
+                float gray = color.grayscale / 2;
                 renderer.color = new Color(gray, gray, gray);
             }
             else

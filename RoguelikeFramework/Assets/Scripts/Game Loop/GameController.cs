@@ -33,6 +33,11 @@ public class GameController : MonoBehaviour
 
     IEnumerator TakeTurns()
     {
+        //1 Frame pause to set up LOS
+        yield return null;
+        LOS.GeneratePlayerLOS(player.location, player.visionRadius);
+        
+        //Main loop
         while (true)
         {
             turn++;
@@ -42,8 +47,6 @@ public class GameController : MonoBehaviour
                 player.TakeTurn();
                 yield return null;
             }
-            
-            LOS.GeneratePlayerLOS(player.location, player.visionRadius);
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
