@@ -41,12 +41,15 @@ public class GameController : MonoBehaviour
         while (true)
         {
             turn++;
+            CallTurnStart();
+
             player.AddEnergy(energyPerTurn);
             while (player.energy > 0)
             {
                 player.TakeTurn();
                 yield return null;
             }
+
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -62,11 +65,34 @@ public class GameController : MonoBehaviour
 
                 Monster m = monsters[i];
                 m.AddEnergy(energyPerTurn);
-                m.TakeTurn();
+                while (m.energy > 0)
+                {
+                    m.TakeTurn();
+                }
             }
+            
+            CallTurnEnd();
 
             //Finished calls for monster update, take turns for the players
             yield return null;
+        }
+    }
+
+    public void CallTurnStart()
+    {
+        player.OnTurnStartGlobalCall();
+        foreach (Monster m in monsters)
+        {
+            m.OnTurnStartGlobalCall();
+        }
+    }
+
+    public void CallTurnEnd()
+    {
+        player.OnTurnEndGlobalCall();
+        foreach (Monster m in monsters)
+        {
+            m.OnTurnEndGlobalCall();
         }
     }
 

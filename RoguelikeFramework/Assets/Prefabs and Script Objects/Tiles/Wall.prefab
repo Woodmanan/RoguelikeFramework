@@ -47,7 +47,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -72,7 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1860250382736469398, guid: 6e1496fa40083ce44a141ba227bd284d, type: 3}
+  m_Sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1,
+    type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   y: 0
   name: Stone Wall
   description: 
-  sprite: {fileID: -1860250382736469398, guid: 6e1496fa40083ce44a141ba227bd284d, type: 3}
+  sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   movementCost: -1
   blocksVision: 1
   color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}

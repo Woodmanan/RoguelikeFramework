@@ -102,18 +102,22 @@ public class InputTracking : MonoBehaviour
         else if (UpLeft())
         {
             actions.Enqueue(PlayerAction.MOVE_UP_LEFT);
+            addedAction = true;
         }
         else if (UpRight())
         {
             actions.Enqueue(PlayerAction.MOVE_UP_RIGHT);
+            addedAction = true;
         }
         else if (DownLeft())
         {
             actions.Enqueue(PlayerAction.MOVE_DOWN_LEFT);
+            addedAction = true;
         }
         else if (DownRight())
         {
             actions.Enqueue(PlayerAction.MOVE_DOWN_RIGHT);
+            addedAction = true;
         }
     }
 

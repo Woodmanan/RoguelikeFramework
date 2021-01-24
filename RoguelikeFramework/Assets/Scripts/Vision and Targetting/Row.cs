@@ -15,16 +15,16 @@ public class Row
         this.depth = depth;
         this.startSlope = startSlope;
         this.endSlope = endSlope;
-        this.quad = quad;
+        this.quad = q;
         map = Map.singleton;
         quad = q;
     }
 
     public System.Collections.Generic.IEnumerable<Vector2Int> tiles()
     {
-        int min = Mathf.CeilToInt(depth * startSlope);
-        int max = Mathf.FloorToInt(depth * endSlope);
-        for (int i = min; i < max + 1; i++)
+        int min = Mathf.FloorToInt(depth * startSlope + 0.5f);
+        int max = Mathf.CeilToInt(depth * endSlope - 0.5f);
+        for (int i = min; i <= max; i++)
         {
             yield return new Vector2Int(i, depth);
         }

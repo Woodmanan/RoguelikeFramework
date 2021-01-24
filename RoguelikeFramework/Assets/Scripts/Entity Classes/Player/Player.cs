@@ -19,7 +19,7 @@ public class Player : Monster
         
     }
 
-    public void TakeTurn()
+    public override void LocalTurn()
     {
         if (InputTracking.HasNextAction())
         {
@@ -60,6 +60,8 @@ public class Player : Monster
                     break;
             }
         }
+
+        LOS.GeneratePlayerLOS(location, visionRadius);
     }
 
     /*
@@ -80,7 +82,7 @@ public class Player : Monster
             return;
         }
         
-        //Is tile passable
+        //Is tile passable?
         if (tile.BlocksMovement())
         {
             Logger.Log($"You bumped into a {tile.name}");

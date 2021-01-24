@@ -42,3 +42,27 @@ public enum PlayerAction
     MOVE_DOWN_LEFT,
     MOVE_DOWN_RIGHT
 }
+
+public enum EventType
+{
+    NONE,
+    GAIN_ENERGY,
+    MELEE_ATTACK,
+    UNARMED_ATTACK,
+    RANGED_ATTACK,
+    HEALING,
+    STATUS_EFFECT
+}
+
+[System.Flags]
+public enum SlotType
+{
+    NONE = 0,
+    HEAD = (1 << 0),
+    LEFT_HAND = (1 << 1),
+    RIGHT_HAND = (1 << 2),
+    BODY = (1 << 3),
+    RANGED_WEAPON = (1 << 4),
+    TAIL = (1 << 5)
+
+}

@@ -27,7 +27,10 @@ public class CustomTile : MonoBehaviour
     public bool blocksVision;
     public Color color = Color.white;
     public Monster currentlyStanding;
-    public List<GameObject> containedItmes;
+
+    //Floor visualization
+    public List<Item> itemsOnFloor;
+    private Item displayedItem;
 
     private bool hidden = true;
     private SpriteRenderer renderer;
@@ -82,6 +85,11 @@ public class CustomTile : MonoBehaviour
         }
     }
 
+    public void AddItem()
+    {
+
+    }
+
     public void RebuildMapData()
     {
         Map.singleton.blocksVision[x, y] = blocksVision;
@@ -91,6 +99,16 @@ public class CustomTile : MonoBehaviour
     public bool BlocksMovement()
     {
         return movementCost < 0;
+    }
+
+    public void Highlight(Color hcolor)
+    {
+        renderer.color = hcolor;
+    }
+    
+    public void StopHighlight()
+    {
+        RebuildGraphics();
     }
 
     private void RebuildGraphics()
@@ -104,9 +122,22 @@ public class CustomTile : MonoBehaviour
                 hidden = false;
                 renderer.enabled = true;
             }
+            if (displayedItem)
+            {
+                displayedItem.EnableSprite();
+            }
+            else
+            {
+                if (itemsOnFloor.Count > 0)
+                {
+                    displayedItem = itemsOnFloor[itemsOnFloor.Count - 1];
+                    displayedItem.EnableSprite();
+                }
+            }
         }
         else
         {
+            //TODO: Item coloring on tiles that are not visible anymore
             if (beenSeen)
             {
                 float gray = color.grayscale / 2;
@@ -117,9 +148,18 @@ public class CustomTile : MonoBehaviour
                 if (hidden)
                 {
                     renderer.enabled = false;
+                    if (displayedItem)
+                    {
+                        displayedItem.DisableSprite();
+                    }
+                }
+                else
+                {
+                    displayedItem.EnableSprite();
                 }
                 renderer.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
+
         }
 
         dirty = false;

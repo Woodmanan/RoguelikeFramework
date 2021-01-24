@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using NUnit.Framework;
+//using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
@@ -131,12 +131,12 @@ public struct fraction
         return ((float) rise) / ((float) run);
     }
 
-    public static float operator *(int a, fraction f)
+    public static float operator *(float a, fraction f)
     {
         return a * f.value();
     }
 
-    public static float operator *(fraction f, int a)
+    public static float operator *(fraction f, float a)
     {
         return a * f.value();
     }
@@ -155,7 +155,7 @@ public class LOS : MonoBehaviour
     
     public static fraction Slope(Vector2Int tile)
    {
-       return new fraction((2 * tile.x) - 1, 2 * tile.y);
+       return new fraction(2 * tile.x - 1, 2 * tile.y);
    }
 
    public static bool IsSymmetric(Row r, Vector2Int tile)
