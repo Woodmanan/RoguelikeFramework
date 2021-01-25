@@ -40,7 +40,9 @@ public enum PlayerAction
     MOVE_UP_LEFT,
     MOVE_UP_RIGHT,
     MOVE_DOWN_LEFT,
-    MOVE_DOWN_RIGHT
+    MOVE_DOWN_RIGHT,
+    PICK_UP_ITEMS,
+    DROP_ITEMS
 }
 
 public enum EventType
@@ -64,5 +66,4 @@ public enum SlotType
     BODY = (1 << 3),
     RANGED_WEAPON = (1 << 4),
     TAIL = (1 << 5)
-
 }

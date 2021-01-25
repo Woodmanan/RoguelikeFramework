@@ -19,7 +19,7 @@ public class Player : Monster
         
     }
 
-    public override void LocalTurn()
+    public override IEnumerator LocalTurn()
     {
         if (InputTracking.HasNextAction())
         {
@@ -50,6 +50,17 @@ public class Player : Monster
                 case PlayerAction.MOVE_DOWN_RIGHT:
                     AttemptMovement(Direction.SOUTH_EAST);
                     break;
+                case PlayerAction.DROP_ITEMS:
+                    yield return null;
+                    Debug.Log("Dropping items!");
+                    for (int i = inventory.Count - 1; i >= 0; i--)
+                    {
+                        DropItem(i);
+                    }
+                    break;
+                case PlayerAction.PICK_UP_ITEMS:
+                    PickUpAll();
+                    break;
                 
                 //Handle potential error case (Thanks, Nethack design philosophy!)
                 case PlayerAction.NONE:
@@ -61,7 +72,15 @@ public class Player : Monster
             }
         }
 
+        EndTurn();
+
         LOS.GeneratePlayerLOS(location, visionRadius);
+
+        //Stops the compiler from complaining, for now.
+        if (false)
+        {
+            yield return null;
+        }
     }
 
     /*

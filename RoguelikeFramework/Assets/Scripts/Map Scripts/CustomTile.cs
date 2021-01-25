@@ -85,9 +85,38 @@ public class CustomTile : MonoBehaviour
         }
     }
 
-    public void AddItem()
+    //Todo: account for visible or not in this function. Till then, just rebuild graphics every time
+    public void AddItem(Item i)
     {
+        i.Drop();
+        i.SetLocation(new Vector2Int(x, y));
+        itemsOnFloor.Add(i);
+        if (displayedItem)
+        {
+            displayedItem.DisableSprite();
+        }
+        displayedItem = i;
+        i.EnableSprite();
+        RebuildGraphics(); //Extremely slow and stupid, do this better
+    }
 
+    public Item RemoveItem(int idx)
+    {
+        Item toRemove = itemsOnFloor[idx];
+        itemsOnFloor.RemoveAt(idx);
+        if (displayedItem == toRemove)
+        {
+            if (itemsOnFloor.Count > 0)
+            {
+                displayedItem = itemsOnFloor[itemsOnFloor.Count - 1];
+            }
+            else
+            {
+                displayedItem = null;
+            }
+            RebuildGraphics(); //Extrememly slow and stupid, do this better
+        }
+        return toRemove;
     }
 
     public void RebuildMapData()

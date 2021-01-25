@@ -41,12 +41,21 @@ public class GameController : MonoBehaviour
         while (true)
         {
             turn++;
-            CallTurnStart();
+            CallTurnStartGlobal();
 
             player.AddEnergy(energyPerTurn);
             while (player.energy > 0)
             {
                 player.TakeTurn();
+
+                //Freeze for player turn to finis, should that be necessary
+                if (player.turnRoutine != null)
+                {
+                    yield return player.turnRoutine;
+                }
+
+                player.EndTurn();
+
                 yield return null;
             }
 
@@ -68,17 +77,27 @@ public class GameController : MonoBehaviour
                 while (m.energy > 0)
                 {
                     m.TakeTurn();
+
+                    //Wait for monsters who need more frames for their turn
+                    if (m.turnRoutine != null)
+                    {
+                        watch.Stop();
+                        yield return m.turnRoutine;
+                        watch.Restart();
+                    }
+
+                    m.EndTurn();
                 }
             }
             
-            CallTurnEnd();
+            CallTurnEndGlobal();
 
             //Finished calls for monster update, take turns for the players
             yield return null;
         }
     }
 
-    public void CallTurnStart()
+    public void CallTurnStartGlobal()
     {
         player.OnTurnStartGlobalCall();
         foreach (Monster m in monsters)
@@ -87,7 +106,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void CallTurnEnd()
+    public void CallTurnEndGlobal()
     {
         player.OnTurnEndGlobalCall();
         foreach (Monster m in monsters)

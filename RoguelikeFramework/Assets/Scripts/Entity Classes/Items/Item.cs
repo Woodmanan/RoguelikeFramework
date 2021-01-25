@@ -5,18 +5,39 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Item : MonoBehaviour
 {
+    int id;
     Vector2Int location;
     public bool held;
     private Monster heldBy;
 
-    SpriteRenderer render;
+    private SpriteRenderer Render;
+    public SpriteRenderer render
+    {
+        get 
+        {
+            if (Render)
+            {
+                return Render;
+            }
+            else
+            {
+                Render = GetComponent<SpriteRenderer>();
+                return Render;
+            }
+        }
+
+        set
+        {
+            Render = value;
+        }
+    }
 
     private static readonly float itemZValue = -7.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        render = GetComponent<SpriteRenderer>();
+
     }
 
 
@@ -34,14 +55,12 @@ public class Item : MonoBehaviour
 
     public void Drop()
     {
-        AddToFloor(heldBy.location);
+        heldBy = null;
     }
 
-    private void AddToFloor(Vector2Int loc)
+    public void SetLocation(Vector2Int loc)
     {
-        CustomTile tile = Map.singleton.GetTile(loc);
         this.location = loc;
-        tile.itemsOnFloor.Add(this);
     }
 
     public void EnableSprite()

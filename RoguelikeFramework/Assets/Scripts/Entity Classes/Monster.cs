@@ -28,6 +28,8 @@ public class Monster : MonoBehaviour
 
     private static readonly float monsterZPosition = -5f;
 
+    [HideInInspector] public Coroutine turnRoutine;
+
     //Empty Events
     public event Action RegenerateStats;
     public event Action OnTurnStartGlobal; //Filled
@@ -41,7 +43,7 @@ public class Monster : MonoBehaviour
 
     //EntityEvent Events
     public event ActionRef<int> OnEnergyGained; //Filled out!
-    public event ActionRef<int, int, int> OnAttacked; //Needs to be figured out.
+    public event ActionRef<int, int, int> OnAttacked; //Filled out, TODO: Rework this
     public event ActionRef<int> OnHealing; //Filled!
     public event ActionRef<Effect[]> OnApplyStatusEffects; //Filled!
     
@@ -126,7 +128,11 @@ public class Monster : MonoBehaviour
     public void TakeTurn()
     {
         OnTurnStartLocal?.Invoke();
-        LocalTurn();
+        turnRoutine = StartCoroutine(LocalTurn());
+    }
+
+    public void EndTurn()
+    {
         OnTurnEndLocal?.Invoke();
         for (int i = effects.Count - 1; i >= 0; i--)
         {
@@ -137,9 +143,57 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public virtual void LocalTurn()
+    public void DropItem(int index)
+    {
+        CustomTile tile = Map.singleton.GetTile(location);
+
+        //Get item, and remove it from here
+        Item toDrop = inventory[index];
+        inventory.RemoveAt(index);
+
+        //Drop it to the floor
+        tile.AddItem(toDrop);
+    }
+
+    public void PickUpAll()
+    {
+        CustomTile tile = Map.singleton.GetTile(location);
+        for (int i = tile.itemsOnFloor.Count - 1; i >= 0; i--)
+        {
+            PickUp(i);
+        }
+    }
+
+    public void PickUp(int OnGroundIdx)
+    {
+        CustomTile tile = Map.singleton.GetTile(location);
+        if (OnGroundIdx >= tile.itemsOnFloor.Count || OnGroundIdx < 0)
+        {
+            Debug.LogError($"Index {OnGroundIdx} is not valid for items in square {location}");
+            return;
+        }
+        Item pickedUp = tile.RemoveItem(OnGroundIdx);
+        pickedUp.Pickup(this);
+        AddItemToInventory(pickedUp);
+    }
+
+    private void AddItemToInventory(Item i)
+    {
+        inventory.Add(i);
+    }
+
+    //Takes the local turn
+    //This function MUST call EndTurn() when it's done! Even in child classes.
+    public virtual IEnumerator LocalTurn()
     {
         energy -= 100;
+
+        //Here so the compiler doesn't complain
+        if (false)
+        {
+            yield return null;
+        }
+        EndTurn();
     }
 
     public void AddEffect(params Effect[] effectsToAdd)

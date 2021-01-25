@@ -119,26 +119,37 @@ public class InputTracking : MonoBehaviour
             actions.Enqueue(PlayerAction.MOVE_DOWN_RIGHT);
             addedAction = true;
         }
+        else if (Drop())
+        {
+            actions.Enqueue(PlayerAction.DROP_ITEMS);
+            addedAction = true;
+        }
+        else if (PickUp())
+        {
+            actions.Enqueue(PlayerAction.PICK_UP_ITEMS);
+            addedAction = true;
+        }
     }
 
+    //WASD has been removed here
     private bool Left()
     {
-        return (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.LeftArrow));
+        return (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.LeftArrow));
     }
 
     private bool Right()
     {
-        return (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.RightArrow));
+        return (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.RightArrow));
     }
 
     private bool Up()
     {
-        return (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.UpArrow));
+        return (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.UpArrow));
     }
 
     private bool Down()
     {
-        return (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.DownArrow));
+        return (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.DownArrow));
     }
 
     private bool UpLeft()
@@ -159,6 +170,16 @@ public class InputTracking : MonoBehaviour
     private bool DownRight()
     {
         return (Input.GetKeyDown(KeyCode.N));
+    }
+
+    private bool Drop()
+    {
+        return Input.GetKeyDown(KeyCode.D);
+    }
+
+    private bool PickUp()
+    {
+        return Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.G);
     }
 
 }
