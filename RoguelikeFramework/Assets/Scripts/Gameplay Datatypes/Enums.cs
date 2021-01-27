@@ -19,7 +19,7 @@ public enum Direction
  * 1. Chebyshev: 8 way movement
  * 2. Euclidean: 8 way movement, corners are sqrt(2)
  */
-public enum Space
+public enum MapSpace
 {
     Chebyshev,
     Euclidean,
@@ -41,8 +41,12 @@ public enum PlayerAction
     MOVE_UP_RIGHT,
     MOVE_DOWN_LEFT,
     MOVE_DOWN_RIGHT,
+    VIEW_INVENTORY,
     PICK_UP_ITEMS,
-    DROP_ITEMS
+    DROP_ITEMS,
+    ESCAPE_SCREEN,
+    OPEN_INVENTORY,
+    ACCEPT
 }
 
 public enum EventType
@@ -56,6 +60,15 @@ public enum EventType
     STATUS_EFFECT
 }
 
+public enum ItemAction
+{
+    INSPECT,
+    DROP,
+    PICK_UP,
+    APPLY,
+    ACTIVATE
+}
+
 [System.Flags]
 public enum SlotType
 {
@@ -66,4 +79,11 @@ public enum SlotType
     BODY = (1 << 3),
     RANGED_WEAPON = (1 << 4),
     TAIL = (1 << 5)
+}
+
+public enum UIState
+{
+    NONE,
+    INVENTORY,
+    PICKUP_MANY
 }

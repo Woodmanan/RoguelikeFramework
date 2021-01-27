@@ -5,10 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Item : MonoBehaviour
 {
-    int id;
-    Vector2Int location;
+    public int id;
+    public bool stackable;
+
+    [HideInInspector] public Vector2Int location;
     public bool held;
     private Monster heldBy;
+    [SerializeField] private string name;
+    [SerializeField] private string plural;
 
     private SpriteRenderer Render;
     public SpriteRenderer render
@@ -61,12 +65,12 @@ public class Item : MonoBehaviour
     public void SetLocation(Vector2Int loc)
     {
         this.location = loc;
+        transform.position = new Vector3(loc.x, loc.y, itemZValue);
     }
 
     public void EnableSprite()
     {
         render.enabled = true;
-        transform.position = new Vector3(location.x, location.y, itemZValue);
     }
 
     public void DisableSprite()
@@ -87,6 +91,16 @@ public class Item : MonoBehaviour
     public virtual void RegenerateStats()
     {
 
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+
+    public string GetPlural()
+    {
+        return plural;
     }
 
 

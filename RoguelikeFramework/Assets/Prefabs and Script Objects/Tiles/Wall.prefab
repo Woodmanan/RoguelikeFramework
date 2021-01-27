@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7376377351548235660}
   - component: {fileID: 7376377351548235661}
   - component: {fileID: 7376377351548235658}
+  - component: {fileID: -5104389745567183696}
+  - component: {fileID: -4125795896994960125}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -47,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -71,8 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1,
-    type: 3}
+  m_Sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,4 +109,31 @@ MonoBehaviour:
   blocksVision: 1
   color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   currentlyStanding: {fileID: 0}
-  containedItmes: []
+  inventory: {fileID: 0}
+--- !u!114 &-5104389745567183696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376377351548235659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 829d5bb3115166641830ea4e04506d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 52
+  available: 0
+  startingItems: []
+--- !u!114 &-4125795896994960125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376377351548235659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198a8cedfc211f745ac3c825730e29ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

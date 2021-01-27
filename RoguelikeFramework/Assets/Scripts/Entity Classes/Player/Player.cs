@@ -5,12 +5,32 @@ using UnityEngine;
 
 public class Player : Monster
 {
-    
+
+    //UI Stuff!
+    [SerializeField] UIController uiControls;
+
+    private static Player _player;
+    public static Player player
+    {
+        get
+        {
+            if (_player == null)
+            {
+                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            }
+            return _player;
+        }
+        set
+        {
+            _player = value;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        base.Start();
+        player = this;
     }
 
     // Update is called once per frame
@@ -23,7 +43,8 @@ public class Player : Monster
     {
         if (InputTracking.HasNextAction())
         {
-            switch (InputTracking.PopNextAction())
+            PlayerAction action = InputTracking.PopNextAction();
+            switch (action)
             {
                 //Handle Movement code
                 case PlayerAction.MOVE_UP:
@@ -51,23 +72,37 @@ public class Player : Monster
                     AttemptMovement(Direction.SOUTH_EAST);
                     break;
                 case PlayerAction.DROP_ITEMS:
-                    yield return null;
+                    //TODO: Open a dialogue box for dropping
                     Debug.Log("Dropping items!");
-                    for (int i = inventory.Count - 1; i >= 0; i--)
-                    {
-                        DropItem(i);
-                    }
+                    uiControls.OpenInventoryDrop();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
                 case PlayerAction.PICK_UP_ITEMS:
-                    PickUpAll();
+                    //Intelligently pick up items, opening dialouge box if needed.
+                    PickupSmartDetection();
+
+                    //Check if dialouge box is opened; if so, freeze until transaction is done
+                    if (UIController.WindowsOpen)
+                    {
+                        yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    }
                     break;
-                
-                //Handle potential error case (Thanks, Nethack design philosophy!)
+                case PlayerAction.OPEN_INVENTORY:
+                    uiControls.OpenInventoryInspect();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    break;
+
+                //Handle potentially weird cases (Thanks, Nethack design philosophy!)
+                case PlayerAction.ESCAPE_SCREEN:
+                    //TODO: Open up the menu screen here
+                    RogueUIPanel.ExitTopLevel(); //This really, really shouldn't do anything. Let it happen, though!
+                    break;
+                case PlayerAction.ACCEPT:
                 case PlayerAction.NONE:
-                    Debug.LogError("Player read an input of NONE", this);
+                    Debug.Log("Player read an input set to do nothing", this);
                     break;
                 default:
-                    Debug.LogError("Player read an input that matches no PlayerAction");
+                    Debug.LogError($"Player read an input that has no switch case: {action}");
                     break;
             }
         }
@@ -75,11 +110,26 @@ public class Player : Monster
         EndTurn();
 
         LOS.GeneratePlayerLOS(location, visionRadius);
+    }
 
-        //Stops the compiler from complaining, for now.
-        if (false)
+    //Item pickup, but with a little logic for determining if a UI needs to get involved.
+    private void PickupSmartDetection()
+    {
+        CustomTile tile = Map.singleton.GetTile(location);
+        Inventory onFloor = tile.GetComponent<Inventory>();
+        switch (onFloor.count)
         {
-            yield return null;
+            case 0:
+                return; //Exit early
+            case 1:
+                //TODO: Come back and look at this again, may be some weird edge cases
+                inventory.PickUpAll(); //Not the smartest code, but should handle any error cases okay
+                break;
+            default:
+                //Open dialouge box
+                uiControls.OpenInventoryPickup();
+                break;
+
         }
     }
 

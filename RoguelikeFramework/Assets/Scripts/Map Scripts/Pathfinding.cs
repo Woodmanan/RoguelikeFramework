@@ -179,7 +179,7 @@ public static class Pathfinding
                         
                                 //Create corner calculation, skip if Manhattan
                                 bool isCorner = (i * j) != 0;
-                                if (Map.space == Space.Manhattan && isCorner)
+                                if (Map.space == MapSpace.Manhattan && isCorner)
                                 {
                                     continue;
                                 }
@@ -236,7 +236,7 @@ public static class Pathfinding
                         
                         //Create corner calculation, skip if Manhattan
                         bool isCorner = (i * j) != 0;
-                        if (Map.space == Space.Manhattan && isCorner)
+                        if (Map.space == MapSpace.Manhattan && isCorner)
                         {
                             continue;
                         }
@@ -265,7 +265,7 @@ public static class Pathfinding
                         float newCost = 0.0f;
                         float newPriority = 0.0f;
 
-                        if (isCorner && Map.space == Space.Euclidean)
+                        if (isCorner && Map.space == MapSpace.Euclidean)
                         {
                             newCost = current.cost + sqrtTwo * m.MovementCostAt(newLoc);
                             newPriority = newCost + Heuristic(newLoc);
@@ -288,11 +288,11 @@ public static class Pathfinding
     {
         switch (Map.space)
         {
-            case Space.Manhattan:
+            case MapSpace.Manhattan:
                 return Mathf.Abs(loc.x - goal.x) + Mathf.Abs(loc.y - goal.y);
-            case Space.Chebyshev:
+            case MapSpace.Chebyshev:
                 //return Mathf.Max(Mathf.Abs(loc.x - goal.x), Mathf.Abs(loc.y - goal.y));
-            case Space.Euclidean:
+            case MapSpace.Euclidean:
                 return (loc - goal).magnitude;
         }
         return 0;

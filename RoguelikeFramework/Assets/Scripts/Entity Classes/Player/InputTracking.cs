@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using System;
 
 
 public class InputTracking : MonoBehaviour
 {
     //Public functions for accessing all of this
     public static Queue<PlayerAction> actions = new Queue<PlayerAction>();
+    public static Queue<string> inputs = new Queue<string>();
 
     public static bool HasNextAction()
     { 
@@ -18,6 +20,7 @@ public class InputTracking : MonoBehaviour
     {
         if (HasNextAction())
         {
+            inputs.Dequeue();
             return actions.Dequeue();
         }
         else
@@ -26,7 +29,35 @@ public class InputTracking : MonoBehaviour
         }
     }
 
-    public static PlayerAction PeekNextAction()
+    public static Tuple<PlayerAction, string> PopNextPair()
+    {
+        if (HasNextAction())
+        {
+            PlayerAction act = actions.Dequeue();
+            string inp = inputs.Dequeue();
+            return new Tuple<PlayerAction, string>(act, inp);
+        }
+        else
+        {
+            return new Tuple<PlayerAction, string>(PlayerAction.NONE, "");
+        }
+    }
+
+    public static Tuple<PlayerAction, string> PeekNextPair()
+    {
+        if (HasNextAction())
+        {
+            PlayerAction act = actions.Peek();
+            string inp = inputs.Peek();
+            return new Tuple<PlayerAction, string>(act, inp);
+        }
+        else
+        {
+            return new Tuple<PlayerAction, string>(PlayerAction.NONE, "");
+        }
+    }
+
+        public static PlayerAction PeekNextAction()
     {
         if (HasNextAction())
         {
@@ -41,6 +72,7 @@ public class InputTracking : MonoBehaviour
     public static void PushAction(PlayerAction act)
     {
         actions.Enqueue(act);
+        inputs.Enqueue(Input.inputString);
     }
     
     // Start is called before the first frame update
@@ -52,6 +84,15 @@ public class InputTracking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Extensive check that we probably don't want in the built game
+        #if UNITY_EDITOR
+        if (actions.Count != inputs.Count)
+        {
+            Debug.LogError("Actions and input queues got misaligned.");
+        }
+        #endif
+
+
         bool addedAction = false;
         
         //Add movements
@@ -59,15 +100,15 @@ public class InputTracking : MonoBehaviour
         {
             if (Up())
             {
-                actions.Enqueue(PlayerAction.MOVE_UP_LEFT);
+                PushAction(PlayerAction.MOVE_UP_LEFT);
             }
             else if (Down())
             {
-                actions.Enqueue(PlayerAction.MOVE_DOWN_LEFT);
+                PushAction(PlayerAction.MOVE_DOWN_LEFT);
             }
             else
             {
-                actions.Enqueue(PlayerAction.MOVE_LEFT);
+                PushAction(PlayerAction.MOVE_LEFT);
             }
 
             addedAction = true;
@@ -76,57 +117,77 @@ public class InputTracking : MonoBehaviour
         {
             if (Up())
             {
-                actions.Enqueue(PlayerAction.MOVE_UP_RIGHT);
+                PushAction(PlayerAction.MOVE_UP_RIGHT);
             }
             else if (Down())
             {
-                actions.Enqueue(PlayerAction.MOVE_DOWN_RIGHT);
+                PushAction(PlayerAction.MOVE_DOWN_RIGHT);
             }
             else
             {
-                actions.Enqueue(PlayerAction.MOVE_RIGHT);
+                PushAction(PlayerAction.MOVE_RIGHT);
             }
 
             addedAction = true;
         }
         else if (Down())
         {
-            actions.Enqueue(PlayerAction.MOVE_DOWN);
+            PushAction(PlayerAction.MOVE_DOWN);
             addedAction = true;
         }
         else if (Up())
         {
-            actions.Enqueue(PlayerAction.MOVE_UP);
+            PushAction(PlayerAction.MOVE_UP);
             addedAction = true;
         }
         else if (UpLeft())
         {
-            actions.Enqueue(PlayerAction.MOVE_UP_LEFT);
+            PushAction(PlayerAction.MOVE_UP_LEFT);
             addedAction = true;
         }
         else if (UpRight())
         {
-            actions.Enqueue(PlayerAction.MOVE_UP_RIGHT);
+            PushAction(PlayerAction.MOVE_UP_RIGHT);
             addedAction = true;
         }
         else if (DownLeft())
         {
-            actions.Enqueue(PlayerAction.MOVE_DOWN_LEFT);
+            PushAction(PlayerAction.MOVE_DOWN_LEFT);
             addedAction = true;
         }
         else if (DownRight())
         {
-            actions.Enqueue(PlayerAction.MOVE_DOWN_RIGHT);
+            PushAction(PlayerAction.MOVE_DOWN_RIGHT);
             addedAction = true;
         }
         else if (Drop())
         {
-            actions.Enqueue(PlayerAction.DROP_ITEMS);
+            PushAction(PlayerAction.DROP_ITEMS);
             addedAction = true;
         }
         else if (PickUp())
         {
-            actions.Enqueue(PlayerAction.PICK_UP_ITEMS);
+            PushAction(PlayerAction.PICK_UP_ITEMS);
+            addedAction = true;
+        }
+        else if (OpenInventory())
+        {
+            PushAction(PlayerAction.OPEN_INVENTORY);
+            addedAction = true;
+        }
+        else if (Escaping())
+        {
+            PushAction(PlayerAction.ESCAPE_SCREEN);
+            addedAction = true;
+        }
+        else if (Accept())
+        {
+            PushAction(PlayerAction.ACCEPT);
+            addedAction = true;
+        }
+        else if (Input.inputString != "") //FINAL CHECK! Use this to add empty input to the buffer for character checks. (MUST BE LAST CHECK)
+        {
+            PushAction(PlayerAction.NONE);
             addedAction = true;
         }
     }
@@ -180,6 +241,21 @@ public class InputTracking : MonoBehaviour
     private bool PickUp()
     {
         return Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.G);
+    }
+
+    private bool OpenInventory()
+    {
+        return Input.GetKeyDown(KeyCode.I);
+    }
+
+    private bool Escaping()
+    {
+        return Input.GetKeyDown(KeyCode.Escape);
+    }
+
+    private bool Accept()
+    {
+        return Input.GetKeyDown(KeyCode.Return);
     }
 
 }

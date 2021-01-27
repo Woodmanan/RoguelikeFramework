@@ -8,6 +8,7 @@ using UnityEditor;
 #endif
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Inventory))]
 public class CustomTile : MonoBehaviour
 {
     //Stuff that will change a lot, and should be visible
@@ -29,11 +30,11 @@ public class CustomTile : MonoBehaviour
     public Monster currentlyStanding;
 
     //Floor visualization
-    public List<Item> itemsOnFloor;
+    public Inventory inventory;
     private Item displayedItem;
 
     private bool hidden = true;
-    private SpriteRenderer renderer;
+    private SpriteRenderer render;
 
     //Stuff used for convenience editor hacking, and should never be seen.
     
@@ -51,9 +52,10 @@ public class CustomTile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inventory = GetComponent<Inventory>(); //May need to be changed to a get/set singleton system
         //Starts as on, so that Unity 
-        renderer = GetComponent<SpriteRenderer>();
-        renderer.enabled = false;
+        render = GetComponent<SpriteRenderer>();
+        render.enabled = false;
         
         RebuildGraphics();
     }
@@ -85,40 +87,6 @@ public class CustomTile : MonoBehaviour
         }
     }
 
-    //Todo: account for visible or not in this function. Till then, just rebuild graphics every time
-    public void AddItem(Item i)
-    {
-        i.Drop();
-        i.SetLocation(new Vector2Int(x, y));
-        itemsOnFloor.Add(i);
-        if (displayedItem)
-        {
-            displayedItem.DisableSprite();
-        }
-        displayedItem = i;
-        i.EnableSprite();
-        RebuildGraphics(); //Extremely slow and stupid, do this better
-    }
-
-    public Item RemoveItem(int idx)
-    {
-        Item toRemove = itemsOnFloor[idx];
-        itemsOnFloor.RemoveAt(idx);
-        if (displayedItem == toRemove)
-        {
-            if (itemsOnFloor.Count > 0)
-            {
-                displayedItem = itemsOnFloor[itemsOnFloor.Count - 1];
-            }
-            else
-            {
-                displayedItem = null;
-            }
-            RebuildGraphics(); //Extrememly slow and stupid, do this better
-        }
-        return toRemove;
-    }
-
     public void RebuildMapData()
     {
         Map.singleton.blocksVision[x, y] = blocksVision;
@@ -132,7 +100,7 @@ public class CustomTile : MonoBehaviour
 
     public void Highlight(Color hcolor)
     {
-        renderer.color = hcolor;
+        render.color = hcolor;
     }
     
     public void StopHighlight()
@@ -142,26 +110,14 @@ public class CustomTile : MonoBehaviour
 
     private void RebuildGraphics()
     {
-        renderer.sprite = sprite;
+        render.sprite = sprite;
         if (isVisible)
         {
-            renderer.color = color;
+            render.color = color;
             if (hidden)
             {
                 hidden = false;
-                renderer.enabled = true;
-            }
-            if (displayedItem)
-            {
-                displayedItem.EnableSprite();
-            }
-            else
-            {
-                if (itemsOnFloor.Count > 0)
-                {
-                    displayedItem = itemsOnFloor[itemsOnFloor.Count - 1];
-                    displayedItem.EnableSprite();
-                }
+                render.enabled = true;
             }
         }
         else
@@ -170,23 +126,15 @@ public class CustomTile : MonoBehaviour
             if (beenSeen)
             {
                 float gray = color.grayscale / 2;
-                renderer.color = new Color(gray, gray, gray);
+                render.color = new Color(gray, gray, gray);
             }
             else
             {
                 if (hidden)
                 {
-                    renderer.enabled = false;
-                    if (displayedItem)
-                    {
-                        displayedItem.DisableSprite();
-                    }
+                    render.enabled = false;
                 }
-                else
-                {
-                    displayedItem.EnableSprite();
-                }
-                renderer.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                render.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
 
         }
@@ -207,7 +155,7 @@ public class CustomTile : MonoBehaviour
         }
         if (currentSprite)
         {
-            SpriteRenderer render = GetComponent<SpriteRenderer>();
+            render = GetComponent<SpriteRenderer>();
             if (sprite == currentSprite)
             {
                 sprite = render.sprite;
