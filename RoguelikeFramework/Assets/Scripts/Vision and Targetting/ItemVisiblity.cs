@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemVisiblity : MonoBehaviour
 {
-    [SerializeField] private Item visible;
+    private Item visible;
     Inventory inventory;
 
     // Start is called before the first frame update
@@ -25,6 +25,26 @@ public class ItemVisiblity : MonoBehaviour
         
     }
 
+    public void RebuildVisiblity(bool isVisible, bool isHidden)
+    {
+        if (visible == null) return; //Cancel early for null, who cares
+        if (isHidden)
+        {
+            visible.DisableSprite();
+        }
+        else
+        {
+            if (isVisible)
+            {
+                visible.SetFullColor();
+            }
+            else
+            {
+                visible.SetGrayscale();
+            }
+        }
+    }
+   
     public void ItemIsAdded(ref ItemStack stack)
     {
         visible?.DisableSprite();

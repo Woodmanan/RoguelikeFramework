@@ -81,6 +81,18 @@ public enum SlotType
     TAIL = (1 << 5)
 }
 
+
+//Order is very important here! Order written is order shown in inventory.
+public enum ItemType
+{
+    NONE,
+    WEAPON,
+    ARMOR,
+    CONSUMABLE,
+    ACTIVATABLE,
+    EMPTY
+}
+
 public enum UIState
 {
     NONE,

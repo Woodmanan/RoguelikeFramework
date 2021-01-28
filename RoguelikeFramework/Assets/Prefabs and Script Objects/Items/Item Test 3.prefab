@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   stackable: 0
+  type: 2
   location: {x: 45, y: 91}
   held: 0
   name: Item Test 3

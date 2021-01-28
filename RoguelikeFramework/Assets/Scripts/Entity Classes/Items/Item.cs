@@ -7,6 +7,9 @@ public class Item : MonoBehaviour
 {
     public int id;
     public bool stackable;
+    public ItemType type;
+
+    [SerializeField] Color color;
 
     [HideInInspector] public Vector2Int location;
     public bool held;
@@ -38,10 +41,23 @@ public class Item : MonoBehaviour
 
     private static readonly float itemZValue = -7.0f;
 
+    //Stuff used for convenience editor hacking, and should never be seen.
+
+    /* If you see this and don't know what this is, ask me! It's super useful
+     * for hacking up the editor, and making things easy. The #if's in this file
+     * are used to make the sprite in the sprite renderer equal the sprite in this file,
+     * so you can't forget to not change both. */
+    #if UNITY_EDITOR
+    private Color currentColor;
+    #endif
+
     // Start is called before the first frame update
     void Start()
     {
-
+        if (this.type == ItemType.NONE)
+        {
+            Debug.LogError("An item is set to have no type! Please use ItemType.EMPTY if you have misc items.", this);
+        }
     }
 
 
@@ -78,6 +94,17 @@ public class Item : MonoBehaviour
         render.enabled = false;
     }
 
+    public void SetGrayscale()
+    {
+        float gray = color.grayscale;
+        render.color = new Color(gray, gray, gray);
+    }
+
+    public void SetFullColor()
+    {
+        render.color = color;
+    }
+
     public virtual void Apply()
     {
 
@@ -103,5 +130,21 @@ public class Item : MonoBehaviour
         return plural;
     }
 
+    //Editor only functions - For convenience
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (render.color != currentColor)
+        {
+            currentColor = render.color;
+            color = render.color;
+        }
+        else if (color != currentColor)
+        {
+            currentColor = color;
+            render.color = color;
+        }
+    }
+    #endif
 
 }

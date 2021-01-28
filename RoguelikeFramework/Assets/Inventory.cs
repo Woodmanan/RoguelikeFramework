@@ -7,6 +7,7 @@ using System;
 public class ItemStack
 {
     public int id;
+    public ItemType type;
     public int count;
     public List<Item> held;
     [HideInInspector] public int position;
@@ -80,6 +81,10 @@ public class Inventory : MonoBehaviour
         {
             Add(i);
         }
+
+        //TODO: REWORK THIS
+        this.enabled = false; //This is really, really dumb. I know. Gives us back 15 fps, though
+        
     }
 
     // Update is called once per frame
@@ -97,6 +102,7 @@ public class Inventory : MonoBehaviour
         ItemStack newStack = new ItemStack();
         newStack.id = item.id;
         newStack.count = 1;
+        newStack.type = item.type;
         newStack.held = new List<Item>();
         newStack.held.Add(item);
 
@@ -162,6 +168,76 @@ public class Inventory : MonoBehaviour
 
         //No match found, add it into the first available slot
         AddStackNoMatch(stack);
+    }
+
+    //VERY EXPENSIVE: Sorts items up to the top, try not to use this a lot
+    public void Collapse()
+    {
+        Array.Sort<ItemStack>(Items, Compare);
+        for (int i = 0; i < Items.Length; i++)
+        {
+            if (Items[i] != null)
+            {
+                Items[i].position = i;
+            }
+        }
+    }
+
+    public static int Compare(ItemStack one, ItemStack two)
+    {
+        if (one == null && two == null)
+        {
+            return 0;
+        }
+        else if (one == null)
+        {
+            return 1;
+        }
+        else if (two == null)
+        {
+            return -1;
+        }
+        else if (one.type == two.type)
+        {
+            return one.lastUpdated.CompareTo(two.lastUpdated);
+        }
+        else
+        {
+            return one.type.CompareTo(two.type);
+        }
+    }
+
+    public static int ComparePlayer(ItemStack one, ItemStack two)
+    {
+        if (one == null && two == null)
+        {
+            return 0;
+        }
+        else if (one == null)
+        {
+            return 1;
+        }
+        else if (two == null)
+        {
+            return -1;
+        }
+        else if (one.type == two.type)
+        {
+            return one.position.CompareTo(two.position);
+        }
+        else
+        {
+            return one.type.CompareTo(two.type);
+        }
+    }
+
+    public Inventory GetFloor()
+    {
+        if (monster == null)
+        {
+            return this;
+        }
+        return Map.singleton.GetTile(monster.location).GetComponent<Inventory>();
     }
 
     //Convenience function

@@ -98,13 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 0
-  beenSeen: 0
+  isHidden: 1
   dirty: 1
   x: 0
   y: 0
   name: Stone Wall
   description: 
-  sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   movementCost: -1
   blocksVision: 1
   color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}

@@ -8,6 +8,7 @@ public class InventoryScreen : RogueUIPanel
 {
     [SerializeField] public Transform holdingPanel;
     [SerializeField] public GameObject itemPanelPrefab;
+    [SerializeField] public GameObject itemHeaderPrefab;
     [SerializeField] private TextMeshProUGUI title;
 
 
@@ -55,10 +56,12 @@ public class InventoryScreen : RogueUIPanel
         {
             case ItemAction.INSPECT:
                 toDisplay = available;
+                toDisplay.Sort(Inventory.ComparePlayer);
                 title.text = "Inventory";
                 break;
             case ItemAction.DROP:
                 toDisplay = available;
+                toDisplay.Sort(Inventory.ComparePlayer);
                 selected = new bool[examinedInventory.capacity];
                 title.text = "Drop which items?";
                 break;
@@ -74,10 +77,26 @@ public class InventoryScreen : RogueUIPanel
 
         print($"How many items to display: {toDisplay.Count}");
 
+        //Sort the list into item types
+        ItemType currentType = ItemType.NONE;
+
         for (int i = 0; i < toDisplay.Count; i++)
         {
             GameObject instance = Instantiate(itemPanelPrefab);
             ItemPanel current = instance.GetComponent<ItemPanel>();
+            ItemStack stack = toDisplay[i];
+
+            //Set up headers
+            if (stack.type != currentType)
+            {
+                //Create a header!
+                GameObject header = Instantiate(itemHeaderPrefab);
+                header.GetComponent<ItemHeader>().Setup(stack.type);
+                header.transform.parent = holdingPanel;
+                currentType = stack.type;
+            }
+
+            //Set up item readout
             current.Setup(this, toDisplay[i].position);
             current.GenerateItemDescription();
             displayed.Add(current);
@@ -129,6 +148,9 @@ public class InventoryScreen : RogueUIPanel
                         }
                     }
 
+                    //Sort the floor up, so that items make sense again
+                    examinedInventory.GetFloor().Collapse();
+
                     //Get us back to the main screen!
                     ExitAllWindows();
                 }
@@ -151,6 +173,33 @@ public class InventoryScreen : RogueUIPanel
                         }
                     }
                 }
+                break;
+        }
+    }
+
+    //Handles a given item being click
+    public void Click(int index)
+    {
+        print($"Handling a click to {Conversions.IntToNumbering(index)}");
+        print($"UI state is {queuedAction}");
+        switch (queuedAction)
+        {
+            case ItemAction.DROP:
+            case ItemAction.PICK_UP:
+                selected[index] = !selected[index];
+                for (int i = 0; i < displayed.Count; i++)
+                {
+                    ItemPanel current = displayed[i];
+                    if (current.index == index)
+                    {
+                        current.Select();
+                        break;
+                    }
+                }
+                break;
+            case ItemAction.INSPECT:
+                print("OPENEING UI!");
+                UIController.singleton.OpenItemInspect(examinedInventory, index);
                 break;
         }
     }

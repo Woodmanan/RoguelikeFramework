@@ -96,7 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  stackable: 0
+  stackable: 1
+  type: 1
   location: {x: 0, y: 0}
   held: 0
   name: Item Test 1

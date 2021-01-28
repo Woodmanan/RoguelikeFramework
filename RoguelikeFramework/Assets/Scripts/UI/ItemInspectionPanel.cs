@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemInspectionPanel : RogueUIPanel
 {
@@ -14,6 +15,7 @@ public class ItemInspectionPanel : RogueUIPanel
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI attributes;
+    [SerializeField] private Image image;
     //[SerializeField] private TextMeshProUGUI quote TODO: Add quotes?
 
 
@@ -53,6 +55,9 @@ public class ItemInspectionPanel : RogueUIPanel
     public override void OnActivation()
     {
         name.text = $"{Conversions.IntToNumbering(inspecting.position)} - {inspecting.GetName()}";
+        SpriteRenderer render = inspecting.held[0].GetComponent<SpriteRenderer>();
+        image.sprite = render.sprite;
+        image.color = render.color;
     }
     
     /* Called every time this panel is deactived by the controller */

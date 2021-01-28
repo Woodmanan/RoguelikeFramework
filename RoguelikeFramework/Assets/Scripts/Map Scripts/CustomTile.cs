@@ -14,7 +14,7 @@ public class CustomTile : MonoBehaviour
     //Stuff that will change a lot, and should be visible
     [Header("Active gameplay elements")]
     public bool isVisible = false;
-    public bool beenSeen = false;
+    public bool isHidden = true;
     public bool dirty = true;
 
     public int x, y;
@@ -23,7 +23,6 @@ public class CustomTile : MonoBehaviour
     [Header("Static elements")] 
     public string name;
     public string description;
-    public Sprite sprite;
     public float movementCost;
     public bool blocksVision;
     public Color color = Color.white;
@@ -31,9 +30,8 @@ public class CustomTile : MonoBehaviour
 
     //Floor visualization
     public Inventory inventory;
-    private Item displayedItem;
+    private ItemVisiblity itemVis;
 
-    private bool hidden = true;
     private SpriteRenderer render;
 
     //Stuff used for convenience editor hacking, and should never be seen.
@@ -43,7 +41,6 @@ public class CustomTile : MonoBehaviour
      * are used to make the sprite in the sprite renderer equal the sprite in this file,
      * so you can't forget to not change both. */
     #if UNITY_EDITOR
-    private Sprite currentSprite;
     private Color currentColor;
     #endif
     
@@ -56,6 +53,9 @@ public class CustomTile : MonoBehaviour
         //Starts as on, so that Unity 
         render = GetComponent<SpriteRenderer>();
         render.enabled = false;
+
+        //Set up initial visibility
+        itemVis = GetComponent<ItemVisiblity>();
         
         RebuildGraphics();
     }
@@ -69,7 +69,7 @@ public class CustomTile : MonoBehaviour
     public void Reveal()
     {
         isVisible = true;
-        beenSeen = true;
+        isHidden = true;
         dirty = true;
     }
 
@@ -110,69 +110,56 @@ public class CustomTile : MonoBehaviour
 
     private void RebuildGraphics()
     {
-        render.sprite = sprite;
         if (isVisible)
         {
             render.color = color;
-            if (hidden)
+            if (isHidden)
             {
-                hidden = false;
+                isHidden = false;
                 render.enabled = true;
             }
         }
         else
         {
             //TODO: Item coloring on tiles that are not visible anymore
-            if (beenSeen)
+            if (!isHidden)
             {
                 float gray = color.grayscale / 2;
                 render.color = new Color(gray, gray, gray);
             }
             else
             {
-                if (hidden)
-                {
-                    render.enabled = false;
-                }
+                render.enabled = false;
                 render.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
 
         }
 
+        itemVis.RebuildVisiblity(isVisible, isHidden);
+
         dirty = false;
     }
 
 
-#if  UNITY_EDITOR
-    
     //Editor only functions - For convenience
-
+    #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (Application.isPlaying)
-        {
-            return;
-        }
-        if (currentSprite)
+        if (render == null)
         {
             render = GetComponent<SpriteRenderer>();
-            if (sprite == currentSprite)
-            {
-                sprite = render.sprite;
-            }
-            else
-            {
-                render.sprite = sprite;
-            }
+        }
 
-            currentSprite = sprite;
+        if (render.color != currentColor)
+        {
+            currentColor = render.color;
             color = render.color;
         }
-        else
+        else if (color != currentColor)
         {
-            //Don't change anything!
-            currentSprite = sprite;
+            currentColor = color;
+            render.color = color;
         }
     }
-#endif
+    #endif
 }

@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -4047612915119377625, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.1088438, a: 1}
+  m_Color: {r: 1, g: 0.9729996, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,16 +98,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 0
-  beenSeen: 1
+  isHidden: 1
   dirty: 1
   x: 0
   y: 0
   name: 
   description: 
-  sprite: {fileID: -4047612915119377625, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   movementCost: 2
   blocksVision: 0
-  color: {r: 1, g: 0, b: 0.1088438, a: 1}
+  color: {r: 1, g: 0.9729996, b: 0, a: 1}
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!114 &-2254733748644891752

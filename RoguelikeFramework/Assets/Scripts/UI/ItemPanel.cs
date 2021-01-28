@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemPanel : MonoBehaviour
 {
     InventoryScreen controller;
     [SerializeField] private TextMeshProUGUI textbox;
+    [SerializeField] private Image image;
     private bool selected = false;
     [HideInInspector] public int index;
 
@@ -34,9 +36,17 @@ public class ItemPanel : MonoBehaviour
         GenerateItemDescription();
     }
 
+    public void Click()
+    {
+        controller.Click(index);
+    }
+
     public void GenerateItemDescription()
     {
         ItemStack representing = controller.examinedInventory[index];
         textbox.text = $"{Conversions.IntToNumbering(representing.position)} {(selected ? "+" : "-")} {representing.GetName()}";
+        SpriteRenderer render = representing.held[0].GetComponent<SpriteRenderer>();
+        image.sprite = render.sprite;
+        image.color = render.color;
     }
 }
