@@ -70,7 +70,7 @@ public enum ItemAction
 }
 
 [System.Flags]
-public enum SlotType
+public enum EquipSlotType
 {
     NONE = 0,
     HEAD = (1 << 0),

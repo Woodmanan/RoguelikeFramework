@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Item : MonoBehaviour
 {
+    [Header("Basic item variables")]
     public int id;
     public bool stackable;
     public ItemType type;
@@ -106,11 +107,6 @@ public class Item : MonoBehaviour
     }
 
     public virtual void Apply()
-    {
-
-    }
-
-    public virtual void Equip()
     {
 
     }

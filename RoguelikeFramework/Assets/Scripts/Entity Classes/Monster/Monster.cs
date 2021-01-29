@@ -6,18 +6,23 @@ using UnityEngine;
 
 public struct EquipmentSlot
 {
-    SlotType type;
-    Item equipped;
+    public EquipSlotType type;
+    public EquippableItem equipped;
+    public bool active
+    {
+        get { return equipped != null; }
+    }
 }
 
 public class Monster : MonoBehaviour
 {
-    [HideInInspector] public int health;
-    public int maxHealth;
+    [Header("Setup Variables")]
+    public StatBlock stats;
+    public List<EquipmentSlot> equipmentSlots;
 
-    public int ac;
-    public int ev;
 
+    [Header("Runtime Attributes")]
+    public int health;
     public float energy;
 
     public Vector2Int location;
@@ -51,14 +56,13 @@ public class Monster : MonoBehaviour
 
     public List<Effect> effects;
     public Inventory inventory;
-    public List<EquipmentSlot> equipment;
 
     
     // Start is called before the first frame update
     public virtual void Start()
     {
         inventory = GetComponent<Inventory>(); //May need to be set up with Get/Set to avoid null references during Start()!
-        health = maxHealth;
+        health = stats.maxHealth;
         if (OnFullyHealed != null)
         {
             OnFullyHealed.Invoke();
@@ -76,9 +80,9 @@ public class Monster : MonoBehaviour
         OnHealing?.Invoke(ref healthReturned);
         
         health += healthReturned;
-        if (health >= maxHealth)
+        if (health >= stats.maxHealth)
         {
-            health = maxHealth;
+            health = stats.maxHealth;
             OnFullyHealed?.Invoke();
         }
     }
@@ -87,13 +91,13 @@ public class Monster : MonoBehaviour
     {
         OnAttacked?.Invoke(ref pierce, ref accuracy, ref damage);
 
-        if (pierce < ac)
+        if (pierce < stats.ac)
         {
             //TODO: Log break damage
             return;
         }
 
-        if (accuracy < ev)
+        if (accuracy < stats.ev)
         {
             //TODO: Log dodge
         }
