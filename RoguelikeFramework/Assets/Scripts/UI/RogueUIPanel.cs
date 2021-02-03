@@ -94,6 +94,7 @@ public class RogueUIPanel : MonoBehaviour
 
     public void Focus()
     {
+        transform.SetAsLastSibling(); //FUCKING MAGIC RIGHT HERE
         isInFocus = true;
         OnFocus();
     }

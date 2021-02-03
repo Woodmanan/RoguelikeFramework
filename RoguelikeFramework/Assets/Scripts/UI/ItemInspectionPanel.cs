@@ -42,11 +42,31 @@ public class ItemInspectionPanel : RogueUIPanel
      */
     public override void HandleInput(PlayerAction action, string inputString)
     {
-       switch (action)
+        print($"Handling action {action}");
+        switch (action)
         {
             case PlayerAction.DROP_ITEMS:
                 Player.player.inventory.Drop(inspecting.position);
                 ExitAllWindows();
+                break;
+            case PlayerAction.EQUIP:
+                EquippableItem toEquip = inspecting.held[0].GetComponent<EquippableItem>();
+                if (toEquip != null && !toEquip.isEquipped)
+                {
+                    UIController.singleton.OpenEquipmentEquip(inspecting);
+                }
+                else
+                {
+                    //TODO: Console error of some sort?
+                }
+                break;
+            case PlayerAction.UNEQUIP:
+                EquippableItem equip = inspecting.held[0].GetComponent<EquippableItem>();
+                if (equip != null && equip.isEquipped)
+                {
+                    Player.player.equipment.UnequipItem(inspecting.position); //Faster method, doesn't need a search
+                    ExitAllWindows();
+                }
                 break;
         }
     }

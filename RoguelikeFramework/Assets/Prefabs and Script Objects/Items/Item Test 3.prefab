@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8493179263722202920}
   - component: {fileID: 8493179263722202921}
   - component: {fileID: 8493179263722202922}
+  - component: {fileID: -5942544943024531217}
   m_Layer: 0
   m_Name: Item Test 3
   m_TagString: Untagged
@@ -98,7 +99,28 @@ MonoBehaviour:
   id: 2
   stackable: 0
   type: 2
+  color: {r: 1, g: 0, b: 0.72682667, a: 1}
   location: {x: 45, y: 91}
   held: 0
   name: Item Test 3
   plural: Item Tests 3
+--- !u!114 &-5942544943024531217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493179263722202923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55db2fd30caa58241849bf03497b23b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primarySlot: 3
+  secondarySlots: 
+  addedStats:
+    maxHealth: 0
+    ac: 0
+    ev: 0
+  addedEffects: []
+  isEquipped: 0

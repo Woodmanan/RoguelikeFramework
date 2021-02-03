@@ -46,6 +46,8 @@ public enum PlayerAction
     DROP_ITEMS,
     ESCAPE_SCREEN,
     OPEN_INVENTORY,
+    EQUIP,
+    UNEQUIP,
     ACCEPT
 }
 
@@ -66,19 +68,20 @@ public enum ItemAction
     DROP,
     PICK_UP,
     APPLY,
-    ACTIVATE
+    ACTIVATE,
+    EQUIP,
+    UNEQUIP
 }
 
-[System.Flags]
 public enum EquipSlotType
 {
-    NONE = 0,
-    HEAD = (1 << 0),
-    LEFT_HAND = (1 << 1),
-    RIGHT_HAND = (1 << 2),
-    BODY = (1 << 3),
-    RANGED_WEAPON = (1 << 4),
-    TAIL = (1 << 5)
+    NONE,
+    HEAD,
+    PRIMARY_HAND,
+    SECONDARY_HAND,
+    BODY,
+    RANGED_WEAPON,
+    TAIL
 }
 
 

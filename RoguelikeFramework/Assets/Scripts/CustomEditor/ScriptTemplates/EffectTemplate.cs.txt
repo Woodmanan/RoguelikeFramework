@@ -16,10 +16,6 @@ public class #SCRIPTNAME# : Effect
     //Use this to apply effects or stats immediately, before the next frame
     /*public override void OnFirstConnection() {}*/
 
-    //Called when a monster is looking to recheck the stats
-    //it gains from effects and items
-    /*public override void RegenerateStats() {}*/
-
     //Called at the start of the global turn sequence
     /*public override void OnTurnStartGlobal() {}*/
 
@@ -40,6 +36,10 @@ public class #SCRIPTNAME# : Effect
 
     //Called when a monster dies
     /*public override void OnDeath() {}*/
+
+    //Called when a monster is looking to recheck the stats, good for adding in variable stats mid-effect
+    //it gains from effects and items
+    /*public override void RegenerateStats(StatBlock stats) {}*/
 
     //Called whenever a monster gains energy
     /*public override void OnEnergyGained(ref int energy) {}*/

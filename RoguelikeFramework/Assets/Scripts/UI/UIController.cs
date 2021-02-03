@@ -6,6 +6,7 @@ using System;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private InventoryScreen inventory;
+    [SerializeField] private EquipmentScreen equipment;
     [SerializeField] private ItemInspectionPanel inspection;
     public static bool WindowsOpen
     {
@@ -28,7 +29,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -56,6 +57,7 @@ public class UIController : MonoBehaviour
         }
     }
 
+
     public void OpenInventoryInspect()
     {
         inventory.Setup(Player.player.inventory, ItemAction.INSPECT);
@@ -73,6 +75,31 @@ public class UIController : MonoBehaviour
         CustomTile tile = Map.singleton.GetTile(Player.player.location);
         inventory.Setup(tile.inventory, ItemAction.PICK_UP);
         inventory.Activate();
+    }
+
+    public void OpenInventoryEquip(int index)
+    {
+        inventory.Setup(Player.player.inventory, ItemAction.EQUIP, index);
+        inventory.Activate();
+    }
+
+    public void OpenEquipmentInspect()
+    {
+        equipment.Setup(Player.player.equipment, ItemAction.INSPECT, null);
+        equipment.Activate();
+    }
+
+    public void OpenEquipmentEquip(int index) //Yeah, the naming scheme made this one kind of stupid
+    {
+        Player player = Player.player; //Wow, this whole function is full of them
+        equipment.Setup(player.equipment, ItemAction.EQUIP, player.inventory[index]);
+        equipment.Activate();
+    }
+
+    public void OpenEquipmentEquip(ItemStack stack)
+    {
+        equipment.Setup(Player.player.equipment, ItemAction.EQUIP, stack);
+        equipment.Activate();
     }
 
     public void OpenItemInspect(Inventory inventory, int index)

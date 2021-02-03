@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Inventory))]
 public class ItemVisiblity : MonoBehaviour
 {
     private Item visible;
@@ -48,6 +49,14 @@ public class ItemVisiblity : MonoBehaviour
     public void ItemIsAdded(ref ItemStack stack)
     {
         visible?.DisableSprite();
+
+        //Turn off all items - fixes problems with stacks rendering badly
+        foreach (Item i in stack.held)
+        {
+            i.DisableSprite();
+        }
+
+        //Set new visible
         visible = stack.held[0];
         visible.EnableSprite();
     }
@@ -60,13 +69,10 @@ public class ItemVisiblity : MonoBehaviour
             Debug.LogError("Item removed from inventory was null?");
             return;
         }
-#endif
-
-        Debug.Log("Removing an item!");
+        #endif
 
         if (stack.held[0] == visible)
         {
-            print("Stack held == visible!");
             visible.DisableSprite();
             ItemStack newest = null;
             for (int i = 0; i < inventory.capacity; i++)

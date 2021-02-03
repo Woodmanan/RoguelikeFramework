@@ -10,6 +10,7 @@ public class InventoryScreen : RogueUIPanel
     [SerializeField] public GameObject itemPanelPrefab;
     [SerializeField] public GameObject itemHeaderPrefab;
     [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private TextMeshProUGUI failureMessage;
 
 
     public Inventory examinedInventory;
@@ -17,6 +18,8 @@ public class InventoryScreen : RogueUIPanel
 
     public bool[] selected;
     public List<ItemPanel> displayed = new List<ItemPanel>();
+
+    private int queuedEquipmentIndex;
 
 
 
@@ -36,6 +39,12 @@ public class InventoryScreen : RogueUIPanel
     {
         examinedInventory = inventoryToExamine;
         queuedAction = action;
+    }
+
+    public void Setup(Inventory inventoryToExamine, ItemAction action, int equipIndex)
+    {
+        queuedEquipmentIndex = equipIndex;
+        Setup(inventoryToExamine, action);
     }
 
     public override void OnActivation()
@@ -65,6 +74,14 @@ public class InventoryScreen : RogueUIPanel
                 selected = new bool[examinedInventory.capacity];
                 title.text = "Drop which items?";
                 break;
+            case ItemAction.EQUIP:
+                //TODO: Do this in a way that isn't dumb, and probably has item slots remember if they're equipabble
+                //Filter out toDisplay into items that can be equipped in this slot
+                EquipmentSlot slot = Player.player.equipment.equipmentSlots[queuedEquipmentIndex];
+                title.text = $"Equip what to {slot.slotName}?";
+                toDisplay = available.FindAll(x => x.held[0].GetComponent<EquippableItem>() != null); //Pretty expensive
+                toDisplay = toDisplay.FindAll(x => slot.type.Contains(x.held[0].GetComponent<EquippableItem>().primarySlot)); //Pretttttty expensive
+                break;
             case ItemAction.PICK_UP:
                 toDisplay = available;
                 selected = new bool[examinedInventory.capacity];
@@ -76,6 +93,15 @@ public class InventoryScreen : RogueUIPanel
         }
 
         print($"How many items to display: {toDisplay.Count}");
+        
+        if (toDisplay.Count == 0)
+        {
+            failureMessage.gameObject.SetActive(true);
+        }
+        else
+        {
+            failureMessage.gameObject.SetActive(false);
+        }
 
         //Sort the list into item types
         ItemType currentType = ItemType.NONE;
@@ -123,6 +149,21 @@ public class InventoryScreen : RogueUIPanel
                     }
                 }
                 break;
+            case ItemAction.EQUIP:
+                //Break down input into item types
+                foreach (char c in inputString.Where(c => char.IsLetter(c)))
+                {
+                    int index = Conversions.NumberingToInt(c);
+                    if (index < examinedInventory.capacity && examinedInventory[index] != null && index >= 0)
+                    {
+                        //Equip an item!
+                        Player.player.equipment.Equip(index, queuedEquipmentIndex);
+                        ExitAllWindows();
+                        break;
+                    }
+                }
+                break;
+
 
             case ItemAction.PICK_UP:
             case ItemAction.DROP:
@@ -200,6 +241,12 @@ public class InventoryScreen : RogueUIPanel
             case ItemAction.INSPECT:
                 print("OPENEING UI!");
                 UIController.singleton.OpenItemInspect(examinedInventory, index);
+                break;
+            case ItemAction.EQUIP:
+                //TODO: Do something something different if item is already equipped
+                print($"Attaching item {index} to slot {queuedEquipmentIndex}");
+                Player.player.equipment.Equip(index, queuedEquipmentIndex);
+                ExitAllWindows(); //After equiping, just exit
                 break;
         }
     }

@@ -4,21 +4,13 @@ using System.Runtime.InteropServices;
 using System;
 using UnityEngine;
 
-public struct EquipmentSlot
-{
-    public EquipSlotType type;
-    public EquippableItem equipped;
-    public bool active
-    {
-        get { return equipped != null; }
-    }
-}
+
 
 public class Monster : MonoBehaviour
 {
     [Header("Setup Variables")]
+    public StatBlock baseStats;
     public StatBlock stats;
-    public List<EquipmentSlot> equipmentSlots;
 
 
     [Header("Runtime Attributes")]
@@ -36,7 +28,6 @@ public class Monster : MonoBehaviour
     [HideInInspector] public Coroutine turnRoutine;
 
     //Empty Events
-    public event Action RegenerateStats;
     public event Action OnTurnStartGlobal; //Filled
     public event Action OnTurnEndGlobal; //Filled
     public event Action OnTurnStartLocal; //Filled
@@ -45,6 +36,8 @@ public class Monster : MonoBehaviour
     public event Action OnFullyHealed; // Filled out!
     public event Action OnDeath; //Filled
 
+    //Special statblock event
+    public event Action<StatBlock> RegenerateStats;
 
     //EntityEvent Events
     public event ActionRef<int> OnEnergyGained; //Filled out!
@@ -56,12 +49,16 @@ public class Monster : MonoBehaviour
 
     public List<Effect> effects;
     public Inventory inventory;
-
+    public Equipment equipment;
     
     // Start is called before the first frame update
     public virtual void Start()
     {
         inventory = GetComponent<Inventory>(); //May need to be set up with Get/Set to avoid null references during Start()!
+        equipment = GetComponent<Equipment>();
+
+        //TODO: Have starting equipment? Probably not a huge concern right now, though.
+        stats = baseStats;
         health = stats.maxHealth;
         if (OnFullyHealed != null)
         {
@@ -149,7 +146,6 @@ public class Monster : MonoBehaviour
     }
 
     //Takes the local turn
-    //This function MUST call EndTurn() when it's done! Even in child classes.
     public virtual IEnumerator LocalTurn()
     {
         energy -= 100;

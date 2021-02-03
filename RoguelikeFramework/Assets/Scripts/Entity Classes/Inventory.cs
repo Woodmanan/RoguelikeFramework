@@ -240,6 +240,23 @@ public class Inventory : MonoBehaviour
         return Map.singleton.GetTile(monster.location).GetComponent<Inventory>();
     }
 
+    //Get stack index of an item, -1 if not found
+    public int GetIndexOf(Item item)
+    {
+        for (int i = 0; i < capacity; i++)
+        {
+            if (items[i] != null)
+            {
+                //Check, with short circuit for a little speedup
+                if (items[i].id == item.id && items[i].held.Contains(item))
+                {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     //Convenience function
     public void Drop(int index)
     {
@@ -297,6 +314,16 @@ public class Inventory : MonoBehaviour
         ItemStack stack = Items[index];
 
         if (stack == null) return; //Quick cutout
+
+        EquippableItem equip = stack.held[0].GetComponent<EquippableItem>();
+
+        if (equip && equip.isEquipped)
+        {
+            //TODO: Figure out if we should abort the drop, or just unequip
+
+            //For now, just unequip it
+            equip.Unequip();
+        }
 
         foreach (Item i in stack.held)
         {

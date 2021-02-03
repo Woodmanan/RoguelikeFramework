@@ -12,7 +12,7 @@ public class InputTracking : MonoBehaviour
     public static Queue<string> inputs = new Queue<string>();
 
     public static bool HasNextAction()
-    { 
+    {
         return actions.Count > 0;
     }
 
@@ -57,7 +57,7 @@ public class InputTracking : MonoBehaviour
         }
     }
 
-        public static PlayerAction PeekNextAction()
+    public static PlayerAction PeekNextAction()
     {
         if (HasNextAction())
         {
@@ -74,27 +74,27 @@ public class InputTracking : MonoBehaviour
         actions.Enqueue(act);
         inputs.Enqueue(Input.inputString);
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //Extensive check that we probably don't want in the built game
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         if (actions.Count != inputs.Count)
         {
             Debug.LogError("Actions and input queues got misaligned.");
         }
-        #endif
+#endif
 
 
         bool addedAction = false;
-        
+
         //Add movements
         if (Left())
         {
@@ -175,6 +175,16 @@ public class InputTracking : MonoBehaviour
             PushAction(PlayerAction.OPEN_INVENTORY);
             addedAction = true;
         }
+        else if (Equip())
+        {
+            PushAction(PlayerAction.EQUIP);
+            addedAction = true;
+        }
+        else if (Unequip())
+        {
+            PushAction(PlayerAction.UNEQUIP);
+            addedAction = false;
+        }
         else if (Escaping())
         {
             PushAction(PlayerAction.ESCAPE_SCREEN);
@@ -188,49 +198,49 @@ public class InputTracking : MonoBehaviour
         else if (Input.inputString != "") //FINAL CHECK! Use this to add empty input to the buffer for character checks. (MUST BE LAST CHECK)
         {
             PushAction(PlayerAction.NONE);
-            addedAction = true;
+            addedAction = false;
         }
     }
 
     //WASD has been removed here
     private bool Left()
     {
-        return (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.LeftArrow));
+        return (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Keypad4));
     }
 
     private bool Right()
     {
-        return (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.RightArrow));
+        return (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.Keypad6));
     }
 
     private bool Up()
     {
-        return (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.UpArrow));
+        return (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Keypad8));
     }
 
     private bool Down()
     {
-        return (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.DownArrow));
+        return (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Keypad2));
     }
 
     private bool UpLeft()
     {
-        return (Input.GetKeyDown(KeyCode.Y));
+        return (!UIController.WindowsOpen && (Input.GetKeyDown(KeyCode.Y) || Input.GetKeyDown(KeyCode.Keypad7)));
     }
 
     private bool UpRight()
     {
-        return (Input.GetKeyDown(KeyCode.U));
+        return (!UIController.WindowsOpen && (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.Keypad9)));
     }
 
     private bool DownLeft()
     {
-        return (Input.GetKeyDown(KeyCode.B));
+        return (!UIController.WindowsOpen && (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.Keypad1)));
     }
 
     private bool DownRight()
     {
-        return (Input.GetKeyDown(KeyCode.N));
+        return (!UIController.WindowsOpen && (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.Keypad3)));
     }
 
     private bool Drop()
@@ -246,6 +256,17 @@ public class InputTracking : MonoBehaviour
     private bool OpenInventory()
     {
         return Input.GetKeyDown(KeyCode.I);
+    }
+
+    private bool Equip()
+    {
+        return Input.GetKeyDown(KeyCode.E);
+    }
+
+    //TODO: Revisit this sequence of inputs. As of right now PlayerAction.MOVE_UP_RIGHT is the one keyed to this.
+    private bool Unequip()
+    {
+        return Input.GetKeyDown(KeyCode.U);
     }
 
     private bool Escaping()

@@ -171,7 +171,6 @@ public class Effect : ScriptableObject
     public virtual void OnFirstConnection() {}
 
     //Empty 
-    public virtual void RegenerateStats() {}
     public virtual void OnTurnStartGlobal() {}
     public virtual void OnTurnEndGlobal() {}
     public virtual void OnTurnStartLocal() {}
@@ -179,6 +178,10 @@ public class Effect : ScriptableObject
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
     public virtual void OnDeath() {}
+    
+    //Stat block
+    public virtual void RegenerateStats(StatBlock stats) {}
+
 
     //EntityEvent events
     public virtual void OnEnergyGained(ref int energy) {}

@@ -91,6 +91,10 @@ public class Player : Monster
                     uiControls.OpenInventoryInspect();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
+                case PlayerAction.EQUIP:
+                    uiControls.OpenEquipmentInspect();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    break;
 
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
                 case PlayerAction.ESCAPE_SCREEN:
