@@ -46,12 +46,29 @@ public class GameController : MonoBehaviour
             player.AddEnergy(energyPerTurn);
             while (player.energy > 0)
             {
-                player.TakeTurn();
+                //Set up local turn
+                player.StartTurn();
+                float currentEnergy = player.energy;
 
-                //Freeze for player turn to finis, should that be necessary
-                if (player.turnRoutine != null)
+                //Hold until an action is taken
+                while (player.energy == currentEnergy)
                 {
-                    yield return player.turnRoutine;
+                    player.TakeTurn();
+
+                    //Freeze for player turn to finis, should that be necessary
+                    if (player.turnRoutine != null)
+                    {
+                        yield return player.turnRoutine;
+                    }
+
+                    if (player.energy == currentEnergy)
+                    {
+                        yield return null;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 player.EndTurn();

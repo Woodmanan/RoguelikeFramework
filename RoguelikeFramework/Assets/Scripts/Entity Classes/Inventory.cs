@@ -34,7 +34,16 @@ public class Inventory : MonoBehaviour
 
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
-    private int updateCounter = 0;
+
+    private int updateCounterVal = 0;
+    private int updateCounter
+    {
+        get
+        {
+            updateCounterVal++;
+            return updateCounterVal;
+        }
+    }
 
     //Generated measure of how many items we're holding, useful for ground pickup
     public int count
@@ -135,9 +144,44 @@ public class Inventory : MonoBehaviour
         Debug.LogError("Could not pick up item! No space was found, but space should have existed. (Available was not 0)", this);
     }
 
+    public void Apply(int index)
+    {
+        Apply(items[index]);
+    }
+
+    public void Apply(ItemStack stack)
+    {
+        int numItems = stack.held.Count;
+        Item toApply = stack.held[numItems - 1];
+        ApplyableItem apply = toApply.GetComponent<ApplyableItem>();
+        if (apply == null)
+        {
+            Debug.LogError($"Couldn't apply item at index {stack.position}, last item has no ApplyableItem component");
+            return;
+        }
+
+        apply.Apply(monster);
+
+        //Remove the item
+        Destroy(apply.gameObject);
+
+        if (numItems <= 1) //Potential error case for 0?
+        {
+            //Clear the list, garbage collection should get the rest
+            items[stack.position] = null;
+        }
+        else
+        {
+            //Cut last item, set new count
+            stack.held.RemoveAt(numItems - 1);
+            stack.count = numItems - 1;
+            stack.lastUpdated = updateCounter;
+        }
+    }
+
     public void Add(ItemStack stack)
     {
-        updateCounter++;
+
 
         if (stack == null)
         {

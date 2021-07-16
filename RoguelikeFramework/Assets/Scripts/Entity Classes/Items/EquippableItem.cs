@@ -9,6 +9,7 @@ public class EquippableItem : MonoBehaviour
     public List<EquipSlotType> secondarySlots;
     public StatBlock addedStats;
     public List<Effect> addedEffects;
+    private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
 
     Monster equippedTo;
@@ -21,7 +22,8 @@ public class EquippableItem : MonoBehaviour
         //Variable compile for expensive assertion
         #if UNITY_EDITOR
         Debug.Assert(!GetComponent<Item>().stackable, "Equippable item should never be stackable!", this);
-#endif
+        #endif
+
         itemData = GetComponent<Item>();
     }
 
@@ -46,6 +48,14 @@ public class EquippableItem : MonoBehaviour
         equippedTo = m;
         m.stats += addedStats; //Immediate stat benefit
         m.RegenerateStats += RegenerateStats; //Hook up for next regen
+
+        //Clone effects, so they can reapply
+        clonedEffects.Clear();
+        foreach (Effect e in addedEffects)
+        {
+            clonedEffects.Add(Instantiate(e));
+        }
+
         m.AddEffect(addedEffects.ToArray()); //Immediate status effect add
     }
 
@@ -54,7 +64,9 @@ public class EquippableItem : MonoBehaviour
     public void OnUnequip()
     {
         equippedTo.stats -= addedStats;
-        foreach (Effect e in addedEffects)
+
+        //Disconnect all old effects
+        foreach (Effect e in clonedEffects)
         {
             e.Disconnect();
         }
@@ -63,7 +75,7 @@ public class EquippableItem : MonoBehaviour
         equippedTo = null;
     }
 
-    public void RegenerateStats(StatBlock block)
+    public void RegenerateStats(ref StatBlock block)
     {
         block += addedStats;
     }

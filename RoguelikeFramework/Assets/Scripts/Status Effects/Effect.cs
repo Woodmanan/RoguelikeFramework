@@ -86,6 +86,11 @@ public class Effect : ScriptableObject
             m.OnAttacked += OnAttacked;
         }
 
+        if (current.GetMethod("OnTakeDamage").DeclaringType != defaultType)
+        {
+            m.OnTakeDamage += OnTakeDamage;
+        }
+
         if (current.GetMethod("OnHealing").DeclaringType != defaultType)
         {
             m.OnHealing += OnHealing;
@@ -96,11 +101,12 @@ public class Effect : ScriptableObject
             m.OnApplyStatusEffects += OnApplyStatusEffects;
         }
 
-        OnFirstConnection();
+        OnConnection();
     }
 
     public void Disconnect()
     {
+        OnDisconnection();
         Monster m = target;
         Type current = this.GetType();
         Type defaultType = typeof(Effect);
@@ -155,6 +161,11 @@ public class Effect : ScriptableObject
             m.OnAttacked -= OnAttacked;
         }
 
+        if (current.GetMethod("OnTakeDamage").DeclaringType != defaultType)
+        {
+            m.OnTakeDamage -= OnTakeDamage;
+        }
+
         if (current.GetMethod("OnHealing").DeclaringType != defaultType)
         {
             m.OnHealing -= OnHealing;
@@ -168,7 +179,9 @@ public class Effect : ScriptableObject
         ReadyToDelete = true;
     }
 
-    public virtual void OnFirstConnection() {}
+    public virtual void OnConnection() {}
+
+    public virtual void OnDisconnection() { }
 
     //Empty 
     public virtual void OnTurnStartGlobal() {}
@@ -180,12 +193,13 @@ public class Effect : ScriptableObject
     public virtual void OnDeath() {}
     
     //Stat block
-    public virtual void RegenerateStats(StatBlock stats) {}
+    public virtual void RegenerateStats(ref StatBlock stats) {}
 
 
     //EntityEvent events
     public virtual void OnEnergyGained(ref int energy) {}
-    public virtual void OnAttacked(ref int pierce, ref int accuracy, ref int damage) {}
+    public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
+    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType) { }
     public virtual void OnHealing(ref int healAmount) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
 }

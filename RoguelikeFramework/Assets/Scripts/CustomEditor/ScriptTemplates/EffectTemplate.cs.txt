@@ -14,7 +14,10 @@ public class #SCRIPTNAME# : Effect
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnFirstConnection() {}*/
+    /*public override void OnConnection() {}*/
+
+    //Called when an effect gets disconnected from a monster
+    /*public override void OnDisconnection() {} */
 
     //Called at the start of the global turn sequence
     /*public override void OnTurnStartGlobal() {}*/
@@ -39,13 +42,16 @@ public class #SCRIPTNAME# : Effect
 
     //Called when a monster is looking to recheck the stats, good for adding in variable stats mid-effect
     //it gains from effects and items
-    /*public override void RegenerateStats(StatBlock stats) {}*/
+    /*public override void RegenerateStats(ref StatBlock stats) {}*/
 
     //Called whenever a monster gains energy
     /*public override void OnEnergyGained(ref int energy) {}*/
 
     //Called when a monster recieves an attack type request
-    /*public override void OnAttacked(ref int pierce, ref int accuracy, ref int damage) {}*/
+    /*public override void OnAttacked(ref int pierce, ref int accuracy) {}*/
+
+    //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
+    /*public override void OnTakeDamage(ref int damage, ref DamageType damageType) {}*/
 
     //Called when a monster recieves a healing event request
     /*public override void OnHealing(ref int healAmount) {}*/

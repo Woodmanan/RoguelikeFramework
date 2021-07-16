@@ -185,6 +185,16 @@ public class InputTracking : MonoBehaviour
             PushAction(PlayerAction.UNEQUIP);
             addedAction = false;
         }
+        else if (Apply())
+        {
+            PushAction(PlayerAction.APPLY);
+            addedAction = true;
+        }
+        else if (Fire())
+        {
+            PushAction(PlayerAction.FIRE);
+            addedAction = true;
+        }
         else if (Escaping())
         {
             PushAction(PlayerAction.ESCAPE_SCREEN);
@@ -277,6 +287,17 @@ public class InputTracking : MonoBehaviour
     private bool Accept()
     {
         return Input.GetKeyDown(KeyCode.Return);
+    }
+
+    //Currently Q for convention; Apply is the backend stuff, these will probably just be quaffables
+    private bool Apply()
+    {
+        return Input.GetKeyDown(KeyCode.Q); //It's Q, for 'Qiswhatyouhittoapply'
+    }
+
+    private bool Fire()
+    {
+        return Input.GetKeyDown(KeyCode.F);
     }
 
 }

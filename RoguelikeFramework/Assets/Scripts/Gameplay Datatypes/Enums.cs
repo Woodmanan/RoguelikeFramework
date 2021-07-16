@@ -18,6 +18,7 @@ public enum Direction
  * Different types of space:
  * 1. Chebyshev: 8 way movement
  * 2. Euclidean: 8 way movement, corners are sqrt(2)
+ * 3. Manhattan: 4 way movement
  */
 public enum MapSpace
 {
@@ -27,7 +28,7 @@ public enum MapSpace
 }
 
 /* Really can't decide if this should be plural or not.
- * If you have a stronger opinion than I, feel free to
+ * If you have a stronger opinion than I do, feel free to
  * yell at me and make me change it.
  */
 public enum PlayerAction
@@ -46,9 +47,19 @@ public enum PlayerAction
     DROP_ITEMS,
     ESCAPE_SCREEN,
     OPEN_INVENTORY,
+    APPLY,
     EQUIP,
     UNEQUIP,
-    ACCEPT
+    ACCEPT,
+    FIRE
+}
+
+public enum DamageType
+{
+    NONE,
+    BLUNT,
+    CUTTING,
+    PIERCING
 }
 
 public enum EventType
@@ -84,7 +95,6 @@ public enum EquipSlotType
     TAIL
 }
 
-
 //Order is very important here! Order written is order shown in inventory.
 public enum ItemType
 {
@@ -94,6 +104,26 @@ public enum ItemType
     CONSUMABLE,
     ACTIVATABLE,
     EMPTY
+}
+
+public enum TargetType
+{
+    SELF, //Just picks the caster, and immediantly returns
+    SINGLE_TARGET_LINES, //Any valid target (monster), reachable by Brensham lines
+    SINGLE_SQAURE_LINES, //Any square, reachable by Brensham lines
+    SMITE, //Any square in LOS
+    SMITE_TARGET,
+    FULL_LOS, //All valid targets in LOS
+}
+
+public enum AreaType
+{
+    SINGLE_TARGET, //Essentially range of 0
+    CONE, //A cone-shaped area
+    MANHATTAN_AREA, //Range in a diamond shape
+    EUCLID_AREA, //Range in a circle
+    CHEBYSHEV_AREA, //Range in a square
+    LOS_AREA //Like chebyshev, but respects LOS from the given square. Most accurate form of targetting.
 }
 
 public enum UIState

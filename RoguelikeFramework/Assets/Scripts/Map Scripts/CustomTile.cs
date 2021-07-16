@@ -34,6 +34,8 @@ public class CustomTile : MonoBehaviour
 
     private SpriteRenderer render;
 
+    public event Action<Monster> MonsterEntered;
+
     //Stuff used for convenience editor hacking, and should never be seen.
     
     /* If you see this and don't know what this is, ask me! It's super useful
@@ -85,6 +87,21 @@ public class CustomTile : MonoBehaviour
         {
             RebuildGraphics();
         }
+    }
+
+    public void ClearMonster()
+    {
+        currentlyStanding = null;
+    }
+
+    public void SetMonster(Monster m)
+    {
+        if (currentlyStanding != null)
+        {
+            Debug.LogError($"Monster set itself as standing on tile ({x}, {y}), but {currentlyStanding.name} is there.", this);
+        }
+        currentlyStanding = m;
+        MonsterEntered?.Invoke(m);
     }
 
     public void RebuildMapData()

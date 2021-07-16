@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class Roll
 {
-    public int dice;
     public int rolls;
+    public int dice;
+    
 
     public bool evaluateEveryRoll;
 
@@ -41,10 +44,11 @@ public class Roll
     {
         if (!evaluated || evaluateEveryRoll)
         {
+            value = 0;
             evaluated = true;
             for (int i = 0; i < rolls; i++)
             {
-                value += Random.Range(1, dice+1);
+                value += UnityEngine.Random.Range(1, dice+1);
             }
         }
         return value;

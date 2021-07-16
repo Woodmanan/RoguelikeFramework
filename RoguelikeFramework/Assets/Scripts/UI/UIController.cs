@@ -8,6 +8,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private InventoryScreen inventory;
     [SerializeField] private EquipmentScreen equipment;
     [SerializeField] private ItemInspectionPanel inspection;
+    [SerializeField] private TargetingPanel targetting;
+    [SerializeField] private ConfirmationPanel confirm;
     public static bool WindowsOpen
     {
         get { return RogueUIPanel.WindowsOpen; }
@@ -49,7 +51,7 @@ public class UIController : MonoBehaviour
         switch (action)
         {
             case PlayerAction.ESCAPE_SCREEN: //Breaks free early, so panels themselves don't have to all try to handle this input.
-                RogueUIPanel.ExitTopLevel();
+                RogueUIPanel.AttemptExitTopLevel();
                 break;
             default:
                 RogueUIPanel.inFocus.HandleInput(action, inputString);
@@ -102,6 +104,12 @@ public class UIController : MonoBehaviour
         equipment.Activate();
     }
 
+    public void OpenInventoryApply()
+    {
+        inventory.Setup(Player.player.inventory, ItemAction.APPLY);
+        inventory.Activate();
+    }
+
     public void OpenItemInspect(Inventory inventory, int index)
     {
         //Quick double check
@@ -117,11 +125,29 @@ public class UIController : MonoBehaviour
         inspection.Activate();
     }
 
+    public void OpenTargetting(Targeting t, BoolDelegate returnCall)
+    {
+        if (targetting.Setup(t, returnCall)) //Different from normal, to encapsulate skipping behaviour that's possible.
+        {
+            targetting.Activate();
+        }
+        else
+        {
+            RogueUIPanel.ExitAllWindows(); //SWITCH THIS TO UI CONTROLLER WHEN THAT'S IN
+        }
+    }
+
     public void PassInput(PlayerAction action)
     {
         if (action == PlayerAction.ESCAPE_SCREEN)
         {
             RogueUIPanel.ExitTopLevel();
         }
+    }
+
+    public void OpenConfirmation(String msg, BoolDelegate funcToCall)
+    {
+        confirm.Setup(msg, funcToCall);
+        confirm.Activate();
     }
 }

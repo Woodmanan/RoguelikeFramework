@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
 
 public class Player : Monster
 {
@@ -95,7 +96,35 @@ public class Player : Monster
                     uiControls.OpenEquipmentInspect();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
-
+                case PlayerAction.APPLY:
+                    uiControls.OpenInventoryApply();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    break;
+                case PlayerAction.FIRE:
+                    EquipmentSlot slot = equipment.equipmentSlots.First(x => x.type.Contains(EquipSlotType.RANGED_WEAPON));
+                  
+                    if (slot.active)
+                    {
+                        //Fire!
+                        //This is the coolest piece of code I have ever written
+                        bool canFire = false;
+                        RangedWeapon weapon = slot.equipped.held[0].GetComponent<RangedWeapon>();
+                        uiControls.OpenTargetting(weapon.targeting, (b) => canFire = b);
+                        yield return new WaitUntil(() => !UIController.WindowsOpen);
+                        if (canFire)
+                        {
+                            weapon.Fire(player);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        //TODO: Pull up the screen to equip something
+                        Debug.Log("Console log: You must have a ranged weapon equipped!");
+                    }
+                    break;
+                    
+                    
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
                 case PlayerAction.ESCAPE_SCREEN:
                     //TODO: Open up the menu screen here
@@ -152,6 +181,7 @@ public class Player : Monster
         if (target)
         {
             //TODO: Actually attack monsters
+            Attack(target);
             return;
         }
         

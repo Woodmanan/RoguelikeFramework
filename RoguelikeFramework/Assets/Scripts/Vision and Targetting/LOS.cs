@@ -27,7 +27,9 @@ public class LOSData
 
     public bool[,] definedArea;
     public bool[,] precalculatedSight;
-    public Map map;
+
+    private Vector2Int startsAt;
+    private Vector2Int endsAt;
 
     public LOSData(int radius, Vector2Int centeredAt)
     {
@@ -35,7 +37,8 @@ public class LOSData
         origin = centeredAt;
         definedArea = new bool[radius * 2 + 1, radius * 2 + 1];
         precalculatedSight = new bool[radius * 2 + 1, radius * 2 + 1];
-        map = Map.singleton;
+        startsAt = origin - Vector2Int.one * radius; //Inclusive
+        endsAt = origin + Vector2Int.one * (radius + 1); //Exclusive
     }
 
     public void setAt(int row, int col, Direction dir, bool val)
@@ -77,6 +80,7 @@ public class LOSData
     //Attempt to take advantage of some locality to get vision measurements faster
     public void PrecalculateValues()
     {
+        Map map = Map.singleton;
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < radius * 2 + 1; i++)
         {
@@ -85,6 +89,29 @@ public class LOSData
                 precalculatedSight[i, j] = map.BlocksSight(i + start.x, j + start.y);
             }
         }
+    }
+
+    public bool ValueAtWorld(Vector2Int location)
+    {
+        return ValueAtWorld(location.x, location.y);
+    }
+
+    public bool ValueAtWorld(int x, int y)
+    {
+        if (Contains(x, y))
+        {
+            return definedArea[x - startsAt.x, y - startsAt.y];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //Returns if an (x, y) pair could be found in our sightmap
+    public bool Contains(int x, int y)
+    {
+        return (x >= startsAt.x && x < endsAt.x && y >= startsAt.y && y < endsAt.y);
     }
 
     public void Imprint()
@@ -154,109 +181,114 @@ public class LOS : MonoBehaviour
     public static LOSData lastCall;
     
     public static fraction Slope(Vector2Int tile)
-   {
-       return new fraction(2 * tile.x - 1, 2 * tile.y);
-   }
+    {
+        return new fraction(2 * tile.x - 1, 2 * tile.y);
+    }
 
-   public static bool IsSymmetric(Row r, Vector2Int tile)
-   {
-       return (tile.x >= r.depth * r.startSlope) && (tile.x <= r.depth * r.endSlope);
-   }
+    public static bool IsSymmetric(Row r, Vector2Int tile)
+    {
+        return (tile.x >= r.depth * r.startSlope) && (tile.x <= r.depth * r.endSlope);
+    }
 
-   public static LOSData LosAt(Vector2Int position, int distance)
-   {
-       if (distance <= 0)
-       {
-           return new LOSData(0, position);
-       }
-       LOSData toReturn = new LOSData(distance, position);
-       toReturn.PrecalculateValues();
-       toReturn.setAt(0,0, Direction.NORTH, true);
-       for (int d = 0; d < 4; d++)
-       {
-           Quadrant q = new Quadrant((Direction) d, position);
+    public static LOSData LosAt(Vector2Int position, int distance)
+    {
+        if (distance <= 0)
+        {
+            return new LOSData(0, position);
+        }
+        LOSData toReturn = new LOSData(distance, position);
+        toReturn.PrecalculateValues();
+        toReturn.setAt(0,0, Direction.NORTH, true);
+        for (int d = 0; d < 4; d++)
+        {
+            Quadrant q = new Quadrant((Direction) d, position);
 
-           Row firstRow = new Row(1, new fraction(-1,1), new fraction(1,1), q);
-           Scan(firstRow, toReturn);
-       }
+            Row firstRow = new Row(1, new fraction(-1,1), new fraction(1,1), q);
+            Scan(firstRow, toReturn);
+        }
 
-       return toReturn;
-   }
+        return toReturn;
+    }
 
-   public static void Reveal(Vector2Int tile, LOSData l, Direction d)
-   {
-       l.setAt(tile.y, tile.x, d, true);
-   }
+    public static BresenhamResults GetLineFrom(Vector2Int start, Vector2Int end)
+    {
+        return Bresenham.CalculateLine(start, end);
+    }
 
-   public static bool IsWall(Vector2Int tile, Row r, LOSData l)
-   {
-       if (tile.x == -1 && tile.y == -1)
-       {
-           //Special case for starting tile
-           return false;
-       }
+    public static void Reveal(Vector2Int tile, LOSData l, Direction d)
+    {
+        l.setAt(tile.y, tile.x, d, true);
+    }
 
-       return l.getAt(tile.y, tile.x, r.quad.dir);
-   }
+    public static bool IsWall(Vector2Int tile, Row r, LOSData l)
+    {
+        if (tile.x == -1 && tile.y == -1)
+        {
+            //Special case for starting tile
+            return false;
+        }
 
-   public static bool IsFloor(Vector2Int tile, Row r, LOSData l)
-   {
-       if (tile.x == -1 && tile.y == -1)
-       {
-           return false;
-       }
+        return l.getAt(tile.y, tile.x, r.quad.dir);
+    }
 
-       return !l.getAt(tile.y, tile.x, r.quad.dir);
-   }
+    public static bool IsFloor(Vector2Int tile, Row r, LOSData l)
+    {
+        if (tile.x == -1 && tile.y == -1)
+        {
+            return false;
+        }
 
-   public static void Scan(Row r, LOSData l)
-   {
-       Vector2Int previous = -1 * Vector2Int.one;
-       foreach (Vector2Int tile in r.tiles())
-       {
+        return !l.getAt(tile.y, tile.x, r.quad.dir);
+    }
 
-           if (IsWall(tile, r, l) || IsSymmetric(r, tile))
-           {
-               Reveal(tile, l, r.quad.dir);
-           }
+    public static void Scan(Row r, LOSData l)
+    {
+        Vector2Int previous = -1 * Vector2Int.one;
+        foreach (Vector2Int tile in r.tiles())
+        {
 
-           if (IsWall(previous, r, l) && IsFloor(tile, r, l))
-           {
-               r.startSlope = Slope(tile);
-           }
+            if (IsWall(tile, r, l) || IsSymmetric(r, tile))
+            {
+                Reveal(tile, l, r.quad.dir);
+            }
 
-           if (IsFloor(previous, r, l) && IsWall(tile, r, l))
-           {
-               if (r.depth != l.radius)
-               {
-                   Row next_row = r.next();
-                   next_row.endSlope = Slope(tile);
-                   Scan(next_row, l);
-               }
-           }
+            if (IsWall(previous, r, l) && IsFloor(tile, r, l))
+            {
+                r.startSlope = Slope(tile);
+            }
 
-           previous = tile;
-       }
+            if (IsFloor(previous, r, l) && IsWall(tile, r, l))
+            {
+                if (r.depth != l.radius)
+                {
+                    Row next_row = r.next();
+                    next_row.endSlope = Slope(tile);
+                    Scan(next_row, l);
+                }
+            }
 
-       if (IsFloor(previous, r, l))
-       {
-           if (r.depth != l.radius)
-           {
-               Scan(r.next(), l);
-           }
-       }
-   }
+            previous = tile;
+        }
 
-   public static void GeneratePlayerLOS(Vector2Int location, int radius)
-   {
-       if (lastCall != null)
-       {
-           lastCall.Deprint();
-       }
+        if (IsFloor(previous, r, l))
+        {
+            if (r.depth != l.radius)
+            {
+                Scan(r.next(), l);
+            }
+        }
+    }
 
-       lastCall = LosAt(location, radius);
-       lastCall.Imprint();
-   }
+    public static void GeneratePlayerLOS(Vector2Int location, int radius)
+    {
+        if (lastCall != null)
+        {
+            lastCall.Deprint();
+        }
+
+        lastCall = LosAt(location, radius);
+        lastCall.Imprint();
+    }
 
 
 

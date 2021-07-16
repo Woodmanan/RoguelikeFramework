@@ -18,6 +18,10 @@ public class Item : MonoBehaviour
     [SerializeField] private string name;
     [SerializeField] private string plural;
 
+    [HideInInspector] public bool CanEquip;
+    [HideInInspector] public bool CanApply;
+    [HideInInspector] public bool CanTarget;
+
     private SpriteRenderer Render;
     public SpriteRenderer render
     {
@@ -59,6 +63,11 @@ public class Item : MonoBehaviour
         {
             Debug.LogError("An item is set to have no type! Please use ItemType.EMPTY if you have misc items.", this);
         }
+
+        //Quick check for components, better here than later
+        CanEquip = GetComponent<EquippableItem>() != null;
+        CanApply = GetComponent<ApplyableItem>() != null;
+        CanTarget = GetComponent<TargetableItem>() != null;
     }
 
 

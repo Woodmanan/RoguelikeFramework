@@ -172,7 +172,7 @@ public class EquipmentScreen : RogueUIPanel
             //Set up item readout
             current.Setup(this, slot.position);
             current.RebuildGraphics();
-            instance.transform.parent = holdingPanel;
+            instance.transform.SetParent(holdingPanel);
         }
     }
     

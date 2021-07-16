@@ -9,6 +9,8 @@ public class RogueUIPanel : MonoBehaviour
 
 
     [HideInInspector] public bool isInFocus;
+    [HideInInspector] public bool canBeEscaped = true;
+
     public static bool WindowsOpen
     {
         get { return panels.Count > 0; }
@@ -27,6 +29,23 @@ public class RogueUIPanel : MonoBehaviour
     }
 
     public virtual void HandleInput(PlayerAction action, string inputString) { }
+
+    public static void AttemptExitTopLevel()
+    {
+        if (panels.Count == 0)
+        {
+            //Made this not an error, just in case of weird jankiness
+            Debug.Log("Can't deactivate top level UI when there are no panels open.");
+        }
+        else
+        {
+            RogueUIPanel toRemove = panels[panels.Count - 1];
+            if (toRemove.canBeEscaped)
+            {
+                ExitTopLevel();
+            }
+        }
+    }
 
     public static void ExitTopLevel()
     {

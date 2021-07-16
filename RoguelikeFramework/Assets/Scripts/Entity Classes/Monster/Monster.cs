@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System;
 using UnityEngine;
+using System.Text.RegularExpressions; //Oh god oh fuck
 
 
 
@@ -11,6 +12,10 @@ public class Monster : MonoBehaviour
     [Header("Setup Variables")]
     public StatBlock baseStats;
     public StatBlock stats;
+
+    //TODO: Abstract these out to another class!!!
+    new public string name;
+    public bool nameRequiresPluralVerbs; //Useful for the player!
 
 
     [Header("Runtime Attributes")]
@@ -37,11 +42,12 @@ public class Monster : MonoBehaviour
     public event Action OnDeath; //Filled
 
     //Special statblock event
-    public event Action<StatBlock> RegenerateStats;
+    public event ActionRef<StatBlock> RegenerateStats; //TODO: Review when this should happen? Lots of weird problems with this one
 
     //EntityEvent Events
     public event ActionRef<int> OnEnergyGained; //Filled out!
-    public event ActionRef<int, int, int> OnAttacked; //Filled out, TODO: Rework this
+    public event ActionRef<int, int> OnAttacked; //Filled out, TODO: Rework this
+    public event ActionRef<int, DamageType> OnTakeDamage;
     public event ActionRef<int> OnHealing; //Filled!
     public event ActionRef<Effect[]> OnApplyStatusEffects; //Filled!
     
@@ -72,11 +78,20 @@ public class Monster : MonoBehaviour
         
     }
 
+    //TODO: Actually call this! The generator should call this function once monsters have been placed
+    public void AfterInitialSetup()
+    {
+        Map.singleton.GetTile(location).SetMonster(this);
+    }
+
     public void Heal(int healthReturned)
     {
         OnHealing?.Invoke(ref healthReturned);
-        
-        health += healthReturned;
+
+        if (healthReturned > 0) //Negative health healing is currently just ignored, for clarity's sake
+        {
+            health += healthReturned;
+        }
         if (health >= stats.maxHealth)
         {
             health = stats.maxHealth;
@@ -84,28 +99,38 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void Attack(int pierce, int accuracy, int damage)
+    public bool Attack(int pierce, int accuracy)
     {
-        OnAttacked?.Invoke(ref pierce, ref accuracy, ref damage);
-
-        if (pierce < stats.ac)
-        {
-            //TODO: Log break damage
-            return;
-        }
+        OnAttacked?.Invoke(ref pierce, ref accuracy);
 
         if (accuracy < stats.ev)
         {
             //TODO: Log dodge
+            return false;
         }
 
+        if (pierce < stats.ac)
+        {
+            //TODO: Log break damage
+            return false;
+        }
+
+        
+
         //TODO: Log Hit
-        TakeDamage(damage);
+        //TakeDamage(damage, DamageType.NONE);
+        return true;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, DamageType type, string message = "{name} take%s{|s} {damage} damage")
     {
+        OnTakeDamage?.Invoke(ref damage, ref type);
         health -= damage;
+
+        //Loggingstuff
+        string toPrint = FormatStringForName(message).Replace("{damage}", $"{damage}");
+        Debug.Log($"Console print: {toPrint}");
+
         if (health <= 0)
         {
             OnDeath?.Invoke();
@@ -114,11 +139,82 @@ public class Monster : MonoBehaviour
                 Die();
             }
         }
+
+
     }
 
     public virtual void Die()
     {
 
+    }
+
+    private string FormatStringForName(string msg)
+    {
+        //Handle the {name} formatter
+        string newMessage = msg.Replace("{name}", GetFormattedName());
+
+        //Handle the %s{singular form | plural} formatter
+        MatchCollection matches = Regex.Matches(newMessage, "%s\\{([a-zA-Z\\w]*\\|[a-zA-Z\\w]*)\\}");
+        foreach (Match m in matches)
+        {
+            Debug.Log($"{m.Groups.Count} matches found");
+            for (int i = 1; i < m.Groups.Count; i++)
+            {
+                string[] val = m.Groups[i].Value.Split('|');
+                string rep = nameRequiresPluralVerbs ? val[1] : val[0];
+                newMessage = newMessage.Replace(m.Groups[0].Value, rep);
+            }
+
+        }
+
+        //Capitalize first letter
+        newMessage = char.ToUpper(newMessage[0]) + newMessage.Substring(1);
+        
+        //newMessage = newMessage.Replace("{s}", nameRequiresPluralVerbs ? "s" : "");
+        return newMessage;
+    }
+
+    public string GetFormattedName()
+    {
+        return nameRequiresPluralVerbs ? "the " + name : name;
+    }
+
+    //Automatically grabs
+    public void Attack(Monster target)
+    {
+        //TODO: Make this more effecient of a lookup
+        //List<EquipmentSlot> slots = equipment.equipmentSlots.FindAll(x => x.type.Contains(EquipSlotType.PRIMARY_HAND) || x.type.Contains(EquipSlotType.SECONDARY_HAND));
+        //slots = slots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.WEAPON);
+
+        //Correction: see if we have any weapons actively equipped (Doesn't need to be in your hands, theoretically
+        List<EquipmentSlot> slots = equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.WEAPON);
+
+        //Do we have any weapons equipped?
+        if (slots.Count > 0)
+        {
+            //TODO: Sort the list
+            List<MeleeWeapon> weapons = new List<MeleeWeapon>();
+            foreach (EquipmentSlot s in slots)
+            {
+                MeleeWeapon weapon = s.equipped.held[0].GetComponent<MeleeWeapon>();
+                if (weapon)
+                {
+                    if (!weapons.Contains(weapon))
+                    {
+                        weapons.Add(weapon);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Player somehow equipped something that isn't a weapon.");
+                }
+            }
+
+            foreach (MeleeWeapon w in weapons)
+            {
+                w.Use(this, target);
+            }
+        }
     }
     
     public void AddEnergy(int energy)
@@ -127,9 +223,14 @@ public class Monster : MonoBehaviour
         this.energy += energy;
     }
 
+    public void StartTurn()
+    {
+        CallRegenerateStats();
+        OnTurnStartLocal?.Invoke();
+    }
+
     public void TakeTurn()
     {
-        OnTurnStartLocal?.Invoke();
         turnRoutine = StartCoroutine(LocalTurn());
     }
 
@@ -143,6 +244,13 @@ public class Monster : MonoBehaviour
                 effects.RemoveAt(i);
             }
         }
+        CallRegenerateStats();
+    }
+
+    public void CallRegenerateStats()
+    {
+        stats = new StatBlock() + baseStats;
+        RegenerateStats?.Invoke(ref stats);
     }
 
     //Takes the local turn
@@ -155,8 +263,11 @@ public class Monster : MonoBehaviour
         {
             yield return null;
         }
+
         EndTurn();
     }
+
+
 
     public void AddEffect(params Effect[] effectsToAdd)
     {
@@ -172,8 +283,10 @@ public class Monster : MonoBehaviour
     //TODO: Add cost of moving from on spot to another
     public void SetPosition(Vector2Int newPosition)
     {
+        Map.singleton.GetTile(location).currentlyStanding = null;
         location = newPosition;
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        Map.singleton.GetTile(location).currentlyStanding = this;
     }
 
     public void MoveUnit(Direction dir)
@@ -235,9 +348,11 @@ public class Monster : MonoBehaviour
 
     private void MoveStep(Vector2Int offset)
     {
+        Map.singleton.GetTile(location).ClearMonster();
         location += offset;
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
         energy -= (energyPerStep * Map.singleton.MovementCostAt(location));
+        Map.singleton.GetTile(location).SetMonster(this);
         OnMove?.Invoke();
     }
 

@@ -98,12 +98,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   stackable: 0
-  type: 1
+  type: 2
   color: {r: 0, g: 0.074498415, b: 1, a: 1}
   location: {x: 0, y: 0}
   held: 0
   name: Item Test 2
   plural: Item Tests 2
+  CanEquip: 0
+  CanApply: 0
+  CanTarget: 0
 --- !u!114 &7158709351230978972
 MonoBehaviour:
   m_ObjectHideFlags: 0

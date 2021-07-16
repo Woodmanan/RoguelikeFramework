@@ -79,13 +79,17 @@ public class InventoryScreen : RogueUIPanel
                 //Filter out toDisplay into items that can be equipped in this slot
                 EquipmentSlot slot = Player.player.equipment.equipmentSlots[queuedEquipmentIndex];
                 title.text = $"Equip what to {slot.slotName}?";
-                toDisplay = available.FindAll(x => x.held[0].GetComponent<EquippableItem>() != null); //Pretty expensive
+                toDisplay = available.FindAll(x => x.held[0].CanEquip); //Pretty cheap
                 toDisplay = toDisplay.FindAll(x => slot.type.Contains(x.held[0].GetComponent<EquippableItem>().primarySlot)); //Pretttttty expensive
                 break;
             case ItemAction.PICK_UP:
                 toDisplay = available;
                 selected = new bool[examinedInventory.capacity];
                 title.text = "Pick up which items?";
+                break;
+            case ItemAction.APPLY:
+                title.text = "Apply which item?";
+                toDisplay = available.FindAll(x => x.held[0].CanApply);
                 break;
             default:
                 Debug.LogError($"Inventory screen is not set up to handle {queuedAction} types. Yell at Woody about this.");
@@ -118,7 +122,7 @@ public class InventoryScreen : RogueUIPanel
                 //Create a header!
                 GameObject header = Instantiate(itemHeaderPrefab);
                 header.GetComponent<ItemHeader>().Setup(stack.type);
-                header.transform.parent = holdingPanel;
+                header.transform.SetParent(holdingPanel);
                 currentType = stack.type;
             }
 
@@ -127,7 +131,7 @@ public class InventoryScreen : RogueUIPanel
             current.GenerateItemDescription();
             displayed.Add(current);
 
-            instance.transform.parent = holdingPanel;
+            instance.transform.SetParent(holdingPanel);
         }
 
     }
@@ -215,6 +219,20 @@ public class InventoryScreen : RogueUIPanel
                     }
                 }
                 break;
+
+            case ItemAction.APPLY:
+                foreach (char c in inputString.Where(c => char.IsLetter(c)))
+                {
+                    int index = Conversions.NumberingToInt(c);
+                    if (index < examinedInventory.capacity && examinedInventory[index] != null && index >= 0)
+                    {
+                        //Equip an item!
+                        Player.player.inventory.Apply(index);
+                        ExitAllWindows();
+                        break;
+                    }
+                }
+                break;
         }
     }
 
@@ -247,6 +265,10 @@ public class InventoryScreen : RogueUIPanel
                 print($"Attaching item {index} to slot {queuedEquipmentIndex}");
                 Player.player.equipment.Equip(index, queuedEquipmentIndex);
                 ExitAllWindows(); //After equiping, just exit
+                break;
+            case ItemAction.APPLY:
+                Player.player.inventory.Apply(index);
+                ExitAllWindows();
                 break;
         }
     }

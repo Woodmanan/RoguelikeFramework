@@ -42,7 +42,6 @@ public class ItemInspectionPanel : RogueUIPanel
      */
     public override void HandleInput(PlayerAction action, string inputString)
     {
-        print($"Handling action {action}");
         switch (action)
         {
             case PlayerAction.DROP_ITEMS:
