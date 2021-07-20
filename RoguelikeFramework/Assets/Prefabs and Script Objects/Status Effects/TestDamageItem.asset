@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   ReadyToDelete: 1
-  damagePerTurn: 5
-  numTurns: 2
+  damagePerTurn: 3
+  numTurns: 6

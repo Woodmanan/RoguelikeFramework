@@ -11,6 +11,7 @@ using System;
  *
  * I have suffered so you don't have to ;_;
  */
+
 public class Effect : ScriptableObject
 {
     [HideInInspector] public Monster target;

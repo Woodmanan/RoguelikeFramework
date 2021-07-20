@@ -945,6 +945,13 @@ MonoBehaviour:
   effects: []
   inventory: {fileID: 199009399}
   equipment: {fileID: 0}
+  effect:
+  - typeVal: 0
+    heldEffect: {fileID: 11400000, guid: b7a59b3869e995a4092f572b1a9aea08, type: 2}
+  - typeVal: 2
+    heldEffect: {fileID: 11400000, guid: 8aea8da30006b414dba9d48527268a39, type: 2}
+  - typeVal: 3
+    heldEffect: {fileID: 11400000, guid: 19e838b17cee8c644982e22620e99423, type: 2}
   uiControls: {fileID: 962910824}
 --- !u!4 &199009396
 Transform:

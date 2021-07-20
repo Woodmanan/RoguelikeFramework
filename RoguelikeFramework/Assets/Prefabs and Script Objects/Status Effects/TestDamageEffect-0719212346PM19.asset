@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d792322d2e929499273cf129f0832a, type: 3}
-  m_Name: TestHealing
+  m_Script: {fileID: 11500000, guid: 0a89c509da16ed9469c80660ec6803dd, type: 3}
+  m_Name: TestDamageEffect-0719212346PM19
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   ReadyToDelete: 0
-  healthPerTurn: 2
-  numTurns: 5
+  damagePerTurn: 0
+  numTurns: 0
