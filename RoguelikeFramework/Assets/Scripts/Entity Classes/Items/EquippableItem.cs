@@ -8,7 +8,7 @@ public class EquippableItem : MonoBehaviour
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
     public StatBlock addedStats;
-    public List<Effect> addedEffects;
+    public List<StatusEffect> addedEffects;
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
 
@@ -47,16 +47,16 @@ public class EquippableItem : MonoBehaviour
         isEquipped = true;
         equippedTo = m;
         m.stats += addedStats; //Immediate stat benefit
-        m.RegenerateStats += RegenerateStats; //Hook up for next regen
+        m.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
         clonedEffects.Clear();
-        foreach (Effect e in addedEffects)
+        foreach (StatusEffect e in addedEffects)
         {
-            clonedEffects.Add(Instantiate(e));
+            clonedEffects.Add(e.Instantiate());
         }
 
-        m.AddEffect(addedEffects.ToArray()); //Immediate status effect add
+        m.AddEffect(clonedEffects.ToArray()); //Immediate status effect add
     }
 
 
@@ -70,7 +70,7 @@ public class EquippableItem : MonoBehaviour
         {
             e.Disconnect();
         }
-        equippedTo.RegenerateStats -= RegenerateStats;
+        equippedTo.RegenerateStats.RemoveListener(RegenerateStats);
         isEquipped = false;
         equippedTo = null;
     }

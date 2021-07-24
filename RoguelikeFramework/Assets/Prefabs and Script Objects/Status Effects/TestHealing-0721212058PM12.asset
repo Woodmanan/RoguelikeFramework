@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a4a36defc4d6614b81b5b638e29111d, type: 3}
-  m_Name: DamageResistance-0719212346PM85
+  m_Script: {fileID: 11500000, guid: 87d792322d2e929499273cf129f0832a, type: 3}
+  m_Name: TestHealing-0721212058PM12
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   ReadyToDelete: 0
-  numTurns: 0
+  healthPerTurn: 2
+  numTurns: 5

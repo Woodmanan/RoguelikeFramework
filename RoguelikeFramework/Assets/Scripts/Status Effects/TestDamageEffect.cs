@@ -8,6 +8,8 @@ public class TestDamageEffect : Effect
     [SerializeField] int damagePerTurn;
     [SerializeField] int numTurns;
 
+    public override int priority { get { return 8; } }
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     public TestDamageEffect(int damagePerTurn, int numTurns)
     {
@@ -20,6 +22,7 @@ public class TestDamageEffect : Effect
     /*public override void OnFirstConnection() {}*/
 
     //Called at the start of the global turn sequence
+    [Priority(6)]
     public override void OnTurnStartLocal() 
     {
         target.TakeDamage(damagePerTurn, DamageType.PIERCING); //Ah yes, potion of piercing damage

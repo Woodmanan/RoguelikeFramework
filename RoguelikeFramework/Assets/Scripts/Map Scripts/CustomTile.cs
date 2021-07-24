@@ -60,6 +60,7 @@ public class CustomTile : MonoBehaviour
         itemVis = GetComponent<ItemVisiblity>();
         
         RebuildGraphics();
+        this.enabled = false;
     }
 
     // Update is called once per frame
@@ -83,10 +84,10 @@ public class CustomTile : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (dirty)
+        /*if (dirty)
         {
             RebuildGraphics();
-        }
+        }*/
     }
 
     public void ClearMonster()
@@ -123,6 +124,14 @@ public class CustomTile : MonoBehaviour
     public void StopHighlight()
     {
         RebuildGraphics();
+    }
+
+    public void RebuildIfDirty()
+    {
+        if (dirty)
+        {
+            RebuildGraphics();
+        }
     }
 
     private void RebuildGraphics()

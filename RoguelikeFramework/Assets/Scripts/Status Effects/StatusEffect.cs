@@ -6,6 +6,10 @@ using System;
 [Serializable]
 public class StatusEffect
 {
-    [SerializeField] int typeVal;
     public Effect heldEffect; //Your scriptable object goes here!
+
+    public Effect Instantiate()
+    {
+        return Effect.Instantiate(heldEffect);
+    }
 }

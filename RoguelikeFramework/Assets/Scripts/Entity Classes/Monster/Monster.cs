@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System;
 using UnityEngine;
 using System.Text.RegularExpressions; //Oh god oh fuck
+using System.Linq;
 
 
 
@@ -33,25 +34,24 @@ public class Monster : MonoBehaviour
     [HideInInspector] public Coroutine turnRoutine;
 
     //Empty Events
-    public event Action OnTurnStartGlobal; //Filled
-    public event Action OnTurnEndGlobal; //Filled
-    public event Action OnTurnStartLocal; //Filled
-    public event Action OnTurnEndLocal; //Filled
-    public event Action OnMove; //Filled out!
-    public event Action OnFullyHealed; // Filled out!
-    public event Action OnDeath; //Filled
+    public OrderedEvent OnTurnStartGlobal = new OrderedEvent(); //Filled
+    public OrderedEvent OnTurnEndGlobal = new OrderedEvent(); //Filled
+    public OrderedEvent OnTurnStartLocal = new OrderedEvent(); //Filled
+    public OrderedEvent OnTurnEndLocal = new OrderedEvent(); //Filled
+    public OrderedEvent OnMove = new OrderedEvent(); //Filled out!
+    public OrderedEvent OnFullyHealed = new OrderedEvent(); // Filled out!
+    public OrderedEvent OnDeath = new OrderedEvent(); //Filled
 
     //Special statblock event
-    public event ActionRef<StatBlock> RegenerateStats; //TODO: Review when this should happen? Lots of weird problems with this one
+    public OrderedEvent<StatBlock> RegenerateStats = new OrderedEvent<StatBlock>(); //TODO: Review when this should happen? Lots of weird problems with this one
 
     //EntityEvent Events
-    public event ActionRef<int> OnEnergyGained; //Filled out!
-    public event ActionRef<int, int> OnAttacked; //Filled out, TODO: Rework this
-    public event ActionRef<int, DamageType> OnTakeDamage;
-    public event ActionRef<int> OnHealing; //Filled!
-    public event ActionRef<Effect[]> OnApplyStatusEffects; //Filled!
+    public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>(); //Filled out!
+    public OrderedEvent<int, int> OnAttacked = new OrderedEvent<int, int>(); //Filled out, TODO: Rework this
+    public OrderedEvent<int, DamageType> OnTakeDamage = new OrderedEvent<int, DamageType>();
+    public OrderedEvent<int> OnHealing = new OrderedEvent<int>(); //Filled!
+    public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>(); //Filled!
     
-
 
     public List<Effect> effects;
     public Inventory inventory;
@@ -268,7 +268,6 @@ public class Monster : MonoBehaviour
     }
 
 
-
     public void AddEffect(params Effect[] effectsToAdd)
     {
         OnApplyStatusEffects?.Invoke(ref effectsToAdd);
@@ -278,6 +277,13 @@ public class Monster : MonoBehaviour
             e.Connect(this);
             effects.Add(e);
         }
+    }
+
+    //Takes in status effects (uninstantiated by default) and adds them to the effects list.
+    public void AddEffect(params StatusEffect[] effectsToAdd)
+    {
+        Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
+        AddEffect(instEffects);
     }
 
     //TODO: Add cost of moving from on spot to another

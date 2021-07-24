@@ -171,4 +171,4 @@ MonoBehaviour:
   effects:
   - percentChance: 100
     appliedEffects:
-    - {fileID: 11400000, guid: 366bad57488bb8849819b21d122c37fe, type: 2}
+    - heldEffect: {fileID: 11400000, guid: ca2cad5f843ab6741b425c3760faa2f5, type: 2}

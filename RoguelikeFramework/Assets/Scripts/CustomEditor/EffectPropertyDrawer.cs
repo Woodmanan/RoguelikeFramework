@@ -27,27 +27,28 @@ public class EffectPropertyDrawer : PropertyDrawer
         List<Type> types = GetAllEffectTypes();
         List<String> names = types.Select( x => x.Name ).ToList();
 
-        //Create the bounding boxes for our new piece. Not super important, the start positions are the main part that we need. xRect is unused if 'heldEffect' is null.
+        //Create the bounding boxes for our new pieces. Not super important, the start positions are the main part that we need. xRect is unused if 'heldEffect' is null.
         var effectRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
         var cRect = new Rect(position.x + position.width - (2 * BTN_WIDTH) - BTN_GAP, position.y, BTN_WIDTH, EditorGUIUtility.singleLineHeight);
         var xRect = new Rect(position.x + position.width - (BTN_WIDTH), position.y, BTN_WIDTH, EditorGUIUtility.singleLineHeight);
-        
+
 
         //Get our serialized properties
-        SerializedProperty typeVal = property.FindPropertyRelative("typeVal");
         SerializedProperty effect = property.FindPropertyRelative("heldEffect");
+
+        int typeVal = -1;
 
         //Handle the deletion of a property / New property creation!
         if (effect.objectReferenceValue == null)
         {
-            typeVal.intValue = -1;
+            typeVal = -1;
         }
         else
         {
             //Confirm that we have the right type
-            typeVal.intValue = types.IndexOf(effect.objectReferenceValue.GetType());
+            typeVal= types.IndexOf(effect.objectReferenceValue.GetType());
 
-            if (typeVal.intValue == -1)
+            if (typeVal == -1)
             {
                 Debug.LogError("Didn't find it!");
             }
@@ -58,9 +59,9 @@ public class EffectPropertyDrawer : PropertyDrawer
             if (GUI.Button(cRect, "C"))
             {
                 //Create a new asset of the chosen type
-                var newSO = ScriptableObject.CreateInstance(types[typeVal.intValue]);
+                var newSO = ScriptableObject.CreateInstance(types[typeVal]);
                 DateTime time = DateTime.Now;
-                AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal.intValue]}-{time.ToString("MMddyyHHmmttff")}.asset");
+                AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("MMddyyHHmmttff")}.asset");
                 AssetDatabase.SaveAssets();
 
                 //Refresh the editor values, in case the dropdown gets shown this frame
@@ -78,12 +79,12 @@ public class EffectPropertyDrawer : PropertyDrawer
         }
 
         //Set up the dropdown
-        int selection = EditorGUI.Popup(effectRect, property.displayName, typeVal.intValue, names.ToArray());
+        int selection = EditorGUI.Popup(effectRect, property.displayName, typeVal, names.ToArray());
 
         //Did we switch types? Only happens when the user clicks a new option on the dropdown
-        if (selection != typeVal.intValue)
+        if (selection != typeVal)
         {
-            typeVal.intValue = selection;
+            typeVal = selection;
 
             //We want something new, so clear the old value if it exists.
             if (effect.objectReferenceValue != null)
@@ -94,10 +95,10 @@ public class EffectPropertyDrawer : PropertyDrawer
             }
 
             //Create a new asset of the chosen type
-            var newSO = ScriptableObject.CreateInstance(types[typeVal.intValue]);
+            var newSO = ScriptableObject.CreateInstance(types[typeVal]);
             DateTime time = DateTime.Now;
             //Doesn't account for decade. Surely this won't bite me in the ass. Also, no way someone makes two of these in 100th of a second, right?
-            AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal.intValue]}-{time.ToString("MMddyyHHmmttff")}.asset"); 
+            AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("MMddyyHHmmttff")}.asset"); 
             AssetDatabase.SaveAssets();
 
             //Refresh the editor values, in case the dropdown gets shown this frame

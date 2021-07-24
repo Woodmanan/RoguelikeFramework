@@ -104,6 +104,9 @@ MonoBehaviour:
   held: 0
   name: Item Test 1
   plural: Item Tests 1
+  CanEquip: 0
+  CanApply: 0
+  CanTarget: 0
 --- !u!114 &5229365292470599467
 MonoBehaviour:
   m_ObjectHideFlags: 0

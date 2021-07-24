@@ -38,7 +38,7 @@ public class Player : Monster
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override IEnumerator LocalTurn()

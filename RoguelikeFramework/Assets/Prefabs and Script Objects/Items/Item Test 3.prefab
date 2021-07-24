@@ -135,4 +135,7 @@ MonoBehaviour:
       dice: 1
       evaluateEveryRoll: 0
     type: 2
-  effects: []
+  effects:
+  - percentChance: 0
+    appliedEffects:
+    - heldEffect: {fileID: 11400000, guid: be11c09bacf623a4f8115dfccf76adb3, type: 2}

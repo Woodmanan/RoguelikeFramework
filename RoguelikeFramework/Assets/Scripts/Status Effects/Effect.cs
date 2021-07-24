@@ -17,6 +17,8 @@ public class Effect : ScriptableObject
     [HideInInspector] public Monster target;
     [HideInInspector] public bool ReadyToDelete = false;
 
+    public virtual int priority { get { return 5; } }
+
     /* Connect:
      * The method that links this effect to a given monster, and hooks up its event calls.
      *
@@ -37,147 +39,71 @@ public class Effect : ScriptableObject
         Type current = this.GetType();
         Type defaultType = typeof(Effect);
 
-        if (current.GetMethod("RegenerateStats").DeclaringType != defaultType)
-        {
-            m.RegenerateStats += RegenerateStats;
-        }
+        m.RegenerateStats       .AddMethod(RegenerateStats, defaultType, priority);
 
-        if (current.GetMethod("OnTurnStartGlobal").DeclaringType != defaultType)
-        {
-            m.OnTurnStartGlobal += OnTurnStartGlobal;
-        }
+        m.OnTurnStartGlobal     .AddMethod(OnTurnStartGlobal, defaultType, priority);
 
-        if (current.GetMethod("OnTurnEndGlobal").DeclaringType != defaultType)
-        {
-            m.OnTurnEndGlobal += OnTurnEndGlobal;
-        }
+        m.OnTurnEndGlobal       .AddMethod(OnTurnEndGlobal, defaultType, priority);
 
-        if (current.GetMethod("OnTurnStartLocal").DeclaringType != defaultType)
-        {
-            m.OnTurnStartLocal += OnTurnStartLocal;
-        }
+        m.OnTurnStartLocal      .AddMethod(OnTurnStartLocal, defaultType, priority);
 
-        if (current.GetMethod("OnTurnEndLocal").DeclaringType != defaultType)
-        {
-            m.OnTurnEndLocal += OnTurnEndLocal;
-        }
+        m.OnTurnEndLocal        .AddMethod(OnTurnEndLocal, defaultType, priority);
 
-        if (current.GetMethod("OnMove").DeclaringType != defaultType)
-        {
-            m.OnMove += OnMove;
-        }
+        m.OnMove                .AddMethod(OnMove, defaultType, priority);
 
-        if (current.GetMethod("OnFullyHealed").DeclaringType != defaultType)
-        {
-            m.OnFullyHealed += OnFullyHealed;
-        }
-        
-        if (current.GetMethod("OnDeath").DeclaringType != defaultType)
-        {
-            m.OnDeath += OnDeath;
-        }
+        m.OnFullyHealed         .AddMethod(OnFullyHealed, defaultType, priority);
 
-        if (current.GetMethod("OnEnergyGained").DeclaringType != defaultType)
-        {
-            m.OnEnergyGained += OnEnergyGained;
-        }
+        m.OnDeath               .AddMethod(OnDeath, defaultType, priority);
 
-        if (current.GetMethod("OnAttacked").DeclaringType != defaultType)
-        {
-            m.OnAttacked += OnAttacked;
-        }
+        m.OnEnergyGained        .AddMethod(OnEnergyGained, defaultType, priority);
 
-        if (current.GetMethod("OnTakeDamage").DeclaringType != defaultType)
-        {
-            m.OnTakeDamage += OnTakeDamage;
-        }
+        m.OnAttacked            .AddMethod(OnAttacked, defaultType, priority);
 
-        if (current.GetMethod("OnHealing").DeclaringType != defaultType)
-        {
-            m.OnHealing += OnHealing;
-        }
+        m.OnTakeDamage          .AddMethod(OnTakeDamage, defaultType, priority);
 
-        if (current.GetMethod("OnApplyStatusEffects").DeclaringType != defaultType)
-        {
-            m.OnApplyStatusEffects += OnApplyStatusEffects;
-        }
+        m.OnHealing             .AddMethod(OnHealing, defaultType, priority);
+
+        m.OnApplyStatusEffects  .AddMethod(OnApplyStatusEffects, default, priority);
 
         OnConnection();
     }
 
     public void Disconnect()
     {
+        Debug.Log("Disconnecting!");
         OnDisconnection();
         Monster m = target;
         Type current = this.GetType();
         Type defaultType = typeof(Effect);
 
-        if (current.GetMethod("RegenerateStats").DeclaringType != defaultType)
-        {
-            m.RegenerateStats -= RegenerateStats;
-        }
-
-        if (current.GetMethod("OnTurnStartGlobal").DeclaringType != defaultType)
-        {
-            m.OnTurnStartGlobal -= OnTurnStartGlobal;
-        }
-
-        if (current.GetMethod("OnTurnEndGlobal").DeclaringType != defaultType)
-        {
-            m.OnTurnEndGlobal -= OnTurnEndGlobal;
-        }
-
-        if (current.GetMethod("OnTurnStartLocal").DeclaringType != defaultType)
-        {
-            m.OnTurnStartLocal -= OnTurnStartLocal;
-        }
-
-        if (current.GetMethod("OnTurnEndLocal").DeclaringType != defaultType)
-        {
-            m.OnTurnEndLocal -= OnTurnEndLocal;
-        }
-
-        if (current.GetMethod("OnMove").DeclaringType != defaultType)
-        {
-            m.OnMove -= OnMove;
-        }
-
-        if (current.GetMethod("OnFullyHealed").DeclaringType != defaultType)
-        {
-            m.OnFullyHealed -= OnFullyHealed;
-        }
+        m.RegenerateStats.RemoveListener(RegenerateStats);
         
-        if (current.GetMethod("OnDeath").DeclaringType != defaultType)
-        {
-            m.OnDeath -= OnDeath;
-        }
+        m.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
 
-        if (current.GetMethod("OnEnergyGained").DeclaringType != defaultType)
-        {
-            m.OnEnergyGained -= OnEnergyGained;
-        }
+        m.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
-        if (current.GetMethod("OnAttacked").DeclaringType != defaultType)
-        {
-            m.OnAttacked -= OnAttacked;
-        }
+        m.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
 
-        if (current.GetMethod("OnTakeDamage").DeclaringType != defaultType)
-        {
-            m.OnTakeDamage -= OnTakeDamage;
-        }
+        m.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
 
-        if (current.GetMethod("OnHealing").DeclaringType != defaultType)
-        {
-            m.OnHealing -= OnHealing;
-        }
+        m.OnMove.RemoveListener(OnMove);
 
-        if (current.GetMethod("OnApplyStatusEffects").DeclaringType != defaultType)
-        {
-            m.OnApplyStatusEffects -= OnApplyStatusEffects;
-        }
+        m.OnFullyHealed.RemoveListener(OnFullyHealed);
+
+        m.OnDeath.RemoveListener(OnDeath);
+
+        m.OnEnergyGained.RemoveListener(OnEnergyGained);
+
+        m.OnAttacked.RemoveListener(OnAttacked);
+
+        m.OnTakeDamage.RemoveListener(OnTakeDamage);
+
+        m.OnHealing.RemoveListener(OnHealing);
+
+        m.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
 
         ReadyToDelete = true;
+        
     }
 
     public virtual void OnConnection() {}

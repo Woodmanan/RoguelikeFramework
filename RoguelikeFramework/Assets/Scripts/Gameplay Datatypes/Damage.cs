@@ -15,7 +15,7 @@ public struct DamagePairing
 public struct ChanceEffect
 {
     public float percentChance;
-    public List<Effect> appliedEffects;
+    public List<StatusEffect> appliedEffects;
 
     public bool evaluate()
     {

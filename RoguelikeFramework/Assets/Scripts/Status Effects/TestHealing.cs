@@ -8,6 +8,11 @@ public class TestHealing : Effect
     [SerializeField] int healthPerTurn;
     [SerializeField] int numTurns;
 
+    public override int priority
+    {
+        get { return 5; }
+    }
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     public TestHealing(int healthPerTurn, int numTurns)
     {
@@ -26,6 +31,7 @@ public class TestHealing : Effect
     /*public override void OnTurnEndGlobal() {}*/
 
     //Called at the start of a monster's turn
+    [Priority(4)]
     public override void OnTurnStartLocal()
     {
         target.Heal(healthPerTurn);
@@ -50,7 +56,7 @@ public class TestHealing : Effect
 
     //Called when a monster is looking to recheck the stats, good for adding in variable stats mid-effect
     //it gains from effects and items
-    /*public override void RegenerateStats(ref StatBlock stats) {}*/
+    public override void RegenerateStats(ref StatBlock stats) {}
 
     //Called whenever a monster gains energy
     /*public override void OnEnergyGained(ref int energy) {}*/
