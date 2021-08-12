@@ -279,7 +279,7 @@ public class LOS : MonoBehaviour
         }
     }
 
-    public static void GeneratePlayerLOS(Vector2Int location, int radius)
+    public static LOSData GeneratePlayerLOS(Vector2Int location, int radius)
     {
         if (lastCall != null)
         {
@@ -288,6 +288,7 @@ public class LOS : MonoBehaviour
 
         lastCall = LosAt(location, radius);
         lastCall.Imprint();
+        return lastCall;
     }
 
 

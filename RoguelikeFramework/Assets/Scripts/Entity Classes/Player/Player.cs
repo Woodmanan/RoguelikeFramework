@@ -6,8 +6,6 @@ using System.Linq;
 
 public class Player : Monster
 {
-    [SerializeField] List<StatusEffect> effect;
-
     //UI Stuff!
     [SerializeField] UIController uiControls;
 
@@ -41,7 +39,7 @@ public class Player : Monster
 
     }
 
-    public override IEnumerator LocalTurn()
+    public override IEnumerator DetermineAction()
     {
         if (InputTracking.HasNextAction())
         {
@@ -50,31 +48,33 @@ public class Player : Monster
             {
                 //Handle Movement code
                 case PlayerAction.MOVE_UP:
-                    AttemptMovement(Direction.NORTH);
+                    SetAction(new MoveAction(location + Vector2Int.up));
                     break;
                 case PlayerAction.MOVE_DOWN:
-                    AttemptMovement(Direction.SOUTH);
+                    SetAction(new MoveAction(location + Vector2Int.down));
                     break;
                 case PlayerAction.MOVE_LEFT:
-                    AttemptMovement(Direction.WEST);
+                    SetAction(new MoveAction(location + Vector2Int.left));
                     break;
                 case PlayerAction.MOVE_RIGHT:
-                    AttemptMovement(Direction.EAST);
+                    SetAction(new MoveAction(location + Vector2Int.right));
                     break;
                 case PlayerAction.MOVE_UP_LEFT:
-                    AttemptMovement(Direction.NORTH_WEST);
+                    SetAction(new MoveAction(location + new Vector2Int(-1, 1)));
                     break;
                 case PlayerAction.MOVE_UP_RIGHT:
-                    AttemptMovement(Direction.NORTH_EAST);
+                    SetAction(new MoveAction(location + new Vector2Int(1, 1)));
                     break;
                 case PlayerAction.MOVE_DOWN_LEFT:
-                    AttemptMovement(Direction.SOUTH_WEST);
+                    SetAction(new MoveAction(location + new Vector2Int(-1, -1)));
                     break;
                 case PlayerAction.MOVE_DOWN_RIGHT:
-                    AttemptMovement(Direction.SOUTH_EAST);
+                    SetAction(new MoveAction(location + new Vector2Int(1, -1)));
+                    break;
+                case PlayerAction.WAIT:
+                    SetAction(new WaitAction());
                     break;
                 case PlayerAction.DROP_ITEMS:
-                    //TODO: Open a dialogue box for dropping
                     Debug.Log("Dropping items!");
                     uiControls.OpenInventoryDrop();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
@@ -140,10 +140,12 @@ public class Player : Monster
                     break;
             }
         }
+    }
 
-        EndTurn();
-
-        LOS.GeneratePlayerLOS(location, visionRadius);
+    //Special case, because it affects the world around it through the player's view.
+    public override void UpdateLOS()
+    {
+        view = LOS.GeneratePlayerLOS(location, visionRadius);
     }
 
     //Item pickup, but with a little logic for determining if a UI needs to get involved.
@@ -156,8 +158,9 @@ public class Player : Monster
             case 0:
                 return; //Exit early
             case 1:
-                //TODO: Come back and look at this again, may be some weird edge cases
-                inventory.PickUpAll(); //Not the smartest code, but should handle any error cases okay
+                //Use the new pickup action system to just grab whatever is there.
+                //If this breaks, the problem now lies in that file, instead of cluttering Player.cs
+                SetAction(new PickupAction(0));
                 break;
             default:
                 //Open dialouge box
@@ -166,37 +169,6 @@ public class Player : Monster
 
         }
     }
-
-    /*
-     * Attempt to move in a given direction. Does checks for if a wall is passable
-     * and if a monster is standing there. If so, performs the necessary actions
-     * or logs the messages.
-     */ 
-    private void AttemptMovement(Direction dir)
-    {
-        Vector2Int newLocation = GetUnitStep(dir);
-        CustomTile tile = Map.singleton.GetTile(newLocation.x, newLocation.y);
-        
-        //Does tile have a monster? (Allows edge case for monster in wall)
-        Monster target = tile.currentlyStanding;
-        if (target)
-        {
-            //TODO: Actually attack monsters
-            Attack(target);
-            return;
-        }
-        
-        //Is tile passable?
-        if (tile.BlocksMovement())
-        {
-            Logger.Log($"You bumped into a {tile.name}");
-            return;
-        }
-        
-        MoveUnit(dir);
-        LOS.GeneratePlayerLOS(location, visionRadius);
-    }
-    
     
 
 

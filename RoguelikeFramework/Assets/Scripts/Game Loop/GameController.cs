@@ -43,37 +43,22 @@ public class GameController : MonoBehaviour
             turn++;
             CallTurnStartGlobal();
 
+            //Player turn sequence
             player.AddEnergy(energyPerTurn);
             while (player.energy > 0)
             {
                 //Set up local turn
                 player.StartTurn();
-                float currentEnergy = player.energy;
-
-                //Hold until an action is taken
-                while (player.energy == currentEnergy)
+                
+                //Run the actual turn itself
+                IEnumerator turn = player.LocalTurn();
+                while (player.energy > 0 && turn.MoveNext())
                 {
-                    player.TakeTurn();
-
-                    //Freeze for player turn to finis, should that be necessary
-                    if (player.turnRoutine != null)
-                    {
-                        yield return player.turnRoutine;
-                    }
-
-                    if (player.energy == currentEnergy)
-                    {
-                        yield return null;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    yield return turn.Current;
                 }
 
+                //Turn is ended!
                 player.EndTurn();
-
-                yield return null;
             }
 
 
@@ -90,19 +75,20 @@ public class GameController : MonoBehaviour
                 }
 
                 Monster m = monsters[i];
+
                 m.AddEnergy(energyPerTurn);
                 while (m.energy > 0)
                 {
-                    m.TakeTurn();
-
-                    //Wait for monsters who need more frames for their turn
-                    if (m.turnRoutine != null)
+                    //Run the actual turn itself
+                    IEnumerator turn = m.LocalTurn();
+                    while (m.energy > 0 && turn.MoveNext())
                     {
                         watch.Stop();
-                        yield return m.turnRoutine;
+                        yield return turn.Current;
                         watch.Restart();
                     }
 
+                    //Turn is ended!
                     m.EndTurn();
                 }
             }

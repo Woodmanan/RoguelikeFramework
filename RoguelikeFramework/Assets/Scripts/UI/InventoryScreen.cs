@@ -173,30 +173,24 @@ public class InventoryScreen : RogueUIPanel
             case ItemAction.DROP:
                 if (action == PlayerAction.ACCEPT)
                 {
-                    //Move the selected items!
+                    //Splitting this up because of the new action system.
+                    //TODO: Refactor this bit better
+
+                    List<int> indices = new List<int>();
                     for (int i = 0; i < selected.Length; i++)
                     {
-                        if (selected[i])
-                        {
-                            switch (queuedAction)
-                            {
-                                case ItemAction.DROP:
-                                    examinedInventory.Drop(i);
-                                    break;
-                                case ItemAction.PICK_UP:
-                                    Player.player.inventory.PickUp(i);
-                                    break;
-                                default:
-                                    Debug.LogError("How did you even do this!? The case inside of a nested switch does not match the original case.");
-                                    break;
-                            }
-                        }
+                        if (selected[i]) { indices.Add(i); }
                     }
-
-                    //Sort the floor up, so that items make sense again
-                    examinedInventory.GetFloor().Collapse();
-
-                    //Get us back to the main screen!
+                    GameAction act;
+                    if (queuedAction == ItemAction.DROP)
+                    {
+                        act = new DropAction(indices);
+                    }
+                    else
+                    {
+                        act = new PickupAction(indices);
+                    }
+                    Player.player.SetAction(act);
                     ExitAllWindows();
                 }
                 else

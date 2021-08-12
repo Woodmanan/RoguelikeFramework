@@ -31,8 +31,6 @@ public class Monster : MonoBehaviour
 
     private static readonly float monsterZPosition = -5f;
 
-    [HideInInspector] public Coroutine turnRoutine;
-
     //Empty Events
     public OrderedEvent OnTurnStartGlobal = new OrderedEvent(); //Filled
     public OrderedEvent OnTurnEndGlobal = new OrderedEvent(); //Filled
@@ -51,11 +49,14 @@ public class Monster : MonoBehaviour
     public OrderedEvent<int, DamageType> OnTakeDamage = new OrderedEvent<int, DamageType>();
     public OrderedEvent<int> OnHealing = new OrderedEvent<int>(); //Filled!
     public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>(); //Filled!
-    
+
+    [HideInInspector] public LOSData view;
 
     public List<Effect> effects;
     public Inventory inventory;
     public Equipment equipment;
+
+    public GameAction currentAction;
     
     // Start is called before the first frame update
     public virtual void Start()
@@ -86,7 +87,7 @@ public class Monster : MonoBehaviour
 
     public void Heal(int healthReturned)
     {
-        OnHealing?.Invoke(ref healthReturned);
+        OnHealing.Invoke(ref healthReturned);
 
         if (healthReturned > 0) //Negative health healing is currently just ignored, for clarity's sake
         {
@@ -95,13 +96,13 @@ public class Monster : MonoBehaviour
         if (health >= stats.maxHealth)
         {
             health = stats.maxHealth;
-            OnFullyHealed?.Invoke();
+            OnFullyHealed.Invoke();
         }
     }
 
     public bool Attack(int pierce, int accuracy)
     {
-        OnAttacked?.Invoke(ref pierce, ref accuracy);
+        OnAttacked.Invoke(ref pierce, ref accuracy);
 
         if (accuracy < stats.ev)
         {
@@ -124,7 +125,7 @@ public class Monster : MonoBehaviour
 
     public void TakeDamage(int damage, DamageType type, string message = "{name} take%s{|s} {damage} damage")
     {
-        OnTakeDamage?.Invoke(ref damage, ref type);
+        OnTakeDamage.Invoke(ref damage, ref type);
         health -= damage;
 
         //Loggingstuff
@@ -133,14 +134,12 @@ public class Monster : MonoBehaviour
 
         if (health <= 0)
         {
-            OnDeath?.Invoke();
+            OnDeath.Invoke();
             if (health <= 0) //Check done for respawn mechanics to take effect
             {
                 Die();
             }
         }
-
-
     }
 
     public virtual void Die()
@@ -219,24 +218,24 @@ public class Monster : MonoBehaviour
     
     public void AddEnergy(int energy)
     {
-        OnEnergyGained?.Invoke(ref energy);
+        OnEnergyGained.Invoke(ref energy);
         this.energy += energy;
+    }
+
+    public virtual void UpdateLOS()
+    {
+        this.view = LOS.LosAt(location, visionRadius);
     }
 
     public void StartTurn()
     {
         CallRegenerateStats();
-        OnTurnStartLocal?.Invoke();
-    }
-
-    public void TakeTurn()
-    {
-        turnRoutine = StartCoroutine(LocalTurn());
+        OnTurnStartLocal.Invoke();
     }
 
     public void EndTurn()
     {
-        OnTurnEndLocal?.Invoke();
+        OnTurnEndLocal.Invoke();
         for (int i = effects.Count - 1; i >= 0; i--)
         {
             if (effects[i].ReadyToDelete)
@@ -250,27 +249,76 @@ public class Monster : MonoBehaviour
     public void CallRegenerateStats()
     {
         stats = new StatBlock() + baseStats;
-        RegenerateStats?.Invoke(ref stats);
+        RegenerateStats.Invoke(ref stats);
     }
 
-    //Takes the local turn
-    public virtual IEnumerator LocalTurn()
+    public void SetAction(GameAction act)
     {
-        energy -= 100;
+        if (currentAction != null)
+        {
+            Debug.LogError($"{this.name} had an action set, but it already had an action. Should this be allowed?", this);
+        }
+        currentAction = act;
+        currentAction.Setup(this);
+    }
 
-        //Here so the compiler doesn't complain
+    public virtual IEnumerator DetermineAction()
+    {
+        SetAction(new WaitAction());
+
         if (false)
         {
             yield return null;
         }
+    }
 
-        EndTurn();
+    //Takes the local turn
+    public IEnumerator LocalTurn()
+    {
+        while (energy > 0)
+        {
+            if (currentAction == null)
+            {
+                IEnumerator actionDecision = DetermineAction();
+                while (actionDecision.MoveNext())
+                {
+                    yield return actionDecision.Current;
+                }
+
+                #if UNITY_EDITOR
+                //Expensive and unnessecary check, done in Editor only
+                if (currentAction == null && this != Player.player)
+                {
+                    Debug.LogError("A monster returned a null action. Please force all monster AI systems to always return an action.", this);
+                    this.energy -= 10; //Breaks the game, but prevents our coroutine from running forever
+                }
+                #endif
+
+                if (currentAction == null)
+                {
+                    yield return null;
+                    continue;
+                }
+            }
+
+
+            //Short circuits early!
+            while (energy > 0 && currentAction.action.MoveNext())
+            {
+                yield return currentAction.action.Current;
+            }
+
+            if (currentAction.finished)
+            {
+                currentAction = null;
+            }
+        }
     }
 
 
     public void AddEffect(params Effect[] effectsToAdd)
     {
-        OnApplyStatusEffects?.Invoke(ref effectsToAdd);
+        OnApplyStatusEffects.Invoke(ref effectsToAdd);
         for (int i = 0; i < effectsToAdd.Length; i++)
         {
             Effect e = effectsToAdd[i];
@@ -295,83 +343,16 @@ public class Monster : MonoBehaviour
         Map.singleton.GetTile(location).currentlyStanding = this;
     }
 
-    public void MoveUnit(Direction dir)
-    {
-        switch (dir)
-        {
-            case Direction.NORTH:
-                MoveStep(Vector2Int.up);
-                break;
-            case Direction.SOUTH:
-                MoveStep(Vector2Int.down);
-                break;
-            case Direction.EAST:
-                MoveStep(Vector2Int.right);
-                break;
-            case Direction.WEST:
-                MoveStep(Vector2Int.left);
-                break;
-            case Direction.NORTH_EAST:
-                MoveStep(new Vector2Int(1, 1));
-                break;
-            case Direction.NORTH_WEST:
-                MoveStep(new Vector2Int(-1, 1));
-                break;
-            case Direction.SOUTH_EAST:
-                MoveStep(new Vector2Int(1, -1));
-                break;
-            case Direction.SOUTH_WEST:
-                MoveStep(new Vector2Int(-1, -1));
-                break;
-        }
-    }
-
-    public Vector2Int GetUnitStep(Direction dir)
-    {
-        switch (dir)
-        {
-            case Direction.NORTH:
-                return location + Vector2Int.up;
-            case Direction.SOUTH:
-                return location + Vector2Int.down;
-            case Direction.EAST:
-                return location + Vector2Int.right;
-            case Direction.WEST:
-                return location + Vector2Int.left;
-            case Direction.NORTH_EAST:
-                return location + new Vector2Int(1, 1);
-            case Direction.NORTH_WEST:
-                return location + new Vector2Int(-1, 1);
-            case Direction.SOUTH_EAST:
-                return location + new Vector2Int(1, -1);
-            case Direction.SOUTH_WEST:
-                return location + new Vector2Int(-1, -1);
-            default:
-                Debug.LogError("Player attempted to get direction with no actual direction");
-                return location;
-        }
-    }
-
-    private void MoveStep(Vector2Int offset)
-    {
-        Map.singleton.GetTile(location).ClearMonster();
-        location += offset;
-        transform.position = new Vector3(location.x, location.y, monsterZPosition);
-        energy -= (energyPerStep * Map.singleton.MovementCostAt(location));
-        Map.singleton.GetTile(location).SetMonster(this);
-        OnMove?.Invoke();
-    }
-
     //Function to activate event call of Global turn start
     public void OnTurnStartGlobalCall()
     {
-        OnTurnStartGlobal?.Invoke();
+        OnTurnStartGlobal.Invoke();
     }
 
     //Same purpose as above
     public void OnTurnEndGlobalCall()
     {
-        OnTurnEndGlobal?.Invoke();
+        OnTurnEndGlobal.Invoke();
     }
 
 

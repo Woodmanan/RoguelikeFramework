@@ -42,6 +42,7 @@ public enum PlayerAction
     MOVE_UP_RIGHT,
     MOVE_DOWN_LEFT,
     MOVE_DOWN_RIGHT,
+    WAIT,
     VIEW_INVENTORY,
     PICK_UP_ITEMS,
     DROP_ITEMS,
