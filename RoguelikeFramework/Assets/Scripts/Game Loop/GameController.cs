@@ -96,7 +96,10 @@ public class GameController : MonoBehaviour
             CallTurnEndGlobal();
 
             //Finished calls for monster update, take turns for the players
-            yield return null;
+            //Leaving this call for posterity in case we ever need it, but I think everything is now handled much better
+            //by the existing system. Taking this out improves our speed for when the player takes extremely long actions
+            //like resting!
+            //yield return null;
         }
     }
 

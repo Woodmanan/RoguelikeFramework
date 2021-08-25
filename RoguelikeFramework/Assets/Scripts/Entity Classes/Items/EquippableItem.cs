@@ -11,6 +11,7 @@ public class EquippableItem : MonoBehaviour
     public List<StatusEffect> addedEffects;
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
+    public bool removable = true;
 
     Monster equippedTo;
     int equippedIndex; //Primary index

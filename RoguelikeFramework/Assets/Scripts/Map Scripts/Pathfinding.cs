@@ -51,7 +51,7 @@ public class Path
         return locations.GetEnumerator();
     }
 
-    
+
 
     public Path(Stack<Vector2Int> locations, float cost)
     {
@@ -98,10 +98,10 @@ public static class Pathfinding
     private static Vector2Int source;
     private static Vector2Int goal;
 
-    
+
     //Max nodes should be checked; may not be enough. Currently supports up to 200x200
     private static FastPriorityQueue<PathTile> frontier = new FastPriorityQueue<PathTile>(40000);
-    
+
     public class PathTile : FastPriorityQueueNode
     {
         public Vector2Int loc;
@@ -122,7 +122,7 @@ public static class Pathfinding
         {
             return new Path(new Stack<Vector2Int>(), 0.0f);
         }
-        
+
         //Cleared to move forward, do expensive reset op.
         ClearSeenFlags();
         frontier.Clear();
@@ -146,7 +146,7 @@ public static class Pathfinding
             else
             {
                 PathTile current = frontier.Dequeue();
-                
+
                 //Have we already added this tile?
                 if (alreadyChecked[current.loc.x, current.loc.y])
                 {
@@ -176,7 +176,7 @@ public static class Pathfinding
                                 {
                                     continue;
                                 }
-                        
+
                                 //Create corner calculation, skip if Manhattan
                                 bool isCorner = (i * j) != 0;
                                 if (Map.space == MapSpace.Manhattan && isCorner)
@@ -185,7 +185,7 @@ public static class Pathfinding
                                 }
 
 
-                                Vector2Int newCheck = searching + new Vector2Int(i,j);
+                                Vector2Int newCheck = searching + new Vector2Int(i, j);
 
                                 if (newCheck.x < 0 || newCheck.x >= width || newCheck.y < 0 || newCheck.y >= height)
                                 {
@@ -194,7 +194,7 @@ public static class Pathfinding
 
                                 float newCost = costMap[newCheck.x, newCheck.y];
                                 float newRank = Heuristic(newCheck) * ReturnHeuristic(newCheck);
-                                
+
                                 if (alreadyChecked[newCheck.x, newCheck.y] && (newCost < cost))
                                 {
                                     if ((newCost < cost))
@@ -233,7 +233,7 @@ public static class Pathfinding
                         {
                             continue;
                         }
-                        
+
                         //Create corner calculation, skip if Manhattan
                         bool isCorner = (i * j) != 0;
                         if (Map.space == MapSpace.Manhattan && isCorner)
@@ -242,7 +242,7 @@ public static class Pathfinding
                         }
 
                         Vector2Int newLoc = current.loc + new Vector2Int(i, j);
-                        
+
                         if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height || alreadyChecked[newLoc.x, newLoc.y])
                         {
                             continue;
@@ -261,7 +261,7 @@ public static class Pathfinding
                             }
                             continue;
                         }
-                        
+
                         float newCost = 0.0f;
                         float newPriority = 0.0f;
 
@@ -272,8 +272,16 @@ public static class Pathfinding
                         }
                         else
                         {
-                            newCost = current.cost + m.MovementCostAt(newLoc);
-                            newPriority = newCost + Heuristic(newLoc);
+                            if (isCorner)
+                            {
+                                newCost = current.cost + m.MovementCostAt(newLoc) + 0.001f;
+                                newPriority = newCost + Heuristic(newLoc) + 0.001f;
+                            }
+                            else
+                            {
+                                newCost = current.cost + m.MovementCostAt(newLoc);
+                                newPriority = newCost + Heuristic(newLoc);
+                            }
                         }
                         frontier.Enqueue(new PathTile(newLoc, newCost), newPriority);
                     }
@@ -283,7 +291,7 @@ public static class Pathfinding
             }
         }
     }
-    
+
     private static float Heuristic(Vector2Int loc)
     {
         switch (Map.space)
@@ -291,7 +299,7 @@ public static class Pathfinding
             case MapSpace.Manhattan:
                 return Mathf.Abs(loc.x - goal.x) + Mathf.Abs(loc.y - goal.y);
             case MapSpace.Chebyshev:
-                //return Mathf.Max(Mathf.Abs(loc.x - goal.x), Mathf.Abs(loc.y - goal.y));
+            //return Mathf.Max(Mathf.Abs(loc.x - goal.x), Mathf.Abs(loc.y - goal.y));
             case MapSpace.Euclidean:
                 return (loc - goal).magnitude;
         }
@@ -309,7 +317,7 @@ public static class Pathfinding
         Map m = Map.singleton;
         if (width != m.width || height != m.height)
         {
-            alreadyChecked = new bool[m.width,m.height];
+            alreadyChecked = new bool[m.width, m.height];
             costMap = new float[m.width, m.height];
             width = m.width;
             height = m.height;
@@ -323,7 +331,7 @@ public static class Pathfinding
             for (int j = 0; j < height; j++)
             {
                 alreadyChecked[i, j] = false;
-                costMap[i,j] = float.PositiveInfinity;
+                costMap[i, j] = float.PositiveInfinity;
             }
         }
     }
@@ -332,4 +340,28 @@ public static class Pathfinding
     {
         return (position.x >= 0 && position.x < width && position.y >= 0 && position.y < height);
     }
+
+    /*
+    private void OnDrawGizmos()
+    {
+        if (alreadyChecked != null)
+        {
+            for (int i = 0; i < alreadyChecked.GetLength(0); i++)
+            {
+                for (int j = 0; j < alreadyChecked.GetLength(1); j++)
+                {
+                    if (alreadyChecked[i,j])
+                    {
+                        Gizmos.color = Color.white;
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.black;
+                    }
+                    Gizmos.DrawWireCube(new Vector3(i, j, 0), Vector3.one);
+                }
+            }
+        }
+    }*/
+
 }

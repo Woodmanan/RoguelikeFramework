@@ -161,7 +161,7 @@ public class InventoryScreen : RogueUIPanel
                     if (index < examinedInventory.capacity && examinedInventory[index] != null && index >= 0)
                     {
                         //Equip an item!
-                        Player.player.equipment.Equip(index, queuedEquipmentIndex);
+                        Player.player.SetAction(new EquipAction(index, queuedEquipmentIndex));
                         ExitAllWindows();
                         break;
                     }
@@ -257,7 +257,7 @@ public class InventoryScreen : RogueUIPanel
             case ItemAction.EQUIP:
                 //TODO: Do something something different if item is already equipped
                 print($"Attaching item {index} to slot {queuedEquipmentIndex}");
-                Player.player.equipment.Equip(index, queuedEquipmentIndex);
+                Player.player.SetAction(new EquipAction(index, queuedEquipmentIndex));
                 ExitAllWindows(); //After equiping, just exit
                 break;
             case ItemAction.APPLY:

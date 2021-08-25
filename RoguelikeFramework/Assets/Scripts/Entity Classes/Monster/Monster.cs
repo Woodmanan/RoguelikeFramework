@@ -290,7 +290,8 @@ public class Monster : MonoBehaviour
                 if (currentAction == null && this != Player.player)
                 {
                     Debug.LogError("A monster returned a null action. Please force all monster AI systems to always return an action.", this);
-                    this.energy -= 10; //Breaks the game, but prevents our coroutine from running forever
+                    Debug.LogError("This error will NOT be caught in build, so please fix it now.");
+                    this.energy -= 10; //Breaks the game state, but prevents our coroutine from running forever
                 }
                 #endif
 

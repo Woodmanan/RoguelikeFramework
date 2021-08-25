@@ -57,7 +57,12 @@ public class Equipment : MonoBehaviour
         ItemStack item = inventory[itemIndex];
         if (item == null)
         {
-            Debug.LogError("Can't attach null item at {itemIndex}");
+            Debug.LogError($"Can't attach null item at {itemIndex}");
+        }
+
+        if (item.held[0].GetComponent<EquippableItem>().isEquipped)
+        {
+            item.held[0].GetComponent<EquippableItem>().Unequip();
         }
 
         //Confirm that slot is open and primary
@@ -68,16 +73,28 @@ public class Equipment : MonoBehaviour
         if (!main.type.Contains(primary))
         {
             //TODO: Console error!
-            Debug.LogError("Item equipped to wrong type of primary slot!", equip);
+            Debug.Log("<color=red>Item equipped to wrong type of primary slot!");
+            //Debug.LogError("Item equipped to wrong type of primary slot!", equip);
             return;
         }
 
+        bool shouldRemoveMain = false;
         if (main.active)
         {
             //TODO: Console error!
             //TODO: Consider if this makes sense, might be better to just unequip the other item.
-            Debug.LogError("This slot is already filled!");
-            return;
+            //LogManager.S.Log($"You need to unequip your {main.equipped.held[0].GetName()} first");
+            //Debug.LogError("This slot is already filled!");
+            //return;
+            if (main.equipped.held[0].GetComponent<EquippableItem>().removable)
+            {
+                shouldRemoveMain = true;
+            }
+            else
+            {
+                Debug.Log("This slot is bound with a cursed object, and can't be replaced.");
+                return;
+            }
         }
 
         neededSlots.Add(EquipIndex);
@@ -103,10 +120,12 @@ public class Equipment : MonoBehaviour
                     break;
                 }
             }
+
             if (!succeeded)
             {
                 //TODO: Log console message, then fail gracefully
-                Debug.LogError($"Can't fill slot of type {t}, aborting");
+                Debug.Log($"You must have your {t} slot avaible to equip a {item.GetName()}");
+                //Debug.LogError($"Can't fill slot of type {t}, aborting");
 
                 //Cancel search, return unused slots
                 foreach (int i in neededSlots)
@@ -115,12 +134,23 @@ public class Equipment : MonoBehaviour
                     slot.active = false;
                 }
 
+                if (shouldRemoveMain)
+                {
+                    equipmentSlots[EquipIndex].active = true;
+                }
+
                 return;
             }
         }
 
         //Quick sanity check that we have all the slots
         Debug.Assert(neededSlots.Count == equip.secondarySlots.Count + 1, "Counts did not align correctly!", this);
+
+        if (shouldRemoveMain)
+        {
+            UnequipSlot(EquipIndex);
+            equipmentSlots[EquipIndex].active = true;
+        }
 
         //Attach to all slots
         foreach (int i in neededSlots)
@@ -133,7 +163,6 @@ public class Equipment : MonoBehaviour
 
         //Fire off equip function
         equip.OnEquip(monster);
-
         //Done!
     }
 
@@ -150,6 +179,11 @@ public class Equipment : MonoBehaviour
 
     public void Unequip(ItemStack toRemove)
     {
+        if (!toRemove.held[0].GetComponent<EquippableItem>().removable)
+        {
+            Debug.Log($"Your {toRemove.held[0].GetName()} is cursed and cannot be removed.");
+            return;
+        }
         for (int i = 0; i < equipmentSlots.Count; i++)
         {
             EquipmentSlot slot = equipmentSlots[i];
@@ -159,10 +193,34 @@ public class Equipment : MonoBehaviour
                 slot.equipped = null;
             }
         }
-        
+
         toRemove.held[0].GetComponent<EquippableItem>().OnUnequip();
     }
-    
+
+    public void Equip(Item i)
+    {
+        //Get item index
+        int index = monster.inventory.GetIndexOf(i);
+        if (index == -1)
+        {
+            Debug.LogError("Something has gone very wrong. An item thinks it was equipped, but it's monster did not hold it.", this);
+            return;
+        }
+
+        //Get equipment index
+        EquippableItem e = i.GetComponent<EquippableItem>();
+        EquipSlotType slot = e.primarySlot;
+
+        for (int c = 0; c < equipmentSlots.Count; c++)
+        {
+            if (equipmentSlots[c].type.Contains(slot) && !equipmentSlots[c].active)
+            {
+                Equip(index, c);
+                return;
+            }
+        }
+    }
+
     //Has to search inventory for item stack number, try to avoid
     public void Unequip(Item i)
     {

@@ -30,13 +30,13 @@ public class EquipmentScreen : RogueUIPanel
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-           
+
     }
 
     /*
@@ -54,16 +54,7 @@ public class EquipmentScreen : RogueUIPanel
                     int index = Conversions.NumberingToInt(c);
                     if (index < examinedEquipment.equipmentSlots.Count && index >= 0)
                     {
-                        if (examinedEquipment.equipmentSlots[index].active)
-                        {
-                            //Inspect a held item
-                            UIController.singleton.OpenItemInspect(examinedEquipment.monster.inventory, examinedEquipment.equipmentSlots[index].equipped.position);
-                        }
-                        else
-                        {
-                            //Pick up a new item!
-                            UIController.singleton.OpenInventoryEquip(index);
-                        }
+                        HandleOpening(index);
                         break;
                     }
                 }
@@ -102,8 +93,7 @@ public class EquipmentScreen : RogueUIPanel
                                     return;
                                 }
                             }
-
-                            examinedEquipment.Equip(queuedItem.position, index);
+                            examinedEquipment.monster.SetAction(new EquipAction(queuedItem.position, index));
                             ExitAllWindows();
                             break;
                         }
@@ -115,11 +105,33 @@ public class EquipmentScreen : RogueUIPanel
                     }
                 }
                 break;
+            case ItemAction.UNEQUIP:
+                //Break down input into item types
+                foreach (char c in inputString.Where(c => char.IsLetter(c)))
+                {
+                    int index = Conversions.NumberingToInt(c);
+                    if (index < examinedEquipment.equipmentSlots.Count && index >= 0)
+                    {
+                        EquipmentSlot e = examinedEquipment.equipmentSlots[index];
+                        if (e.active)
+                        {
+                            Player.player.SetAction(new RemoveAction(e.position));
+                            //examinedEquipment.Unequip(e.equipped);
+                        }
+                        else
+                        {
+                            Debug.Log("That equipment slot is already empty.");
+                        }
+                        ExitAllWindows();
+                        break;
+                    }
+                }
+                break;
         }
     }
 
     public void Setup(Equipment equip, ItemAction queuedAction, ItemStack queuedItem)
-    { 
+    {
         examinedEquipment = equip;
         this.queuedAction = queuedAction;
         this.queuedItem = queuedItem;
@@ -150,7 +162,8 @@ public class EquipmentScreen : RogueUIPanel
                 else if (displayed.Count == 1)
                 {
                     //You probably just want to equip this? We'll just go ahead and do it
-                    examinedEquipment.Equip(queuedItem.position, displayed[0].position);
+                    examinedEquipment.monster.SetAction(new EquipAction(queuedItem.position, displayed[0].position));
+                    //examinedEquipment.Equip(queuedItem.position, displayed[0].position);
                     ExitAllWindows();
                     break;
                 }
@@ -175,7 +188,22 @@ public class EquipmentScreen : RogueUIPanel
             instance.transform.SetParent(holdingPanel);
         }
     }
-    
+
+    public void HandleOpening(int index)
+    {
+        //Wow that's gross
+        if (examinedEquipment.equipmentSlots[index].active && !examinedEquipment.equipmentSlots[index].equipped.held[0].GetComponent<EquippableItem>().removable)
+        {
+            //Inspect a held item
+            UIController.singleton.OpenItemInspect(examinedEquipment.monster.inventory, examinedEquipment.equipmentSlots[index].equipped.position);
+        }
+        else
+        {
+            //Pick up a new item!
+            UIController.singleton.OpenInventoryEquip(index);
+        }
+    }
+
     /* Called every time this panel is deactived by the controller */
     public override void OnDeactivation()
     {
@@ -194,6 +222,6 @@ public class EquipmentScreen : RogueUIPanel
      */
     public override void OnDefocus()
     {
-        
+
     }
 }
