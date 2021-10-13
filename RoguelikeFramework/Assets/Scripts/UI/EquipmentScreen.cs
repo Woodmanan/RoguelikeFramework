@@ -67,7 +67,7 @@ public class EquipmentScreen : RogueUIPanel
                     if (index < examinedEquipment.equipmentSlots.Count && index >= 0)
                     {
                         EquipmentSlot currentSlot = examinedEquipment.equipmentSlots[index];
-                        EquippableItem toEquip = queuedItem.held[0].GetComponent<EquippableItem>();
+                        EquipableItem toEquip = queuedItem.held[0].GetComponent<EquipableItem>();
 
                         if (toEquip == null)
                         {
@@ -151,7 +151,7 @@ public class EquipmentScreen : RogueUIPanel
         switch (queuedAction)
         {
             case ItemAction.EQUIP:
-                EquippableItem equip = queuedItem.held[0].GetComponent<EquippableItem>();
+                EquipableItem equip = queuedItem.held[0].GetComponent<EquipableItem>();
                 displayed = displayed.FindAll(x => x.type.Contains(equip.primarySlot));
                 if (displayed.Count == 0)
                 {
@@ -192,7 +192,7 @@ public class EquipmentScreen : RogueUIPanel
     public void HandleOpening(int index)
     {
         //Wow that's gross
-        if (examinedEquipment.equipmentSlots[index].active && !examinedEquipment.equipmentSlots[index].equipped.held[0].GetComponent<EquippableItem>().removable)
+        if (examinedEquipment.equipmentSlots[index].active && !examinedEquipment.equipmentSlots[index].equipped.held[0].GetComponent<EquipableItem>().removable)
         {
             //Inspect a held item
             UIController.singleton.OpenItemInspect(examinedEquipment.monster.inventory, examinedEquipment.equipmentSlots[index].equipped.position);

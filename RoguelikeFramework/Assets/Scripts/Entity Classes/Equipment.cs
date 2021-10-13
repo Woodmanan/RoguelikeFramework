@@ -10,6 +10,7 @@ public class EquipmentSlot
     public List<EquipSlotType> type; //Slots can be more than one type of slot
     public ItemStack equipped; //But can only ever hold one item
     public bool active;
+    public bool removable = true;
     //Similar to inventory slots, but *theoretically* shouldn't change. Might change when mutation system is online.
     [HideInInspector] public int position;
 }
@@ -47,8 +48,25 @@ public class Equipment : MonoBehaviour
 
     }
 
-    //Monster of a function that equips a given item to this equipment holder
-    public void Equip(int itemIndex, int EquipIndex)
+    //Checks if we are about to equip an object to it's own slot, when it's already equipped there.
+    //Weird edge case that deserved it's own function call.
+    public bool RequiresReequip(int itemIndex, int EquipIndex)
+    {
+        //Get item
+        ItemStack item = inventory[itemIndex];
+        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+        if (equip.isEquipped && equipmentSlots[EquipIndex].active)
+        {
+            if (object.ReferenceEquals(equipmentSlots[EquipIndex].equipped.held[0], item.held[0]))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Confirms the existence of enough slots to attach this item
+    public bool CanEquip(int itemIndex, int EquipIndex)
     {
         //Setup vars
         List<int> neededSlots = new List<int>();
@@ -58,19 +76,169 @@ public class Equipment : MonoBehaviour
         if (item == null)
         {
             Debug.LogError($"Can't attach null item at {itemIndex}");
+            return false;
         }
 
-        if (item.held[0].GetComponent<EquippableItem>().isEquipped)
+        
+        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+        EquipSlotType primary = equip.primarySlot;
+
+        //Confirm that, if item is equipped already, it could be moved.
+        if (equip.isEquipped && !equip.removable)
         {
-            item.held[0].GetComponent<EquippableItem>().Unequip();
+            return false;
         }
+
+        { //Main slot checking. Done seperately, caused we can't reroute this one.
+            
+            EquipmentSlot main = equipmentSlots[EquipIndex];
+            if (!main.type.Contains(primary))
+            {
+                //We can't equp this to that.
+                return false;
+            }
+
+            //Check for main slot cursed
+            //This check is probably unecessary, but I don't think it hurts, so I'm leaving it.
+            if (main.active)
+            {
+                if (!main.removable)
+                {
+                    //TODO: Console message about why that's not allowed, and you should feel bad
+                    return false;
+                }
+            }
+
+            neededSlots.Add(EquipIndex);
+        }
+
+        { //Second slot checking. If one of these fails, we keep moving down the list until we get one that we like. Having none kills the check.
+            
+            foreach (EquipSlotType t in equip.secondarySlots)
+            {
+                bool succeeded = false;
+
+                //See if there is a free spot that is not already in the list
+                for (int i = 0; i < equipmentSlots.Count; i++)
+                {
+                    EquipmentSlot slot = equipmentSlots[i];
+                    if (slot.removable && slot.type.Contains(t) && !neededSlots.Contains(i))
+                    {
+                        //Found a match!
+                        neededSlots.Add(i);
+                        succeeded = true;
+                        break;
+                    }
+                }
+
+                if (!succeeded)
+                {
+                    //TODO: Console message me!
+                    Debug.Log($"You must have your {t} slot avaible to equip a {item.GetName()}");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
+
+    }
+
+    /*
+     * Returns the slots that must be unequipped. The behaviour of this
+     * function is only sensible while CanEquip() of the same info is true.
+     * This function heavily relies on assumptions given by CanEquip,
+     * so MAKE SURE that that one works first
+     */
+    public List<int> SlotsNeededToEquip(int itemIndex, int EquipIndex)
+    {
+        //Setup vars
+        List<int> neededSlots = new List<int>();
+
+        //Get item
+        ItemStack item = inventory[itemIndex];
 
         //Confirm that slot is open and primary
-        EquippableItem equip = item.held[0].GetComponent<EquippableItem>();
+        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
         EquipSlotType primary = equip.primarySlot;
 
         EquipmentSlot main = equipmentSlots[EquipIndex];
-        if (!main.type.Contains(primary))
+        if (main.active)
+        {
+            neededSlots.Add(EquipIndex);
+        }
+
+        foreach (EquipSlotType t in equip.secondarySlots)
+        {
+            bool succeeded = false;
+            //See if there is a free spot that is not already in the list
+            for (int i = 0; i < equipmentSlots.Count; i++)
+            {
+                EquipmentSlot slot = equipmentSlots[i];
+                if (!slot.active && slot.type.Contains(t) && !neededSlots.Contains(i))
+                {
+                    //Found a match!
+                    neededSlots.Add(i);
+                    succeeded = true;
+                    break;
+                }
+            }
+
+            if (succeeded) break;
+
+            //We're here, so we didn't succeed. Now try the same thing, but with slots that we could remove
+            for (int i = 0; i < equipmentSlots.Count; i++)
+            {
+                EquipmentSlot slot = equipmentSlots[i];
+                if (slot.active && slot.removable && slot.type.Contains(t) && !neededSlots.Contains(i))
+                {
+                    //Found a match!
+                    neededSlots.Add(i);
+                    succeeded = true;
+                    break;
+                }
+            }
+
+            if (!succeeded)
+            {
+                Debug.LogError("This should not be possible! Needed Slots has failed the assertion that CanEquip should have provided");
+                return neededSlots;
+            }
+        }
+
+        for (int i = neededSlots.Count - 1; i >= 0; i--)
+        {
+            if (!equipmentSlots[neededSlots[i]].active)
+            {
+                neededSlots.RemoveAt(i);
+            }    
+        }    
+
+        return neededSlots;
+    }
+
+    //Monster of a function that equips a given item to this equipment holder
+    public void Equip(int itemIndex, int EquipIndex)
+    {
+        //Reassert everything we already know!
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(CanEquip(itemIndex, EquipIndex), "Equip Error! Equipping something should require you to be able to equip it!");
+        Debug.Assert(RequiresReequip(itemIndex, EquipIndex), "Equip Error! You shouldn't be trying to re-equip something to the same slot!");
+        Debug.Assert(SlotsNeededToEquip(itemIndex, EquipIndex).Count == 0, "Equip Error! You must have freed all the needed slots before equipping something!");
+        Debug.Assert(!inventory[itemIndex].held[0].GetComponent<EquipableItem>().isEquipped, "Equip Error! Someone should have unequipped the main item already.");
+        #endif
+
+        //Setup vars
+        List<int> neededSlots = new List<int>();
+
+        //Get item
+        ItemStack item = inventory[itemIndex];
+        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+
+        //Confirm that slot is open and primary
+        EquipmentSlot main = equipmentSlots[EquipIndex];
+        if (!main.type.Contains(equip.primarySlot))
         {
             //TODO: Console error!
             Debug.Log("<color=red>Item equipped to wrong type of primary slot!");
@@ -78,29 +246,7 @@ public class Equipment : MonoBehaviour
             return;
         }
 
-        bool shouldRemoveMain = false;
-        if (main.active)
-        {
-            //TODO: Console error!
-            //TODO: Consider if this makes sense, might be better to just unequip the other item.
-            //LogManager.S.Log($"You need to unequip your {main.equipped.held[0].GetName()} first");
-            //Debug.LogError("This slot is already filled!");
-            //return;
-            if (main.equipped.held[0].GetComponent<EquippableItem>().removable)
-            {
-                shouldRemoveMain = true;
-            }
-            else
-            {
-                Debug.Log("This slot is bound with a cursed object, and can't be replaced.");
-                return;
-            }
-        }
-
         neededSlots.Add(EquipIndex);
-        main.active = true;
-        print($"Main is == to equipslots[{EquipIndex}]: {main == equipmentSlots[EquipIndex]}");
-
 
         //Confirm that secondary slots are available
         foreach (EquipSlotType t in equip.secondarySlots)
@@ -110,55 +256,44 @@ public class Equipment : MonoBehaviour
             for (int i = 0; i < equipmentSlots.Count; i++)
             {
                 EquipmentSlot slot = equipmentSlots[i];
-                if (slot.active) continue;
-                if (slot.type.Contains(t))
+                if (slot.active) continue; //This skip is completely okay now! Allowed because we know we've already freed all the slots we needed
+                if (slot.type.Contains(t) && !neededSlots.Contains(i))
                 {
                     //Found a match!
-                    slot.active = true;
                     succeeded = true;
                     neededSlots.Add(i);
                     break;
                 }
             }
 
+
+            //PARANOIA - Check that we didn't somehow fail to do the thing we've asserted twice now
             if (!succeeded)
             {
                 //TODO: Log console message, then fail gracefully
-                Debug.Log($"You must have your {t} slot avaible to equip a {item.GetName()}");
-                //Debug.LogError($"Can't fill slot of type {t}, aborting");
-
-                //Cancel search, return unused slots
-                foreach (int i in neededSlots)
-                {
-                    EquipmentSlot slot = equipmentSlots[i];
-                    slot.active = false;
-                }
-
-                if (shouldRemoveMain)
-                {
-                    equipmentSlots[EquipIndex].active = true;
-                }
-
+                Debug.LogError("Equipment has failed to equip an item - This means that CanEquip and NeededSlots did not make good on their assertions");
                 return;
             }
         }
 
-        //Quick sanity check that we have all the slots
+        //Quick sanity check that we have all the slots (Which is main slot + number of secondary slots)
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(neededSlots.Count == equip.secondarySlots.Count + 1, "Counts did not align correctly!", this);
-
-        if (shouldRemoveMain)
-        {
-            UnequipSlot(EquipIndex);
-            equipmentSlots[EquipIndex].active = true;
-        }
+        #endif
 
         //Attach to all slots
         foreach (int i in neededSlots)
         {
             EquipmentSlot slot = equipmentSlots[i];
+
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.Assert(!slot.active, $"Slot {i} should be inactive, but is is still set active. Slot was either incorrectly added to list, or was was not unequipped correctly.");
+            //Debug.Assert(slot.equipped == null, $"Slot still has an item in it! We're going to just override now, but that item was something?", slot.equipped.held[0]);
+            #endif
+
             slot.equipped = item;
-            if (!slot.active) Debug.LogError($"Slot {i} should be active, but is not. Slot was either incorrectly added or incorrectly set to inactive");
             slot.active = true;
+            slot.removable = equip.removable;
         }
 
         //Fire off equip function
@@ -166,35 +301,51 @@ public class Equipment : MonoBehaviour
         //Done!
     }
 
-    public void UnequipItem(int ItemIndex)
+    //TODO: Change all remove functions from bools to ints/floats, and have them returns the cost of the thing they just removed.
+    //Then edit RemoveAction.CS and have it more properly reflect how that works.
+    public bool UnequipItem(int ItemIndex)
     {
-        Unequip(inventory[ItemIndex]);
+        return Unequip(inventory[ItemIndex]);
     }
 
-    public void UnequipSlot(int SlotIndex)
+    public bool UnequipSlot(int SlotIndex)
     {
-        ItemStack i = equipmentSlots[SlotIndex].equipped;
-        Unequip(i);
+        if (equipmentSlots[SlotIndex].active)
+        {
+            ItemStack i = equipmentSlots[SlotIndex].equipped;
+            return Unequip(i);
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public void Unequip(ItemStack toRemove)
+    //TODO: Finish refactor for removable code
+    public bool Unequip(ItemStack toRemove)
     {
-        if (!toRemove.held[0].GetComponent<EquippableItem>().removable)
+        if (!toRemove.held[0].GetComponent<EquipableItem>().removable)
         {
             Debug.Log($"Your {toRemove.held[0].GetName()} is cursed and cannot be removed.");
-            return;
+            return false;
         }
+        bool removedSomething = false;
         for (int i = 0; i < equipmentSlots.Count; i++)
         {
             EquipmentSlot slot = equipmentSlots[i];
             if (slot.equipped == toRemove)
             {
                 slot.active = false;
+                slot.removable = true;
                 slot.equipped = null;
+                removedSomething = true;
             }
         }
-
-        toRemove.held[0].GetComponent<EquippableItem>().OnUnequip();
+        if (removedSomething)
+        {
+            toRemove.held[0].GetComponent<EquipableItem>().OnUnequip();
+        }
+        return removedSomething;
     }
 
     public void Equip(Item i)
@@ -208,7 +359,7 @@ public class Equipment : MonoBehaviour
         }
 
         //Get equipment index
-        EquippableItem e = i.GetComponent<EquippableItem>();
+        EquipableItem e = i.GetComponent<EquipableItem>();
         EquipSlotType slot = e.primarySlot;
 
         for (int c = 0; c < equipmentSlots.Count; c++)
@@ -231,5 +382,18 @@ public class Equipment : MonoBehaviour
             return;
         }
         UnequipItem(index);
+    }
+
+    public int EquippedIndexOf(Item item)
+    {
+        for (int i = 0; i < equipmentSlots.Count; i++)
+        {
+            EquipmentSlot slot = equipmentSlots[i];
+            if (slot.active && slot.equipped.held[0] == item)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

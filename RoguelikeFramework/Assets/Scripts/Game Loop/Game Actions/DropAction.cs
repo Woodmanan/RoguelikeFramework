@@ -20,8 +20,8 @@ public class DropAction : GameAction
 
     public void AddIndex(int i)
     {
-        #if UNITY_EDITOR
-            Debug.Assert(!indices.Contains(i), "Drop action cannot have duplicates!");
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(!indices.Contains(i), "Drop action cannot have duplicates!");
         #endif
 
         indices.Add(i);
@@ -42,6 +42,29 @@ public class DropAction : GameAction
         {
             Debug.Log($"{caller.name} tried to drop no items.");
             yield break;
+        }
+
+        //Collect all removables, dump them in one go
+        List<int> needsToBeRemoved = new List<int>();
+        foreach (int index in indices)
+        {
+            //For each item, check if it's equipped. If so, remove it.
+            ItemStack item = caller.inventory[index];
+            EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+            if (equip && equip.isEquipped)
+            {
+                needsToBeRemoved.Add(index);
+            }
+        }
+
+        if (needsToBeRemoved.Count > 0)
+        {
+            RemoveAction secondaryAction = new RemoveAction(needsToBeRemoved);
+            secondaryAction.Setup(caller);
+            while (secondaryAction.action.MoveNext())
+            {
+                yield return secondaryAction.action.Current;
+            }
         }
 
         foreach (int index in indices)

@@ -62,9 +62,9 @@ public class Path
 
     public Path(Stack<Vector2Int> locations)
     {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.LogError("Very expensive constructor called for path. This is generally unnecessary, as Pathfinding.cs can provide the same thing.");
-#endif
+        #endif
         float newCost = 0.0f;
         Map m = Map.singleton;
         foreach (Vector2Int pos in this.locations)

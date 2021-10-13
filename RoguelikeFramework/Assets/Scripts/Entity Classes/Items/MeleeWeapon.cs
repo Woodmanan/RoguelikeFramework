@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //This one inherits from equippable, because it's essentially just a small bit of extra behaviour
-public class MeleeWeapon : EquippableItem
+public class MeleeWeapon : EquipableItem
 {
     public int accuracy;
     public int piercing;

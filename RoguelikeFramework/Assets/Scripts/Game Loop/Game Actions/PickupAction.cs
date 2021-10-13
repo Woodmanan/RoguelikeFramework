@@ -20,8 +20,8 @@ public class PickupAction : GameAction
 
     public void AddIndex(int i)
     {
-        #if UNITY_EDITOR
-            Debug.Assert(!indices.Contains(i), "Drop action cannot have duplicates!");
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(!indices.Contains(i), "Drop action cannot have duplicates!");
         #endif
 
         indices.Add(i);

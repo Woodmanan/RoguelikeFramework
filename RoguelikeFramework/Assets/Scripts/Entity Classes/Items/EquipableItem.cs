@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquippableItem : MonoBehaviour
+public class EquipableItem : MonoBehaviour
 {
-    [Header("Equippable Attributes")]
+    [Header("Equipable Attributes")]
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
     public StatBlock addedStats;
@@ -21,8 +21,8 @@ public class EquippableItem : MonoBehaviour
     void Start()
     {
         //Variable compile for expensive assertion
-        #if UNITY_EDITOR
-        Debug.Assert(!GetComponent<Item>().stackable, "Equippable item should never be stackable!", this);
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(!GetComponent<Item>().stackable, "Equipable item should never be stackable!", this);
         #endif
 
         itemData = GetComponent<Item>();

@@ -65,7 +65,7 @@ public class Item : MonoBehaviour
         }
 
         //Quick check for components, better here than later
-        CanEquip = GetComponent<EquippableItem>() != null;
+        CanEquip = GetComponent<EquipableItem>() != null;
         CanApply = GetComponent<ApplyableItem>() != null;
         CanTarget = GetComponent<TargetableItem>() != null;
     }

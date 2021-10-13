@@ -119,11 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55db2fd30caa58241849bf03497b23b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primarySlot: 2
-  secondarySlots: 03000000
+  primarySlot: 3
+  secondarySlots: 
   addedStats:
     maxHealth: 0
     ac: 0
     ev: 0
   addedEffects: []
   isEquipped: 0
+  removable: 1

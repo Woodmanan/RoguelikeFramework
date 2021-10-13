@@ -285,7 +285,7 @@ public class Monster : MonoBehaviour
                     yield return actionDecision.Current;
                 }
 
-                #if UNITY_EDITOR
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 //Expensive and unnessecary check, done in Editor only
                 if (currentAction == null && this != Player.player)
                 {

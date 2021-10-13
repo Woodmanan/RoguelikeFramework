@@ -85,12 +85,12 @@ public class InputTracking : MonoBehaviour
     void Update()
     {
         //Extensive check that we probably don't want in the built game
-#if UNITY_EDITOR
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (actions.Count != inputs.Count)
         {
             Debug.LogError("Actions and input queues got misaligned.");
         }
-#endif
+        #endif
 
 
         bool addedAction = false;

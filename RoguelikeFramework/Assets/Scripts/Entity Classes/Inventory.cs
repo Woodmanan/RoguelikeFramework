@@ -359,7 +359,7 @@ public class Inventory : MonoBehaviour
 
         if (stack == null) return; //Quick cutout
 
-        EquippableItem equip = stack.held[0].GetComponent<EquippableItem>();
+        EquipableItem equip = stack.held[0].GetComponent<EquipableItem>();
 
         if (equip && equip.isEquipped)
         {
