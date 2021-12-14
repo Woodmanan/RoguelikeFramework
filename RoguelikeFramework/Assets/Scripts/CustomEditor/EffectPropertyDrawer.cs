@@ -29,7 +29,6 @@ public class EffectPropertyDrawer : PropertyDrawer
 
         //Create the bounding boxes for our new pieces. Not super important, the start positions are the main part that we need. xRect is unused if 'heldEffect' is null.
         var effectRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-        var cRect = new Rect(position.x + position.width - (2 * BTN_WIDTH) - BTN_GAP, position.y, BTN_WIDTH, EditorGUIUtility.singleLineHeight);
         var xRect = new Rect(position.x + position.width - (BTN_WIDTH), position.y, BTN_WIDTH, EditorGUIUtility.singleLineHeight);
 
 
@@ -53,21 +52,7 @@ public class EffectPropertyDrawer : PropertyDrawer
                 Debug.LogError("Didn't find it!");
             }
 
-            effectRect.width -= 2 * (BTN_WIDTH + BTN_GAP);
-
-            //If we have a type, offer a clear button!
-            if (GUI.Button(cRect, "C"))
-            {
-                //Create a new asset of the chosen type
-                var newSO = ScriptableObject.CreateInstance(types[typeVal]);
-                DateTime time = DateTime.Now;
-                AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("MMddyyHHmmttff")}.asset");
-                AssetDatabase.SaveAssets();
-
-                //Refresh the editor values, in case the dropdown gets shown this frame
-                effect.objectReferenceValue = newSO;
-                Editor.CreateCachedEditor(effect.objectReferenceValue, null, ref editor);
-            }
+            effectRect.width -= 1 * (BTN_WIDTH + BTN_GAP);
             
             //If we have a type, offer a deletion button!
             if (GUI.Button(xRect, "X"))
@@ -84,6 +69,7 @@ public class EffectPropertyDrawer : PropertyDrawer
         //Did we switch types? Only happens when the user clicks a new option on the dropdown
         if (selection != typeVal)
         {
+            property.isExpanded = true;
             typeVal = selection;
 
             //We want something new, so clear the old value if it exists.
