@@ -6,6 +6,8 @@ using System.Linq;
 
 public class Player : Monster
 {
+    public List<StatusEffectList> sideOne;
+    public StatusEffectList otherSide;
     //UI Stuff!
     [SerializeField] UIController uiControls;
 

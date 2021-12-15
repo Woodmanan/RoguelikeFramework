@@ -9,11 +9,16 @@ using System.Linq;
 [CustomPropertyDrawer(typeof(StatusEffectList))]
 public class EffectListPropertyDrawer : PropertyDrawer
 {
+    float BTN_WIDTH = 2 * EditorGUIUtility.singleLineHeight;// + 3f;
+    float BTN_GAP = 1f;
+
     const float countSize = 40f;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        Rect nameRect = new Rect(position.x, position.y, position.width - countSize, EditorGUIUtility.singleLineHeight);
-        Rect countRect = new Rect(position.x + position.width - countSize, position.y, countSize, EditorGUIUtility.singleLineHeight);
+        Rect nameRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+        Rect countRect = new Rect(position.x + position.width - (BTN_WIDTH), position.y, BTN_WIDTH, EditorGUIUtility.singleLineHeight);
+        nameRect.width -= 1 * (BTN_WIDTH + BTN_GAP);
+
 
         SerializedProperty list = property.FindPropertyRelative("list");
         if (!list.isArray)
@@ -31,7 +36,10 @@ public class EffectListPropertyDrawer : PropertyDrawer
             property.isExpanded = EditorGUI.Foldout(nameRect, property.isExpanded, label);
         }
 
-        int count = EditorGUI.DelayedIntField(countRect, list.arraySize);
+        int save = EditorGUI.indentLevel;
+        EditorGUI.indentLevel = 0;
+        int count = EditorGUI.IntField(countRect, list.arraySize);
+        EditorGUI.indentLevel = save;
 
         if (property.isExpanded)
         {
@@ -45,7 +53,7 @@ public class EffectListPropertyDrawer : PropertyDrawer
                 SerializedProperty prop = list.GetArrayElementAtIndex(i);
                 float height = EditorGUI.GetPropertyHeight(prop);
                 sweepRect.height = height;
-                EditorGUI.PropertyField(sweepRect, prop);
+                EditorGUI.PropertyField(EditorGUI.IndentedRect(sweepRect), prop);
                 sweepRect.y += height + EditorGUIUtility.standardVerticalSpacing;
             }
             EditorGUI.indentLevel--;
