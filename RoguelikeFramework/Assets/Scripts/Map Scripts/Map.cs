@@ -86,11 +86,14 @@ public class Map : MonoBehaviour
 
     private void LateUpdate()
     {
-        for (int i = 0; i < tiles.GetLength(0); i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < tiles.GetLength(1); j++)
+            for (int j = 0; j < height; j++)
             {
-                tiles[i, j].RebuildIfDirty();
+                if (tiles[i, j].dirty)
+                {
+                    tiles[i,j].RebuildGraphics();
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ public class EquipableItem : MonoBehaviour
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
     public StatBlock addedStats;
-    public List<StatusEffect> addedEffects;
+    public StatusEffectList addedEffects;
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
     public bool removable = true;

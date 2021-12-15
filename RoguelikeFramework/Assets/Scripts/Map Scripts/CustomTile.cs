@@ -134,7 +134,7 @@ public class CustomTile : MonoBehaviour
         }
     }
 
-    private void RebuildGraphics()
+    public void RebuildGraphics()
     {
         if (isVisible)
         {

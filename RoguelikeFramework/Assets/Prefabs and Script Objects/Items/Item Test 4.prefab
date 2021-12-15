@@ -120,4 +120,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectsToApply:
-  - heldEffect: {fileID: 11400000, guid: ab69e46eca1e5254db6cdca4f939f6f6, type: 2}
+    list:
+    - heldEffect: {fileID: 11400000, guid: fc032000ad0769a4da63d665e043ce29, type: 2}

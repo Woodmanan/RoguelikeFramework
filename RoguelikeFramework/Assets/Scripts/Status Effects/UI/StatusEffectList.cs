@@ -15,8 +15,17 @@ using System;
  * and we can't override the UI in the convenient way, so we need to use this object to do it for us.
  */
 
+/* For future development refernce - there is almost a way to do this with something like:
+ * public class StatusEffectList : List<StatusEffect> {}
+ * 
+ * C# catches that this is a unique type, and things can be applied to it, but it gets SUPER funky
+ * when Unity tries to use it. Essentially, Unity can't figure out what kind of editor to draw for it,
+ * so nothing is drawn, even if you make a custom editor. Sadge. This would be a little cleaner,
+ * so it might be worth looking into exactly why this happens one day if time permits.
+ */
+
 [Serializable]
-public class StatusEffectList //: ICollection
+public class StatusEffectList : ICollection
 {
     public List<StatusEffect> list;
 
@@ -45,7 +54,7 @@ public class StatusEffectList //: ICollection
     {
         get { return list.Count; }
     }
-    /*
+    
     void ICollection.CopyTo(Array array, int index)
     {
         int count = index;
@@ -86,12 +95,10 @@ public class StatusEffectList //: ICollection
         {
             return list.Count;
         }
-    }*/
+    }
+
+    public StatusEffect[] ToArray()
+    {
+        return list.ToArray();
+    }
 }
-
-//This works great in code, doesn't jibe with the editor. Sadge.
-
-/*public class StatusEffectList : List<StatusEffect>
-{
-
-}*/

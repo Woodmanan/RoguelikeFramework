@@ -5,7 +5,7 @@ using UnityEngine;
 public class ApplyableItem : MonoBehaviour
 {
 
-    public List<StatusEffect> effectsToApply;
+    public StatusEffectList effectsToApply;
 
     // Start is called before the first frame update
     void Start()

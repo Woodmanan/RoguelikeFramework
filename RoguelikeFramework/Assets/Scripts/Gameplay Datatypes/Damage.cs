@@ -14,8 +14,9 @@ public struct DamagePairing
 [Serializable]
 public struct ChanceEffect
 {
+    public string name;
     public float percentChance;
-    public List<StatusEffect> appliedEffects;
+    public StatusEffectList appliedEffects;
 
     public bool evaluate()
     {

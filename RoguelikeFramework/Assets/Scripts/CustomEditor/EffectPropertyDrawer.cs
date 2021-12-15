@@ -84,7 +84,7 @@ public class EffectPropertyDrawer : PropertyDrawer
             var newSO = ScriptableObject.CreateInstance(types[typeVal]);
             DateTime time = DateTime.Now;
             //Doesn't account for decade. Surely this won't bite me in the ass. Also, no way someone makes two of these in 100th of a second, right?
-            AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("MMddyyHHmmttff")}.asset"); 
+            AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("yyMMddHHmmttff")}.asset"); 
             AssetDatabase.SaveAssets();
 
             //Refresh the editor values, in case the dropdown gets shown this frame

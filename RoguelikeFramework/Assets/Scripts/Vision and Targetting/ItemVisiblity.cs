@@ -18,6 +18,7 @@ public class ItemVisiblity : MonoBehaviour
         {
             visible = inventory.startingItems[0]; //TODO: Be smarter than just grabbing the first item (ie, most rare / valuable)
         }
+        this.enabled = false;
     }
 
     // Update is called once per frame

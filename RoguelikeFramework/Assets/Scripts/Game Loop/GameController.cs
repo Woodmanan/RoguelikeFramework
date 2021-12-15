@@ -33,9 +33,15 @@ public class GameController : MonoBehaviour
 
     IEnumerator TakeTurns()
     {
+        //Initial setup phase!
+        //TODO: Branch this into it's own thing?
+
         //1 Frame pause to set up LOS
         yield return null;
         LOS.GeneratePlayerLOS(player.location, player.visionRadius);
+
+        //Move our camera onto the player for the first frame
+        CameraTracking.singleton.JumpToPlayer();
         
         //Main loop
         while (true)
