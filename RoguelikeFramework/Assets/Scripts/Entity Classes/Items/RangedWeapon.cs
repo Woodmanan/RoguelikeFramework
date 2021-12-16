@@ -8,7 +8,7 @@ public class RangedWeapon : TargetableItem
     public int accuracy;
     public int piercing;
     public List<DamagePairing> damage;
-    public List<ChanceEffect> effects;
+    public ChanceEffectList effects;
 
     // Start is called before the first frame update
     void Start()

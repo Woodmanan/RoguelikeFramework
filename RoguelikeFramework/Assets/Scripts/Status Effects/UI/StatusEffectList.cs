@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 /* A custom object that should, for all intents and purposes, match the way that a List<StatusEffect>
  * works. This is necessary over a list because StatusEffects need some help with their setup, especially
@@ -101,4 +102,22 @@ public class StatusEffectList : ICollection
     {
         return list.ToArray();
     }
+
+    public void Clear()
+    {
+        list.Clear();
+    }
+
+    #if UNITY_EDITOR
+    public void EditorDelete()
+    {
+        foreach (StatusEffect stat in list)
+        {
+            string path = AssetDatabase.GetAssetPath(stat.heldEffect);
+            stat.heldEffect = null;
+            AssetDatabase.DeleteAsset(path);
+        }
+        Clear();
+    }
+    #endif
 }

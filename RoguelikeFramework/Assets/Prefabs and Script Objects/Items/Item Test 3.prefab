@@ -125,8 +125,10 @@ MonoBehaviour:
     maxHealth: 0
     ac: 0
     ev: 0
-  addedEffects: []
+  addedEffects:
+    list: []
   isEquipped: 0
+  removable: 1
   accuracy: 5
   piercing: 5
   damage:
@@ -135,7 +137,18 @@ MonoBehaviour:
       dice: 1
       evaluateEveryRoll: 0
     type: 2
+  - damage:
+      rolls: 5
+      dice: 1
+      evaluateEveryRoll: 0
+    type: 2
+  - damage:
+      rolls: 5
+      dice: 1
+      evaluateEveryRoll: 0
+    type: 2
   effects:
-  - percentChance: 0
+  - name: Element 0
+    percentChance: 0
     appliedEffects:
-    - heldEffect: {fileID: 11400000, guid: be11c09bacf623a4f8115dfccf76adb3, type: 2}
+      list: []

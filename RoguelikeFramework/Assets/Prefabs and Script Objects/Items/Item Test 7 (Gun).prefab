@@ -171,7 +171,8 @@ MonoBehaviour:
       evaluateEveryRoll: 1
     type: 3
   effects:
-  - percentChance: 100
-    appliedEffects:
-      list:
-      - heldEffect: {fileID: 0}
+    list:
+    - name: New Effect 0
+      percentChance: 0
+      appliedEffects:
+        list: []

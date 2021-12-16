@@ -6,13 +6,12 @@ using System;
 using System.Linq;
 
 #if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(StatusEffectList))]
-public class EffectListPropertyDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(ChanceEffectList))]
+public class ChanceEffectListPropertyDrawer : PropertyDrawer
 {
     float BTN_WIDTH = 2 * EditorGUIUtility.singleLineHeight;
     float BTN_GAP = 1f;
 
-    const float countSize = 40f;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         Rect nameRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
@@ -71,7 +70,7 @@ public class EffectListPropertyDrawer : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         SerializedProperty list = property.FindPropertyRelative("list");
-        
+
         float totalHeight = EditorGUIUtility.singleLineHeight;
 
         if (property.isExpanded && list.isArray) //Second check is paranoia!
@@ -90,51 +89,42 @@ public class EffectListPropertyDrawer : PropertyDrawer
     public void ResizeArray(SerializedProperty list, int count)
     {
         if (count < 0) return;
-        if (count > 200) return;
+        if (count > 30) return;
+
         while (count > list.arraySize)
         {
             //Add elements!
             list.arraySize++;
             SerializedProperty prop = list.GetArrayElementAtIndex(list.arraySize - 1);
-            SerializedProperty effect = prop.FindPropertyRelative("heldEffect");
-            effect.objectReferenceValue = null;
+            SerializedProperty sublist = prop.FindPropertyRelative("appliedEffects").FindPropertyRelative("list");
+
+            sublist.ClearArray();
+
+            //Set the name nicely
+            SerializedProperty name = prop.FindPropertyRelative("name");
+            name.stringValue = $"New Effect {list.arraySize - 1}";
         }
         while (count < list.arraySize)
         {
-            //Delete elements!
-            bool foundEmpty = false;
-
-            //First, search for empty elements to get rid of? This is convenient, and useful to boot!
-            for (int i = list.arraySize - 1; i >= 0; i--)
+            //Work backwards, clearing and deleting all elements of all lists
+            for (int i = list.arraySize - 1; i >= count; i--)
             {
-                if (list.GetArrayElementAtIndex(i).FindPropertyRelative("heldEffect").objectReferenceValue == null)
+                SerializedProperty subList = list.GetArrayElementAtIndex(i).FindPropertyRelative("appliedEffects").FindPropertyRelative("list");
+                Debug.Log($"Sublist exists with size {subList.arraySize}");
+                for (int j = subList.arraySize - 1; j >= 0; j--)
                 {
-                    //Found an empty! Remove it, and continue.
-                    if (i == list.arraySize - 1)
+                    SerializedProperty effect = subList.GetArrayElementAtIndex(j).FindPropertyRelative("heldEffect");
+                    if (effect.objectReferenceValue != null)
                     {
-                        list.arraySize--;
+                        string path = AssetDatabase.GetAssetPath(effect.objectReferenceValue);
+                        effect.objectReferenceValue = null;
+                        AssetDatabase.DeleteAsset(path);
                     }
-                    else
-                    {
-                        list.DeleteArrayElementAtIndex(i);
-                    }
-                    foundEmpty = true;
-                    break;
+                    subList.arraySize--;
                 }
+                list.arraySize--;
             }
-            if (foundEmpty) continue;
-
-            //Got here, so we know that all elements are filled, but we still need to remove one.
-            SerializedProperty prop = list.GetArrayElementAtIndex(list.arraySize - 1);
-            SerializedProperty effect = prop.FindPropertyRelative("heldEffect");
-
-            string path = AssetDatabase.GetAssetPath(effect.objectReferenceValue);
-            effect.objectReferenceValue = null;
-            AssetDatabase.DeleteAsset(path);
-
-            list.arraySize--;
         }
     }
 }
-
 #endif
