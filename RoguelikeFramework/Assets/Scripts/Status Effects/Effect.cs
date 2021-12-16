@@ -63,7 +63,7 @@ public class Effect : ScriptableObject
 
         m.OnHealing             .AddMethod(OnHealing, defaultType, priority);
 
-        m.OnApplyStatusEffects  .AddMethod(OnApplyStatusEffects, default, priority);
+        m.OnApplyStatusEffects  .AddMethod(OnApplyStatusEffects, defaultType, priority);
 
         OnConnection();
     }

@@ -16,6 +16,8 @@ public class EffectPropertyDrawer : PropertyDrawer
     {
         float BTN_WIDTH = EditorGUIUtility.singleLineHeight + 3f;
         float BTN_GAP = 1f;
+        float LABEL_WIDTH = EditorGUIUtility.labelWidth;
+        float LABEL_GAP = EditorGUIUtility.standardVerticalSpacing;
 
         //Clear the editor every frame - More expensive, but caching it acts weird in lists.
         Editor editor = null;
@@ -28,7 +30,8 @@ public class EffectPropertyDrawer : PropertyDrawer
         List<String> names = types.Select( x => x.Name ).ToList();
 
         //Create the bounding boxes for our new pieces. Not super important, the start positions are the main part that we need. xRect is unused if 'heldEffect' is null.
-        var effectRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+        var labelRect = new Rect(position.x, position.y, LABEL_WIDTH, EditorGUIUtility.singleLineHeight);
+        var buttonRect = new Rect(position.x + LABEL_WIDTH + LABEL_GAP, position.y, position.width - LABEL_WIDTH - LABEL_GAP, EditorGUIUtility.singleLineHeight);
         var xRect = new Rect(position.x + position.width - (BTN_WIDTH), position.y, BTN_WIDTH, EditorGUIUtility.singleLineHeight);
 
 
@@ -45,15 +48,15 @@ public class EffectPropertyDrawer : PropertyDrawer
         else
         {
             //Confirm that we have the right type
-            typeVal= types.IndexOf(effect.objectReferenceValue.GetType());
+            typeVal = types.IndexOf(effect.objectReferenceValue.GetType());
 
             if (typeVal == -1)
             {
                 Debug.LogError("Didn't find it!");
             }
 
-            effectRect.width -= 1 * (BTN_WIDTH + BTN_GAP);
-            
+            buttonRect.width -= 1 * (BTN_WIDTH + BTN_GAP);
+
             //If we have a type, offer a deletion button!
             if (GUI.Button(xRect, "X"))
             {
@@ -64,39 +67,38 @@ public class EffectPropertyDrawer : PropertyDrawer
         }
 
         //Set up the dropdown
-        int selection = EditorGUI.Popup(effectRect, property.displayName, typeVal, names.ToArray());
+        int selection = typeVal;
 
-        //Did we switch types? Only happens when the user clicks a new option on the dropdown
-        if (selection != typeVal)
-        {
-            property.isExpanded = true;
-            typeVal = selection;
 
-            //We want something new, so clear the old value if it exists.
-            if (effect.objectReferenceValue != null)
-            {
-                string path = AssetDatabase.GetAssetPath(effect.objectReferenceValue);
-                effect.objectReferenceValue = null;
-                AssetDatabase.DeleteAsset(path);
-            }
+        //Temporary Testing Code
 
-            //Create a new asset of the chosen type
-            var newSO = ScriptableObject.CreateInstance(types[typeVal]);
-            DateTime time = DateTime.Now;
-            //Doesn't account for decade. Surely this won't bite me in the ass. Also, no way someone makes two of these in 100th of a second, right?
-            AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("yyMMddHHmmttff")}.asset"); 
-            AssetDatabase.SaveAssets();
-
-            //Refresh the editor values, in case the dropdown gets shown this frame
-            effect.objectReferenceValue = newSO;
-            Editor.CreateCachedEditor(effect.objectReferenceValue, null, ref editor);
-        }
-
-        //Offer that handy dropdown arrow, but only if we have something to show.
         if (effect.objectReferenceValue != null)
         {
-            property.isExpanded = EditorGUI.Foldout(effectRect, property.isExpanded, GUIContent.none);
+            property.isExpanded = EditorGUI.Foldout(labelRect, property.isExpanded, GUIContent.none);
         }
+        EditorGUI.LabelField(labelRect, label);
+
+        if (EditorGUI.DropdownButton(buttonRect, new GUIContent(selection == -1 ? "" : names[selection]), FocusType.Passive))
+        {
+            GenericMenu menu = new GenericMenu();
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                string groupName = "Default";
+                Type itemType = types[i];
+                EffectGroupAttribute group = (EffectGroupAttribute)Attribute.GetCustomAttribute(itemType, typeof(EffectGroupAttribute));
+                if (group != null)
+                {
+                    groupName = group.groupName;
+                }
+                menu.AddItem(new GUIContent(groupName + "/" + names[i]), i == selection, UpdateValue, (property, i));
+            }
+
+            menu.DropDown(buttonRect);
+            return;
+        }
+
+        //End Testing Code
 
         // Draw the SO properties, if we have an effect to draw. This code stolen from the internet. Thanks StackOverflow!
         if (effect.objectReferenceValue != null && property.isExpanded)
@@ -168,6 +170,65 @@ public class EffectPropertyDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
+    public void UpdateValue(object input)
+    {
+        (SerializedProperty property, int selection) = ((SerializedProperty, int)) input;
+        //Generate the list of all effect types
+        List<Type> types = GetAllEffectTypes();
+        List<String> names = types.Select(x => x.Name).ToList();
+
+        //Get our serialized properties
+        SerializedProperty effect = property.FindPropertyRelative("heldEffect");
+
+        int typeVal = -1;
+
+        //Handle the deletion of a property / New property creation!
+        if (effect.objectReferenceValue == null)
+        {
+            typeVal = -1;
+        }
+        else
+        {
+            //Confirm that we have the right type
+            typeVal = types.IndexOf(effect.objectReferenceValue.GetType());
+
+            if (typeVal == -1)
+            {
+                Debug.LogError("Could not find the requested type!");
+            }
+        }
+
+        //Did we switch types? Only happens when the user clicks a new option on the dropdown
+        if (selection != typeVal)
+        {
+            property.isExpanded = true;
+            typeVal = selection;
+
+            //We want something new, so clear the old value if it exists.
+            if (effect.objectReferenceValue != null)
+            {
+                string path = AssetDatabase.GetAssetPath(effect.objectReferenceValue);
+                effect.objectReferenceValue = null;
+                AssetDatabase.DeleteAsset(path);
+            }
+
+            //Create a new asset of the chosen type
+            var newSO = ScriptableObject.CreateInstance(types[typeVal]);
+            DateTime time = DateTime.Now;
+            //Doesn't account for decade. Surely this won't bite me in the ass. Also, no way someone makes two of these in 100th of a second, right?
+            AssetDatabase.CreateAsset(newSO, $"Assets\\Prefabs and Script Objects\\Status Effects\\{names[typeVal]}-{time.ToString("yyMMddHHmmttff")}.asset");
+            AssetDatabase.SaveAssets();
+
+            //Refresh the editor values, in case the dropdown gets shown this frame
+            effect.objectReferenceValue = newSO;
+
+            //We modified a serialized object outside of an editor - You're really not supposed to do this,
+            //but has that ever stopped us before? Apply the properties to make sure our changes stick.
+            effect.serializedObject.ApplyModifiedProperties();
+        }
+        
+    }
+
     //Fantastic code modeled from Fydar's on the Unity Forums. Thanks for all the help!!
     //https://forum.unity.com/threads/editor-tool-better-scriptableobject-inspector-editing.484393/
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -212,6 +273,7 @@ public class EffectPropertyDrawer : PropertyDrawer
             height += EditorGUI.GetPropertyHeight(field, true) + EditorGUIUtility.standardVerticalSpacing;
         }
 
+        
 
         return height;
     }
@@ -222,6 +284,11 @@ public class EffectPropertyDrawer : PropertyDrawer
         Assembly assembly = baseType.Assembly;
 
         return assembly.GetTypes().Where(t => t.IsSubclassOf(baseType)).ToList();
+    }
+
+    public void Test()
+    {
+        Debug.Log("I got pressed!");
     }
 }
 #endif

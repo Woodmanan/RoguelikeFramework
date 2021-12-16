@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New TestDamageEffect", menuName = "Status Effects/TestDamageEffect", order = 1)]
+[EffectGroup("Damaging Effects")]
 public class TestDamageEffect : Effect
 {
     [SerializeField] int damagePerTurn;
