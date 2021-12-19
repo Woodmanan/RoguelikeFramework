@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7913379573585751924}
   - component: {fileID: 7913379573585751925}
   - component: {fileID: 7913379573585751926}
-  - component: {fileID: 7158709351230978972}
+  - component: {fileID: 1018042896674247376}
   m_Layer: 0
   m_Name: Item Test 2
   m_TagString: Untagged
@@ -107,7 +107,12 @@ MonoBehaviour:
   CanEquip: 0
   CanApply: 0
   CanTarget: 0
---- !u!114 &7158709351230978972
+  CanMelee: 0
+  CanRanged: 0
+  applyable: {fileID: 0}
+  targetable: {fileID: 0}
+  equippable: {fileID: 0}
+--- !u!114 &1018042896674247376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,15 +121,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7913379573585751927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55db2fd30caa58241849bf03497b23b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 061029ab2cec2c74693f98a94e2c64cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   primarySlot: 3
   secondarySlots: 
   addedStats:
-    maxHealth: 0
-    ac: 0
-    ev: 0
-  addedEffects: []
+    maxHealth: 5
+    ac: 5
+    ev: 5
+  addedEffects:
+    list: []
   isEquipped: 0
   removable: 1

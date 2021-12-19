@@ -75,9 +75,9 @@ public class Item : MonoBehaviour
         equipable = GetComponent<EquipableItem>();
 
         //Quick check for components, better here than later
-        CanEquip = equipable != null;
-        CanApply = applyable != null;
-        CanTarget = targetable != null;
+        CanEquip = (equipable != null);
+        CanApply = (applyable != null);
+        CanTarget = (targetable != null);
         CanMelee = GetComponent<MeleeWeapon>() != null;
         CanRanged = GetComponent<RangedWeapon>() != null;
     }
@@ -138,6 +138,16 @@ public class Item : MonoBehaviour
     }
 
     public string GetName()
+    {
+        if (CanEquip && equipable.isEquipped)
+        {
+            return name + " [Equipped]";
+        }
+        return name;
+    }
+
+    //Returns the name without modifiers. As of right now, just returns the straight name.
+    public string GetNameClean()
     {
         return name;
     }

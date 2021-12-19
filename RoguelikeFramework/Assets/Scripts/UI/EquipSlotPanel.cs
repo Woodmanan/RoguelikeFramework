@@ -35,7 +35,7 @@ public class EquipSlotPanel : MonoBehaviour
         if (displaying.active)
         {
             //TODO: Set up the picture here as well
-            newName += $" - {displaying.equipped.held[0].GetName()}";
+            newName += $" - {displaying.equipped.held[0].GetNameClean()}";
         }
         nameBox.text = newName;
     }

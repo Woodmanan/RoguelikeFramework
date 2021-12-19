@@ -100,7 +100,7 @@ public class EquipmentScreen : RogueUIPanel
                         else
                         {
                             //TODO: Console message that says you can't equip that here
-                            Debug.LogError($"Can't equip {queuedItem.held[0].GetName()} to slot {currentSlot.slotName}");
+                            Debug.LogError($"Can't equip {queuedItem.held[0].GetNameClean()} to slot {currentSlot.slotName}");
                         }
                     }
                 }
