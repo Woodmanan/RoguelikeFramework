@@ -56,7 +56,7 @@ public class EquipAction : GameAction
         List<int> neededSlots = caller.equipment.SlotsNeededToEquip(itemIndex, equipIndex);
 
         ItemStack item = caller.inventory[itemIndex];
-        if (item.held[0].GetComponent<EquipableItem>().isEquipped)
+        if (item.held[0].equipable.isEquipped)
         {
             RemoveAction remove = new RemoveAction(item);
             remove.Setup(caller);

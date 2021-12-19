@@ -6,8 +6,6 @@ using System.Linq;
 
 public class Player : Monster
 {
-    public StatusEffect heyLookatme;
-
     //UI Stuff!
     [SerializeField] UIController uiControls;
 

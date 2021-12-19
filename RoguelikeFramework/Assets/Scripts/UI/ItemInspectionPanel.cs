@@ -49,7 +49,7 @@ public class ItemInspectionPanel : RogueUIPanel
                 ExitAllWindows();
                 break;
             case PlayerAction.EQUIP:
-                EquipableItem toEquip = inspecting.held[0].GetComponent<EquipableItem>();
+                EquipableItem toEquip = inspecting.held[0].equipable;
                 if (toEquip != null && !toEquip.isEquipped)
                 {
                     UIController.singleton.OpenEquipmentEquip(inspecting);
@@ -60,7 +60,7 @@ public class ItemInspectionPanel : RogueUIPanel
                 }
                 break;
             case PlayerAction.UNEQUIP:
-                EquipableItem equip = inspecting.held[0].GetComponent<EquipableItem>();
+                EquipableItem equip = inspecting.held[0].equipable;
                 if (equip != null && equip.isEquipped)
                 {
                     Player.player.equipment.UnequipItem(inspecting.position); //Faster method, doesn't need a search

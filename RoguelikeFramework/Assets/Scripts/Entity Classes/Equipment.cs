@@ -54,7 +54,7 @@ public class Equipment : MonoBehaviour
     {
         //Get item
         ItemStack item = inventory[itemIndex];
-        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+        EquipableItem equip = item.held[0].equipable;
         if (equip.isEquipped && equipmentSlots[EquipIndex].active)
         {
             if (object.ReferenceEquals(equipmentSlots[EquipIndex].equipped.held[0], item.held[0]))
@@ -80,7 +80,7 @@ public class Equipment : MonoBehaviour
         }
 
         
-        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+        EquipableItem equip = item.held[0].equipable;
         EquipSlotType primary = equip.primarySlot;
 
         //Confirm that, if item is equipped already, it could be moved.
@@ -160,7 +160,7 @@ public class Equipment : MonoBehaviour
         ItemStack item = inventory[itemIndex];
 
         //Confirm that slot is open and primary
-        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+        EquipableItem equip = item.held[0].equipable;
         EquipSlotType primary = equip.primarySlot;
 
         EquipmentSlot main = equipmentSlots[EquipIndex];
@@ -226,7 +226,7 @@ public class Equipment : MonoBehaviour
         Debug.Assert(CanEquip(itemIndex, EquipIndex), "Equip Error! Equipping something should require you to be able to equip it!");
         Debug.Assert(RequiresReequip(itemIndex, EquipIndex), "Equip Error! You shouldn't be trying to re-equip something to the same slot!");
         Debug.Assert(SlotsNeededToEquip(itemIndex, EquipIndex).Count == 0, "Equip Error! You must have freed all the needed slots before equipping something!");
-        Debug.Assert(!inventory[itemIndex].held[0].GetComponent<EquipableItem>().isEquipped, "Equip Error! Someone should have unequipped the main item already.");
+        Debug.Assert(!inventory[itemIndex].held[0].equipable.isEquipped, "Equip Error! Someone should have unequipped the main item already.");
         #endif
 
         //Setup vars
@@ -234,7 +234,7 @@ public class Equipment : MonoBehaviour
 
         //Get item
         ItemStack item = inventory[itemIndex];
-        EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+        EquipableItem equip = item.held[0].equipable;
 
         //Confirm that slot is open and primary
         EquipmentSlot main = equipmentSlots[EquipIndex];
@@ -324,7 +324,7 @@ public class Equipment : MonoBehaviour
     //TODO: Finish refactor for removable code
     public bool Unequip(ItemStack toRemove)
     {
-        if (!toRemove.held[0].GetComponent<EquipableItem>().removable)
+        if (!toRemove.held[0].equipable.removable)
         {
             Debug.Log($"Your {toRemove.held[0].GetName()} is cursed and cannot be removed.");
             return false;
@@ -343,7 +343,7 @@ public class Equipment : MonoBehaviour
         }
         if (removedSomething)
         {
-            toRemove.held[0].GetComponent<EquipableItem>().OnUnequip();
+            toRemove.held[0].equipable.OnUnequip();
         }
         return removedSomething;
     }
@@ -359,7 +359,7 @@ public class Equipment : MonoBehaviour
         }
 
         //Get equipment index
-        EquipableItem e = i.GetComponent<EquipableItem>();
+        EquipableItem e = i.equipable;
         EquipSlotType slot = e.primarySlot;
 
         for (int c = 0; c < equipmentSlots.Count; c++)

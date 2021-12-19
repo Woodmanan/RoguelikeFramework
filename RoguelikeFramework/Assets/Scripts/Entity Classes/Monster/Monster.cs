@@ -195,9 +195,9 @@ public class Monster : MonoBehaviour
             List<MeleeWeapon> weapons = new List<MeleeWeapon>();
             foreach (EquipmentSlot s in slots)
             {
-                MeleeWeapon weapon = s.equipped.held[0].GetComponent<MeleeWeapon>();
-                if (weapon)
+                if (s.equipped.held[0].CanMelee)
                 {
+                    MeleeWeapon weapon = s.equipped.held[0].GetComponent<MeleeWeapon>();
                     if (!weapons.Contains(weapon))
                     {
                         weapons.Add(weapon);

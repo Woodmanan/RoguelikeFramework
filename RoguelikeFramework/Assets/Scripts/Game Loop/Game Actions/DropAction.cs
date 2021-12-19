@@ -50,7 +50,7 @@ public class DropAction : GameAction
         {
             //For each item, check if it's equipped. If so, remove it.
             ItemStack item = caller.inventory[index];
-            EquipableItem equip = item.held[0].GetComponent<EquipableItem>();
+            EquipableItem equip = item.held[0].equipable;
             if (equip && equip.isEquipped)
             {
                 needsToBeRemoved.Add(index);

@@ -153,7 +153,7 @@ public class Inventory : MonoBehaviour
     {
         int numItems = stack.held.Count;
         Item toApply = stack.held[numItems - 1];
-        ApplyableItem apply = toApply.GetComponent<ApplyableItem>();
+        ApplyableItem apply = toApply.applyable;
         if (apply == null)
         {
             Debug.LogError($"Couldn't apply item at index {stack.position}, last item has no ApplyableItem component");
@@ -359,7 +359,7 @@ public class Inventory : MonoBehaviour
 
         if (stack == null) return; //Quick cutout
 
-        EquipableItem equip = stack.held[0].GetComponent<EquipableItem>();
+        EquipableItem equip = stack.held[0].equipable;
 
         if (equip && equip.isEquipped)
         {

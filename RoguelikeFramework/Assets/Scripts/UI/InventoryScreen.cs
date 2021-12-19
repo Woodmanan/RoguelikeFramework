@@ -80,7 +80,7 @@ public class InventoryScreen : RogueUIPanel
                 EquipmentSlot slot = Player.player.equipment.equipmentSlots[queuedEquipmentIndex];
                 title.text = $"Equip what to {slot.slotName}?";
                 toDisplay = available.FindAll(x => x.held[0].CanEquip); //Pretty cheap
-                toDisplay = toDisplay.FindAll(x => slot.type.Contains(x.held[0].GetComponent<EquipableItem>().primarySlot)); //Pretttttty expensive
+                toDisplay = toDisplay.FindAll(x => slot.type.Contains(x.held[0].equipable.primarySlot)); //Pretttttty expensive
                 break;
             case ItemAction.PICK_UP:
                 toDisplay = available;

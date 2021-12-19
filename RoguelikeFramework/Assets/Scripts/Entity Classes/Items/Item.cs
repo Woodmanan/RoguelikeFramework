@@ -21,6 +21,8 @@ public class Item : MonoBehaviour
     [HideInInspector] public bool CanEquip;
     [HideInInspector] public bool CanApply;
     [HideInInspector] public bool CanTarget;
+    [HideInInspector] public bool CanMelee;
+    [HideInInspector] public bool CanRanged;
 
     private SpriteRenderer Render;
     public SpriteRenderer render
@@ -44,6 +46,10 @@ public class Item : MonoBehaviour
         }
     }
 
+    [HideInInspector] public ApplyableItem applyable;
+    [HideInInspector] public TargetableItem targetable;
+    [HideInInspector] public EquipableItem equipable;
+
     private static readonly float itemZValue = -7.0f;
 
     //Stuff used for convenience editor hacking, and should never be seen.
@@ -64,10 +70,16 @@ public class Item : MonoBehaviour
             Debug.LogError("An item is set to have no type! Please use ItemType.EMPTY if you have misc items.", this);
         }
 
+        applyable = GetComponent<ApplyableItem>();
+        targetable = GetComponent<TargetableItem>();
+        equipable = GetComponent<EquipableItem>();
+
         //Quick check for components, better here than later
-        CanEquip = GetComponent<EquipableItem>() != null;
-        CanApply = GetComponent<ApplyableItem>() != null;
-        CanTarget = GetComponent<TargetableItem>() != null;
+        CanEquip = equipable != null;
+        CanApply = applyable != null;
+        CanTarget = targetable != null;
+        CanMelee = GetComponent<MeleeWeapon>() != null;
+        CanRanged = GetComponent<RangedWeapon>() != null;
     }
 
 
