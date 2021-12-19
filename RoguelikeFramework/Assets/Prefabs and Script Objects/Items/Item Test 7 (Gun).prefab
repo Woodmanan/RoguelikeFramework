@@ -166,13 +166,9 @@ MonoBehaviour:
   piercing: 5
   damage:
   - damage:
-      rolls: 3
-      dice: 2
-      evaluateEveryRoll: 1
-    type: 3
+      rolls: 0
+      dice: 0
+      evaluateEveryRoll: 0
+    type: 1
   effects:
-    list:
-    - name: New Effect 0
-      percentChance: 0
-      appliedEffects:
-        list: []
+    list: []

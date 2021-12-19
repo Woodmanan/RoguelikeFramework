@@ -985,6 +985,8 @@ MonoBehaviour:
   effects: []
   inventory: {fileID: 199009399}
   equipment: {fileID: 0}
+  heyLookatme:
+    heldEffect: {fileID: 0}
   uiControls: {fileID: 962910824}
 --- !u!4 &199009396
 Transform:
