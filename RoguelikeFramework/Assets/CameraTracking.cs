@@ -102,7 +102,6 @@ public class CameraTracking : MonoBehaviour
             case CameraTrackingMode.Lerp:
                 float lerpDist = (target - (Vector2) transform.position).magnitude;
                 target = Vector2.Lerp(transform.position, target, lerpAmount);
-                Debug.Log($"Lerp distance is {lerpDist}");
                 if (lerpDist < stopDist)
                 {
                     if (stopSpeed < 0) stopSpeed = ((Vector2)player.transform.position - target).magnitude * stopSpeedMultiplier;

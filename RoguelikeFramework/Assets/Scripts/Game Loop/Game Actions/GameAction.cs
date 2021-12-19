@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class GameAction
 {
+
+    //--------------Static runtime variables----------------------
+
+    //A permanent object that can be yielded, in order to allow the main
+    //loop to perform a validity check, ending the turn if necessary
+    public static YieldInstruction StateCheck = new WaitForSeconds(1.0f); 
+
+    //----------Shared variables per instance---------------------
     public Monster caller;
     public IEnumerator action;
     public bool finished;

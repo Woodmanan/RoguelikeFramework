@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         turn = 0;
-        StartCoroutine(TakeTurns());
+        StartCoroutine(BeginGame());
     }
 
     // Update is called once per frame
@@ -31,22 +31,25 @@ public class GameController : MonoBehaviour
         
     }
 
-    IEnumerator TakeTurns()
+    IEnumerator BeginGame()
     {
-        //Initial setup phase!
-        //TODO: Branch this into it's own thing?
-
         //1 Frame pause to set up LOS
         yield return null;
         LOS.GeneratePlayerLOS(player.location, player.visionRadius);
 
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();
-        
+
+        //Space for any init setup that needs to be done
+        StartCoroutine(GameLoop());
+    }
+
+    IEnumerator GameLoop()
+    {
         //Main loop
         while (true)
         {
-            turn++;
+            
             CallTurnStartGlobal();
 
             //Player turn sequence
@@ -60,7 +63,10 @@ public class GameController : MonoBehaviour
                 IEnumerator turn = player.LocalTurn();
                 while (player.energy > 0 && turn.MoveNext())
                 {
-                    yield return turn.Current;
+                    if (turn.Current != GameAction.StateCheck)
+                    {
+                        yield return turn.Current;
+                    }
                 }
 
                 //Turn is ended!
@@ -85,13 +91,19 @@ public class GameController : MonoBehaviour
                 m.AddEnergy(energyPerTurn);
                 while (m.energy > 0)
                 {
+                    //Set up local turn
+                    m.StartTurn();
+
                     //Run the actual turn itself
                     IEnumerator turn = m.LocalTurn();
                     while (m.energy > 0 && turn.MoveNext())
                     {
-                        watch.Stop();
-                        yield return turn.Current;
-                        watch.Restart();
+                        if (turn.Current != GameAction.StateCheck)
+                        {
+                            watch.Stop();
+                            yield return turn.Current;
+                            watch.Restart();
+                        }
                     }
 
                     //Turn is ended!
@@ -101,11 +113,7 @@ public class GameController : MonoBehaviour
             
             CallTurnEndGlobal();
 
-            //Finished calls for monster update, take turns for the players
-            //Leaving this call for posterity in case we ever need it, but I think everything is now handled much better
-            //by the existing system. Taking this out improves our speed for when the player takes extremely long actions
-            //like resting!
-            //yield return null;
+            turn++;
         }
     }
 

@@ -20,6 +20,7 @@ public class MoveAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
+        yield return GameAction.StateCheck;
         CustomTile tile = Map.singleton.GetTile(intendedLocation);
         if (tile.BlocksMovement())
         {
