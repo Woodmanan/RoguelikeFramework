@@ -968,16 +968,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    maxHealth: 20
+    resources:
+      health: 20
+      mana: 0
+      stamina: 102
     ac: 5
     ev: 5
   stats:
-    maxHealth: 0
+    resources:
+      health: 0
+      mana: 0
+      stamina: 0
     ac: 0
     ev: 0
+  resources:
+    health: 0
+    mana: 0
+    stamina: 0
   name: player
   nameRequiresPluralVerbs: 1
-  health: 0
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
@@ -985,8 +994,6 @@ MonoBehaviour:
   effects: []
   inventory: {fileID: 199009399}
   equipment: {fileID: 0}
-  heyLookatme:
-    heldEffect: {fileID: 0}
   uiControls: {fileID: 962910824}
 --- !u!4 &199009396
 Transform:
@@ -4847,16 +4854,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    maxHealth: 0
+    resources:
+      health: 0
+      mana: 0
+      stamina: 0
     ac: 0
     ev: 0
   stats:
-    maxHealth: 0
+    resources:
+      health: 0
+      mana: 0
+      stamina: 0
     ac: 0
     ev: 0
+  resources:
+    health: 0
+    mana: 0
+    stamina: 0
   name: 
   nameRequiresPluralVerbs: 0
-  health: 0
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 0

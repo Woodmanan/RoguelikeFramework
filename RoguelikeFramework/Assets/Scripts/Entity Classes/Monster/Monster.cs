@@ -14,13 +14,14 @@ public class Monster : MonoBehaviour
     public StatBlock baseStats;
     public StatBlock stats;
 
+    public ResourceList resources;
+
     //TODO: Abstract these out to another class!!!
     new public string name;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
 
     [Header("Runtime Attributes")]
-    public int health;
     public float energy;
 
     public Vector2Int location;
@@ -66,7 +67,7 @@ public class Monster : MonoBehaviour
 
         //TODO: Have starting equipment? Probably not a huge concern right now, though.
         stats = baseStats;
-        health = stats.maxHealth;
+        resources.health = stats.resources.health;
         if (OnFullyHealed != null)
         {
             OnFullyHealed.Invoke();
@@ -91,11 +92,11 @@ public class Monster : MonoBehaviour
 
         if (healthReturned > 0) //Negative health healing is currently just ignored, for clarity's sake
         {
-            health += healthReturned;
+            resources.health += healthReturned;
         }
-        if (health >= stats.maxHealth)
+        if (resources.health >= stats.resources.health)
         {
-            health = stats.maxHealth;
+            resources.health = stats.resources.health;
             OnFullyHealed.Invoke();
         }
     }
@@ -126,16 +127,16 @@ public class Monster : MonoBehaviour
     public void TakeDamage(int damage, DamageType type, string message = "{name} take%s{|s} {damage} damage")
     {
         OnTakeDamage.Invoke(ref damage, ref type);
-        health -= damage;
+        resources.health -= damage;
 
         //Loggingstuff
         string toPrint = FormatStringForName(message).Replace("{damage}", $"{damage}");
         Debug.Log($"Console print: {toPrint}");
 
-        if (health <= 0)
+        if (resources.health <= 0)
         {
             OnDeath.Invoke();
-            if (health <= 0) //Check done for respawn mechanics to take effect
+            if (resources.health <= 0) //Check done for respawn mechanics to take effect
             {
                 Die();
             }

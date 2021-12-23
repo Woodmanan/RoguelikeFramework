@@ -6,14 +6,14 @@ using System;
 [Serializable]
 public class StatBlock
 {
-    public int maxHealth;
+    public ResourceList resources;
     public int ac; //Armor Class
     public int ev; //Evasion
 
     public static StatBlock operator +(StatBlock a, StatBlock b)
     {
         StatBlock toReturn = new StatBlock();
-        toReturn.maxHealth = a.maxHealth + b.maxHealth;
+        toReturn.resources = a.resources + b.resources;
         toReturn.ac = a.ac + b.ac;
         toReturn.ev = a.ev + b.ev;
         return toReturn;
@@ -22,7 +22,7 @@ public class StatBlock
     public static StatBlock operator -(StatBlock a, StatBlock b)
     {
         StatBlock toReturn = new StatBlock();
-        toReturn.maxHealth = a.maxHealth - b.maxHealth;
+        toReturn.resources = a.resources - b.resources;
         toReturn.ac = a.ac - b.ac;
         toReturn.ev = a.ev - b.ev;
         return toReturn;

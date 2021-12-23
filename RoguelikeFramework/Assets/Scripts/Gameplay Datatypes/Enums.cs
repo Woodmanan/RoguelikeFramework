@@ -133,3 +133,10 @@ public enum UIState
     INVENTORY,
     PICKUP_MANY
 }
+
+public enum Resource
+{
+    HEALTH,
+    MANA,
+    STAMINA
+}
