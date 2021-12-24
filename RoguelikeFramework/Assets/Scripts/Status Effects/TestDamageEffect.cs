@@ -9,6 +9,8 @@ public class TestDamageEffect : Effect
     [SerializeField] int damagePerTurn;
     [SerializeField] int numTurns;
 
+    Monster target;
+
     public override int priority { get { return 8; } }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
@@ -20,7 +22,16 @@ public class TestDamageEffect : Effect
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnFirstConnection() {}*/
+    public override void OnConnection()
+    {
+        Debug.Log("ConnectedTo is null?");
+        target = connectedTo.monster;
+        if (target == null)
+        {
+            Debug.Log("No monster, so I quit!");
+            Disconnect();
+        }
+    }
 
     //Called at the start of the global turn sequence
     [Priority(6)]

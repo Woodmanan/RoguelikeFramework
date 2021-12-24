@@ -1,7 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Reflection;
+using System.Linq;
 
 /*
  * Mostly empty class used as a base for status effects. If you want to create a new
@@ -14,8 +16,13 @@ using System;
 
 public class Effect : ScriptableObject
 {
-    [HideInInspector] public Monster target;
+    //AUTO: Connection count
+    [HideInInspector] public const int connectionCount = 15;
+
+    [HideInInspector] public Connections connectedTo;
     [HideInInspector] public bool ReadyToDelete = false;
+
+    public static Dictionary<Type, int[]> connectionDict = new Dictionary<Type, int[]>();
 
     public virtual int priority { get { return 5; } }
 
@@ -33,82 +40,400 @@ public class Effect : ScriptableObject
      * Adding new events to this stack is a little jank. If you think there needs to
      * be a new connection, let me (Woody) know and we can get it added!
      */
-    public void Connect(Monster m)
+    public void Connect(Connections c)
     {
-        target = m;
+        connectedTo = c;
+        
+        if (!connectionDict.ContainsKey(this.GetType()))
+        {
+            SetupConnections();
+        }
+
+        int[] connections;
+        if (!connectionDict.TryGetValue(this.GetType(), out connections))
+        {
+            Debug.LogError($"Effect {this.GetType().Name} was unable to find its connection list. This is bad.");
+        }
         Type current = this.GetType();
         Type defaultType = typeof(Effect);
 
-        m.RegenerateStats       .AddMethod(RegenerateStats, defaultType, priority);
+        //BEGIN AUTO CONNECT
 
-        m.OnTurnStartGlobal     .AddMethod(OnTurnStartGlobal, defaultType, priority);
+        if (connections[0] >= 0) { c.OnTurnStartGlobal.AddListener(connections[0], OnTurnStartGlobal); }
 
-        m.OnTurnEndGlobal       .AddMethod(OnTurnEndGlobal, defaultType, priority);
+        if (connections[1] >= 0) { c.OnTurnEndGlobal.AddListener(connections[1], OnTurnEndGlobal); }
 
-        m.OnTurnStartLocal      .AddMethod(OnTurnStartLocal, defaultType, priority);
+        if (connections[2] >= 0) { c.OnTurnStartLocal.AddListener(connections[2], OnTurnStartLocal); }
 
-        m.OnTurnEndLocal        .AddMethod(OnTurnEndLocal, defaultType, priority);
+        if (connections[3] >= 0) { c.OnTurnEndLocal.AddListener(connections[3], OnTurnEndLocal); }
 
-        m.OnMove                .AddMethod(OnMove, defaultType, priority);
+        if (connections[4] >= 0) { c.OnMove.AddListener(connections[4], OnMove); }
 
-        m.OnFullyHealed         .AddMethod(OnFullyHealed, defaultType, priority);
+        if (connections[5] >= 0) { c.OnFullyHealed.AddListener(connections[5], OnFullyHealed); }
 
-        m.OnDeath               .AddMethod(OnDeath, defaultType, priority);
+        if (connections[6] >= 0) { c.OnDeath.AddListener(connections[6], OnDeath); }
 
-        m.OnEnergyGained        .AddMethod(OnEnergyGained, defaultType, priority);
+        if (connections[7] >= 0) { c.RegenerateStats.AddListener(connections[7], RegenerateStats); }
 
-        m.OnAttacked            .AddMethod(OnAttacked, defaultType, priority);
+        if (connections[8] >= 0) { c.OnEnergyGained.AddListener(connections[8], OnEnergyGained); }
 
-        m.OnTakeDamage          .AddMethod(OnTakeDamage, defaultType, priority);
+        if (connections[9] >= 0) { c.OnAttacked.AddListener(connections[9], OnAttacked); }
 
-        m.OnHealing             .AddMethod(OnHealing, defaultType, priority);
+        if (connections[10] >= 0) { c.OnTakeDamage.AddListener(connections[10], OnTakeDamage); }
 
-        m.OnApplyStatusEffects  .AddMethod(OnApplyStatusEffects, defaultType, priority);
+        if (connections[11] >= 0) { c.OnHealing.AddListener(connections[11], OnHealing); }
+
+        if (connections[12] >= 0) { c.OnApplyStatusEffects.AddListener(connections[12], OnApplyStatusEffects); }
+
 
         OnConnection();
+    }
+
+    //Extremely expensive, and terrible. On the flipside, this now only needs to happen
+    //once per time the game is opened, instead of most of this work happening every frame. Win!
+    public void SetupConnections()
+    {
+        //AUTO VARIABLE
+        int numConnections = 13;
+
+        int[] connections = new int[numConnections];
+
+        //This part of the code is made autonomously, and gets kind of messy.
+        //This manual way of doing it sucks, but should be MUCH faster than the old way of
+        //doing it. You (the coder) shouldn't need to worry about how this works, and it should
+        //just behave like ~magic~. If you're curious, though, this is the gross manual way of 
+        //doing this.
+
+        MethodInfo method;
+
+        //AUTO SETUP
+
+        //-------------------- OnTurnStartGlobal --------------------
+        method = ((ActionRef) OnTurnStartGlobal).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[0] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[0] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[0] = -1;
+        }
+        //------------------------------------------------------------
+
+        //--------------------- OnTurnEndGlobal ---------------------
+        method = ((ActionRef) OnTurnEndGlobal).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[1] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[1] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[1] = -1;
+        }
+        //------------------------------------------------------------
+
+        //--------------------- OnTurnStartLocal ---------------------
+        method = ((ActionRef) OnTurnStartLocal).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[2] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[2] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[2] = -1;
+        }
+        //------------------------------------------------------------
+
+        //---------------------- OnTurnEndLocal ----------------------
+        method = ((ActionRef) OnTurnEndLocal).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[3] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[3] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[3] = -1;
+        }
+        //------------------------------------------------------------
+
+        //-------------------------- OnMove --------------------------
+        method = ((ActionRef) OnMove).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[4] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[4] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[4] = -1;
+        }
+        //------------------------------------------------------------
+
+        //---------------------- OnFullyHealed ----------------------
+        method = ((ActionRef) OnFullyHealed).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[5] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[5] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[5] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------------- OnDeath -------------------------
+        method = ((ActionRef) OnDeath).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[6] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[6] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[6] = -1;
+        }
+        //------------------------------------------------------------
+
+        //--------------------- RegenerateStats ---------------------
+        method = ((ActionRef<StatBlock>) RegenerateStats).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[7] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[7] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[7] = -1;
+        }
+        //------------------------------------------------------------
+
+        //---------------------- OnEnergyGained ----------------------
+        method = ((ActionRef<int>) OnEnergyGained).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[8] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[8] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[8] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------------ OnAttacked ------------------------
+        method = ((ActionRef<int, int>) OnAttacked).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[9] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[9] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[9] = -1;
+        }
+        //------------------------------------------------------------
+
+        //----------------------- OnTakeDamage -----------------------
+        method = ((ActionRef<int, DamageType>) OnTakeDamage).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[10] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[10] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[10] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------------ OnHealing ------------------------
+        method = ((ActionRef<int>) OnHealing).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[11] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[11] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[11] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------- OnApplyStatusEffects -------------------
+        method = ((ActionRef<Effect[]>) OnApplyStatusEffects).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[12] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[12] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[12] = -1;
+        }
+        //------------------------------------------------------------
+
+
+
+        connectionDict.Add(this.GetType(), connections);
     }
 
     public void Disconnect()
     {
         Debug.Log("Disconnecting!");
         OnDisconnection();
-        Monster m = target;
+        Connections c = connectedTo;
         Type current = this.GetType();
         Type defaultType = typeof(Effect);
 
-        m.RegenerateStats.RemoveListener(RegenerateStats);
+        //BEGIN AUTO DISCONNECT
+
+        c.RegenerateStats.RemoveListener(RegenerateStats);
         
-        m.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
+        c.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
 
-        m.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+        c.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
-        m.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+        Debug.Log($"Number before disconnect: {c.OnTurnStartLocal.delegates.Count}");
+        c.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+        Debug.Log($"Number after disconnect: {c.OnTurnStartLocal.delegates.Count}");
 
-        m.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        c.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
 
-        m.OnMove.RemoveListener(OnMove);
+        c.OnMove.RemoveListener(OnMove);
 
-        m.OnFullyHealed.RemoveListener(OnFullyHealed);
+        c.OnFullyHealed.RemoveListener(OnFullyHealed);
 
-        m.OnDeath.RemoveListener(OnDeath);
+        c.OnDeath.RemoveListener(OnDeath);
 
-        m.OnEnergyGained.RemoveListener(OnEnergyGained);
+        c.OnEnergyGained.RemoveListener(OnEnergyGained);
 
-        m.OnAttacked.RemoveListener(OnAttacked);
+        c.OnAttacked.RemoveListener(OnAttacked);
 
-        m.OnTakeDamage.RemoveListener(OnTakeDamage);
+        c.OnTakeDamage.RemoveListener(OnTakeDamage);
 
-        m.OnHealing.RemoveListener(OnHealing);
+        c.OnHealing.RemoveListener(OnHealing);
 
-        m.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        c.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+
+        //END AUTO DISCONNECT
 
         ReadyToDelete = true;
         
     }
 
     public virtual void OnConnection() {}
+    public virtual void OnDisconnection() {}
 
-    public virtual void OnDisconnection() { }
+    //AUTO DECLARATIONS
 
     //Empty 
     public virtual void OnTurnStartGlobal() {}

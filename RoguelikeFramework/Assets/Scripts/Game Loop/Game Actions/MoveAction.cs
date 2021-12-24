@@ -28,7 +28,7 @@ public class MoveAction : GameAction
             yield break;
         }
 
-        caller.OnMove.Invoke();
+        caller.connections.OnMove.Invoke();
 
         if (tile.currentlyStanding != null)
         {

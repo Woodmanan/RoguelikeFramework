@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63431821c9f93a94aa797a79ad4c2f23, type: 3}
+  m_Name: Effect Connections
+  m_EditorClassIdentifier: 
+  connections:
+  - name: OnTurnStartGlobal
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnTurnEndGlobal
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnTurnStartLocal
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnTurnEndLocal
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnMove
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnFullyHealed
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnDeath
+    types: []
+    usedByItem: 0
+    usedByAbility: 0
+  - name: RegenerateStats
+    types:
+    - StatBlock
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnEnergyGained
+    types:
+    - int
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnAttacked
+    types:
+    - int
+    - int
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnTakeDamage
+    types:
+    - int
+    - DamageType
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnHealing
+    types:
+    - int
+    usedByItem: 0
+    usedByAbility: 0
+  - name: OnApplyStatusEffects
+    types:
+    - Effect[]
+    usedByItem: 0
+    usedByAbility: 0
+  itemConnections: []
+  abilityConnections: []

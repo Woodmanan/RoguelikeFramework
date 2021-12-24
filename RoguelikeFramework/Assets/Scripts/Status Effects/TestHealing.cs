@@ -7,6 +7,7 @@ public class TestHealing : Effect
 {
     [SerializeField] int healthPerTurn;
     [SerializeField] int numTurns;
+    Monster target;
 
     public override int priority
     {
@@ -22,7 +23,14 @@ public class TestHealing : Effect
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnFirstConnection() {}*/
+    public override void OnConnection()
+    {
+        target = connectedTo.monster;
+        if (target == null)
+        {
+            Disconnect();
+        }
+    }
 
     //Called at the start of the global turn sequence
     /*public override void OnTurnStartGlobal() {}*/

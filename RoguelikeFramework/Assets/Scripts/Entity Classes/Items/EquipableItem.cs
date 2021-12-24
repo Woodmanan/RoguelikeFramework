@@ -48,7 +48,7 @@ public class EquipableItem : MonoBehaviour
         isEquipped = true;
         equippedTo = m;
         m.stats += addedStats; //Immediate stat benefit
-        m.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
+        m.connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
         clonedEffects.Clear();
@@ -71,7 +71,7 @@ public class EquipableItem : MonoBehaviour
         {
             e.Disconnect();
         }
-        equippedTo.RegenerateStats.RemoveListener(RegenerateStats);
+        equippedTo.connections.RegenerateStats.RemoveListener(RegenerateStats);
         isEquipped = false;
         equippedTo = null;
     }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System;
@@ -32,24 +32,8 @@ public class Monster : MonoBehaviour
 
     private static readonly float monsterZPosition = -5f;
 
-    //Empty Events
-    public OrderedEvent OnTurnStartGlobal = new OrderedEvent(); //Filled
-    public OrderedEvent OnTurnEndGlobal = new OrderedEvent(); //Filled
-    public OrderedEvent OnTurnStartLocal = new OrderedEvent(); //Filled
-    public OrderedEvent OnTurnEndLocal = new OrderedEvent(); //Filled
-    public OrderedEvent OnMove = new OrderedEvent(); //Filled out!
-    public OrderedEvent OnFullyHealed = new OrderedEvent(); // Filled out!
-    public OrderedEvent OnDeath = new OrderedEvent(); //Filled
-
-    //Special statblock event
-    public OrderedEvent<StatBlock> RegenerateStats = new OrderedEvent<StatBlock>();
-
-    //EntityEvent Events
-    public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>(); //Filled out!
-    public OrderedEvent<int, int> OnAttacked = new OrderedEvent<int, int>(); //Filled out, TODO: Rework this
-    public OrderedEvent<int, DamageType> OnTakeDamage = new OrderedEvent<int, DamageType>();
-    public OrderedEvent<int> OnHealing = new OrderedEvent<int>(); //Filled!
-    public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>(); //Filled!
+    [HideInInspector] public Connections connections;
+    [HideInInspector] public Connections other = null;
 
     [HideInInspector] public LOSData view;
 
@@ -73,11 +57,12 @@ public class Monster : MonoBehaviour
             resources[r] = stats.resources[r];
         }
 
+        connections = new Connections(this);
+
         resources.health = stats.resources.health;
-        if (OnFullyHealed != null)
-        {
-            OnFullyHealed.Invoke();
-        }
+        print($"Connections is null? {connections == null}");
+
+        connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
     }
 
     // Update is called once per frame
@@ -94,7 +79,7 @@ public class Monster : MonoBehaviour
 
     public void Heal(int healthReturned)
     {
-        OnHealing.Invoke(ref healthReturned);
+        connections.OnHealing.BlendInvoke(other?.OnHealing, ref healthReturned);
 
         if (healthReturned > 0) //Negative health healing is currently just ignored, for clarity's sake
         {
@@ -103,13 +88,13 @@ public class Monster : MonoBehaviour
         if (resources.health >= stats.resources.health)
         {
             resources.health = stats.resources.health;
-            OnFullyHealed.Invoke();
+            connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
         }
     }
 
     public bool Attack(int pierce, int accuracy)
     {
-        OnAttacked.Invoke(ref pierce, ref accuracy);
+        connections.OnAttacked.BlendInvoke(other?.OnAttacked, ref pierce, ref accuracy);
 
         if (accuracy < stats.ev)
         {
@@ -132,7 +117,7 @@ public class Monster : MonoBehaviour
 
     public void TakeDamage(int damage, DamageType type, string message = "{name} take%s{|s} {damage} damage")
     {
-        OnTakeDamage.Invoke(ref damage, ref type);
+        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type);
         resources.health -= damage;
 
         //Loggingstuff
@@ -141,7 +126,7 @@ public class Monster : MonoBehaviour
 
         if (resources.health <= 0)
         {
-            OnDeath.Invoke();
+            connections.OnDeath.BlendInvoke(other?.OnDeath);
             if (resources.health <= 0) //Check done for respawn mechanics to take effect
             {
                 Die();
@@ -225,7 +210,7 @@ public class Monster : MonoBehaviour
     
     public void AddEnergy(int energy)
     {
-        OnEnergyGained.Invoke(ref energy);
+        connections.OnEnergyGained.BlendInvoke(other?.OnEnergyGained, ref energy);
         this.energy += energy;
     }
 
@@ -237,12 +222,12 @@ public class Monster : MonoBehaviour
     public void StartTurn()
     {
         CallRegenerateStats();
-        OnTurnStartLocal.Invoke();
+        connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
     }
 
     public void EndTurn()
     {
-        OnTurnEndLocal.Invoke();
+        connections.OnTurnEndLocal.BlendInvoke(other?.OnTurnEndLocal);
         for (int i = effects.Count - 1; i >= 0; i--)
         {
             if (effects[i].ReadyToDelete)
@@ -256,7 +241,7 @@ public class Monster : MonoBehaviour
     public void CallRegenerateStats()
     {
         stats = new StatBlock() + baseStats;
-        RegenerateStats.Invoke(ref stats);
+        connections.RegenerateStats.BlendInvoke(other?.RegenerateStats, ref stats);
     }
 
     public void SetAction(GameAction act)
@@ -297,7 +282,7 @@ public class Monster : MonoBehaviour
                 if (currentAction == null && this != Player.player)
                 {
                     Debug.LogError("A monster returned a null action. Please force all monster AI systems to always return an action.", this);
-                    Debug.LogError("This error will NOT be caught in build, so please fix it now.");
+                    Debug.LogError("This error will NOT be caught in build, so please fix it now!!!!");
                     this.energy -= 10; //Breaks the game state, but prevents our coroutine from running forever
                 }
                 #endif
@@ -326,11 +311,11 @@ public class Monster : MonoBehaviour
 
     public void AddEffect(params Effect[] effectsToAdd)
     {
-        OnApplyStatusEffects.Invoke(ref effectsToAdd);
+        connections.OnApplyStatusEffects.BlendInvoke(other?.OnApplyStatusEffects, ref effectsToAdd);
         for (int i = 0; i < effectsToAdd.Length; i++)
         {
             Effect e = effectsToAdd[i];
-            e.Connect(this);
+            e.Connect(this.connections);
             effects.Add(e);
         }
     }
@@ -354,13 +339,13 @@ public class Monster : MonoBehaviour
     //Function to activate event call of Global turn start
     public void OnTurnStartGlobalCall()
     {
-        OnTurnStartGlobal.Invoke();
+        connections.OnTurnStartGlobal.BlendInvoke(other?.OnTurnStartGlobal);
     }
 
     //Same purpose as above
     public void OnTurnEndGlobalCall()
     {
-        OnTurnEndGlobal.Invoke();
+        connections.OnTurnEndGlobal.BlendInvoke(other?.OnTurnEndGlobal);
     }
 
 

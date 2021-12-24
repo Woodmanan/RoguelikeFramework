@@ -7,9 +7,10 @@ using System.Linq;
 public class OrderedEvent
 {
     public List<int> priorities = new List<int>();
-    public List<Action> delegates = new List<Action>();
+    public List<ActionRef> delegates = new List<ActionRef>();
+    public List<ActionRef> toRemove = new List<ActionRef>();
 
-    public void AddListener(int priority, Action listener)
+    public void AddListener(int priority, ActionRef listener)
     {
         int index = priorities.BinarySearch(priority);
         if (index < 0) index = ~index;
@@ -17,12 +18,12 @@ public class OrderedEvent
         delegates.Insert(index, listener);
     }
 
-    public void AddListener(Action listener)
+    public void AddListener(ActionRef listener)
     {
         AddListener(0, listener);
     }
 
-    public void AddMethod(Action act, Type defaultType, int priority)
+    public void AddMethod(ActionRef act, Type defaultType, int priority)
     {
         var method = act.Method;
         if (method.DeclaringType != defaultType)
@@ -39,7 +40,8 @@ public class OrderedEvent
         }
     }
 
-    public void RemoveListener(Action listener)
+
+    public void RemoveListener(ActionRef listener)
     {
         int index = delegates.IndexOf(listener);
         if (index >= 0)
@@ -47,6 +49,11 @@ public class OrderedEvent
             priorities.RemoveAt(index);
             delegates.RemoveAt(index);
         }
+    }
+
+    public void SetForRemoval(ActionRef listener)
+    {
+        toRemove.Add(listener);
     }
 
     public void Invoke()
@@ -59,6 +66,12 @@ public class OrderedEvent
 
     public void BlendInvoke(OrderedEvent other)
     {
+        if (other == null)
+        {
+            Invoke();
+            return;
+        }
+
         int i = 0, j = 0;
         
         //Work through the lists until one of them is done
@@ -146,6 +159,12 @@ public class OrderedEvent<T1>
 
     public void BlendInvoke(OrderedEvent<T1> other, ref T1 arg1)
     {
+        if (other == null)
+        {
+            Invoke(ref arg1);
+            return;
+        }
+
         int i = 0, j = 0;
 
         //Work through the lists until one of them is done
@@ -233,6 +252,12 @@ public class OrderedEvent<T1, T2>
 
     public void BlendInvoke(OrderedEvent<T1, T2> other, ref T1 arg1, ref T2 arg2)
     {
+        if (other == null)
+        {
+            Invoke(ref arg1, ref arg2);
+            return;
+        }
+
         int i = 0, j = 0;
 
         //Work through the lists until one of them is done
@@ -319,6 +344,12 @@ public class OrderedEvent<T1, T2, T3>
 
     public void BlendInvoke(OrderedEvent<T1, T2, T3> other, ref T1 arg1, ref T2 arg2, ref T3 arg3)
     {
+        if (other == null)
+        {
+            Invoke(ref arg1, ref arg2, ref arg3);
+            return;
+        }
+
         int i = 0, j = 0;
 
         //Work through the lists until one of them is done
