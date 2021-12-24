@@ -42,7 +42,7 @@ public class Monster : MonoBehaviour
     public OrderedEvent OnDeath = new OrderedEvent(); //Filled
 
     //Special statblock event
-    public OrderedEvent<StatBlock> RegenerateStats = new OrderedEvent<StatBlock>(); //TODO: Review when this should happen? Lots of weird problems with this one
+    public OrderedEvent<StatBlock> RegenerateStats = new OrderedEvent<StatBlock>();
 
     //EntityEvent Events
     public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>(); //Filled out!
@@ -67,6 +67,12 @@ public class Monster : MonoBehaviour
 
         //TODO: Have starting equipment? Probably not a huge concern right now, though.
         stats = baseStats;
+
+        foreach (Resource r in Enum.GetValues(typeof(Resource)))
+        {
+            resources[r] = stats.resources[r];
+        }
+
         resources.health = stats.resources.health;
         if (OnFullyHealed != null)
         {

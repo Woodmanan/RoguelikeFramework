@@ -56,6 +56,38 @@ public class OrderedEvent
             delegates[i](); //I LOVE that this is valid code
         }
     }
+
+    public void BlendInvoke(OrderedEvent other)
+    {
+        int i = 0, j = 0;
+        
+        //Work through the lists until one of them is done
+        while (i < delegates.Count && j < other.delegates.Count)
+        {
+            if (priorities[i] < other.priorities[j])
+            {
+                delegates[i]();
+                i++;
+            }
+            else
+            {
+                other.delegates[j]();
+                j++;
+            }
+        }
+        
+        //Clear out rest of our list, if it exists
+        for (; i < delegates.Count; i++)
+        {
+            delegates[i]();
+        }
+
+        //Clear out their list, if it exists
+        for (; j < other.delegates.Count; j++)
+        {
+            other.delegates[j]();
+        }
+    }
 }
 
 public class OrderedEvent<T1>
@@ -109,6 +141,38 @@ public class OrderedEvent<T1>
         for (int i = 0; i < delegates.Count; i++)
         {
             delegates[i](ref arg1);
+        }
+    }
+
+    public void BlendInvoke(OrderedEvent<T1> other, ref T1 arg1)
+    {
+        int i = 0, j = 0;
+
+        //Work through the lists until one of them is done
+        while (i < delegates.Count && j < other.delegates.Count)
+        {
+            if (priorities[i] < other.priorities[j])
+            {
+                delegates[i](ref arg1);
+                i++;
+            }
+            else
+            {
+                other.delegates[j](ref arg1);
+                j++;
+            }
+        }
+
+        //Clear out rest of our list, if it exists
+        for (; i < delegates.Count; i++)
+        {
+            delegates[i](ref arg1);
+        }
+
+        //Clear out their list, if it exists
+        for (; j < other.delegates.Count; j++)
+        {
+            other.delegates[j](ref arg1);
         }
     }
 }
@@ -166,6 +230,38 @@ public class OrderedEvent<T1, T2>
             delegates[i](ref arg1, ref arg2);
         }
     }
+
+    public void BlendInvoke(OrderedEvent<T1, T2> other, ref T1 arg1, ref T2 arg2)
+    {
+        int i = 0, j = 0;
+
+        //Work through the lists until one of them is done
+        while (i < delegates.Count && j < other.delegates.Count)
+        {
+            if (priorities[i] < other.priorities[j])
+            {
+                delegates[i](ref arg1, ref arg2);
+                i++;
+            }
+            else
+            {
+                other.delegates[j](ref arg1, ref arg2);
+                j++;
+            }
+        }
+
+        //Clear out rest of our list, if it exists
+        for (; i < delegates.Count; i++)
+        {
+            delegates[i](ref arg1, ref arg2);
+        }
+
+        //Clear out their list, if it exists
+        for (; j < other.delegates.Count; j++)
+        {
+            other.delegates[j](ref arg1, ref arg2);
+        }
+    }
 }
 
 public class OrderedEvent<T1, T2, T3>
@@ -218,6 +314,38 @@ public class OrderedEvent<T1, T2, T3>
         for (int i = 0; i < delegates.Count; i++)
         {
             delegates[i](ref arg1, ref arg2, ref arg3);
+        }
+    }
+
+    public void BlendInvoke(OrderedEvent<T1, T2, T3> other, ref T1 arg1, ref T2 arg2, ref T3 arg3)
+    {
+        int i = 0, j = 0;
+
+        //Work through the lists until one of them is done
+        while (i < delegates.Count && j < other.delegates.Count)
+        {
+            if (priorities[i] < other.priorities[j])
+            {
+                delegates[i](ref arg1, ref arg2, ref arg3);
+                i++;
+            }
+            else
+            {
+                other.delegates[j](ref arg1, ref arg2, ref arg3);
+                j++;
+            }
+        }
+
+        //Clear out rest of our list, if it exists
+        for (; i < delegates.Count; i++)
+        {
+            delegates[i](ref arg1, ref arg2, ref arg3);
+        }
+
+        //Clear out their list, if it exists
+        for (; j < other.delegates.Count; j++)
+        {
+            other.delegates[j](ref arg1, ref arg2, ref arg3);
         }
     }
 }

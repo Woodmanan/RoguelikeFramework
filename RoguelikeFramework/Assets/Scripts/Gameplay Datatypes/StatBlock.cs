@@ -28,3 +28,28 @@ public class StatBlock
         return toReturn;
     }
 }
+
+public class AbilityBlock
+{
+    public ResourceList costs;
+    public int cooldown;
+    public float power;
+
+    public static AbilityBlock operator +(AbilityBlock a, AbilityBlock b)
+    {
+        AbilityBlock toReturn = new AbilityBlock();
+        toReturn.costs = a.costs + b.costs;
+        toReturn.cooldown = a.cooldown + b.cooldown;
+        toReturn.power = a.power + b.power;
+        return toReturn;
+    }
+
+    public static AbilityBlock operator -(AbilityBlock a, AbilityBlock b)
+    {
+        AbilityBlock toReturn = new AbilityBlock();
+        toReturn.costs = a.costs - b.costs;
+        toReturn.cooldown = a.cooldown - b.cooldown;
+        toReturn.power = a.power - b.power;
+        return toReturn;
+    }
+}

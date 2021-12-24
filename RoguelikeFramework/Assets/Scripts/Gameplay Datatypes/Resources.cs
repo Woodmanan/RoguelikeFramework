@@ -69,3 +69,9 @@ public struct ResourceList
         return r;
     }
 }
+
+public struct ResourceCost
+{
+    public Resource resource;
+    public int amount;
+}

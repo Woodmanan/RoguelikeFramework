@@ -4,7 +4,6 @@ using System.IO;
 using System;
 
 public class AutomatedFileWizard
-
 {
 
     [MenuItem("Tools/RebuildResources")]
@@ -110,25 +109,6 @@ public class AutomatedFileWizard
             writer.WriteLine(offset + "    break;");
         }*/
     }
-
-    [MenuItem("Tools/Read file")]
-
-    static void ReadString()
-
-    {
-
-        string path = "Assets/Scripts/Gameplay Datatypes/Resources.cs";
-
-        //Read the text from directly from the test.txt file
-
-        StreamReader reader = new StreamReader(path);
-
-        Debug.Log(reader.ReadToEnd());
-
-        reader.Close();
-
-    }
-
 }
 
 

@@ -970,8 +970,8 @@ MonoBehaviour:
   baseStats:
     resources:
       health: 20
-      mana: 0
-      stamina: 102
+      mana: 10
+      stamina: 0
     ac: 5
     ev: 5
   stats:
