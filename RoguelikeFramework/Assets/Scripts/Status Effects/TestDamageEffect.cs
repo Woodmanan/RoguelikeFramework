@@ -24,7 +24,6 @@ public class TestDamageEffect : Effect
     //Use this to apply effects or stats immediately, before the next frame
     public override void OnConnection()
     {
-        Debug.Log("ConnectedTo is null?");
         target = connectedTo.monster;
         if (target == null)
         {

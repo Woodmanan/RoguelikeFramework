@@ -388,41 +388,43 @@ public class Effect : ScriptableObject
 
     public void Disconnect()
     {
-        Debug.Log("Disconnecting!");
         OnDisconnection();
+
+        int[] connections;
+        if (!connectionDict.TryGetValue(this.GetType(), out connections))
+        {
+            Debug.LogError($"Effect {this.GetType().Name} was unable to find its connection list. This is bad.");
+        }
+
         Connections c = connectedTo;
-        Type current = this.GetType();
-        Type defaultType = typeof(Effect);
 
         //BEGIN AUTO DISCONNECT
 
-        c.RegenerateStats.RemoveListener(RegenerateStats);
-        
-        c.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
+        if (connections[0] >= 0) { c.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal); }
 
-        c.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+        if (connections[1] >= 0) { c.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal); }
 
-        Debug.Log($"Number before disconnect: {c.OnTurnStartLocal.delegates.Count}");
-        c.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
-        Debug.Log($"Number after disconnect: {c.OnTurnStartLocal.delegates.Count}");
+        if (connections[2] >= 0) { c.OnTurnStartLocal.RemoveListener(OnTurnStartLocal); }
 
-        c.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        if (connections[3] >= 0) { c.OnTurnEndLocal.RemoveListener(OnTurnEndLocal); }
 
-        c.OnMove.RemoveListener(OnMove);
+        if (connections[4] >= 0) { c.OnMove.RemoveListener(OnMove); }
 
-        c.OnFullyHealed.RemoveListener(OnFullyHealed);
+        if (connections[5] >= 0) { c.OnFullyHealed.RemoveListener(OnFullyHealed); }
 
-        c.OnDeath.RemoveListener(OnDeath);
+        if (connections[6] >= 0) { c.OnDeath.RemoveListener(OnDeath); }
 
-        c.OnEnergyGained.RemoveListener(OnEnergyGained);
+        if (connections[7] >= 0) { c.RegenerateStats.RemoveListener(RegenerateStats); }
 
-        c.OnAttacked.RemoveListener(OnAttacked);
+        if (connections[8] >= 0) { c.OnEnergyGained.RemoveListener(OnEnergyGained); }
 
-        c.OnTakeDamage.RemoveListener(OnTakeDamage);
+        if (connections[9] >= 0) { c.OnAttacked.RemoveListener(OnAttacked); }
 
-        c.OnHealing.RemoveListener(OnHealing);
+        if (connections[10] >= 0) { c.OnTakeDamage.RemoveListener(OnTakeDamage); }
 
-        c.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        if (connections[11] >= 0) { c.OnHealing.RemoveListener(OnHealing); }
+
+        if (connections[12] >= 0) { c.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects); }
 
         //END AUTO DISCONNECT
 
@@ -435,7 +437,6 @@ public class Effect : ScriptableObject
 
     //AUTO DECLARATIONS
 
-    //Empty 
     public virtual void OnTurnStartGlobal() {}
     public virtual void OnTurnEndGlobal() {}
     public virtual void OnTurnStartLocal() {}
@@ -443,15 +444,10 @@ public class Effect : ScriptableObject
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
     public virtual void OnDeath() {}
-    
-    //Stat block
     public virtual void RegenerateStats(ref StatBlock stats) {}
-
-
-    //EntityEvent events
     public virtual void OnEnergyGained(ref int energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
-    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType) { }
+    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType) {}
     public virtual void OnHealing(ref int healAmount) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
 }

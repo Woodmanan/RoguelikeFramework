@@ -140,6 +140,23 @@ public class EffectFileWizard
                     writer.WriteLine();
                 }
             }
+            else if (lines[i].Equals("        //BEGIN AUTO DISCONNECT"))
+            {
+                writer.WriteLine();
+                for (int j = 0; j < declarations.connections.Count; j++)
+                {
+                    writer.WriteLine($"        if (connections[{j}] >= 0) {{ c.{declarations.connections[j].name}.RemoveListener({declarations.connections[j].name}); }}");
+                    writer.WriteLine();
+                }
+            }
+            else if (lines[i].Equals("    //AUTO DECLARATIONS"))
+            {
+                writer.WriteLine();
+                for (int j = 0; j < declarations.connections.Count; j++)
+                {
+                    writer.WriteLine($"    public virtual void {declarations.connections[j].name}({TypesForFunction(declarations.connections[j])}) {{}}");
+                }
+            }
         }
 
         writer.Close();
@@ -190,6 +207,24 @@ public class EffectFileWizard
                 newName += ">";
             }
             else
+            {
+                newName += ", ";
+            }
+        }
+        return newName;
+    }
+
+    static string TypesForFunction(Connection c)
+    {
+        if (c.types.Count == 0)
+        {
+            return "";
+        }
+        string newName = "";
+        for (int i = 0; i < c.types.Count; i++)
+        {
+            newName += $"ref {c.types[i].type} {c.types[i].name}";
+            if (i != c.types.Count - 1)
             {
                 newName += ", ";
             }

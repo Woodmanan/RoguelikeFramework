@@ -6,13 +6,14 @@ using System.Linq;
 
 public class OrderedEvent
 {
+    public static ReverseComparer comp = new ReverseComparer();
+
     public List<int> priorities = new List<int>();
     public List<ActionRef> delegates = new List<ActionRef>();
-    public List<ActionRef> toRemove = new List<ActionRef>();
 
     public void AddListener(int priority, ActionRef listener)
     {
-        int index = priorities.BinarySearch(priority);
+        int index = priorities.BinarySearch(priority, comp);
         if (index < 0) index = ~index;
         priorities.Insert(index, priority);
         delegates.Insert(index, listener);
@@ -51,14 +52,9 @@ public class OrderedEvent
         }
     }
 
-    public void SetForRemoval(ActionRef listener)
-    {
-        toRemove.Add(listener);
-    }
-
     public void Invoke()
     {
-        for (int i = 0; i < delegates.Count; i++)
+        for (int i = delegates.Count - 1; i >= 0; i--)
         {
             delegates[i](); //I LOVE that this is valid code
         }
@@ -72,31 +68,31 @@ public class OrderedEvent
             return;
         }
 
-        int i = 0, j = 0;
+        int i = delegates.Count - 1, j = other.delegates.Count - 1;
         
         //Work through the lists until one of them is done
-        while (i < delegates.Count && j < other.delegates.Count)
+        while (i >= 0 && j >= 0)
         {
             if (priorities[i] < other.priorities[j])
             {
                 delegates[i]();
-                i++;
+                i--;
             }
             else
             {
                 other.delegates[j]();
-                j++;
+                j--;
             }
         }
         
         //Clear out rest of our list, if it exists
-        for (; i < delegates.Count; i++)
+        for (; i >= 0; i--)
         {
             delegates[i]();
         }
 
         //Clear out their list, if it exists
-        for (; j < other.delegates.Count; j++)
+        for (; j >= 0; j--)
         {
             other.delegates[j]();
         }
@@ -105,13 +101,15 @@ public class OrderedEvent
 
 public class OrderedEvent<T1>
 {
+    public static ReverseComparer comp = new ReverseComparer();
+
     public List<int> priorities = new List<int>();
     public List<ActionRef<T1>> delegates = new List<ActionRef<T1>>();
 
     public void AddListener(int priority, ActionRef<T1> listener)
     {
 
-        int index = priorities.BinarySearch(priority);
+        int index = priorities.BinarySearch(priority, comp);
         if (index < 0) index = ~index;
         priorities.Insert(index, priority);
         delegates.Insert(index, listener);
@@ -151,7 +149,7 @@ public class OrderedEvent<T1>
 
     public void Invoke(ref T1 arg1)
     {
-        for (int i = 0; i < delegates.Count; i++)
+        for (int i = delegates.Count - 1; i >= 0; i--)
         {
             delegates[i](ref arg1);
         }
@@ -165,31 +163,31 @@ public class OrderedEvent<T1>
             return;
         }
 
-        int i = 0, j = 0;
+        int i = delegates.Count - 1, j = other.delegates.Count - 1;
 
         //Work through the lists until one of them is done
-        while (i < delegates.Count && j < other.delegates.Count)
+        while (i >= 0 && j >= 0)
         {
             if (priorities[i] < other.priorities[j])
             {
                 delegates[i](ref arg1);
-                i++;
+                i--;
             }
             else
             {
                 other.delegates[j](ref arg1);
-                j++;
+                j--;
             }
         }
 
         //Clear out rest of our list, if it exists
-        for (; i < delegates.Count; i++)
+        for (; i >= 0; i--)
         {
             delegates[i](ref arg1);
         }
 
         //Clear out their list, if it exists
-        for (; j < other.delegates.Count; j++)
+        for (; j >= 0; j--)
         {
             other.delegates[j](ref arg1);
         }
@@ -198,13 +196,15 @@ public class OrderedEvent<T1>
 
 public class OrderedEvent<T1, T2>
 {
+    public static ReverseComparer comp = new ReverseComparer();
+
     public List<int> priorities = new List<int>();
     public List<ActionRef<T1, T2>> delegates = new List<ActionRef<T1, T2>>();
 
     public void AddListener(int priority, ActionRef<T1, T2> listener)
     {
 
-        int index = priorities.BinarySearch(priority);
+        int index = priorities.BinarySearch(priority, comp);
         if (index < 0) index = ~index;
         priorities.Insert(index, priority);
         delegates.Insert(index, listener);
@@ -244,7 +244,7 @@ public class OrderedEvent<T1, T2>
 
     public void Invoke(ref T1 arg1, ref T2 arg2)
     {
-        for (int i = 0; i < delegates.Count; i++)
+        for (int i = delegates.Count - 1; i >= 0; i--)
         {
             delegates[i](ref arg1, ref arg2);
         }
@@ -258,31 +258,31 @@ public class OrderedEvent<T1, T2>
             return;
         }
 
-        int i = 0, j = 0;
+        int i = delegates.Count - 1, j = other.delegates.Count - 1;
 
         //Work through the lists until one of them is done
-        while (i < delegates.Count && j < other.delegates.Count)
+        while (i >= 0 && j >= 0)
         {
             if (priorities[i] < other.priorities[j])
             {
                 delegates[i](ref arg1, ref arg2);
-                i++;
+                i--;
             }
             else
             {
                 other.delegates[j](ref arg1, ref arg2);
-                j++;
+                j--;
             }
         }
 
         //Clear out rest of our list, if it exists
-        for (; i < delegates.Count; i++)
+        for (; i >= 0; i--)
         {
             delegates[i](ref arg1, ref arg2);
         }
 
         //Clear out their list, if it exists
-        for (; j < other.delegates.Count; j++)
+        for (; j >= 0; j--)
         {
             other.delegates[j](ref arg1, ref arg2);
         }
@@ -291,12 +291,14 @@ public class OrderedEvent<T1, T2>
 
 public class OrderedEvent<T1, T2, T3>
 {
+    public static ReverseComparer comp = new ReverseComparer();
+
     public List<int> priorities = new List<int>();
     public List<ActionRef<T1, T2, T3>> delegates = new List<ActionRef<T1, T2, T3>>();
 
     public void AddListener(int priority, ActionRef<T1, T2, T3> listener)
     {
-        int index = priorities.BinarySearch(priority);
+        int index = priorities.BinarySearch(priority, comp);
         if (index < 0) index = ~index;
         priorities.Insert(index, priority);
         delegates.Insert(index, listener);
@@ -336,7 +338,7 @@ public class OrderedEvent<T1, T2, T3>
 
     public void Invoke(ref T1 arg1, ref T2 arg2, ref T3 arg3)
     {
-        for (int i = 0; i < delegates.Count; i++)
+        for (int i = delegates.Count - 1; i >= 0; i--)
         {
             delegates[i](ref arg1, ref arg2, ref arg3);
         }
@@ -350,33 +352,41 @@ public class OrderedEvent<T1, T2, T3>
             return;
         }
 
-        int i = 0, j = 0;
+        int i = delegates.Count - 1, j = other.delegates.Count - 1;
 
         //Work through the lists until one of them is done
-        while (i < delegates.Count && j < other.delegates.Count)
+        while (i >= 0 && j >= 0)
         {
             if (priorities[i] < other.priorities[j])
             {
                 delegates[i](ref arg1, ref arg2, ref arg3);
-                i++;
+                i--;
             }
             else
             {
                 other.delegates[j](ref arg1, ref arg2, ref arg3);
-                j++;
+                j--;
             }
         }
 
         //Clear out rest of our list, if it exists
-        for (; i < delegates.Count; i++)
+        for (; i >= 0; i--)
         {
             delegates[i](ref arg1, ref arg2, ref arg3);
         }
 
         //Clear out their list, if it exists
-        for (; j < other.delegates.Count; j++)
+        for (; j >= 0; j--)
         {
             other.delegates[j](ref arg1, ref arg2, ref arg3);
         }
+    }
+}
+
+public class ReverseComparer : IComparer<int>
+{
+    public int Compare(int a, int b)
+    {
+        return b.CompareTo(a);
     }
 }

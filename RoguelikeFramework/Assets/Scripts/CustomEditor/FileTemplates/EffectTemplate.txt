@@ -86,40 +86,17 @@ public class Effect : ScriptableObject
 
     public void Disconnect()
     {
-        Debug.Log("Disconnecting!");
         OnDisconnection();
+
+        int[] connections;
+        if (!connectionDict.TryGetValue(this.GetType(), out connections))
+        {
+            Debug.LogError($"Effect {this.GetType().Name} was unable to find its connection list. This is bad.");
+        }
+
         Connections c = connectedTo;
-        Type current = this.GetType();
-        Type defaultType = typeof(Effect);
 
         //BEGIN AUTO DISCONNECT
-
-        c.RegenerateStats.RemoveListener(RegenerateStats);
-        
-        c.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
-
-        c.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
-
-        c.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
-
-        c.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
-
-        c.OnMove.RemoveListener(OnMove);
-
-        c.OnFullyHealed.RemoveListener(OnFullyHealed);
-
-        c.OnDeath.RemoveListener(OnDeath);
-
-        c.OnEnergyGained.RemoveListener(OnEnergyGained);
-
-        c.OnAttacked.RemoveListener(OnAttacked);
-
-        c.OnTakeDamage.RemoveListener(OnTakeDamage);
-
-        c.OnHealing.RemoveListener(OnHealing);
-
-        c.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
-
         //END AUTO DISCONNECT
 
         ReadyToDelete = true;
@@ -130,24 +107,4 @@ public class Effect : ScriptableObject
     public virtual void OnDisconnection() {}
 
     //AUTO DECLARATIONS
-
-    //Empty 
-    public virtual void OnTurnStartGlobal() {}
-    public virtual void OnTurnEndGlobal() {}
-    public virtual void OnTurnStartLocal() {}
-    public virtual void OnTurnEndLocal() {}
-    public virtual void OnMove() {}
-    public virtual void OnFullyHealed() {}
-    public virtual void OnDeath() {}
-    
-    //Stat block
-    public virtual void RegenerateStats(ref StatBlock stats) {}
-
-
-    //EntityEvent events
-    public virtual void OnEnergyGained(ref int energy) {}
-    public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
-    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType) { }
-    public virtual void OnHealing(ref int healAmount) {}
-    public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
 }

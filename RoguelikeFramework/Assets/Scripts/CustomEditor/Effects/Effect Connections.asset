@@ -15,63 +15,56 @@ MonoBehaviour:
   connections:
   - name: OnTurnStartGlobal
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: OnTurnEndGlobal
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: OnTurnStartLocal
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: OnTurnEndLocal
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: OnMove
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: OnFullyHealed
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: OnDeath
     types: []
-    usedByItem: 0
-    usedByAbility: 0
+    description: 
   - name: RegenerateStats
     types:
-    - StatBlock
-    usedByItem: 0
-    usedByAbility: 0
+    - type: StatBlock
+      name: stats
+    description: 
   - name: OnEnergyGained
     types:
-    - int
-    usedByItem: 0
-    usedByAbility: 0
+    - type: int
+      name: energy
+    description: 
   - name: OnAttacked
     types:
-    - int
-    - int
-    usedByItem: 0
-    usedByAbility: 0
+    - type: int
+      name: pierce
+    - type: int
+      name: accuracy
+    description: 
   - name: OnTakeDamage
     types:
-    - int
-    - DamageType
-    usedByItem: 0
-    usedByAbility: 0
+    - type: int
+      name: damage
+    - type: DamageType
+      name: damageType
+    description: 
   - name: OnHealing
     types:
-    - int
-    usedByItem: 0
-    usedByAbility: 0
+    - type: int
+      name: healAmount
+    description: 
   - name: OnApplyStatusEffects
     types:
-    - Effect[]
-    usedByItem: 0
-    usedByAbility: 0
-  itemConnections: []
-  abilityConnections: []
+    - type: Effect[]
+      name: effects
+    description: 
