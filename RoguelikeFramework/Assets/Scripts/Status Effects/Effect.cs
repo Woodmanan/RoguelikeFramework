@@ -24,7 +24,7 @@ public class Effect : ScriptableObject
 
     public static Dictionary<Type, int[]> connectionDict = new Dictionary<Type, int[]>();
 
-    public virtual int priority { get { return 5; } }
+    public virtual int priority { get { return 10; } }
 
     /* Connect:
      * The method that links this effect to a given monster, and hooks up its event calls.

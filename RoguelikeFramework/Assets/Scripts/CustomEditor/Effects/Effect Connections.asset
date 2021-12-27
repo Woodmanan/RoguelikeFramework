@@ -15,56 +15,58 @@ MonoBehaviour:
   connections:
   - name: OnTurnStartGlobal
     types: []
-    description: 
+    description: Called at the start of the global turn sequence
   - name: OnTurnEndGlobal
     types: []
-    description: 
+    description: Called at the end of the global turn sequence
   - name: OnTurnStartLocal
     types: []
-    description: 
+    description: Called at the start of a monster's turn
   - name: OnTurnEndLocal
     types: []
-    description: 
+    description: Called at the end of a monster's turn
   - name: OnMove
     types: []
-    description: 
+    description: Called whenever a monster takes a step
   - name: OnFullyHealed
     types: []
-    description: 
+    description: Called whenever a monster returns to full health
   - name: OnDeath
     types: []
-    description: 
+    description: Called when the connected monster dies
   - name: RegenerateStats
     types:
     - type: StatBlock
       name: stats
-    description: 
+    description: Called often, whenever a monster needs up-to-date stats.
   - name: OnEnergyGained
     types:
     - type: int
       name: energy
-    description: 
+    description: Called wenever a monster gains energy
   - name: OnAttacked
     types:
     - type: int
       name: pierce
     - type: int
       name: accuracy
-    description: 
+    description: Called when a monster gets attacked (REWORKING SOON!)
   - name: OnTakeDamage
     types:
     - type: int
       name: damage
     - type: DamageType
       name: damageType
-    description: 
+    description: Called when a monster takes damage from any source, good for making
+      effects fire upon certain types of damage
   - name: OnHealing
     types:
     - type: int
       name: healAmount
-    description: 
+    description: Called when a monster recieves a healing event request
   - name: OnApplyStatusEffects
     types:
     - type: Effect[]
       name: effects
-    description: 
+    description: Called when new status effects are added. All status effects coming
+      through are bunched together as a list.

@@ -25,15 +25,16 @@ public class EffectFileWizard
 
         Debug.Log($"Connections asset found. There are {declarations.connections.Count} connections total, which will be added to the files.");
 
-        Debug.Log($"Found monster.cs at {GetPathTo("Monster.cs")}");
-
         //Write the declarations into Monster.cs
         WriteConnections(declarations);
 
         WriteEffect(declarations);
 
+        WriteTemplate(declarations);
+
 
         //Reload the asset database, triggering a recompile and yelling at us if this didn't work right.
+        Debug.Log("Finished all writes, reloading assets and recompiling.");
         AssetDatabase.Refresh();
     }
 
@@ -41,9 +42,6 @@ public class EffectFileWizard
     {
         string path = "Assets/Scripts";
         var info = new DirectoryInfo(path);
-
-        Debug.Log("Checking files");
-        Debug.Log(info.FullName);
 
         List<string> filesToModify = new List<string>();
 
@@ -80,7 +78,6 @@ public class EffectFileWizard
         StreamWriter writer = new StreamWriter(path, false);
         for (int i = 0; i < lines.Count; i++)
         {
-            Debug.Log("Writing line " + i);
             writer.WriteLine(lines[i]);
             if (lines[i].Equals("    //BEGIN AUTO EVENTS"))
             {
@@ -160,7 +157,45 @@ public class EffectFileWizard
         }
 
         writer.Close();
-        Debug.Log("Finished writing connections");
+        Debug.Log("Finished writing effect file");
+    }
+
+    static void WriteTemplate(EffectConnections declarations)
+    {
+        string path = GetPathTo("EffectTemplate.cs.txt");
+        string templatePath = GetPathTo("EffectTemplateTemplate.txt");
+        StreamReader reader = new StreamReader(templatePath);
+
+        List<string> lines = new List<string>();
+        while (true)
+        {
+            string line = reader.ReadLine();
+            if (line == null) break;
+            lines.Add(line);
+        }
+        reader.Close();
+
+        StreamWriter writer = new StreamWriter(path, false);
+        for (int i = 0; i < lines.Count; i++)
+        {
+            
+            if (lines[i].Equals("    //AUTO CONNECTIONS"))
+            {
+                for (int j = 0; j < declarations.connections.Count; j++)
+                {
+                    writer.WriteLine($"    //{declarations.connections[j].description}");
+                    writer.WriteLine($"    //public override void {declarations.connections[j].name}({TypesForFunction(declarations.connections[j])}) {{}}");
+                    writer.WriteLine();
+                }
+            }
+            else
+            {
+                writer.WriteLine(lines[i]);
+            }
+        }
+
+        writer.Close();
+        Debug.Log("Finished writing script template");
     }
 
     static void WriteSetup(Connection c, StreamWriter writer, int index)
