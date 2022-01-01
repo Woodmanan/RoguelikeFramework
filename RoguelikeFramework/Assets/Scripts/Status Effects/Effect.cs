@@ -24,7 +24,7 @@ public class Effect : ScriptableObject
 
     public static Dictionary<Type, int[]> connectionDict = new Dictionary<Type, int[]>();
 
-    public virtual int priority { get { return 10; } }
+    public virtual int priority { get { return 5; } }
 
     /* Connect:
      * The method that links this effect to a given monster, and hooks up its event calls.
@@ -71,19 +71,43 @@ public class Effect : ScriptableObject
 
         if (connections[5] >= 0) { c.OnFullyHealed.AddListener(connections[5], OnFullyHealed); }
 
-        if (connections[6] >= 0) { c.OnDeath.AddListener(connections[6], OnDeath); }
+        if (connections[6] >= 0) { c.OnKillMonster.AddListener(connections[6], OnKillMonster); }
 
-        if (connections[7] >= 0) { c.RegenerateStats.AddListener(connections[7], RegenerateStats); }
+        if (connections[7] >= 0) { c.OnDeath.AddListener(connections[7], OnDeath); }
 
-        if (connections[8] >= 0) { c.OnEnergyGained.AddListener(connections[8], OnEnergyGained); }
+        if (connections[8] >= 0) { c.RegenerateStats.AddListener(connections[8], RegenerateStats); }
 
-        if (connections[9] >= 0) { c.OnAttacked.AddListener(connections[9], OnAttacked); }
+        if (connections[9] >= 0) { c.OnEnergyGained.AddListener(connections[9], OnEnergyGained); }
 
-        if (connections[10] >= 0) { c.OnTakeDamage.AddListener(connections[10], OnTakeDamage); }
+        if (connections[10] >= 0) { c.OnAttacked.AddListener(connections[10], OnAttacked); }
 
-        if (connections[11] >= 0) { c.OnHealing.AddListener(connections[11], OnHealing); }
+        if (connections[11] >= 0) { c.OnDealDamage.AddListener(connections[11], OnDealDamage); }
 
-        if (connections[12] >= 0) { c.OnApplyStatusEffects.AddListener(connections[12], OnApplyStatusEffects); }
+        if (connections[12] >= 0) { c.OnTakeDamage.AddListener(connections[12], OnTakeDamage); }
+
+        if (connections[13] >= 0) { c.OnHealing.AddListener(connections[13], OnHealing); }
+
+        if (connections[14] >= 0) { c.OnApplyStatusEffects.AddListener(connections[14], OnApplyStatusEffects); }
+
+        if (connections[15] >= 0) { c.OnCastAbility.AddListener(connections[15], OnCastAbility); }
+
+        if (connections[16] >= 0) { c.OnGainResources.AddListener(connections[16], OnGainResources); }
+
+        if (connections[17] >= 0) { c.OnLoseResources.AddListener(connections[17], OnLoseResources); }
+
+        if (connections[18] >= 0) { c.OnRegenerateAbilityStats.AddListener(connections[18], OnRegenerateAbilityStats); }
+
+        if (connections[19] >= 0) { c.OnCheckAvailability.AddListener(connections[19], OnCheckAvailability); }
+
+        if (connections[20] >= 0) { c.OnTargetsSelected.AddListener(connections[20], OnTargetsSelected); }
+
+        if (connections[21] >= 0) { c.OnPreCast.AddListener(connections[21], OnPreCast); }
+
+        if (connections[22] >= 0) { c.OnPostCast.AddListener(connections[22], OnPostCast); }
+
+        if (connections[23] >= 0) { c.OnTargetedByAbility.AddListener(connections[23], OnTargetedByAbility); }
+
+        if (connections[24] >= 0) { c.OnHitByAbility.AddListener(connections[24], OnHitByAbility); }
 
 
         OnConnection();
@@ -94,7 +118,7 @@ public class Effect : ScriptableObject
     public void SetupConnections()
     {
         //AUTO VARIABLE
-        int numConnections = 13;
+        int numConnections = 25;
 
         int[] connections = new int[numConnections];
 
@@ -234,8 +258,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //------------------------- OnDeath -------------------------
-        method = ((ActionRef) OnDeath).Method;
+        //---------------------- OnKillMonster ----------------------
+        method = ((ActionRef<Monster, DamageType, DamageSource>) OnKillMonster).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -255,8 +279,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //--------------------- RegenerateStats ---------------------
-        method = ((ActionRef<StatBlock>) RegenerateStats).Method;
+        //------------------------- OnDeath -------------------------
+        method = ((ActionRef) OnDeath).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -276,8 +300,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //---------------------- OnEnergyGained ----------------------
-        method = ((ActionRef<int>) OnEnergyGained).Method;
+        //--------------------- RegenerateStats ---------------------
+        method = ((ActionRef<StatBlock>) RegenerateStats).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -297,8 +321,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //------------------------ OnAttacked ------------------------
-        method = ((ActionRef<int, int>) OnAttacked).Method;
+        //---------------------- OnEnergyGained ----------------------
+        method = ((ActionRef<int>) OnEnergyGained).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -318,8 +342,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //----------------------- OnTakeDamage -----------------------
-        method = ((ActionRef<int, DamageType>) OnTakeDamage).Method;
+        //------------------------ OnAttacked ------------------------
+        method = ((ActionRef<int, int>) OnAttacked).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -339,8 +363,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //------------------------ OnHealing ------------------------
-        method = ((ActionRef<int>) OnHealing).Method;
+        //----------------------- OnDealDamage -----------------------
+        method = ((ActionRef<int, DamageType, DamageSource>) OnDealDamage).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -360,8 +384,8 @@ public class Effect : ScriptableObject
         }
         //------------------------------------------------------------
 
-        //------------------- OnApplyStatusEffects -------------------
-        method = ((ActionRef<Effect[]>) OnApplyStatusEffects).Method;
+        //----------------------- OnTakeDamage -----------------------
+        method = ((ActionRef<int, DamageType, DamageSource>) OnTakeDamage).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -378,6 +402,258 @@ public class Effect : ScriptableObject
         else
         {
             connections[12] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------------ OnHealing ------------------------
+        method = ((ActionRef<int>) OnHealing).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[13] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[13] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[13] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------- OnApplyStatusEffects -------------------
+        method = ((ActionRef<Effect[]>) OnApplyStatusEffects).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[14] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[14] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[14] = -1;
+        }
+        //------------------------------------------------------------
+
+        //---------------------- OnCastAbility ----------------------
+        method = ((ActionRef<AbilityAction, bool>) OnCastAbility).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[15] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[15] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[15] = -1;
+        }
+        //------------------------------------------------------------
+
+        //--------------------- OnGainResources ---------------------
+        method = ((ActionRef<ResourceList>) OnGainResources).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[16] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[16] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[16] = -1;
+        }
+        //------------------------------------------------------------
+
+        //--------------------- OnLoseResources ---------------------
+        method = ((ActionRef<ResourceList>) OnLoseResources).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[17] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[17] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[17] = -1;
+        }
+        //------------------------------------------------------------
+
+        //----------------- OnRegenerateAbilityStats -----------------
+        method = ((ActionRef<Targeting, AbilityBlock, Ability>) OnRegenerateAbilityStats).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[18] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[18] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[18] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------- OnCheckAvailability -------------------
+        method = ((ActionRef<Ability, bool>) OnCheckAvailability).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[19] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[19] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[19] = -1;
+        }
+        //------------------------------------------------------------
+
+        //-------------------- OnTargetsSelected --------------------
+        method = ((ActionRef<Targeting, Ability>) OnTargetsSelected).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[20] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[20] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[20] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------------ OnPreCast ------------------------
+        method = ((ActionRef<Ability>) OnPreCast).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[21] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[21] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[21] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------------ OnPostCast ------------------------
+        method = ((ActionRef<Ability>) OnPostCast).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[22] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[22] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[22] = -1;
+        }
+        //------------------------------------------------------------
+
+        //------------------- OnTargetedByAbility -------------------
+        method = ((ActionRef<AbilityAction>) OnTargetedByAbility).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[23] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[23] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[23] = -1;
+        }
+        //------------------------------------------------------------
+
+        //---------------------- OnHitByAbility ----------------------
+        method = ((ActionRef<AbilityAction>) OnHitByAbility).Method;
+        if (method.DeclaringType != typeof(Effect))
+        {
+            object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
+            if (attribute != null)
+            {
+                connections[24] = ((PriorityAttribute)attribute).Priority;
+            }
+            else
+            {
+                connections[24] = this.priority;
+            }
+
+        }
+        else
+        {
+            connections[24] = -1;
         }
         //------------------------------------------------------------
 
@@ -412,19 +688,43 @@ public class Effect : ScriptableObject
 
         if (connections[5] >= 0) { c.OnFullyHealed.RemoveListener(OnFullyHealed); }
 
-        if (connections[6] >= 0) { c.OnDeath.RemoveListener(OnDeath); }
+        if (connections[6] >= 0) { c.OnKillMonster.RemoveListener(OnKillMonster); }
 
-        if (connections[7] >= 0) { c.RegenerateStats.RemoveListener(RegenerateStats); }
+        if (connections[7] >= 0) { c.OnDeath.RemoveListener(OnDeath); }
 
-        if (connections[8] >= 0) { c.OnEnergyGained.RemoveListener(OnEnergyGained); }
+        if (connections[8] >= 0) { c.RegenerateStats.RemoveListener(RegenerateStats); }
 
-        if (connections[9] >= 0) { c.OnAttacked.RemoveListener(OnAttacked); }
+        if (connections[9] >= 0) { c.OnEnergyGained.RemoveListener(OnEnergyGained); }
 
-        if (connections[10] >= 0) { c.OnTakeDamage.RemoveListener(OnTakeDamage); }
+        if (connections[10] >= 0) { c.OnAttacked.RemoveListener(OnAttacked); }
 
-        if (connections[11] >= 0) { c.OnHealing.RemoveListener(OnHealing); }
+        if (connections[11] >= 0) { c.OnDealDamage.RemoveListener(OnDealDamage); }
 
-        if (connections[12] >= 0) { c.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects); }
+        if (connections[12] >= 0) { c.OnTakeDamage.RemoveListener(OnTakeDamage); }
+
+        if (connections[13] >= 0) { c.OnHealing.RemoveListener(OnHealing); }
+
+        if (connections[14] >= 0) { c.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects); }
+
+        if (connections[15] >= 0) { c.OnCastAbility.RemoveListener(OnCastAbility); }
+
+        if (connections[16] >= 0) { c.OnGainResources.RemoveListener(OnGainResources); }
+
+        if (connections[17] >= 0) { c.OnLoseResources.RemoveListener(OnLoseResources); }
+
+        if (connections[18] >= 0) { c.OnRegenerateAbilityStats.RemoveListener(OnRegenerateAbilityStats); }
+
+        if (connections[19] >= 0) { c.OnCheckAvailability.RemoveListener(OnCheckAvailability); }
+
+        if (connections[20] >= 0) { c.OnTargetsSelected.RemoveListener(OnTargetsSelected); }
+
+        if (connections[21] >= 0) { c.OnPreCast.RemoveListener(OnPreCast); }
+
+        if (connections[22] >= 0) { c.OnPostCast.RemoveListener(OnPostCast); }
+
+        if (connections[23] >= 0) { c.OnTargetedByAbility.RemoveListener(OnTargetedByAbility); }
+
+        if (connections[24] >= 0) { c.OnHitByAbility.RemoveListener(OnHitByAbility); }
 
         //END AUTO DISCONNECT
 
@@ -443,11 +743,23 @@ public class Effect : ScriptableObject
     public virtual void OnTurnEndLocal() {}
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
+    public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void OnDeath() {}
     public virtual void RegenerateStats(ref StatBlock stats) {}
     public virtual void OnEnergyGained(ref int energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
-    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType) {}
+    public virtual void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
+    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
     public virtual void OnHealing(ref int healAmount) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
+    public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
+    public virtual void OnGainResources(ref ResourceList resources) {}
+    public virtual void OnLoseResources(ref ResourceList resources) {}
+    public virtual void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
+    public virtual void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
+    public virtual void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}
+    public virtual void OnPreCast(ref Ability ability) {}
+    public virtual void OnPostCast(ref Ability ability) {}
+    public virtual void OnTargetedByAbility(ref AbilityAction action) {}
+    public virtual void OnHitByAbility(ref AbilityAction action) {}
 }

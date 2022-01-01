@@ -161,6 +161,7 @@ public class Inventory : MonoBehaviour
         }
 
         apply.Apply(monster);
+        monster.energy -= 100;
 
         //Remove the item
         Destroy(apply.gameObject);

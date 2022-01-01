@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c6c7585bb1c6344be94810522d6eed, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  displayName: Fireball!
+  image: {fileID: -3337741813538357974, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 1, g: 0, b: 0, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 2
+    areaType: 5
+    range: 5
+    radius: 2
+    degree: 0
+    pointsShareOverlap: 1
+    pointsRequireLOS: 1
+    includesCasterSpace: 0
+    recommendsPlayerTarget: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    tempAffected: []
+    affected: []
+  baseStats:
+    costs:
+      health: 0
+      mana: 2
+      stamina: 0
+    cooldown: 5
+    power: 3
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    pointsShareOverlap: 1
+    pointsRequireLOS: 1
+    includesCasterSpace: 0
+    recommendsPlayerTarget: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    tempAffected: []
+    affected: []
+  stats:
+    costs:
+      health: 0
+      mana: 0
+      stamina: 0
+    cooldown: 0
+    power: 0
+  currentCooldown: 0
+  castable: 1
+  types: 1
+  tags: 0
+  effects:
+    list: []

@@ -28,7 +28,7 @@ public class StatBlock
         return toReturn;
     }
 }
-
+[Serializable]
 public class AbilityBlock
 {
     public ResourceList costs;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c59a4a8d22a107149abff5236aad7e17, type: 3}
-  m_Name: FrostEffect-2112262319PM38
+  m_Name: FrostEffect-2112312322PM72
   m_EditorClassIdentifier: 
   ReadyToDelete: 0
   numTurns: 5

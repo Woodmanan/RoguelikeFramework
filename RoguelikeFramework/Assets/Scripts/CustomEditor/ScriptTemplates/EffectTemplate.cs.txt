@@ -12,7 +12,7 @@ public class #SCRIPTNAME# : Effect
      * 
      * To override for individual functions, use the [Priority(int)] attribute 
      */
-    public override int priority { get { return 8; } }
+    //public override int priority { get { return 10; } }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
@@ -46,6 +46,9 @@ public class #SCRIPTNAME# : Effect
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}
 
+    //Called when a monster is killed by this unit.
+    //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
+
     //Called when the connected monster dies
     //public override void OnDeath() {}
 
@@ -58,13 +61,46 @@ public class #SCRIPTNAME# : Effect
     //Called when a monster gets attacked (REWORKING SOON!)
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
+    //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
+    //public override void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
+
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    //public override void OnTakeDamage(ref int damage, ref DamageType damageType) {}
+    //public override void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster recieves a healing event request
     //public override void OnHealing(ref int healAmount) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnApplyStatusEffects(ref Effect[] effects) {}
+
+    //Called when a spell is cast. Modify spell, or set continue to false in order to cancel the action!
+    //public override void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
+
+    //Called when this monster gains resources. (Different from healing, but can give health)
+    //public override void OnGainResources(ref ResourceList resources) {}
+
+    //Called when this monster loses resources. (Different from damage, but can take health)
+    //public override void OnLoseResources(ref ResourceList resources) {}
+
+    //Called when new status effects are added. All status effects coming through are bunched together as a list.
+    //public override void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
+
+    //Called by spells, in order to determine whether they are allowed to be cast.
+    //public override void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
+
+    //Called by spells once targets are selected.
+    //public override void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}
+
+    //Called before spell is cast
+    //public override void OnPreCast(ref Ability ability) {}
+
+    //Called after a spell is cast.
+    //public override void OnPostCast(ref Ability ability) {}
+
+    //Called when this monster is selected to be hit by a cast. (Right before hit)
+    //public override void OnTargetedByAbility(ref AbilityAction action) {}
+
+    //Called after an ability is cast on this monster. (Right after hit)
+    //public override void OnHitByAbility(ref AbilityAction action) {}
 
 }

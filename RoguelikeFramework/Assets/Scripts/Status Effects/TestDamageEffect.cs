@@ -36,7 +36,7 @@ public class TestDamageEffect : Effect
     [Priority(6)]
     public override void OnTurnStartLocal() 
     {
-        target.TakeDamage(damagePerTurn, DamageType.PIERCING); //Ah yes, potion of piercing damage
+        target.Damage(damagePerTurn, DamageType.PIERCING, DamageSource.EFFECT); //Ah yes, potion of piercing damage
         numTurns--;
         if (numTurns == 0)
         {

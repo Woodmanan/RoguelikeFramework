@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum Direction
 {
@@ -51,6 +52,7 @@ public enum PlayerAction
     APPLY,
     EQUIP,
     UNEQUIP,
+    CAST_SPELL,
     ACCEPT,
     FIRE
 }
@@ -61,6 +63,16 @@ public enum DamageType
     BLUNT,
     CUTTING,
     PIERCING
+}
+
+public enum DamageSource
+{
+    MONSTER,
+    ITEM,
+    ABILITY,
+    EFFECT,
+    MELEEATTACK,
+    RANGEDATTACK
 }
 
 public enum EventType
@@ -139,4 +151,18 @@ public enum Resource
     HEALTH,
     MANA,
     STAMINA
+}
+
+[Flags]
+public enum AbilityTypes
+{
+    Conjuration = 1 << 0,
+    Elemental   = 1 << 1,
+    Healing     = 1 << 2
+}
+
+[Flags]
+public enum AbilityTags
+{
+    RecommendsAllyTarget = 1
 }

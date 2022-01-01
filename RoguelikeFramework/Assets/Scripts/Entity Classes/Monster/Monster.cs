@@ -40,14 +40,16 @@ public class Monster : MonoBehaviour
     public List<Effect> effects;
     public Inventory inventory;
     public Equipment equipment;
+    public Abilities abilities;
 
     public GameAction currentAction;
     
     // Start is called before the first frame update
     public virtual void Start()
     {
-        inventory = GetComponent<Inventory>(); //May need to be set up with Get/Set to avoid null references during Start()!
+        inventory = GetComponent<Inventory>(); 
         equipment = GetComponent<Equipment>();
+        abilities = GetComponent<Abilities>();
 
         //TODO: Have starting equipment? Probably not a huge concern right now, though.
         stats = baseStats;
@@ -115,9 +117,9 @@ public class Monster : MonoBehaviour
         return true;
     }
 
-    public void TakeDamage(int damage, DamageType type, string message = "{name} take%s{|s} {damage} damage")
+    public void Damage(int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
-        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type);
+        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
         resources.health -= damage;
 
         //Loggingstuff
@@ -132,6 +134,13 @@ public class Monster : MonoBehaviour
                 Die();
             }
         }
+    }
+
+    public void Damage(Monster dealer, int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
+    {
+        dealer.connections.OnDealDamage.BlendInvoke(dealer.other.OnDealDamage, ref damage, ref type, ref source);
+        Damage(damage, type, source, message);
+
     }
 
     public virtual void Die()
@@ -222,6 +231,7 @@ public class Monster : MonoBehaviour
     public void StartTurn()
     {
         CallRegenerateStats();
+        abilities?.CheckAvailability();
         connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
     }
 
@@ -345,7 +355,20 @@ public class Monster : MonoBehaviour
     //Same purpose as above
     public void OnTurnEndGlobalCall()
     {
+        abilities?.OnTurnEndGlobal();
         connections.OnTurnEndGlobal.BlendInvoke(other?.OnTurnEndGlobal);
+    }
+
+    public void GainResources(ResourceList resources)
+    {
+        connections.OnGainResources.BlendInvoke(other?.OnGainResources, ref resources);
+        this.resources += resources;
+    }
+
+    public void LoseResources(ResourceList resources)
+    {
+        connections.OnLoseResources.BlendInvoke(other?.OnLoseResources, ref resources);
+        this.resources -= resources;
     }
 
 

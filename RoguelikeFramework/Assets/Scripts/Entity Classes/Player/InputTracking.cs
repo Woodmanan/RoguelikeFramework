@@ -190,6 +190,11 @@ public class InputTracking : MonoBehaviour
             PushAction(PlayerAction.APPLY);
             addedAction = true;
         }
+        else if (CastSpell())
+        {
+            PushAction(PlayerAction.CAST_SPELL);
+            addedAction = true;
+        }
         else if (Fire())
         {
             PushAction(PlayerAction.FIRE);
@@ -203,6 +208,11 @@ public class InputTracking : MonoBehaviour
         else if (Accept())
         {
             PushAction(PlayerAction.ACCEPT);
+            addedAction = true;
+        }
+        else if (Wait())
+        {
+            PushAction(PlayerAction.WAIT);
             addedAction = true;
         }
         else if (Input.inputString != "") //FINAL CHECK! Use this to add empty input to the buffer for character checks. (MUST BE LAST CHECK)
@@ -295,9 +305,19 @@ public class InputTracking : MonoBehaviour
         return Input.GetKeyDown(KeyCode.Q); //It's Q, for 'Qiswhatyouhittoapply'
     }
 
+    private bool CastSpell()
+    {
+        return Input.GetKeyDown(KeyCode.A);
+    }
+
     private bool Fire()
     {
         return Input.GetKeyDown(KeyCode.F);
+    }
+
+    private bool Wait()
+    {
+        return Input.GetKeyDown(KeyCode.Period);
     }
 
 }

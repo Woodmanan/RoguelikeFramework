@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 /*********** The Ability Class **************
  * 
@@ -17,7 +18,6 @@ using System;
  */
 
 /* Things that abilities need
- * 
  * 1. Costs
  * 2. Activation check
  * 3. Activation
@@ -25,19 +25,69 @@ using System;
  * 5. Tie ins with all that goodness to the main system
  */
 
+
 public class Ability : ScriptableObject
 {
+    public string displayName;
+    public Sprite image;
+    public Color color;
+
     //Public Resources
-    public AbilityBlock info;
+    public Targeting baseTargeting;
+    public AbilityBlock baseStats;
+
+    [HideInInspector] public Targeting targeting;
+    [HideInInspector] public AbilityBlock stats;
     [HideInInspector] public int currentCooldown = 0;
+    public int maxCooldown
+    {
+        get { return stats.cooldown; }
+    }
+
+    [HideInInspector] public bool castable = true;
+
+    public AbilityTypes types;
+    public AbilityTags tags;
+    public StatusEffectList effects;
+    List<Effect> attachedEffects = new List<Effect>();
+    public Connections connections = null;
+
+    public Ability Instantiate()
+    {
+        Ability copy = Instantiate(this);
+        copy.Setup();
+        return copy;
+    }
+
+    public void AddEffect(params Effect[] effects)
+    {
+        if (connections == null) connections = new Connections(this);
+        foreach (Effect e in effects)
+        {
+            e.Connect(connections);
+            attachedEffects.Add(e);
+        }
+    }
 
     //Called by ability component to set up a newly acquired ability.
     public void Setup()
     {
         currentCooldown = 0;
+        AddEffect(effects.list.Select(x => x.Instantiate()).ToArray());
     }
 
-    public bool CheckActivation(Monster caster)
+    //TODO: Set this up in a nice way
+    public void RegenerateStats(Monster m)
+    {
+        //I am losing my fucking mind
+        targeting = baseTargeting.ShallowCopy();
+        stats = baseStats;
+        Ability ability = this;
+
+        connections.OnRegenerateAbilityStats.BlendInvoke(m.connections?.OnRegenerateAbilityStats, ref targeting, ref stats, ref ability);
+    }
+
+    public bool CheckAvailable(Monster caster)
     {
         bool canCast = true;
         if (currentCooldown != 0)
@@ -48,7 +98,7 @@ public class Ability : ScriptableObject
         {
             foreach (Resource r in Enum.GetValues(typeof(Resource)))
             {
-                if (caster.resources[r] < info.costs[r])
+                if (caster.resources[r] < stats.costs[r])
                 {
                     canCast = false;
                     break;
@@ -58,34 +108,72 @@ public class Ability : ScriptableObject
 
         if (canCast)
         {
-            canCast = OnCheckActivation(caster);
+            canCast = OnCheckActivationSoft(caster);
         }
 
-        //TODO: Call the OnAbilityCheck modifier!
+        Ability casting = this;
 
+        //Link in status effects for this system
+        caster.connections.OnCheckAvailability.BlendInvoke(connections.OnCheckAvailability, ref casting, ref canCast);
 
+        if (canCast)
+        {
+            canCast = OnCheckActivationHard(caster);
+        }
+
+        castable = canCast;
         return canCast;
     }
 
-    public virtual bool OnCheckActivation(Monster caster)
+    //Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
+    public virtual bool OnCheckActivationSoft(Monster caster)
     {
         return true;
     }
 
-    public void Cast()
+    //Check activation, but for requirements that MUST be present for the spell to launch correctly. (Status effects will never override)
+    public virtual bool OnCheckActivationHard(Monster caster)
     {
-        //TODO: Call the OnCast modifier!
-        OnCast();
+        return true;
     }
 
-    public virtual void OnCast()
-    {
+    
 
+    public void Cast(Monster caster)
+    {
+        //TODO: Call the OnCast modifier!
+        OnCast(caster);
+
+        currentCooldown = stats.cooldown;
+    }
+
+    public virtual void OnCast(Monster caster)
+    {
+        Debug.Log("Ability did not override basic call", this);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ReduceCooldown()
+    {
+        currentCooldown--;
+        if (currentCooldown < 0)
+        {
+            currentCooldown = 0;
+        }
+    }
+
+    //Should be called at end of turn, to check and clean anything that's not needed anymore.
+    public void Cleanup()
+    {
+        //Clean up old effect connections
+        for (int i = attachedEffects.Count - 1; i >= 0; i--)
+        {
+            if (attachedEffects[i].ReadyToDelete) { attachedEffects.RemoveAt(i); }
+        }
     }
 }

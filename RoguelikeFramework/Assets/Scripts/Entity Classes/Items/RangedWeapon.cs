@@ -31,7 +31,7 @@ public class RangedWeapon : TargetableItem
                 //We hit!
                 foreach (DamagePairing p in damage)
                 {
-                    m.TakeDamage(p.damage.evaluate(), p.type, "{name} %s{get|gets} shot for {damage} damage");
+                    m.Damage(firing, p.damage.evaluate(), p.type, DamageSource.RANGEDATTACK, "{name} %s{get|gets} shot for {damage} damage");
                 }
                 foreach (ChanceEffect c in effects)
                 {

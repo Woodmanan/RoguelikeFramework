@@ -16,6 +16,8 @@ public class EffectFileWizard
         //Load in our definitions from the file
         EffectConnections declarations = AssetDatabase.LoadAssetAtPath<EffectConnections>("Assets/Scripts/CustomEditor/Effects/Effect Connections.asset");
 
+        declarations.connections.Sort((a, b) => a.priority.CompareTo(b.priority));
+
         if (declarations == null)
         {
             Debug.LogError("AGH IT'S ALL ON FIRE WHAT DID YOU CHANGE");

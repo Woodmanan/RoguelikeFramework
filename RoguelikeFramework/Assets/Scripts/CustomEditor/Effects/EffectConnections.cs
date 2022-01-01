@@ -21,6 +21,7 @@ public struct Connection
     public string name;
     public List<Variable> types;
     public string description;
+    public int priority;
 }
 
 public class EffectConnections : ScriptableObject

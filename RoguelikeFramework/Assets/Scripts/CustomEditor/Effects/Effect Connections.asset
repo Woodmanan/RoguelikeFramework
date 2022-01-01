@@ -16,34 +16,53 @@ MonoBehaviour:
   - name: OnTurnStartGlobal
     types: []
     description: Called at the start of the global turn sequence
+    priority: 1
   - name: OnTurnEndGlobal
     types: []
     description: Called at the end of the global turn sequence
+    priority: 2
   - name: OnTurnStartLocal
     types: []
     description: Called at the start of a monster's turn
+    priority: 3
   - name: OnTurnEndLocal
     types: []
     description: Called at the end of a monster's turn
+    priority: 4
   - name: OnMove
     types: []
     description: Called whenever a monster takes a step
+    priority: 5
   - name: OnFullyHealed
     types: []
     description: Called whenever a monster returns to full health
+    priority: 6
+  - name: OnKillMonster
+    types:
+    - type: Monster
+      name: monster
+    - type: DamageType
+      name: type
+    - type: DamageSource
+      name: source
+    description: Called when a monster is killed by this unit.
+    priority: 7
   - name: OnDeath
     types: []
     description: Called when the connected monster dies
+    priority: 7
   - name: RegenerateStats
     types:
     - type: StatBlock
       name: stats
     description: Called often, whenever a monster needs up-to-date stats.
+    priority: 8
   - name: OnEnergyGained
     types:
     - type: int
       name: energy
     description: Called wenever a monster gains energy
+    priority: 9
   - name: OnAttacked
     types:
     - type: int
@@ -51,22 +70,115 @@ MonoBehaviour:
     - type: int
       name: accuracy
     description: Called when a monster gets attacked (REWORKING SOON!)
+    priority: 10
+  - name: OnDealDamage
+    types:
+    - type: int
+      name: damage
+    - type: DamageType
+      name: damageType
+    - type: DamageSource
+      name: source
+    description: Called by the dealer of damage, when applicable. Modifications here
+      happen before damage is dealt.
+    priority: 11
   - name: OnTakeDamage
     types:
     - type: int
       name: damage
     - type: DamageType
       name: damageType
+    - type: DamageSource
+      name: source
     description: Called when a monster takes damage from any source, good for making
       effects fire upon certain types of damage
+    priority: 12
   - name: OnHealing
     types:
     - type: int
       name: healAmount
     description: Called when a monster recieves a healing event request
+    priority: 13
   - name: OnApplyStatusEffects
     types:
     - type: Effect[]
       name: effects
     description: Called when new status effects are added. All status effects coming
       through are bunched together as a list.
+    priority: 14
+  - name: OnCastAbility
+    types:
+    - type: AbilityAction
+      name: action
+    - type: bool
+      name: canContinue
+    description: Called when a spell is cast. Modify spell, or set continue to false
+      in order to cancel the action!
+    priority: 15
+  - name: OnGainResources
+    types:
+    - type: ResourceList
+      name: resources
+    description: Called when this monster gains resources. (Different from healing,
+      but can give health)
+    priority: 16
+  - name: OnLoseResources
+    types:
+    - type: ResourceList
+      name: resources
+    description: Called when this monster loses resources. (Different from damage,
+      but can take health)
+    priority: 17
+  - name: OnRegenerateAbilityStats
+    types:
+    - type: Targeting
+      name: targeting
+    - type: AbilityBlock
+      name: abilityBlock
+    - type: Ability
+      name: ability
+    description: Called when new status effects are added. All status effects coming
+      through are bunched together as a list.
+    priority: 20
+  - name: OnCheckAvailability
+    types:
+    - type: Ability
+      name: abilityToCheck
+    - type: bool
+      name: available
+    description: Called by spells, in order to determine whether they are allowed
+      to be cast.
+    priority: 21
+  - name: OnTargetsSelected
+    types:
+    - type: Targeting
+      name: targeting
+    - type: Ability
+      name: ability
+    description: Called by spells once targets are selected.
+    priority: 22
+  - name: OnPreCast
+    types:
+    - type: Ability
+      name: ability
+    description: Called before spell is cast
+    priority: 23
+  - name: OnPostCast
+    types:
+    - type: Ability
+      name: ability
+    description: Called after a spell is cast.
+    priority: 24
+  - name: OnTargetedByAbility
+    types:
+    - type: AbilityAction
+      name: action
+    description: Called when this monster is selected to be hit by a cast. (Right
+      before hit)
+    priority: 25
+  - name: OnHitByAbility
+    types:
+    - type: AbilityAction
+      name: action
+    description: Called after an ability is cast on this monster. (Right after hit)
+    priority: 26

@@ -41,26 +41,30 @@ public class Targeting
     [SerializeField] bool includesCasterSpace; //Do I include the player's space in the targetting equation?
     public bool recommendsPlayerTarget = false; //Should I warn the player if they're standing in it?
 
+    public Targeting ShallowCopy()
+    {
+        return (Targeting) this.MemberwiseClone();
+    }
+
 
     /***********************
      * RUNTIME OBJECT STUFF
      ***********************/
 
     //Make sure not to have any of these serialized by the end of testing - we don't want this clutter to end up in the actual objects
-    [Header("Things that should be deleted, yell at Woody if these are still here somehow")]
-    public Vector2Int origin;
-    public Vector2Int target;
+    [HideInInspector] public Vector2Int origin;
+    [HideInInspector] public Vector2Int target;
     LOSData currentLOS;
-    public List<Vector2Int> points;
-    [SerializeField] bool isValid = false;
-    public bool isFinished;
-    public int length;
-    public int offset;
-    public bool[,] area;
+    [HideInInspector] public List<Vector2Int> points;
+    [HideInInspector] public bool isValid = false;
+    [HideInInspector] public bool isFinished;
+    [HideInInspector] public int length;
+    [HideInInspector] public int offset;
+    [HideInInspector] public bool[,] area;
     private bool marking = false;
 
-    public List<Monster> tempAffected; //Used for allowing overlap
-    public List<Monster> affected;
+    List<Monster> tempAffected; //Used for allowing overlap
+    [HideInInspector] public List<Monster> affected;
 
 
 

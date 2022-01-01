@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac120780b1ee804c879f55f6e1ea5b0, type: 3}
+  m_Name: AOE Ice
+  m_EditorClassIdentifier: 
+  displayName: Freeze All
+  image: {fileID: 890424726899589919, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 0.09803922, g: 0.6996779, b: 0.78431374, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 5
+    areaType: 5
+    range: 0
+    radius: 5
+    degree: 0
+    pointsShareOverlap: 1
+    pointsRequireLOS: 1
+    includesCasterSpace: 1
+    recommendsPlayerTarget: 1
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    costs:
+      health: 1
+      mana: 5
+      stamina: 0
+    cooldown: 10
+    power: 0
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    pointsShareOverlap: 1
+    pointsRequireLOS: 1
+    includesCasterSpace: 0
+    recommendsPlayerTarget: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  stats:
+    costs:
+      health: 0
+      mana: 0
+      stamina: 0
+    cooldown: 0
+    power: 0
+  currentCooldown: 0
+  castable: 1
+  types: 0
+  tags: 0
+  effects:
+    list: []
+  toApply:
+    list:
+    - heldEffect: {fileID: 11400000, guid: fa2cc94b2138d834b9a1832a40e89cf4, type: 2}

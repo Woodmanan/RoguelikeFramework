@@ -101,6 +101,10 @@ public class Player : Monster
                     uiControls.OpenInventoryApply();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
+                case PlayerAction.CAST_SPELL:
+                    uiControls.OpenAbilities();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    break;
                 case PlayerAction.FIRE:
                     EquipmentSlot slot = equipment.equipmentSlots.First(x => x.type.Contains(EquipSlotType.RANGED_WEAPON));
                   

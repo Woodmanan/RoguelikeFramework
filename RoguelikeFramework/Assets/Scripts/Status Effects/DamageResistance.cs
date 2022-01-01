@@ -56,7 +56,7 @@ public class DamageResistance : Effect
     /*public override void OnAttacked(ref int pierce, ref int accuracy) {}*/
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    public override void OnTakeDamage(ref int damage, ref DamageType damageType)
+    public override void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source)
     {
         damage = damage - 3;
     }

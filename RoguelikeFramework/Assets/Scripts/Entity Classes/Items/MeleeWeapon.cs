@@ -11,14 +11,14 @@ public class MeleeWeapon : EquipableItem
     public List<ChanceEffect> effects;
 
     //TODO: CONSOLE LOG!
-    public void Use(Monster weilding, Monster target)
+    public void Use(Monster wielding, Monster target)
     {
         if (target.Attack(piercing, accuracy))
         {
             //We hit!
             foreach (DamagePairing p in damage)
             {
-                target.TakeDamage(p.damage.evaluate(), p.type);
+                target.Damage(wielding, p.damage.evaluate(), p.type, DamageSource.MELEEATTACK);
             }
             foreach (ChanceEffect c in effects)
             {

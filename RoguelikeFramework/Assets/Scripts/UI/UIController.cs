@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private InventoryScreen inventory;
     [SerializeField] private EquipmentScreen equipment;
+    [SerializeField] private AbilitiesScreen abilities;
     [SerializeField] private ItemInspectionPanel inspection;
     [SerializeField] private TargetingPanel targetting;
     [SerializeField] private ConfirmationPanel confirm;
@@ -108,6 +109,12 @@ public class UIController : MonoBehaviour
     {
         inventory.Setup(Player.player.inventory, ItemAction.APPLY);
         inventory.Activate();
+    }
+
+    public void OpenAbilities()
+    {
+        abilities.Setup(Player.player.abilities);
+        abilities.Activate();
     }
 
     public void OpenItemInspect(Inventory inventory, int index)
