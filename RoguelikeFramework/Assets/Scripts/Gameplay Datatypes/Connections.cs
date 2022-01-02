@@ -5,7 +5,7 @@ using UnityEngine;
 public class Connections
 {
     public Monster monster;
-    public Item item;
+    public Weapon item;
     public Ability ability;
 
     public Connections()
@@ -18,7 +18,7 @@ public class Connections
         this.monster = monster;
     }
 
-    public Connections(Item item)
+    public Connections(Weapon item)
     {
         this.item = item;
     }
@@ -55,5 +55,23 @@ public class Connections
     public OrderedEvent<Ability> OnPostCast = new OrderedEvent<Ability>();
     public OrderedEvent<AbilityAction> OnTargetedByAbility = new OrderedEvent<AbilityAction>();
     public OrderedEvent<AbilityAction> OnHitByAbility = new OrderedEvent<AbilityAction>();
+    public OrderedEvent<AttackAction, bool> OnStartAttack = new OrderedEvent<AttackAction, bool>();
+    public OrderedEvent<List<MeleeWeapon>, List<MeleeWeapon>> OnGenerateArmedAttacks = new OrderedEvent<List<MeleeWeapon>, List<MeleeWeapon>>();
+    public OrderedEvent<Weapon, AttackAction> OnBeginPrimaryAttack = new OrderedEvent<Weapon, AttackAction>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnPrimaryAttackResult = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnEndPrimaryAttack = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction> OnBeginSecondaryAttack = new OrderedEvent<Weapon, AttackAction>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnSecondaryAttackResult = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnEndSecondaryAttack = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<List<EquipmentSlot>> OnGenerateUnarmedAttacks = new OrderedEvent<List<EquipmentSlot>>();
+    public OrderedEvent<EquipmentSlot, AttackAction> OnBeginUnarmedAttack = new OrderedEvent<EquipmentSlot, AttackAction>();
+    public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnUnarmedAttackResult = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
+    public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnEndUnarmedAttack = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnBeforePrimaryAttackTarget = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnAfterPrimaryAttackTarget = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnBeforeSecondaryAttackTarget = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<Weapon, AttackAction, AttackResult> OnAfterSecondaryAttackTarget = new OrderedEvent<Weapon, AttackAction, AttackResult>();
+    public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnBeforeUnarmedAttackTarget = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
+    public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnAfterUnarmedAttackTarget = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
 
 }

@@ -65,25 +65,23 @@ public enum DamageType
     PIERCING
 }
 
+[Flags]
 public enum DamageSource
 {
-    MONSTER,
-    ITEM,
-    ABILITY,
-    EFFECT,
-    MELEEATTACK,
-    RANGEDATTACK
+    MONSTER         = (1 << 0),
+    ITEM            = (1 << 1),
+    ABILITY         = (1 << 2),
+    EFFECT          = (1 << 3),
+    MELEEATTACK     = (1 << 4),
+    RANGEDATTACK    = (1 << 5),
+    UNARMEDATTACK   = (1 << 6)
 }
 
-public enum EventType
+public enum AttackResult
 {
-    NONE,
-    GAIN_ENERGY,
-    MELEE_ATTACK,
-    UNARMED_ATTACK,
-    RANGED_ATTACK,
-    HEALING,
-    STATUS_EFFECT
+    HIT,
+    MISSED,
+    BLOCKED
 }
 
 public enum ItemAction

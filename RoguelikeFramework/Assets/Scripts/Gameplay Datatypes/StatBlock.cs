@@ -28,6 +28,7 @@ public class StatBlock
         return toReturn;
     }
 }
+
 [Serializable]
 public class AbilityBlock
 {
@@ -52,4 +53,15 @@ public class AbilityBlock
         toReturn.power = a.power - b.power;
         return toReturn;
     }
+}
+
+//These things generally don't get edited, so I'm not worrying about figuring out how to add these things
+[Serializable]
+public class WeaponBlock
+{
+    //Primary Attributes
+    public float chanceToHit;
+    public int accuracy;
+    public int piercing;
+    public List<DamagePairing> damage;
 }

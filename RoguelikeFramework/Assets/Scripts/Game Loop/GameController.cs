@@ -37,11 +37,21 @@ public class GameController : MonoBehaviour
         yield return null;
         LOS.GeneratePlayerLOS(player.location, player.visionRadius);
 
+        //Monster setup, before the loop starts
+        player.PostSetup();
+        foreach (Monster m in monsters)
+        {
+            m.PostSetup();
+        }
+
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();
 
+
         //Space for any init setup that needs to be done
         StartCoroutine(GameLoop());
+
+        
     }
 
     IEnumerator GameLoop()

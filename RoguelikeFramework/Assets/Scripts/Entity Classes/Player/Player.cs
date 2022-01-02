@@ -97,6 +97,10 @@ public class Player : Monster
                     uiControls.OpenEquipmentInspect();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
+                case PlayerAction.UNEQUIP:
+                    uiControls.OpenEquipmentUnequip();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    break;
                 case PlayerAction.APPLY:
                     uiControls.OpenInventoryApply();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);

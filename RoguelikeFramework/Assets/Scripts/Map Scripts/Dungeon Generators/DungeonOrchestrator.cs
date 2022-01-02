@@ -46,7 +46,7 @@ public class DungeonOrchestrator : MonoBehaviour
             Vector2Int spot = new Vector2Int(Random.Range(0, bounds.x), Random.Range(0, bounds.y));
             if (map[spot.x, spot.y] == 1)
             {
-                player.SetPosition(spot);
+                player.location = spot;
                 success = true;
                 break;
             }
@@ -58,7 +58,7 @@ public class DungeonOrchestrator : MonoBehaviour
                 Vector2Int spot = new Vector2Int(i % bounds.x, i / bounds.x);
                 if (map[spot.x, spot.y] == 1)
                 {
-                    player.SetPosition(spot);
+                    player.location = spot;
                     break;
                 }
             }

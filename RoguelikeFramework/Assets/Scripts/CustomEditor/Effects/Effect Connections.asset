@@ -182,3 +182,181 @@ MonoBehaviour:
       name: action
     description: Called after an ability is cast on this monster. (Right after hit)
     priority: 26
+  - name: OnStartAttack
+    types:
+    - type: AttackAction
+      name: action
+    - type: bool
+      name: canContinue
+    description: Called when this monster starts an attack action
+    priority: 35
+  - name: OnGenerateArmedAttacks
+    types:
+    - type: List<MeleeWeapon>
+      name: primaryWeapons
+    - type: List<MeleeWeapon>
+      name: secondaryWeapons
+    description: Called when an attack has collected the weapons that it will use.
+    priority: 36
+  - name: OnBeginPrimaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    description: Called before a primary attack happens
+    priority: 37
+  - name: OnPrimaryAttackResult
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called once a primary attack has generated a result. (Before result
+      is used)
+    priority: 38
+  - name: OnEndPrimaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after an attack has completely finished - results are final
+    priority: 39
+  - name: OnBeginSecondaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    description: Called before a secondary attack happens
+    priority: 40
+  - name: OnSecondaryAttackResult
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called once a primary attack has generated a result. (Before result
+      is used)
+    priority: 41
+  - name: OnEndSecondaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after a seconary attack has completely finished - results
+      are final
+    priority: 42
+  - name: OnGenerateUnarmedAttacks
+    types:
+    - type: List<EquipmentSlot>
+      name: slots
+    description: Called when an attack has collected the unarmed slots that it will
+      use.
+    priority: 43
+  - name: OnBeginUnarmedAttack
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    description: Called before an unarmed attack begins.
+    priority: 44
+  - name: OnUnarmedAttackResult
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called when an unarmed attack has a determined a result, before
+      that result is used.
+    priority: 45
+  - name: OnEndUnarmedAttack
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called when an unarmed attack has a determined a result, after that
+      result is used.
+    priority: 46
+  - name: OnBeforePrimaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called before this monster is hit by a primary attack from another
+      monster.
+    priority: 47
+  - name: OnAfterPrimaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after this monster is hit by a primary attack from another
+      monster. (Can't modify anymore)
+    priority: 48
+  - name: OnBeforeSecondaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called before this monster is hit by a secondary attack from another
+      monster.
+    priority: 49
+  - name: OnAfterSecondaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after this monster is hit by a secondary attack from another
+      monster. (Can't modify anymore)
+    priority: 50
+  - name: OnBeforeUnarmedAttackTarget
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called before this monster is hit by an unarmed attack from another
+      monster.
+    priority: 51
+  - name: OnAfterUnarmedAttackTarget
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after this monster is hit by an unarmed attack from another
+      monster. (Can't modify anymore)
+    priority: 52

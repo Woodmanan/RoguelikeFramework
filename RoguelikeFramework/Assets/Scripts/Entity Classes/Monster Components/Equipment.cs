@@ -13,6 +13,8 @@ public class EquipmentSlot
     public bool removable = true;
     //Similar to inventory slots, but *theoretically* shouldn't change. Might change when mutation system is online.
     [HideInInspector] public int position;
+    public bool CanAttackUnarmed;
+    public WeaponBlock unarmedAttack;
 }
 
 public class Equipment : MonoBehaviour

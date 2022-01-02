@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9015174743555470459}
   - component: {fileID: 9015174743555470458}
   - component: {fileID: 9015174743555470457}
-  - component: {fileID: 9015174743555470436}
   - component: {fileID: 555078043481598783}
+  - component: {fileID: 9015174743555470436}
   m_Layer: 0
   m_Name: Item Test 7 (Gun)
   m_TagString: Untagged
@@ -113,6 +113,33 @@ MonoBehaviour:
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
+  melee: {fileID: 0}
+  ranged: {fileID: 0}
+--- !u!114 &555078043481598783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015174743555470456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061029ab2cec2c74693f98a94e2c64cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primarySlot: 5
+  secondarySlots: 
+  addedStats:
+    resources:
+      health: 0
+      mana: 0
+      stamina: 0
+    ac: 0
+    ev: 0
+  addedEffects:
+    list: []
+  isEquipped: 0
+  removable: 1
 --- !u!114 &9015174743555470436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +170,6 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
-    tempAffected: []
     affected: []
   accuracy: 5
   piercing: 5
@@ -155,25 +181,3 @@ MonoBehaviour:
     type: 1
   effects:
     list: []
---- !u!114 &555078043481598783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9015174743555470456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061029ab2cec2c74693f98a94e2c64cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  primarySlot: 5
-  secondarySlots: 
-  addedStats:
-    maxHealth: 0
-    ac: 0
-    ev: 0
-  addedEffects:
-    list: []
-  isEquipped: 0
-  removable: 1

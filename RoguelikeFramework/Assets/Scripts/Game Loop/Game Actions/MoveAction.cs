@@ -8,7 +8,7 @@ public class MoveAction : GameAction
     public Direction direction;
     public bool costs;
 
-    //Constuctor for the action; must include caller!
+    //Constuctor for the action
     public MoveAction(Vector2Int location, bool costs = true)
     {
         //Construct me! Assigns caller by default in the base class
@@ -32,7 +32,12 @@ public class MoveAction : GameAction
 
         if (tile.currentlyStanding != null)
         {
-            Debug.LogError("You need to handle the combat case!!!!");
+            AttackAction attack = new AttackAction(tile.currentlyStanding);
+            attack.Setup(caller);
+            while (attack.action.MoveNext())
+            {
+                yield return attack.action.Current;
+            }
             yield break;
         }
 

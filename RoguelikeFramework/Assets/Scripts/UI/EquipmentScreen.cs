@@ -191,17 +191,33 @@ public class EquipmentScreen : RogueUIPanel
 
     public void HandleOpening(int index)
     {
-        //Wow that's gross
-        if (examinedEquipment.equipmentSlots[index].active && !examinedEquipment.equipmentSlots[index].equipped.held[0].equipable.removable)
+        switch (queuedAction)
         {
-            //Inspect a held item
-            UIController.singleton.OpenItemInspect(examinedEquipment.monster.inventory, examinedEquipment.equipmentSlots[index].equipped.position);
+            case ItemAction.EQUIP:
+                Player.player.SetAction(new EquipAction(index, queuedItem.position));
+                break;
+            case ItemAction.INSPECT:
+                //Wow that's gross
+                if (examinedEquipment.equipmentSlots[index].active && !examinedEquipment.equipmentSlots[index].equipped.held[0].equipable.removable)
+                {
+                    //Inspect a held item
+                    UIController.singleton.OpenItemInspect(examinedEquipment.monster.inventory, examinedEquipment.equipmentSlots[index].equipped.position);
+                }
+                else
+                {
+                    //Pick up a new item!
+                    UIController.singleton.OpenInventoryEquip(index);
+                }
+                break;
+
+            case ItemAction.UNEQUIP:
+                Player.player.SetAction(new RemoveAction(index));
+                break;
+            default:
+                Debug.LogError($"Unhandled action type of type {queuedAction}");
+                break;
         }
-        else
-        {
-            //Pick up a new item!
-            UIController.singleton.OpenInventoryEquip(index);
-        }
+        
     }
 
     /* Called every time this panel is deactived by the controller */

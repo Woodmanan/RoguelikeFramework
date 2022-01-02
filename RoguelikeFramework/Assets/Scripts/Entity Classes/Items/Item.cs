@@ -24,6 +24,7 @@ public class Item : MonoBehaviour
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
 
+
     private SpriteRenderer Render;
     public SpriteRenderer render
     {
@@ -49,6 +50,8 @@ public class Item : MonoBehaviour
     [HideInInspector] public ApplyableItem applyable;
     [HideInInspector] public TargetableItem targetable;
     [HideInInspector] public EquipableItem equipable;
+    [HideInInspector] public MeleeWeapon melee;
+    [HideInInspector] public RangedWeapon ranged;
 
     private static readonly float itemZValue = -7.0f;
 
@@ -73,13 +76,15 @@ public class Item : MonoBehaviour
         applyable = GetComponent<ApplyableItem>();
         targetable = GetComponent<TargetableItem>();
         equipable = GetComponent<EquipableItem>();
+        melee = GetComponent<MeleeWeapon>();
+        ranged = GetComponent<RangedWeapon>();
 
         //Quick check for components, better here than later
         CanEquip = (equipable != null);
         CanApply = (applyable != null);
         CanTarget = (targetable != null);
-        CanMelee = GetComponent<MeleeWeapon>() != null;
-        CanRanged = GetComponent<RangedWeapon>() != null;
+        CanMelee = (melee != null);
+        CanRanged = (ranged != null);
     }
 
 

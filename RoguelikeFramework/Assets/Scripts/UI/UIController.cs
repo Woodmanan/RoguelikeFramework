@@ -105,6 +105,12 @@ public class UIController : MonoBehaviour
         equipment.Activate();
     }
 
+    public void OpenEquipmentUnequip()
+    {
+        equipment.Setup(Player.player.equipment, ItemAction.UNEQUIP, null);
+        equipment.Activate();
+    }
+
     public void OpenInventoryApply()
     {
         inventory.Setup(Player.player.inventory, ItemAction.APPLY);

@@ -16,6 +16,12 @@ public class WaitAction : GameAction
     {
         //TODO: Determine if this should be -100, or just set the energy to 0. One is more efficient,
         //but the other might give better gameplay results.
+
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(Map.singleton.GetTile(caller.location).currentlyStanding == caller, "Waiting monster thinks that it is not on it's tile. Some other system has incorrectly set the currentTile.", caller);
+#endif
+
+        caller.SetPosition(caller.location);
         caller.energy -= 100f;
         if (false) { yield return null; } //Here so compiler doesn't yell.
     }

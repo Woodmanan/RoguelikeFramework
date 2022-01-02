@@ -67,16 +67,19 @@ public class Monster : MonoBehaviour
         connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
     }
 
+    //Called right before the main loop, when the rest of the game has been set up.
+    public void PostSetup()
+    {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(Map.singleton.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
+        #endif
+        SetPosition(location);
+    }
+
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    //TODO: Actually call this! The generator should call this function once monsters have been placed
-    public void AfterInitialSetup()
-    {
-        Map.singleton.GetTile(location).SetMonster(this);
     }
 
     public void Heal(int healthReturned)
@@ -212,7 +215,7 @@ public class Monster : MonoBehaviour
 
             foreach (MeleeWeapon w in weapons)
             {
-                w.Use(this, target);
+                //w.Use(this, target);
             }
         }
     }

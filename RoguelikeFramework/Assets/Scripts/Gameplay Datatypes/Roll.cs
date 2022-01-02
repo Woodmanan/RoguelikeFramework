@@ -10,10 +10,10 @@ public class Roll
     public int dice;
     
 
-    public bool evaluateEveryRoll;
+    //public bool evaluateEveryRoll;
 
-    private bool evaluated = false;
-    private int value;
+    //private bool evaluated = false;
+    //private int value;
 
     //Constructors!
     public Roll(int rolls, int dice)
@@ -42,15 +42,17 @@ public class Roll
 
     public int evaluate()
     {
-        if (!evaluated || evaluateEveryRoll)
+        if (dice == 1)
         {
-            value = 0;
-            evaluated = true;
-            for (int i = 0; i < rolls; i++)
-            {
-                value += UnityEngine.Random.Range(1, dice+1);
-            }
+            return rolls;
         }
+
+        int value = 0;
+        for (int i = 0; i < rolls; i++)
+        {
+            value += UnityEngine.Random.Range(0, dice) + 1;
+        }
+
         return value;
     }
 }

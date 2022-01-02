@@ -286,7 +286,7 @@ public class InputTracking : MonoBehaviour
     //TODO: Revisit this sequence of inputs. As of right now PlayerAction.MOVE_UP_RIGHT is the one keyed to this.
     private bool Unequip()
     {
-        return Input.GetKeyDown(KeyCode.U);
+        return Input.GetKeyDown(KeyCode.R);
     }
 
     private bool Escaping()

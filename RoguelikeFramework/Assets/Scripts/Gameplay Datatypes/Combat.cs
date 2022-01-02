@@ -3,15 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public class Combat
+{
+    public static AttackResult DetermineHit(Monster defender, WeaponBlock stats)
+    {
+        if (UnityEngine.Random.Range(0, 99.99f) < stats.chanceToHit)
+        {
+            //We didn't miss!
+            //TODO: Determine blocking stats
+            return AttackResult.HIT;
+        }
+        else
+        {
+            return AttackResult.MISSED;
+        }
+    }
+
+    public static void Hit(Monster attacker, Monster defender, DamageSource source, WeaponBlock stats)
+    {
+        foreach (DamagePairing damage in stats.damage)
+        {
+            defender.Damage(attacker, damage.damage.evaluate(), damage.type, source);
+        }
+    }
+}
+
 [Serializable]
 public struct DamagePairing
 {
     public Roll damage;
     public DamageType type;
 }
-
-
-
 
 [Serializable]
 public struct ChanceEffect

@@ -103,4 +103,58 @@ public class #SCRIPTNAME# : Effect
     //Called after an ability is cast on this monster. (Right after hit)
     //public override void OnHitByAbility(ref AbilityAction action) {}
 
+    //Called when this monster starts an attack action
+    //public override void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
+
+    //Called when an attack has collected the weapons that it will use.
+    //public override void OnGenerateArmedAttacks(ref List<MeleeWeapon> primaryWeapons, ref List<MeleeWeapon> secondaryWeapons) {}
+
+    //Called before a primary attack happens
+    //public override void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
+
+    //Called once a primary attack has generated a result. (Before result is used)
+    //public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called after an attack has completely finished - results are final
+    //public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called before a secondary attack happens
+    //public override void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
+
+    //Called once a primary attack has generated a result. (Before result is used)
+    //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called after a seconary attack has completely finished - results are final
+    //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called when an attack has collected the unarmed slots that it will use.
+    //public override void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}
+
+    //Called before an unarmed attack begins.
+    //public override void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}
+
+    //Called when an unarmed attack has a determined a result, before that result is used.
+    //public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+
+    //Called when an unarmed attack has a determined a result, after that result is used.
+    //public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+
+    //Called before this monster is hit by a primary attack from another monster.
+    //public override void OnBeforePrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called after this monster is hit by a primary attack from another monster. (Can't modify anymore)
+    //public override void OnAfterPrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called before this monster is hit by a secondary attack from another monster.
+    //public override void OnBeforeSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called after this monster is hit by a secondary attack from another monster. (Can't modify anymore)
+    //public override void OnAfterSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+
+    //Called before this monster is hit by an unarmed attack from another monster.
+    //public override void OnBeforeUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+
+    //Called after this monster is hit by an unarmed attack from another monster. (Can't modify anymore)
+    //public override void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+
 }
