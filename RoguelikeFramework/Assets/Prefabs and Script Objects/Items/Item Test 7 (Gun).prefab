@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   stackable: 0
-  type: 1
+  type: 2
   color: {r: 0.50377357, g: 0.941315, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061029ab2cec2c74693f98a94e2c64cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primarySlot: 5
-  secondarySlots: 
+  primarySlot: 2
+  secondarySlots: 03000000
   addedStats:
     resources:
       health: 0
@@ -152,6 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3061391dbedbc54685ac19ed906d84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  primary:
+    chanceToHit: 100
+    accuracy: 0
+    piercing: 0
+    damage:
+    - damage:
+        rolls: 5
+        dice: 2
+      type: 2
+  secondary:
+    chanceToHit: 0
+    accuracy: 0
+    piercing: 0
+    damage: []
+  effects:
+    list: []
   targeting:
     numPoints: 1
     targetingType: 1
@@ -171,13 +187,3 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
-  accuracy: 5
-  piercing: 5
-  damage:
-  - damage:
-      rolls: 0
-      dice: 0
-      evaluateEveryRoll: 0
-    type: 1
-  effects:
-    list: []

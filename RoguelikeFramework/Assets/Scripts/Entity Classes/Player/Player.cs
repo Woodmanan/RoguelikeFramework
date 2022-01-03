@@ -110,27 +110,7 @@ public class Player : Monster
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
                 case PlayerAction.FIRE:
-                    EquipmentSlot slot = equipment.equipmentSlots.First(x => x.type.Contains(EquipSlotType.RANGED_WEAPON));
-                  
-                    if (slot.active)
-                    {
-                        //Fire!
-                        //This is the coolest piece of code I have ever written
-                        bool canFire = false;
-                        RangedWeapon weapon = slot.equipped.held[0].GetComponent<RangedWeapon>();
-                        uiControls.OpenTargetting(weapon.targeting, (b) => canFire = b);
-                        yield return new WaitUntil(() => !UIController.WindowsOpen);
-                        if (canFire)
-                        {
-                            weapon.Fire(player);
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        //TODO: Pull up the screen to equip something
-                        Debug.Log("Console log: You must have a ranged weapon equipped!");
-                    }
+                    SetAction(new RangedAttackAction());
                     break;
                     
                     

@@ -3,44 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class RangedWeapon : TargetableItem
+public class RangedWeapon : Weapon
 {
-    public int accuracy;
-    public int piercing;
-    public List<DamagePairing> damage;
-    public ChanceEffectList effects;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public override void Fire(Monster firing)
-    {
-        foreach (Monster m in targeting.affected)
-        {
-            if (m.Attack(piercing, accuracy))
-            {
-                //We hit!
-                foreach (DamagePairing p in damage)
-                {
-                    m.Damage(firing, p.damage.evaluate(), p.type, DamageSource.RANGEDATTACK, "{name} %s{get|gets} shot for {damage} damage");
-                }
-                foreach (ChanceEffect c in effects)
-                {
-                    if (c.evaluate())
-                    {
-                        m.AddEffect(c.appliedEffects.ToArray());
-                    }
-                }
-            }
-        }
-    }
+    public Targeting targeting;
 }

@@ -97,8 +97,6 @@ public class InventoryScreen : RogueUIPanel
                 Debug.LogError($"Inventory screen is not set up to handle {queuedAction} types. Yell at Woody about this.");
                 break;
         }
-
-        print($"How many items to display: {toDisplay.Count}");
         
         if (toDisplay.Count == 0)
         {

@@ -19,7 +19,6 @@ public class Abilities : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Ability is starting!");
         connectedTo = GetComponent<Monster>();
         foreach (Ability a in startingAbilities)
         {

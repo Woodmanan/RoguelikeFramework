@@ -56,7 +56,7 @@ public class Connections
     public OrderedEvent<AbilityAction> OnTargetedByAbility = new OrderedEvent<AbilityAction>();
     public OrderedEvent<AbilityAction> OnHitByAbility = new OrderedEvent<AbilityAction>();
     public OrderedEvent<AttackAction, bool> OnStartAttack = new OrderedEvent<AttackAction, bool>();
-    public OrderedEvent<List<MeleeWeapon>, List<MeleeWeapon>> OnGenerateArmedAttacks = new OrderedEvent<List<MeleeWeapon>, List<MeleeWeapon>>();
+    public OrderedEvent<List<Weapon>, List<Weapon>> OnGenerateArmedAttacks = new OrderedEvent<List<Weapon>, List<Weapon>>();
     public OrderedEvent<Weapon, AttackAction> OnBeginPrimaryAttack = new OrderedEvent<Weapon, AttackAction>();
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnPrimaryAttackResult = new OrderedEvent<Weapon, AttackAction, AttackResult>();
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnEndPrimaryAttack = new OrderedEvent<Weapon, AttackAction, AttackResult>();

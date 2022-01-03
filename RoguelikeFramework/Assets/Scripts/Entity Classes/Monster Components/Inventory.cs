@@ -199,7 +199,6 @@ public class Inventory : MonoBehaviour
                 if (Items[i].id == stack.id)
                 {
                     itemsAdded?.Invoke(ref stack);
-                    print("Added to another stack!");
                     Items[i].count += stack.count;
                     for (int j = 0; j < stack.count; j++)
                     {

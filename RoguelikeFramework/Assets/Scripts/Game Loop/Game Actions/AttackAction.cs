@@ -5,11 +5,15 @@ using UnityEngine;
 public class AttackAction : GameAction
 {
     public Monster target;
-    List<MeleeWeapon> primaryWeapons = new List<MeleeWeapon>();
-    List<MeleeWeapon> secondaryWeapons = new List<MeleeWeapon>();
+    public List<Weapon> primaryWeapons = new List<Weapon>();
+    public List<Weapon> secondaryWeapons = new List<Weapon>();
 
     List<EquipmentSlot> unarmedSlots = new List<EquipmentSlot>();
 
+    public AttackAction()
+    {
+
+    }
 
     public AttackAction(Monster target)
     {
@@ -21,8 +25,8 @@ public class AttackAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        //Correction: see if we have any weapons actively equipped (Doesn't need to be in your hands, theoretically
-        List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.WEAPON);
+        //See if we have any weapons actively equipped, or unarmed sltos that can attack
+        List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
         unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed && !x.active);
 
         //Do we have any weapons equipped?

@@ -170,9 +170,6 @@ public class EquipmentScreen : RogueUIPanel
                 break;
         }
 
-
-        print($"How many items to display: {displayed.Count}");
-
         //Sort the list into item types
         //ItemType currentType = ItemType.NONE;
 

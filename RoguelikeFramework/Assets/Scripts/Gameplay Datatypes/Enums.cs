@@ -102,7 +102,6 @@ public enum EquipSlotType
     PRIMARY_HAND,
     SECONDARY_HAND,
     BODY,
-    RANGED_WEAPON,
     TAIL
 }
 
@@ -110,7 +109,8 @@ public enum EquipSlotType
 public enum ItemType
 {
     NONE,
-    WEAPON,
+    MELEE_WEAPON,
+    RANGED_WEAPON,
     ARMOR,
     CONSUMABLE,
     ACTIVATABLE,

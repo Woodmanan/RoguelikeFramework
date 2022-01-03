@@ -715,7 +715,7 @@ public class Effect : ScriptableObject
         //------------------------------------------------------------
 
         //------------------ OnGenerateArmedAttacks ------------------
-        method = ((ActionRef<List<MeleeWeapon>, List<MeleeWeapon>>) OnGenerateArmedAttacks).Method;
+        method = ((ActionRef<List<Weapon>, List<Weapon>>) OnGenerateArmedAttacks).Method;
         if (method.DeclaringType != typeof(Effect))
         {
             object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();
@@ -1213,7 +1213,7 @@ public class Effect : ScriptableObject
     public virtual void OnTargetedByAbility(ref AbilityAction action) {}
     public virtual void OnHitByAbility(ref AbilityAction action) {}
     public virtual void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
-    public virtual void OnGenerateArmedAttacks(ref List<MeleeWeapon> primaryWeapons, ref List<MeleeWeapon> secondaryWeapons) {}
+    public virtual void OnGenerateArmedAttacks(ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
     public virtual void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
     public virtual void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}

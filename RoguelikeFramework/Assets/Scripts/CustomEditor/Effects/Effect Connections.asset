@@ -192,9 +192,9 @@ MonoBehaviour:
     priority: 35
   - name: OnGenerateArmedAttacks
     types:
-    - type: List<MeleeWeapon>
+    - type: List<Weapon>
       name: primaryWeapons
-    - type: List<MeleeWeapon>
+    - type: List<Weapon>
       name: secondaryWeapons
     description: Called when an attack has collected the weapons that it will use.
     priority: 36

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Connections
 {
     public Monster monster;
-    public Item item;
+    public Weapon item;
     public Ability ability;
 
     public Connections()
@@ -18,7 +18,7 @@ public class Connections
         this.monster = monster;
     }
 
-    public Connections(Item item)
+    public Connections(Weapon item)
     {
         this.item = item;
     }

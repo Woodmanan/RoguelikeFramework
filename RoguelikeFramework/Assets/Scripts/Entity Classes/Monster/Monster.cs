@@ -62,7 +62,6 @@ public class Monster : MonoBehaviour
         connections = new Connections(this);
 
         resources.health = stats.resources.health;
-        print($"Connections is null? {connections == null}");
 
         connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
     }
@@ -141,7 +140,7 @@ public class Monster : MonoBehaviour
 
     public void Damage(Monster dealer, int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
-        dealer.connections.OnDealDamage.BlendInvoke(dealer.other.OnDealDamage, ref damage, ref type, ref source);
+        dealer.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
         Damage(damage, type, source, message);
 
     }
@@ -160,7 +159,6 @@ public class Monster : MonoBehaviour
         MatchCollection matches = Regex.Matches(newMessage, "%s\\{([a-zA-Z\\w]*\\|[a-zA-Z\\w]*)\\}");
         foreach (Match m in matches)
         {
-            Debug.Log($"{m.Groups.Count} matches found");
             for (int i = 1; i < m.Groups.Count; i++)
             {
                 string[] val = m.Groups[i].Value.Split('|');
@@ -180,44 +178,6 @@ public class Monster : MonoBehaviour
     public string GetFormattedName()
     {
         return nameRequiresPluralVerbs ? "the " + name : name;
-    }
-
-    //Automatically grabs
-    public void Attack(Monster target)
-    {
-        //TODO: Make this more effecient of a lookup
-        //List<EquipmentSlot> slots = equipment.equipmentSlots.FindAll(x => x.type.Contains(EquipSlotType.PRIMARY_HAND) || x.type.Contains(EquipSlotType.SECONDARY_HAND));
-        //slots = slots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.WEAPON);
-
-        //Correction: see if we have any weapons actively equipped (Doesn't need to be in your hands, theoretically
-        List<EquipmentSlot> slots = equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.WEAPON);
-
-        //Do we have any weapons equipped?
-        if (slots.Count > 0)
-        {
-            //TODO: Sort the list
-            List<MeleeWeapon> weapons = new List<MeleeWeapon>();
-            foreach (EquipmentSlot s in slots)
-            {
-                if (s.equipped.held[0].CanMelee)
-                {
-                    MeleeWeapon weapon = s.equipped.held[0].GetComponent<MeleeWeapon>();
-                    if (!weapons.Contains(weapon))
-                    {
-                        weapons.Add(weapon);
-                    }
-                }
-                else
-                {
-                    Debug.Log("Player somehow equipped something that isn't a weapon.");
-                }
-            }
-
-            foreach (MeleeWeapon w in weapons)
-            {
-                //w.Use(this, target);
-            }
-        }
     }
     
     public void AddEnergy(int energy)

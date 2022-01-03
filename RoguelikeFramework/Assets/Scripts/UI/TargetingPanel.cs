@@ -190,10 +190,8 @@ public class TargetingPanel : RogueUIPanel
                 {
                     //We're done!
                     current.GenerateArea();
-                    print($"Affected contains player? {current.affected.Contains(Player.player)}");
                     if (current.affected.Contains(Player.player) && !current.recommendsPlayerTarget)
                     {
-                        print("Entered this bit");
                         bool isSure = false;
                         UIController.singleton.OpenConfirmation("<color=\"black\">Are you sure you want to target yourself?", (b) => ReturnConfirmed(b)); //DELEGATE MAGICCCC
                         break;
