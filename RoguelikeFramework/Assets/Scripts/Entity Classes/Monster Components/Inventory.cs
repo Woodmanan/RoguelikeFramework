@@ -281,7 +281,7 @@ public class Inventory : MonoBehaviour
         {
             return this;
         }
-        return Map.singleton.GetTile(monster.location).GetComponent<Inventory>();
+        return Map.current.GetTile(monster.location).GetComponent<Inventory>();
     }
 
     //Get stack index of an item, -1 if not found
@@ -330,7 +330,7 @@ public class Inventory : MonoBehaviour
 
     public void PickUpAll()
     {
-        CustomTile tile = Map.singleton.GetTile(monster.location);
+        CustomTile tile = Map.current.GetTile(monster.location);
         for (int i = capacity - 1; i >= 0; i--)
         {
             FloorToMonster(i);
@@ -339,7 +339,7 @@ public class Inventory : MonoBehaviour
 
     public void FloorToMonster(int index)
     {
-        Inventory onFloor = Map.singleton.GetTile(monster.location).inventory;
+        Inventory onFloor = Map.current.GetTile(monster.location).inventory;
 
         ItemStack stack = onFloor[index];
         if (stack == null) return; //Quick cutout
@@ -353,7 +353,7 @@ public class Inventory : MonoBehaviour
 
     public void MonsterToFloor(int index)
     {
-        Inventory onFloor = Map.singleton.GetTile(monster.location).inventory;
+        Inventory onFloor = Map.current.GetTile(monster.location).inventory;
 
         ItemStack stack = Items[index];
 

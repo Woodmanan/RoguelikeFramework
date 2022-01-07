@@ -18,7 +18,7 @@ public class WaitAction : GameAction
         //but the other might give better gameplay results.
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(Map.singleton.GetTile(caller.location).currentlyStanding == caller, "Waiting monster thinks that it is not on it's tile. Some other system has incorrectly set the currentTile.", caller);
+        Debug.Assert(Map.current.GetTile(caller.location).currentlyStanding == caller, "Waiting monster thinks that it is not on it's tile. Some other system has incorrectly set the currentTile.", caller);
 #endif
 
         caller.SetPosition(caller.location);

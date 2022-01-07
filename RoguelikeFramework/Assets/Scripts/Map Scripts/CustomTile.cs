@@ -45,11 +45,24 @@ public class CustomTile : MonoBehaviour
     #if UNITY_EDITOR
     private Color currentColor;
     #endif
+
+    Map map;
     
     
     
     // Start is called before the first frame update
     void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void Setup()
     {
         inventory = GetComponent<Inventory>(); //May need to be changed to a get/set singleton system
         //Starts as on, so that Unity 
@@ -58,15 +71,9 @@ public class CustomTile : MonoBehaviour
 
         //Set up initial visibility
         itemVis = GetComponent<ItemVisiblity>();
-        
+
         RebuildGraphics();
         this.enabled = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Reveal()
@@ -80,14 +87,6 @@ public class CustomTile : MonoBehaviour
     {
         isVisible = false;
         dirty = true;
-    }
-
-    private void LateUpdate()
-    {
-        /*if (dirty)
-        {
-            RebuildGraphics();
-        }*/
     }
 
     public void ClearMonster()
@@ -107,8 +106,15 @@ public class CustomTile : MonoBehaviour
 
     public void RebuildMapData()
     {
-        Map.singleton.blocksVision[x, y] = blocksVision;
-        Map.singleton.moveCosts[x, y] = movementCost;
+        map.blocksVision[x, y] = blocksVision;
+        map.moveCosts[x, y] = movementCost;
+    }
+
+    public void SetMap(Map map, int x, int y)
+    {
+        this.map = map;
+        this.x = x;
+        this.y = y;
     }
 
     public bool BlocksMovement()
@@ -155,6 +161,10 @@ public class CustomTile : MonoBehaviour
             }
             else
             {
+                if (render == null)
+                {
+                    Debug.LogError("Someone didn't do something right!", this);
+                }
                 render.enabled = false;
                 render.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }

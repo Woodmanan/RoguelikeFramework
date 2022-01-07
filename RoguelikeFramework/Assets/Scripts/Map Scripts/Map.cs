@@ -12,35 +12,12 @@ using UnityEngine.Tilemaps;
 
 public class Map : MonoBehaviour
 {
-    private static Map Singleton;
-    public static Map singleton
-    {
-        get
-        {
-            if (!Singleton)
-            {
-                Map m = GameObject.FindObjectOfType<Map>();
-                if (m)
-                {
-                    Singleton = m;
-                }
-                else
-                {
-                    Debug.LogError("No map found!");
-                }
-            }
-
-            return Singleton;
-        }
-        set { Singleton = value; }
-    }
+    public static Map current;
     
     //Map space, which controls how movement is allowed
     public static MapSpace space = MapSpace.Chebyshev;
 
     public int depth;
-
-    public TileList tilesAvailable;
 
 
     public CustomTile[,] tiles;
@@ -48,34 +25,20 @@ public class Map : MonoBehaviour
     public float[,] moveCosts;
 
     public int width;
-    
 
     public int height;
+
+    public bool activeGraphics = false;
+
+    public List<Monster> monsters = new List<Monster>();
+
+    public List<Vector2Int> entrances = new List<Vector2Int>();
+    public List<Vector2Int> exits = new List<Vector2Int>();
     
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Vector3.zero;
-        if (singleton != this)
-        {
-            if (singleton)
-            {
-                if (singleton.depth > this.depth)
-                {
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    Destroy(Singleton);
-                    singleton = this;
-                }
-            }
-            else
-            {
-                singleton = this;
-            }
-        }
-
     }
 
     // Update is called once per frame
@@ -86,6 +49,7 @@ public class Map : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!activeGraphics) return;
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -104,44 +68,7 @@ public class Map : MonoBehaviour
     }
     
 
-    public void allocateMap(int xSize, int ySize)
-    {
-        tiles = new CustomTile[xSize, ySize];
-        blocksVision = new bool[xSize, ySize];
-        moveCosts = new float[xSize, ySize];
-        width = xSize;
-        height = ySize;
-        for (int j = 0; j < height; j++)
-        {
-            GameObject row = new GameObject {name = $"Row {j}"};
-            row.transform.parent = transform;
-            for (int i = 0; i < width; i++)
-            {
-                GameObject g = Instantiate(tilesAvailable.tiles[Random.Range(0,tilesAvailable.tiles.Length)], row.transform, true);
-                g.name = $"Tile ({i}, {j})";
-                CustomTile custom = g.GetComponent<CustomTile>();
-                if (!custom)
-                {
-                    Debug.LogError("Tile did not have tile component.");
-                }
-                g.transform.position = new Vector3(i, j, 0);
-                tiles[i, j] = custom;
-                custom.x = i;
-                custom.y = j;
-            }
-        }
-        
-        //Now that map data is finished, go rebuild it
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                tiles[i,j].RebuildMapData();
-            }
-        }
-    }
-
-    public void BuildFromTemplate(int[,] map)
+    public IEnumerator BuildFromTemplate(int[,] map, TileList availableTiles)
     {
         int xSize = map.GetLength(0);
         int ySize = map.GetLength(1);
@@ -149,6 +76,8 @@ public class Map : MonoBehaviour
         tiles = new CustomTile[xSize, ySize];
         blocksVision = new bool[xSize, ySize];
         moveCosts = new float[xSize, ySize];
+        yield return null;
+
         width = xSize;
         height = ySize;
         for (int j = 0; j < height; j++)
@@ -157,7 +86,7 @@ public class Map : MonoBehaviour
             row.transform.parent = transform;
             for (int i = 0; i < width; i++)
             {
-                GameObject g = Instantiate(tilesAvailable.tiles[map[i,j]], row.transform, true);
+                GameObject g = Instantiate(availableTiles.tiles[map[i,j]], row.transform, true);
                 g.name = $"Tile ({i}, {j})";
                 CustomTile custom = g.GetComponent<CustomTile>();
                 if (!custom)
@@ -166,9 +95,11 @@ public class Map : MonoBehaviour
                 }
                 g.transform.position = new Vector3(i, j, 0);
                 tiles[i, j] = custom;
-                custom.x = i;
-                custom.y = j;
+                custom.SetMap(this, i, j);
+                custom.Setup();
+                if (i % 33 == 32) yield return null;
             }
+            yield return null;
         }
         
         //Now that map data is finished, go rebuild it
@@ -178,6 +109,7 @@ public class Map : MonoBehaviour
             {
                 tiles[i,j].RebuildMapData();
             }
+            yield return null;
         }
     }
 

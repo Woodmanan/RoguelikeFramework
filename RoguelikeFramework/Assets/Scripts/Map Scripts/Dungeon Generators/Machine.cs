@@ -17,10 +17,10 @@ public class Machine : ScriptableObject
     public bool canShareSpace;
     public bool canExpand;
 
-    public DungeonOrchestrator generator;
+    public DungeonGenerator generator;
     
     
-    public virtual void Connect(DungeonOrchestrator d)
+    public virtual void Connect(DungeonGenerator d)
     {
         generator = d;
     }
@@ -60,6 +60,11 @@ public class Machine : ScriptableObject
                 generator.map[i,j] = 1;
             }
         }
+    }
+
+    public virtual void PostActivation(Map m)
+    {
+
     }
 
     public bool Overlaps(Machine other)

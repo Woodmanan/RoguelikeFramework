@@ -54,7 +54,9 @@ public enum PlayerAction
     UNEQUIP,
     CAST_SPELL,
     ACCEPT,
-    FIRE
+    FIRE,
+    ASCEND,
+    DESCEND
 }
 
 public enum DamageType

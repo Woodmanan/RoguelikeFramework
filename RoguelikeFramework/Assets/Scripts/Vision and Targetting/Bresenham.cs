@@ -24,7 +24,7 @@ public class Bresenham
         {
             //It's assumed that something that blocks movement blocks this line.
             //TODO: Make sure this assumption actually makes sense
-            CustomTile t = Map.singleton.GetTile(spot);
+            CustomTile t = Map.current.GetTile(spot);
             if (!beenBlocked)
             {
                 results.path.Add(t);

@@ -15,7 +15,7 @@ public class Room : ScriptableObject
     [HideInInspector] public bool connected = false;
     [HideInInspector] public Vector2Int center;
     
-    public void Write(DungeonOrchestrator generator)
+    public void Write(DungeonGenerator generator)
     {
         layout = layout.Replace("\n", "");
         for (int i = 0; i < size.x; i++)
@@ -43,6 +43,12 @@ public class Room : ScriptableObject
         }
     }
 
+    private int GetValueAtWorld(Vector2Int spot)
+    {
+        spot = spot - start;
+        return GetValueAt(spot.x, spot.y);
+    }
+
     public void SetPosition(Vector2Int start)
     {
         this.start = start;
@@ -64,6 +70,23 @@ public class Room : ScriptableObject
         }
 
         return true;
+    }
+
+    public Vector2Int GetOpenSpace(int type)
+    {
+        for (int attempt = 0; attempt < 100; attempt++)
+        {
+            Vector2Int spot = new Vector2Int(Random.Range(start.x, end.x), Random.Range(start.y, end.y));
+            if (GetValueAtWorld(spot) == type)
+            {
+                return spot;
+            }
+        }
+
+        //TODO: Iterative search for a space
+
+        //Return not found
+        return new Vector2Int(-1, -1);
     }
 
     //Overlaps, but with 1 extra layer of space. Helps prevent some weirdness

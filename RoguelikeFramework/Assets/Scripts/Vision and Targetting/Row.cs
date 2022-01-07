@@ -16,7 +16,7 @@ public class Row
         this.startSlope = startSlope;
         this.endSlope = endSlope;
         this.quad = q;
-        map = Map.singleton;
+        map = Map.current;
         quad = q;
     }
 

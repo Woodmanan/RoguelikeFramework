@@ -80,7 +80,7 @@ public class LOSData
     //Attempt to take advantage of some locality to get vision measurements faster
     public void PrecalculateValues()
     {
-        Map map = Map.singleton;
+        Map map = Map.current;
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < radius * 2 + 1; i++)
         {
@@ -114,7 +114,7 @@ public class LOSData
         return (x >= startsAt.x && x < endsAt.x && y >= startsAt.y && y < endsAt.y);
     }
 
-    public void Imprint()
+    public void Imprint(Map map)
     {
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < (radius * 2 + 1); i++)
@@ -123,20 +123,20 @@ public class LOSData
             {
                 if (definedArea[i, j])
                 {
-                    Map.singleton.Reveal(new Vector2Int(i + start.x, j + start.y));
+                    map.Reveal(new Vector2Int(i + start.x, j + start.y));
                 }
             }
         }
     }
 
-    public void Deprint()
+    public void Deprint(Map map)
     {
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < (radius * 2 + 1); i++)
         {
             for (int j = 0; j < (radius * 2 + 1); j++)
             {
-                Map.singleton.ClearLOS(new Vector2Int(i + start.x, j + start.y));
+                map.ClearLOS(new Vector2Int(i + start.x, j + start.y));
             }
         }
     }
@@ -283,16 +283,12 @@ public class LOS : MonoBehaviour
     {
         if (lastCall != null)
         {
-            lastCall.Deprint();
+            lastCall.Deprint(Map.current);
         }
 
         lastCall = LosAt(location, radius);
-        lastCall.Imprint();
+        lastCall.Imprint(Map.current);
         return lastCall;
     }
-
-
-
-
 
 }

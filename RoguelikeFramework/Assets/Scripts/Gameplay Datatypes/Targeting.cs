@@ -150,7 +150,7 @@ public class Targeting
         
         if (targetingType == TargetType.SINGLE_TARGET_LINES || targetingType == TargetType.SMITE_TARGET)
         {
-            Monster atTarget = Map.singleton.GetTile(target).currentlyStanding;
+            Monster atTarget = Map.current.GetTile(target).currentlyStanding;
             valid = valid && (atTarget != null);
         }
 
@@ -267,7 +267,7 @@ public class Targeting
             area[xSpot, ySpot] = val;
             if (marking)
             {
-                Monster m = Map.singleton.GetTile(x, y).currentlyStanding;
+                Monster m = Map.current.GetTile(x, y).currentlyStanding;
                 if (m != null)
                 {
                     bool contains = tempAffected.Contains(m);

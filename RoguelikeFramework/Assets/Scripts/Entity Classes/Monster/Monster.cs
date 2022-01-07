@@ -70,7 +70,7 @@ public class Monster : MonoBehaviour
     public void PostSetup()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(Map.singleton.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
+        Debug.Assert(Map.current.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
         #endif
         SetPosition(location);
     }
@@ -303,10 +303,17 @@ public class Monster : MonoBehaviour
     //TODO: Add cost of moving from on spot to another
     public void SetPosition(Vector2Int newPosition)
     {
-        Map.singleton.GetTile(location).currentlyStanding = null;
+        Map.current.GetTile(location).currentlyStanding = null;
         location = newPosition;
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
-        Map.singleton.GetTile(location).currentlyStanding = this;
+        Map.current.GetTile(location).currentlyStanding = this;
+    }
+
+    public void SetPositionNoClear(Vector2Int newPosition)
+    {
+        location = newPosition;
+        transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        Map.current.GetTile(location).currentlyStanding = this;
     }
 
     //Function to activate event call of Global turn start

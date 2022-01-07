@@ -200,6 +200,16 @@ public class InputTracking : MonoBehaviour
             PushAction(PlayerAction.FIRE);
             addedAction = true;
         }
+        else if (GoUp())
+        {
+            PushAction(PlayerAction.ASCEND);
+            addedAction = true;
+        }
+        else if (GoDown())
+        {
+            PushAction(PlayerAction.DESCEND);
+            addedAction = true;
+        }
         else if (Escaping())
         {
             PushAction(PlayerAction.ESCAPE_SCREEN);
@@ -270,7 +280,7 @@ public class InputTracking : MonoBehaviour
 
     private bool PickUp()
     {
-        return Input.GetKeyDown(KeyCode.Comma) || Input.GetKeyDown(KeyCode.G);
+        return (Input.GetKeyDown(KeyCode.Comma) && !Input.GetKey(KeyCode.LeftShift)) || Input.GetKeyDown(KeyCode.G);
     }
 
     private bool OpenInventory()
@@ -317,7 +327,17 @@ public class InputTracking : MonoBehaviour
 
     private bool Wait()
     {
-        return Input.GetKeyDown(KeyCode.Period);
+        return Input.GetKeyDown(KeyCode.Period) && !Input.GetKey(KeyCode.LeftShift);
+    }
+
+    private bool GoUp()
+    {
+        return Input.GetKeyDown(KeyCode.Comma) && Input.GetKey(KeyCode.LeftShift);
+    }
+
+    private bool GoDown()
+    {
+        return Input.GetKeyDown(KeyCode.Period) && Input.GetKey(KeyCode.LeftShift);
     }
 
 }

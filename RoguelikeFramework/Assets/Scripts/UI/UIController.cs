@@ -75,7 +75,7 @@ public class UIController : MonoBehaviour
 
     public void OpenInventoryPickup()
     {
-        CustomTile tile = Map.singleton.GetTile(Player.player.location);
+        CustomTile tile = Map.current.GetTile(Player.player.location);
         inventory.Setup(tile.inventory, ItemAction.PICK_UP);
         inventory.Activate();
     }

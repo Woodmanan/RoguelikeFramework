@@ -21,7 +21,7 @@ public class MoveAction : GameAction
     public override IEnumerator TakeAction()
     {
         yield return GameAction.StateCheck;
-        CustomTile tile = Map.singleton.GetTile(intendedLocation);
+        CustomTile tile = Map.current.GetTile(intendedLocation);
         if (tile.BlocksMovement())
         {
             Debug.Log($"{caller.name} tried to move into a {tile.name}.");

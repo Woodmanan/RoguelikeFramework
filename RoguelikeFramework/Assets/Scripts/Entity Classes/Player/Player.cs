@@ -112,8 +112,13 @@ public class Player : Monster
                 case PlayerAction.FIRE:
                     SetAction(new RangedAttackAction());
                     break;
-                    
-                    
+                case PlayerAction.ASCEND:
+                    SetAction(new ChangeLevelAction(true));
+                    break;
+                case PlayerAction.DESCEND:
+                    SetAction(new ChangeLevelAction(false));
+                    break;
+
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
                 case PlayerAction.ESCAPE_SCREEN:
                     //TODO: Open up the menu screen here
@@ -139,7 +144,7 @@ public class Player : Monster
     //Item pickup, but with a little logic for determining if a UI needs to get involved.
     private void PickupSmartDetection()
     {
-        CustomTile tile = Map.singleton.GetTile(location);
+        CustomTile tile = Map.current.GetTile(location);
         Inventory onFloor = tile.GetComponent<Inventory>();
         switch (onFloor.count)
         {

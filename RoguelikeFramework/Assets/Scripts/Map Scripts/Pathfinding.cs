@@ -66,7 +66,7 @@ public class Path
         Debug.LogError("Very expensive constructor called for path. This is generally unnecessary, as Pathfinding.cs can provide the same thing.");
         #endif
         float newCost = 0.0f;
-        Map m = Map.singleton;
+        Map m = Map.current;
         foreach (Vector2Int pos in this.locations)
         {
             newCost += m.MovementCostAt(pos);
@@ -136,7 +136,7 @@ public static class Pathfinding
 
     public static Path PerformSearch()
     {
-        Map m = Map.singleton;
+        Map m = Map.current;
         while (true)
         {
             if (frontier.Count == 0)
@@ -314,7 +314,7 @@ public static class Pathfinding
 
     private static void RebuildChecked()
     {
-        Map m = Map.singleton;
+        Map m = Map.current;
         if (width != m.width || height != m.height)
         {
             alreadyChecked = new bool[m.width, m.height];

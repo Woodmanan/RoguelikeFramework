@@ -7,6 +7,29 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    private static GameController Singleton;
+    public static GameController singleton
+    {
+        get
+        {
+            if (!Singleton)
+            {
+                GameController g = GameObject.FindObjectOfType<GameController>();
+                if (g)
+                {
+                    Singleton = g;
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("No GameController found!");
+                }
+            }
+
+            return Singleton;
+        }
+        set { Singleton = value; }
+    }
+
     //Constant variables: change depending on runtime!
     public const long MONSTER_UPDATE_MS = 5;
     
@@ -16,7 +39,7 @@ public class GameController : MonoBehaviour
 
     public Player player;
 
-    public List<Monster> monsters;
+    [HideInInspector] public int nextLevel = -1;
     
     // Start is called before the first frame update
     void Start()
@@ -33,16 +56,31 @@ public class GameController : MonoBehaviour
 
     IEnumerator BeginGame()
     {
+        int start = LevelLoader.singleton.StartAt;
+        if (start < 0) start = 0;
+        //Wait for initial level loading to finish
+        if (LevelLoader.singleton.JITLoading)
+        {
+            LoadMap(start);
+        }
+        else
+        {
+            yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(start));
+            LoadMap(start);
+        }
+
+        UnityEngine.Debug.Log("First map is ready!");
+
+        //Set starting position
+        Player.player.location = LevelLoader.singleton.generators[start].rooms[start].center;
+
         //1 Frame pause to set up LOS
         yield return null;
         LOS.GeneratePlayerLOS(player.location, player.visionRadius);
 
         //Monster setup, before the loop starts
         player.PostSetup();
-        foreach (Monster m in monsters)
-        {
-            m.PostSetup();
-        }
+        
 
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();
@@ -50,8 +88,23 @@ public class GameController : MonoBehaviour
 
         //Space for any init setup that needs to be done
         StartCoroutine(GameLoop());
+    }
 
-        
+    public void LoadMap(int index)
+    {
+        if (Map.current)
+        {
+            Map.current.activeGraphics = false;
+            Map.current.gameObject.SetActive(false);
+        }
+        Map.current = LevelLoader.LoadMap(index);
+        Map.current.activeGraphics = true;
+        Map.current.gameObject.SetActive(true);
+
+        foreach (Monster m in Map.current.monsters)
+        {
+            m.PostSetup();
+        }
     }
 
     IEnumerator GameLoop()
@@ -86,7 +139,7 @@ public class GameController : MonoBehaviour
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            for (int i = 0; i < monsters.Count; i++)
+            for (int i = 0; i < Map.current.monsters.Count; i++)
             {
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
                 if (watch.ElapsedMilliseconds > MONSTER_UPDATE_MS)
@@ -96,7 +149,7 @@ public class GameController : MonoBehaviour
                     watch.Restart();
                 }
 
-                Monster m = monsters[i];
+                Monster m = Map.current.monsters[i];
 
                 m.AddEnergy(energyPerTurn);
                 while (m.energy > 0)
@@ -124,22 +177,82 @@ public class GameController : MonoBehaviour
             CallTurnEndGlobal();
 
             turn++;
+
+            if (nextLevel != -1)
+            {
+                MoveLevel();
+            }
         }
     }
 
     public void CallTurnStartGlobal()
     {
         player.OnTurnStartGlobalCall();
-        foreach (Monster m in monsters)
+        foreach (Monster m in Map.current.monsters)
         {
             m.OnTurnStartGlobalCall();
         }
     }
 
+    public void MoveToLevel(int newLevel)
+    {
+        nextLevel = newLevel;
+    }
+
+    //TODO: Determine how monsters get placed if they don't have space to be placed
+    public void MoveMonsters(Monster m, Map first, Map second, bool up, int stairNumber)
+    {
+        if (up)
+        {
+            first.GetTile(m.location).currentlyStanding = null;
+            Vector2Int offset = m.location - first.entrances[stairNumber];
+
+            m.SetPositionNoClear(second.exits[stairNumber] + offset);
+        }
+        else
+        {
+            first.GetTile(m.location).currentlyStanding = null;
+            Vector2Int offset = m.location - first.exits[stairNumber];
+
+            m.SetPositionNoClear(second.entrances[stairNumber] + offset);
+        }
+    }
+
+    private void MoveLevel()
+    {
+        int upMatch = Map.current.entrances.IndexOf(player.location);
+        int downMatch = Map.current.exits.IndexOf(player.location);
+        Map old = Map.current;
+        if (upMatch > -1 || downMatch > -1)
+        {
+            LoadMap(nextLevel);
+            if (upMatch > -1)
+            {
+                MoveMonsters(player, old, Map.current, true, upMatch);
+            }
+            else if (downMatch > -1)
+            {
+                MoveMonsters(player, old, Map.current, false, downMatch);
+            }
+        }
+        else
+        {
+            UnityEngine.Debug.Log("You are unable to change levels.");
+        }
+
+        nextLevel = -1;
+
+        LOS.lastCall.Deprint(old);
+        LOS.lastCall = null;
+        CameraTracking.singleton.JumpToPlayer();
+        LOS.GeneratePlayerLOS(player.location, player.visionRadius);
+
+    }
+
     public void CallTurnEndGlobal()
     {
         player.OnTurnEndGlobalCall();
-        foreach (Monster m in monsters)
+        foreach (Monster m in Map.current.monsters)
         {
             m.OnTurnEndGlobalCall();
         }
@@ -147,6 +260,6 @@ public class GameController : MonoBehaviour
 
     public void AddMonster(Monster m)
     {
-        monsters.Add(m);
+        Map.current.monsters.Add(m);
     }
 }

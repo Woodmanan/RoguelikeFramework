@@ -1,27 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using System.Linq;
 
-public class DungeonOrchestrator : MonoBehaviour
+[Serializable]
+public class DungeonGenerator
 {
+    public string name;
+    public int seed;
     public Vector2Int bounds;
     public List<Machine> machines;
     [HideInInspector] public List<Room> rooms;
+    public TileList tilesAvailable;
 
     //Generation parameters
     public int numberOfAttempts;
     public int attemptsPerMachine;
 
     public int[,] map;
-
-    [SerializeField] private Map gameMap;
     [SerializeField] private Player player;
 
-    // Start is called before the first frame update
-    void Start()
+    public IEnumerator generation = null;
+    public bool finished = false;
+
+    public IEnumerator GenerateMap(int index, int seed)
     {
-        machines = machines.FindAll(x=>x != null);
+        this.seed = seed;
+        UnityEngine.Random.State state;
+        UnityEngine.Random.InitState(seed);
+
+        GameObject mapInstance = new GameObject();
+        Map gameMap = mapInstance.AddComponent<Map>();
+        mapInstance.name = name;
+
+        //Cull null instances
+        machines = machines.FindAll(x => x != null);
+
+        //Shuffle remaining instances, then sort (Equal priority machines are shuffled relative, still)
+        var randomized = machines.OrderBy(item => UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+        machines = randomized.OrderBy(item => item.priority).ToList();
+
         foreach (Machine m in machines)
         {
             m.Connect(this);
@@ -29,21 +48,54 @@ public class DungeonOrchestrator : MonoBehaviour
 
         if (FindPacking())
         {
+            state = UnityEngine.Random.state;
+            yield return null;
+            UnityEngine.Random.state = state;
             map = new int[bounds.x, bounds.y];
-            ActivateMachines();
-            PassMap();
+
+            foreach (Machine m in machines)
+            {
+                m.Activate();
+                state = UnityEngine.Random.state;
+                yield return null;
+                UnityEngine.Random.state = state;
+            }
+
+            IEnumerator build = gameMap.BuildFromTemplate(map, tilesAvailable);
+
+            while (build.MoveNext())
+            {
+                state = UnityEngine.Random.state;
+                yield return build.Current;
+                UnityEngine.Random.state = state;
+            }
+
+            gameMap.depth = index;
 
             //TODO: For testing purposes only, remove when infrastructure is ready.
-            FindStartingPoint();
+            //FindStartingPoint();
+
+            foreach (Machine m in machines)
+            {
+                m.PostActivation(gameMap);
+            }
+
+
+            LevelLoader.maps[index] = gameMap;
+
+            finished = true;
         }
+
     }
+
+
 
     private void FindStartingPoint()
     {
         bool success = false;
         for (int i = 0; i < 100; i++)
         {
-            Vector2Int spot = new Vector2Int(Random.Range(0, bounds.x), Random.Range(0, bounds.y));
+            Vector2Int spot = new Vector2Int(UnityEngine.Random.Range(0, bounds.x), UnityEngine.Random.Range(0, bounds.y));
             if (map[spot.x, spot.y] == 1)
             {
                 player.location = spot;
@@ -83,13 +135,12 @@ public class DungeonOrchestrator : MonoBehaviour
             {
                 Machine m = toPack[c];
 
-                print($"Starting with machine {c}, with bounds {m.size}");
                 bool placedSuccessfully = true;;
                 for (int j = 0; j < attemptsPerMachine; j++)
                 {
                     placedSuccessfully = true;
                     Vector2Int startBounds = bounds - m.size;
-                    Vector2Int newStart = new Vector2Int(Random.Range(0, startBounds.x), Random.Range(0, startBounds.y));
+                    Vector2Int newStart = new Vector2Int(UnityEngine.Random.Range(0, startBounds.x), UnityEngine.Random.Range(0, startBounds.y));
                     m.SetPosition(newStart, bounds);
 
                     //Check for good placement
@@ -114,7 +165,6 @@ public class DungeonOrchestrator : MonoBehaviour
 
             if (successful)
             {
-                print("Placement found!");
                 break;
             }
         }
@@ -131,7 +181,7 @@ public class DungeonOrchestrator : MonoBehaviour
         {
             Machine m = anywhere[c];
             Vector2Int startBounds = bounds - m.size;
-            Vector2Int newStart = new Vector2Int(Random.Range(0, startBounds.x), Random.Range(0, startBounds.y));
+            Vector2Int newStart = new Vector2Int(UnityEngine.Random.Range(0, startBounds.x), UnityEngine.Random.Range(0, startBounds.y));
             m.SetPosition(newStart, bounds);
         }
 
@@ -152,10 +202,5 @@ public class DungeonOrchestrator : MonoBehaviour
         {
             m.Activate();
         }
-    }
-
-    public void PassMap()
-    {
-        gameMap.BuildFromTemplate(map);
     }
 }

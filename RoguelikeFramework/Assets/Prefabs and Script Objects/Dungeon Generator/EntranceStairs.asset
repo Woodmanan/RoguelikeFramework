@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ddfcd16ed53a74ab06203dd08a5f6b, type: 3}
-  m_Name: Simple Connector
+  m_Script: {fileID: 11500000, guid: 3e84749fbfe63bf4c9e521d14bf6b7ec, type: 3}
+  m_Name: EntranceStairs
   m_EditorClassIdentifier: 
-  priority: 1
+  priority: 2
   global: 1
   size: {x: 100, y: 100}
   start: {x: 0, y: 0}
@@ -20,11 +20,12 @@ MonoBehaviour:
   canShareSpace: 1
   canExpand: 0
   generator:
-    name: Level 3
-    seed: -1588184896
+    name: Level 1
+    seed: 1929387035
     bounds: {x: 100, y: 100}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
     - {fileID: 11400000}
     rooms:
     - {fileID: 0}
@@ -51,4 +52,12 @@ MonoBehaviour:
     numberOfAttempts: 100
     attemptsPerMachine: 100
     player: {fileID: 0}
-    finished: 0
+    finished: 1
+  upStairsIndex: 2
+  downStairsIndex: 3
+  stairsUp: []
+  stairsDown:
+  - connectsTo: 
+    next: 1
+    numConnections: 3
+  excludeRoom: 00000000
