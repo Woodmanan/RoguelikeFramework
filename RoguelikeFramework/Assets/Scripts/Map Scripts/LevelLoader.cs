@@ -104,7 +104,7 @@ public class LevelLoader : MonoBehaviour
         while (true)
         {
             current++;
-            if (current == generators.Count || generators[current].finished)
+            if (current == generators.Count || generators[current].finished || generators[current].JIT)
             {
                 current = FirstUnfinishedLevel();
             }
@@ -140,7 +140,7 @@ public class LevelLoader : MonoBehaviour
     {
         for (int i = 0; i < generators.Count; i++)
         {
-            if (generators[i] != null && !generators[i].finished)
+            if (generators[i] != null && !generators[i].finished && !generators[i].JIT)
             {
                 return i;
             }

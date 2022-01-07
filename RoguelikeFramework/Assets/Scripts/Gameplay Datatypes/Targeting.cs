@@ -296,8 +296,8 @@ public class Targeting
         //Skip the first one
         foreach (CustomTile tile in brensham.path)
         {
-            int x = tile.x;
-            int y = tile.y;
+            int x = tile.location.x;
+            int y = tile.location.y;
             MarkArea(x, y, true);
         }
     }

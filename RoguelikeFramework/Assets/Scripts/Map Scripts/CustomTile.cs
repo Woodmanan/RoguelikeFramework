@@ -17,7 +17,7 @@ public class CustomTile : MonoBehaviour
     public bool isHidden = true;
     public bool dirty = true;
 
-    public int x, y;
+    public Vector2Int location;
     
     //Stuff that will not change a lot, and should not be (too) visible
     [Header("Static elements")] 
@@ -96,9 +96,9 @@ public class CustomTile : MonoBehaviour
 
     public void SetMonster(Monster m)
     {
-        if (currentlyStanding != null)
+        if (currentlyStanding != m && currentlyStanding != null)
         {
-            Debug.LogError($"Monster set itself as standing on tile ({x}, {y}), but {currentlyStanding.name} is there.", this);
+            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.name} is there.", this);
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);
@@ -106,15 +106,14 @@ public class CustomTile : MonoBehaviour
 
     public void RebuildMapData()
     {
-        map.blocksVision[x, y] = blocksVision;
-        map.moveCosts[x, y] = movementCost;
+        map.blocksVision[location.x, location.y] = blocksVision;
+        map.moveCosts[location.x, location.y] = movementCost;
     }
 
-    public void SetMap(Map map, int x, int y)
+    public void SetMap(Map map, Vector2Int location)
     {
         this.map = map;
-        this.x = x;
-        this.y = y;
+        this.location = location;
     }
 
     public bool BlocksMovement()

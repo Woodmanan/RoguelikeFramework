@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 2
   global: 1
-  size: {x: 100, y: 100}
+  size: {x: 50, y: 50}
   start: {x: 0, y: 0}
-  end: {x: 100, y: 100}
+  end: {x: 50, y: 50}
   canShareSpace: 1
   canExpand: 0
   generator:
     name: Level 1
-    seed: 1929387035
-    bounds: {x: 100, y: 100}
+    seed: -575194021
+    bounds: {x: 50, y: 50}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -38,20 +38,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
     player: {fileID: 0}
+    JIT: 0
     finished: 1
   upStairsIndex: 2
   downStairsIndex: 3
@@ -60,4 +51,7 @@ MonoBehaviour:
   - connectsTo: 
     next: 1
     numConnections: 3
-  excludeRoom: 00000000
+    connectionsStartAt: 0
+  numExtraEntrances: 1
+  numExtraExits: 0
+  excludeRoom: 

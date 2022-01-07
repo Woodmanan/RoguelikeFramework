@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Stair : CustomTile
 {
-    public int connectsTo;
+    public int connectsToFloor;
+    public int stairPair;
     public bool upStair;
 
     // Start is called before the first frame update

@@ -43,6 +43,7 @@ public class Monster : MonoBehaviour
     public Abilities abilities;
 
     public GameAction currentAction;
+    public CustomTile currentTile;
     
     // Start is called before the first frame update
     public virtual void Start()
@@ -303,17 +304,11 @@ public class Monster : MonoBehaviour
     //TODO: Add cost of moving from on spot to another
     public void SetPosition(Vector2Int newPosition)
     {
-        Map.current.GetTile(location).currentlyStanding = null;
+        if (currentTile) currentTile.currentlyStanding = null;
         location = newPosition;
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
-        Map.current.GetTile(location).currentlyStanding = this;
-    }
-
-    public void SetPositionNoClear(Vector2Int newPosition)
-    {
-        location = newPosition;
-        transform.position = new Vector3(location.x, location.y, monsterZPosition);
-        Map.current.GetTile(location).currentlyStanding = this;
+        currentTile = Map.current.GetTile(location);
+        currentTile.SetMonster(this);
     }
 
     //Function to activate event call of Global turn start

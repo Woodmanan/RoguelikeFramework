@@ -29,8 +29,9 @@ public class ChangeLevelAction : GameAction
                 if (!keepGoing) yield break;*/
             }
 
-            GameController.singleton.MoveToLevel(stair.connectsTo);
+            GameController.singleton.MoveToLevel(stair.connectsToFloor);
             caller.energy -= 100;
+
         }
         else
         {

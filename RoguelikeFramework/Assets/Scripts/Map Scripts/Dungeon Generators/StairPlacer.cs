@@ -10,6 +10,8 @@ public struct StairConnection
     public string connectsTo;
     public bool next;
     public int numConnections;
+    [Tooltip("The number where connections begin, ie, the first stair in this group connects to this stair in the next floor. MUST MATCH BETWEEN FLOORS")]
+    public int connectionsStartAt;
 }
 
 [CreateAssetMenu(fileName = "New Stairway", menuName = "Dungeon Generator/Machines/Stairway Placer", order = 2)]
@@ -25,6 +27,9 @@ public class StairPlacer : Machine
 
     List<Vector2Int> ups = new List<Vector2Int>();
     List<Vector2Int> downs = new List<Vector2Int>();
+
+    public int numExtraEntrances;
+    public int numExtraExits;
 
     public List<int> excludeRoom;
 
@@ -67,6 +72,13 @@ public class StairPlacer : Machine
             }
         }
 
+        for (int i = c; i < c + numExtraEntrances; i++)
+        {
+            Room r = generator.rooms[roomsToConnect[i]];
+            Vector2Int loc = r.GetOpenSpace(1);
+            ups.Add(loc);
+        }
+
         //Shuffle!
         roomsToConnect = roomsToConnect.OrderBy(x => UnityEngine.Random.Range(int.MinValue, int.MaxValue)).ToList();
         Debug.Log($"Number of rooms: {roomsToConnect.Count}");
@@ -93,6 +105,13 @@ public class StairPlacer : Machine
             }
         }
 
+        for (int i = c; i < c + numExtraExits; i++)
+        {
+            Room r = generator.rooms[roomsToConnect[i]];
+            Vector2Int loc = r.GetOpenSpace(1);
+            downs.Add(loc);
+        }
+
         Debug.Log("Finished!");
     }
 
@@ -103,19 +122,18 @@ public class StairPlacer : Machine
         {
             for (int j = 0; j < stairsUp[i].numConnections; j++)
             {
-                m.entrances.Add(ups[c]);
-
                 Stair stairs = m.GetTile(ups[c]) as Stair;
                 if (stairs)
                 {
                     if (stairsUp[i].next)
                     {
-                        stairs.connectsTo = m.depth - 1;
+                        stairs.connectsToFloor = m.depth - 1;
                     }
                     else
                     {
-                        stairs.connectsTo = LevelLoader.singleton.GetDepthOf(stairsUp[i].connectsTo);
+                        stairs.connectsToFloor = LevelLoader.singleton.GetDepthOf(stairsUp[i].connectsTo);
                     }
+                    stairs.stairPair = stairsUp[i].connectionsStartAt + j;
                 }
                 else
                 {
@@ -125,24 +143,28 @@ public class StairPlacer : Machine
             }
         }
 
+        for (int i = 0; i < ups.Count; i++)
+        {
+            m.entrances.Add(ups[i]);
+        }
+
         c = 0;
         for (int i = 0; i < stairsDown.Count; i++)
         {
             for (int j = 0; j < stairsDown[i].numConnections; j++)
             {
-                m.exits.Add(downs[c]);
-
                 Stair stairs = m.GetTile(downs[c]) as Stair;
                 if (stairs)
                 {
                     if (stairsDown[i].next)
                     {
-                        stairs.connectsTo = m.depth + 1;
+                        stairs.connectsToFloor = m.depth + 1;
                     }
                     else
                     {
-                        stairs.connectsTo = LevelLoader.singleton.GetDepthOf(stairsDown[i].connectsTo);
+                        stairs.connectsToFloor = LevelLoader.singleton.GetDepthOf(stairsDown[i].connectsTo);
                     }
+                    stairs.stairPair = stairsDown[i].connectionsStartAt + j;
                 }
                 else
                 {
@@ -150,6 +172,11 @@ public class StairPlacer : Machine
                 }
                 c++;
             }
+        }
+
+        for (int i = 0; i < downs.Count; i++)
+        {
+            m.exits.Add(downs[i]);
         }
     }
 }

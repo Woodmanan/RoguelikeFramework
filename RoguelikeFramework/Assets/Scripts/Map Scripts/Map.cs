@@ -95,7 +95,7 @@ public class Map : MonoBehaviour
                 }
                 g.transform.position = new Vector3(i, j, 0);
                 tiles[i, j] = custom;
-                custom.SetMap(this, i, j);
+                custom.SetMap(this, new Vector2Int(i, j));
                 custom.Setup();
                 if (i % 33 == 32) yield return null;
             }

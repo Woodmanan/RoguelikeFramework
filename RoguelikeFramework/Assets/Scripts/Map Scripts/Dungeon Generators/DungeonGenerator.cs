@@ -22,7 +22,9 @@ public class DungeonGenerator
     [SerializeField] private Player player;
 
     public IEnumerator generation = null;
+    public bool JIT;
     public bool finished = false;
+    
 
     public IEnumerator GenerateMap(int index, int seed)
     {

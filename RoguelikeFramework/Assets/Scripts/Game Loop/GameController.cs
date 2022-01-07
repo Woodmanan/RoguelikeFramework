@@ -30,6 +30,11 @@ public class GameController : MonoBehaviour
         set { Singleton = value; }
     }
 
+    [Header("Startup variables")]
+    [Tooltip("When set, preloads up to this level before letting the player enter the game.")]
+    [SerializeField] int preLoadUpTo;
+
+    [Header("Runtime variables")]
     //Constant variables: change depending on runtime!
     public const long MONSTER_UPDATE_MS = 5;
     
@@ -65,14 +70,17 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(start));
+            if (preLoadUpTo != start)
+            {
+                yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(preLoadUpTo));
+            }
             LoadMap(start);
         }
 
         UnityEngine.Debug.Log("First map is ready!");
 
         //Set starting position
-        Player.player.location = LevelLoader.singleton.generators[start].rooms[start].center;
+        Player.player.location = Map.current.entrances[0];
 
         //1 Frame pause to set up LOS
         yield return null;
@@ -80,7 +88,6 @@ public class GameController : MonoBehaviour
 
         //Monster setup, before the loop starts
         player.PostSetup();
-        
 
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();
@@ -200,40 +207,30 @@ public class GameController : MonoBehaviour
     }
 
     //TODO: Determine how monsters get placed if they don't have space to be placed
-    public void MoveMonsters(Monster m, Map first, Map second, bool up, int stairNumber)
+    public void MoveMonsters(Monster m, Stair stair, Map map)
     {
-        if (up)
+        if (stair.upStair)
         {
-            first.GetTile(m.location).currentlyStanding = null;
-            Vector2Int offset = m.location - first.entrances[stairNumber];
+            Vector2Int offset = m.location - stair.location;
 
-            m.SetPositionNoClear(second.exits[stairNumber] + offset);
+            m.SetPosition(map.exits[stair.stairPair] + offset);
         }
         else
         {
-            first.GetTile(m.location).currentlyStanding = null;
-            Vector2Int offset = m.location - first.exits[stairNumber];
+            Vector2Int offset = m.location - stair.location;
 
-            m.SetPositionNoClear(second.entrances[stairNumber] + offset);
+            m.SetPosition(map.entrances[stair.stairPair] + offset);
         }
     }
 
     private void MoveLevel()
     {
-        int upMatch = Map.current.entrances.IndexOf(player.location);
-        int downMatch = Map.current.exits.IndexOf(player.location);
+        Stair stair = Map.current.GetTile(player.location) as Stair;
         Map old = Map.current;
-        if (upMatch > -1 || downMatch > -1)
+        if (stair)
         {
             LoadMap(nextLevel);
-            if (upMatch > -1)
-            {
-                MoveMonsters(player, old, Map.current, true, upMatch);
-            }
-            else if (downMatch > -1)
-            {
-                MoveMonsters(player, old, Map.current, false, downMatch);
-            }
+            MoveMonsters(player, stair, Map.current);
         }
         else
         {
