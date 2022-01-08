@@ -26,7 +26,7 @@ public class DungeonGenerator
     public bool finished = false;
     
 
-    public IEnumerator GenerateMap(int index, int seed)
+    public IEnumerator GenerateMap(int index, int seed, Transform parent)
     {
         this.seed = seed;
         UnityEngine.Random.State state;
@@ -35,6 +35,7 @@ public class DungeonGenerator
         GameObject mapInstance = new GameObject();
         Map gameMap = mapInstance.AddComponent<Map>();
         mapInstance.name = name;
+        mapInstance.transform.parent = parent;
 
         //Cull null instances
         machines = machines.FindAll(x => x != null);

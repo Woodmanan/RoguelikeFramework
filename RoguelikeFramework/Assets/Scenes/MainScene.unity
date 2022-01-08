@@ -1546,6 +1546,7 @@ MonoBehaviour:
   inventory: {fileID: 546573368}
   equipment: {fileID: 0}
   abilities: {fileID: 0}
+  currentTile: {fileID: 0}
   uiControls: {fileID: 216533712}
 --- !u!4 &546573372
 Transform:
@@ -4594,7 +4595,7 @@ GameObject:
   - component: {fileID: 1953941108}
   - component: {fileID: 1953941107}
   m_Layer: 0
-  m_Name: LevelLoader
+  m_Name: Maps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4700,7 +4701,7 @@ MonoBehaviour:
   msPerFrame: 4
   randomSeed: 0
   seed: 43
-  JITLoading: 0
+  JITLoading: 1
   StartAt: 0
 --- !u!4 &1953941108
 Transform:

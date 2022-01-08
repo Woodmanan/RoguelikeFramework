@@ -34,6 +34,10 @@ public class Map : MonoBehaviour
 
     public List<Vector2Int> entrances = new List<Vector2Int>();
     public List<Vector2Int> exits = new List<Vector2Int>();
+
+    public Transform tileContainer;
+    public Transform monsterContainer;
+    public Transform itemContainer;
     
     // Start is called before the first frame update
     void Start()
@@ -78,12 +82,20 @@ public class Map : MonoBehaviour
         moveCosts = new float[xSize, ySize];
         yield return null;
 
+        tileContainer = new GameObject("Tiles").transform;
+        monsterContainer = new GameObject("Monsters").transform;
+        itemContainer = new GameObject("Items").transform;
+
+        tileContainer.parent = transform;
+        monsterContainer.parent = transform;
+        itemContainer.parent = transform;
+
         width = xSize;
         height = ySize;
         for (int j = 0; j < height; j++)
         {
             GameObject row = new GameObject {name = $"Row {j}"};
-            row.transform.parent = transform;
+            row.transform.parent = tileContainer;
             for (int i = 0; i < width; i++)
             {
                 GameObject g = Instantiate(availableTiles.tiles[map[i,j]], row.transform, true);

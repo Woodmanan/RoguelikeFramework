@@ -72,7 +72,22 @@ public class GameController : MonoBehaviour
         {
             if (preLoadUpTo != start)
             {
-                yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(preLoadUpTo));
+                if (LevelLoader.singleton.generators[preLoadUpTo].JIT)
+                {
+                    UnityEngine.Debug.LogError("Waiting to preload for a level that is JIT loaded! Skipping that, since it will never happen.");
+                }
+                else if (start > preLoadUpTo)
+                {
+                    UnityEngine.Debug.LogWarning("Waiting to preload for a level that is before where we start? Skipping Preload.");
+                }
+                else
+                {
+                    if (start < preLoadUpTo)
+                    {
+                        UnityEngine.Debug.Log($"Waiting for the levels up to {preLoadUpTo} to load");
+                        yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(preLoadUpTo));
+                    }
+                }
             }
             LoadMap(start);
         }
@@ -80,6 +95,7 @@ public class GameController : MonoBehaviour
         UnityEngine.Debug.Log("First map is ready!");
 
         //Set starting position
+        Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0];
 
         //1 Frame pause to set up LOS
@@ -221,6 +237,7 @@ public class GameController : MonoBehaviour
 
             m.SetPosition(map.entrances[stair.stairPair] + offset);
         }
+        m.transform.parent = map.monsterContainer;
     }
 
     private void MoveLevel()

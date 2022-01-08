@@ -292,6 +292,135 @@ public static class Pathfinding
         }
     }
 
+    public static float[,] CreateDjikstraMap(params Vector2Int[] startingPoints)
+    {
+        //Preliminary checks, resize board and confirm valid movements
+        RebuildChecked();
+
+        //Creat and initialize result
+        float[,] results = new float[Map.current.width, Map.current.height];
+        for (int i = 0; i < results.GetLength(0); i++)
+        {
+            for (int j = 0; j < results.GetLength(1); j++)
+            {
+                results[i, j] = -1;
+            }
+        }
+
+        //Setup initial points
+        ClearSeenFlags();
+        frontier.Clear();
+
+        foreach (Vector2Int vec in startingPoints)
+        {
+            if (!InBounds(vec))
+            {
+                return results;
+            }
+            frontier.Enqueue(new PathTile(vec, 0), 0);
+        }
+
+        goal = new Vector2Int(-1, -1);
+
+        return PerformDjikstraSearch(results);
+    }
+
+    private static float[,] PerformDjikstraSearch(float[,] results)
+    {
+        Map m = Map.current;
+        while (true)
+        {
+            if (frontier.Count == 0)
+            {
+                return results;
+            }
+            else
+            {
+                PathTile current = frontier.Dequeue();
+
+                //Have we already added this tile?
+                if (alreadyChecked[current.loc.x, current.loc.y])
+                {
+                    //By nature of the algorithm, we can't possibly be faster than whoever already saw it (Holds for Djikstra!)
+                    continue;
+                }
+
+                if (current.loc == goal)
+                {
+                    //Finished! Another function will need to construct the path.
+                    return results;
+                }
+
+                alreadyChecked[current.loc.x, current.loc.y] = true;
+                costMap[current.loc.x, current.loc.y] = current.cost;
+                results[current.loc.x, current.loc.y] = current.cost;
+
+                for (int i = -1; i <= 1; i++)
+                {
+                    for (int j = -1; j <= 1; j++)
+                    {
+                        //Skip middle!
+                        if (i == 0 && j == 0)
+                        {
+                            continue;
+                        }
+
+                        //Create corner calculation, skip if Manhattan
+                        bool isCorner = (i * j) != 0;
+                        if (Map.space == MapSpace.Manhattan && isCorner)
+                        {
+                            continue;
+                        }
+
+                        Vector2Int newLoc = current.loc + new Vector2Int(i, j);
+
+                        if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height || alreadyChecked[newLoc.x, newLoc.y])
+                        {
+                            continue;
+                        }
+
+                        //For now, skip things that are walls.
+                        if (m.BlocksMovement(newLoc))
+                        {
+                            /*
+                             * This behaviour is great in 99% of cases, but there's a slight misstep
+                             * when the goal path is in a wall. Below is a quick check for that.
+                             */
+                            if (newLoc == goal)
+                            {
+                                frontier.Enqueue(new PathTile(newLoc, current.cost + 1.0f), current.cost + 1.0f);
+                            }
+                            continue;
+                        }
+
+                        float newCost = 0.0f;
+                        float newPriority = 0.0f;
+
+                        if (isCorner && Map.space == MapSpace.Euclidean)
+                        {
+                            newCost = current.cost + sqrtTwo * m.MovementCostAt(newLoc);
+                            newPriority = newCost;
+                        }
+                        else
+                        {
+                            if (isCorner)
+                            {
+                                newCost = current.cost + m.MovementCostAt(newLoc) + 0.001f;
+                                newPriority = newCost + 0.001f;
+                            }
+                            else
+                            {
+                                newCost = current.cost + m.MovementCostAt(newLoc);
+                                newPriority = newCost;
+                            }
+                        }
+                        frontier.Enqueue(new PathTile(newLoc, newCost), newPriority);
+                    }
+                }
+            }
+        }
+    }
+
     private static float Heuristic(Vector2Int loc)
     {
         switch (Map.space)

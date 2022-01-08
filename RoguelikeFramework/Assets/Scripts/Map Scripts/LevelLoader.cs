@@ -80,7 +80,7 @@ public class LevelLoader : MonoBehaviour
 
         for (int i = 0; i < generators.Count; i++)
         {
-            generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+            generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue), transform);
         }
 
         #if !UNITY_EDITOR
@@ -122,6 +122,9 @@ public class LevelLoader : MonoBehaviour
                     watch.Restart();
                 }
             }
+
+            //Take a pause here, to give some other coroutines a buffer to jump in
+            yield return null;
         }
 
         watch.Stop();
