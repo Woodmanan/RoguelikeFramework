@@ -92,9 +92,6 @@ public class InputTracking : MonoBehaviour
         }
         #endif
 
-
-        bool addedAction = false;
-
         //Add movements
         if (Left())
         {
@@ -110,8 +107,6 @@ public class InputTracking : MonoBehaviour
             {
                 PushAction(PlayerAction.MOVE_LEFT);
             }
-
-            addedAction = true;
         }
         else if (Right())
         {
@@ -127,108 +122,86 @@ public class InputTracking : MonoBehaviour
             {
                 PushAction(PlayerAction.MOVE_RIGHT);
             }
-
-            addedAction = true;
         }
         else if (Down())
         {
             PushAction(PlayerAction.MOVE_DOWN);
-            addedAction = true;
         }
         else if (Up())
         {
             PushAction(PlayerAction.MOVE_UP);
-            addedAction = true;
         }
         else if (UpLeft())
         {
             PushAction(PlayerAction.MOVE_UP_LEFT);
-            addedAction = true;
         }
         else if (UpRight())
         {
             PushAction(PlayerAction.MOVE_UP_RIGHT);
-            addedAction = true;
         }
         else if (DownLeft())
         {
             PushAction(PlayerAction.MOVE_DOWN_LEFT);
-            addedAction = true;
         }
         else if (DownRight())
         {
             PushAction(PlayerAction.MOVE_DOWN_RIGHT);
-            addedAction = true;
         }
         else if (Drop())
         {
             PushAction(PlayerAction.DROP_ITEMS);
-            addedAction = true;
         }
         else if (PickUp())
         {
             PushAction(PlayerAction.PICK_UP_ITEMS);
-            addedAction = true;
         }
         else if (OpenInventory())
         {
             PushAction(PlayerAction.OPEN_INVENTORY);
-            addedAction = true;
         }
         else if (Equip())
         {
             PushAction(PlayerAction.EQUIP);
-            addedAction = true;
         }
         else if (Unequip())
         {
             PushAction(PlayerAction.UNEQUIP);
-            addedAction = false;
         }
         else if (Apply())
         {
             PushAction(PlayerAction.APPLY);
-            addedAction = true;
         }
         else if (CastSpell())
         {
             PushAction(PlayerAction.CAST_SPELL);
-            addedAction = true;
         }
         else if (Fire())
         {
             PushAction(PlayerAction.FIRE);
-            addedAction = true;
         }
         else if (GoUp())
         {
             PushAction(PlayerAction.ASCEND);
-            addedAction = true;
         }
         else if (GoDown())
         {
             PushAction(PlayerAction.DESCEND);
-            addedAction = true;
         }
         else if (Escaping())
         {
             PushAction(PlayerAction.ESCAPE_SCREEN);
-            addedAction = true;
         }
         else if (Accept())
         {
             PushAction(PlayerAction.ACCEPT);
-            addedAction = true;
         }
         else if (Wait())
         {
             PushAction(PlayerAction.WAIT);
-            addedAction = true;
         }
         else if (Input.inputString != "") //FINAL CHECK! Use this to add empty input to the buffer for character checks. (MUST BE LAST CHECK)
         {
             PushAction(PlayerAction.NONE);
-            addedAction = false;
         }
     }
 

@@ -70,6 +70,28 @@ public class Map : MonoBehaviour
     {
     
     }
+
+    public void Setup()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                tiles[i, j].Setup();
+            }
+        }
+    }
+
+    public void RefreshGraphics()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                tiles[i, j].RebuildGraphics();
+            }
+        }
+    }
     
 
     public IEnumerator BuildFromTemplate(int[,] map, TileList availableTiles)

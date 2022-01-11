@@ -4,11 +4,15 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+
+
+
 [Serializable]
 public class DungeonGenerator
 {
     public string name;
-    public int seed;
+    public int depth;
+    [HideInInspector] public int seed;
     public Vector2Int bounds;
     public List<Machine> machines;
     [HideInInspector] public List<Room> rooms;
@@ -18,8 +22,10 @@ public class DungeonGenerator
     public int numberOfAttempts;
     public int attemptsPerMachine;
 
+    public LootPool availableItems;
+    public Roll numItems;
+
     public int[,] map;
-    [SerializeField] private Player player;
 
     public IEnumerator generation = null;
     public bool JIT;
@@ -75,9 +81,6 @@ public class DungeonGenerator
 
             gameMap.depth = index;
 
-            //TODO: For testing purposes only, remove when infrastructure is ready.
-            //FindStartingPoint();
-
             foreach (Machine m in machines)
             {
                 m.PostActivation(gameMap);
@@ -86,40 +89,29 @@ public class DungeonGenerator
 
             LevelLoader.maps[index] = gameMap;
 
+            gameMap.Setup();
+
+            //TODO: Load monsters in
+
+            //Start loading items in
+            IEnumerator spawning = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.evaluate());
+
+            while (spawning.MoveNext())
+            {
+                state = UnityEngine.Random.state;
+                yield return spawning.Current;
+                UnityEngine.Random.state = state;
+            }
+
+            //Refresh so that monsters and items don't show.
+            gameMap.RefreshGraphics();
+
             finished = true;
         }
 
     }
 
-
-
-    private void FindStartingPoint()
-    {
-        bool success = false;
-        for (int i = 0; i < 100; i++)
-        {
-            Vector2Int spot = new Vector2Int(UnityEngine.Random.Range(0, bounds.x), UnityEngine.Random.Range(0, bounds.y));
-            if (map[spot.x, spot.y] == 1)
-            {
-                player.location = spot;
-                success = true;
-                break;
-            }
-        }
-        if (!success)
-        {
-            for (int i = 0; i < bounds.x * bounds.y; i++)
-            {
-                Vector2Int spot = new Vector2Int(i % bounds.x, i / bounds.x);
-                if (map[spot.x, spot.y] == 1)
-                {
-                    player.location = spot;
-                    break;
-                }
-            }
-        }
-    }
-
+    //TODO: Come back and use a texture packing algo to place these, if we fail.
     private bool FindPacking()
     {
         //Split machines into machines we need to pack, and the ones we don't.

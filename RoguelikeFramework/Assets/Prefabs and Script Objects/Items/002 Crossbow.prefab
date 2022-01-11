@@ -97,19 +97,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 12
-  stackable: 0
+  rarity: 0
   type: 2
+  minDepth: 0
+  maxDepth: 10
+  elevatesTo: 0
+  id: 3
+  stackable: 0
   color: {r: 1, g: 0, b: 0.38467693, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  name: Pistol
-  plural: Pistols
+  name: Crossbow
+  plural: Crossbows
   CanEquip: 0
   CanApply: 0
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
+  effects:
+    list: []
+  optionalEffects:
+    list: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
@@ -170,11 +178,8 @@ MonoBehaviour:
         rolls: 1
         dice: 1
       type: 3
-  itemType: 0
   source: 0
-  effects:
-    list:
-    - heldEffect: {fileID: 11400000, guid: fbb175268c4162d459652353415c07c2, type: 2}
+  item: {fileID: 0}
   targeting:
     numPoints: 1
     targetingType: 1

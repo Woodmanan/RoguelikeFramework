@@ -43,10 +43,7 @@ public class GameAction
     {
         Debug.LogError("You forgot to override the TakeAction function! Skipping their turn for it.", caller.gameObject);
         caller.energy -= 100;
-        if (false)
-        {
-            yield return null;
-        }
+        yield break; //This is stupid, but it's needed for the compiler to count this.
     }
 
     public IEnumerator RunAction()

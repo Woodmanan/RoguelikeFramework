@@ -1,21 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Item : MonoBehaviour
 {
+    [Header("Generation attributes")]
+    public ItemRarity rarity;
+    public ItemType type;
+    public int minDepth;
+    public int maxDepth;
+    public ItemRarity elevatesTo;
+
     [Header("Basic item variables")]
     public int id;
     public bool stackable;
-    public ItemType type;
+    
 
     [SerializeField] Color color;
 
     [HideInInspector] public Vector2Int location;
     public bool held;
     private Monster heldBy;
-    [SerializeField] private string name;
+    [SerializeField] new private string name;
     [SerializeField] private string plural;
 
     [HideInInspector] public bool CanEquip;
@@ -23,6 +31,12 @@ public class Item : MonoBehaviour
     [HideInInspector] public bool CanTarget;
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
+
+    public Connections connections = new Connections();
+    [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
+
+    public StatusEffectList effects = new StatusEffectList();
+    public StatusEffectList optionalEffects = new StatusEffectList();
 
 
     private SpriteRenderer Render;
@@ -68,9 +82,9 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (this.type == ItemType.NONE)
+        if (this.type == 0)
         {
-            Debug.LogError("An item is set to have no type! Please use ItemType.EMPTY if you have misc items.", this);
+            Debug.LogError("An item is set to have no type! Please use ItemType.MISC if you have misc items.", this);
         }
 
         applyable = GetComponent<ApplyableItem>();
@@ -85,6 +99,14 @@ public class Item : MonoBehaviour
         CanTarget = (targetable != null);
         CanMelee = (melee != null);
         CanRanged = (ranged != null);
+
+        AddEffect(effects.list.Select(x => x.Instantiate()).ToArray());
+    }
+
+    public Item Instantiate()
+    {
+        Item i = Instantiate(gameObject).GetComponent<Item>();
+        return i;
     }
 
 
@@ -162,8 +184,38 @@ public class Item : MonoBehaviour
         return plural;
     }
 
+    //TODO: Items should elevate stats as well
+    public void ElevateRarityTo(ItemRarity rarity, StatusEffectList extraOptions)
+    {
+        int numberToAdd = rarity - this.rarity;
+        optionalEffects.list.AddRange(extraOptions.list.AsEnumerable());
+        
+        if (optionalEffects.Count < numberToAdd)
+        {
+            Debug.LogError($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
+        }
+
+        for (int i = 0; i < System.Math.Min(numberToAdd, optionalEffects.Count); i++)
+        {
+            int index = UnityEngine.Random.Range(0, optionalEffects.Count);
+            AddEffect(optionalEffects[index].Instantiate());
+            optionalEffects.list.RemoveAt(index);
+            this.rarity++;
+        }
+    }
+
+    public void AddEffect(params Effect[] effects)
+    {
+        if (connections == null) connections = new Connections(this);
+        foreach (Effect e in effects)
+        {
+            e.Connect(connections);
+            attachedEffects.Add(e);
+        }
+    }
+
     //Editor only functions - For convenience
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     private void OnValidate()
     {
         if (render.color != currentColor)

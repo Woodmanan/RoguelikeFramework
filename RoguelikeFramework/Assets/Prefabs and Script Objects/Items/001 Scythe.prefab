@@ -97,19 +97,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 2
-  stackable: 0
+  rarity: 0
   type: 1
+  minDepth: 0
+  maxDepth: 10
+  elevatesTo: 1
+  id: 1
+  stackable: 0
   color: {r: 1, g: 0, b: 0.72682667, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  name: Item Test 3
-  plural: Item Tests 3
+  name: Scythe
+  plural: Scythves???
   CanEquip: 0
   CanApply: 0
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
+  effects:
+    list: []
+  optionalEffects:
+    list: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
@@ -166,8 +174,5 @@ MonoBehaviour:
     accuracy: 0
     piercing: 0
     damage: []
-  itemType: 0
   source: 0
-  effects:
-    list:
-    - heldEffect: {fileID: 11400000, guid: 348fe9d92bed1934bb1680a4cc72ad1a, type: 2}
+  item: {fileID: 0}

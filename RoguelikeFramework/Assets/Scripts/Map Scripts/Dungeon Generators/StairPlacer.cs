@@ -53,7 +53,6 @@ public class StairPlacer : Machine
 
         //Shuffle!
         roomsToConnect = roomsToConnect.OrderBy(x => UnityEngine.Random.Range(int.MinValue, int.MaxValue)).ToList();
-        Debug.Log($"Number of rooms: {roomsToConnect.Count}");
 
         int c = 0;
         //Place up stairs
@@ -81,24 +80,19 @@ public class StairPlacer : Machine
 
         //Shuffle!
         roomsToConnect = roomsToConnect.OrderBy(x => UnityEngine.Random.Range(int.MinValue, int.MaxValue)).ToList();
-        Debug.Log($"Number of rooms: {roomsToConnect.Count}");
 
         c = 0;
         //Place down stairs
         //Place up stairs
         for (int i = 0; i < stairsDown.Count; i++)
         {
-            Debug.Log($"Loop {i} of {stairsDown.Count}");
             StairConnection connection = stairsDown[i];
             for (int j = 0; j < connection.numConnections; j++)
             {
-                Debug.Log($"Internal Loop {j} of {connection.numConnections}");
                 Room r = generator.rooms[roomsToConnect[c]];
                 Vector2Int loc = r.GetOpenSpace(1);
 
-                Debug.Log("Right before here!");
                 generator.map[loc.x, loc.y] = downStairsIndex;
-                Debug.Log("Right after here!");
 
                 downs.Add(loc);
                 c++;
@@ -111,8 +105,6 @@ public class StairPlacer : Machine
             Vector2Int loc = r.GetOpenSpace(1);
             downs.Add(loc);
         }
-
-        Debug.Log("Finished!");
     }
 
     public override void PostActivation(Map m)

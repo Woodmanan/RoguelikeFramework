@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2997017596350725500, guid: 3d92f793da7b2c24da07c41be4dad2dd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 338.5
+      value: 390.79996
       objectReference: {fileID: 0}
     - target: {fileID: 2997017596350725500, guid: 3d92f793da7b2c24da07c41be4dad2dd, type: 3}
       propertyPath: m_SizeDelta.y
@@ -196,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2997017596350725500, guid: 3d92f793da7b2c24da07c41be4dad2dd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 169.25
+      value: 195.39998
       objectReference: {fileID: 0}
     - target: {fileID: 2997017596350725500, guid: 3d92f793da7b2c24da07c41be4dad2dd, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -400,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3016380180831334463, guid: a819ec6739bbd11418a9d40d67e7a7ea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 348.8
+      value: 390.79996
       objectReference: {fileID: 0}
     - target: {fileID: 3016380180831334463, guid: a819ec6739bbd11418a9d40d67e7a7ea, type: 3}
       propertyPath: m_SizeDelta.y
@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3016380180831334463, guid: a819ec6739bbd11418a9d40d67e7a7ea, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 174.4
+      value: 195.39998
       objectReference: {fileID: 0}
     - target: {fileID: 3016380180831334463, guid: a819ec6739bbd11418a9d40d67e7a7ea, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5730175131104132690, guid: a819ec6739bbd11418a9d40d67e7a7ea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -23.119995
+      value: -18.920006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a819ec6739bbd11418a9d40d67e7a7ea, type: 3}
@@ -772,7 +772,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 110}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &247750769
 MonoBehaviour:
@@ -850,7 +850,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.09902954, y: 0}
+  m_SizeDelta: {x: 0, y: -14.805023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &273582752
 MonoBehaviour:
@@ -1666,7 +1666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4008110597111894326, guid: 685672247bc928d43ae7b2cac1fdc2ae, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 348.8
+      value: 390.79996
       objectReference: {fileID: 0}
     - target: {fileID: 4008110597111894326, guid: 685672247bc928d43ae7b2cac1fdc2ae, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1702,7 +1702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4008110597111894326, guid: 685672247bc928d43ae7b2cac1fdc2ae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 174.4
+      value: 195.39998
       objectReference: {fileID: 0}
     - target: {fileID: 4008110597111894326, guid: 685672247bc928d43ae7b2cac1fdc2ae, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1738,7 +1738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5892491158601506651, guid: 685672247bc928d43ae7b2cac1fdc2ae, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -20.119987
+      value: -15.919991
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 685672247bc928d43ae7b2cac1fdc2ae, type: 3}
@@ -2913,6 +2913,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079236546}
   m_CullTransparentMesh: 0
+--- !u!1 &1118528457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118528459}
+  - component: {fileID: 1118528458}
+  m_Layer: 0
+  m_Name: DebugMonster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1118528458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5e719113cd25c488a32fd500c08bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStats:
+    resources:
+      health: 10
+      mana: 10
+      stamina: 10
+    ac: 0
+    ev: 0
+  stats:
+    resources:
+      health: 0
+      mana: 0
+      stamina: 0
+    ac: 0
+    ev: 0
+  resources:
+    health: 0
+    mana: 0
+    stamina: 0
+  name: Debug Monster
+  nameRequiresPluralVerbs: 0
+  energy: 0
+  location: {x: 20, y: 20}
+  visionRadius: 5
+  energyPerStep: 100
+  effects: []
+  inventory: {fileID: 0}
+  equipment: {fileID: 0}
+  abilities: {fileID: 0}
+  currentTile: {fileID: 0}
+--- !u!4 &1118528459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 33.782887, y: 28.069166, z: -91.92511}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1183646570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,6 +3021,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1269666193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1269666195}
+  - component: {fileID: 1269666194}
+  m_Layer: 0
+  m_Name: Item Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1269666194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269666193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10c10433f62d234688a88acea4e89aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rarityChances: fa00000064000000140000000f0000000a00000005000000
+  pools: []
+--- !u!4 &1269666195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269666193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 74.48676, y: 24.830652, z: -34.077858}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1318114675
 GameObject:
   m_ObjectHideFlags: 0
@@ -4048,7 +4165,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.15
+  m_fontSize: 57.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4300,7 +4417,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31
+  m_fontSize: 34.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4615,6 +4732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generators:
   - name: Level 1
+    depth: 1
     seed: 0
     bounds: {x: 50, y: 50}
     machines:
@@ -4625,12 +4743,25 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    player: {fileID: 0}
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
     JIT: 0
     finished: 0
   - name: Level 2
+    depth: 2
     seed: 0
-    bounds: {x: 60, y: 60}
+    bounds: {x: 50, y: 50}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -4639,12 +4770,25 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    player: {fileID: 0}
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
     JIT: 0
     finished: 0
   - name: Level 3
+    depth: 3
     seed: 0
-    bounds: {x: 60, y: 60}
+    bounds: {x: 50, y: 50}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -4653,12 +4797,25 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    player: {fileID: 0}
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
     JIT: 0
     finished: 0
   - name: Level 4
+    depth: 4
     seed: 0
-    bounds: {x: 60, y: 60}
+    bounds: {x: 50, y: 50}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -4667,12 +4824,25 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    player: {fileID: 0}
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
     JIT: 0
     finished: 0
   - name: Level 5
+    depth: 5
     seed: 0
-    bounds: {x: 60, y: 60}
+    bounds: {x: 50, y: 50}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -4681,12 +4851,25 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    player: {fileID: 0}
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
     JIT: 0
     finished: 0
   - name: Level 6
+    depth: 6
     seed: 0
-    bounds: {x: 60, y: 60}
+    bounds: {x: 50, y: 50}
     machines:
     - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -4695,13 +4878,133 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    player: {fileID: 0}
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 7
+    depth: 7
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 8
+    depth: 8
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 9
+    depth: 9
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    chances:
+    - type: 4
+      weight: 2
+    - type: 1
+      weight: 2
+    - type: 8
+      weight: 4
+    - type: 2
+      weight: 1
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
     JIT: 0
     finished: 0
   msPerFrame: 4
   randomSeed: 0
   seed: 43
-  JITLoading: 1
+  JITLoading: 0
   StartAt: 0
 --- !u!4 &1953941108
 Transform:
@@ -4811,9 +5114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInFocus: 0
   canBeEscaped: 1
-  name: {fileID: 1697134978}
-  description: {fileID: 1919058212}
-  attributes: {fileID: 1079236548}
+  nameBox: {fileID: 1697134978}
+  descriptionBox: {fileID: 1919058212}
+  attributesBox: {fileID: 1079236548}
   image: {fileID: 273582753}
 --- !u!1 &2050102313
 GameObject:

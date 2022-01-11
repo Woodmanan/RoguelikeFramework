@@ -232,10 +232,7 @@ public class Monster : MonoBehaviour
     {
         SetAction(new WaitAction());
 
-        if (false)
-        {
-            yield return null;
-        }
+        yield break;
     }
 
     //Takes the local turn

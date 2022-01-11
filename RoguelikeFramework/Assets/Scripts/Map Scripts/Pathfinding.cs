@@ -292,13 +292,18 @@ public static class Pathfinding
         }
     }
 
-    public static float[,] CreateDjikstraMap(params Vector2Int[] startingPoints)
+    public static float[,] CreateDijkstraMap(params Vector2Int[] startingPoints)
+    {
+        return CreateDijkstraMap(Map.current, startingPoints);
+    }
+
+    public static float[,] CreateDijkstraMap(Map map, params Vector2Int[] startingPoints)
     {
         //Preliminary checks, resize board and confirm valid movements
-        RebuildChecked();
+        RebuildChecked(map);
 
         //Creat and initialize result
-        float[,] results = new float[Map.current.width, Map.current.height];
+        float[,] results = new float[map.width, map.height];
         for (int i = 0; i < results.GetLength(0); i++)
         {
             for (int j = 0; j < results.GetLength(1); j++)
@@ -322,12 +327,11 @@ public static class Pathfinding
 
         goal = new Vector2Int(-1, -1);
 
-        return PerformDjikstraSearch(results);
+        return PerformDijkstraSearch(map, results);
     }
 
-    private static float[,] PerformDjikstraSearch(float[,] results)
+    private static float[,] PerformDijkstraSearch(Map map, float[,] results)
     {
-        Map m = Map.current;
         while (true)
         {
             if (frontier.Count == 0)
@@ -380,7 +384,7 @@ public static class Pathfinding
                         }
 
                         //For now, skip things that are walls.
-                        if (m.BlocksMovement(newLoc))
+                        if (map.BlocksMovement(newLoc))
                         {
                             /*
                              * This behaviour is great in 99% of cases, but there's a slight misstep
@@ -398,19 +402,19 @@ public static class Pathfinding
 
                         if (isCorner && Map.space == MapSpace.Euclidean)
                         {
-                            newCost = current.cost + sqrtTwo * m.MovementCostAt(newLoc);
+                            newCost = current.cost + sqrtTwo * map.MovementCostAt(newLoc);
                             newPriority = newCost;
                         }
                         else
                         {
                             if (isCorner)
                             {
-                                newCost = current.cost + m.MovementCostAt(newLoc) + 0.001f;
+                                newCost = current.cost + map.MovementCostAt(newLoc) + 0.001f;
                                 newPriority = newCost + 0.001f;
                             }
                             else
                             {
-                                newCost = current.cost + m.MovementCostAt(newLoc);
+                                newCost = current.cost + map.MovementCostAt(newLoc);
                                 newPriority = newCost;
                             }
                         }
@@ -443,7 +447,11 @@ public static class Pathfinding
 
     private static void RebuildChecked()
     {
-        Map m = Map.current;
+        RebuildChecked(Map.current);
+    }
+
+    private static void RebuildChecked(Map m)
+    {
         if (width != m.width || height != m.height)
         {
             alreadyChecked = new bool[m.width, m.height];

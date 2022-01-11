@@ -28,7 +28,7 @@ using UnityEditor;
 [Serializable]
 public class StatusEffectList : ICollection
 {
-    public List<StatusEffect> list;
+    public List<StatusEffect> list = new List<StatusEffect>();
 
     public StatusEffect this[int index]
     {

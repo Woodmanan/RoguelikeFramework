@@ -83,6 +83,8 @@ public class LevelLoader : MonoBehaviour
             generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue), transform);
         }
 
+        ItemSpawner.singleton.SetItemPools(generators);
+
         #if !UNITY_EDITOR
         if (JITLoading)
         {

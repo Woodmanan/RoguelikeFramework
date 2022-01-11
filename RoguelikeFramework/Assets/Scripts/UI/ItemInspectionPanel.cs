@@ -12,9 +12,9 @@ public class ItemInspectionPanel : RogueUIPanel
     //bool inFocus; - Tells you if this is the window that is currently focused
 
     private ItemStack inspecting; // The item that we are inspecting
-    [SerializeField] private TextMeshProUGUI name;
-    [SerializeField] private TextMeshProUGUI description;
-    [SerializeField] private TextMeshProUGUI attributes;
+    [SerializeField] private TextMeshProUGUI nameBox;
+    [SerializeField] private TextMeshProUGUI descriptionBox;
+    [SerializeField] private TextMeshProUGUI attributesBox;
     [SerializeField] private Image image;
     //[SerializeField] private TextMeshProUGUI quote TODO: Add quotes?
 
@@ -73,7 +73,8 @@ public class ItemInspectionPanel : RogueUIPanel
     /* Called every time this panel is activated by the controller */
     public override void OnActivation()
     {
-        name.text = $"{Conversions.IntToNumbering(inspecting.position)} - {inspecting.GetName()}";
+        Debug.Log($"Is inspecting null? {inspecting.GetName()}");
+        nameBox.text = $"{Conversions.IntToNumbering(inspecting.position)} - {inspecting.GetName()}";
         SpriteRenderer render = inspecting.held[0].GetComponent<SpriteRenderer>();
         image.sprite = render.sprite;
         image.color = render.color;

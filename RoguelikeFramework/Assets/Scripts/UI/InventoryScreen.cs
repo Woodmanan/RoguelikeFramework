@@ -108,7 +108,7 @@ public class InventoryScreen : RogueUIPanel
         }
 
         //Sort the list into item types
-        ItemType currentType = ItemType.NONE;
+        ItemType currentType = (ItemType)0;
 
         for (int i = 0; i < toDisplay.Count; i++)
         {

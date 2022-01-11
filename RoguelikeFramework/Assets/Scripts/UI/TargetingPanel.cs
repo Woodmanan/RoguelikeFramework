@@ -192,7 +192,6 @@ public class TargetingPanel : RogueUIPanel
                     current.GenerateArea();
                     if (current.affected.Contains(Player.player) && !current.recommendsPlayerTarget)
                     {
-                        bool isSure = false;
                         UIController.singleton.OpenConfirmation("<color=\"black\">Are you sure you want to target yourself?", (b) => ReturnConfirmed(b)); //DELEGATE MAGICCCC
                         break;
                     }

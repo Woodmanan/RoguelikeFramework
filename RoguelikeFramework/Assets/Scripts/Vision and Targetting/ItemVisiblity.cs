@@ -5,19 +5,22 @@ using UnityEngine;
 [RequireComponent(typeof(Inventory))]
 public class ItemVisiblity : MonoBehaviour
 {
-    private Item visible;
+    [SerializeField] private Item visible;
+    private CustomTile tile;
     Inventory inventory;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    public void Setup()
+    {
         inventory = GetComponent<Inventory>();
+        tile = GetComponent<CustomTile>();
         inventory.itemsAdded += ItemIsAdded;
         inventory.itemsRemoved += ItemIsRemoved;
-        if (inventory.startingItems.Count > 0)
-        {
-            visible = inventory.startingItems[0]; //TODO: Be smarter than just grabbing the first item (ie, most rare / valuable)
-        }
         this.enabled = false;
     }
 
@@ -36,6 +39,7 @@ public class ItemVisiblity : MonoBehaviour
         }
         else
         {
+            visible.EnableSprite();
             if (isVisible)
             {
                 visible.SetFullColor();
@@ -57,13 +61,21 @@ public class ItemVisiblity : MonoBehaviour
             i.DisableSprite();
         }
 
+        stack.held[0].SetLocation(tile.location);
+
         //Set new visible
         visible = stack.held[0];
-        visible.EnableSprite();
+        if (tile.isVisible)
+        {
+            visible.EnableSprite();
+        }
+
+        Debug.Log($"Set visible to {visible}");
     }
 
     public void ItemIsRemoved(ref ItemStack stack)
     {
+        Debug.Log("Item removal called.");
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (visible == null)
         {

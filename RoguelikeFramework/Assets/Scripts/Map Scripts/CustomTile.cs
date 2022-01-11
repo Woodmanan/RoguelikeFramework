@@ -16,12 +16,13 @@ public class CustomTile : MonoBehaviour
     public bool isVisible = false;
     public bool isHidden = true;
     public bool dirty = true;
+    private bool setup = false;
 
     public Vector2Int location;
     
     //Stuff that will not change a lot, and should not be (too) visible
     [Header("Static elements")] 
-    public string name;
+    public new string name;
     public string description;
     public float movementCost;
     public bool blocksVision;
@@ -64,16 +65,20 @@ public class CustomTile : MonoBehaviour
 
     public void Setup()
     {
+        if (setup) return;
         inventory = GetComponent<Inventory>(); //May need to be changed to a get/set singleton system
+        inventory.Setup();
         //Starts as on, so that Unity 
         render = GetComponent<SpriteRenderer>();
         render.enabled = false;
 
         //Set up initial visibility
         itemVis = GetComponent<ItemVisiblity>();
+        itemVis.Setup();
 
         RebuildGraphics();
         this.enabled = false;
+        setup = true;
     }
 
     public void Reveal()

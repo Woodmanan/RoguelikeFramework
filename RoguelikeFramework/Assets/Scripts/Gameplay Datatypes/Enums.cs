@@ -108,15 +108,15 @@ public enum EquipSlotType
 }
 
 //Order is very important here! Order written is order shown in inventory.
+[Flags]
 public enum ItemType
 {
-    NONE,
-    MELEE_WEAPON,
-    RANGED_WEAPON,
-    ARMOR,
-    CONSUMABLE,
-    ACTIVATABLE,
-    EMPTY
+    MELEE_WEAPON    = (1 << 0),
+    RANGED_WEAPON   = (1 << 1),
+    ARMOR           = (1 << 2),
+    CONSUMABLE      = (1 << 3),
+    ACTIVATABLE     = (1 << 4),
+    MISC            = (1 << 5)
 }
 
 public enum TargetType
@@ -165,4 +165,14 @@ public enum AbilityTypes
 public enum AbilityTags
 {
     RecommendsAllyTarget = 1
+}
+
+public enum ItemRarity
+{
+    COMMON,
+    UNCOMMON,
+    RARE,
+    EPIC,
+    LEGENDARY,
+    UNIQUE
 }

@@ -35,6 +35,8 @@ public class Inventory : MonoBehaviour
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
 
+    private bool setup = false;
+
     private int updateCounterVal = 0;
     private int updateCounter
     {
@@ -81,6 +83,12 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!setup) Setup();
+    }
+
+    public void Setup()
+    {
+        if (setup) return;
         //Set up inventory
         available = capacity;
         Items = new ItemStack[capacity];
@@ -93,7 +101,7 @@ public class Inventory : MonoBehaviour
 
         //TODO: REWORK THIS
         this.enabled = false; //This is really, really dumb. I know. Gives us back 15 fps, though
-        
+        setup = true;
     }
 
     // Update is called once per frame
@@ -182,8 +190,6 @@ public class Inventory : MonoBehaviour
 
     public void Add(ItemStack stack)
     {
-
-
         if (stack == null)
         {
             print("Stack add cancelled early.");

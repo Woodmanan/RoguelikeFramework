@@ -96,9 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 7
+  rarity: 0
+  type: 8
+  minDepth: 0
+  maxDepth: 10
+  elevatesTo: 0
+  id: 9
   stackable: 1
-  type: 3
   color: {r: 0.68301886, g: 0.8384018, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
@@ -109,9 +113,15 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
+  effects:
+    list: []
+  optionalEffects:
+    list: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
+  melee: {fileID: 0}
+  ranged: {fileID: 0}
 --- !u!114 &82237511670534687
 MonoBehaviour:
   m_ObjectHideFlags: 0
