@@ -39,7 +39,6 @@ public class LootTable : ScriptableObject
             table.maxRarity = table.items.Max(x => x.rarity);
         }
 
-        Debug.Log($"For depth {depth}, table {table.name} has min {table.minRarity} and max {table.maxRarity}");
         return table;
     }
 

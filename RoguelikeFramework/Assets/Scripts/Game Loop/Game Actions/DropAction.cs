@@ -50,6 +50,7 @@ public class DropAction : GameAction
         {
             //For each item, check if it's equipped. If so, remove it.
             ItemStack item = caller.inventory[index];
+            if (item == null) continue;
             EquipableItem equip = item.held[0].equipable;
             if (equip && equip.isEquipped)
             {

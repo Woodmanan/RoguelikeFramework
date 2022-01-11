@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406155aae42b546bb02611f09bf7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preLoadUpTo: 1
+  preLoadUpTo: 5
   turn: 0
   energyPerTurn: 100
   player: {fileID: 546573371}
@@ -1442,7 +1442,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 52
   available: 0
-  startingItems: []
 --- !u!212 &546573369
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3050,7 +3049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10c10433f62d234688a88acea4e89aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarityChances: fa00000064000000140000000f0000000a00000005000000
   pools: []
 --- !u!4 &1269666195
 Transform:
@@ -4743,15 +4741,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4770,15 +4759,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4797,15 +4777,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4824,15 +4795,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4851,15 +4813,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4878,15 +4831,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4905,15 +4849,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4932,15 +4867,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4959,15 +4885,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -4986,15 +4903,6 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    chances:
-    - type: 4
-      weight: 2
-    - type: 1
-      weight: 2
-    - type: 8
-      weight: 4
-    - type: 2
-      weight: 1
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rolls: 2
@@ -5003,7 +4911,7 @@ MonoBehaviour:
     finished: 0
   msPerFrame: 4
   randomSeed: 0
-  seed: 43
+  seed: 42
   JITLoading: 0
   StartAt: 0
 --- !u!4 &1953941108

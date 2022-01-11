@@ -187,9 +187,10 @@ public class Monster : MonoBehaviour
         this.energy += energy;
     }
 
+    //TODO: Update this to be individual maps
     public virtual void UpdateLOS()
     {
-        this.view = LOS.LosAt(location, visionRadius);
+        this.view = LOS.LosAt(Map.current, location, visionRadius);
     }
 
     public void StartTurn()

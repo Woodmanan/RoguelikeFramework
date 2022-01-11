@@ -35,6 +35,8 @@ public class Inventory : MonoBehaviour
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
 
+    Transform holder;
+
     private bool setup = false;
 
     private int updateCounterVal = 0;
@@ -48,7 +50,7 @@ public class Inventory : MonoBehaviour
     }
 
     //Generated measure of how many items we're holding, useful for ground pickup
-    public int count
+    public int Count
     {
         get { return capacity - available; }
     }
@@ -59,7 +61,17 @@ public class Inventory : MonoBehaviour
         get { return Items; }
     }
 
-    public List<Item> startingItems; //Easier to manage than a stack
+    public IEnumerable<Item> AllHeld()
+    {
+        if (capacity - available == 0) yield break;
+        for (int i = 0; i < capacity; i++)
+        {
+            if (Items[i] != null)
+            {
+                yield return Items[i].held[0];
+            }
+        }
+    }
     
 
     public ItemStack this[int index]
@@ -93,11 +105,23 @@ public class Inventory : MonoBehaviour
         available = capacity;
         Items = new ItemStack[capacity];
 
-        //Add in starting items
-        foreach (Item i in startingItems)
+        CustomTile tile = GetComponent<CustomTile>();
+        Monster monster = GetComponent<Monster>();
+        
+        if (tile)
         {
-            Add(i);
+            holder = tile.transform.parent.parent.parent.GetComponent<Map>().itemContainer;
         }
+
+        if (monster)
+        {
+            GameObject hold = new GameObject("Items");
+            hold.transform.parent = transform;
+            holder = hold.transform;
+        }
+
+        Debug.Assert(holder != null, "Inventory wasn't attached to monster or tile? Make sure to update inventory logic if this is intentional.", this);
+
 
         //TODO: REWORK THIS
         this.enabled = false; //This is really, really dumb. I know. Gives us back 15 fps, though
@@ -218,6 +242,12 @@ public class Inventory : MonoBehaviour
 
         //No match found, add it into the first available slot
         AddStackNoMatch(stack);
+
+        //Move added items into our holder!
+        foreach (Item i in stack.held)
+        {
+            i.transform.parent = holder;
+        }
     }
 
     //VERY EXPENSIVE: Sorts items up to the top, try not to use this a lot

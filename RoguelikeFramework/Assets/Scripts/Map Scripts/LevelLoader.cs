@@ -126,7 +126,9 @@ public class LevelLoader : MonoBehaviour
             }
 
             //Take a pause here, to give some other coroutines a buffer to jump in
-            yield return null;
+            //This stopped errors earlier, but doesn't anymore. I think this is tied
+            //with the 1/100 bug where the generation is different.
+            //yield return null;
         }
 
         watch.Stop();

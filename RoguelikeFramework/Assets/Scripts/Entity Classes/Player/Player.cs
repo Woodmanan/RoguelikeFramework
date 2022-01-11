@@ -138,7 +138,8 @@ public class Player : Monster
     //Special case, because it affects the world around it through the player's view.
     public override void UpdateLOS()
     {
-        view = LOS.GeneratePlayerLOS(location, visionRadius);
+        view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
+        Debug.Log($"Player can see {view.visibleMonsters.Count} monsters and {view.visibleItems.Count} items");
     }
 
     //Item pickup, but with a little logic for determining if a UI needs to get involved.
@@ -146,7 +147,7 @@ public class Player : Monster
     {
         CustomTile tile = Map.current.GetTile(location);
         Inventory onFloor = tile.GetComponent<Inventory>();
-        switch (onFloor.count)
+        switch (onFloor.Count)
         {
             case 0:
                 return; //Exit early

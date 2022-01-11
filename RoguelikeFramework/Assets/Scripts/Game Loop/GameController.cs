@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
 
         //1 Frame pause to set up LOS
         yield return null;
-        LOS.GeneratePlayerLOS(player.location, player.visionRadius);
+        LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
 
         //Monster setup, before the loop starts
         player.PostSetup();
@@ -259,7 +259,7 @@ public class GameController : MonoBehaviour
         LOS.lastCall.Deprint(old);
         LOS.lastCall = null;
         CameraTracking.singleton.JumpToPlayer();
-        LOS.GeneratePlayerLOS(player.location, player.visionRadius);
+        LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
 
     }
 

@@ -69,8 +69,6 @@ public class ItemVisiblity : MonoBehaviour
         {
             visible.EnableSprite();
         }
-
-        Debug.Log($"Set visible to {visible}");
     }
 
     public void ItemIsRemoved(ref ItemStack stack)

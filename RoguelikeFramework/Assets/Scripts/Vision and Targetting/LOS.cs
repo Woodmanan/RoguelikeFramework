@@ -28,6 +28,9 @@ public class LOSData
     public bool[,] definedArea;
     public bool[,] precalculatedSight;
 
+    public List<Monster> visibleMonsters;
+    public List<Item> visibleItems;
+
     private Vector2Int startsAt;
     private Vector2Int endsAt;
 
@@ -39,6 +42,9 @@ public class LOSData
         precalculatedSight = new bool[radius * 2 + 1, radius * 2 + 1];
         startsAt = origin - Vector2Int.one * radius; //Inclusive
         endsAt = origin + Vector2Int.one * (radius + 1); //Exclusive
+
+        visibleMonsters = new List<Monster>();
+        visibleItems = new List<Item>();
     }
 
     public void setAt(int row, int col, Direction dir, bool val)
@@ -112,6 +118,23 @@ public class LOSData
     public bool Contains(int x, int y)
     {
         return (x >= startsAt.x && x < endsAt.x && y >= startsAt.y && y < endsAt.y);
+    }
+
+    public void CollectEntities(Map map)
+    {
+        Vector2Int start = origin - Vector2Int.one * radius;
+        for (int i = 0; i < (radius * 2 + 1); i++)
+        {
+            for (int j = 0; j < (radius * 2 + 1); j++)
+            {
+                if (definedArea[i,j])
+                {
+                    CustomTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
+                    if (tile.currentlyStanding) visibleMonsters.Add(tile.currentlyStanding);
+                    visibleItems.AddRange(tile.inventory.AllHeld());
+                }
+            }
+        }
     }
 
     public void Imprint(Map map)
@@ -190,7 +213,7 @@ public class LOS : MonoBehaviour
         return (tile.x >= r.depth * r.startSlope) && (tile.x <= r.depth * r.endSlope);
     }
 
-    public static LOSData LosAt(Vector2Int position, int distance)
+    public static LOSData LosAt(Map map, Vector2Int position, int distance)
     {
         if (distance <= 0)
         {
@@ -206,6 +229,8 @@ public class LOS : MonoBehaviour
             Row firstRow = new Row(1, new fraction(-1,1), new fraction(1,1), q);
             Scan(firstRow, toReturn);
         }
+
+        toReturn.CollectEntities(map);
 
         return toReturn;
     }
@@ -279,14 +304,14 @@ public class LOS : MonoBehaviour
         }
     }
 
-    public static LOSData GeneratePlayerLOS(Vector2Int location, int radius)
+    public static LOSData GeneratePlayerLOS(Map map, Vector2Int location, int radius)
     {
         if (lastCall != null)
         {
             lastCall.Deprint(Map.current);
         }
 
-        lastCall = LosAt(location, radius);
+        lastCall = LosAt(map, location, radius);
         lastCall.Imprint(Map.current);
         return lastCall;
     }

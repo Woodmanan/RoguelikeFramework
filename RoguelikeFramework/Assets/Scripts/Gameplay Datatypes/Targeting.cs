@@ -373,7 +373,7 @@ public class Targeting
                 }
                 break;
             case AreaType.LOS_AREA: //Most expensive call, but easy to understand
-                LOSData data = LOS.LosAt(point, radius);
+                LOSData data = LOS.LosAt(Map.current, point, radius);
                 for (int i = point.x - radius; i <= point.x + radius; i++)
                 {
                     for (int j = point.y - radius; j <= point.y + radius; j++)
