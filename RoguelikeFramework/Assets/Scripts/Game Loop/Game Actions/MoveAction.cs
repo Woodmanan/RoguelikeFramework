@@ -24,7 +24,7 @@ public class MoveAction : GameAction
         CustomTile tile = Map.current.GetTile(intendedLocation);
         if (tile.BlocksMovement())
         {
-            Debug.Log($"{caller.name} tried to move into a {tile.name}.");
+            Debug.Log("Console Message: You don't can't do that.");
             yield break;
         }
 

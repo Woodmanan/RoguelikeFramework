@@ -9,8 +9,8 @@ public class Player : Monster
     //UI Stuff!
     [SerializeField] UIController uiControls;
 
-    private static Player _player;
-    public static Player player
+    private static Monster _player;
+    public static Monster player
     {
         get
         {
@@ -39,107 +39,19 @@ public class Player : Monster
 
     }
 
-    public override IEnumerator DetermineAction()
-    {
-        if (InputTracking.HasNextAction())
-        {
-            PlayerAction action = InputTracking.PopNextAction();
-            switch (action)
-            {
-                //Handle Movement code
-                case PlayerAction.MOVE_UP:
-                    SetAction(new MoveAction(location + Vector2Int.up));
-                    break;
-                case PlayerAction.MOVE_DOWN:
-                    SetAction(new MoveAction(location + Vector2Int.down));
-                    break;
-                case PlayerAction.MOVE_LEFT:
-                    SetAction(new MoveAction(location + Vector2Int.left));
-                    break;
-                case PlayerAction.MOVE_RIGHT:
-                    SetAction(new MoveAction(location + Vector2Int.right));
-                    break;
-                case PlayerAction.MOVE_UP_LEFT:
-                    SetAction(new MoveAction(location + new Vector2Int(-1, 1)));
-                    break;
-                case PlayerAction.MOVE_UP_RIGHT:
-                    SetAction(new MoveAction(location + new Vector2Int(1, 1)));
-                    break;
-                case PlayerAction.MOVE_DOWN_LEFT:
-                    SetAction(new MoveAction(location + new Vector2Int(-1, -1)));
-                    break;
-                case PlayerAction.MOVE_DOWN_RIGHT:
-                    SetAction(new MoveAction(location + new Vector2Int(1, -1)));
-                    break;
-                case PlayerAction.WAIT:
-                    SetAction(new WaitAction());
-                    break;
-                case PlayerAction.DROP_ITEMS:
-                    Debug.Log("Dropping items!");
-                    uiControls.OpenInventoryDrop();
-                    yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    break;
-                case PlayerAction.PICK_UP_ITEMS:
-                    //Intelligently pick up items, opening dialouge box if needed.
-                    PickupSmartDetection();
-
-                    //Check if dialouge box is opened; if so, freeze until transaction is done
-                    if (UIController.WindowsOpen)
-                    {
-                        yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    }
-                    break;
-                case PlayerAction.OPEN_INVENTORY:
-                    uiControls.OpenInventoryInspect();
-                    yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    break;
-                case PlayerAction.EQUIP:
-                    uiControls.OpenEquipmentInspect();
-                    yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    break;
-                case PlayerAction.UNEQUIP:
-                    uiControls.OpenEquipmentUnequip();
-                    yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    break;
-                case PlayerAction.APPLY:
-                    uiControls.OpenInventoryApply();
-                    yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    break;
-                case PlayerAction.CAST_SPELL:
-                    uiControls.OpenAbilities();
-                    yield return new WaitUntil(() => !UIController.WindowsOpen);
-                    break;
-                case PlayerAction.FIRE:
-                    SetAction(new RangedAttackAction());
-                    break;
-                case PlayerAction.ASCEND:
-                    SetAction(new ChangeLevelAction(true));
-                    break;
-                case PlayerAction.DESCEND:
-                    SetAction(new ChangeLevelAction(false));
-                    break;
-
-                //Handle potentially weird cases (Thanks, Nethack design philosophy!)
-                case PlayerAction.ESCAPE_SCREEN:
-                    //TODO: Open up the menu screen here
-                    RogueUIPanel.ExitTopLevel(); //This really, really shouldn't do anything. Let it happen, though!
-                    break;
-                case PlayerAction.ACCEPT:
-                case PlayerAction.NONE:
-                    Debug.Log("Player read an input set to do nothing", this);
-                    break;
-                default:
-                    Debug.LogError($"Player read an input that has no switch case: {action}");
-                    break;
-            }
-        }
-    }
-
     //Special case, because it affects the world around it through the player's view.
     public override void UpdateLOS()
     {
         view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
-        Debug.Log($"Player can see {view.visibleMonsters.Count} monsters and {view.visibleItems.Count} items");
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        if (resources.health == 0)
+        {
+            Debug.Log("Game should be over! This message should be replaced by loading an exit level instead.");
+        }
     }
 
     //Item pickup, but with a little logic for determining if a UI needs to get involved.

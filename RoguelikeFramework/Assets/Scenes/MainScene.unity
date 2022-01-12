@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406155aae42b546bb02611f09bf7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preLoadUpTo: 5
+  preLoadUpTo: 0
   turn: 0
   energyPerTurn: 100
   player: {fileID: 546573371}
@@ -1311,6 +1311,7 @@ GameObject:
   - component: {fileID: 546573368}
   - component: {fileID: 546573367}
   - component: {fileID: 546573366}
+  - component: {fileID: 546573373}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1537,6 +1538,7 @@ MonoBehaviour:
     stamina: 0
   name: player
   nameRequiresPluralVerbs: 1
+  faction: 2
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
@@ -1545,6 +1547,7 @@ MonoBehaviour:
   inventory: {fileID: 546573368}
   equipment: {fileID: 0}
   abilities: {fileID: 0}
+  controller: {fileID: 0}
   currentTile: {fileID: 0}
   uiControls: {fileID: 216533712}
 --- !u!4 &546573372
@@ -1562,6 +1565,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546573373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546573365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684468f804b03994c8da5da9e644b17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 0}
 --- !u!1 &553205232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,7 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e775ab9cec339a46b8a88eda8fa040a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 2
+  mode: 0
   speed: 5
   lerpAmount: 0.01
   stopDist: 1
@@ -2922,6 +2938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1118528459}
   - component: {fileID: 1118528458}
+  - component: {fileID: 1118528460}
   m_Layer: 0
   m_Name: DebugMonster
   m_TagString: Untagged
@@ -2961,6 +2978,7 @@ MonoBehaviour:
     stamina: 0
   name: Debug Monster
   nameRequiresPluralVerbs: 0
+  faction: 1
   energy: 0
   location: {x: 20, y: 20}
   visionRadius: 5
@@ -2969,6 +2987,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   equipment: {fileID: 0}
   abilities: {fileID: 0}
+  controller: {fileID: 0}
   currentTile: {fileID: 0}
 --- !u!4 &1118528459
 Transform:
@@ -2984,6 +3003,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118528460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43fa1e0f65aed444686eb412a0e4b4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 0}
 --- !u!1 &1183646570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4909,6 +4941,186 @@ MonoBehaviour:
       dice: 5
     JIT: 0
     finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 10
+    depth: 10
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
   msPerFrame: 4
   randomSeed: 0
   seed: 42
@@ -4922,7 +5134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953941106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.929865, y: 30.022028, z: -28.872326}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

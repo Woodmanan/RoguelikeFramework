@@ -84,7 +84,7 @@ public class CustomTile : MonoBehaviour
     public void Reveal()
     {
         isVisible = true;
-        isHidden = true;
+        isHidden = false;
         dirty = true;
     }
 
@@ -149,9 +149,8 @@ public class CustomTile : MonoBehaviour
         if (isVisible)
         {
             render.color = color;
-            if (isHidden)
+            if (render.enabled == false)
             {
-                isHidden = false;
                 render.enabled = true;
             }
         }
@@ -160,6 +159,7 @@ public class CustomTile : MonoBehaviour
             //TODO: Item coloring on tiles that are not visible anymore
             if (!isHidden)
             {
+                render.enabled = true;
                 float gray = color.grayscale / 2;
                 render.color = new Color(gray, gray, gray);
             }

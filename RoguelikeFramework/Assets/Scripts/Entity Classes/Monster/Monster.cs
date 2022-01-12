@@ -20,6 +20,8 @@ public class Monster : MonoBehaviour
     new public string name;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
+    public Faction faction = Faction.STANDARD;
+
 
     [Header("Runtime Attributes")]
     public float energy;
@@ -42,6 +44,8 @@ public class Monster : MonoBehaviour
     public Equipment equipment;
     public Abilities abilities;
 
+    public ActionController controller;
+
     public GameAction currentAction;
     public CustomTile currentTile;
     
@@ -51,6 +55,7 @@ public class Monster : MonoBehaviour
         inventory = GetComponent<Inventory>(); 
         equipment = GetComponent<Equipment>();
         abilities = GetComponent<Abilities>();
+        controller = GetComponent<ActionController>();
 
         //TODO: Have starting equipment? Probably not a huge concern right now, though.
         stats = baseStats;
@@ -231,9 +236,17 @@ public class Monster : MonoBehaviour
 
     public virtual IEnumerator DetermineAction()
     {
-        SetAction(new WaitAction());
+        controller.ClearAction();
 
-        yield break;
+        while (controller.selection.MoveNext())
+        {
+            yield return controller.selection.Current;
+        }
+
+        if (controller.nextAction != null)
+        {
+            SetAction(controller.nextAction);
+        }
     }
 
     //Takes the local turn

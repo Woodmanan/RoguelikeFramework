@@ -51,7 +51,10 @@ public class Path
         return locations.GetEnumerator();
     }
 
-
+    public void Reverse()
+    {
+        locations.Reverse();
+    }
 
     public Path(Stack<Vector2Int> locations, float cost)
     {
@@ -133,6 +136,31 @@ public static class Pathfinding
 
         return PerformSearch();
     }
+
+    //TODO: Finish this for kids who want to stair travel! (And want to learn to do other things good, too)
+    /*
+    public static Path FindPath(Vector2Int start, params Vector2Int[] goals)
+    {
+        //Preliminary checks, resize board and confirm valid movements
+        RebuildChecked();
+        if (!(InBounds(start) && goals.All(x => InBounds(x))))
+        {
+            return new Path(new Stack<Vector2Int>(), 0.0f);
+        }
+
+        ClearSeenFlags();
+        frontier.Clear();
+        goal = start;
+
+        foreach (Vector2Int loc in goals)
+        {
+            frontier.Enqueue(new PathTile(loc, 0), 0);
+        }
+
+        Path path = PerformSearchConcurrent();
+        path.Reverse();
+        return path;
+    }*/
 
     public static Path PerformSearch()
     {
@@ -274,8 +302,8 @@ public static class Pathfinding
                         {
                             if (isCorner)
                             {
-                                newCost = current.cost + m.MovementCostAt(newLoc) + 0.001f;
-                                newPriority = newCost + Heuristic(newLoc) + 0.001f;
+                                newCost = current.cost + m.MovementCostAt(newLoc) + Epsilon;
+                                newPriority = newCost + Heuristic(newLoc) + Epsilon;
                             }
                             else
                             {

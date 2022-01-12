@@ -94,7 +94,7 @@ public class UIController : MonoBehaviour
 
     public void OpenEquipmentEquip(int index) //Yeah, the naming scheme made this one kind of stupid
     {
-        Player player = Player.player; //Wow, this whole function is full of them
+        Monster player = Player.player; //Wow, this whole function is full of them
         equipment.Setup(player.equipment, ItemAction.EQUIP, player.inventory[index]);
         equipment.Activate();
     }

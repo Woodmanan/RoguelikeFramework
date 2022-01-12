@@ -59,6 +59,13 @@ public enum PlayerAction
     DESCEND
 }
 
+[Flags]
+public enum Faction
+{
+    STANDARD    = (1 << 0),
+    PLAYER      = (1 << 1)
+}
+
 public enum DamageType
 {
     NONE,
