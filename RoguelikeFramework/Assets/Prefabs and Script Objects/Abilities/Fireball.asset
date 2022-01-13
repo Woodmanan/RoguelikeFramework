@@ -33,7 +33,6 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
-    tempAffected: []
     affected: []
   baseStats:
     costs:
@@ -42,6 +41,17 @@ MonoBehaviour:
       stamina: 0
     cooldown: 5
     power: 3
+  castQuery:
+    terms:
+    - subject: 2
+      subjectMod: 7
+      subjectCount: 3
+      property: 1
+      resource: 0
+      equality: 0
+      value: 6
+      valueMod: 0
+      weight: 1
   targeting:
     numPoints: 1
     targetingType: 0
@@ -60,7 +70,6 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
-    tempAffected: []
     affected: []
   stats:
     costs:

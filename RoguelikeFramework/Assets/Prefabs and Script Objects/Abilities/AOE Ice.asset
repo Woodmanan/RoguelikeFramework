@@ -41,6 +41,26 @@ MonoBehaviour:
       stamina: 0
     cooldown: 10
     power: 0
+  castQuery:
+    terms:
+    - subject: 3
+      subjectMod: 5
+      subjectCount: 2
+      property: 1
+      resource: 0
+      equality: 0
+      value: 4
+      valueMod: 0
+      weight: 1
+    - subject: 2
+      subjectMod: 4
+      subjectCount: 1
+      property: 1
+      resource: 0
+      equality: 0
+      value: 4
+      valueMod: 0
+      weight: 1
   targeting:
     numPoints: 1
     targetingType: 0

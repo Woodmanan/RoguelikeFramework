@@ -36,6 +36,8 @@ public class Ability : ScriptableObject
     public Targeting baseTargeting;
     public AbilityBlock baseStats;
 
+    public Query castQuery;
+
     [HideInInspector] public Targeting targeting;
     [HideInInspector] public AbilityBlock stats;
     [HideInInspector] public int currentCooldown = 0;

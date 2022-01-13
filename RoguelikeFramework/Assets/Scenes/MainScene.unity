@@ -1550,6 +1550,17 @@ MonoBehaviour:
   controller: {fileID: 0}
   currentTile: {fileID: 0}
   uiControls: {fileID: 216533712}
+  query:
+    terms:
+    - subject: 4
+      subjectMod: 1
+      subjectCount: 0
+      property: 0
+      resource: 0
+      equality: 1
+      value: 50
+      valueMod: 1
+      weight: 1
 --- !u!4 &546573372
 Transform:
   m_ObjectHideFlags: 0

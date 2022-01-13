@@ -9,6 +9,8 @@ public class Player : Monster
     //UI Stuff!
     [SerializeField] UIController uiControls;
 
+    public Query query;
+
     private static Monster _player;
     public static Monster player
     {
@@ -36,7 +38,8 @@ public class Player : Monster
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log($"Player is {player}, view is {view}");
+        Debug.Log($"Query value is {query.Evaluate(player, view.visibleMonsters, null, null)}");
     }
 
     //Special case, because it affects the world around it through the player's view.
