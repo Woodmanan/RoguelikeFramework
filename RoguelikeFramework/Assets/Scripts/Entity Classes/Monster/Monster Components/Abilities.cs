@@ -63,4 +63,27 @@ public class Abilities : MonoBehaviour
             a.Cleanup();
         }
     }
+
+    public (int, float) GetBestAbility()
+    {
+        List<int> bestIndex = new List<int> { -1 };
+        float bestValue = -1;
+
+        for (int i = 0; i < abilities.Count; i++)
+        {
+            float newVal = abilities[i].castQuery.Evaluate(connectedTo, connectedTo.view.visibleMonsters, abilities[i], null);
+            if (newVal > bestValue)
+            {
+                bestValue = newVal;
+                bestIndex.Clear();
+                bestIndex.Add(i);
+            }
+            else if (newVal == bestValue)
+            {
+                bestIndex.Add(i);
+            }
+        }
+
+        return (bestIndex[UnityEngine.Random.Range(0, bestIndex.Count)], bestValue);
+    }
 }

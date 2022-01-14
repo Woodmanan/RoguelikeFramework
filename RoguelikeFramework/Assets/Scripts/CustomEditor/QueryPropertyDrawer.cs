@@ -138,12 +138,12 @@ public class QueryPropertyDrawer : PropertyDrawer
         rect.x = start;
         rect.width = valueDistance;
 
-        if (display) value.floatValue = EditorGUI.FloatField(rect, value.floatValue);
+        value.floatValue = EditorGUI.FloatField(rect, value.floatValue);
 
         rect.x = start + rect.width;
         rect.width = valueModDistance;
 
-        if (display) valueMod.enumValueIndex = EditorGUI.Popup(rect, valueMod.enumValueIndex, valueMod.enumDisplayNames);
+        valueMod.enumValueIndex = EditorGUI.Popup(rect, valueMod.enumValueIndex, valueMod.enumDisplayNames);
 
         rect.x = rect.x + rect.width;
         rect.width = weightDistance;

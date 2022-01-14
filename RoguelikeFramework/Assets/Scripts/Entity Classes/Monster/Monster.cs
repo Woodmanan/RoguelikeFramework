@@ -39,12 +39,12 @@ public class Monster : MonoBehaviour
 
     [HideInInspector] public LOSData view;
 
-    public List<Effect> effects;
-    public Inventory inventory;
-    public Equipment equipment;
-    public Abilities abilities;
+    [HideInInspector] public List<Effect> effects;
+    [HideInInspector] public Inventory inventory;
+    [HideInInspector] public Equipment equipment;
+    [HideInInspector] public Abilities abilities;
 
-    public ActionController controller;
+    [HideInInspector] public ActionController controller;
 
     public GameAction currentAction;
     public CustomTile currentTile;
@@ -247,6 +247,15 @@ public class Monster : MonoBehaviour
         {
             SetAction(controller.nextAction);
         }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            if (this != Player.player)
+            {
+                Debug.LogError("Monster AI returned null! That should NEVER happen!");
+            }
+        }
+        #endif
     }
 
     //Takes the local turn

@@ -72,12 +72,12 @@ public class Room : ScriptableObject
         return true;
     }
 
-    public Vector2Int GetOpenSpace(int type)
+    public Vector2Int GetOpenSpace(int type, int[,] map)
     {
         for (int attempt = 0; attempt < 100; attempt++)
         {
             Vector2Int spot = new Vector2Int(Random.Range(start.x, end.x), Random.Range(start.y, end.y));
-            if (GetValueAtWorld(spot) == type)
+            if (map[spot.x, spot.y] == type)
             {
                 return spot;
             }

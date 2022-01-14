@@ -134,6 +134,7 @@ public class LevelLoader : MonoBehaviour
         watch.Stop();
         total.Stop();
         float timeSpent = (total.ElapsedMilliseconds) / 1000f;
+
         UnityEngine.Debug.Log($"Dungeon generation finished! Completed in {timeSpent} seconds (Average time of {timeSpent / generators.Count} seconds per level)");
     }
 

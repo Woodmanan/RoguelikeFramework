@@ -25,7 +25,13 @@ public class AttackAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        //See if we have any weapons actively equipped, or unarmed sltos that can attack
+        //See if we have any weapons actively equipped, or unarmed slots that can attack
+        if (caller.equipment == null)
+        {
+            Debug.LogError("Armless things can't attack! Wasting it's turn");
+            caller.energy -= 100;
+            yield break;
+        }
         List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
         unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed && !x.active);
 
@@ -72,6 +78,10 @@ public class AttackAction : GameAction
         else
         {
             Debug.Log("Console Log: You have nothing to attack with!");
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.LogError("Assuming a monster did this. Taking its turn as retribution! (PLS Fix)");
+            caller.energy -= 100;
+            #endif
             yield break;
         }
     }

@@ -123,11 +123,6 @@ public class GameController : MonoBehaviour
         Map.current = LevelLoader.LoadMap(index);
         Map.current.activeGraphics = true;
         Map.current.gameObject.SetActive(true);
-
-        foreach (Monster m in Map.current.monsters)
-        {
-            m.PostSetup();
-        }
     }
 
     IEnumerator GameLoop()

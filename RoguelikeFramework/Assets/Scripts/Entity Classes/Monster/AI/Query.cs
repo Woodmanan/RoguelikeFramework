@@ -83,23 +83,19 @@ public enum QueryValueModifier
 [Serializable]
 public class Query
 {
+    public int outOf = 1;
     public List<QueryTerm> terms;
-
+    
     public float Evaluate(Monster owner, List<Monster> inSight, Ability ability, ItemStack item)
     {
-        int sum = terms.Sum(x => x.weight);
-        if (sum == 0) return 0.0f;
+        if (outOf == 0) return 0.0f;
 
         float value = 0;
         foreach (QueryTerm term in terms)
         {
             value += term.Evaluate(owner, inSight, ability, item);
         }
-        value = value / sum;
-
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(value >= 0.0f && value <= 1.0f, $"Query did not return correctly! (Gave {value})", owner);
-        #endif
+        value = value / outOf;
 
         return Mathf.Clamp(value, 0.0f, 1.0f);
     }
@@ -132,7 +128,8 @@ public class QueryTerm
         switch (subject)
         {
             case QuerySubject.ALWAYS:
-                return 1.0f;
+                if (valueMod == QueryValueModifier.PERCENT) return value / 100;
+                return Mathf.Clamp(value, 0.0f, 1.0f);
             case QuerySubject.MONSTER:
                 return EvaluateSingleMonster(owner, owner);
             case QuerySubject.ENEMIES:

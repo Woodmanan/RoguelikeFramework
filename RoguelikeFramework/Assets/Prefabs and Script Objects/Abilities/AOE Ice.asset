@@ -42,24 +42,25 @@ MonoBehaviour:
     cooldown: 10
     power: 0
   castQuery:
+    outOf: 1
     terms:
-    - subject: 3
+    - subject: 0
       subjectMod: 5
       subjectCount: 2
-      property: 1
-      resource: 0
+      property: 0
+      resource: 1
       equality: 0
-      value: 4
-      valueMod: 0
+      value: 100
+      valueMod: 1
       weight: 1
     - subject: 2
-      subjectMod: 4
+      subjectMod: 0
       subjectCount: 1
-      property: 1
+      property: 0
       resource: 0
-      equality: 0
-      value: 4
-      valueMod: 0
+      equality: 3
+      value: 50
+      valueMod: 1
       weight: 1
   targeting:
     numPoints: 1

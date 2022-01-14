@@ -1550,17 +1550,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   currentTile: {fileID: 0}
   uiControls: {fileID: 216533712}
-  query:
-    terms:
-    - subject: 4
-      subjectMod: 1
-      subjectCount: 0
-      property: 0
-      resource: 0
-      equality: 1
-      value: 50
-      valueMod: 1
-      weight: 1
 --- !u!4 &546573372
 Transform:
   m_ObjectHideFlags: 0
@@ -2949,7 +2938,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1118528459}
   - component: {fileID: 1118528458}
+  - component: {fileID: 1118528461}
   - component: {fileID: 1118528460}
+  - component: {fileID: 1118528462}
   m_Layer: 0
   m_Name: DebugMonster
   m_TagString: Untagged
@@ -2971,7 +2962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     resources:
-      health: 10
+      health: 30
       mana: 10
       stamina: 10
     ac: 0
@@ -2991,8 +2982,8 @@ MonoBehaviour:
   nameRequiresPluralVerbs: 0
   faction: 1
   energy: 0
-  location: {x: 20, y: 20}
-  visionRadius: 5
+  location: {x: 15, y: 44}
+  visionRadius: 8
   energyPerStep: 100
   effects: []
   inventory: {fileID: 0}
@@ -3014,7 +3005,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1118528460
+--- !u!212 &1118528460
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528457}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -4389335527301911217, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  m_Color: {r: 0.89199924, g: 1, b: 0.39999998, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &1118528461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3023,10 +3065,89 @@ MonoBehaviour:
   m_GameObject: {fileID: 1118528457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43fa1e0f65aed444686eb412a0e4b4b0, type: 3}
+  m_Script: {fileID: 11500000, guid: f00ff416017f73940a9f96e32e78f6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 0}
+  fleeQuery:
+    outOf: 1
+    terms:
+    - subject: 1
+      subjectMod: 0
+      subjectCount: 0
+      property: 0
+      resource: 0
+      equality: 1
+      value: 20
+      valueMod: 1
+      weight: 1
+  approachQuery:
+    outOf: 10
+    terms:
+    - subject: 2
+      subjectMod: 0
+      subjectCount: 0
+      property: 0
+      resource: 0
+      equality: 0
+      value: 20
+      valueMod: 1
+      weight: 1
+    - subject: 2
+      subjectMod: 1
+      subjectCount: 0
+      property: 0
+      resource: 0
+      equality: 0
+      value: 80
+      valueMod: 1
+      weight: 4
+    - subject: 0
+      subjectMod: 1
+      subjectCount: 0
+      property: 0
+      resource: 0
+      equality: 0
+      value: 50
+      valueMod: 0
+      weight: 5
+--- !u!114 &1118528462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2139ecc33eb8b0e48b17f6f30f1f807e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanUnequip: 1
+  monster: {fileID: 0}
+  equipmentSlots:
+  - slotName: Primary Hand
+    type: 02000000
+    equipped:
+      id: 0
+      type: 0
+      count: 0
+      held: []
+      position: 0
+      lastUpdated: 0
+    active: 0
+    removable: 0
+    position: 0
+    CanAttackUnarmed: 1
+    unarmedAttack:
+      chanceToHit: 100
+      accuracy: 0
+      piercing: 0
+      damage:
+      - damage:
+          rolls: 1
+          dice: 5
+        type: 1
 --- !u!1 &1183646570
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,7 +5256,7 @@ MonoBehaviour:
   msPerFrame: 4
   randomSeed: 0
   seed: 42
-  JITLoading: 0
+  JITLoading: 1
   StartAt: 0
 --- !u!4 &1953941108
 Transform:

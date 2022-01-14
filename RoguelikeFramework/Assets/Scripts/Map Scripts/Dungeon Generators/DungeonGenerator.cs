@@ -106,7 +106,13 @@ public class DungeonGenerator
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();
 
+            foreach (Monster m in gameMap.monsters)
+            {
+                m.PostSetup();
+            }
+
             finished = true;
+            
         }
 
     }

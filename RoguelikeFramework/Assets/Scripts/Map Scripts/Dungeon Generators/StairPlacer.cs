@@ -62,7 +62,7 @@ public class StairPlacer : Machine
             for (int j = 0; j < connection.numConnections; j++)
             {
                 Room r = generator.rooms[roomsToConnect[c]];
-                Vector2Int loc = r.GetOpenSpace(1);
+                Vector2Int loc = r.GetOpenSpace(1, generator.map);
 
                 generator.map[loc.x, loc.y] = upStairsIndex;
 
@@ -74,7 +74,7 @@ public class StairPlacer : Machine
         for (int i = c; i < c + numExtraEntrances; i++)
         {
             Room r = generator.rooms[roomsToConnect[i]];
-            Vector2Int loc = r.GetOpenSpace(1);
+            Vector2Int loc = r.GetOpenSpace(1, generator.map);
             ups.Add(loc);
         }
 
@@ -90,7 +90,7 @@ public class StairPlacer : Machine
             for (int j = 0; j < connection.numConnections; j++)
             {
                 Room r = generator.rooms[roomsToConnect[c]];
-                Vector2Int loc = r.GetOpenSpace(1);
+                Vector2Int loc = r.GetOpenSpace(1, generator.map);
 
                 generator.map[loc.x, loc.y] = downStairsIndex;
 
@@ -102,7 +102,7 @@ public class StairPlacer : Machine
         for (int i = c; i < c + numExtraExits; i++)
         {
             Room r = generator.rooms[roomsToConnect[i]];
-            Vector2Int loc = r.GetOpenSpace(1);
+            Vector2Int loc = r.GetOpenSpace(1, generator.map);
             downs.Add(loc);
         }
     }
