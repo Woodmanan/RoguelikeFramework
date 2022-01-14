@@ -100,7 +100,8 @@ public class GameController : MonoBehaviour
 
         //1 Frame pause to set up LOS
         yield return null;
-        LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
+        player.UpdateLOS();
+        //LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
 
         //Monster setup, before the loop starts
         player.PostSetup();
@@ -127,6 +128,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator GameLoop()
     {
+        Stopwatch watch = new Stopwatch();
         //Main loop
         while (true)
         {
@@ -155,8 +157,7 @@ public class GameController : MonoBehaviour
             }
 
 
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
+            watch.Restart();
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
@@ -170,7 +171,7 @@ public class GameController : MonoBehaviour
                 Monster m = Map.current.monsters[i];
 
                 m.AddEnergy(energyPerTurn);
-                while (m.energy > 0)
+                while (m.energy > 0 && !m.IsDead())
                 {
                     //Set up local turn
                     m.StartTurn();
@@ -185,10 +186,33 @@ public class GameController : MonoBehaviour
                             yield return turn.Current;
                             watch.Restart();
                         }
+                        else
+                        {
+                            //Edge case - take a break during a check if we need to!
+                            //Should make things a lot more fluid with complicated monster turns
+                            if (watch.ElapsedMilliseconds > MONSTER_UPDATE_MS)
+                            {
+                                watch.Stop();
+                                yield return null;
+                                watch.Restart();
+                            }
+                        }
                     }
 
                     //Turn is ended!
                     m.EndTurn();
+                }
+            }
+            watch.Stop();
+
+            //Clean up anybody who's dead
+            for (int i = Map.current.monsters.Count - 1; i >= 0; i--)
+            {
+                Monster monster = Map.current.monsters[i];
+                if (monster.IsDead())
+                {
+                    Map.current.monsters.RemoveAt(i);
+                    Destroy(monster.gameObject);
                 }
             }
             

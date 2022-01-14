@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerActionController : ActionController
 {
@@ -8,6 +9,7 @@ public class PlayerActionController : ActionController
     {
         if (InputTracking.HasNextAction())
         {
+            Player.player.view.CollectEntities(Map.current);
             PlayerAction action = InputTracking.PopNextAction();
             switch (action)
             {
@@ -78,18 +80,41 @@ public class PlayerActionController : ActionController
                     nextAction = new RangedAttackAction();
                     break;
                 case PlayerAction.ASCEND:
-                    nextAction = new ChangeLevelAction(true);
+                    if (AutoStairs(true))
+                    {
+                        nextAction = new ChangeLevelAction(true);
+                    }
+                    else
+                    {
+                        //TODO: Highlight path to nearest stair!
+                        yield return new WaitUntil(() => InputTracking.HasNextAction());
+                        PlayerAction newAction = InputTracking.PopNextAction();
+                        if (newAction == PlayerAction.ASCEND)
+                        {
+                            PathToNearestStair(true);
+                        }
+                    }
                     break;
                 case PlayerAction.DESCEND:
-                    Stair stair = Map.current.GetTile(monster.location) as Stair;
-                    if (stair && !stair.upStair)
+                    if (AutoStairs(false))
                     {
                         nextAction = new ChangeLevelAction(false);
                     }
                     else
                     {
-                        nextAction = new PathfindAction(Map.current.exits[0]);
+                        //TODO: Highlight path to nearest stair!
+                        //TODO: This whole waiting and checking thing should be reworked
+                        //as a variant of the FindNearest Action
+                        yield return new WaitUntil(() => InputTracking.HasNextAction());
+                        PlayerAction newAction = InputTracking.PopNextAction();
+                        if (newAction == PlayerAction.DESCEND)
+                        {
+                            PathToNearestStair(false);
+                        }
                     }
+                    break;
+                case PlayerAction.AUTO_ATTACK:
+                    nextAction = new AutoAttackAction();
                     break;
 
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
@@ -106,6 +131,33 @@ public class PlayerActionController : ActionController
                     break;
             }
         }
+    }
+
+    private bool AutoStairs(bool up)
+    {
+        Stair stair = Map.current.GetTile(monster.location) as Stair;
+        return (stair && !(stair.upStair ^ up));
+    }
+
+    private void PathToNearestStair(bool up)
+    {
+        List<Vector2Int> goals;
+        if (up)
+        {
+            goals = Map.current.entrances.GetRange(0, Map.current.numStairsUp);
+        }
+        else
+        {
+            goals = Map.current.exits.GetRange(0, Map.current.numStairsDown);
+        }
+
+        goals = goals.FindAll(x => !Map.current.GetTile(x).isHidden);
+        if (goals.Count == 0)
+        {
+            Debug.Log("Console: You don't know of any matching stairs!");
+            return;
+        }
+        nextAction = new FindNearestAction(goals);
     }
 
     //Item pickup, but with a little logic for determining if a UI needs to get involved.

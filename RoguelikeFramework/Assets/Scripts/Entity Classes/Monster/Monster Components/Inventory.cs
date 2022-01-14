@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class ItemStack
@@ -71,6 +72,11 @@ public class Inventory : MonoBehaviour
                 yield return Items[i].held[0];
             }
         }
+    }
+
+    public List<int> AllIndices()
+    {
+        return items.Where(x => x != null).Select(x => x.position).ToList();
     }
     
 

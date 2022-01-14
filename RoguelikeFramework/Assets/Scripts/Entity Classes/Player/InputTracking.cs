@@ -187,6 +187,10 @@ public class InputTracking : MonoBehaviour
         {
             PushAction(PlayerAction.DESCEND);
         }
+        else if (AutoAttack())
+        {
+            PushAction(PlayerAction.AUTO_ATTACK);
+        }
         else if (Escaping())
         {
             PushAction(PlayerAction.ESCAPE_SCREEN);
@@ -311,6 +315,11 @@ public class InputTracking : MonoBehaviour
     private bool GoDown()
     {
         return Input.GetKeyDown(KeyCode.Period) && Input.GetKey(KeyCode.LeftShift);
+    }
+
+    private bool AutoAttack()
+    {
+        return Input.GetKeyDown(KeyCode.Tab);
     }
 
 }

@@ -122,6 +122,8 @@ public class LOSData
 
     public void CollectEntities(Map map)
     {
+        visibleMonsters.Clear();
+        visibleItems.Clear();
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < (radius * 2 + 1); i++)
         {
@@ -133,7 +135,10 @@ public class LOSData
                     if (loc.x >= 0 && loc.x < map.width && loc.y >= 0 && loc.y < map.height)
                     {
                         CustomTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
-                        if (tile.currentlyStanding) visibleMonsters.Add(tile.currentlyStanding);
+                        if (tile.currentlyStanding)
+                        {
+                            visibleMonsters.Add(tile.currentlyStanding);
+                        }
                         visibleItems.AddRange(tile.inventory.AllHeld());
                     }
                 }

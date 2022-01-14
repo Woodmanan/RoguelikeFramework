@@ -113,7 +113,6 @@ public class QueryPropertyDrawer : PropertyDrawer
 
         if (usesResource.Contains((QueryProperty)propertyVal.enumValueIndex))
         {
-            Debug.Log("Is resource!");
             //Render the resource block!
             rect.x = start + totalWidth - resourceDistance;
             rect.width = resourceDistance;

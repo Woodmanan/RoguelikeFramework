@@ -56,7 +56,8 @@ public enum PlayerAction
     ACCEPT,
     FIRE,
     ASCEND,
-    DESCEND
+    DESCEND,
+    AUTO_ATTACK
 }
 
 [Flags]

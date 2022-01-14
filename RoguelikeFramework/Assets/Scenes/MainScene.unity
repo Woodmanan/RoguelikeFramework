@@ -3078,7 +3078,7 @@ MonoBehaviour:
       property: 0
       resource: 0
       equality: 1
-      value: 20
+      value: 40
       valueMod: 1
       weight: 1
   approachQuery:

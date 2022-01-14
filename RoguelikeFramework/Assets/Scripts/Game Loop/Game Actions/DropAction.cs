@@ -48,6 +48,7 @@ public class DropAction : GameAction
         List<int> needsToBeRemoved = new List<int>();
         foreach (int index in indices)
         {
+            if (index < 0 || index > caller.inventory.capacity) continue;
             //For each item, check if it's equipped. If so, remove it.
             ItemStack item = caller.inventory[index];
             if (item == null) continue;

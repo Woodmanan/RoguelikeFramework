@@ -170,5 +170,8 @@ public class StairPlacer : Machine
         {
             m.exits.Add(downs[i]);
         }
+
+        m.numStairsUp = stairsUp.Sum(x => x.numConnections);
+        m.numStairsDown = stairsDown.Sum(x => x.numConnections);
     }
 }

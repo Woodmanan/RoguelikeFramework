@@ -320,6 +320,82 @@ public static class Pathfinding
         }
     }
 
+    public static Path CreateDjikstraPath(Vector2Int start, params Vector2Int[] goals)
+    {
+        return CreateDjikstraPath(start, goals.ToList());
+    }
+
+    public static Path CreateDjikstraPath(Vector2Int start, List<Vector2Int> goals)
+    {
+        if (goals.Count == 0) return new Path(new Stack<Vector2Int>(), -1);
+        //Create path from everything to start
+        float[,] map = CreateDijkstraMap(start);
+
+        //For each goal, check who has the lowest start!
+        goals = goals.FindAll(g => map[g.x, g.y] > 0);
+        
+        if (goals.Count == 0) return new Path(new Stack<Vector2Int>(), -1);
+        Vector2Int best = goals.OrderBy(g => map[g.x, g.y]).First();
+
+        Debug.Log($"Djikstra path thinks that {start} to {best} is the shortest path!");
+
+        //Hard part - build that path back!
+        Stack<Vector2Int> path = new Stack<Vector2Int>();
+        Vector2Int searching = best;
+        float totalCost = 0;
+        while (searching != start)
+        {
+            Debug.Log($"Currently searching at {searching}");
+            path.Push(searching);
+            totalCost += map[searching.x, searching.y];
+            Vector2Int check = Vector2Int.zero;
+            float cost = float.PositiveInfinity;
+
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+
+                    //Skip middle!
+                    if (i == 0 && j == 0)
+                    {
+                        continue;
+                    }
+
+                    //Create corner calculation, skip if Manhattan
+                    bool isCorner = (i * j) != 0;
+                    if (Map.space == MapSpace.Manhattan && isCorner)
+                    {
+                        continue;
+                    }
+
+
+                    Vector2Int newCheck = searching + new Vector2Int(i, j);
+
+                    if (newCheck.x < 0 || newCheck.x >= width || newCheck.y < 0 || newCheck.y >= height)
+                    {
+                        continue;
+                    }
+
+                    if (!alreadyChecked[newCheck.x, newCheck.y]) continue;
+
+                    float newCost = map[newCheck.x, newCheck.y];
+
+                    if (alreadyChecked[newCheck.x, newCheck.y] && (newCost < cost))
+                    {
+                        if ((newCost < cost))
+                        {
+                            cost = newCost;
+                            check = newCheck;
+                        }
+                    }
+                }
+            }
+            searching = check;
+        }
+        return new Path(path, totalCost);
+    }
+
     public static float[,] CreateDijkstraMap(params Vector2Int[] startingPoints)
     {
         return CreateDijkstraMap(Map.current, startingPoints);

@@ -9,15 +9,16 @@ public class MonsterAI : ActionController
     public Query approachQuery;
     //The main loop for monster AI! This assumes 
     public override IEnumerator DetermineAction()
-    {   
-        //TODO: Remove the los update possibly?
-        monster.UpdateLOS();
+    {
         if (monster.view == null)
         {
-            Debug.LogError("Monster did not have a view available! If this happened during real gameplay, we have a problem.");
+            Debug.LogError("Monster did not have a view available! If this happened during real gameplay, we have a problem. Eating its turn to be safe.");
+            monster.UpdateLOS();
             nextAction = new WaitAction();
             yield break;
         }
+        monster.view.CollectEntities(Map.current);
+
         List<Monster> enemies = monster.view.visibleMonsters.Where(x => (x.faction & monster.faction) == 0).ToList();
 
         if (enemies.Count == 0)
@@ -80,7 +81,7 @@ public class MonsterAI : ActionController
             {
                 case 0:
                     Debug.Log("Should flee!!");
-                    nextAction = new WaitAction();
+                    nextAction = new FleeAction();
                     break;
                 case 1:
                     Debug.Log("Should Attack!!");

@@ -32,6 +32,9 @@ public class Map : MonoBehaviour
 
     public List<Monster> monsters = new List<Monster>();
 
+    public int numStairsUp;
+    public int numStairsDown;
+
     public List<Vector2Int> entrances = new List<Vector2Int>();
     public List<Vector2Int> exits = new List<Vector2Int>();
 

@@ -153,7 +153,24 @@ public class Monster : MonoBehaviour
 
     public virtual void Die()
     {
+        Debug.Log("Monster is dead!");
 
+        //Clear tile, so other systems don't try to use a dead monster
+        currentTile.currentlyStanding = null;
+
+        //Clear inventory, if it exists
+        if (inventory)
+        {
+            GameAction dropAll = new DropAction(inventory.AllIndices());
+            dropAll.Setup(this);
+            while (dropAll.action.MoveNext()) { }
+        }
+    }
+
+    public bool IsDead()
+    {
+        //Oops, this must be <= 0, Sometimes people can overkill!
+        return resources.health <= 0;
     }
 
     private string FormatStringForName(string msg)
@@ -373,5 +390,16 @@ public class Monster : MonoBehaviour
     private void AddItemToInventory(Item i)
     {
         inventory.Add(i);
+    }
+    
+    //Checks faction flags for matches. If none, return true!
+    public bool IsEnemy(Monster other)
+    {
+        return (faction & other.faction) == 0;
+    }
+
+    public float DistanceFrom(Monster other)
+    {
+        return Vector2Int.Distance(location, other.location);
     }
 }
