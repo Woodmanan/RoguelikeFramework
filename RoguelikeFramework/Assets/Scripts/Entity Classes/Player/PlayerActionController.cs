@@ -116,10 +116,13 @@ public class PlayerActionController : ActionController
                 case PlayerAction.AUTO_ATTACK:
                     nextAction = new AutoAttackAction();
                     break;
+                case PlayerAction.AUTO_EXPLORE:
+                    nextAction = new AutoExploreAction();
+                    break;
 
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
                 case PlayerAction.ESCAPE_SCREEN:
-                    //TODO: Open up the menu screen here
+                    //TODO: Open up the pause menu screen here
                     RogueUIPanel.ExitTopLevel(); //This really, really shouldn't do anything. Let it happen, though!
                     break;
                 case PlayerAction.ACCEPT:

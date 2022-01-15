@@ -191,6 +191,10 @@ public class InputTracking : MonoBehaviour
         {
             PushAction(PlayerAction.AUTO_ATTACK);
         }
+        else if (AutoExplore())
+        {
+            PushAction(PlayerAction.AUTO_EXPLORE);
+        }
         else if (Escaping())
         {
             PushAction(PlayerAction.ESCAPE_SCREEN);
@@ -320,6 +324,11 @@ public class InputTracking : MonoBehaviour
     private bool AutoAttack()
     {
         return Input.GetKeyDown(KeyCode.Tab);
+    }
+
+    private bool AutoExplore()
+    {
+        return Input.GetKeyDown(KeyCode.O);
     }
 
 }
