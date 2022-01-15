@@ -31,17 +31,7 @@ public class FleeAction : GameAction
                 yield break;
             }
 
-            float[,] fleeMap = Pathfinding.CreateDijkstraMap(enemies.Select(x => x.location).ToArray());
-
-            //Invert the map!
-            for (int i = 0; i < fleeMap.GetLength(0); i++)
-            {
-                for (int j = 0; j < fleeMap.GetLength(1); j++)
-                {
-                    //Add a bit (so 0 -> 1), then invert. Should provide a path with the nearest way out.
-                    fleeMap[i, j] = -1.2f * (fleeMap[i, j] + 1);
-                }
-            }
+            float[,] fleeMap = Pathfinding.CreateFleeMap(enemies.Select(x => x.location).ToList());
 
             while (true)
             {
@@ -92,6 +82,9 @@ public class FleeAction : GameAction
                 {
                     continue;
                 }
+
+                //Don't try to go through walls.
+                if (Map.current.BlocksMovement(newCheck)) continue;
 
                 float newCost = fleeMap[newCheck.x, newCheck.y];
 

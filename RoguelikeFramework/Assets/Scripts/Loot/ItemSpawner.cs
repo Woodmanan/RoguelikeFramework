@@ -63,7 +63,7 @@ public class ItemSpawner : MonoBehaviour
         starts.AddRange(m.exits);
 
         //Create positions map
-        float[,] positions = Pathfinding.CreateDijkstraMap(m, starts.ToArray());
+        float[,] positions = Pathfinding.CreateDijkstraMap(m, starts.ToList());
 
         yield return null;
 

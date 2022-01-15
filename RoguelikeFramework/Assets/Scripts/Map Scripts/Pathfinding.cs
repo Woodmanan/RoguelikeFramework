@@ -329,7 +329,7 @@ public static class Pathfinding
     {
         if (goals.Count == 0) return new Path(new Stack<Vector2Int>(), -1);
         //Create path from everything to start
-        float[,] map = CreateDijkstraMap(start);
+        float[,] map = CreateDijkstraMap(new List<Vector2Int> { start });
 
         //For each goal, check who has the lowest start!
         goals = goals.FindAll(g => map[g.x, g.y] > 0);
@@ -396,12 +396,18 @@ public static class Pathfinding
         return new Path(path, totalCost);
     }
 
-    public static float[,] CreateDijkstraMap(params Vector2Int[] startingPoints)
+    public static float[,] CreateDijkstraMap(List<Vector2Int> startingPoints)
     {
         return CreateDijkstraMap(Map.current, startingPoints);
     }
 
-    public static float[,] CreateDijkstraMap(Map map, params Vector2Int[] startingPoints)
+    public static float[,] CreateDijkstraMap(Map map, List<Vector2Int> startingPoints)
+    {
+        List<float> weights = new List<float>(new float[startingPoints.Count]);
+        return CreateDijkstraMap(map, startingPoints, weights);
+    }
+
+    public static float[,] CreateDijkstraMap(Map map, List<Vector2Int> startingPoints, List<float> weights)
     {
         //Preliminary checks, resize board and confirm valid movements
         RebuildChecked(map);
@@ -420,13 +426,15 @@ public static class Pathfinding
         ClearSeenFlags();
         frontier.Clear();
 
-        foreach (Vector2Int vec in startingPoints)
+        for (int i = 0; i < startingPoints.Count; i++)
         {
+            Vector2Int vec = startingPoints[i];
+            float weight = weights[i];
             if (!InBounds(vec))
             {
                 return results;
             }
-            frontier.Enqueue(new PathTile(vec, 0), 0);
+            frontier.Enqueue(new PathTile(vec, weight), weight);
         }
 
         goal = new Vector2Int(-1, -1);
@@ -527,6 +535,25 @@ public static class Pathfinding
                 }
             }
         }
+    }
+
+    public static float[,] CreateFleeMap(List<Vector2Int> dangerSources)
+    {
+        float[,] baseMap = Pathfinding.CreateDijkstraMap(dangerSources);
+        List<Vector2Int> sources = new List<Vector2Int>();
+        List<float> weights = new List<float>();
+        for (int i = 0; i < baseMap.GetLength(0); i++)
+        {
+            for (int j = 0; j < baseMap.GetLength(1); j++)
+            {
+                Vector2Int spot = new Vector2Int(i, j);
+                if (Map.current.BlocksMovement(spot)) continue;
+                sources.Add(spot);
+                weights.Add(-1.2f * baseMap[i, j]);
+            }
+        }
+
+        return Pathfinding.CreateDijkstraMap(Map.current, sources, weights);
     }
 
     private static float Heuristic(Vector2Int loc)
