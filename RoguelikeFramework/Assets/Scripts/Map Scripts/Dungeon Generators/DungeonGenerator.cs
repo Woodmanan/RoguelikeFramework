@@ -46,17 +46,28 @@ public class DungeonGenerator
         //Cull null instances
         machines = machines.FindAll(x => x != null);
 
+        //Instance them all
+        machines = machines.Select(x => Machine.Instantiate(x)).ToList();
+
         //Shuffle remaining instances, then sort (Equal priority machines are shuffled relative, still)
         var randomized = machines.OrderBy(item => UnityEngine.Random.Range(int.MinValue, int.MaxValue));
         machines = randomized.OrderBy(item => item.priority).ToList();
+
+        //Lower than here!
+
+        
+
 
         foreach (Machine m in machines)
         {
             m.Connect(this);
         }
 
+        
+
         if (FindPacking())
         {
+
             state = UnityEngine.Random.state;
             yield return null;
             UnityEngine.Random.state = state;
@@ -93,6 +104,8 @@ public class DungeonGenerator
 
             //TODO: Load monsters in
 
+            
+
             //Start loading items in
             IEnumerator spawning = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.evaluate());
 
@@ -112,7 +125,6 @@ public class DungeonGenerator
             }
 
             finished = true;
-            
         }
 
     }
@@ -120,6 +132,7 @@ public class DungeonGenerator
     //TODO: Come back and use a texture packing algo to place these, if we fail.
     private bool FindPacking()
     {
+
         //Split machines into machines we need to pack, and the ones we don't.
         List<Machine> toPack = machines.FindAll(x=>!x.canShareSpace); //ToPack's not dead
         List<Machine> anywhere = machines.FindAll(x=>x.canShareSpace);

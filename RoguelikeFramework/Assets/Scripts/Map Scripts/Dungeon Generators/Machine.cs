@@ -23,6 +23,18 @@ public class Machine : ScriptableObject
     public virtual void Connect(DungeonGenerator d)
     {
         generator = d;
+        if (global)
+        {
+            size = d.bounds;
+        }
+        else
+        {
+            if (size.x > d.bounds.x || size.y > d.bounds.y)
+            {
+                Debug.LogError("Machine can no longer fit into map!");
+                size = d.bounds;
+            }
+        }
     }
 
     public virtual void SetPosition(Vector2Int start)

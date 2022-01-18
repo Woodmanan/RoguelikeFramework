@@ -14,12 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 0
   global: 1
-  size: {x: 100, y: 100}
+  size: {x: 50, y: 50}
   start: {x: 0, y: 0}
-  end: {x: 100, y: 100}
+  end: {x: 50, y: 50}
   canShareSpace: 0
   canExpand: 0
-  generator: {fileID: 0}
+  generator:
+    name: Level 1
+    depth: 1
+    seed: 1929387035
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 9094edfdf1bccb4458287fbc03095547, type: 2}
+    rooms:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 1
   numRooms: 20
   attemptsBeforeFail: 100
   rooms:
@@ -27,12 +59,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
   - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
   placedRooms:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -26,13 +26,12 @@ public class AutoExploreAction : GameAction
 
             //Build up the points we need!
             List<Vector2Int> goals = new List<Vector2Int>();
-            for (int i = 0; i < Map.current.width; i++)
+            for (int i = 1; i < Map.current.width - 1; i++)
             {
-                for (int j = 0; j < Map.current.height; j++)
+                for (int j = 1; j < Map.current.height - 1; j++)
                 {
                     Vector2Int pos = new Vector2Int(i, j);
-                    CustomTile tile = Map.current.GetTile(pos);
-                    if (!tile.BlocksMovement() && tile.isHidden)
+                    if (Map.current.NeedsExploring(pos))
                     {
                         goals.Add(pos);
                     }
@@ -71,6 +70,8 @@ public class AutoExploreAction : GameAction
                 {
                     yield return act.action.Current;
                 }
+
+                yield break;
 
                 yield return GameAction.StateCheck;
             }

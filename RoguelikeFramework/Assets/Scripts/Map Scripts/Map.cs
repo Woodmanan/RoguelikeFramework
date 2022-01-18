@@ -179,6 +179,36 @@ public class Map : MonoBehaviour
         blocksVision[x, y] = val;
     }
 
+    public bool NeedsExploring(Vector2Int location)
+    {
+        CustomTile tile = GetTile(location);
+        if (tile.BlocksMovement()) return false;
+        if (tile.isHidden) return true;
+
+        //Check the 8 directions!
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                //Skip middle!
+                if (i == 0 && j == 0)
+                {
+                    continue;
+                }
+
+                Vector2Int newLoc = location + new Vector2Int(i, j);
+
+                if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height)
+                {
+                    continue;
+                }
+
+                if (GetTile(newLoc).isHidden) return true;
+            }
+        }
+        return false;
+    }
+
     public void Reveal(Vector2Int loc)
     {
         if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
