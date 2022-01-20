@@ -49,7 +49,6 @@ public class Ability : ScriptableObject
     [HideInInspector] public bool castable = true;
 
     public AbilityTypes types;
-    public AbilityTags tags;
     public StatusEffectList effects;
     List<Effect> attachedEffects = new List<Effect>();
     public Connections connections = null;

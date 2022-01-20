@@ -1334,6 +1334,7 @@ MonoBehaviour:
   startingAbilities:
   - {fileID: 11400000, guid: c5e9332c1b918f24bb40e86cfa955eef, type: 2}
   - {fileID: 11400000, guid: c1f6324b3e6051e4bb94f02add99337d, type: 2}
+  - {fileID: 11400000, guid: f29efa5b2ba37624bb8e6fb04d644662, type: 2}
 --- !u!114 &546573367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,7 +1537,7 @@ MonoBehaviour:
     health: 0
     mana: 0
     stamina: 0
-  name: player
+  name: You
   nameRequiresPluralVerbs: 1
   faction: 2
   energy: 0
@@ -2938,9 +2939,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1118528459}
   - component: {fileID: 1118528458}
-  - component: {fileID: 1118528461}
   - component: {fileID: 1118528460}
+  - component: {fileID: 1118528461}
   - component: {fileID: 1118528462}
+  - component: {fileID: 1118528463}
   m_Layer: 0
   m_Name: DebugMonster
   m_TagString: Untagged
@@ -3082,7 +3084,7 @@ MonoBehaviour:
       valueMod: 1
       weight: 1
   approachQuery:
-    outOf: 10
+    outOf: 6
     terms:
     - subject: 2
       subjectMod: 0
@@ -3093,24 +3095,24 @@ MonoBehaviour:
       value: 20
       valueMod: 1
       weight: 1
-    - subject: 2
+    - subject: 1
       subjectMod: 1
       subjectCount: 0
       property: 0
-      resource: 0
+      resource: 1
       equality: 0
-      value: 80
-      valueMod: 1
-      weight: 4
+      value: 2
+      valueMod: 0
+      weight: 2
     - subject: 0
       subjectMod: 1
       subjectCount: 0
       property: 0
       resource: 0
       equality: 0
-      value: 50
-      valueMod: 0
-      weight: 5
+      value: 100
+      valueMod: 1
+      weight: 3
 --- !u!114 &1118528462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3148,6 +3150,22 @@ MonoBehaviour:
           rolls: 1
           dice: 5
         type: 1
+--- !u!114 &1118528463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c5d49c9825a8d4b8ba6052b0b01b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingAbilities:
+  - {fileID: 11400000, guid: c5e9332c1b918f24bb40e86cfa955eef, type: 2}
+  - {fileID: 11400000, guid: c1f6324b3e6051e4bb94f02add99337d, type: 2}
+  - {fileID: 11400000, guid: f29efa5b2ba37624bb8e6fb04d644662, type: 2}
 --- !u!1 &1183646570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4422,6 +4440,8 @@ MonoBehaviour:
     pointsRequireLOS: 1
     includesCasterSpace: 0
     recommendsPlayerTarget: 0
+    targetPriority: 0
+    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []

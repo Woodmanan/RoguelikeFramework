@@ -184,4 +184,10 @@ public class PlayerActionController : ActionController
 
         }
     }
+
+    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    {
+        UIController.singleton.OpenTargetting(targeting, setValidityTo);
+        yield return new WaitUntil(() => !UIController.WindowsOpen);
+    }
 }

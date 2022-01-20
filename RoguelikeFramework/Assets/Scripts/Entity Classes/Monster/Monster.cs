@@ -264,6 +264,7 @@ public class Monster : MonoBehaviour
         {
             SetAction(controller.nextAction);
         }
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
         {

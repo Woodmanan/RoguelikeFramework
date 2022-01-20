@@ -44,8 +44,13 @@ public class RangedAttackAction : AttackAction
             foreach (Weapon w in primaryWeapons)
             {
                 RangedWeapon weapon = (RangedWeapon) w;
-                UIController.singleton.OpenTargetting(weapon.targeting, (b) => canFire = b);
-                yield return new WaitUntil(() => !UIController.WindowsOpen);
+
+                IEnumerator targeting = caller.controller.DetermineTarget(weapon.targeting, (b) => canFire = b);
+                while (targeting.MoveNext())
+                {
+                    yield return targeting.Current;
+                }
+
                 if (canFire)
                 {
                     numShots++;
@@ -72,8 +77,13 @@ public class RangedAttackAction : AttackAction
             foreach (Weapon w in secondaryWeapons)
             {
                 RangedWeapon weapon = (RangedWeapon) w;
-                UIController.singleton.OpenTargetting(weapon.targeting, (b) => canFire = b);
-                yield return new WaitUntil(() => !UIController.WindowsOpen);
+
+                IEnumerator targeting = caller.controller.DetermineTarget(weapon.targeting, (b) => canFire = b);
+                while (targeting.MoveNext())
+                {
+                    yield return targeting.Current;
+                }
+
                 if (canFire)
                 {
                     numShots++;

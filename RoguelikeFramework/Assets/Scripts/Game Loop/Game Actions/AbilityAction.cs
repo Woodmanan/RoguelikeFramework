@@ -50,13 +50,19 @@ public class AbilityAction : GameAction
 
         bool canFire = false;
 
-        UIController.singleton.OpenTargetting(toCast.targeting, (b) => canFire = b);
-        yield return new WaitUntil(() => !UIController.WindowsOpen);
+        IEnumerator target = caller.controller.DetermineTarget(toCast.targeting, (b) => canFire = b);
+        while (target.MoveNext())
+        {
+            yield return target.Current;
+        }
+
+
         if (canFire)
         {
             //Ready to cast!
             caller.connections.OnTargetsSelected.BlendInvoke(toCast.connections.OnTargetsSelected, ref toCast.targeting, ref toCast);
 
+            //Backwards, since they might remove themselves during this call.
             for (int i = toCast.targeting.affected.Count - 1; i >= 0; i--)
             {
                 toCast.targeting.affected[i].connections.OnTargetedByAbility.Invoke(ref action);
@@ -67,6 +73,7 @@ public class AbilityAction : GameAction
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
+            Debug.Log($"Console: {caller.GetFormattedName()} cast {toCast.displayName}!");
             toCast.Cast(caller);
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);

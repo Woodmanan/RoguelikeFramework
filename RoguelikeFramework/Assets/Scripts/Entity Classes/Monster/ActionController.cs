@@ -25,4 +25,11 @@ public class ActionController : MonoBehaviour
         nextAction = new WaitAction();
         yield break;
     }
+
+    public virtual IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    {
+        Debug.Log("Action controllers need to override this method!");
+        setValidityTo.Invoke(false);
+        yield break;
+    }
 }

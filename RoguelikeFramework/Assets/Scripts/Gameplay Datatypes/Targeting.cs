@@ -29,17 +29,20 @@ public class Targeting
 
     //[SerializeField] bool includeBrenshamLine = false; //Encapsulated by targetting options now
     [Header("Runtime attributes")]
-    [SerializeField] int numPoints = 1;
-    [SerializeField] TargetType targetingType;
-    [SerializeField] AreaType areaType;
+    public int numPoints = 1;
+    public TargetType targetingType;
+    public AreaType areaType;
     [SerializeField] public int range;
-    [SerializeField] int radius;
+    [SerializeField] public int radius;
     [SerializeField][Range(0f, 180f)] float degree;
     [Tooltip("Determines if overlapping areas count monsters in the overlap just once (true) or twice (false).")] 
     [SerializeField] bool pointsShareOverlap = true; //Double count?
     [SerializeField] bool pointsRequireLOS = true; //Can I target anywhere, or only in LOS? Pretty dangerous, tbh probably keeps this on
     [SerializeField] bool includesCasterSpace; //Do I include the player's space in the targetting equation?
     public bool recommendsPlayerTarget = false; //Should I warn the player if they're standing in it?
+
+    public TargetPriority targetPriority;
+    public TargetTags tags;
 
     public Targeting ShallowCopy()
     {
@@ -158,10 +161,24 @@ public class Targeting
     }
 
     //TODO: If ranges ever care about distance type, this is where we change it
+    //TODO: Make this functionality a new vector2int distance function.
     //Currently relies on chebyshev distance
-    public void MoveTarget(Vector2Int offset)
+    public void MoveTargetOffset(Vector2Int offset)
     {
         Vector2Int newPosition = target + offset;
+        if (Mathf.Abs(newPosition.x - origin.x) > range || Mathf.Abs(newPosition.y - origin.y) > range)
+        {
+            Debug.Log("Target offset moved target out of bounds, resetting it.");
+            return;
+        }
+
+        //Target should be good! Set it now
+        target = newPosition;
+        isValid = IsValid(); //Another beautiful line of code, almost as bad as Player player = Player.player
+    }
+
+    public void MoveTarget(Vector2Int newPosition)
+    {
         if (Mathf.Abs(newPosition.x - origin.x) > range || Mathf.Abs(newPosition.y - origin.y) > range)
         {
             Debug.Log("Target offset moved target out of bounds, resetting it.");

@@ -171,9 +171,18 @@ public enum AbilityTypes
 }
 
 [Flags]
-public enum AbilityTags
+public enum TargetTags
 {
-    RecommendsAllyTarget = 1
+    RECOMMNEDS_ALLY_TARGET  = (1 << 0),
+    RETARGETS_SAME_MONSTER  = (1 << 1)
+}
+
+public enum TargetPriority
+{
+    NEAREST,
+    FARTHEST,
+    HIGHEST_HEALTH,
+    LOWEST_HEALTH
 }
 
 public enum ItemRarity

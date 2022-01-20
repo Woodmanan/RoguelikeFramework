@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac120780b1ee804c879f55f6e1ea5b0, type: 3}
-  m_Name: AOE Ice
+  m_Script: {fileID: 11500000, guid: 37c6c7585bb1c6344be94810522d6eed, type: 3}
+  m_Name: Fireball2
   m_EditorClassIdentifier: 
-  displayName: Freeze All
-  image: {fileID: 890424726899589919, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 0.09803922, g: 0.6996779, b: 0.78431374, a: 1}
+  displayName: Zap
+  image: {fileID: 6699756317804703528, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 1, g: 0.7957102, b: 0, a: 1}
   baseTargeting:
     numPoints: 1
-    targetingType: 5
-    areaType: 5
-    range: 0
-    radius: 5
+    targetingType: 1
+    areaType: 0
+    range: 5
+    radius: 0
     degree: 0
     pointsShareOverlap: 1
     pointsRequireLOS: 1
@@ -38,23 +38,23 @@ MonoBehaviour:
     affected: []
   baseStats:
     costs:
-      health: 1
-      mana: 2
+      health: 0
+      mana: 1
       stamina: 0
-    cooldown: 10
-    power: 0
+    cooldown: 0
+    power: 2
   castQuery:
-    outOf: 5
+    outOf: 1
     terms:
-    - subject: 2
-      subjectMod: 1
-      subjectCount: 2
-      property: 1
+    - subject: 0
+      subjectMod: 0
+      subjectCount: 0
+      property: 0
       resource: 0
-      equality: 1
-      value: 4
-      valueMod: 0
-      weight: 4
+      equality: 0
+      value: 70
+      valueMod: 1
+      weight: 1
   targeting:
     numPoints: 1
     targetingType: 0
@@ -88,6 +88,3 @@ MonoBehaviour:
   types: 0
   effects:
     list: []
-  toApply:
-    list:
-    - heldEffect: {fileID: 11400000, guid: fa2cc94b2138d834b9a1832a40e89cf4, type: 2}

@@ -26,6 +26,8 @@ MonoBehaviour:
     pointsRequireLOS: 1
     includesCasterSpace: 0
     recommendsPlayerTarget: 0
+    targetPriority: 2
+    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []
@@ -40,12 +42,12 @@ MonoBehaviour:
       mana: 2
       stamina: 0
     cooldown: 5
-    power: 3
+    power: 5
   castQuery:
-    outOf: 4
+    outOf: 5
     terms:
-    - subject: 1
-      subjectMod: 7
+    - subject: 2
+      subjectMod: 0
       subjectCount: 3
       property: 0
       resource: 0
@@ -53,6 +55,15 @@ MonoBehaviour:
       value: 50
       valueMod: 1
       weight: 4
+    - subject: 2
+      subjectMod: 1
+      subjectCount: 3
+      property: 1
+      resource: 0
+      equality: 1
+      value: 3
+      valueMod: 0
+      weight: -4
   targeting:
     numPoints: 1
     targetingType: 0
@@ -64,6 +75,8 @@ MonoBehaviour:
     pointsRequireLOS: 1
     includesCasterSpace: 0
     recommendsPlayerTarget: 0
+    targetPriority: 0
+    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []
@@ -82,6 +95,5 @@ MonoBehaviour:
   currentCooldown: 0
   castable: 1
   types: 1
-  tags: 0
   effects:
     list: []

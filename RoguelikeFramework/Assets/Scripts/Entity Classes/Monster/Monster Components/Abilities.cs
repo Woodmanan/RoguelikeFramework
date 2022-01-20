@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 //TODO: Come up with a better name for this?
 public class Abilities : MonoBehaviour
@@ -69,18 +70,63 @@ public class Abilities : MonoBehaviour
         List<int> bestIndex = new List<int> { -1 };
         float bestValue = -1;
 
+        //Construct allies, sort by distance.
+        List<Monster> allies = connectedTo.view.visibleMonsters.FindAll(x => x != connectedTo && !x.IsEnemy(connectedTo));
+        List<int> allyDistances = allies.Select(x =>
+        {
+            return Mathf.Max(Mathf.Abs(x.location.x - connectedTo.location.x),
+                             Mathf.Abs(x.location.y - connectedTo.location.y));
+        }).ToList();
+
+
+        List<Monster> enemies = connectedTo.view.visibleMonsters.FindAll(x=> x.IsEnemy(connectedTo));
+        List<int> enemyDistances = enemies.Select(x =>
+        {
+            return Mathf.Max(Mathf.Abs(x.location.x - connectedTo.location.x),
+                             Mathf.Abs(x.location.y - connectedTo.location.y));
+        }).ToList();
+
         for (int i = 0; i < abilities.Count; i++)
         {
-            float newVal = abilities[i].castQuery.Evaluate(connectedTo, connectedTo.view.visibleMonsters, abilities[i], null);
-            if (newVal > bestValue)
+            if (abilities[i].castable)
             {
-                bestValue = newVal;
-                bestIndex.Clear();
-                bestIndex.Add(i);
-            }
-            else if (newVal == bestValue)
-            {
-                bestIndex.Add(i);
+                if (abilities[i].targeting.targetingType != TargetType.SELF)
+                {
+                    //TODO: Rework this to account for both self targets, and for mixed types of abilities
+                    if ((abilities[i].targeting.tags & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
+                    {
+                        if (allyDistances.Count == 0) continue; //Quit if no allies
+                        else if (abilities[i].targeting.range == 0 && allyDistances[0] > abilities[i].targeting.radius) continue; //Quit if no allies in radius
+                        else if (allyDistances[0] > abilities[i].targeting.range) continue; //Quit if no allies in range
+                    }
+                    else
+                    {
+                        if (enemyDistances.Count == 0)
+                        {
+                            continue;
+                        }
+                        else if (abilities[i].targeting.range == 0 && enemyDistances[0] > abilities[i].targeting.radius)
+                        {
+                            continue; //Quit if no allies in radius
+                        }
+                        else if (abilities[i].targeting.range != 0 && enemyDistances[0] > abilities[i].targeting.range)
+                        {
+                            continue; //Quit if no allies in range
+                        }
+                    }
+                }
+
+                float newVal = abilities[i].castQuery.Evaluate(connectedTo, connectedTo.view.visibleMonsters, abilities[i], null);
+                if (newVal > bestValue)
+                {
+                    bestValue = newVal;
+                    bestIndex.Clear();
+                    bestIndex.Add(i);
+                }
+                else if (newVal == bestValue)
+                {
+                    bestIndex.Add(i);
+                }
             }
         }
 

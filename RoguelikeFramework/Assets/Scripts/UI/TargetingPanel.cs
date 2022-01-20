@@ -138,35 +138,35 @@ public class TargetingPanel : RogueUIPanel
             {
                 case 'y':
                 case 'Y':
-                    current.MoveTarget(Vector2Int.up + Vector2Int.left);
+                    current.MoveTargetOffset(Vector2Int.up + Vector2Int.left);
                     break;
                 case 'u':
                 case 'U':
-                    current.MoveTarget(Vector2Int.up + Vector2Int.right);
+                    current.MoveTargetOffset(Vector2Int.up + Vector2Int.right);
                     break;
                 case 'b':
                 case 'B':
-                    current.MoveTarget(Vector2Int.down + Vector2Int.left);
+                    current.MoveTargetOffset(Vector2Int.down + Vector2Int.left);
                     break;
                 case 'n':
                 case 'N':
-                    current.MoveTarget(Vector2Int.down + Vector2Int.right);
+                    current.MoveTargetOffset(Vector2Int.down + Vector2Int.right);
                     break;
             }
         }
        switch(action)
        {
             case PlayerAction.MOVE_LEFT:
-                current.MoveTarget(Vector2Int.left);
+                current.MoveTargetOffset(Vector2Int.left);
                 break;
             case PlayerAction.MOVE_RIGHT:
-                current.MoveTarget(Vector2Int.right);
+                current.MoveTargetOffset(Vector2Int.right);
                 break;
             case PlayerAction.MOVE_UP:
-                current.MoveTarget(Vector2Int.up);
+                current.MoveTargetOffset(Vector2Int.up);
                 break;
             case PlayerAction.MOVE_DOWN:
-                current.MoveTarget(Vector2Int.down);
+                current.MoveTargetOffset(Vector2Int.down);
                 break;
             /* CURRENT DON'T WORK
             case PlayerAction.MOVE_UP_LEFT:

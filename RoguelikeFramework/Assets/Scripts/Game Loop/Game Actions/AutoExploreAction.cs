@@ -71,7 +71,7 @@ public class AutoExploreAction : GameAction
                     yield return act.action.Current;
                 }
 
-                yield break;
+                //yield break;
 
                 yield return GameAction.StateCheck;
             }
