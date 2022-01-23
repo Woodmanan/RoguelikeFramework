@@ -100,8 +100,7 @@ MonoBehaviour:
   isVisible: 0
   isHidden: 1
   dirty: 1
-  x: 0
-  y: 0
+  location: {x: 0, y: 0}
   name: Up Stair
   description: The way up.
   movementCost: 1
@@ -109,7 +108,8 @@ MonoBehaviour:
   color: {r: 0, g: 0.75526, b: 1, a: 1}
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 4044338785546170514}
-  connectsTo: 0
+  connectsToFloor: 0
+  stairPair: 0
   upStair: 1
 --- !u!114 &4044338785546170514
 MonoBehaviour:
@@ -125,7 +125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 52
   available: 0
-  startingItems: []
 --- !u!114 &2498956919425021801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +137,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198a8cedfc211f745ac3c825730e29ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visible: {fileID: 0}

@@ -3113,6 +3113,7 @@ MonoBehaviour:
       value: 100
       valueMod: 1
       weight: 3
+  interactionRange: 300
 --- !u!114 &1118528462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4988,7 +4989,7 @@ MonoBehaviour:
   msPerFrame: 4
   randomSeed: 0
   seed: 42
-  JITLoading: 1
+  JITLoading: 0
   StartAt: 0
 --- !u!4 &1953941108
 Transform:

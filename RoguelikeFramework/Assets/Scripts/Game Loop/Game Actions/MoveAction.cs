@@ -24,8 +24,23 @@ public class MoveAction : GameAction
         CustomTile tile = Map.current.GetTile(intendedLocation);
         if (tile.BlocksMovement())
         {
-            Debug.Log("Console Message: You don't can't do that.");
-            yield break;
+            Debug.Log("Tile blocked movement!");
+            InteractableTile interact = tile as InteractableTile;
+            if (interact)
+            {
+                GameAction interactAction = new InteractAction(interact);
+                interactAction.Setup(caller);
+                while (interactAction.action.MoveNext())
+                {
+                    yield return interactAction.action.Current;
+                }
+                yield break;
+            }
+            else
+            {
+                Debug.Log("Console Message: You don't can't do that.");
+                yield break;
+            }
         }
 
         caller.connections.OnMove.Invoke();

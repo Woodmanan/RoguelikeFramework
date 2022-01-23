@@ -41,6 +41,8 @@ public class Map : MonoBehaviour
     public Transform tileContainer;
     public Transform monsterContainer;
     public Transform itemContainer;
+
+    public List<InteractableTile> interactables = new List<InteractableTile>();
     
     // Start is called before the first frame update
     void Start()
@@ -92,6 +94,17 @@ public class Map : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 tiles[i, j].RebuildGraphics();
+            }
+        }
+    }
+
+    public void SetAllTiles()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                tiles[i, j].SetInMap(this);
             }
         }
     }

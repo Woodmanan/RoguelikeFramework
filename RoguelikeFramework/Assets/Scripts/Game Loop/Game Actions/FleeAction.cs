@@ -39,6 +39,12 @@ public class FleeAction : GameAction
                 if (next == caller.location)
                 {
                     Debug.Log($"{caller.name} has been cornered - stopping flee mode.");
+
+                    enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
+                    if (enemies.Count == 0)
+                    {
+                        yield break;
+                    }
                     //TODO: attack instead!
                     GameAction act = new WaitAction();
                     act.Setup(caller);

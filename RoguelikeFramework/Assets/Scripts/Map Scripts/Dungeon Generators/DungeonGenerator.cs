@@ -42,6 +42,7 @@ public class DungeonGenerator
         Map gameMap = mapInstance.AddComponent<Map>();
         mapInstance.name = name;
         mapInstance.transform.parent = parent;
+        mapInstance.SetActive(false);
 
         //Cull null instances
         machines = machines.FindAll(x => x != null);
@@ -115,6 +116,9 @@ public class DungeonGenerator
                 yield return spawning.Current;
                 UnityEngine.Random.state = state;
             }
+
+            //Allow tiles that need after-generation modifications to do so
+            gameMap.SetAllTiles();
 
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();

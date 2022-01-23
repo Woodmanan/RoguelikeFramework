@@ -15,36 +15,33 @@ public class PathfindAction : GameAction
 
     public override IEnumerator TakeAction()
     {
-        while (caller.location != goal)
+        Path path = Pathfinding.FindPath(caller.location, goal);
+        if (path.Cost() < 0)
         {
-            Path path = Pathfinding.FindPath(caller.location, goal);
-            if (path.Cost() < 0)
+            Debug.LogWarning("Monster cannot find path to location! Aborting");
+            yield return GameAction.Abort;
+        }
+
+        while (path.Count() > 0)
+        {
+            Vector2Int next = path.Pop();
+            MoveAction act = new MoveAction(next);
+
+            caller.UpdateLOS();
+
+            if (!firstTurn && caller.view.visibleMonsters.FindAll(x => (x.faction & caller.faction) == 0).Count > 0)
             {
-                Debug.LogWarning("Monster cannot find path to location! Aborting");
                 yield break;
             }
 
-            while (path.Count() > 0)
+            act.Setup(caller);
+            while (act.action.MoveNext())
             {
-                Vector2Int next = path.Pop();
-                MoveAction act = new MoveAction(next);
-
-                caller.UpdateLOS();
-
-                if (!firstTurn && caller.view.visibleMonsters.FindAll(x => (x.faction & caller.faction) == 0).Count > 0)
-                {
-                    yield break;
-                }
-
-                act.Setup(caller);
-                while (act.action.MoveNext())
-                {
-                    yield return act.action.Current;
-                }
-                firstTurn = false;
-
-                yield return GameAction.StateCheck;
+                yield return act.action.Current;
             }
+            firstTurn = false;
+
+            yield return GameAction.StateCheck;
         }
     }
 

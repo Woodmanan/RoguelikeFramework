@@ -9,12 +9,15 @@ public class GameAction
 
     //A permanent object that can be yielded, in order to allow the main
     //loop to perform a validity check, ending the turn if necessary
-    public static YieldInstruction StateCheck = new WaitForSeconds(1.0f); 
+    public static YieldInstruction StateCheck = new WaitForSeconds(1.0f);
+    public static YieldInstruction Abort = new WaitForSeconds(2.0f);
+    public static YieldInstruction AbortAll = new WaitForSeconds(3.0f);
 
     //----------Shared variables per instance---------------------
     public Monster caller;
     public IEnumerator action;
     public bool finished;
+    public bool successful = true;
 
     //Empty contructor, because the flow works better if you make an object
     //and then just let the monster itself figure out how to use it
@@ -52,7 +55,15 @@ public class GameAction
         IEnumerator runState = TakeAction();
         while (runState.MoveNext())
         {
-            yield return runState.Current;
+            if (runState.Current == GameAction.Abort)
+            {
+                successful = false;
+                break;
+            }
+            else
+            {
+                yield return runState.Current;
+            }
         }
 
         finished = true;

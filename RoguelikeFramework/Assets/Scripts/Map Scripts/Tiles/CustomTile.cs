@@ -179,6 +179,12 @@ public class CustomTile : MonoBehaviour
 
         dirty = false;
     }
+    
+    //Called at the end of map construction, once this tile is guarunteed to be in the map!
+    public virtual void SetInMap(Map m)
+    {
+
+    }
 
 
     //Editor only functions - For convenience

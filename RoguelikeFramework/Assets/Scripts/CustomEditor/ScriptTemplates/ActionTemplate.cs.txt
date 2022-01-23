@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class #SCRIPTNAME# : GameAction
 {
-    //Constuctor for the action; must include caller!
+    //Constuctor for the action
     public #SCRIPTNAME#()
     {
-        //Construct me! Assigns caller by default in the base class
+        //Construct me! Don't need caller here, that will get assigned during Setup.
     }
 
     //The main function! This EXACT coroutine will be executed, even across frames.
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        if (false) { yield return null; } //Here so compiler doesn't yell.
+        yield break; //Here so compiler doesn't yell.
     }
 
     //Called after construction, but before execution!

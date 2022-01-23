@@ -310,7 +310,16 @@ public class Monster : MonoBehaviour
             //Short circuits early!
             while (energy > 0 && currentAction.action.MoveNext())
             {
-                yield return currentAction.action.Current;
+                if (currentAction.action.Current != GameAction.AbortAll)
+                {
+                    yield return currentAction.action.Current;
+                }
+                else
+                {
+                    currentAction.successful = false;
+                    currentAction.finished = true;
+                    break;
+                }
             }
 
             if (currentAction.finished)

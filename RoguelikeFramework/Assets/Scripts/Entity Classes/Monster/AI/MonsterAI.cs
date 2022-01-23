@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Priority_Queue;
+public class IntNode : FastPriorityQueueNode
+{
+    public int value;
+
+    public IntNode(int value)
+    {
+        this.value = value;
+    }
+}
+
 
 public class MonsterAI : ActionController
 {
     public Query fleeQuery;
     public Query approachQuery;
+
+    public float interactionRange;
     //The main loop for monster AI! This assumes 
     public override IEnumerator DetermineAction()
     {
@@ -21,16 +34,33 @@ public class MonsterAI : ActionController
 
         List<Monster> enemies = monster.view.visibleMonsters.Where(x => (x.faction & monster.faction) == 0).ToList();
 
+        FastPriorityQueue<IntNode> choices = new FastPriorityQueue<IntNode>(300);
+
         if (enemies.Count == 0)
         {
             //Standard behavior
 
-            //TODO: If someone is offering actions, look at their action and maybe take it
+            //1 - Take an existing interaction
+            (InteractableTile tile, float interactableCost) = GetInteraction(false, interactionRange);
+            choices.Enqueue(new IntNode(1), 1f - interactableCost);
 
             //Else, try to go exploring!
 
-            //Else, just wait?
-            nextAction = new WaitAction();
+            //3 - Wait
+            choices.Enqueue(new IntNode(3), 1f - .1f);
+
+            switch (choices.First.value)
+            {
+                case 1:
+                    nextAction = tile.GetAction();
+                    break;
+                case 3:
+                    nextAction = new WaitAction();
+                    break;
+                default:
+                    Debug.LogError($"Monster does not have action set for choice {choices.First.value}");
+                    break;
+            }
             yield break;
         }
         else
@@ -48,37 +78,16 @@ public class MonsterAI : ActionController
             float approach = approachQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
             (int spellIndex, float spellValue) = (-1, -1);
             if (monster.abilities) (spellIndex, spellValue) = monster.abilities.GetBestAbility();
+            (InteractableTile tile, float interactableCost) = GetInteraction(false, interactionRange);
+            
 
-            //TODO: Determine if any items would be a good fit
-            List<int> bestChoice = new List<int> { 0 };
-            float bestVal = flee;
+            choices.Enqueue(new IntNode(0), 1f - flee);
+            choices.Enqueue(new IntNode(1), 1f - approach);
+            choices.Enqueue(new IntNode(2), 1f - spellValue);
+            choices.Enqueue(new IntNode(3), 1f - interactableCost);
 
-            //Fighting check
-            if (approach > bestVal)
-            {
-                bestChoice.Clear();
-                bestChoice.Add(1);
-                bestVal = approach;
-            }
-            if (approach == bestVal)
-            {
-                bestChoice.Add(1);
-            }
 
-            //Ability check
-            if (spellValue > bestVal)
-            {
-                bestChoice.Clear();
-                bestChoice.Add(2);
-                bestVal = spellValue;
-            }
-            if (spellValue == bestVal)
-            {
-                bestChoice.Add(2);
-            }
-
-            int choice = bestChoice[Random.Range(0, bestChoice.Count)];
-            switch (bestChoice[Random.Range(0, bestChoice.Count)])
+            switch (choices.First.value)
             {
                 case 0:
                     nextAction = new FleeAction();
@@ -90,12 +99,29 @@ public class MonsterAI : ActionController
                 case 2:
                     nextAction = new AbilityAction(spellIndex);
                     break;
+                case 3:
+                    nextAction = tile.GetAction();
+                    break;
                 default:
-                    Debug.LogError($"Can't make choice {choice}, so waiting instead");
+                    Debug.LogError($"Can't make choice {choices.First.value}, so waiting instead");
                     nextAction = new WaitAction();
                     break;
             }
         }
+    }
+
+    public (InteractableTile, float) GetInteraction(bool isInCombat, float distanceCutoff)
+    {
+        List<InteractableTile> tiles = Map.current.interactables.FindAll(x => x.FilterByCombat(isInCombat) && Vector2Int.Distance(monster.location, x.location) <= distanceCutoff);
+        List<(InteractableTile, float)> pairs = tiles.Select(x => (x, x.useQuery.Evaluate(monster, monster.view.visibleMonsters, null, null)))
+                                                     .OrderBy(x => Vector2Int.Distance(monster.location, x.Item1.location))
+                                                     .OrderByDescending(x => x.Item2)
+                                                     .ToList();
+        if (pairs.Count == 0)
+        {
+            return (null, -1f);
+        }
+        return pairs[0];
     }
 
     public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
