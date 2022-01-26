@@ -40,6 +40,10 @@ public class DungeonGenerator
 
         GameObject mapInstance = new GameObject();
         Map gameMap = mapInstance.AddComponent<Map>();
+
+        gameMap.depth = depth;
+        gameMap.index = index;
+
         mapInstance.name = name;
         mapInstance.transform.parent = parent;
         mapInstance.SetActive(false);
@@ -88,8 +92,6 @@ public class DungeonGenerator
                 UnityEngine.Random.state = state;
             }
 
-            gameMap.depth = index;
-
             foreach (Machine m in machines)
             {
                 m.PostActivation(gameMap);
@@ -97,10 +99,13 @@ public class DungeonGenerator
 
             foreach (Room r in rooms)
             {
-                r.PostActivation(gameMap);
-                state = UnityEngine.Random.state;
-                yield return null;
-                UnityEngine.Random.state = state;
+                IEnumerator activate = r.PostActivation(gameMap);
+                while (activate.MoveNext())
+                {
+                    state = UnityEngine.Random.state;
+                    yield return activate.Current;
+                    UnityEngine.Random.state = state;
+                }
             }
 
 
@@ -124,6 +129,10 @@ public class DungeonGenerator
 
             //Allow tiles that need after-generation modifications to do so
             gameMap.SetAllTiles();
+
+            //Rebuild any extra info that's changed during post-generation
+            //This mostly catches edge cases from tiles spawned by rexpaint prefabs.
+            gameMap.RebuildAllMapData();
 
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();

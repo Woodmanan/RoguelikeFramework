@@ -86,7 +86,7 @@ public class ItemSpawner : MonoBehaviour
 
         yield return null;
 
-        for (int i = 0; i < numItems; i++)
+        for (; m.itemContainer.transform.childCount < numItems;)
         {
             yield return null;
             Item item = pools[floor].GenerateItem();

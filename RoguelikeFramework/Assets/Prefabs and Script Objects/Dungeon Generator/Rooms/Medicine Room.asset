@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75dbd5333633834a84ba926bb5a8afc, type: 3}
+  m_Name: Medicine Room
+  m_EditorClassIdentifier: 
+  size: {x: 0, y: 0}
+  layout: 
+  start: {x: 0, y: 0}
+  end: {x: 0, y: 0}
+  connected: 0
+  center: {x: 0, y: 0}
+  RexFile: {fileID: 9027929339269108002, guid: 5b62deb13c4123f47bc90343ff66a47a, type: 3}
+  conversions:
+  - glyph: 33
+    option: 2
+    replacement: {fileID: 5723771033562300097, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
+    pool: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    type: 1
+    rarity: 5
+    usesSame: 0

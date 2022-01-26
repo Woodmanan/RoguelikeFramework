@@ -119,11 +119,11 @@ public class StairPlacer : Machine
                 {
                     if (stairsUp[i].next)
                     {
-                        stairs.connectsToFloor = m.depth - 1;
+                        stairs.connectsToFloor = m.index - 1;
                     }
                     else
                     {
-                        stairs.connectsToFloor = LevelLoader.singleton.GetDepthOf(stairsUp[i].connectsTo);
+                        stairs.connectsToFloor = LevelLoader.singleton.GetIndexOf(stairsUp[i].connectsTo);
                     }
                     stairs.stairPair = stairsUp[i].connectionsStartAt + j;
                 }
@@ -150,11 +150,11 @@ public class StairPlacer : Machine
                 {
                     if (stairsDown[i].next)
                     {
-                        stairs.connectsToFloor = m.depth + 1;
+                        stairs.connectsToFloor = m.index + 1;
                     }
                     else
                     {
-                        stairs.connectsToFloor = LevelLoader.singleton.GetDepthOf(stairsDown[i].connectsTo);
+                        stairs.connectsToFloor = LevelLoader.singleton.GetIndexOf(stairsDown[i].connectsTo);
                     }
                     stairs.stairPair = stairsDown[i].connectionsStartAt + j;
                 }

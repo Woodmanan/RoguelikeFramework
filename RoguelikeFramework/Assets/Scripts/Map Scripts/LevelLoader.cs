@@ -157,7 +157,7 @@ public class LevelLoader : MonoBehaviour
         return -1;
     }
 
-    public int GetDepthOf(string levelName)
+    public int GetIndexOf(string levelName)
     {
         for (int i = 0; i < generators.Count; i++)
         {

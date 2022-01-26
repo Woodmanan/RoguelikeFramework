@@ -50,9 +50,9 @@ public class Room : ScriptableObject
 
     //Called after the map has been finished! Use this for any room-specific
     //fanciness you want.
-    public virtual void PostActivation(Map m)
+    public virtual IEnumerator PostActivation(Map m)
     {
-
+        yield break;
     }
 
     private int GetValueAtWorld(Vector2Int spot)

@@ -18,6 +18,7 @@ public class Map : MonoBehaviour
     public static MapSpace space = MapSpace.Chebyshev;
 
     public int depth;
+    public int index;
 
 
     public CustomTile[,] tiles;
@@ -160,6 +161,17 @@ public class Map : MonoBehaviour
                 tiles[i,j].RebuildMapData();
             }
             yield return null;
+        }
+    }
+
+    public void RebuildAllMapData()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                tiles[i, j].RebuildMapData();
+            }
         }
     }
 
