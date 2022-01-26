@@ -18,6 +18,7 @@ public class SimpleRoomMachine : Machine
         {
             //Get a room (you two)
             Room current = Instantiate(rooms[Random.Range(0, rooms.Count)]);
+            current.Setup();
 
             //Set it's position randomly, keeping it in bounds.
             Vector2Int placeBounds = this.size - current.size;

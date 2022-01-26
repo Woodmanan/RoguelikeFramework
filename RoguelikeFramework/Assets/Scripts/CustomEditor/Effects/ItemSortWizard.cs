@@ -9,7 +9,7 @@ public class ItemSortWizard
     public class EffectFileWizard
     {
 
-        [MenuItem("Tools/Sort Items")]
+        [MenuItem("Tools/Dangerous/Sort Items")]
 
         static void SortItems()
         {

@@ -56,9 +56,6 @@ public class DungeonGenerator
 
         //Lower than here!
 
-        
-
-
         foreach (Machine m in machines)
         {
             m.Connect(this);
@@ -96,6 +93,14 @@ public class DungeonGenerator
             foreach (Machine m in machines)
             {
                 m.PostActivation(gameMap);
+            }
+
+            foreach (Room r in rooms)
+            {
+                r.PostActivation(gameMap);
+                state = UnityEngine.Random.state;
+                yield return null;
+                UnityEngine.Random.state = state;
             }
 
 

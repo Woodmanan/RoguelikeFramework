@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class EffectFileWizard
 {
 
-    [MenuItem("Tools/Rebuild Effects")]
+    [MenuItem("Tools/Dangerous/Rebuild Effects")]
 
     static void RebuildEffects()
     {

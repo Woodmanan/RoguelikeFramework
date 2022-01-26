@@ -27,7 +27,12 @@ public class Room : ScriptableObject
         }
     }
 
-    private int GetValueAt(int x, int y)
+    public virtual void Setup()
+    {
+
+    }
+
+    public virtual int GetValueAt(int x, int y)
     {
         char value = layout[(y * size.x) + x];
         int num;
@@ -41,6 +46,13 @@ public class Room : ScriptableObject
             Debug.LogError($"Tried to parse {value} as an int. Code not written to do that yet.", this);
             return 0;
         }
+    }
+
+    //Called after the map has been finished! Use this for any room-specific
+    //fanciness you want.
+    public virtual void PostActivation(Map m)
+    {
+
     }
 
     private int GetValueAtWorld(Vector2Int spot)

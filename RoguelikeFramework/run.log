@@ -1,0 +1,115 @@
+REXPaint v1.60
+
+I=0000000 Initializing resources
+I=0000006 Initializing Rogue Engine X
+I=0000006 |   Starting SDL
+I=0000032 |   Importing icon
+E=0000032 |   REX_Init() | Application icon "rex/icon.png" not found, this program may not be installed correctly!
+I=0000032 |   Confirmed resource initialization
+I=0000032 |   Loading colors
+I=0000032 |   Initializing font type data
+I=0000032 |   Mapping standard ASCII values
+I=0000032 |   Loading fonts
+I=0000032 |   |   [font set: CP437 12x12]
+I=0000039 |   |   ...cp437_12x12.png
+I=0000040 |   |   ...cp437_12x12.png
+I=0000040 |   |   [font set: CP437 14x14]
+I=0000047 |   |   ...cp437_14x14.png
+I=0000050 |   |   ...cp437_14x14.png
+I=0000050 |   |   [font set: CP437 16x16]
+I=0000059 |   |   ...cp437_16x16.png
+I=0000063 |   |   ...cp437_16x16.png
+I=0000063 |   |   [font set: CP437 18x18]
+I=0000072 |   |   ...cp437_18x18.png
+I=0000078 |   |   ...cp437_18x18.png
+I=0000078 |   |   [font set ignored: CP437 20x20] (resolution exceeds desktop)
+I=0000078 |   |   [font set: CP437 8x8]
+I=0000082 |   |   ...cp437_8x8.png
+I=0000084 |   |   ...cp437_8x8.png
+I=0000084 |   |   [font set: CP437 10x10]
+I=0000089 |   |   ...cp437_10x10.png
+I=0000091 |   |   ...cp437_10x10.png
+I=0000091 |   \---DONE
+I=0000091 |   Setting video mode
+I=0000091 |   |   Calculating dimensions
+I=0000091 |   |   ...charW=12
+I=0000091 |   |   ...charH=12
+I=0000091 |   |   ...wMin=936
+I=0000091 |   |   ...hMin=720
+I=0000091 |   |   ...wWanted=936
+I=0000091 |   |   ...hWanted=720
+I=0000091 |   |   All video modes available
+I=0000092 |   |   Setting software video mode
+I=0000106 |   \---DONE
+I=0000106 |   Setting video mode
+I=0000106 |   |   Calculating dimensions
+I=0000106 |   |   ...charW=12
+I=0000106 |   |   ...charH=12
+I=0000106 |   |   ...wMin=936
+I=0000106 |   |   ...hMin=720
+I=0000106 |   |   ...wWanted=936
+I=0000106 |   |   ...hWanted=720
+I=0000106 |   |   All video modes available
+I=0000106 |   |   Setting software video mode
+I=0000109 |   \---DONE
+I=0000109 |   Initializing audio
+I=0000664 |   Creating console
+I=0000666 \---DONE
+I=0000667 RP::initialize() | Initializing program
+I=0000667 |   Mapping font glyphs
+I=0000667 |   Creating game consoles
+I=0000667 |   CProgram() | Creating CProgram
+I=0000667 |   |   Initializing input domains and commands
+I=0000668 |   |   Loading inline colors
+I=0000668 |   \---DONE
+I=0000668 |   Creating top-level consoles
+I=0000668 |   ...CPaint
+I=0000669 |   Loading palette: Palette
+I=0000671 |   ...CBrowse
+E=0000674 |   CPathButton::init() | Unable to open file for reading: images/Test1.xp
+E=0000674 |   CPathButton::init() | Unable to open file for reading: images/XRoom.xp
+I=0000674 |   ...CCanvas
+I=0000676 |   ...CPicker
+I=0000676 |   ...CFilename
+I=0000677 |   ...CResize
+I=0000677 |   ...CConfirm
+I=0000677 |   ...COptions
+I=0000677 |   ...CCommands
+I=0000677 |   ...CMessage
+I=0000677 |   ...CMessage 2
+
+I=I=00006770000677  |   \---Http::newsCheck() | Checking version and retrieving newsDONE
+I=0000677 |   Resolving address...
+I=0000677 |   Starting REX loop
+I=0000698 |   Connecting...
+I=0000761 |   Sending content...
+I=0000762 |   Waiting for ACK...
+I=0001189 |   Got 385 bytes: HTTP/1.1 200 OK
+Date: Wed, 26 Jan 2022 03:46:55 GMT
+Server: Apache
+Upgrade: h2,h2c
+Connection: Upgrade
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+70
+version_v1.60:REXPaint v1.60 is out! See the announcement on Grid Sage Forums for the latest version info.</END>
+
+I=0001189 |   POST succeeded
+I=0001189 |   Closing socket...
+I=0001189 \---DONE
+E=0020280 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0022660 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0024322 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0025551 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0025756 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0025926 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0028650 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0028888 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0043010 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+E=0044644 CArt::save() | Unable to open file for saving: images/TestingFolder.xp
+I=0048980 Saving config
+I=0048981 exitREXPaint() | Cleaning up program before exit

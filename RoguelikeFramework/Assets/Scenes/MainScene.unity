@@ -1550,6 +1550,7 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   currentTile: {fileID: 0}
+  testRoom: {fileID: 11400000, guid: 97248be05aac1e746be413938783e12e, type: 2}
   uiControls: {fileID: 216533712}
 --- !u!4 &546573372
 Transform:

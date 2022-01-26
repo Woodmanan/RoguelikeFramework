@@ -215,7 +215,7 @@ public class Item : MonoBehaviour
     }
 
     //Editor only functions - For convenience
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     private void OnValidate()
     {
         if (render.color != currentColor)

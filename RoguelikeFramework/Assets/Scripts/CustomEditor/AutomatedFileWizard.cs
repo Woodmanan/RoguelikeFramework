@@ -6,7 +6,7 @@ using System;
 public class AutomatedFileWizard
 {
 
-    [MenuItem("Tools/RebuildResources")]
+    [MenuItem("Tools/Dangerous/RebuildResources")]
 
     static void RebuildResources()
 

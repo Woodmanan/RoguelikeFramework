@@ -6,6 +6,8 @@ using System.Linq;
 
 public class Player : Monster
 {
+    public RexRoom testRoom;
+
     //UI Stuff!
     [SerializeField] UIController uiControls;
 
