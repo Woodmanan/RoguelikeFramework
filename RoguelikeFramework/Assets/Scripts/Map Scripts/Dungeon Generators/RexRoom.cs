@@ -21,7 +21,7 @@ public enum ReplacementOption
 }
 
 [Serializable]
-public struct Replacement
+public class Replacement
 {
     public char glyph;
     public ReplacementOption option;
@@ -29,7 +29,7 @@ public struct Replacement
     public LootPool pool;
     public ItemType type;
     public ItemRarity rarity;
-    public bool usesSame;
+    public bool allSame;
 }
 
 [CreateAssetMenu(fileName = "New RexRoom", menuName = "Dungeon Generator/New RexRoom", order = 2)]
@@ -42,7 +42,7 @@ public class RexRoom : Room
     
     public override void Setup()
     {
-        image = Load();
+        image = RexpaintAssetPipeline.Load(RexFile);
         size = new Vector2Int(image.Width, image.Height);
     }
 
@@ -93,6 +93,14 @@ public class RexRoom : Room
         {
             List<Replacement> items = conversions.Where(x => x.option == ReplacementOption.SINGLE_ITEM
                                                           || x.option == ReplacementOption.ITEM_FROM_SET).ToList();
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].option == ReplacementOption.ITEM_FROM_SET && items[i].allSame)
+                {
+                    items[i].replacement = null;
+                }
+            }
+
             for (int i = 0; i < size.x; i++)
             {
                 for (int j = 0; j < size.y; j++)
@@ -100,7 +108,6 @@ public class RexRoom : Room
                     if (!image.Layers[1][i,j].IsTransparent())
                     {
                         char c = (char)image.Layers[1][i, j].Character;
-                        Debug.Log($"Looking for a match to '{c}'");
                         Replacement r = items.First(x => x.glyph == c);
                         if (r.option == ReplacementOption.SINGLE_ITEM)
                         {
@@ -128,6 +135,12 @@ public class RexRoom : Room
                             item.transform.parent = map.itemContainer;
                             map.GetTile(pos).inventory.Add(item);
                             yield return null;
+
+                            if (r.allSame)
+                            {
+                                r.replacement = item.gameObject;
+                                r.option = ReplacementOption.SINGLE_ITEM;
+                            }
                         }
                     }
                 }
@@ -135,12 +148,5 @@ public class RexRoom : Room
             }
 
         }
-    }
-
-
-    public SadRex.Image Load()
-    {
-        MemoryStream stream = new MemoryStream(System.Convert.FromBase64String(RexFile.text));
-        return SadRex.Image.Load(stream);
     }
 }

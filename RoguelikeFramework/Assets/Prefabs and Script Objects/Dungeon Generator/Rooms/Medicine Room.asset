@@ -26,4 +26,4 @@ MonoBehaviour:
     pool: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     type: 1
     rarity: 5
-    usesSame: 0
+    allSame: 0

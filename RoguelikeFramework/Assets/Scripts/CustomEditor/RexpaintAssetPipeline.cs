@@ -29,7 +29,7 @@ public class RexpaintAssetPipeline
     //TODO: Discover the magic of MacOS, and figure out how to launch Wine
     #if UNITY_EDITOR_WIN
     [MenuItem("Tools/Launch Rexpaint", priority = 5)]
-    static void LaunchRexpaint()
+    public static void LaunchRexpaint()
     {
         string name = "REXPaint.exe";
         string path = GetPathTo(name);
@@ -103,6 +103,12 @@ public class RexpaintAssetPipeline
             }
         }
         return "No Folder Found!";
+    }
+
+    public static SadRex.Image Load(TextAsset asset)
+    {
+        MemoryStream stream = new MemoryStream(System.Convert.FromBase64String(asset.text));
+        return SadRex.Image.Load(stream);
     }
 }
 

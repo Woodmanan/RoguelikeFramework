@@ -24,7 +24,6 @@ public class MoveAction : GameAction
         CustomTile tile = Map.current.GetTile(intendedLocation);
         if (tile.BlocksMovement())
         {
-            Debug.Log("Tile blocked movement!");
             InteractableTile interact = tile as InteractableTile;
             if (interact)
             {

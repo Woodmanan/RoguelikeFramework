@@ -92,8 +92,6 @@ public class GameController : MonoBehaviour
             LoadMap(start);
         }
 
-        UnityEngine.Debug.Log("First map is ready!");
-
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0];

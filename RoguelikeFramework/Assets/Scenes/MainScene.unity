@@ -4987,6 +4987,186 @@ MonoBehaviour:
       dice: 5
     JIT: 0
     finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
+  - name: Level 4
+    depth: 1
+    seed: 0
+    bounds: {x: 50, y: 50}
+    machines:
+    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
+    rooms: []
+    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+    numberOfAttempts: 100
+    attemptsPerMachine: 100
+    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+    numItems:
+      rolls: 2
+      dice: 5
+    JIT: 0
+    finished: 0
   msPerFrame: 4
   randomSeed: 0
   seed: 42
