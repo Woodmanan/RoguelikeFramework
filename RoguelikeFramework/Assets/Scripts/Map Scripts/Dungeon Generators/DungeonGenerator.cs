@@ -25,6 +25,9 @@ public class DungeonGenerator
     public LootPool availableItems;
     public Roll numItems;
 
+    public MonsterPool availableMonsters;
+    public Roll numMonsters;
+
     public int[,] map;
 
     public IEnumerator generation = null;
@@ -114,16 +117,22 @@ public class DungeonGenerator
             gameMap.Setup();
 
             //TODO: Load monsters in
-
-            
-
-            //Start loading items in
-            IEnumerator spawning = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.evaluate());
-
-            while (spawning.MoveNext())
+            IEnumerator monsterSpawn = MonsterSpawner.singleton.SpawnForFloor(index, gameMap, numMonsters.evaluate());
+            while (monsterSpawn.MoveNext())
             {
                 state = UnityEngine.Random.state;
-                yield return spawning.Current;
+                yield return monsterSpawn.Current;
+                UnityEngine.Random.state = state;
+            }
+
+
+            //Start loading items in
+            IEnumerator itemSpawn = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.evaluate());
+
+            while (itemSpawn.MoveNext())
+            {
+                state = UnityEngine.Random.state;
+                yield return itemSpawn.Current;
                 UnityEngine.Random.state = state;
             }
 
@@ -137,9 +146,11 @@ public class DungeonGenerator
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();
 
+            //Monsters should almost by definition be setup now. Do it again, just in case, and then have themselves attach to the floor!
             foreach (Monster m in gameMap.monsters)
             {
-                m.PostSetup();
+                m.Setup();
+                m.PostSetup(gameMap);
             }
 
             finished = true;

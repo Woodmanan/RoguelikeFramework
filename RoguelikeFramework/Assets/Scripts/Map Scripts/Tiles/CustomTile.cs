@@ -101,7 +101,7 @@ public class CustomTile : MonoBehaviour
     {
         if (currentlyStanding != m && currentlyStanding != null)
         {
-            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.name} is there.", this);
+            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.displayName} is there.", this);
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);

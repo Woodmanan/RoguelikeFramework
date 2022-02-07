@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
-  m_Name: Armor Table
+  m_Script: {fileID: 11500000, guid: 89a9638c9dc3a4d408c07966f43aed51, type: 3}
+  m_Name: Default
   m_EditorClassIdentifier: 
-  type: 4
   items:
+  - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
   - {fileID: 7913379573585751926, guid: a8b2b66d3017fd04fbdf4aa02653f65f, type: 3}
   - {fileID: 8514963120815226497, guid: 4255b4c1c522fc343ae3ac00415e0b1b, type: 3}
-  elevationOptions:
-    list:
-    - heldEffect: {fileID: 11400000, guid: 9ec6c32edc67fe5459339709cb87be5c, type: 2}
+  maxItems: 3
+  abilities:
+  - {fileID: 11400000, guid: c1f6324b3e6051e4bb94f02add99337d, type: 2}
+  maxAbilties: 1

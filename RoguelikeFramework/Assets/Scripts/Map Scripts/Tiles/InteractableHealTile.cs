@@ -19,7 +19,7 @@ public class InteractableHealTile : InteractableTile
 
     public override IEnumerator Interact(Monster caller)
     {
-        Debug.Log($"{caller.name} is healed!");
+        Debug.Log($"{caller.displayName} is healed!");
         caller.Heal(healAmount);
         caller.energy -= 100;
         yield break;

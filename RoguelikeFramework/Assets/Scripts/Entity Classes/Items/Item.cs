@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
     public ItemRarity elevatesTo;
 
     [Header("Basic item variables")]
-    public int id;
+    public int ID;
     public bool stackable;
     
 
@@ -69,6 +69,8 @@ public class Item : MonoBehaviour
 
     private static readonly float itemZValue = -7.0f;
 
+    private bool setup = false;
+
     //Stuff used for convenience editor hacking, and should never be seen.
 
     /* If you see this and don't know what this is, ask me! It's super useful
@@ -82,6 +84,19 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Setup();
+    }
+
+    public Item Instantiate()
+    {
+        Item i = Instantiate(gameObject).GetComponent<Item>();
+        i.Setup();
+        return i;
+    }
+
+    public void Setup()
+    {
+        if (setup) return;
         if (this.type == 0)
         {
             Debug.LogError("An item is set to have no type! Please use ItemType.MISC if you have misc items.", this);
@@ -101,12 +116,7 @@ public class Item : MonoBehaviour
         CanRanged = (ranged != null);
 
         AddEffect(effects.list.Select(x => x.Instantiate()).ToArray());
-    }
-
-    public Item Instantiate()
-    {
-        Item i = Instantiate(gameObject).GetComponent<Item>();
-        return i;
+        setup = true;
     }
 
 

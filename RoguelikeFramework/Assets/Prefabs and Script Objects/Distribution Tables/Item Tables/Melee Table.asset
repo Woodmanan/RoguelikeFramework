@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
-  m_Name: Ranged Table
+  m_Name: Melee Table
   m_EditorClassIdentifier: 
-  type: 2
+  type: 1
   items:
-  - {fileID: 9015174743555470457, guid: 8212d04b5d4bef743941dabbf09cb09b, type: 3}
-  - {fileID: 6296949928881241513, guid: aaaa8a1991ec4cf4d8df714b5fc74511, type: 3}
+  - {fileID: 8493179263722202922, guid: 8da0ffdc4f51065469998c4a805f6fe5, type: 3}
+  - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
+  minRarity: 0
+  maxRarity: 0
   elevationOptions:
-    list: []
+    list:
+    - heldEffect: {fileID: 11400000, guid: c79ef58ce978861499f2bab8f9d11db4, type: 2}

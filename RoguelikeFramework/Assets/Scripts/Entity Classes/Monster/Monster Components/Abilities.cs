@@ -9,9 +9,6 @@ public class Abilities : MonoBehaviour
     Monster connectedTo;
     List<Ability> abilities = new List<Ability>();
 
-    //TEMPORARY FIX
-    public List<Ability> startingAbilities;
-
     public int Count
     {
         get { return abilities.Count; }
@@ -21,10 +18,6 @@ public class Abilities : MonoBehaviour
     void Start()
     {
         connectedTo = GetComponent<Monster>();
-        foreach (Ability a in startingAbilities)
-        {
-            abilities.Add(a.Instantiate());
-        }
     }
 
     public void RegenerateAbilities()

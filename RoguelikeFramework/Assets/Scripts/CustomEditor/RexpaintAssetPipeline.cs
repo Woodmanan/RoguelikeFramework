@@ -27,7 +27,7 @@ public class RexpaintAssetPipeline
                                         BuildTarget.StandaloneWindows);
     }*/
     //TODO: Discover the magic of MacOS, and figure out how to launch Wine
-    #if UNITY_EDITOR_WIN
+
     [MenuItem("Tools/Launch Rexpaint", priority = 5)]
     public static void LaunchRexpaint()
     {
@@ -59,14 +59,38 @@ public class RexpaintAssetPipeline
                 AssetDatabase.Refresh();
             }
         }
-
+        #if UNITY_EDITOR_WIN
         path = GetPathTo(name);
         ProcessStartInfo info = new ProcessStartInfo(path);
         //info.WorkingDirectory = GetPathToFolder("Rex Files");
         info.WorkingDirectory = path.Remove(path.Length - name.Length);
         Process.Start(info);
+        #endif
+
+        #if UNITY_EDITOR_OSX
+        UnityEngine.Debug.LogError("This currently does not work on mac. Want it to? Yell at Woody and maybe let me borrow your mac for an hour");
+        return;
+        path = GetPathTo(name);
+        var command = "wine";
+        var processInfo = new ProcessStartInfo()
+        {
+            FileName = command,
+            //Arguments = "Rexpaint.exe",
+            WorkingDirectory = path.Remove(path.Length - name.Length),
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            CreateNoWindow = false
+        };
+ 
+        Process process = Process.Start(processInfo);
+        while (!process.StandardOutput.EndOfStream)
+        {
+            UnityEngine.Debug.Log(process.StandardOutput.ReadLine());
+        }
+        #endif
+
     }
-    #endif
+
 
     static string GetPathTo(string filename, string path = "Assets")
     {
@@ -105,6 +129,7 @@ public class RexpaintAssetPipeline
         return "No Folder Found!";
     }
 
+    
     public static SadRex.Image Load(TextAsset asset)
     {
         MemoryStream stream = new MemoryStream(System.Convert.FromBase64String(asset.text));

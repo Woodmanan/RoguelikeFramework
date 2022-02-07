@@ -11,7 +11,7 @@ public struct LootChance
     public int weight;
 }
 
-[CreateAssetMenu(fileName = "New Loot Table", menuName = "Loot/Loot Pool", order = 1)]
+[CreateAssetMenu(fileName = "New Loot Pool", menuName = "Distribution/Loot Pool", order = 2)]
 
 public class LootPool : ScriptableObject
 {

@@ -33,14 +33,14 @@ public class PickupAction : GameAction
     {
         if (caller.inventory == null)
         {
-            Debug.LogError($"{caller.name} cannot pickup without an inventory! Skipping turn to prevent deadlock.", caller);
+            Debug.LogError($"{caller.displayName} cannot pickup without an inventory! Skipping turn to prevent deadlock.", caller);
             caller.energy = 0;
             yield break;
         }
 
         if (indices.Count == 0)
         {
-            Debug.Log($"{caller.name} tried to pick up no items.");
+            Debug.Log($"{caller.displayName} tried to pick up no items.");
             yield break;
         }
 

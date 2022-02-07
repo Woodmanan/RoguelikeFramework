@@ -140,27 +140,27 @@ public class Inventory : MonoBehaviour
         
     }
 
-    public void Add(Item item)
+    public int Add(Item item)
     {
-        if (item == null) return;
+        if (item == null) return -1;
 
         //Create a new stack, and push it through the stack system. Keeps everything
         //in one workflow, so there isn't any inconsistency.
         ItemStack newStack = new ItemStack();
-        newStack.id = item.id;
+        newStack.id = item.ID;
         newStack.count = 1;
         newStack.type = item.type;
         newStack.held = new List<Item>();
         newStack.held.Add(item);
 
-        Add(newStack);
+        return Add(newStack);
     }
 
-    public void AddStackNoMatch(ItemStack newStack)
+    public int AddStackNoMatch(ItemStack newStack)
     {
         if (available == 0)
         {
-            Debug.Log("Can't add item to stack, no space"); //TODO: Add proper logging here
+            Debug.Log("Console: Can't add item to stack, no space"); //TODO: Add proper logging here
         }
 
         //Add item in
@@ -175,11 +175,19 @@ public class Inventory : MonoBehaviour
                 newStack.lastUpdated = updateCounter;
                 Items[i] = newStack;
                 available--;
-                return;
+
+                //Move added items into our holder!
+                foreach (Item item in newStack.held)
+                {
+                    item.transform.parent = holder;
+                }
+
+                return i;
             }
         }
 
         Debug.LogError("Could not pick up item! No space was found, but space should have existed. (Available was not 0)", this);
+        return -1;
     }
 
     public void Apply(int index)
@@ -218,12 +226,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void Add(ItemStack stack)
+    public int Add(ItemStack stack)
     {
         if (stack == null)
         {
             print("Stack add cancelled early.");
-            return;
+            return -1;
         }
 
         //Look for a match
@@ -241,19 +249,13 @@ public class Inventory : MonoBehaviour
                         Items[i].held.Add(stack.held[j]);
                     }
                     Items[i].lastUpdated = updateCounter;
-                    return;
+                    return i;
                 }
             }
         }
 
         //No match found, add it into the first available slot
-        AddStackNoMatch(stack);
-
-        //Move added items into our holder!
-        foreach (Item i in stack.held)
-        {
-            i.transform.parent = holder;
-        }
+        return AddStackNoMatch(stack);
     }
 
     //VERY EXPENSIVE: Sorts items up to the top, try not to use this a lot
@@ -334,7 +336,7 @@ public class Inventory : MonoBehaviour
             if (items[i] != null)
             {
                 //Check, with short circuit for a little speedup
-                if (items[i].id == item.id && items[i].held.Contains(item))
+                if (items[i].id == item.ID && items[i].held.Contains(item))
                 {
                     return i;
                 }

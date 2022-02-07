@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 
-[CreateAssetMenu(fileName = "New Loot Table", menuName = "Loot/Loot Table", order = 1)]
+[CreateAssetMenu(fileName = "New Loot Table", menuName = "Distribution/Loot Table", order = 1)]
 public class LootTable : ScriptableObject
 {
     public ItemType type;

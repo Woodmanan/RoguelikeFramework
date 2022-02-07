@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class EquipmentSlot
@@ -50,6 +51,27 @@ public class Equipment : MonoBehaviour
 
     }
 
+    public int CanSafelyEquip(EquipableItem equip)
+    {
+        //Determine which slots are available
+        EquipSlotType neededType = equip.primarySlot;
+        foreach (EquipmentSlot slot in equipmentSlots.OrderBy(x => x.type.Count))
+        {
+            if (slot.active) continue;
+            if (slot.type.Contains(neededType))
+            {
+                if (CanEquip(equip, slot.position))
+                {
+                    return slot.position;
+                }
+                return -1;
+            }
+        }
+
+        return -1;
+
+    }
+
     //Checks if we are about to equip an object to it's own slot, when it's already equipped there.
     //Weird edge case that deserved it's own function call.
     public bool RequiresReequip(int itemIndex, int EquipIndex)
@@ -67,22 +89,10 @@ public class Equipment : MonoBehaviour
         return true;
     }
 
-    //Confirms the existence of enough slots to attach this item
-    public bool CanEquip(int itemIndex, int EquipIndex)
+    public bool CanEquip(EquipableItem equip, int EquipIndex)
     {
-        //Setup vars
         List<int> neededSlots = new List<int>();
 
-        //Get item
-        ItemStack item = inventory[itemIndex];
-        if (item == null)
-        {
-            Debug.LogError($"Can't attach null item at {itemIndex}");
-            return false;
-        }
-
-        
-        EquipableItem equip = item.held[0].equipable;
         EquipSlotType primary = equip.primarySlot;
 
         //Confirm that, if item is equipped already, it could be moved.
@@ -92,7 +102,7 @@ public class Equipment : MonoBehaviour
         }
 
         { //Main slot checking. Done seperately, caused we can't reroute this one.
-            
+
             EquipmentSlot main = equipmentSlots[EquipIndex];
             if (!main.type.Contains(primary))
             {
@@ -115,7 +125,7 @@ public class Equipment : MonoBehaviour
         }
 
         { //Second slot checking. If one of these fails, we keep moving down the list until we get one that we like. Having none kills the check.
-            
+
             foreach (EquipSlotType t in equip.secondarySlots)
             {
                 bool succeeded = false;
@@ -136,15 +146,30 @@ public class Equipment : MonoBehaviour
                 if (!succeeded)
                 {
                     //TODO: Console message me!
-                    Debug.Log($"You must have your {t} slot avaible to equip a {item.GetName()}");
+                    Debug.Log($"You must have your {t} slot avaible to equip a {equip.GetComponent<Item>().GetName()}");
                     return false;
                 }
             }
         }
 
         return true;
+    }
 
+    //Confirms the existence of enough slots to attach this item
+    public bool CanEquip(int itemIndex, int EquipIndex)
+    {
+        //Get item
+        ItemStack item = inventory[itemIndex];
+        if (item == null)
+        {
+            Debug.LogError($"Can't attach null item at {itemIndex}");
+            return false;
+        }
 
+        
+        EquipableItem equip = item.held[0].equipable;
+
+        return CanEquip(equip, EquipIndex);
     }
 
     /*
@@ -153,16 +178,11 @@ public class Equipment : MonoBehaviour
      * This function heavily relies on assumptions given by CanEquip,
      * so MAKE SURE that that one works first
      */
-    public List<int> SlotsNeededToEquip(int itemIndex, int EquipIndex)
+    public List<int> SlotsNeededToEquip(EquipableItem equip, int EquipIndex)
     {
         //Setup vars
         List<int> neededSlots = new List<int>();
 
-        //Get item
-        ItemStack item = inventory[itemIndex];
-
-        //Confirm that slot is open and primary
-        EquipableItem equip = item.held[0].equipable;
         EquipSlotType primary = equip.primarySlot;
 
         EquipmentSlot main = equipmentSlots[EquipIndex];
@@ -214,10 +234,31 @@ public class Equipment : MonoBehaviour
             if (!equipmentSlots[neededSlots[i]].active)
             {
                 neededSlots.RemoveAt(i);
-            }    
-        }    
+            }
+        }
 
         return neededSlots;
+    }
+
+    public List<int> SlotsNeededToEquip(int itemIndex, int EquipIndex)
+    {
+        //Setup vars
+        List<int> neededSlots = new List<int>();
+
+        //Get item
+        ItemStack item = inventory[itemIndex];
+
+        if (item == null)
+        {
+            Debug.LogError($"Can't attach null item at {itemIndex}");
+
+            return new List<int> { -1 };
+        }
+
+        //Confirm that slot is open and primary
+        EquipableItem equip = item.held[0].equipable;
+
+        return SlotsNeededToEquip(equip, EquipIndex);
     }
 
     //Monster of a function that equips a given item to this equipment holder

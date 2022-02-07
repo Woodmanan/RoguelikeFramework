@@ -17,10 +17,13 @@ public class Monster : MonoBehaviour
     public ResourceList resources;
 
     //TODO: Abstract these out to another class!!!
-    new public string name;
+    public string displayName;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
     public Faction faction = Faction.STANDARD;
+    public int ID;
+    public int minDepth;
+    public int maxDepth;
 
 
     [Header("Runtime Attributes")]
@@ -31,6 +34,7 @@ public class Monster : MonoBehaviour
     public int visionRadius;
 
     public int energyPerStep;
+    public Loadout loadout;
 
     private static readonly float monsterZPosition = -5f;
 
@@ -48,11 +52,20 @@ public class Monster : MonoBehaviour
 
     public GameAction currentAction;
     public CustomTile currentTile;
+
+    private bool setup = false;
     
     // Start is called before the first frame update
     public virtual void Start()
     {
-        inventory = GetComponent<Inventory>(); 
+        Setup();
+    }
+
+    //This function should do ALL setup operations necessary to interact with this object and it's components.
+    public void Setup()
+    {
+        if (setup) return;
+        inventory = GetComponent<Inventory>();
         equipment = GetComponent<Equipment>();
         abilities = GetComponent<Abilities>();
         controller = GetComponent<ActionController>();
@@ -70,15 +83,29 @@ public class Monster : MonoBehaviour
         resources.health = stats.resources.health;
 
         connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
+
+        loadout?.Apply(this);
+
+        setup = true;
+    }
+
+    public Monster Instantiate()
+    {
+        Monster newMonster = Instantiate(gameObject).GetComponent<Monster>(); //Should be guaranteed to work, unless things are incredibly borked
+        newMonster.Setup();
+        return newMonster;
     }
 
     //Called right before the main loop, when the rest of the game has been set up.
-    public void PostSetup()
+    public void PostSetup(Map map)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(Map.current.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
+        //Confirm that we got our own unique space
+        Debug.Assert(map.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
         #endif
-        SetPosition(location);
+        //Put us in that space, and build our initial LOS
+        SetPosition(map, location);
+        UpdateLOS(map);
     }
 
     // Update is called once per frame
@@ -200,7 +227,7 @@ public class Monster : MonoBehaviour
 
     public string GetFormattedName()
     {
-        return nameRequiresPluralVerbs ? "the " + name : name;
+        return nameRequiresPluralVerbs ? "the " + displayName : displayName;
     }
     
     public void AddEnergy(int energy)
@@ -209,11 +236,17 @@ public class Monster : MonoBehaviour
         this.energy += energy;
     }
 
-    //TODO: Update this to be individual maps
     public virtual void UpdateLOS()
     {
-        this.view = LOS.LosAt(Map.current, location, visionRadius);
+        UpdateLOS(Map.current);
     }
+
+    public virtual void UpdateLOS(Map map)
+    {
+        this.view = LOS.LosAt(map, location, visionRadius);
+    }
+
+    
 
     public void StartTurn()
     {
@@ -245,7 +278,7 @@ public class Monster : MonoBehaviour
     {
         if (currentAction != null)
         {
-            Debug.LogError($"{this.name} had an action set, but it already had an action. Should this be allowed?", this);
+            Debug.LogError($"{this.displayName} had an action set, but it already had an action. Should this be allowed?", this);
         }
         currentAction = act;
         currentAction.Setup(this);
@@ -351,10 +384,15 @@ public class Monster : MonoBehaviour
     //TODO: Add cost of moving from on spot to another
     public void SetPosition(Vector2Int newPosition)
     {
+        SetPosition(Map.current, newPosition);
+    }
+
+    public void SetPosition(Map map, Vector2Int newPosition)
+    {
         if (currentTile) currentTile.currentlyStanding = null;
         location = newPosition;
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
-        currentTile = Map.current.GetTile(location);
+        currentTile = map.GetTile(location);
         currentTile.SetMonster(this);
     }
 

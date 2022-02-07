@@ -19,5 +19,7 @@ MonoBehaviour:
   - {fileID: 6590398381343763601, guid: ea8d992413895a445964ab0079c7d331, type: 3}
   - {fileID: 4087402364674712838, guid: 6d9fcf8e93b765c499d0ee0e97d9c5b1, type: 3}
   - {fileID: 5390192121436947961, guid: 09392c732f0d48f448ad723938dfdd6f, type: 3}
+  minRarity: 0
+  maxRarity: 0
   elevationOptions:
     list: []

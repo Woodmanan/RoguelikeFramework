@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
         //LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
 
         //Monster setup, before the loop starts
-        player.PostSetup();
+        player.PostSetup(Map.current);
 
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();

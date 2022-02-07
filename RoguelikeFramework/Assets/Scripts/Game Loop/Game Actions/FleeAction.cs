@@ -38,7 +38,7 @@ public class FleeAction : GameAction
                 Vector2Int next = nextSpot(caller.location, fleeMap);
                 if (next == caller.location)
                 {
-                    Debug.Log($"{caller.name} has been cornered - stopping flee mode.");
+                    Debug.Log($"{caller.displayName} has been cornered - stopping flee mode.");
 
                     enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
                     if (enemies.Count == 0)

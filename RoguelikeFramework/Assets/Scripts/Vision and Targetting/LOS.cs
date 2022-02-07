@@ -84,9 +84,8 @@ public class LOSData
     }
 
     //Attempt to take advantage of some locality to get vision measurements faster
-    public void PrecalculateValues()
+    public void PrecalculateValues(Map map)
     {
-        Map map = Map.current;
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < radius * 2 + 1; i++)
         {
@@ -229,7 +228,7 @@ public class LOS : MonoBehaviour
             return new LOSData(0, position);
         }
         LOSData toReturn = new LOSData(distance, position);
-        toReturn.PrecalculateValues();
+        toReturn.PrecalculateValues(map);
         toReturn.setAt(0,0, Direction.NORTH, true);
         for (int d = 0; d < 4; d++)
         {
