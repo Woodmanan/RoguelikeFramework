@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 7301384935318704289}
   m_Layer: 0
-  m_Name: Item Test 5
+  m_Name: 011 Potion of Healing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 3
   elevatesTo: 0
-  id: 7
+  ID: 3
   stackable: 1
   color: {r: 0, g: 1, b: 0.15076494, a: 1}
   location: {x: 45, y: 91}

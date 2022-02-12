@@ -27,3 +27,10 @@ MonoBehaviour:
     type: 1
     rarity: 5
     allSame: 0
+  - glyph: 71
+    option: 4
+    replacement: {fileID: 0}
+    pool: {fileID: 11400000, guid: c083bb6c4c4307340887537b8744d336, type: 2}
+    type: 0
+    rarity: 0
+    allSame: 0

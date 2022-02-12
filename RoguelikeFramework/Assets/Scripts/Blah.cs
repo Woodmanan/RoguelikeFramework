@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[EffectGroup("Weapon Brands")]
-[CreateAssetMenu(fileName = "New Electrocution", menuName = "Status Effects/Electrocution", order = 1)]
-public class Electrocution : Effect
+//[EffectGroup("Sample Group/Sample Subgroup")]
+[CreateAssetMenu(fileName = "New Blah", menuName = "Status Effects/Blah", order = 1)]
+public class Blah : Effect
 {
-    public int damagePerHit;
     
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
@@ -17,7 +16,7 @@ public class Electrocution : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public Electrocution()
+    public Blah()
     {
         //Construct me!
     }
@@ -117,14 +116,7 @@ public class Electrocution : Effect
     //public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after an attack has completely finished - results are final
-    public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
-    {
-        if (result == AttackResult.HIT)
-        {
-            Debug.Log("Electrocuting monster!");
-            action.target.Damage(action.caller, damagePerHit, DamageType.BLUNT, weapon.source);
-        }
-    }
+    //public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called before a secondary attack happens
     //public override void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
@@ -133,14 +125,7 @@ public class Electrocution : Effect
     //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after a seconary attack has completely finished - results are final
-    public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
-    {
-        if (result == AttackResult.HIT)
-        {
-            Debug.Log("Electrocuting monster!");
-            action.target.Damage(action.caller, damagePerHit, DamageType.BLUNT, weapon.source);
-        }
-    }
+    //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called when an attack has collected the unarmed slots that it will use.
     //public override void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}

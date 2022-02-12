@@ -17,7 +17,8 @@ public enum ReplacementOption
     TILE,
     SINGLE_ITEM,
     ITEM_FROM_SET,
-    SINGLE_MONSTER
+    SINGLE_MONSTER,
+    MONSTER_FROM_SET
 }
 
 [Serializable]
@@ -26,7 +27,7 @@ public class Replacement
     public char glyph;
     public ReplacementOption option;
     public GameObject replacement;
-    public LootPool pool;
+    public ScriptableObject pool;
     public ItemType type;
     public ItemRarity rarity;
     public bool allSame;
@@ -123,7 +124,7 @@ public class RexRoom : Room
                         else
                         {
                             //Create and trim loot pool
-                            LootPool pool = Instantiate(r.pool);
+                            LootPool pool = Instantiate<LootPool>((LootPool)r.pool);
                             if (pool.shouldTrim) pool.TrimToDepth(map.depth);
                             yield return null;
 
@@ -146,7 +147,75 @@ public class RexRoom : Room
                 }
                 yield return null;
             }
+        }
 
+        //Item overrides
+        if (image.LayerCount > 2)
+        {
+            List<Replacement> monsters = conversions.Where(x => x.option == ReplacementOption.SINGLE_MONSTER
+                                                          || x.option == ReplacementOption.MONSTER_FROM_SET).ToList();
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                if (monsters[i].option == ReplacementOption.MONSTER_FROM_SET && monsters[i].allSame)
+                {
+                    monsters[i].replacement = null;
+                }
+            }
+
+            for (int i = 0; i < size.x; i++)
+            {
+                for (int j = 0; j < size.y; j++)
+                {
+                    if (!image.Layers[2][i, j].IsTransparent())
+                    {
+                        char c = (char)image.Layers[2][i, j].Character;
+                        Replacement r = monsters.First(x => x.glyph == c);
+                        if (r.option == ReplacementOption.SINGLE_MONSTER)
+                        {
+                            //Instantiate monster
+                            Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
+                            Vector2Int pos = start + new Vector2Int(i, j);
+
+                            //Place it in the world
+                            monster.transform.parent = map.monsterContainer;
+                            map.monsters.Add(monster);
+                            monster.location = pos;
+                            map.GetTile(pos).SetMonster(monster);
+                            monster.currentTile = map.GetTile(pos);
+                            monster.transform.parent = map.monsterContainer;
+                            yield return null;
+                        }
+                        else
+                        {
+                            //Create and trim loot pool
+                            MonsterPool pool = Instantiate<MonsterPool>((MonsterPool)r.pool);
+                            pool.SetupTables();
+                            yield return null;
+
+                            //Generate monster from trimmed pool, based on specs.
+                            Monster monster = pool.SpawnMonster(map.depth);
+
+                            //Place item into world.
+                            Vector2Int pos = start + new Vector2Int(i, j);
+
+                            map.monsters.Add(monster);
+                            monster.location = pos;
+                            map.GetTile(pos).SetMonster(monster);
+                            monster.currentTile = map.GetTile(pos);
+                            monster.transform.parent = map.monsterContainer;
+
+                            yield return null;
+
+                            if (r.allSame)
+                            {
+                                r.replacement = monster.gameObject;
+                                r.option = ReplacementOption.SINGLE_MONSTER;
+                            }
+                        }
+                    }
+                }
+                yield return null;
+            }
         }
     }
 }

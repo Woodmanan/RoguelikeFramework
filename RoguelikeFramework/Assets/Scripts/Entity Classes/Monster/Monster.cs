@@ -101,7 +101,7 @@ public class Monster : MonoBehaviour
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         //Confirm that we got our own unique space
-        Debug.Assert(map.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
+        Debug.Assert(map.GetTile(location).currentlyStanding == this || map.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
         #endif
         //Put us in that space, and build our initial LOS
         SetPosition(map, location);

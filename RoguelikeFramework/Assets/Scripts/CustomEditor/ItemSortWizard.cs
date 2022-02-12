@@ -54,6 +54,11 @@ public class ItemSortWizard
         }
 
         AssetDatabase.Refresh();
+
+        if (items[items.Count - 1].ID != items.Count - 1)
+        {
+            Debug.LogError("You can't be looking at the folder when this happens! I don't know why!");
+        }
     }
 
     static string GetPathToFolder(string folder)

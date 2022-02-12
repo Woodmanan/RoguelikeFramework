@@ -64,8 +64,16 @@ public class MonsterSpawner : MonoBehaviour
             {
                 if (positions[i, j] > 0)
                 {
-                    tickets[i, j] = Mathf.RoundToInt(Mathf.Log(positions[i, j], 2));
-                    ticketSum += tickets[i, j];
+                    //Confirm that two monsters won't spawn on each other
+                    if (m.GetTile(i, j).currentlyStanding == null)
+                    {
+                        tickets[i, j] = Mathf.RoundToInt(Mathf.Log(positions[i, j], 2));
+                        ticketSum += tickets[i, j];
+                    }
+                    else
+                    {
+                        tickets[i, j] = 0;
+                    }
                 }
             }
             yield return null;
