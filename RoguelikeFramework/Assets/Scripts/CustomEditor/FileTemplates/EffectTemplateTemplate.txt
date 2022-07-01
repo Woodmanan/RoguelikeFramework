@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[EffectGroup("Sample Group/Sample Subgroup")]
-[CreateAssetMenu(fileName = "New #SCRIPTNAME#", menuName = "Status Effects/#SCRIPTNAME#", order = 1)]
+[Priority(10)]
 public class #SCRIPTNAME# : Effect
 {
     
@@ -29,4 +29,10 @@ public class #SCRIPTNAME# : Effect
     /*public override void OnDisconnection() {} */
 
     //AUTO CONNECTIONS
+
+    //BEGIN CONNECTION
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    //END DISCONNECTION
 }

@@ -6,7 +6,9 @@ using System.Linq;
 [CreateAssetMenu(fileName = "New AOEStatus", menuName = "Abilities/AOEStatus", order = 1)]
 public class AOEStatus : Ability
 {
-    [SerializeField] StatusEffectList toApply;
+    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
+    [SerializeField, SerializeReference] public List<Effect> toApply;
+
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
     public override bool OnCheckActivationSoft(Monster caster)
     {
@@ -23,7 +25,7 @@ public class AOEStatus : Ability
     {
         foreach (Monster m in targeting.affected)
         {
-            m.AddEffect(toApply.list.Select(x => x.Instantiate()).ToArray());
+            m.AddEffect(toApply.Select(x => x.Instantiate()).ToArray());
         }
     }
 }

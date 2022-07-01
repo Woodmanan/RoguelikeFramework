@@ -14,17 +14,16 @@ using System.Linq;
  * I have suffered so you don't have to ;_;
  */
 
-public class Effect : ScriptableObject
+[System.Serializable]
+public class Effect
 {
-    //AUTO: Connection count
-    [HideInInspector] public const int connectionCount = 15;
-
     [HideInInspector] public Connections connectedTo;
     [HideInInspector] public bool ReadyToDelete = false;
 
-    public static Dictionary<Type, int[]> connectionDict = new Dictionary<Type, int[]>();
-
-    public virtual int priority { get { return 5; } }
+    public Effect Instantiate()
+    {
+        return (Effect) this.MemberwiseClone();
+    }
 
     /* Connect:
      * The method that links this effect to a given monster, and hooks up its event calls.
@@ -40,63 +39,27 @@ public class Effect : ScriptableObject
      * Adding new events to this stack is a little jank. If you think there needs to
      * be a new connection, let me (Woody) know and we can get it added!
      */
-    public void Connect(Connections c)
+    public virtual void Connect(Connections c)
     {
-        connectedTo = c;
-        
-        if (!connectionDict.ContainsKey(this.GetType()))
-        {
-            SetupConnections();
-        }
+        Debug.LogError("You should override connection on this object! It should NEVER be called unmodified.");
 
-        int[] connections;
-        if (!connectionDict.TryGetValue(this.GetType(), out connections))
-        {
-            Debug.LogError($"Effect {this.GetType().Name} was unable to find its connection list. This is bad.");
-        }
-        Type current = this.GetType();
-        Type defaultType = typeof(Effect);
+        connectedTo = c;
 
         //BEGIN AUTO CONNECT
+        
+        //END AUTO CONNECT
 
         OnConnection();
     }
 
-    //Extremely expensive, and terrible. On the flipside, this now only needs to happen
-    //once per time the game is opened, instead of most of this work happening every frame. Win!
-    public void SetupConnections()
+    public virtual void Disconnect()
     {
-        //AUTO VARIABLE
+        Debug.LogError("You should override disconnection on this object! It should NEVER be called unmodified.");
 
-        int[] connections = new int[numConnections];
-
-        //This part of the code is made autonomously, and gets kind of messy.
-        //This manual way of doing it sucks, but should be MUCH faster than the old way of
-        //doing it. You (the coder) shouldn't need to worry about how this works, and it should
-        //just behave like ~magic~. If you're curious, though, this is the gross manual way of 
-        //doing this.
-
-        MethodInfo method;
-
-        //AUTO SETUP
-
-
-        connectionDict.Add(this.GetType(), connections);
-    }
-
-    public void Disconnect()
-    {
         OnDisconnection();
 
-        int[] connections;
-        if (!connectionDict.TryGetValue(this.GetType(), out connections))
-        {
-            Debug.LogError($"Effect {this.GetType().Name} was unable to find its connection list. This is bad.");
-        }
-
-        Connections c = connectedTo;
-
         //BEGIN AUTO DISCONNECT
+
         //END AUTO DISCONNECT
 
         ReadyToDelete = true;
@@ -107,4 +70,5 @@ public class Effect : ScriptableObject
     public virtual void OnDisconnection() {}
 
     //AUTO DECLARATIONS
+
 }

@@ -1,8 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New TestDamageEffect", menuName = "Status Effects/TestDamageEffect", order = 1)]
 [EffectGroup("Damaging Effects")]
 public class TestDamageEffect : Effect
 {
@@ -11,13 +10,10 @@ public class TestDamageEffect : Effect
 
     Monster target;
 
-    public override int priority { get { return 8; } }
-
     //Constuctor for the object; use this in code if you're not using the asset version!
-    public TestDamageEffect(int damagePerTurn, int numTurns)
+    public TestDamageEffect()
     {
-        this.damagePerTurn = damagePerTurn;
-        this.numTurns = numTurns;
+
     }
 
     //Called the moment an effect connects to a monster
@@ -77,4 +73,26 @@ public class TestDamageEffect : Effect
 
     //Callen when a monster recieves an event with new status effects
     /*public override void OnApplyStatusEffects(ref Effect[] effects) {}*/
+
+    //BEGIN CONNECTION
+    public override void Connect(Connections c)
+    {
+        connectedTo = c;
+
+        c.OnTurnStartLocal.AddListener(6, OnTurnStartLocal);
+
+        OnConnection();
+    }
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    public override void Disconnect()
+    {
+        OnDisconnection();
+
+        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+
+        ReadyToDelete = true;
+    }
+    //END DISCONNECTION
 }

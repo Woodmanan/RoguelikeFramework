@@ -49,7 +49,8 @@ public class Ability : ScriptableObject
     [HideInInspector] public bool castable = true;
 
     public AbilityTypes types;
-    public StatusEffectList effects;
+    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
+    [SerializeField, SerializeReference] public List<Effect> effects;
     List<Effect> attachedEffects = new List<Effect>();
     public Connections connections = null;
 
@@ -74,7 +75,7 @@ public class Ability : ScriptableObject
     public void Setup()
     {
         currentCooldown = 0;
-        AddEffect(effects.list.Select(x => x.Instantiate()).ToArray());
+        AddEffect(effects.Select(x => x.Instantiate()).ToArray());
     }
 
     //TODO: Set this up in a nice way

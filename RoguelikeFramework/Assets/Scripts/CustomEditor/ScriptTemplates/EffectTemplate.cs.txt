@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[EffectGroup("Sample Group/Sample Subgroup")]
-[CreateAssetMenu(fileName = "New #SCRIPTNAME#", menuName = "Status Effects/#SCRIPTNAME#", order = 1)]
+[Priority(10)]
 public class #SCRIPTNAME# : Effect
 {
     
@@ -157,4 +157,108 @@ public class #SCRIPTNAME# : Effect
     //Called after this monster is hit by an unarmed attack from another monster. (Can't modify anymore)
     //public override void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
+
+    //BEGIN CONNECTION
+    //TEMPORARY CONNECTION - THIS WILL BE AUTO-REMOVED ONCE EFFECTS ARE REBUILT.
+    public override void Connect(Connections c)
+    {
+        connectedTo = c;
+        connectedTo.OnTurnStartGlobal.AddListener(10, OnTurnStartGlobal);
+        connectedTo.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+        connectedTo.OnTurnStartLocal.AddListener(10, OnTurnStartLocal);
+        connectedTo.OnTurnEndLocal.AddListener(10, OnTurnEndLocal);
+        connectedTo.OnMove.AddListener(10, OnMove);
+        connectedTo.OnFullyHealed.AddListener(10, OnFullyHealed);
+        connectedTo.OnKillMonster.AddListener(10, OnKillMonster);
+        connectedTo.OnDeath.AddListener(10, OnDeath);
+        connectedTo.RegenerateStats.AddListener(10, RegenerateStats);
+        connectedTo.OnEnergyGained.AddListener(10, OnEnergyGained);
+        connectedTo.OnAttacked.AddListener(10, OnAttacked);
+        connectedTo.OnDealDamage.AddListener(10, OnDealDamage);
+        connectedTo.OnTakeDamage.AddListener(10, OnTakeDamage);
+        connectedTo.OnHealing.AddListener(10, OnHealing);
+        connectedTo.OnApplyStatusEffects.AddListener(10, OnApplyStatusEffects);
+        connectedTo.OnCastAbility.AddListener(10, OnCastAbility);
+        connectedTo.OnGainResources.AddListener(10, OnGainResources);
+        connectedTo.OnLoseResources.AddListener(10, OnLoseResources);
+        connectedTo.OnRegenerateAbilityStats.AddListener(10, OnRegenerateAbilityStats);
+        connectedTo.OnCheckAvailability.AddListener(10, OnCheckAvailability);
+        connectedTo.OnTargetsSelected.AddListener(10, OnTargetsSelected);
+        connectedTo.OnPreCast.AddListener(10, OnPreCast);
+        connectedTo.OnPostCast.AddListener(10, OnPostCast);
+        connectedTo.OnTargetedByAbility.AddListener(10, OnTargetedByAbility);
+        connectedTo.OnHitByAbility.AddListener(10, OnHitByAbility);
+        connectedTo.OnStartAttack.AddListener(10, OnStartAttack);
+        connectedTo.OnGenerateArmedAttacks.AddListener(10, OnGenerateArmedAttacks);
+        connectedTo.OnBeginPrimaryAttack.AddListener(10, OnBeginPrimaryAttack);
+        connectedTo.OnPrimaryAttackResult.AddListener(10, OnPrimaryAttackResult);
+        connectedTo.OnEndPrimaryAttack.AddListener(10, OnEndPrimaryAttack);
+        connectedTo.OnBeginSecondaryAttack.AddListener(10, OnBeginSecondaryAttack);
+        connectedTo.OnSecondaryAttackResult.AddListener(10, OnSecondaryAttackResult);
+        connectedTo.OnEndSecondaryAttack.AddListener(10, OnEndSecondaryAttack);
+        connectedTo.OnGenerateUnarmedAttacks.AddListener(10, OnGenerateUnarmedAttacks);
+        connectedTo.OnBeginUnarmedAttack.AddListener(10, OnBeginUnarmedAttack);
+        connectedTo.OnUnarmedAttackResult.AddListener(10, OnUnarmedAttackResult);
+        connectedTo.OnEndUnarmedAttack.AddListener(10, OnEndUnarmedAttack);
+        connectedTo.OnBeforePrimaryAttackTarget.AddListener(10, OnBeforePrimaryAttackTarget);
+        connectedTo.OnAfterPrimaryAttackTarget.AddListener(10, OnAfterPrimaryAttackTarget);
+        connectedTo.OnBeforeSecondaryAttackTarget.AddListener(10, OnBeforeSecondaryAttackTarget);
+        connectedTo.OnAfterSecondaryAttackTarget.AddListener(10, OnAfterSecondaryAttackTarget);
+        connectedTo.OnBeforeUnarmedAttackTarget.AddListener(10, OnBeforeUnarmedAttackTarget);
+        connectedTo.OnAfterUnarmedAttackTarget.AddListener(10, OnAfterUnarmedAttackTarget);
+        OnConnection();
+    }
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    //TEMPORARY DISCONNECTION - THIS WILL BE AUTO-REMOVED ONCE EFFECTS ARE REBUILT.
+    public override void Disconnect()
+    {
+        OnDisconnection();
+        connectedTo.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+        connectedTo.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        connectedTo.OnMove.RemoveListener(OnMove);
+        connectedTo.OnFullyHealed.RemoveListener(OnFullyHealed);
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
+        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
+        connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
+        connectedTo.OnAttacked.RemoveListener(OnAttacked);
+        connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
+        connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
+        connectedTo.OnHealing.RemoveListener(OnHealing);
+        connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
+        connectedTo.OnGainResources.RemoveListener(OnGainResources);
+        connectedTo.OnLoseResources.RemoveListener(OnLoseResources);
+        connectedTo.OnRegenerateAbilityStats.RemoveListener(OnRegenerateAbilityStats);
+        connectedTo.OnCheckAvailability.RemoveListener(OnCheckAvailability);
+        connectedTo.OnTargetsSelected.RemoveListener(OnTargetsSelected);
+        connectedTo.OnPreCast.RemoveListener(OnPreCast);
+        connectedTo.OnPostCast.RemoveListener(OnPostCast);
+        connectedTo.OnTargetedByAbility.RemoveListener(OnTargetedByAbility);
+        connectedTo.OnHitByAbility.RemoveListener(OnHitByAbility);
+        connectedTo.OnStartAttack.RemoveListener(OnStartAttack);
+        connectedTo.OnGenerateArmedAttacks.RemoveListener(OnGenerateArmedAttacks);
+        connectedTo.OnBeginPrimaryAttack.RemoveListener(OnBeginPrimaryAttack);
+        connectedTo.OnPrimaryAttackResult.RemoveListener(OnPrimaryAttackResult);
+        connectedTo.OnEndPrimaryAttack.RemoveListener(OnEndPrimaryAttack);
+        connectedTo.OnBeginSecondaryAttack.RemoveListener(OnBeginSecondaryAttack);
+        connectedTo.OnSecondaryAttackResult.RemoveListener(OnSecondaryAttackResult);
+        connectedTo.OnEndSecondaryAttack.RemoveListener(OnEndSecondaryAttack);
+        connectedTo.OnGenerateUnarmedAttacks.RemoveListener(OnGenerateUnarmedAttacks);
+        connectedTo.OnBeginUnarmedAttack.RemoveListener(OnBeginUnarmedAttack);
+        connectedTo.OnUnarmedAttackResult.RemoveListener(OnUnarmedAttackResult);
+        connectedTo.OnEndUnarmedAttack.RemoveListener(OnEndUnarmedAttack);
+        connectedTo.OnBeforePrimaryAttackTarget.RemoveListener(OnBeforePrimaryAttackTarget);
+        connectedTo.OnAfterPrimaryAttackTarget.RemoveListener(OnAfterPrimaryAttackTarget);
+        connectedTo.OnBeforeSecondaryAttackTarget.RemoveListener(OnBeforeSecondaryAttackTarget);
+        connectedTo.OnAfterSecondaryAttackTarget.RemoveListener(OnAfterSecondaryAttackTarget);
+        connectedTo.OnBeforeUnarmedAttackTarget.RemoveListener(OnBeforeUnarmedAttackTarget);
+        connectedTo.OnAfterUnarmedAttackTarget.RemoveListener(OnAfterUnarmedAttackTarget);
+        ReadyToDelete = true;
+    }
+    //END DISCONNECTION
 }

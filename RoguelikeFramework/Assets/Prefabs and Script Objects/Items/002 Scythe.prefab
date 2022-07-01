@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3959520472440510260}
   - component: {fileID: 7505452362930996530}
   m_Layer: 0
-  m_Name: Item Test 3
+  m_Name: 002 Scythe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 10
   elevatesTo: 1
-  id: 1
+  ID: 0
   stackable: 0
   color: {r: 1, g: 0, b: 0.72682667, a: 1}
   location: {x: 45, y: 91}
@@ -114,15 +114,15 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-    list: []
-  optionalEffects:
-    list: []
+  effects: []
+  optionalEffects: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &-3959520472440510260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,10 +144,11 @@ MonoBehaviour:
       stamina: 0
     ac: 0
     ev: 0
-  addedEffects:
-    list: []
+  addedEffects: []
   isEquipped: 0
   removable: 1
+  references:
+    version: 1
 --- !u!114 &7505452362930996530
 MonoBehaviour:
   m_ObjectHideFlags: 0

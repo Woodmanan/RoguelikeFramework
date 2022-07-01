@@ -362,9 +362,11 @@ public class Monster : MonoBehaviour
         }
     }
 
-
+    //Takes in status effects (uninstantiated by default) and adds them to the effects list.
     public void AddEffect(params Effect[] effectsToAdd)
     {
+        Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
+
         connections.OnApplyStatusEffects.BlendInvoke(other?.OnApplyStatusEffects, ref effectsToAdd);
         for (int i = 0; i < effectsToAdd.Length; i++)
         {
@@ -372,13 +374,6 @@ public class Monster : MonoBehaviour
             e.Connect(this.connections);
             effects.Add(e);
         }
-    }
-
-    //Takes in status effects (uninstantiated by default) and adds them to the effects list.
-    public void AddEffect(params StatusEffect[] effectsToAdd)
-    {
-        Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
-        AddEffect(instEffects);
     }
 
     //TODO: Add cost of moving from on spot to another

@@ -1,16 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New DamageResistance", menuName = "Status Effects/DamageResistance", order = 1)]
+[Priority(8)]
 public class DamageResistance : Effect
 {
     [SerializeField] int numTurns;
     //Constuctor for the object; use this in code if you're not using the asset version!
-    public DamageResistance(int numTurns)
+    public DamageResistance()
     {
         //Construct me!
-        this.numTurns = numTurns;
+        //this.numTurns = numTurns;
     }
 
     //Called the moment an effect connects to a monster
@@ -18,6 +18,7 @@ public class DamageResistance : Effect
     /*public override void OnFirstConnection() {}*/
 
     //Called at the start of the global turn sequence
+    [Priority(10)]
     public override void OnTurnStartGlobal() 
     {
         numTurns--;
@@ -66,4 +67,30 @@ public class DamageResistance : Effect
 
     //Callen when a monster recieves an event with new status effects
     /*public override void OnApplyStatusEffects(ref Effect[] effects) {}*/
+
+    //BEGIN CONNECTION
+    public override void Connect(Connections c)
+    {
+        connectedTo = c;
+
+        c.OnTurnStartGlobal.AddListener(10, OnTurnStartGlobal);
+
+        c.OnTakeDamage.AddListener(8, OnTakeDamage);
+
+        OnConnection();
+    }
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    public override void Disconnect()
+    {
+        OnDisconnection();
+
+        connectedTo.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
+
+        connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
+
+        ReadyToDelete = true;
+    }
+    //END DISCONNECTION
 }

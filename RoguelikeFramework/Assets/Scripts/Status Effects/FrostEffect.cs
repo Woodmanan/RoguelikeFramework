@@ -1,9 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [EffectGroup("Elemental Effects/Cold")]
-[CreateAssetMenu(fileName = "New FrostEffect", menuName = "Status Effects/FrostEffect", order = 1)]
 public class FrostEffect : Effect
 {
     [SerializeField] int numTurns;
@@ -13,7 +12,6 @@ public class FrostEffect : Effect
      * 
      * To override for individual functions, use the [Priority(int)] attribute 
      */
-    public override int priority { get { return 8; } }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
@@ -38,9 +36,11 @@ public class FrostEffect : Effect
     //Called at the start of a monster's turn
     public override void OnTurnStartLocal()
     {
+        Debug.Log("Frost effect on the start of your turn!");
         numTurns--;
         if (numTurns == 0)
         {
+            Debug.Log("Frost effect dcing!");
             Disconnect();
         }
     }
@@ -81,4 +81,33 @@ public class FrostEffect : Effect
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnApplyStatusEffects(ref Effect[] effects) {}
 
+    //BEGIN CONNECTION
+    public override void Connect(Connections c)
+    {
+        connectedTo = c;
+
+        c.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
+
+        c.OnMove.AddListener(100, OnMove);
+
+        c.OnEnergyGained.AddListener(100, OnEnergyGained);
+
+        OnConnection();
+    }
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    public override void Disconnect()
+    {
+        OnDisconnection();
+
+        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+
+        connectedTo.OnMove.RemoveListener(OnMove);
+
+        connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
+
+        ReadyToDelete = true;
+    }
+    //END DISCONNECTION
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class ApplyableItem : MonoBehaviour
 {
 
-    public StatusEffectList effectsToApply;
+    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
+    [SerializeField, SerializeReference] public List<Effect> effectsToApply;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class ApplyableItem : MonoBehaviour
 
     public virtual void Apply(Monster m)
     {
-        foreach (StatusEffect e in effectsToApply)
+        foreach (Effect e in effectsToApply)
         {
             Effect nextEffect = e.Instantiate();
             m.AddEffect(nextEffect);

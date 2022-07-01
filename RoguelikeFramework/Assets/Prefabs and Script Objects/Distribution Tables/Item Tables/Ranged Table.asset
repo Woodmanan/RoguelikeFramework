@@ -18,5 +18,6 @@ MonoBehaviour:
   - {fileID: 6296949928881241513, guid: aaaa8a1991ec4cf4d8df714b5fc74511, type: 3}
   minRarity: 0
   maxRarity: 0
-  elevationOptions:
-    list: []
+  elevationOptions: []
+  references:
+    version: 1

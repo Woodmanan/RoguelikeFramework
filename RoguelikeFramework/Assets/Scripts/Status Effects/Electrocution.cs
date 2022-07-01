@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -172,4 +172,29 @@ public class Electrocution : Effect
     //Called after this monster is hit by an unarmed attack from another monster. (Can't modify anymore)
     //public override void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
+    //BEGIN CONNECTION
+    public override void Connect(Connections c)
+    {
+        connectedTo = c;
+
+        c.OnEndPrimaryAttack.AddListener(100, OnEndPrimaryAttack);
+
+        c.OnEndSecondaryAttack.AddListener(100, OnEndSecondaryAttack);
+
+        OnConnection();
+    }
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    public override void Disconnect()
+    {
+        OnDisconnection();
+
+        connectedTo.OnEndPrimaryAttack.RemoveListener(OnEndPrimaryAttack);
+
+        connectedTo.OnEndSecondaryAttack.RemoveListener(OnEndSecondaryAttack);
+
+        ReadyToDelete = true;
+    }
+    //END DISCONNECTION
 }

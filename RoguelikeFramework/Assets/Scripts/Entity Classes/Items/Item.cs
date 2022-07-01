@@ -35,8 +35,12 @@ public class Item : MonoBehaviour
     public Connections connections = new Connections();
     [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
 
-    public StatusEffectList effects = new StatusEffectList();
-    public StatusEffectList optionalEffects = new StatusEffectList();
+    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
+    [SerializeField, SerializeReference] public List<Effect> effects;
+
+
+    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
+    [SerializeField, SerializeReference] public List<Effect> optionalEffects;
 
 
     private SpriteRenderer Render;
@@ -115,7 +119,7 @@ public class Item : MonoBehaviour
         CanMelee = (melee != null);
         CanRanged = (ranged != null);
 
-        AddEffect(effects.list.Select(x => x.Instantiate()).ToArray());
+        AddEffect(effects.Select(x => x.Instantiate()).ToArray());
         setup = true;
     }
 
@@ -195,10 +199,10 @@ public class Item : MonoBehaviour
     }
 
     //TODO: Items should elevate stats as well
-    public void ElevateRarityTo(ItemRarity rarity, StatusEffectList extraOptions)
+    public void ElevateRarityTo(ItemRarity rarity, List<Effect> extraOptions)
     {
         int numberToAdd = rarity - this.rarity;
-        optionalEffects.list.AddRange(extraOptions.list.AsEnumerable());
+        optionalEffects.AddRange(extraOptions.AsEnumerable());
         
         if (optionalEffects.Count < numberToAdd)
         {
@@ -209,7 +213,7 @@ public class Item : MonoBehaviour
         {
             int index = UnityEngine.Random.Range(0, optionalEffects.Count);
             AddEffect(optionalEffects[index].Instantiate());
-            optionalEffects.list.RemoveAt(index);
+            optionalEffects.RemoveAt(index);
             this.rarity++;
         }
     }

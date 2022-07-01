@@ -8,7 +8,10 @@ public class EquipableItem : MonoBehaviour
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
     public StatBlock addedStats;
-    public StatusEffectList addedEffects;
+
+    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
+    [SerializeField, SerializeReference] public List<Effect> addedEffects;
+
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
     public bool removable = true;
@@ -52,7 +55,7 @@ public class EquipableItem : MonoBehaviour
 
         //Clone effects, so they can reapply
         clonedEffects.Clear();
-        foreach (StatusEffect e in addedEffects)
+        foreach (Effect e in addedEffects)
         {
             clonedEffects.Add(e.Instantiate());
         }

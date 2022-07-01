@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,16 +9,10 @@ public class TestHealing : Effect
     [SerializeField] int numTurns;
     Monster target;
 
-    public override int priority
-    {
-        get { return 5; }
-    }
-
     //Constuctor for the object; use this in code if you're not using the asset version!
-    public TestHealing(int healthPerTurn, int numTurns)
+    public TestHealing()
     {
-        this.healthPerTurn = healthPerTurn;
-        this.numTurns = numTurns;
+
     }
 
     //Called the moment an effect connects to a monster
@@ -77,4 +71,30 @@ public class TestHealing : Effect
 
     //Callen when a monster recieves an event with new status effects
     /*public override void OnApplyStatusEffects(ref Effect[] effects) {}*/
+
+    //BEGIN CONNECTION
+    public override void Connect(Connections c)
+    {
+        connectedTo = c;
+
+        c.OnTurnStartLocal.AddListener(4, OnTurnStartLocal);
+
+        c.RegenerateStats.AddListener(100, RegenerateStats);
+
+        OnConnection();
+    }
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    public override void Disconnect()
+    {
+        OnDisconnection();
+
+        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+
+        connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
+
+        ReadyToDelete = true;
+    }
+    //END DISCONNECTION
 }
