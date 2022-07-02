@@ -49,8 +49,7 @@ public class Ability : ScriptableObject
     [HideInInspector] public bool castable = true;
 
     public AbilityTypes types;
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> effects;
+    [SerializeReference] List<Effect> effects;
     List<Effect> attachedEffects = new List<Effect>();
     public Connections connections = null;
 

@@ -5,8 +5,7 @@ using UnityEngine;
 public class ApplyableItem : MonoBehaviour
 {
 
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> effectsToApply;
+    [SerializeReference] public List<Effect> effectsToApply;
 
     // Start is called before the first frame update
     void Start()

@@ -10,6 +10,7 @@ using System.Linq;
 
 public class Monster : MonoBehaviour
 {
+
     [Header("Setup Variables")]
     public StatBlock baseStats;
     public StatBlock stats;

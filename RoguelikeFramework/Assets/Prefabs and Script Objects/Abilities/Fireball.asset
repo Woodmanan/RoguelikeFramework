@@ -96,4 +96,11 @@ MonoBehaviour:
   castable: 1
   types: 1
   effects:
-    list: []
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: Electrocution, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        damagePerHit: 3

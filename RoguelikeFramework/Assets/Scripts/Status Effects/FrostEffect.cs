@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [EffectGroup("Elemental Effects/Cold")]
+[Priority(10)]
 public class FrostEffect : Effect
 {
     [SerializeField] int numTurns;
@@ -86,11 +87,11 @@ public class FrostEffect : Effect
     {
         connectedTo = c;
 
-        c.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
+        c.OnTurnStartLocal.AddListener(10, OnTurnStartLocal);
 
-        c.OnMove.AddListener(100, OnMove);
+        c.OnMove.AddListener(10, OnMove);
 
-        c.OnEnergyGained.AddListener(100, OnEnergyGained);
+        c.OnEnergyGained.AddListener(10, OnEnergyGained);
 
         OnConnection();
     }

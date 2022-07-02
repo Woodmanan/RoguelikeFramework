@@ -9,8 +9,7 @@ public class EquipableItem : MonoBehaviour
     public List<EquipSlotType> secondarySlots;
     public StatBlock addedStats;
 
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> addedEffects;
+    [SerializeReference] public List<Effect> addedEffects;
 
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;

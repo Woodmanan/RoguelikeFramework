@@ -35,12 +35,10 @@ public class Item : MonoBehaviour
     public Connections connections = new Connections();
     [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
 
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> effects;
+    [SerializeReference] public List<Effect> effects;
 
 
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> optionalEffects;
+    [SerializeReference] public List<Effect> optionalEffects;
 
 
     private SpriteRenderer Render;
@@ -206,7 +204,7 @@ public class Item : MonoBehaviour
         
         if (optionalEffects.Count < numberToAdd)
         {
-            Debug.LogError($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
+            Debug.LogWarning($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
         }
 
         for (int i = 0; i < System.Math.Min(numberToAdd, optionalEffects.Count); i++)

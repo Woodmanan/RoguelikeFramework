@@ -86,5 +86,6 @@ MonoBehaviour:
   currentCooldown: 0
   castable: 1
   types: 0
-  effects:
-    list: []
+  effects: []
+  references:
+    version: 1

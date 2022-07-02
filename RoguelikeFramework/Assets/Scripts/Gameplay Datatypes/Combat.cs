@@ -40,8 +40,7 @@ public struct ChanceEffect
 {
     public string name;
     public float percentChance;
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> appliedEffects;
+    [SerializeReference] public List<Effect> appliedEffects;
 
     public bool evaluate()
     {

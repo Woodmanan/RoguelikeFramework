@@ -14,8 +14,7 @@ public class LootTable : ScriptableObject
     [HideInInspector] public ItemRarity minRarity;
     [HideInInspector] public ItemRarity maxRarity;
 
-    [Juce.ImplementationSelector.SelectImplementation(typeof(Effect))]
-    [SerializeField, SerializeReference] public List<Effect> elevationOptions;
+    [SerializeReference] public List<Effect> elevationOptions;
 
     public int Count
     {

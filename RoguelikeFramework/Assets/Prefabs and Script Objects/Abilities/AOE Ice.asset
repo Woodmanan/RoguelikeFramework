@@ -87,7 +87,18 @@ MonoBehaviour:
   castable: 1
   types: 0
   effects:
-    list: []
+  - id: 0
   toApply:
-    list:
-    - heldEffect: {fileID: 11400000, guid: fa2cc94b2138d834b9a1832a40e89cf4, type: 2}
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: FrostEffect, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        numTurns: 0
+    00000001:
+      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        numTurns: 0
