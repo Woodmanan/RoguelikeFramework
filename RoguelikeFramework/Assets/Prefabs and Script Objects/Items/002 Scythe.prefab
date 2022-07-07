@@ -142,6 +142,7 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     ac: 0
     ev: 0
   addedEffects: []

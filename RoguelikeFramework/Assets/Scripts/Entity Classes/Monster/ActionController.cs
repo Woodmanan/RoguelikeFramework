@@ -8,7 +8,7 @@ public class ActionController : MonoBehaviour
     public IEnumerator selection;
     [HideInInspector] public Monster monster;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         monster = GetComponent<Monster>();
     }
@@ -17,6 +17,11 @@ public class ActionController : MonoBehaviour
     {
         nextAction = null;
         selection = DetermineAction();
+    }
+
+    public virtual void Setup()
+    {
+
     }
 
     public virtual IEnumerator DetermineAction()

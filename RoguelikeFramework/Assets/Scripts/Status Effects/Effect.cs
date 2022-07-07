@@ -19,6 +19,7 @@ public class Effect
 {
     [HideInInspector] public Connections connectedTo;
     [HideInInspector] public bool ReadyToDelete = false;
+    [HideInInspector] public Monster credit;
 
     public Effect Instantiate()
     {
@@ -64,6 +65,8 @@ public class Effect
         c.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
         c.OnCastAbility.AddListener(100, OnCastAbility);
         c.OnGainResources.AddListener(100, OnGainResources);
+        c.OnGainXP.AddListener(100, OnGainXP);
+        c.OnLevelUp.AddListener(100, OnLevelUp);
         c.OnLoseResources.AddListener(100, OnLoseResources);
         c.OnRegenerateAbilityStats.AddListener(100, OnRegenerateAbilityStats);
         c.OnCheckAvailability.AddListener(100, OnCheckAvailability);
@@ -121,6 +124,8 @@ public class Effect
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
+        connectedTo.OnGainXP.RemoveListener(OnGainXP);
+        connectedTo.OnLevelUp.RemoveListener(OnLevelUp);
         connectedTo.OnLoseResources.RemoveListener(OnLoseResources);
         connectedTo.OnRegenerateAbilityStats.RemoveListener(OnRegenerateAbilityStats);
         connectedTo.OnCheckAvailability.RemoveListener(OnCheckAvailability);
@@ -176,6 +181,8 @@ public class Effect
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
     public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
     public virtual void OnGainResources(ref ResourceList resources) {}
+    public virtual void OnGainXP(ref int XPAmount) {}
+    public virtual void OnLevelUp(ref int Level) {}
     public virtual void OnLoseResources(ref ResourceList resources) {}
     public virtual void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
     public virtual void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}

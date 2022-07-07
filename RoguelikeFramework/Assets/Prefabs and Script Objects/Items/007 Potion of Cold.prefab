@@ -142,4 +142,5 @@ MonoBehaviour:
       type: {class: FrostEffect, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
+        credit: {fileID: 0}
         numTurns: 5

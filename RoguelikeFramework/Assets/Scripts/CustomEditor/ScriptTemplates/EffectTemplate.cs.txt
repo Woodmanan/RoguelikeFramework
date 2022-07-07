@@ -79,6 +79,12 @@ public class #SCRIPTNAME# : Effect
     //Called when this monster gains resources. (Different from healing, but can give health)
     //public override void OnGainResources(ref ResourceList resources) {}
 
+    //Called when this monster gains XP from any source.
+    //public override void OnGainXP(ref int XPAmount) {}
+
+    //Called when this monster levels up! Level CANNOT be modified.
+    //public override void OnLevelUp(ref int Level) {}
+
     //Called when this monster loses resources. (Different from damage, but can take health)
     //public override void OnLoseResources(ref ResourceList resources) {}
 
@@ -180,6 +186,8 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
         connectedTo.OnCastAbility.AddListener(100, OnCastAbility);
         connectedTo.OnGainResources.AddListener(100, OnGainResources);
+        connectedTo.OnGainXP.AddListener(100, OnGainXP);
+        connectedTo.OnLevelUp.AddListener(100, OnLevelUp);
         connectedTo.OnLoseResources.AddListener(100, OnLoseResources);
         connectedTo.OnRegenerateAbilityStats.AddListener(100, OnRegenerateAbilityStats);
         connectedTo.OnCheckAvailability.AddListener(100, OnCheckAvailability);
@@ -232,6 +240,8 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
+        connectedTo.OnGainXP.RemoveListener(OnGainXP);
+        connectedTo.OnLevelUp.RemoveListener(OnLevelUp);
         connectedTo.OnLoseResources.RemoveListener(OnLoseResources);
         connectedTo.OnRegenerateAbilityStats.RemoveListener(OnRegenerateAbilityStats);
         connectedTo.OnCheckAvailability.RemoveListener(OnCheckAvailability);

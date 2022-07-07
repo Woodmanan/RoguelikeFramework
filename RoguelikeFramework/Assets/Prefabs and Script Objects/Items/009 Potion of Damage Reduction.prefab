@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6590398381343763601}
   - component: {fileID: 7127148955177016200}
   m_Layer: 0
-  m_Name: Item Test 6
+  m_Name: 009 Potion of Damage Reduction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   minDepth: 5
   maxDepth: 9
   elevatesTo: 0
-  id: 8
+  ID: 0
   stackable: 1
   color: {r: 0, g: 0.4900005, b: 1, a: 1}
   location: {x: 45, y: 91}
@@ -113,15 +113,15 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-    list: []
-  optionalEffects:
-    list: []
+  effects: []
+  optionalEffects: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &7127148955177016200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,5 +135,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectsToApply:
-    list:
-    - heldEffect: {fileID: 0}
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        numTurns: 0

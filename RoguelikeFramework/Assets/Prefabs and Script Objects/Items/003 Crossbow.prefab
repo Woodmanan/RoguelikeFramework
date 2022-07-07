@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3299766031048221423}
   - component: {fileID: 6296949928881241524}
   m_Layer: 0
-  m_Name: Item Test 11 (Pistol)
+  m_Name: 003 Crossbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 10
   elevatesTo: 0
-  id: 3
+  ID: 0
   stackable: 0
   color: {r: 1, g: 0, b: 0.38467693, a: 1}
   location: {x: 45, y: 91}
@@ -114,15 +114,15 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-    list: []
-  optionalEffects:
-    list: []
+  effects: []
+  optionalEffects: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &3299766031048221423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,12 +142,14 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     ac: 0
     ev: 0
-  addedEffects:
-    list: []
+  addedEffects: []
   isEquipped: 0
   removable: 1
+  references:
+    version: 1
 --- !u!114 &6296949928881241524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +193,8 @@ MonoBehaviour:
     pointsRequireLOS: 1
     includesCasterSpace: 0
     recommendsPlayerTarget: 0
+    targetPriority: 0
+    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []

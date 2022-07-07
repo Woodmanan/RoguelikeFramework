@@ -52,6 +52,7 @@ MonoBehaviour:
       health: 30
       mana: 10
       stamina: 10
+      xp: 0
     ac: 0
     ev: 0
   stats:
@@ -59,12 +60,14 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     ac: 0
     ev: 0
   resources:
     health: 0
     mana: 0
     stamina: 0
+    xp: 0
   displayName: Debug Monster
   nameRequiresPluralVerbs: 0
   faction: 1
@@ -81,7 +84,10 @@ MonoBehaviour:
   equipment: {fileID: 0}
   abilities: {fileID: 0}
   controller: {fileID: 0}
+  renderer: {fileID: 0}
   currentTile: {fileID: 0}
+  XPFromKill: 0
+  level: 0
 --- !u!212 &8893793752867473427
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -147,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 0}
   fleeQuery:
-    outOf: 1
+    outOf: 10
     terms:
     - subject: 1
       subjectMod: 0
@@ -158,37 +164,24 @@ MonoBehaviour:
       value: 40
       valueMod: 1
       weight: 1
-  approachQuery:
-    outOf: 6
+  fightQuery:
+    outOf: 1
     terms:
-    - subject: 2
+    - subject: 0
       subjectMod: 0
       subjectCount: 0
       property: 0
       resource: 0
       equality: 0
-      value: 20
-      valueMod: 1
-      weight: 1
-    - subject: 1
-      subjectMod: 1
-      subjectCount: 0
-      property: 0
-      resource: 1
-      equality: 0
-      value: 2
+      value: 1
       valueMod: 0
-      weight: 2
-    - subject: 0
-      subjectMod: 1
-      subjectCount: 0
-      property: 0
-      resource: 0
-      equality: 0
-      value: 100
-      valueMod: 1
-      weight: 3
+      weight: 1
+  isInBattle: 0
   interactionRange: 300
+  ranged: 0
+  minRange: 0
+  intelligence: 2
+  lastEnemy: {fileID: 0}
 --- !u!114 &8893793752867473425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +231,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c5d49c9825a8d4b8ba6052b0b01b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAbilities:
-  - {fileID: 11400000, guid: c5e9332c1b918f24bb40e86cfa955eef, type: 2}
-  - {fileID: 11400000, guid: c1f6324b3e6051e4bb94f02add99337d, type: 2}
-  - {fileID: 11400000, guid: f29efa5b2ba37624bb8e6fb04d644662, type: 2}

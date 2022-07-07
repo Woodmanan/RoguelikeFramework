@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TargetingPanel : RogueUIPanel
 {
@@ -15,24 +16,78 @@ public class TargetingPanel : RogueUIPanel
     [SerializeField] RectTransform targetingIcon;
     HighlightBlock[,] highlights;
 
+    public Monster lastTarget;
+
     BoolDelegate returnCall;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public bool Setup(Targeting t, BoolDelegate endResult)
     {
+        if (current != t)
+        {
+            lastTarget = null;
+        }
+
         current = t;
         returnCall = endResult;
+        Vector2Int startLocation = Player.player.location;
+
+        //Perform setup and correctness check for last time
+        if (lastTarget != null)
+        {
+            int dist = Mathf.Max(Mathf.Abs(lastTarget.location.x - startLocation.x), Mathf.Abs(lastTarget.location.y - startLocation.y));
+            if (dist > t.range || !Player.player.view.visibleMonsters.Contains(lastTarget))
+            {
+                lastTarget = null;
+            }
+            else
+            {
+                startLocation = lastTarget.location;
+            }
+        }
+
+        //If this is now true, attempt to determine the best spot
+        if (lastTarget == null && !t.recommendsPlayerTarget)
+        {
+            List<Monster> targets = Player.player.view.visibleMonsters;
+            targets.Remove(Player.player);
+
+            if ((t.tags & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
+            {
+                Monster target = targets.Where(x => !x.IsEnemy(Player.player))
+                                 .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
+                                 .FirstOrDefault();
+
+                if (target != null && Mathf.Max(Mathf.Abs(target.location.x - startLocation.x), Mathf.Abs(target.location.y - startLocation.y)) <= t.range)
+                {
+                    startLocation = target.location;
+                }
+            }
+            else
+            {
+                Monster target = targets.Where(x => x.IsEnemy(Player.player))
+                                 .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
+                                 .FirstOrDefault();
+
+                if (target != null && Mathf.Max(Mathf.Abs(target.location.x - startLocation.x), Mathf.Abs(target.location.y - startLocation.y)) <= t.range)
+                {
+                    startLocation = target.location;
+                }
+            }
+        }
+
+
         //current = t.Initialize();
         if (current.BeginTargetting(Player.player.location, LOS.lastCall))
         {
@@ -59,17 +114,18 @@ public class TargetingPanel : RogueUIPanel
                     highlights[i, j].Hide();
                 }
             }
+
+            current.MoveTarget(startLocation);
             return true;
         }
         else
         {
-            Debug.Log("UI asked to quit early, so locking point in now");
             if (!current.LockPoint()) //UI thinks we don't even need it, so just skip this whole thing
             {
                 Debug.LogError("Targeting item that skips can NOT have more than one point! This is unecessary behaviour, and must be fixed immediately to maintain invariants.");
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-                #endif
+#endif
             }
             return false;
         }
@@ -102,7 +158,7 @@ public class TargetingPanel : RogueUIPanel
         {
             for (int j = 0; j < current.length; j++)
             {
-                if (current.area[i,j])
+                if (current.area[i, j])
                 {
                     highlights[i, j].Show();
                 }
@@ -122,7 +178,7 @@ public class TargetingPanel : RogueUIPanel
         }
 
         Vector2Int currentSpot = current.target + offset;
-        targetingIcon.anchoredPosition = new Vector2(currentSpot.x - current.length/2, currentSpot.y - current.length/2);
+        targetingIcon.anchoredPosition = new Vector2(currentSpot.x - current.length / 2, currentSpot.y - current.length / 2);
         //highlights[currentSpot.x, currentSpot.y].Show(Color.blue);
     }
 
@@ -154,8 +210,8 @@ public class TargetingPanel : RogueUIPanel
                     break;
             }
         }
-       switch(action)
-       {
+        switch (action)
+        {
             case PlayerAction.MOVE_LEFT:
                 current.MoveTargetOffset(Vector2Int.left);
                 break;
@@ -175,11 +231,9 @@ public class TargetingPanel : RogueUIPanel
             case PlayerAction.MOVE_UP_RIGHT:
                 current.MoveTarget(Vector2Int.up + Vector2Int.right);
                 break;
-
             case PlayerAction.MOVE_DOWN_LEFT:
                 current.MoveTarget(Vector2Int.down + Vector2Int.left);
                 break;
-
             case PlayerAction.MOVE_DOWN_RIGHT:
                 current.MoveTarget(Vector2Int.down + Vector2Int.right);
                 break;
@@ -195,6 +249,9 @@ public class TargetingPanel : RogueUIPanel
                         UIController.singleton.OpenConfirmation("<color=\"black\">Are you sure you want to target yourself?", (b) => ReturnConfirmed(b)); //DELEGATE MAGICCCC
                         break;
                     }
+
+                    CustomTile tile = Map.current.GetTile(current.points[0]);
+                    lastTarget = tile.currentlyStanding;
 
                     ReturnConfirmed(true);
                 }
@@ -218,9 +275,9 @@ public class TargetingPanel : RogueUIPanel
     /* Called every time this panel is activated by the controller */
     public override void OnActivation()
     {
-        
+
     }
-    
+
     /* Called every time this panel is deactived by the controller */
     public override void OnDeactivation()
     {
@@ -239,6 +296,6 @@ public class TargetingPanel : RogueUIPanel
      */
     public override void OnDefocus()
     {
-        
+
     }
 }

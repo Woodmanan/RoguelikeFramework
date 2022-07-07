@@ -28,7 +28,7 @@ public class AttackAction : GameAction
         //See if we have any weapons actively equipped, or unarmed slots that can attack
         if (caller.equipment == null)
         {
-            Debug.LogError("Armless things can't attack! Wasting it's turn");
+            Debug.LogError("Armless things can't attack! Wasting its turn");
             caller.energy -= 100;
             yield break;
         }
@@ -77,11 +77,17 @@ public class AttackAction : GameAction
         }
         else
         {
-            Debug.Log("Console Log: You have nothing to attack with!");
+            Debug.Log("Your can't melee attack with a ranged weapon!");
+            if (caller == Player.player)
+            {
+                yield break;
+            }
+
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             Debug.LogError("Assuming a monster did this. Taking its turn as retribution! (PLS Fix)");
-            caller.energy -= 100;
             #endif
+            caller.energy -= 100;
+
             yield break;
         }
     }

@@ -6,11 +6,13 @@ public class PathfindAction : GameAction
 {
     public Vector2Int goal;
     bool firstTurn = true;
+    bool takesStairs = true;
     //Constuctor for the action; must include caller!
-    public PathfindAction(Vector2Int location)
+    public PathfindAction(Vector2Int location, bool takesStairs = true)
     {
         //Construct me! Assigns caller by default in the base class
         goal = location;
+        this.takesStairs = takesStairs;
     }
 
     public override IEnumerator TakeAction()
@@ -25,7 +27,15 @@ public class PathfindAction : GameAction
         while (path.Count() > 0)
         {
             Vector2Int next = path.Pop();
-            MoveAction act = new MoveAction(next);
+            MoveAction act;
+            if (takesStairs)
+            {
+                act = new MoveAction(next);
+            }
+            else
+            {
+                act = new MoveAction(next, true, false);
+            }
 
             caller.UpdateLOS();
 
@@ -40,6 +50,8 @@ public class PathfindAction : GameAction
                 yield return act.action.Current;
             }
             firstTurn = false;
+
+            //yield return new WaitForSeconds(.05f);
 
             yield return GameAction.StateCheck;
         }

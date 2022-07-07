@@ -113,10 +113,8 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-  - id: 0
-  optionalEffects:
-  - id: 1
+  effects: []
+  optionalEffects: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
@@ -124,16 +122,6 @@ MonoBehaviour:
   ranged: {fileID: 0}
   references:
     version: 1
-    00000000:
-      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
-      data:
-        ReadyToDelete: 0
-        numTurns: 0
-    00000001:
-      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
-      data:
-        ReadyToDelete: 0
-        numTurns: 0
 --- !u!114 &7301384935318704289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,4 +142,5 @@ MonoBehaviour:
       type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
+        credit: {fileID: 0}
         numTurns: 0

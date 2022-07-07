@@ -77,6 +77,15 @@ public class CustomTile : MonoBehaviour
         RebuildGraphics();
         this.enabled = false;
         setup = true;
+
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (movementCost == 0)
+        {
+            Debug.LogError($"{this.name} cannot have cost of 0! This breaks an important precondition of pathfinding.");
+            Debug.LogError("This has temporarily been fixed to prevent a freeze, but will NOT be corrected in a build. FIX NOW.");
+            movementCost = 1;
+        }
+        #endif
     }
 
     public void Reveal()
@@ -95,6 +104,7 @@ public class CustomTile : MonoBehaviour
     public void ClearMonster()
     {
         currentlyStanding = null;
+        map.moveCosts[location.x, location.y] = 1 * movementCost;
     }
 
     public void SetMonster(Monster m)
@@ -105,6 +115,7 @@ public class CustomTile : MonoBehaviour
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);
+        map.moveCosts[location.x, location.y] = 5 * movementCost;
     }
 
     public void RebuildMapData()
@@ -146,6 +157,10 @@ public class CustomTile : MonoBehaviour
     {
         if (isVisible)
         {
+            if (blocksVision)
+            {
+                render.sortingOrder = 200 + (200 - location.y);
+            }
             render.color = color;
             if (render.enabled == false)
             {
@@ -170,8 +185,10 @@ public class CustomTile : MonoBehaviour
                 render.enabled = false;
                 render.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
-
         }
+        
+        //Let monsters know that this tile has switched
+        currentlyStanding?.SetGraphics(isVisible);
 
         itemVis.RebuildVisiblity(isVisible, isHidden);
 

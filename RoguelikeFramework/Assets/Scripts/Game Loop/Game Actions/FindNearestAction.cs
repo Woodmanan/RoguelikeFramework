@@ -55,6 +55,8 @@ public class FindNearestAction : GameAction
                 yield return act.action.Current;
             }
 
+            //yield return new WaitForSeconds(.05f);
+
             yield return GameAction.StateCheck;
         }
     }

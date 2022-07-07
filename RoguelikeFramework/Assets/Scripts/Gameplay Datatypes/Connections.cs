@@ -47,6 +47,8 @@ public class Connections
     public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>();
     public OrderedEvent<AbilityAction, bool> OnCastAbility = new OrderedEvent<AbilityAction, bool>();
     public OrderedEvent<ResourceList> OnGainResources = new OrderedEvent<ResourceList>();
+    public OrderedEvent<int> OnGainXP = new OrderedEvent<int>();
+    public OrderedEvent<int> OnLevelUp = new OrderedEvent<int>();
     public OrderedEvent<ResourceList> OnLoseResources = new OrderedEvent<ResourceList>();
     public OrderedEvent<Targeting, AbilityBlock, Ability> OnRegenerateAbilityStats = new OrderedEvent<Targeting, AbilityBlock, Ability>();
     public OrderedEvent<Ability, bool> OnCheckAvailability = new OrderedEvent<Ability, bool>();

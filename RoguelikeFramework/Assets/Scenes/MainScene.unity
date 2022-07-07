@@ -1520,6 +1520,7 @@ MonoBehaviour:
       health: 100
       mana: 20
       stamina: 20
+      xp: 0
     ac: 5
     ev: 5
   stats:
@@ -1527,12 +1528,14 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     ac: 0
     ev: 0
   resources:
     health: 0
     mana: 0
     stamina: 0
+    xp: 0
   displayName: You
   nameRequiresPluralVerbs: 1
   faction: 2
@@ -1549,9 +1552,10 @@ MonoBehaviour:
   equipment: {fileID: 0}
   abilities: {fileID: 0}
   controller: {fileID: 0}
+  renderer: {fileID: 0}
   currentTile: {fileID: 0}
-  testRoom: {fileID: 0}
-  uiControls: {fileID: 216533712}
+  XPFromKill: 0
+  level: 0
 --- !u!4 &546573372
 Transform:
   m_ObjectHideFlags: 0
@@ -4261,6 +4265,7 @@ MonoBehaviour:
   highlightPrefab: {fileID: 2415315086530851241, guid: f7427ac0677505a459d23290b996a56b, type: 3}
   rangeHighlight: {fileID: 383252628}
   targetingIcon: {fileID: 897755775}
+  lastTarget: {fileID: 0}
 --- !u!224 &1717730532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4340,7 +4345,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 120
+  m_SortingOrder: 1000
   m_TargetDisplay: 0
 --- !u!1 &1760238954
 GameObject:

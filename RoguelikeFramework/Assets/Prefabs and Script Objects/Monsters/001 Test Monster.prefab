@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4402800733788238308}
   - component: {fileID: 4402800733788238309}
   m_Layer: 0
-  m_Name: Test
+  m_Name: 001 Test Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
       health: 30
       mana: 10
       stamina: 10
+      xp: 0
     ac: 0
     ev: 0
   stats:
@@ -59,12 +60,14 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     ac: 0
     ev: 0
   resources:
     health: 0
     mana: 0
     stamina: 0
+    xp: 0
   displayName: Test Monster
   nameRequiresPluralVerbs: 0
   faction: 1
@@ -81,7 +84,10 @@ MonoBehaviour:
   equipment: {fileID: 0}
   abilities: {fileID: 0}
   controller: {fileID: 0}
+  renderer: {fileID: 0}
   currentTile: {fileID: 0}
+  XPFromKill: 0
+  level: 0
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -147,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 0}
   fleeQuery:
-    outOf: 1
+    outOf: 10
     terms:
     - subject: 1
       subjectMod: 0
@@ -158,37 +164,24 @@ MonoBehaviour:
       value: 40
       valueMod: 1
       weight: 1
-  approachQuery:
-    outOf: 6
+  fightQuery:
+    outOf: 1
     terms:
-    - subject: 2
+    - subject: 0
       subjectMod: 0
       subjectCount: 0
       property: 0
       resource: 0
       equality: 0
-      value: 20
-      valueMod: 1
-      weight: 1
-    - subject: 1
-      subjectMod: 1
-      subjectCount: 0
-      property: 0
-      resource: 1
-      equality: 0
-      value: 2
+      value: 1
       valueMod: 0
-      weight: 2
-    - subject: 0
-      subjectMod: 1
-      subjectCount: 0
-      property: 0
-      resource: 0
-      equality: 0
-      value: 100
-      valueMod: 1
-      weight: 3
+      weight: 1
+  isInBattle: 0
   interactionRange: 300
+  ranged: 0
+  minRange: 0
+  intelligence: 2
+  lastEnemy: {fileID: 0}
 --- !u!114 &4402800733788238308
 MonoBehaviour:
   m_ObjectHideFlags: 0

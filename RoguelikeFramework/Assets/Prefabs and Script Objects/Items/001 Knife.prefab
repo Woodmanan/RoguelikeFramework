@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8340609320983818534}
   - component: {fileID: 5952500659652189400}
   m_Layer: 0
-  m_Name: Item Test 10
+  m_Name: 001 Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 10
   elevatesTo: 1
-  id: 0
+  ID: 0
   stackable: 0
   color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   location: {x: 45, y: 91}
@@ -114,15 +114,15 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-    list: []
-  optionalEffects:
-    list: []
+  effects: []
+  optionalEffects: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &8340609320983818534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,12 +142,14 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     ac: 0
     ev: 0
-  addedEffects:
-    list: []
+  addedEffects: []
   isEquipped: 0
   removable: 1
+  references:
+    version: 1
 --- !u!114 &5952500659652189400
 MonoBehaviour:
   m_ObjectHideFlags: 0

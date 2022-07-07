@@ -19,6 +19,7 @@ public class Effect
 {
     [HideInInspector] public Connections connectedTo;
     [HideInInspector] public bool ReadyToDelete = false;
+    [HideInInspector] public Monster credit;
 
     public Effect Instantiate()
     {

@@ -122,6 +122,18 @@ MonoBehaviour:
     description: Called when this monster gains resources. (Different from healing,
       but can give health)
     priority: 16
+  - name: OnGainXP
+    types:
+    - type: int
+      name: XPAmount
+    description: Called when this monster gains XP from any source.
+    priority: 17
+  - name: OnLevelUp
+    types:
+    - type: int
+      name: Level
+    description: Called when this monster levels up! Level CANNOT be modified.
+    priority: 17
   - name: OnLoseResources
     types:
     - type: ResourceList

@@ -64,7 +64,7 @@ public class EffectFileWizard
             foreach (Connection c in declarations.connections)
             {
                 MethodInfo method = type.GetMethod(c.name);
-                if (method.DeclaringType != typeof(Effect))
+                if ((method.DeclaringType == null) || method.DeclaringType != typeof(Effect))
                 {
                     int priority = 100;
                     object attribute = method.GetCustomAttributes(typeof(PriorityAttribute), false).FirstOrDefault();

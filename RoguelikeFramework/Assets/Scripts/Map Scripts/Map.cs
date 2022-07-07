@@ -13,9 +13,9 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
     public static Map current;
-    
+
     //Map space, which controls how movement is allowed
-    public static MapSpace space = MapSpace.Chebyshev;
+    public const MapSpace space = MapSpace.Chebyshev;
 
     public int depth;
     public int index;
@@ -32,6 +32,7 @@ public class Map : MonoBehaviour
     public bool activeGraphics = false;
 
     public List<Monster> monsters = new List<Monster>();
+    public List<Monster> spawnedMonsters = new List<Monster>();
 
     public int numStairsUp;
     public int numStairsDown;
@@ -44,7 +45,7 @@ public class Map : MonoBehaviour
     public Transform itemContainer;
 
     public List<InteractableTile> interactables = new List<InteractableTile>();
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +67,7 @@ public class Map : MonoBehaviour
             {
                 if (tiles[i, j].dirty)
                 {
-                    tiles[i,j].RebuildGraphics();
+                    tiles[i, j].RebuildGraphics();
                 }
             }
         }
@@ -74,7 +75,7 @@ public class Map : MonoBehaviour
 
     public void PerformTesting()
     {
-    
+
     }
 
     public void Setup()
@@ -109,7 +110,7 @@ public class Map : MonoBehaviour
             }
         }
     }
-    
+
 
     public IEnumerator BuildFromTemplate(int[,] map, TileList availableTiles)
     {
@@ -133,11 +134,11 @@ public class Map : MonoBehaviour
         height = ySize;
         for (int j = 0; j < height; j++)
         {
-            GameObject row = new GameObject {name = $"Row {j}"};
+            GameObject row = new GameObject { name = $"Row {j}" };
             row.transform.parent = tileContainer;
             for (int i = 0; i < width; i++)
             {
-                GameObject g = Instantiate(availableTiles.tiles[map[i,j]], row.transform, true);
+                GameObject g = Instantiate(availableTiles.tiles[map[i, j]], row.transform, true);
                 g.name = $"Tile ({i}, {j})";
                 CustomTile custom = g.GetComponent<CustomTile>();
                 if (!custom)
@@ -152,13 +153,13 @@ public class Map : MonoBehaviour
             }
             yield return null;
         }
-        
+
         //Now that map data is finished, go rebuild it
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                tiles[i,j].RebuildMapData();
+                tiles[i, j].RebuildMapData();
             }
             yield return null;
         }
@@ -272,5 +273,17 @@ public class Map : MonoBehaviour
         }
 
         return moveCosts[loc.x, loc.y] < 0;
+    }
+
+    public Vector2Int GetRandomWalkableTile()
+    {
+        while (true)
+        {
+            Vector2Int spot = new Vector2Int(Random.Range(1, width - 1), Random.Range(1, height - 1));
+            if (moveCosts[spot.x, spot.y] > 0)
+            {
+                return spot;
+            }
+        }
     }
 }

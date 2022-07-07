@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5870870078808823527}
   - component: {fileID: 7558431490578326014}
   m_Layer: 0
-  m_Name: Item Test 4
+  m_Name: 008 Potion of Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   minDepth: 4
   maxDepth: 6
   elevatesTo: 0
-  id: 6
+  ID: 0
   stackable: 1
   color: {r: 1, g: 0, b: 0.018795967, a: 1}
   location: {x: 45, y: 91}
@@ -113,15 +113,15 @@ MonoBehaviour:
   CanTarget: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-    list: []
-  optionalEffects:
-    list: []
+  effects: []
+  optionalEffects: []
   applyable: {fileID: 0}
   targetable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &7558431490578326014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,5 +135,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectsToApply:
-    list:
-    - heldEffect: {fileID: 11400000, guid: fc032000ad0769a4da63d665e043ce29, type: 2}
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        numTurns: 0

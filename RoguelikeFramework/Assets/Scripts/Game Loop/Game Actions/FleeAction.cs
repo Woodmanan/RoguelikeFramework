@@ -45,8 +45,11 @@ public class FleeAction : GameAction
                     {
                         yield break;
                     }
+
+                    Monster target = enemies[0];
+
                     //TODO: attack instead!
-                    GameAction act = new WaitAction();
+                    GameAction act = new AttackAction(target);
                     act.Setup(caller);
                     while (act.action.MoveNext())
                     {
@@ -84,7 +87,7 @@ public class FleeAction : GameAction
 
                 Vector2Int newCheck = current + new Vector2Int(i, j);
 
-                if (newCheck.x < 0 || newCheck.x >= fleeMap.GetLength(0)|| newCheck.y < 0 || newCheck.y >= fleeMap.GetLength(0))
+                if (newCheck.x < 0 || newCheck.x >= fleeMap.GetLength(0) || newCheck.y < 0 || newCheck.y >= fleeMap.GetLength(0))
                 {
                     continue;
                 }
