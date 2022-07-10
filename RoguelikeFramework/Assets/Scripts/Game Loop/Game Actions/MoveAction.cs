@@ -8,14 +8,16 @@ public class MoveAction : GameAction
     public Direction direction;
     public bool costs;
     public bool useStair;
+    public bool animates;
 
     //Constuctor for the action
-    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true)
+    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true)
     {
         //Construct me! Assigns caller by default in the base class
         intendedLocation = location;
         this.costs = costs;
         this.useStair = useStair;
+        this.animates = true;
     }
 
     //The main function! This EXACT coroutine will be executed, even across frames.
@@ -71,6 +73,9 @@ public class MoveAction : GameAction
             caller.energy -= caller.energyPerStep * tile.movementCost;
         }
 
+        //Pull out the old location for the animation
+        Vector2Int oldLocation = caller.location;
+
         caller.SetPosition(intendedLocation);
 
         Stair stair = tile as Stair;
@@ -83,6 +88,12 @@ public class MoveAction : GameAction
                 yield return act.action.Current;
             }
             yield return GameAction.AbortAll;
+        }
+
+        //If we're not moving levels, add the movement anim
+        if (animates && caller.renderer.enabled)
+        {
+            AnimationController.AddAnimation(new StepAnimation(caller, oldLocation, intendedLocation));
         }
 
         caller.UpdateLOS();

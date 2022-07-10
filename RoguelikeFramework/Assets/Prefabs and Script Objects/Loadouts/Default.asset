@@ -22,6 +22,7 @@ MonoBehaviour:
   maxItems: 5
   abilities:
   - {fileID: 11400000, guid: c1f6324b3e6051e4bb94f02add99337d, type: 2}
-  maxAbilties: 1
+  - {fileID: 11400000, guid: c5e9332c1b918f24bb40e86cfa955eef, type: 2}
+  maxAbilties: 2
   minDepth: 0
   maxDepth: 0

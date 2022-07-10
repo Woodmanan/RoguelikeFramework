@@ -73,7 +73,11 @@ public class AttackAction : GameAction
                 UnarmedAttack(caller, target, slot);
             }
 
+            AnimationController.AddAnimation(new AttackAnimation(caller, target));
+
             caller.energy -= 100;
+
+            
         }
         else
         {

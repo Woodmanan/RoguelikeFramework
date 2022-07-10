@@ -41,6 +41,7 @@ MonoBehaviour:
       health: 0
       mana: 1
       stamina: 0
+      xp: 0
     cooldown: 0
     power: 2
   castQuery:
@@ -81,11 +82,14 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     cooldown: 0
     power: 0
   currentCooldown: 0
   castable: 1
   types: 0
   effects: []
+  sprites:
+  - {fileID: 3482512805507413357, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   references:
     version: 1

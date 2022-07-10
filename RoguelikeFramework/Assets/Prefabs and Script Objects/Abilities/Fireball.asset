@@ -41,6 +41,7 @@ MonoBehaviour:
       health: 0
       mana: 2
       stamina: 0
+      xp: 0
     cooldown: 5
     power: 5
   castQuery:
@@ -90,6 +91,7 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     cooldown: 0
     power: 0
   currentCooldown: 0
@@ -97,10 +99,15 @@ MonoBehaviour:
   types: 1
   effects:
   - id: 0
+  sprites:
+  - {fileID: -6569304708771454169, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  - {fileID: 5647580403619596446, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  - {fileID: 3482512805507413357, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   references:
     version: 1
     00000000:
       type: {class: Electrocution, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
+        credit: {fileID: 0}
         damagePerHit: 3

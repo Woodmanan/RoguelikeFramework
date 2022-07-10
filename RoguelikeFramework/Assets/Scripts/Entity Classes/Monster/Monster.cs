@@ -492,7 +492,8 @@ public class Monster : MonoBehaviour
         // update location
         location = newPosition;
 
-        transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
+        //Old update code - handled by animation now?
+        //transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
 
         //Update sprite sorting
         renderer.sortingOrder = 200 + (200 - location.y);

@@ -7,6 +7,7 @@ using System.Linq;
 public class AOEStatus : Ability
 {
     [SerializeReference] public List<Effect> toApply;
+    [SerializeField] Sprite[] sprites;
 
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
     public override bool OnCheckActivationSoft(Monster caster)
@@ -26,5 +27,7 @@ public class AOEStatus : Ability
         {
             m.AddEffect(toApply.Select(x => x.Instantiate()).ToArray());
         }
+
+        AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
     }
 }

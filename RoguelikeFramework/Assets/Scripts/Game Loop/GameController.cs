@@ -222,6 +222,12 @@ public class GameController : MonoBehaviour
             {
                 MoveLevel();
             }
+
+            //Wait for current frame to finish up
+            while(AnimationController.Count > 0)
+            {
+                yield return null;
+            }
         }
     }
 

@@ -41,6 +41,7 @@ MonoBehaviour:
       health: 1
       mana: 2
       stamina: 0
+      xp: 0
     cooldown: 10
     power: 0
   castQuery:
@@ -81,6 +82,7 @@ MonoBehaviour:
       health: 0
       mana: 0
       stamina: 0
+      xp: 0
     cooldown: 0
     power: 0
   currentCooldown: 0
@@ -90,15 +92,20 @@ MonoBehaviour:
   - id: 0
   toApply:
   - id: 1
+  sprites:
+  - {fileID: -8882469605151552031, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  - {fileID: 7185574110709172364, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   references:
     version: 1
     00000000:
       type: {class: FrostEffect, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
+        credit: {fileID: 0}
         numTurns: 0
     00000001:
       type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
+        credit: {fileID: 0}
         numTurns: 0

@@ -12,9 +12,11 @@ public class TargetingPanel : RogueUIPanel
 
     public Targeting current;
     [SerializeField] GameObject highlightPrefab;
-    [SerializeField] HighlightBlock rangeHighlight;
     [SerializeField] RectTransform targetingIcon;
-    HighlightBlock[,] highlights;
+
+    [SerializeField] Sprite highlight;
+    [SerializeField] Sprite pointLocked;
+    SpriteGrid grid;
 
     public Monster lastTarget;
 
@@ -23,7 +25,7 @@ public class TargetingPanel : RogueUIPanel
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -37,6 +39,13 @@ public class TargetingPanel : RogueUIPanel
         if (current != t)
         {
             lastTarget = null;
+        }
+
+        //Establish grid if it doesn't exist
+        if (!grid)
+        {
+            grid = (new GameObject("Targeting Grid")).AddComponent<SpriteGrid>();
+            grid.transform.parent = transform;
         }
 
         current = t;
@@ -91,14 +100,10 @@ public class TargetingPanel : RogueUIPanel
         //current = t.Initialize();
         if (current.BeginTargetting(Player.player.location, LOS.lastCall))
         {
-            if (highlights != null)
+            if (grid != null)
             {
-                if (highlights.GetLength(0) != current.length || highlights.GetLength(1) != current.length)
+                if (grid.width != current.length || grid.height != current.length)
                 {
-                    foreach (HighlightBlock h in highlights)
-                    {
-                        Destroy(h.gameObject);
-                    }
                     BuildArea();
                 }
             }
@@ -106,14 +111,8 @@ public class TargetingPanel : RogueUIPanel
             {
                 BuildArea();
             }
-            for (int i = 0; i < current.length; i++)
-            {
-                for (int j = 0; j < current.length; j++)
-                {
-                    //Debug pattern
-                    highlights[i, j].Hide();
-                }
-            }
+
+            grid.SetCenter(Player.player.location);
 
             current.MoveTarget(startLocation);
             return true;
@@ -133,26 +132,13 @@ public class TargetingPanel : RogueUIPanel
 
     public void BuildArea()
     {
-        highlights = new HighlightBlock[current.length, current.length];
-        for (int i = 0; i < current.length; i++)
-        {
-            for (int j = 0; j < current.length; j++)
-            {
-                GameObject newHighlight = Instantiate(highlightPrefab);
-                highlights[i, j] = newHighlight.GetComponent<HighlightBlock>();
-                highlights[i, j].Setup();
-
-                RectTransform trans = (RectTransform)newHighlight.transform;
-                trans.SetParent(transform);
-                trans.anchoredPosition = new Vector2(i - current.length / 2, j - current.length / 2);
-            }
-        }
-        RectTransform rect = (RectTransform)rangeHighlight.transform;
-        rect.sizeDelta = new Vector2(current.range * 2 + 1, current.range * 2 + 1);
+        grid.Build(current.length, current.length, 2, 64);
+        grid.AddSprites(highlight, pointLocked);
     }
 
     public void RedrawHighlights()
     {
+        grid.ClearAll();
         current.GenerateArea();
         for (int i = 0; i < current.length; i++)
         {
@@ -160,11 +146,11 @@ public class TargetingPanel : RogueUIPanel
             {
                 if (current.area[i, j])
                 {
-                    highlights[i, j].Show();
+                    grid.SetSprite(i, j, 0);
                 }
                 else
                 {
-                    highlights[i, j].Hide();
+                    grid.ClearSprite(i, j);
                 }
             }
         }
@@ -174,12 +160,14 @@ public class TargetingPanel : RogueUIPanel
         foreach (Vector2Int p in current.points)
         {
             Vector2Int spot = p + offset;
-            highlights[spot.x, spot.y].Show(Color.green);
+            grid.SetSprite(spot.x, spot.y, 1);
         }
 
         Vector2Int currentSpot = current.target + offset;
         targetingIcon.anchoredPosition = new Vector2(currentSpot.x - current.length / 2, currentSpot.y - current.length / 2);
         //highlights[currentSpot.x, currentSpot.y].Show(Color.blue);
+
+        grid.Apply();
     }
 
     /*
