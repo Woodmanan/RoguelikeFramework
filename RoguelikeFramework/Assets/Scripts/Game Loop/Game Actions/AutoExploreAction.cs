@@ -15,6 +15,10 @@ public class AutoExploreAction : GameAction
     public override IEnumerator TakeAction()
     {
         Player player = caller as Player;
+        
+        //Push empty action to trick animation system into speeding up
+        InputTracking.PushAction(PlayerAction.NONE);
+
         while (true)
         {
             if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
@@ -72,6 +76,13 @@ public class AutoExploreAction : GameAction
                 while (act.action.MoveNext())
                 {
                     yield return act.action.Current;
+                }
+                
+                //Check for player escape
+                if (InputTracking.ContainsEscape())
+                {
+                    InputTracking.Clear();
+                    yield break;
                 }
 
                 //Copied to try and get ahead of the wait check.

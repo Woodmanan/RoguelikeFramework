@@ -81,7 +81,7 @@ public class MoveAction : GameAction
         //Add the movement anim
         if (animates && caller.renderer.enabled)
         {
-            AnimationController.AddAnimation(new StepAnimation(caller, oldLocation, intendedLocation));
+            AnimationController.AddAnimation(new MoveAnimation(caller, oldLocation, intendedLocation));
         }
 
         Stair stair = tile as Stair;

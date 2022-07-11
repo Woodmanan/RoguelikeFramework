@@ -16,6 +16,12 @@ public class InputTracking : MonoBehaviour
         return actions.Count > 0;
     }
 
+    public static void Clear()
+    {
+        actions.Clear();
+        inputs.Clear();
+    }
+
     public static PlayerAction PopNextAction()
     {
         if (HasNextAction())
@@ -73,6 +79,18 @@ public class InputTracking : MonoBehaviour
     {
         actions.Enqueue(act);
         inputs.Enqueue(Input.inputString);
+    }
+
+    public static bool ContainsEscape()
+    {
+        foreach (PlayerAction action in actions)
+        {
+            if (action == PlayerAction.ESCAPE_SCREEN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Start is called before the first frame update
