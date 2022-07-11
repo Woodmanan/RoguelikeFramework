@@ -174,8 +174,13 @@ public enum AbilityTypes
 [Flags]
 public enum TargetTags
 {
-    RECOMMNEDS_ALLY_TARGET  = (1 << 0),
-    RETARGETS_SAME_MONSTER  = (1 << 1)
+    POINTS_SHARE_OVERLAP    = (1 << 0),
+    POINTS_REQUIRE_LOS      = (1 << 1),
+    LINES_PIERCE            = (1 << 2),
+    INCLUDES_CASTER_SPACE   = (1 << 3),
+    RECOMMENDS_SELF_TARGET  = (1 << 4),
+    RECOMMNEDS_ALLY_TARGET  = (1 << 5),
+    RETARGETS_SAME_MONSTER  = (1 << 6)
 }
 
 public enum TargetPriority

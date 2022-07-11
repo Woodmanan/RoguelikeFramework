@@ -86,7 +86,7 @@ public class Abilities : MonoBehaviour
                 if (abilities[i].targeting.targetingType != TargetType.SELF)
                 {
                     //TODO: Rework this to account for both self targets, and for mixed types of abilities
-                    if ((abilities[i].targeting.tags & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
+                    if ((abilities[i].targeting.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
                     {
                         if (allyDistances.Count == 0) continue; //Quit if no allies
                         else if (abilities[i].targeting.range == 0 && allyDistances[0] > abilities[i].targeting.radius) continue; //Quit if no allies in radius

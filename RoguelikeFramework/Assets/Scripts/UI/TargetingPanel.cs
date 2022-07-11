@@ -11,10 +11,10 @@ public class TargetingPanel : RogueUIPanel
     //bool inFocus; - Tells you if this is the window that is currently focused. Not too much otherwise.
 
     public Targeting current;
-    [SerializeField] GameObject highlightPrefab;
-    [SerializeField] RectTransform targetingIcon;
 
-    [SerializeField] Sprite highlight;
+    [SerializeField] RectTransform targetingIcon;
+    [SerializeField] Color highlight;
+    [SerializeField] Color blockedHighlight;
     [SerializeField] Sprite pointLocked;
     SpriteGrid grid;
 
@@ -67,12 +67,12 @@ public class TargetingPanel : RogueUIPanel
         }
 
         //If this is now true, attempt to determine the best spot
-        if (lastTarget == null && !t.recommendsPlayerTarget)
+        if (lastTarget == null && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
         {
             List<Monster> targets = Player.player.view.visibleMonsters;
             targets.Remove(Player.player);
 
-            if ((t.tags & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
+            if ((t.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
                 Monster target = targets.Where(x => !x.IsEnemy(Player.player))
                                  .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
@@ -132,8 +132,10 @@ public class TargetingPanel : RogueUIPanel
 
     public void BuildArea()
     {
-        grid.Build(current.length, current.length, 2, 64);
-        grid.AddSprites(highlight, pointLocked);
+        grid.Build(current.length, current.length, 3, 64);
+        grid.AddColor(0, highlight);
+        grid.AddColor(1, blockedHighlight);
+        grid.AddSprite(2, pointLocked);
     }
 
     public void RedrawHighlights()
@@ -157,10 +159,15 @@ public class TargetingPanel : RogueUIPanel
 
         Vector2Int offset = -current.origin + new Vector2Int(current.offset, current.offset);
 
+        if (!current.isValid)
+        {
+            grid.SetSprite(current.target.x + offset.x, current.target.y + offset.y, 1);
+        }
+
         foreach (Vector2Int p in current.points)
         {
             Vector2Int spot = p + offset;
-            grid.SetSprite(spot.x, spot.y, 1);
+            grid.SetSprite(spot.x, spot.y, 2);
         }
 
         Vector2Int currentSpot = current.target + offset;
@@ -232,7 +239,7 @@ public class TargetingPanel : RogueUIPanel
                 {
                     //We're done!
                     current.GenerateArea();
-                    if (current.affected.Contains(Player.player) && !current.recommendsPlayerTarget)
+                    if (current.affected.Contains(Player.player) && !current.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
                     {
                         UIController.singleton.OpenConfirmation("<color=\"black\">Are you sure you want to target yourself?", (b) => ReturnConfirmed(b)); //DELEGATE MAGICCCC
                         break;

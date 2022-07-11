@@ -243,9 +243,9 @@ public class LOS : MonoBehaviour
         return toReturn;
     }
 
-    public static BresenhamResults GetLineFrom(Vector2Int start, Vector2Int end)
+    public static BresenhamResults GetLineFrom(Vector2Int start, Vector2Int end, bool tilesBlock = true, bool monstersBlock = false)
     {
-        return Bresenham.CalculateLine(start, end);
+        return Bresenham.CalculateLine(start, end, tilesBlock, monstersBlock);
     }
 
     public static void Reveal(Vector2Int tile, LOSData l, Direction d)

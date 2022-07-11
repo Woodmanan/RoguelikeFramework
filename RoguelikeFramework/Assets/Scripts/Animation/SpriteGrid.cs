@@ -170,6 +170,34 @@ public class SpriteGrid : MonoBehaviour
         render.material.mainTexture = tex;
     }
 
+    public void AddColor(int index, Color color)
+    {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (index < 0 || index >= numSprites)
+        {
+            Debug.LogError($"You cannot access that sprite! (Index {index} out of {spriteCount})");
+            return;
+        }
+        #endif
+
+        index++;
+
+        int posX = index % spriteCount;
+        int posY = index / spriteCount;
+
+        Color[] colors = new Color[spriteSize * spriteSize];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = color;
+        }
+
+        //Write the sprite into the appropriate location
+        Texture2D tex = render.material.mainTexture as Texture2D;
+        tex.SetPixels(posX * spriteSize, posY * spriteSize, spriteSize, spriteSize, colors);
+        tex.Apply();
+        render.material.mainTexture = tex;
+    }
+
     public void SetSpriteImmediate(int x, int y, int spriteNum)
     {
         int vertIndex = (y * width + x) * 4;

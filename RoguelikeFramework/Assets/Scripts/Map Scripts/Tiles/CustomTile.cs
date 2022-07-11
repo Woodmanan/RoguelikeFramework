@@ -159,7 +159,11 @@ public class CustomTile : MonoBehaviour
         {
             if (blocksVision)
             {
-                render.sortingOrder = 200 + (200 - location.y);
+                render.sortingOrder = -location.y;
+            }
+            else
+            {
+                render.sortingOrder = -1000;
             }
             render.color = color;
             if (render.enabled == false)

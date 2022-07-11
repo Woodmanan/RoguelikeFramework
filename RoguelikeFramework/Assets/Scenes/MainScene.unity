@@ -4219,9 +4219,9 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
-  highlightPrefab: {fileID: 2415315086530851241, guid: f7427ac0677505a459d23290b996a56b, type: 3}
   targetingIcon: {fileID: 897755775}
-  highlight: {fileID: 21300000, guid: c318cee41f266004680fea72675eb100, type: 3}
+  highlight: {r: 1, g: 0.9591306, b: 0, a: 0.5019608}
+  blockedHighlight: {r: 0.8867924, g: 0.11210393, b: 0.11210393, a: 0.54509807}
   pointLocked: {fileID: 21300000, guid: 8ccb9cc428ec24348959a0bc8c360079, type: 3}
   lastTarget: {fileID: 0}
 --- !u!224 &1717730532

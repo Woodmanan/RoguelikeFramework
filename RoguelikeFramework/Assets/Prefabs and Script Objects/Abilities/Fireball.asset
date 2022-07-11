@@ -19,15 +19,11 @@ MonoBehaviour:
     numPoints: 1
     targetingType: 2
     areaType: 5
-    range: 5
+    range: 10
     radius: 2
     degree: 0
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    options: 3
     targetPriority: 2
-    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []
@@ -72,12 +68,8 @@ MonoBehaviour:
     range: 0
     radius: 0
     degree: 0
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    options: 3
     targetPriority: 0
-    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []

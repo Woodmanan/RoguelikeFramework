@@ -496,7 +496,7 @@ public class Monster : MonoBehaviour
         //transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
 
         //Update sprite sorting
-        renderer.sortingOrder = 200 + (200 - location.y);
+        renderer.sortingOrder = -location.y;
 
         currentTile = map.GetTile(location);
         currentTile.SetMonster(this);

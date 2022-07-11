@@ -35,14 +35,11 @@ public class Targeting
     [SerializeField] public int range;
     [SerializeField] public int radius;
     [SerializeField][Range(0f, 180f)] float degree;
-    [Tooltip("Determines if overlapping areas count monsters in the overlap just once (true) or twice (false).")] 
-    [SerializeField] bool pointsShareOverlap = true; //Double count?
-    [SerializeField] bool pointsRequireLOS = true; //Can I target anywhere, or only in LOS? Pretty dangerous, tbh probably keeps this on
-    [SerializeField] bool includesCasterSpace; //Do I include the player's space in the targetting equation?
-    public bool recommendsPlayerTarget = false; //Should I warn the player if they're standing in it?
+
+    public TargetTags options = TargetTags.POINTS_SHARE_OVERLAP | TargetTags.POINTS_REQUIRE_LOS;
 
     public TargetPriority targetPriority;
-    public TargetTags tags;
+    
 
     public Targeting ShallowCopy()
     {
@@ -146,11 +143,18 @@ public class Targeting
     public bool IsValid()
     {
         bool valid = true;
-        if (pointsRequireLOS)
+        if (options.HasFlag(TargetTags.POINTS_REQUIRE_LOS))
         {
             valid = valid && currentLOS.ValueAtWorld(target);
         }
-        
+
+        if (targetingType == TargetType.SINGLE_SQAURE_LINES || targetingType == TargetType.SINGLE_TARGET_LINES)
+        {
+            BresenhamResults brensham = LOS.GetLineFrom(origin, target, true, !options.HasFlag(TargetTags.LINES_PIERCE));
+
+            valid = valid && !brensham.blocked;
+        }
+
         if (targetingType == TargetType.SINGLE_TARGET_LINES || targetingType == TargetType.SMITE_TARGET)
         {
             Monster atTarget = Map.current.GetTile(target).currentlyStanding;
@@ -198,7 +202,7 @@ public class Targeting
             points.Add(target);
 
             //Add temp to current
-            if (pointsShareOverlap)
+            if (options.HasFlag(TargetTags.POINTS_SHARE_OVERLAP))
             {
                 //Need to add uniquely
                 foreach (Monster m in tempAffected)
@@ -254,7 +258,7 @@ public class Targeting
             }
         }
 
-        if (!includesCasterSpace)
+        if (!options.HasFlag(TargetTags.INCLUDES_CASTER_SPACE))
         {
             MarkArea(origin.x, origin.y, false);
             marking = false;
@@ -273,6 +277,16 @@ public class Targeting
         }
         
         
+    }
+
+    private void MarkHighlightOnly(int x, int y, bool val)
+    {
+        int xSpot = x - origin.x + offset;
+        int ySpot = y - origin.y + offset;
+        if (xSpot >= 0 && xSpot < length && ySpot >= 0 && ySpot < length)
+        {
+            area[xSpot, ySpot] = val;
+        }
     }
 
     private void MarkArea(int x, int y, bool val)
@@ -308,7 +322,7 @@ public class Targeting
     private void DrawBrensham(Vector2Int point)
     {
 
-        BresenhamResults brensham = LOS.GetLineFrom(origin, point);
+        BresenhamResults brensham = LOS.GetLineFrom(origin, target, true, !options.HasFlag(TargetTags.LINES_PIERCE));
 
         //Skip the first one
         foreach (CustomTile tile in brensham.path)
@@ -333,7 +347,6 @@ public class Targeting
                 break;
             case TargetType.FULL_LOS:
                 //Imagine being the nerds who have to generate an area. Just fill in from LOS!
-                //TODO: Consider making this additive with the area modifier? Build the path, then chop it off. Would def be cool for cone
                 for (int i = origin.x - radius; i <= origin.x + radius; i++)
                 {
                     for (int j = origin.y - radius; j <= origin.y + radius; j++)
@@ -341,7 +354,7 @@ public class Targeting
                         MarkArea(i, j, currentLOS.ValueAtWorld(i, j));
                     }
                 }
-                if (!includesCasterSpace)
+                if (!options.HasFlag(TargetTags.INCLUDES_CASTER_SPACE))
                 {
                     MarkArea(origin.x, origin.y, false);
                 }

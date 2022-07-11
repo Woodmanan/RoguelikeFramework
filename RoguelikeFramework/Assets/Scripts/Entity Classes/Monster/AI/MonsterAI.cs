@@ -201,7 +201,7 @@ public class MonsterAI : ActionController
         if (targeting.BeginTargetting(monster.location, monster.view) && targeting.range > 0)
         {
             List<Monster> targets;
-            if ((targeting.tags & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
+            if ((targeting.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
                 targets = monster.view.visibleMonsters.FindAll(x => !x.IsEnemy(monster) && x != monster);
             }
@@ -237,7 +237,7 @@ public class MonsterAI : ActionController
             for (int i = 0; i < targeting.numPoints; i++)
             {
                 int index = i;
-                if ((targeting.tags & TargetTags.RETARGETS_SAME_MONSTER) > 0)
+                if ((targeting.options & TargetTags.RETARGETS_SAME_MONSTER) > 0)
                 {
                     index = 0;
                 }
