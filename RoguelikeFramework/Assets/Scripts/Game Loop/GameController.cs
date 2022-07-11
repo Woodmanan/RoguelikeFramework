@@ -218,15 +218,15 @@ public class GameController : MonoBehaviour
 
             turn++;
 
+            //Wait for current frame to finish up
+            while (AnimationController.Count > 0)
+            {
+                yield return null;
+            }
+
             if (nextLevel != -1)
             {
                 MoveLevel();
-            }
-
-            //Wait for current frame to finish up
-            while(AnimationController.Count > 0)
-            {
-                yield return null;
             }
         }
     }
@@ -252,15 +252,16 @@ public class GameController : MonoBehaviour
         {
             Vector2Int offset = m.location - stair.location;
 
-            m.SetPosition(map.exits[stair.stairPair] + offset);
+            m.SetPositionSnap(map.exits[stair.stairPair] + offset);
         }
         else
         {
             Vector2Int offset = m.location - stair.location;
 
-            m.SetPosition(map.entrances[stair.stairPair] + offset);
+            m.SetPositionSnap(map.entrances[stair.stairPair] + offset);
         }
         m.transform.parent = map.monsterContainer;
+        m.UpdateLOS();
     }
 
     private void MoveLevel()

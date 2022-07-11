@@ -17,17 +17,13 @@ MonoBehaviour:
   color: {r: 0.09803922, g: 0.6996779, b: 0.78431374, a: 1}
   baseTargeting:
     numPoints: 1
-    targetingType: 5
-    areaType: 5
-    range: 0
+    targetingType: 3
+    areaType: 1
+    range: 5
     radius: 5
-    degree: 0
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    degree: 55
+    options: 3
     targetPriority: 0
-    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []
@@ -63,12 +59,8 @@ MonoBehaviour:
     range: 0
     radius: 0
     degree: 0
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    options: 3
     targetPriority: 0
-    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []

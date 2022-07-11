@@ -9,7 +9,7 @@ public class Fireball : Ability
 
     public override bool OnCheckActivationSoft(Monster caster)
     {
-        return (caster.location.x + caster.location.y) % 2 == 0;
+        return true;
     }
 
     public override void OnCast(Monster caster)
@@ -21,6 +21,6 @@ public class Fireball : Ability
         }
 
         AnimationController.AddAnimation(new ProjectileBresenhamAnim(caster.location, targeting.points[0], 12, sprites));
-        AnimationController.AddAnimation(new ExplosionAnimation(targeting.points[0], targeting.radius, null, sprites));
+        AnimationController.AddAnimation(new ExplosionAnimation(targeting.points[0], targeting.radius, targeting, sprites));
     }
 }

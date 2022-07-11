@@ -23,6 +23,7 @@ public class AOEStatus : Ability
 
     public override void OnCast(Monster caster)
     {
+        Debug.Log($"Got {targeting.affected.Count} monsters in the cone.");
         foreach (Monster m in targeting.affected)
         {
             m.AddEffect(toApply.Select(x => x.Instantiate()).ToArray());

@@ -485,6 +485,11 @@ public class Monster : MonoBehaviour
         SetPosition(Map.current, newPosition);
     }
 
+    public void SetPositionSnap(Vector2Int newPosition)
+    {
+        SetPositionSnap(Map.current, newPosition);
+    }
+
     public void SetPosition(Map map, Vector2Int newPosition)
     {
         if (currentTile) currentTile.ClearMonster();
@@ -509,6 +514,12 @@ public class Monster : MonoBehaviour
         {
             SetGraphics(false);
         }
+    }
+
+    public void SetPositionSnap(Map map, Vector2Int newPosition)
+    {
+        SetPosition(map, newPosition);
+        transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
     }
 
     //Function to activate event call of Global turn start

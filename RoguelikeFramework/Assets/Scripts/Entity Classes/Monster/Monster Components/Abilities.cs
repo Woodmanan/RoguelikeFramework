@@ -14,8 +14,7 @@ public class Abilities : MonoBehaviour
         get { return abilities.Count; }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         connectedTo = GetComponent<Monster>();
     }

@@ -36,11 +36,6 @@ public class TargetingPanel : RogueUIPanel
 
     public bool Setup(Targeting t, BoolDelegate endResult)
     {
-        if (current != t)
-        {
-            lastTarget = null;
-        }
-
         //Establish grid if it doesn't exist
         if (!grid)
         {
@@ -264,6 +259,8 @@ public class TargetingPanel : RogueUIPanel
     void ReturnConfirmed(bool value)
     {
         returnCall(value);
+        CustomTile tile = Map.current.GetTile(current.points[0]);
+        lastTarget = tile.currentlyStanding;
         ExitAllWindows();
     }
 

@@ -17,11 +17,11 @@ MonoBehaviour:
   color: {r: 1, g: 0, b: 0, a: 1}
   baseTargeting:
     numPoints: 1
-    targetingType: 2
+    targetingType: 3
     areaType: 5
-    range: 10
-    radius: 2
-    degree: 0
+    range: 5
+    radius: 3
+    degree: 60
     options: 3
     targetPriority: 2
     origin: {x: 0, y: 0}

@@ -279,6 +279,18 @@ public class Targeting
         
     }
 
+    public bool ContainsWorldPoint(Vector2Int location)
+    {
+        return ContainsWorldPoint(location.x, location.y);
+    }
+
+    public bool ContainsWorldPoint(int x, int y)
+    {
+        int xSpot = x - origin.x + offset;
+        int ySpot = y - origin.y + offset;
+        return area[xSpot, ySpot];
+    }
+
     private void MarkHighlightOnly(int x, int y, bool val)
     {
         int xSpot = x - origin.x + offset;
@@ -295,6 +307,11 @@ public class Targeting
         int ySpot = y - origin.y + offset;
         if (xSpot >= 0 && xSpot < length && ySpot >= 0 && ySpot < length)
         {
+            if (options.HasFlag(TargetTags.POINTS_REQUIRE_LOS))
+            {
+                val = val && currentLOS.ValueAtWorld(x, y);
+            }
+
             area[xSpot, ySpot] = val;
             if (marking)
             {

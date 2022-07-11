@@ -8,7 +8,7 @@ public class ActionController : MonoBehaviour
     public IEnumerator selection;
     [HideInInspector] public Monster monster;
     // Start is called before the first frame update
-    protected void Start()
+    protected void Awake()
     {
         monster = GetComponent<Monster>();
     }

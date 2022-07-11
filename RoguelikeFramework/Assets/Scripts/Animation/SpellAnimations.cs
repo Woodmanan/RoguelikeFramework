@@ -6,6 +6,7 @@ public class ExplosionAnimation : RogueAnimation
 {
     public const float animationDuration = .05f;
     SpriteGrid grid;
+    Vector2Int center;
     int radius;
     int maxSprites;
     Targeting targeting;
@@ -13,6 +14,7 @@ public class ExplosionAnimation : RogueAnimation
 
     public ExplosionAnimation(Vector2Int center, int radius, Targeting targeting = null, params Sprite[] sprites) : base(animationDuration * (radius + 1), true)
     {
+        this.center = center;
         this.radius = radius;
         maxSprites = sprites.Length - 1;
         this.targeting = targeting;
@@ -39,18 +41,19 @@ public class ExplosionAnimation : RogueAnimation
         }
 
         //Determine which sprites need to be shown
-        for (int x = 0; x < 2 * radius + 1; x ++)
+        for (int y = 0; y < 2 * radius + 1; y++)
         {
-            for (int y = 0; y < 2 * radius + 1; y++)
+            for (int x = 0; x < 2 * radius + 1; x++)
             {
                 Vector2Int loc = new Vector2Int(x, y) - radius * Vector2Int.one;
+                Vector2Int worldLoc = loc + center;
 
                 int rad = Mathf.Max(Mathf.Abs(loc.x), Mathf.Abs(loc.y));
                 if (rad == step)
                 {
                     if (targeting != null)
                     {
-                        if (targeting.area[x, y])
+                        if (targeting.ContainsWorldPoint(worldLoc.x, worldLoc.y))
                         {
                             grid.SetSprite(x, y, Mathf.Min(maxSprites, step));
                         }

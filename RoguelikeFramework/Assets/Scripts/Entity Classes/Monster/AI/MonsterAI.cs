@@ -32,11 +32,6 @@ public class MonsterAI : ActionController
 
     public Monster lastEnemy;
 
-    private void Start()
-    {
-        base.Start();
-    }
-
     //The main loop for monster AI! This assumes 
     public override IEnumerator DetermineAction()
     {

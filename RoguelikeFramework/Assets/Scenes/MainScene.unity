@@ -2081,7 +2081,7 @@ GameObject:
   - component: {fileID: 897755777}
   - component: {fileID: 897755776}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4205,12 +4205,8 @@ MonoBehaviour:
     range: 0
     radius: 0
     degree: 0
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    options: 3
     targetPriority: 0
-    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []
@@ -5346,7 +5342,7 @@ MonoBehaviour:
   msPerFrame: 4
   randomSeed: 0
   seed: 42
-  JITLoading: 0
+  JITLoading: 1
   StartAt: 0
 --- !u!4 &1953941108
 Transform:

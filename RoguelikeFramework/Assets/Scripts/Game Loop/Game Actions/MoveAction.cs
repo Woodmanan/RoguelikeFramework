@@ -78,6 +78,12 @@ public class MoveAction : GameAction
 
         caller.SetPosition(intendedLocation);
 
+        //Add the movement anim
+        if (animates && caller.renderer.enabled)
+        {
+            AnimationController.AddAnimation(new StepAnimation(caller, oldLocation, intendedLocation));
+        }
+
         Stair stair = tile as Stair;
         if (stair && caller == Player.player && useStair)
         {
@@ -88,12 +94,6 @@ public class MoveAction : GameAction
                 yield return act.action.Current;
             }
             yield return GameAction.AbortAll;
-        }
-
-        //If we're not moving levels, add the movement anim
-        if (animates && caller.renderer.enabled)
-        {
-            AnimationController.AddAnimation(new StepAnimation(caller, oldLocation, intendedLocation));
         }
 
         caller.UpdateLOS();
