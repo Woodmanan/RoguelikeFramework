@@ -22,7 +22,7 @@ MonoBehaviour:
     range: 5
     radius: 3
     degree: 60
-    options: 3
+    options: 1
     targetPriority: 2
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}

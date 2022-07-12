@@ -53,6 +53,7 @@ public class Item : MonoBehaviour
             else
             {
                 Render = GetComponent<SpriteRenderer>();
+                Render.sortingOrder = -900;
                 return Render;
             }
         }

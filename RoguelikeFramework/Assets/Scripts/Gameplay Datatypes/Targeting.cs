@@ -143,10 +143,8 @@ public class Targeting
     public bool IsValid()
     {
         bool valid = true;
-        if (options.HasFlag(TargetTags.POINTS_REQUIRE_LOS))
-        {
-            valid = valid && currentLOS.ValueAtWorld(target);
-        }
+        
+        valid = valid && currentLOS.ValueAtWorld(target);
 
         if (targetingType == TargetType.SINGLE_SQAURE_LINES || targetingType == TargetType.SINGLE_TARGET_LINES)
         {
@@ -312,7 +310,7 @@ public class Targeting
                 val = val && currentLOS.ValueAtWorld(x, y);
             }
 
-            area[xSpot, ySpot] = val;
+            area[xSpot, ySpot] = val && !Map.current.GetTile(x, y).isHidden;
             if (marking)
             {
                 Monster m = Map.current.GetTile(x, y).currentlyStanding;

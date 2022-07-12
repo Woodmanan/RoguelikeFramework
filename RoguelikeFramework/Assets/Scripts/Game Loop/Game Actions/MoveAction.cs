@@ -83,6 +83,10 @@ public class MoveAction : GameAction
         {
             AnimationController.AddAnimation(new MoveAnimation(caller, oldLocation, intendedLocation));
         }
+        else
+        {
+            caller.transform.position = new Vector3(intendedLocation.x, intendedLocation.y, Monster.monsterZPosition);
+        }
 
         Stair stair = tile as Stair;
         if (stair && caller == Player.player && useStair)
