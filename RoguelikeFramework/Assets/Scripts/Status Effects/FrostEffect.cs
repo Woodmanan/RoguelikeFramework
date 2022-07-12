@@ -52,7 +52,7 @@ public class FrostEffect : Effect
     //Called whenever a monster takes a step
     public override void OnMove()
     {
-        connectedTo.monster?.Damage(null, 1, DamageType.CUTTING, DamageSource.EFFECT);
+        connectedTo.monster?.Damage(credit, 1, DamageType.CUTTING, DamageSource.EFFECT);
     }
 
     //Called whenever a monster returns to full health

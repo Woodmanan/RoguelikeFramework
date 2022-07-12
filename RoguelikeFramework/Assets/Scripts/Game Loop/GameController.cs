@@ -202,6 +202,16 @@ public class GameController : MonoBehaviour
                 }
             }
             watch.Stop();
+            
+            CallTurnEndGlobal();
+
+            turn++;
+
+            //Wait for current frame to finish up
+            while (AnimationController.Count > 0)
+            {
+                yield return null;
+            }
 
             //Clean up anybody who's dead
             for (int i = Map.current.monsters.Count - 1; i >= 0; i--)
@@ -212,16 +222,6 @@ public class GameController : MonoBehaviour
                     Map.current.monsters.RemoveAt(i);
                     Destroy(monster.gameObject);
                 }
-            }
-            
-            CallTurnEndGlobal();
-
-            turn++;
-
-            //Wait for current frame to finish up
-            while (AnimationController.Count > 0)
-            {
-                yield return null;
             }
 
             if (nextLevel != -1)

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New TestHealing", menuName = "Status Effects/TestHealing", order = 1)]
 public class TestHealing : Effect
 {
     [SerializeField] int healthPerTurn;

@@ -37,7 +37,6 @@ public class Player : Monster
         base.Start();
         Setup();
         player = this;
-        Player.player.connections.OnTurnStartLocal.AddListener(1000, OnTurnStart);
     }
 
     //Special case, because it affects the world around it through the player's view.
@@ -65,10 +64,5 @@ public class Player : Monster
         {
             Debug.Log("Game over!");
         }
-    }
-
-    public void OnTurnStart()
-    {
-
     }
 }

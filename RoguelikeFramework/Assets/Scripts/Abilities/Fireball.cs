@@ -14,13 +14,12 @@ public class Fireball : Ability
 
     public override void OnCast(Monster caster)
     {
-        Debug.Log($"Fireball was able to hit {targeting.affected.Count} enemies");
+        AnimationController.AddAnimation(new ProjectileBresenhamAnim(caster.location, targeting.points[0], 12, sprites));
+        AnimationController.AddAnimation(new ExplosionAnimation(targeting.points[0], targeting.radius, targeting, sprites));
+
         foreach (Monster m in targeting.affected)
         {
             m.Damage(caster, (int) stats.power, DamageType.CUTTING, DamageSource.ABILITY);
         }
-
-        AnimationController.AddAnimation(new ProjectileBresenhamAnim(caster.location, targeting.points[0], 12, sprites));
-        AnimationController.AddAnimation(new ExplosionAnimation(targeting.points[0], targeting.radius, targeting, sprites));
     }
 }

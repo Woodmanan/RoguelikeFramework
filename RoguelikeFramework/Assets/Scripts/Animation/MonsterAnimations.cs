@@ -87,3 +87,31 @@ public class AttackAnimation : RogueAnimation
     }
 
 }
+
+public class DeathAnimation : RogueAnimation
+{
+    public const float deathDuration = .2f;
+
+    Monster monster;
+
+    public DeathAnimation(Monster monster) : base(deathDuration, true)
+    {
+        this.monster = monster;
+    }
+
+    public override void OnStart()
+    {
+        
+    }
+
+    public override void OnStep(float delta)
+    {
+        monster.transform.localScale = Vector3.one * (1f - (currentDuration / MaxDuration));
+    }
+
+    public override void OnEnd()
+    {
+        monster.transform.localScale = Vector3.zero;
+    }
+
+}

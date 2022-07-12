@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [EffectGroup("Weapon Brands")]
-[CreateAssetMenu(fileName = "New Electrocution", menuName = "Status Effects/Electrocution", order = 1)]
 public class Electrocution : Effect
 {
     public int damagePerHit;

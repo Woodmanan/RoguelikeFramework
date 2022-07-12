@@ -56,6 +56,8 @@ public class AttackAction : GameAction
 
             caller.connections.OnGenerateArmedAttacks.Invoke(ref primaryWeapons, ref secondaryWeapons);
 
+            AnimationController.AddAnimation(new AttackAnimation(caller, target));
+
             foreach (Weapon w in primaryWeapons)
             {
                 w.PrimaryAttack(caller, target, this);
@@ -72,8 +74,6 @@ public class AttackAction : GameAction
             {
                 UnarmedAttack(caller, target, slot);
             }
-
-            AnimationController.AddAnimation(new AttackAnimation(caller, target));
 
             caller.energy -= 100;
 

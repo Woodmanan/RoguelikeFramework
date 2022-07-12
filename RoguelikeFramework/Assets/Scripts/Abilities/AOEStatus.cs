@@ -23,12 +23,15 @@ public class AOEStatus : Ability
 
     public override void OnCast(Monster caster)
     {
-        Debug.Log($"Got {targeting.affected.Count} monsters in the cone.");
+        AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         foreach (Monster m in targeting.affected)
         {
-            m.AddEffect(toApply.Select(x => x.Instantiate()).ToArray());
+            foreach (Effect e in toApply)
+            {
+                Effect inst = e.Instantiate();
+                inst.credit = caster;
+                m.AddEffect(inst);
+            }
         }
-
-        AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
     }
 }

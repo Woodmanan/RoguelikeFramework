@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -900
   m_Sprite: {fileID: 4149346533631538761, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   m_Color: {r: 0.50377357, g: 0.941315, b: 1, a: 1}
   m_FlipX: 0
@@ -185,12 +185,8 @@ MonoBehaviour:
     range: 7
     radius: 7
     degree: 60
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    options: 3
     targetPriority: 0
-    tags: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []

@@ -234,6 +234,8 @@ public class Monster : MonoBehaviour
             dropAll.Setup(this);
             while (dropAll.action.MoveNext()) { }
         }
+
+        AnimationController.AddAnimation(new DeathAnimation(this));
     }
 
     public void KillMonster(Monster target, DamageType type, DamageSource source)
