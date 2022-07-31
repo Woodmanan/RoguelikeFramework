@@ -69,7 +69,7 @@ public class AbilityAction : GameAction
             }
 
             //Take out the costs
-            caller.LoseResources(toCast.stats.costs);
+            caller.LoseResources(toCast.costs);
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 

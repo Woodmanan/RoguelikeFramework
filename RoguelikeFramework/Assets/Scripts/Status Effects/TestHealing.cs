@@ -57,7 +57,7 @@ public class TestHealing : Effect
 
     //Called when a monster is looking to recheck the stats, good for adding in variable stats mid-effect
     //it gains from effects and items
-    public override void RegenerateStats(ref StatBlock stats) {}
+    public override void RegenerateStats(ref Stats stats) {}
 
     //Called whenever a monster gains energy
     /*public override void OnEnergyGained(ref int energy) {}*/

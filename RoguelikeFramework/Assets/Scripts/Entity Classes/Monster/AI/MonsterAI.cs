@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Priority_Queue;
+using static Resources;
+
 public class IntNode : FastPriorityQueueNode
 {
     public int value;
@@ -82,7 +84,7 @@ public class MonsterAI : ActionController
             choices.Enqueue(new IntNode(4), 1f - .1f);
 
             //5 - Heal up
-            choices.Enqueue(new IntNode(5), (monster.resources.health / (float)monster.stats.resources.health));
+            choices.Enqueue(new IntNode(5), (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
 
             switch (choices.First.value)
             {
@@ -222,10 +224,10 @@ public class MonsterAI : ActionController
                     targets = targets.OrderByDescending(x => x.DistanceFrom(monster)).ToList();
                     break;
                 case TargetPriority.LOWEST_HEALTH:
-                    targets = targets.OrderBy(x => ((float)x.resources.health) / x.stats.resources.health).ToList();
+                    targets = targets.OrderBy(x => x.baseStats[HEALTH] / x.currentStats[MAX_HEALTH]).ToList();
                     break;
                 case TargetPriority.HIGHEST_HEALTH:
-                    targets = targets.OrderByDescending(x => ((float)x.resources.health) / x.stats.resources.health).ToList();
+                    targets = targets.OrderByDescending(x => x.baseStats[HEALTH] / x.currentStats[MAX_HEALTH]).ToList();
                     break;
             }
 

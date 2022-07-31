@@ -7,14 +7,13 @@ using System.Text.RegularExpressions; //Oh god oh fuck (so true)
 using System.Linq;
 
 
+using static Resources;
 
 public class Monster : MonoBehaviour
 {
     [Header("Setup Variables")]
-    public StatBlock baseStats;
-    public StatBlock stats;
-
-    public ResourceList resources;
+    public Stats baseStats;
+    public Stats currentStats;
 
     //TODO: Abstract these out to another class!!!
     public string displayName;
@@ -80,21 +79,14 @@ public class Monster : MonoBehaviour
 
         renderer = GetComponent<SpriteRenderer>();
 
-
-        //TODO: Have starting equipment? Probably not a huge concern right now, though.
-        stats = baseStats;
-
-        foreach (Resource r in Enum.GetValues(typeof(Resource)))
-        {
-            resources[r] = stats.resources[r];
-        }
-
         connections = new Connections(this);
-
-        resources.health = stats.resources.health;
+        baseStats[HEALTH] = baseStats[MAX_HEALTH];
+        baseStats[MANA] = baseStats[MAX_MANA];
+        baseStats[STAMINA] = baseStats[MAX_STAMINA];
+        baseStats[XP] = 0;
+        currentStats = baseStats.Copy();
         connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
-        resources.xp = 0;
-
+        
         inventory?.Setup();
         equipment?.Setup();
         controller?.Setup();
@@ -131,20 +123,19 @@ public class Monster : MonoBehaviour
         connections.OnHealing.BlendInvoke(other?.OnHealing, ref healthReturned);
 
         //Healing has no actual effect (and therefore no display) if you didn't actually heal
-        if (resources.health == stats.resources.health)
+        if (baseStats[HEALTH] == currentStats[MAX_HEALTH])
         {
             return;
         }
 
         if (healthReturned > 0) //Negative health healing is currently just ignored, for clarity's sake
         {
-            resources.health += healthReturned;
+            baseStats[HEALTH] += healthReturned;
         }
-
-        if (resources.health >= stats.resources.health)
+        if (baseStats[HEALTH] >= currentStats[MAX_HEALTH])
         {
-            healthReturned -= (resources.health - stats.resources.health);
-            resources.health = stats.resources.health;
+            healthReturned -= (int) (currentStats[MAX_HEALTH] - currentStats[HEALTH]);
+            baseStats[HEALTH] = currentStats[MAX_HEALTH];
             connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
         }
 
@@ -158,13 +149,13 @@ public class Monster : MonoBehaviour
     {
         connections.OnAttacked.BlendInvoke(other?.OnAttacked, ref pierce, ref accuracy);
 
-        if (accuracy < stats.ev)
+        if (accuracy < currentStats[EV])
         {
             //TODO: Log dodge
             return false;
         }
 
-        if (pierce < stats.ac)
+        if (pierce < currentStats[AC])
         {
             //TODO: Log break damage
             return false;
@@ -179,16 +170,16 @@ public class Monster : MonoBehaviour
     private void Damage(int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
         connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
-        resources.health -= damage;
+        baseStats[HEALTH] -= damage;
 
         //Loggingstuff
         string toPrint = FormatStringForName(message).Replace("{damage}", $"{damage}");
         //Debug.Log($"Console print: {toPrint}");
 
-        if (resources.health <= 0)
+        if (baseStats[HEALTH] <= 0)
         {
             connections.OnDeath.BlendInvoke(other?.OnDeath);
-            if (resources.health <= 0) //Check done for respawn mechanics to take effect
+            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
             {
                 Die();
             }
@@ -212,7 +203,7 @@ public class Monster : MonoBehaviour
         }
         
 
-        if (resources.health <= 0)
+        if (baseStats[HEALTH] <= 0)
         {
             dealer?.KillMonster(this, type, source);
         }
@@ -248,28 +239,20 @@ public class Monster : MonoBehaviour
     {
         Debug.Log($"{DebugName()} has gained {amount} XP!");
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);
-        resources.xp += amount;
-        if (resources.xp >= stats.resources.xp)
+        baseStats[XP] += amount;
+        if (baseStats[XP] >= currentStats[NEXT_LEVEL_XP])
         {
-            resources.xp -= stats.resources.xp;
-            Debug.Log($"After leveling up with {XPTillNextLevel()} xp, monster now has {resources.xp} xp leftover.");
+            baseStats[XP] -= currentStats[NEXT_LEVEL_XP];
+            Debug.Log($"After leveling up with {XPTillNextLevel()} xp, monster now has {baseStats[XP]} xp leftover.");
             LevelUp();
         }
 
     }
 
-    public void AddResource(Resource resource, int amount)
-    {
-        resources[resource] += amount;
-        if (resources[resource] > stats.resources[resource])
-        {
-            resources[resource] = stats.resources[resource];
-        }
-    }
-
     //TODO: Make this 
     public virtual int XPTillNextLevel()
     {
+        baseStats[NEXT_LEVEL_XP] = int.MaxValue;
         return int.MaxValue;
     }
 
@@ -277,7 +260,7 @@ public class Monster : MonoBehaviour
     {
         level++;
         connections.OnLevelUp.BlendInvoke(other?.OnLevelUp, ref level);
-        baseStats.resources.xp = XPTillNextLevel();
+        baseStats[NEXT_LEVEL_XP] = XPTillNextLevel();
         OnLevelUp();
         abilities?.CheckAvailability();
     }
@@ -291,14 +274,14 @@ public class Monster : MonoBehaviour
     {
         // Like dying but no drops
         Debug.Log("Monster Removed!");
-        resources.health = 0;
+        baseStats[HEALTH] = 0;
         currentTile.ClearMonster();
     }
 
     public bool IsDead()
     {
         //Oops, this must be <= 0, Sometimes people can overkill!
-        return resources.health <= 0;
+        return baseStats[HEALTH] <= 0;
     }
 
     private string FormatStringForName(string msg)
@@ -375,8 +358,8 @@ public class Monster : MonoBehaviour
 
     public void CallRegenerateStats()
     {
-        stats = new StatBlock() + baseStats;
-        connections.RegenerateStats.BlendInvoke(other?.RegenerateStats, ref stats);
+        currentStats = baseStats.Copy();
+        connections.RegenerateStats.BlendInvoke(other?.RegenerateStats, ref currentStats);
     }
 
     public void SetAction(GameAction act)
@@ -537,16 +520,16 @@ public class Monster : MonoBehaviour
         connections.OnTurnEndGlobal.BlendInvoke(other?.OnTurnEndGlobal);
     }
 
-    public void GainResources(ResourceList resources)
+    public void GainResources(Stats resources)
     {
         connections.OnGainResources.BlendInvoke(other?.OnGainResources, ref resources);
-        this.resources += resources;
+        this.baseStats += resources;
     }
 
-    public void LoseResources(ResourceList resources)
+    public void LoseResources(Stats resources)
     {
         connections.OnLoseResources.BlendInvoke(other?.OnLoseResources, ref resources);
-        this.resources -= resources;
+        this.baseStats -= resources;
     }
 
 

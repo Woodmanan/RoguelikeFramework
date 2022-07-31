@@ -172,7 +172,7 @@ public class Effect
     public virtual void OnFullyHealed() {}
     public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void OnDeath() {}
-    public virtual void RegenerateStats(ref StatBlock stats) {}
+    public virtual void RegenerateStats(ref Stats stats) {}
     public virtual void OnEnergyGained(ref int energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
     public virtual void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
@@ -180,10 +180,10 @@ public class Effect
     public virtual void OnHealing(ref int healAmount) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
     public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
-    public virtual void OnGainResources(ref ResourceList resources) {}
+    public virtual void OnGainResources(ref Stats resources) {}
     public virtual void OnGainXP(ref int XPAmount) {}
     public virtual void OnLevelUp(ref int Level) {}
-    public virtual void OnLoseResources(ref ResourceList resources) {}
+    public virtual void OnLoseResources(ref Stats resources) {}
     public virtual void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
     public virtual void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
     public virtual void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}

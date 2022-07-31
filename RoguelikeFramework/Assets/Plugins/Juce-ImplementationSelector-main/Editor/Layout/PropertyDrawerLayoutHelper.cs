@@ -21,6 +21,18 @@ namespace Juce.ImplementationSelector.Layout
             this.isFirst = true;
         }
 
+        public void Indent()
+        {
+            currentRect.x += 15;
+            currentRect.width -= 15;
+        }
+
+        public void Unindent()
+        {
+            currentRect.x -= 15;
+            currentRect.width += 15;
+        }
+
         public Rect NextVerticalRect(float height)
         {
             currentRect.height = height;

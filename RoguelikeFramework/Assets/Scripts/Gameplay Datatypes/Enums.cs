@@ -155,12 +155,18 @@ public enum UIState
     PICKUP_MANY
 }
 
-public enum Resource
+public enum Resources
 {
     HEALTH,
+    MAX_HEALTH,
     MANA,
+    MAX_MANA,
     STAMINA,
-    XP
+    MAX_STAMINA,
+    XP,
+    NEXT_LEVEL_XP,
+    AC,
+    EV
 }
 
 [Flags]

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Resources;
 
 public class MonsterRest : GameAction
 {
@@ -14,7 +15,7 @@ public class MonsterRest : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        if (caller.resources.health == caller.stats.resources.health)
+        if (caller.baseStats[HEALTH] == caller.currentStats[MAX_HEALTH])
         {
             yield break;
         }
@@ -39,7 +40,7 @@ public class MonsterRest : GameAction
 
             caller.Heal(1, true);
 
-            if (caller.resources.health == caller.stats.resources.health)
+            if (caller.baseStats[HEALTH] == caller.currentStats[MAX_HEALTH])
             {
                 Debug.Log($"Log: {caller.GetFormattedName()} stops resting.");
                 yield break;

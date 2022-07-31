@@ -38,7 +38,7 @@ public class Connections
     public OrderedEvent OnFullyHealed = new OrderedEvent();
     public OrderedEvent<Monster, DamageType, DamageSource> OnKillMonster = new OrderedEvent<Monster, DamageType, DamageSource>();
     public OrderedEvent OnDeath = new OrderedEvent();
-    public OrderedEvent<StatBlock> RegenerateStats = new OrderedEvent<StatBlock>();
+    public OrderedEvent<Stats> RegenerateStats = new OrderedEvent<Stats>();
     public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>();
     public OrderedEvent<int, int> OnAttacked = new OrderedEvent<int, int>();
     public OrderedEvent<int, DamageType, DamageSource> OnDealDamage = new OrderedEvent<int, DamageType, DamageSource>();
@@ -46,10 +46,10 @@ public class Connections
     public OrderedEvent<int> OnHealing = new OrderedEvent<int>();
     public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>();
     public OrderedEvent<AbilityAction, bool> OnCastAbility = new OrderedEvent<AbilityAction, bool>();
-    public OrderedEvent<ResourceList> OnGainResources = new OrderedEvent<ResourceList>();
+    public OrderedEvent<Stats> OnGainResources = new OrderedEvent<Stats>();
     public OrderedEvent<int> OnGainXP = new OrderedEvent<int>();
     public OrderedEvent<int> OnLevelUp = new OrderedEvent<int>();
-    public OrderedEvent<ResourceList> OnLoseResources = new OrderedEvent<ResourceList>();
+    public OrderedEvent<Stats> OnLoseResources = new OrderedEvent<Stats>();
     public OrderedEvent<Targeting, AbilityBlock, Ability> OnRegenerateAbilityStats = new OrderedEvent<Targeting, AbilityBlock, Ability>();
     public OrderedEvent<Ability, bool> OnCheckAvailability = new OrderedEvent<Ability, bool>();
     public OrderedEvent<Targeting, Ability> OnTargetsSelected = new OrderedEvent<Targeting, Ability>();

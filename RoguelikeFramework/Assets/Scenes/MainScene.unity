@@ -1387,26 +1387,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    resources:
-      health: 100
-      mana: 20
-      stamina: 20
-      xp: 0
-    ac: 5
-    ev: 5
-  stats:
-    resources:
-      health: 0
-      mana: 0
-      stamina: 0
-      xp: 0
-    ac: 0
-    ev: 0
-  resources:
-    health: 0
-    mana: 0
-    stamina: 0
-    xp: 0
+    _keys: 010000000300000005000000
+    _vals:
+    - 100
+    - 100
+    - 100
+  currentStats:
+    _keys: 
+    _vals: []
   displayName: You
   nameRequiresPluralVerbs: 1
   faction: 2

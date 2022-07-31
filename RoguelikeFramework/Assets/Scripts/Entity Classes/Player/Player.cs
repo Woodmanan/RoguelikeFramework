@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using static Resources;
 
 public class Player : Monster
 {
@@ -48,7 +49,7 @@ public class Player : Monster
 
     public override int XPTillNextLevel()
     {
-        baseStats.resources.xp = level;
+        baseStats[NEXT_LEVEL_XP] = level;
         return level;
     }
 
@@ -60,7 +61,7 @@ public class Player : Monster
     public override void Die()
     {
         Remove();
-        if (resources.health <= 0)
+        if (baseStats[HEALTH] <= 0)
         {
             Debug.Log("Game over!");
         }

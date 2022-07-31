@@ -53,7 +53,7 @@ public class #SCRIPTNAME# : Effect
     //public override void OnDeath() {}
 
     //Called often, whenever a monster needs up-to-date stats.
-    //public override void RegenerateStats(ref StatBlock stats) {}
+    //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
     //public override void OnEnergyGained(ref int energy) {}
@@ -77,7 +77,7 @@ public class #SCRIPTNAME# : Effect
     //public override void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
 
     //Called when this monster gains resources. (Different from healing, but can give health)
-    //public override void OnGainResources(ref ResourceList resources) {}
+    //public override void OnGainResources(ref Stats resources) {}
 
     //Called when this monster gains XP from any source.
     //public override void OnGainXP(ref int XPAmount) {}
@@ -86,7 +86,7 @@ public class #SCRIPTNAME# : Effect
     //public override void OnLevelUp(ref int Level) {}
 
     //Called when this monster loses resources. (Different from damage, but can take health)
-    //public override void OnLoseResources(ref ResourceList resources) {}
+    //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}

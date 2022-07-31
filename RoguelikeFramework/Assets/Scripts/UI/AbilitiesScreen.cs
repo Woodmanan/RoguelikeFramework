@@ -77,7 +77,7 @@ public class AbilitiesScreen : RogueUIPanel
             displayed[i].gameObject.SetActive(true);
             displayed[i].Setup(Cast, i);
             displayed[i].SetDisplay(examinedAbilities[i].image, $"{Conversions.IntToNumbering(i)} - {examinedAbilities[i].displayName}", examinedAbilities[i].color);
-            displayed[i].SetCooldown(examinedAbilities[i].currentCooldown, examinedAbilities[i].maxCooldown);
+            displayed[i].SetCooldown(examinedAbilities[i].currentCooldown, examinedAbilities[i].stats.cooldown);
             if (!examinedAbilities[i].castable)
             {
                 displayed[i].Disable();

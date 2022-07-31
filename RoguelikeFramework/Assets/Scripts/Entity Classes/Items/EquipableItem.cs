@@ -7,7 +7,7 @@ public class EquipableItem : MonoBehaviour
     [Header("Equipable Attributes")]
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
-    public StatBlock addedStats;
+    public Stats addedStats;
 
     [SerializeReference] public List<Effect> addedEffects;
 
@@ -49,7 +49,7 @@ public class EquipableItem : MonoBehaviour
     {
         isEquipped = true;
         equippedTo = m;
-        m.stats += addedStats; //Immediate stat benefit
+        m.currentStats += addedStats; //Immediate stat benefit
         m.connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
@@ -66,7 +66,7 @@ public class EquipableItem : MonoBehaviour
 
     public void OnUnequip()
     {
-        equippedTo.stats -= addedStats;
+        equippedTo.currentStats -= addedStats;
 
         //Disconnect all old effects
         foreach (Effect e in clonedEffects)
@@ -78,7 +78,7 @@ public class EquipableItem : MonoBehaviour
         equippedTo = null;
     }
 
-    public void RegenerateStats(ref StatBlock block)
+    public void RegenerateStats(ref Stats block)
     {
         block += addedStats;
     }

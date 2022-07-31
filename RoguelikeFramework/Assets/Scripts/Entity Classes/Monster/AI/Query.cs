@@ -109,7 +109,7 @@ public class QueryTerm
     public int subjectCount;
 
     public QueryProperty property;
-    public Resource resource;
+    public Resources resource;
     public QueryEquality equality;
 
     public float value;
@@ -268,12 +268,12 @@ public class QueryTerm
 
     public float EvaluateMonsterResource(Monster m)
     {
-        float comp = m.resources[resource];
+        float comp = m.currentStats[resource];
         float valueCopy = value;
         switch (valueMod)
         {
             case QueryValueModifier.PERCENT:
-                comp = comp / m.stats.resources[resource];
+                comp = comp / m.currentStats[resource];
                 valueCopy = value / 100;
                 break;
             case QueryValueModifier.NEAREST_INT:

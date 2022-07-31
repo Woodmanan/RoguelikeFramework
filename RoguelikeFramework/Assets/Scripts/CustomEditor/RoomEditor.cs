@@ -18,7 +18,7 @@ public class RoomEditor : Editor
         EditorGUILayout.PropertyField(vector);
 
         GUIStyle style = new GUIStyle();
-        style.font = (Font) Resources.Load(@"Fonts\Ubuntu_Mono\UbuntuMono-R");
+        style.font = (Font)UnityEngine.Resources.Load(@"Fonts\Ubuntu_Mono\UbuntuMono-R");
 
         layout.stringValue = EditorGUILayout.TextArea(layout.stringValue, style, GUILayout.Height(14 * size.y + 2*(size.y - 1)), GUILayout.Width(8*size.x));
 

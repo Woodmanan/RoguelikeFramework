@@ -35,16 +35,14 @@ public class Ability : ScriptableObject
     //Public Resources
     public Targeting baseTargeting;
     public AbilityBlock baseStats;
+    [HideInInspector] public AbilityBlock stats;
 
     public Query castQuery;
 
     [HideInInspector] public Targeting targeting;
-    [HideInInspector] public AbilityBlock stats;
+    public Stats costs;
+    
     [HideInInspector] public int currentCooldown = 0;
-    public int maxCooldown
-    {
-        get { return stats.cooldown; }
-    }
 
     [HideInInspector] public bool castable = true;
 
@@ -97,9 +95,9 @@ public class Ability : ScriptableObject
         }
         if (canCast)
         {
-            foreach (Resource r in Enum.GetValues(typeof(Resource)))
+            foreach (Resources r in Enum.GetValues(typeof(Resources)))
             {
-                if (caster.resources[r] < stats.costs[r])
+                if (caster.currentStats[r] < costs[r])
                 {
                     canCast = false;
                     break;

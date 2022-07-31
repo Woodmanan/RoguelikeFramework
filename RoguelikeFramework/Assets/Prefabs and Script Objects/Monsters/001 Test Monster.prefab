@@ -48,26 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    resources:
-      health: 30
-      mana: 10
-      stamina: 10
-      xp: 0
-    ac: 0
-    ev: 0
-  stats:
-    resources:
-      health: 0
-      mana: 0
-      stamina: 0
-      xp: 0
-    ac: 0
-    ev: 0
-  resources:
-    health: 0
-    mana: 0
-    stamina: 0
-    xp: 0
+    _keys: 0000000001000000
+    _vals:
+    - 100
+    - 100
+  currentStats:
+    _keys: 
+    _vals: []
   displayName: Test Monster
   nameRequiresPluralVerbs: 0
   faction: 1
@@ -86,7 +73,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   renderer: {fileID: 0}
   currentTile: {fileID: 0}
-  XPFromKill: 0
+  XPFromKill: 1
   level: 0
 --- !u!212 &4402800733788238310
 SpriteRenderer:

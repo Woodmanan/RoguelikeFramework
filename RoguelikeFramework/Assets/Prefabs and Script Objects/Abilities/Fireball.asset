@@ -33,13 +33,11 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    costs:
-      health: 0
-      mana: 2
-      stamina: 0
-      xp: 0
     cooldown: 5
     power: 100
+  stats:
+    cooldown: 0
+    power: 0
   castQuery:
     outOf: 5
     terms:
@@ -78,14 +76,11 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
-  stats:
-    costs:
-      health: 0
-      mana: 0
-      stamina: 0
-      xp: 0
-    cooldown: 0
-    power: 0
+  costs:
+    _keys: 02000000
+    _vals:
+    - 4
+  maxCooldown: 0
   currentCooldown: 0
   castable: 1
   types: 1

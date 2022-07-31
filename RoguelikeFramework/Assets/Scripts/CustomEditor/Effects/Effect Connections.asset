@@ -53,7 +53,7 @@ MonoBehaviour:
     priority: 7
   - name: RegenerateStats
     types:
-    - type: StatBlock
+    - type: Stats
       name: stats
     description: Called often, whenever a monster needs up-to-date stats.
     priority: 8
@@ -117,7 +117,7 @@ MonoBehaviour:
     priority: 15
   - name: OnGainResources
     types:
-    - type: ResourceList
+    - type: Stats
       name: resources
     description: Called when this monster gains resources. (Different from healing,
       but can give health)
@@ -136,7 +136,7 @@ MonoBehaviour:
     priority: 17
   - name: OnLoseResources
     types:
-    - type: ResourceList
+    - type: Stats
       name: resources
     description: Called when this monster loses resources. (Different from damage,
       but can take health)
