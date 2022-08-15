@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : GameAction
+{
+    //Constuctor for the action
+    public #SCRIPTNAME#()
+    {
+        //Construct me! Don't need caller here, that will get assigned during Setup.
+    }
+
+    //The main function! This EXACT coroutine will be executed, even across frames.
+    //See GameAction.cs for more information on how this function should work!
+    public override IEnumerator TakeAction()
+    {
+        yield break; //Here so compiler doesn't yell.
+    }
+
+    //Called after construction, but before execution!
+    //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
+    public override void OnSetup()
+    {
+
+    }
+}

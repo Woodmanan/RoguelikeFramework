@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Connections
+{
+    public Monster monster;
+    public Item item;
+    public Ability ability;
+
+    public Connections()
+    {
+
+    }
+
+    public Connections(Monster monster)
+    {
+        this.monster = monster;
+    }
+
+    public Connections(Item item)
+    {
+        this.item = item;
+    }
+
+    public Connections(Ability ability)
+    {
+        this.ability = ability;
+    }
+
+
+    //BEGIN AUTO EVENTS
+}
