@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc668b253370da344a47e79a0c898d13, type: 3}
+  m_Name: Standard World
+  m_EditorClassIdentifier: 
+  choices:
+  - name: Add Main Dungeon
+    targets:
+    - branchName: Start
+      minFloor: 0
+      maxFloor: 0
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 0
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: ed3b0f69dcf96e841889e7b5d8719f1a, type: 2}
+    connectionType: 0
+  - name: Add Lair
+    targets:
+    - branchName: Main Dungeon
+      minFloor: 7
+      maxFloor: 11
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 0
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: 78422380b50d796428a2bd0e917271ce, type: 2}
+    connectionType: 0
+  - name: Add Lair Branches
+    targets:
+    - branchName: Lair
+      minFloor: 1
+      maxFloor: 3
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 0
+      min: 2
+      max: 2
+    branches:
+    - {fileID: 11400000, guid: e3df8ea454f17784c8f12998b071585c, type: 2}
+    - {fileID: 11400000, guid: b994692678857104d990c02b6729c93f, type: 2}
+    - {fileID: 11400000, guid: 4e01beefa7a755a489c0c951e9abe752, type: 2}
+    - {fileID: 11400000, guid: 3d09ace021f4a0f45abe3457bc570f70, type: 2}
+    connectionType: 0
+  - name: Add Random Branches
+    targets:
+    - branchName: Main Dungeon
+      minFloor: 1
+      maxFloor: 7
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 1
+      min: 0
+      max: 2
+    branches:
+    - {fileID: 11400000, guid: a32eab76c296cfe45b90d1f349aa151d, type: 2}
+    - {fileID: 11400000, guid: ee1a32dc4afa4e440895472001c87c22, type: 2}
+    - {fileID: 11400000, guid: f7f53d10aa67073469c0d909e3b243af, type: 2}
+    - {fileID: 11400000, guid: 43a16bb13ef93e044baddf11900b3b4c, type: 2}
+    connectionType: 0
+  - name: Add Slime Pits
+    targets:
+    - branchName: Lair
+      minFloor: 5
+      maxFloor: 5
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 1
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: ffcaf8bf13c13b84798ef70408597e43, type: 2}
+    connectionType: 0
+  - name: Add Temple
+    targets:
+    - branchName: Main Dungeon
+      minFloor: 4
+      maxFloor: 6
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 1
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: 445d0014d7e6b054f8ae6ce53017f91f, type: 2}
+    connectionType: 0

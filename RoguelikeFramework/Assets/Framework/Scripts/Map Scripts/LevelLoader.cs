@@ -28,6 +28,7 @@ public class LevelLoader : MonoBehaviour
         set { Singleton = value; }
     }
 
+    public WorldGenerator world;
     public List<DungeonGenerator> generators;
     int current;
     public float msPerFrame;
@@ -46,6 +47,8 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        world = Instantiate(world);
+        world.Generate();
         if (!setup) Setup();
         
         if (!JITLoading)
