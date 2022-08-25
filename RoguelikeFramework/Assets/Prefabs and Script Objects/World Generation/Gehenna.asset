@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
-  m_Name: Sewers
+  m_Name: Gehenna
   m_EditorClassIdentifier: 
   requirements: []
   antiRequirements: []
-  branchName: Sewers
+  branchName: Gehenna
   branchDepth: 0
-  numberOfLevels: 1
+  numberOfLevels: 5
   ConnectionsPerFloor:
     rngType: 0
     min: 0
@@ -25,4 +25,4 @@ MonoBehaviour:
     rngType: 0
     min: 0
     max: 0
-  oneWay: 0
+  oneWay: 1

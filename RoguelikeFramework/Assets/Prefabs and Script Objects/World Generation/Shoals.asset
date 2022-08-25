@@ -17,4 +17,13 @@ MonoBehaviour:
   - Swamp
   branchName: Shoals
   branchDepth: 0
-  numberOfLevels: 0
+  numberOfLevels: 4
+  ConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  OneWayConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  oneWay: 0

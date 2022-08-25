@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choices:
   - name: Add Main Dungeon
-    targets:
+    entryTargets:
     - branchName: Start
-      minFloor: 0
-      maxFloor: 0
+      floors:
+        rngType: 0
+        min: 0
+        max: 0
+      weight: 0
+      pickIfExists: 0
     requirements: []
     antiRequirements: []
     numberOfBranches:
@@ -27,11 +31,27 @@ MonoBehaviour:
     branches:
     - {fileID: 11400000, guid: ed3b0f69dcf96e841889e7b5d8719f1a, type: 2}
     connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
   - name: Add Lair
-    targets:
+    entryTargets:
     - branchName: Main Dungeon
-      minFloor: 7
-      maxFloor: 11
+      floors:
+        rngType: 1
+        min: 7
+        max: 10
+      weight: 1
+      pickIfExists: 0
+    - branchName: Main Dungeon
+      floors:
+        rngType: 0
+        min: 2
+        max: 2
+      weight: 1
+      pickIfExists: 0
     requirements: []
     antiRequirements: []
     numberOfBranches:
@@ -41,11 +61,20 @@ MonoBehaviour:
     branches:
     - {fileID: 11400000, guid: 78422380b50d796428a2bd0e917271ce, type: 2}
     connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
   - name: Add Lair Branches
-    targets:
+    entryTargets:
     - branchName: Lair
-      minFloor: 1
-      maxFloor: 3
+      floors:
+        rngType: 0
+        min: 0
+        max: 0
+      weight: 0
+      pickIfExists: 0
     requirements: []
     antiRequirements: []
     numberOfBranches:
@@ -58,11 +87,20 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e01beefa7a755a489c0c951e9abe752, type: 2}
     - {fileID: 11400000, guid: 3d09ace021f4a0f45abe3457bc570f70, type: 2}
     connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
   - name: Add Random Branches
-    targets:
+    entryTargets:
     - branchName: Main Dungeon
-      minFloor: 1
-      maxFloor: 7
+      floors:
+        rngType: 0
+        min: 2
+        max: 5
+      weight: 0
+      pickIfExists: 0
     requirements: []
     antiRequirements: []
     numberOfBranches:
@@ -75,11 +113,20 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f7f53d10aa67073469c0d909e3b243af, type: 2}
     - {fileID: 11400000, guid: 43a16bb13ef93e044baddf11900b3b4c, type: 2}
     connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
   - name: Add Slime Pits
-    targets:
+    entryTargets:
     - branchName: Lair
-      minFloor: 5
-      maxFloor: 5
+      floors:
+        rngType: 0
+        min: 5
+        max: 5
+      weight: 0
+      pickIfExists: 0
     requirements: []
     antiRequirements: []
     numberOfBranches:
@@ -89,11 +136,20 @@ MonoBehaviour:
     branches:
     - {fileID: 11400000, guid: ffcaf8bf13c13b84798ef70408597e43, type: 2}
     connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
   - name: Add Temple
-    targets:
+    entryTargets:
     - branchName: Main Dungeon
-      minFloor: 4
-      maxFloor: 6
+      floors:
+        rngType: 0
+        min: 2
+        max: 6
+      weight: 0
+      pickIfExists: 0
     requirements: []
     antiRequirements: []
     numberOfBranches:
@@ -103,3 +159,64 @@ MonoBehaviour:
     branches:
     - {fileID: 11400000, guid: 445d0014d7e6b054f8ae6ce53017f91f, type: 2}
     connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
+  - name: Add Vestibule
+    entryTargets:
+    - branchName: Main Dungeon
+      floors:
+        rngType: 0
+        min: 14
+        max: 14
+      weight: 0
+      pickIfExists: 0
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 1
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: 490989b3e10ff8f41a4ed64f8e11fa3a, type: 2}
+    connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 0
+      max: 0
+    exitTargets: []
+  - name: Add Hell Branches
+    entryTargets:
+    - branchName: Vestibule
+      floors:
+        rngType: 0
+        min: 0
+        max: 0
+      weight: 0
+      pickIfExists: 0
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 1
+      min: 4
+      max: 4
+    branches:
+    - {fileID: 11400000, guid: 1c44690392b6ab141883f2d13b37ab95, type: 2}
+    - {fileID: 11400000, guid: ea2150a7d8dffcc4c86bf81b2acdd45e, type: 2}
+    - {fileID: 11400000, guid: 8f5f276c181c42644880ca4a8a15846c, type: 2}
+    - {fileID: 11400000, guid: c422da81fb9965140be67ee25cfbd2f6, type: 2}
+    connectionType: 0
+    numberOfConnections:
+      rngType: 0
+      min: 1
+      max: 1
+    exitTargets:
+    - branchName: Vestibule
+      floors:
+        rngType: 0
+        min: 0
+        max: 0
+      weight: 0
+      pickIfExists: 0

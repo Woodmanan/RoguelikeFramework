@@ -10,4 +10,7 @@ public class Branch : ScriptableObject
     public string branchName;
     public int branchDepth;
     public int numberOfLevels;
+    public RandomNumber ConnectionsPerFloor;
+    public RandomNumber OneWayConnectionsPerFloor;
+    public bool oneWay = false;
 }

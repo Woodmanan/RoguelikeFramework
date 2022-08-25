@@ -16,4 +16,13 @@ MonoBehaviour:
   antiRequirements: []
   branchName: Osuary
   branchDepth: 0
-  numberOfLevels: 0
+  numberOfLevels: 1
+  ConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  OneWayConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  oneWay: 0
