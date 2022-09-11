@@ -37,8 +37,8 @@ public class Map : MonoBehaviour
     public int numStairsUp;
     public int numStairsDown;
 
-    public List<Vector2Int> entrances = new List<Vector2Int>();
-    public List<Vector2Int> exits = new List<Vector2Int>();
+    public List<LevelConnection> entrances = new List<LevelConnection>();
+    public List<LevelConnection> exits = new List<LevelConnection>();
 
     public Transform tileContainer;
     public Transform monsterContainer;

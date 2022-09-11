@@ -61,7 +61,9 @@ public class GameController : MonoBehaviour
 
     IEnumerator BeginGame()
     {
-        int start = LevelLoader.singleton.StartAt;
+        LevelLoader.singleton.Setup();
+        int start = LevelLoader.singleton.GetIndexOf(LevelLoader.singleton.startAt);
+        UnityEngine.Debug.Log("Start is " + start);
         if (start < 0) start = 0;
         //Wait for initial level loading to finish
         if (LevelLoader.singleton.JITLoading)
@@ -72,11 +74,7 @@ public class GameController : MonoBehaviour
         {
             if (preLoadUpTo != start)
             {
-                if (LevelLoader.singleton.generators[preLoadUpTo].JIT)
-                {
-                    UnityEngine.Debug.LogError("Waiting to preload for a level that is JIT loaded! Skipping that, since it will never happen.");
-                }
-                else if (start > preLoadUpTo)
+                if (start > preLoadUpTo)
                 {
                     UnityEngine.Debug.LogWarning("Waiting to preload for a level that is before where we start? Skipping Preload.");
                 }
@@ -92,9 +90,11 @@ public class GameController : MonoBehaviour
             LoadMap(start);
         }
 
+        World world = LevelLoader.singleton.world;
+
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
-        Player.player.location = Map.current.entrances[0];
+        Player.player.location = Map.current.entrances[0].toLocation;
 
         //1 Frame pause to set up LOS
         yield return null;
@@ -242,26 +242,15 @@ public class GameController : MonoBehaviour
 
     public void MoveToLevel(int newLevel)
     {
+        UnityEngine.Debug.Log("Moving to level " + newLevel);
         nextLevel = newLevel;
     }
 
     //TODO: Determine how monsters get placed if they don't have space to be placed
     public void MoveMonsters(Monster m, Stair stair, Map map)
     {
-        if (stair.upStair)
-        {
-            Vector2Int offset = m.location - stair.location;
-
-            m.SetPositionSnap(map.exits[stair.stairPair] + offset);
-        }
-        else
-        {
-            Vector2Int offset = m.location - stair.location;
-
-            m.SetPositionSnap(map.entrances[stair.stairPair] + offset);
-        }
         m.transform.parent = map.monsterContainer;
-        m.UpdateLOS();
+        m.SetPositionSnap(stair.GetMatchingLocation());
     }
 
     private void MoveLevel()

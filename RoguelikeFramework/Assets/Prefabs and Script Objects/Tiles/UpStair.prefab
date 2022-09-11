@@ -101,16 +101,29 @@ MonoBehaviour:
   isHidden: 1
   dirty: 1
   location: {x: 0, y: 0}
-  name: Up Stair
-  description: The way up.
+  name: Stair
+  description: A convenient connection.
   movementCost: 1
   blocksVision: 0
   color: {r: 0, g: 0.75526, b: 1, a: 1}
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 4044338785546170514}
-  connectsToFloor: 0
-  stairPair: 0
-  upStair: 1
+  connection:
+    from: 
+    to: 
+    fromStair: {fileID: 0}
+    fromLocation: {x: 0, y: 0}
+    fromLevel: 0
+    toStair: {fileID: 0}
+    toLocation: {x: 0, y: 0}
+    toLevel: 0
+    oneWay: 0
+  up: 0
+  from: 0
+  upSprite: {fileID: -5035941147320666483, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  downSprite: {fileID: 4904313895962827525, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  upSpriteOneWay: {fileID: -3317297401675540975, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  downSpriteOneWay: {fileID: 8520586183337980492, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
 --- !u!114 &4044338785546170514
 MonoBehaviour:
   m_ObjectHideFlags: 0

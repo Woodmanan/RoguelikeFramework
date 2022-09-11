@@ -99,7 +99,7 @@ MonoBehaviour:
   rarity: 0
   type: 8
   minDepth: 0
-  maxDepth: 3
+  maxDepth: 40
   elevatesTo: 0
   ID: 3
   stackable: 1

@@ -99,7 +99,7 @@ MonoBehaviour:
   rarity: 0
   type: 4
   minDepth: 1
-  maxDepth: 10
+  maxDepth: 40
   elevatesTo: 0
   ID: 0
   stackable: 0
@@ -137,13 +137,8 @@ MonoBehaviour:
   primarySlot: 1
   secondarySlots: 
   addedStats:
-    resources:
-      health: 0
-      mana: 0
-      stamina: 0
-      xp: 0
-    ac: 10
-    ev: 10
+    _keys: 
+    _vals: []
   addedEffects:
   - id: 0
   isEquipped: 0

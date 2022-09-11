@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choices:
   - name: Add Main Dungeon
+    enabled: 1
     entryTargets:
     - branchName: Start
       floors:
@@ -37,19 +38,13 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Lair
+    enabled: 1
     entryTargets:
     - branchName: Main Dungeon
       floors:
         rngType: 1
         min: 7
         max: 10
-      weight: 1
-      pickIfExists: 0
-    - branchName: Main Dungeon
-      floors:
-        rngType: 0
-        min: 2
-        max: 2
       weight: 1
       pickIfExists: 0
     requirements: []
@@ -67,6 +62,7 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Lair Branches
+    enabled: 1
     entryTargets:
     - branchName: Lair
       floors:
@@ -93,6 +89,7 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Random Branches
+    enabled: 1
     entryTargets:
     - branchName: Main Dungeon
       floors:
@@ -119,6 +116,7 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Slime Pits
+    enabled: 1
     entryTargets:
     - branchName: Lair
       floors:
@@ -142,6 +140,7 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Temple
+    enabled: 1
     entryTargets:
     - branchName: Main Dungeon
       floors:
@@ -165,6 +164,7 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Vestibule
+    enabled: 1
     entryTargets:
     - branchName: Main Dungeon
       floors:
@@ -188,6 +188,7 @@ MonoBehaviour:
       max: 0
     exitTargets: []
   - name: Add Hell Branches
+    enabled: 1
     entryTargets:
     - branchName: Vestibule
       floors:

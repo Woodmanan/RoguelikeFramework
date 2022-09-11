@@ -22,6 +22,7 @@ public struct Target
 public struct BranchChoice
 {
     public string name;
+    public bool enabled;
     public List<Target> entryTargets;
     public List<string> requirements;
     public List<string> antiRequirements;
@@ -47,6 +48,7 @@ public class WorldGenerator : ScriptableObject
 
         foreach (BranchChoice current in choices)
         {
+            if (!current.enabled) continue;
             Debug.Log($"Starting step {current.name}");
             bool valid = true;
             Target chosenEntryTarget = new Target();
@@ -164,11 +166,29 @@ public class WorldGenerator : ScriptableObject
 
     public void GenerateBranch(Target entryTarget, Target exitTarget, Branch branch)
     {
-        Debug.Log($"Generated connection: {entryTarget.branchName} ({entryTarget.floors.Evaluate()}) -> {branch.branchName} (0)");
+        world.connections.Add(new LevelConnection($"{entryTarget.branchName}:{entryTarget.floors.Evaluate()}", $"{branch.branchName}:0", branch.oneWay));
+
         if (!string.IsNullOrEmpty(exitTarget.branchName))
         {
-            Debug.Log($"Generated connection: {branch.branchName} ({branch.numberOfLevels - 1}) -> {exitTarget.branchName} ({entryTarget.floors.Evaluate()})");
+            world.connections.Add(new LevelConnection($"{branch.branchName}:{branch.numberOfLevels - 1}", $"{exitTarget.branchName}:{exitTarget.floors.Evaluate()}", branch.oneWay));
         }
+
+        for (int level = 0; level < branch.numberOfLevels - 1; level++)
+        {
+            int numRegularConnections = branch.ConnectionsPerFloor.Evaluate();
+            for (int i = 0; i < numRegularConnections; i++)
+            {
+                world.connections.Add(new LevelConnection($"{branch.branchName}:{level}", $"{branch.branchName}:{level + 1}", branch.oneWay));
+            }
+
+            int numOneWayConnections = branch.OneWayConnectionsPerFloor.Evaluate();
+            for (int i = 0; i < numOneWayConnections; i++)
+            {
+                world.connections.Add(new LevelConnection($"{branch.branchName}:{level}", $"{branch.branchName}:{level + 1}", true));
+                world.connections.Add(new LevelConnection($"{branch.branchName}:{level+1}", $"{branch.branchName}:{level}", true));
+            }
+        }
+
         world.branches.Add(branch);
     }
 }

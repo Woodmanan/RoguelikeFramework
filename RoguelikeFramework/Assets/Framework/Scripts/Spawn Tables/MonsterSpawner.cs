@@ -47,8 +47,16 @@ public class MonsterSpawner : MonoBehaviour
         if (floor < 0) yield break;
 
         List<Vector2Int> starts = new List<Vector2Int>();
-        starts.AddRange(m.entrances);
-        starts.AddRange(m.exits);
+
+        foreach (LevelConnection connection in m.entrances)
+        {
+            starts.Add(connection.toLocation);
+        }
+
+        foreach (LevelConnection connection in m.exits)
+        {
+            starts.Add(connection.fromLocation);
+        }
 
         //Create positions map
         float[,] positions = Pathfinding.CreateDijkstraMap(m, starts.ToList());

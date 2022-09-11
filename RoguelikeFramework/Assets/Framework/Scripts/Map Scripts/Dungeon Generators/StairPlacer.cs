@@ -5,173 +5,137 @@ using System.Linq;
 using System;
 
 [Serializable]
-public struct StairConnection
+public class LevelConnection
 {
-    public string connectsTo;
-    public bool next;
-    public int numConnections;
-    [Tooltip("The number where connections begin, ie, the first stair in this group connects to this stair in the next floor. MUST MATCH BETWEEN FLOORS")]
-    public int connectionsStartAt;
+    public string from;
+    public string to;
+    public Stair fromStair;
+    public Vector2Int fromLocation;
+    public int fromLevel;
+    public Stair toStair;
+    public Vector2Int toLocation;
+    public int toLevel;
+    public bool oneWay = false;
+
+    public LevelConnection(string from, string to)
+    {
+        this.from = from;
+        this.to = to;
+    }
+
+    public LevelConnection(string from, string to, bool oneWay)
+    {
+        this.from = from;
+        this.to = to;
+        this.oneWay = oneWay;
+    }
 }
 
-[CreateAssetMenu(fileName = "New Stairway", menuName = "Dungeon Generator/Machines/Stairway Placer", order = 2)]
-public class StairPlacer : Machine
+public class StairPlacer
 {
     [Header("Tile numbers")]
-    public int upStairsIndex;
-    public int downStairsIndex;
+    public const int stairIndex = 2;
 
-    [Header("Stair settings")]
-    public List<StairConnection> stairsUp;
-    public List<StairConnection> stairsDown;
+    List<Room> roomsToConnect = new List<Room>();
 
-    List<Vector2Int> ups = new List<Vector2Int>();
-    List<Vector2Int> downs = new List<Vector2Int>();
-
-    public int numExtraEntrances;
-    public int numExtraExits;
-
-    public List<int> excludeRoom;
-
-    List<int> roomsToConnect = new List<int>();
+    List<LevelConnection> inConnections = new List<LevelConnection>();
+    List<LevelConnection> outConnections = new List<LevelConnection>();
 
     // Activate is called to start the machine
-    public override void Activate()
+    public void Activate(World world, DungeonGenerator generator, int index)
     {
-        ups.Clear();
-        downs.Clear();
         roomsToConnect.Clear();
-        for (int i = 0; i < generator.rooms.Count; i++)
+        foreach (Room r in generator.rooms)
         {
-            roomsToConnect.Add(i);
-        }
-
-        foreach (int i in excludeRoom)
-        {
-            roomsToConnect.Remove(i);
+            if (r.acceptsStairs)
+            {
+                roomsToConnect.Add(r);
+            }
         }
 
         //Shuffle!
         roomsToConnect = roomsToConnect.OrderBy(x => UnityEngine.Random.Range(int.MinValue, int.MaxValue)).ToList();
 
-        int c = 0;
-        //Place up stairs
-        for (int i = 0; i < stairsUp.Count; i++)
-        {
-            StairConnection connection = stairsUp[i];
-            for (int j = 0; j < connection.numConnections; j++)
+        { //Generate levels up
+            foreach (LevelConnection connection in world.connections)
             {
-                Room r = generator.rooms[roomsToConnect[c]];
-                Vector2Int loc = r.GetOpenSpace(1, generator.map);
-
-                generator.map[loc.x, loc.y] = upStairsIndex;
-
-                ups.Add(loc);
-                c++;
+                if (connection.to.Equals(generator.name))
+                {
+                    inConnections.Add(connection);
+                }
             }
         }
 
-        for (int i = c; i < c + numExtraEntrances; i++)
-        {
-            Room r = generator.rooms[roomsToConnect[i]];
-            Vector2Int loc = r.GetOpenSpace(1, generator.map);
-            ups.Add(loc);
-        }
-
-        //Shuffle!
-        roomsToConnect = roomsToConnect.OrderBy(x => UnityEngine.Random.Range(int.MinValue, int.MaxValue)).ToList();
-
-        c = 0;
-        //Place down stairs
-        //Place up stairs
-        for (int i = 0; i < stairsDown.Count; i++)
-        {
-            StairConnection connection = stairsDown[i];
-            for (int j = 0; j < connection.numConnections; j++)
+        { //Generate levels down
+            foreach (LevelConnection connection in world.connections)
             {
-                Room r = generator.rooms[roomsToConnect[c]];
-                Vector2Int loc = r.GetOpenSpace(1, generator.map);
-
-                generator.map[loc.x, loc.y] = downStairsIndex;
-
-                downs.Add(loc);
-                c++;
+                if (connection.from.Equals(generator.name))
+                {
+                    outConnections.Add(connection);
+                    Debug.Log($"Floor {index} registered an out-connection: {connection.from} to {connection.to}{(connection.oneWay ? ": One Way" : "")}");
+                }
             }
         }
 
-        for (int i = c; i < c + numExtraExits; i++)
+        int roomIndex = 0;
+
+        foreach (LevelConnection connection in inConnections)
         {
-            Room r = generator.rooms[roomsToConnect[i]];
+            Room r = roomsToConnect[roomIndex];
+            roomIndex = (roomIndex + 1) % roomsToConnect.Count;
             Vector2Int loc = r.GetOpenSpace(1, generator.map);
-            downs.Add(loc);
+            connection.toLocation = loc;
+            connection.toLevel = index;
+            Debug.Log($"Floor {index} registered an in-connection: {connection.from} to {connection.to}{(connection.oneWay ? ": One Way" : "")}");
+            if (!connection.oneWay) //Do we need a landing stair?
+            {
+                generator.map[loc.x, loc.y] = stairIndex;
+                Debug.Log($"Placed a stair for it at {loc}");
+            }
+            else
+            {
+                Debug.Log($"Placed no stair, but did find a suitable landing zone at {loc}");
+            }
+
+            
+        }
+
+        foreach (LevelConnection connection in outConnections)
+        {
+            Room r = roomsToConnect[roomIndex];
+            roomIndex = (roomIndex + 1) % roomsToConnect.Count;
+            Vector2Int loc = r.GetOpenSpace(1, generator.map);
+            connection.fromLocation = loc;
+            connection.fromLevel = index;
+            generator.map[loc.x, loc.y] = stairIndex;
         }
     }
 
-    public override void PostActivation(Map m)
+    public void SetupStairTiles(Map m)
     {
-        int c = 0;
-        for (int i = 0; i < stairsUp.Count; i++)
+        foreach (LevelConnection connection in inConnections)
         {
-            for (int j = 0; j < stairsUp[i].numConnections; j++)
+            if (!connection.oneWay)
             {
-                Stair stairs = m.GetTile(ups[c]) as Stair;
-                if (stairs)
-                {
-                    if (stairsUp[i].next)
-                    {
-                        stairs.connectsToFloor = m.index - 1;
-                    }
-                    else
-                    {
-                        stairs.connectsToFloor = LevelLoader.singleton.GetIndexOf(stairsUp[i].connectsTo);
-                    }
-                    stairs.stairPair = stairsUp[i].connectionsStartAt + j;
-                }
-                else
-                {
-                    Debug.LogError("Grabbed tile that was not stair!", this);
-                }
-                c++;
+                Stair stair = m.GetTile(connection.toLocation) as Stair;
+                connection.toStair = stair;
+                stair.SetConnection(connection, false);
+            }
+            else
+            {
+                m.GetTile(connection.toLocation).color = Color.red;
             }
         }
 
-        for (int i = 0; i < ups.Count; i++)
+        m.entrances = inConnections;
+
+        foreach (LevelConnection connection in outConnections)
         {
-            m.entrances.Add(ups[i]);
+            Stair stair = m.GetTile(connection.fromLocation) as Stair;
+            connection.fromStair = stair;
+            stair.SetConnection(connection, true);
         }
 
-        c = 0;
-        for (int i = 0; i < stairsDown.Count; i++)
-        {
-            for (int j = 0; j < stairsDown[i].numConnections; j++)
-            {
-                Stair stairs = m.GetTile(downs[c]) as Stair;
-                if (stairs)
-                {
-                    if (stairsDown[i].next)
-                    {
-                        stairs.connectsToFloor = m.index + 1;
-                    }
-                    else
-                    {
-                        stairs.connectsToFloor = LevelLoader.singleton.GetIndexOf(stairsDown[i].connectsTo);
-                    }
-                    stairs.stairPair = stairsDown[i].connectionsStartAt + j;
-                }
-                else
-                {
-                    Debug.LogError("Grabbed tile that was not stair!", this);
-                }
-                c++;
-            }
-        }
-
-        for (int i = 0; i < downs.Count; i++)
-        {
-            m.exits.Add(downs[i]);
-        }
-
-        m.numStairsUp = stairsUp.Sum(x => x.numConnections);
-        m.numStairsDown = stairsDown.Sum(x => x.numConnections);
+        m.exits = outConnections;
     }
 }

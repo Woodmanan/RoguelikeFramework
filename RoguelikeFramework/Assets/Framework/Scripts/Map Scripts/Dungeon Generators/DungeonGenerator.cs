@@ -19,27 +19,28 @@ public class DungeonGenerator
     public TileList tilesAvailable;
 
     //Generation parameters
-    public int numberOfAttempts;
-    public int attemptsPerMachine;
+    public int numberOfAttempts = 100;
+    public int attemptsPerMachine = 100;
 
     public LootPool availableItems;
-    public Roll numItems;
+    public RandomNumber numItems;
 
     public MonsterPool availableMonsters;
-    public Roll numMonsters;
+    public RandomNumber numMonsters;
 
     public int[,] map;
 
     public IEnumerator generation = null;
-    public bool JIT;
     public bool finished = false;
     
 
-    public IEnumerator GenerateMap(int index, int seed, Transform parent)
+    public IEnumerator GenerateMap(int index, int seed, World world, Transform parent)
     {
         this.seed = seed;
         UnityEngine.Random.State state;
         UnityEngine.Random.InitState(seed);
+
+        rooms = new List<Room>();
 
         GameObject mapInstance = new GameObject();
         Map gameMap = mapInstance.AddComponent<Map>();
@@ -67,7 +68,6 @@ public class DungeonGenerator
         {
             m.Connect(this);
         }
-
         
 
         if (FindPacking())
@@ -86,7 +86,13 @@ public class DungeonGenerator
                 UnityEngine.Random.state = state;
             }
 
+            //Add stairs as final step
+            StairPlacer stairs = new StairPlacer();
+            stairs.Activate(world, this, index);
+
             IEnumerator build = gameMap.BuildFromTemplate(map, tilesAvailable);
+
+            gameMap.name = name;
 
             while (build.MoveNext())
             {
@@ -99,6 +105,9 @@ public class DungeonGenerator
             {
                 m.PostActivation(gameMap);
             }
+
+            //Post activation for stairs - attach the actual stair objects
+            stairs.SetupStairTiles(gameMap);
 
             foreach (Room r in rooms)
             {
@@ -117,7 +126,7 @@ public class DungeonGenerator
             gameMap.Setup();
 
             //TODO: Load monsters in
-            IEnumerator monsterSpawn = MonsterSpawner.singleton.SpawnForFloor(index, gameMap, numMonsters.evaluate());
+            IEnumerator monsterSpawn = MonsterSpawner.singleton.SpawnForFloor(index, gameMap, numMonsters.Evaluate());
             while (monsterSpawn.MoveNext())
             {
                 state = UnityEngine.Random.state;
@@ -127,7 +136,7 @@ public class DungeonGenerator
 
 
             //Start loading items in
-            IEnumerator itemSpawn = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.evaluate());
+            IEnumerator itemSpawn = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.Evaluate());
 
             while (itemSpawn.MoveNext())
             {

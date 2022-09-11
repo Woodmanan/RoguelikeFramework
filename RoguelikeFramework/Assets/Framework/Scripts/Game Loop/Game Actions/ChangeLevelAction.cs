@@ -20,7 +20,7 @@ public class ChangeLevelAction : GameAction
         Stair stair = Map.current.GetTile(caller.location) as Stair;
         if (stair)
         {
-            if (stair.upStair ^ up)
+            if (stair.up ^ up)
             {
                 yield break;
                 /*bool keepGoing = false;
@@ -29,7 +29,10 @@ public class ChangeLevelAction : GameAction
                 if (!keepGoing) yield break;*/
             }
 
-            GameController.singleton.MoveToLevel(stair.connectsToFloor);
+            LevelLoader.singleton.ConfirmConnection(stair.connection);
+
+
+            GameController.singleton.MoveToLevel(stair.GetMatchingLevel());
             caller.energy -= 100;
 
         }

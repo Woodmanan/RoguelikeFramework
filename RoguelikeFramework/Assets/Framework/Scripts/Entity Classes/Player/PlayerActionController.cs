@@ -139,22 +139,35 @@ public class PlayerActionController : ActionController
     private bool AutoStairs(bool up)
     {
         Stair stair = Map.current.GetTile(monster.location) as Stair;
-        return (stair && !(stair.upStair ^ up));
+        return (stair && !(stair.up ^ up));
     }
 
     private void PathToNearestStair(bool up)
     {
-        List<Vector2Int> goals;
+        List<Vector2Int> goals = new List<Vector2Int>();
         if (up)
         {
-            goals = Map.current.entrances.GetRange(0, Map.current.numStairsUp);
+            foreach (LevelConnection connection in Map.current.exits)
+            {
+                if (connection.fromStair.up && !connection.fromStair.isHidden)
+                {
+                    goals.Add(connection.fromLocation);
+                }
+                
+            }
         }
         else
         {
-            goals = Map.current.exits.GetRange(0, Map.current.numStairsDown);
+            foreach (LevelConnection connection in Map.current.exits)
+            {
+                if (!connection.fromStair.up && !connection.fromStair.isHidden)
+                {
+                    goals.Add(connection.fromLocation);
+                }
+
+            }
         }
 
-        goals = goals.FindAll(x => !Map.current.GetTile(x).isHidden);
         if (goals.Count == 0)
         {
             Debug.Log("Console: You don't know of any matching stairs!");

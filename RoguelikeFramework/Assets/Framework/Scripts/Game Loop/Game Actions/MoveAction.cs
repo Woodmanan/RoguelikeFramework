@@ -91,7 +91,7 @@ public class MoveAction : GameAction
         Stair stair = tile as Stair;
         if (stair && caller == Player.player && useStair)
         {
-            ChangeLevelAction act = new ChangeLevelAction(stair.upStair);
+            ChangeLevelAction act = new ChangeLevelAction(stair.up);
             act.Setup(caller);
             while (act.action.MoveNext())
             {

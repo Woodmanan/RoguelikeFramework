@@ -14,19 +14,32 @@ using UnityEngine;
 
 public class World
 {
-    public List<Map> levels;
     public List<Branch> branches = new List<Branch>();
-    public List<Connection> connections;
+    public List<LevelConnection> connections = new List<LevelConnection>();
 
-    // Start is called before the first frame update
-    void Start()
+    public void PrepareLevelsForLoad(LevelLoader loader)
     {
-        
-    }
+        foreach (Branch branch in branches)
+        {
+            for (int level = 0; level < branch.numberOfLevels; level++)
+            {
+                DungeonGenerator generator = new DungeonGenerator();
+                generator.name = $"{branch.branchName}:{level}";
+                generator.depth = branch.branchDepth + level; //Depth increases level - fix this later if not intended
+                generator.bounds = branch.size;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+                generator.machines = new List<Machine>();
+                generator.machines.AddRange(branch.machines);
+                generator.tilesAvailable = branch.tiles;
+
+                generator.availableItems = branch.availableItems;
+                generator.numItems = branch.numItemsPerLevel;
+
+                generator.availableMonsters = branch.availableMonsters;
+                generator.numMonsters = branch.numMonstersPerLevel;
+
+                loader.generators.Add(generator);
+            }
+        }
     }
 }

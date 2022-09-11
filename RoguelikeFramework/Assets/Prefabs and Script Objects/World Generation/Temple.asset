@@ -15,5 +15,30 @@ MonoBehaviour:
   requirements: []
   antiRequirements: []
   branchName: Temple
-  branchDepth: 4
+  branchDepth: 1
   numberOfLevels: 1
+  ConnectionsPerFloor:
+    rngType: 0
+    min: 3
+    max: 3
+  OneWayConnectionsPerFloor:
+    rngType: 0
+    min: 3
+    max: 3
+  oneWay: 0
+  size: {x: 25, y: 25}
+  machines:
+  - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
+  - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+  overrides: []
+  tiles: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+  availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+  numItemsPerLevel:
+    rngType: 0
+    min: 0
+    max: 0
+  availableMonsters: {fileID: 11400000, guid: c083bb6c4c4307340887537b8744d336, type: 2}
+  numMonstersPerLevel:
+    rngType: 0
+    min: 0
+    max: 0

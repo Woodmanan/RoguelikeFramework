@@ -6,6 +6,7 @@ using UnityEngine;
 public class Room : ScriptableObject
 {
     public Vector2Int size;
+    public bool acceptsStairs = true;
     
     public string layout;
 

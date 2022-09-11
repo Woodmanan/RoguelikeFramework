@@ -28,7 +28,7 @@ public class LevelLoader : MonoBehaviour
         set { Singleton = value; }
     }
 
-    public WorldGenerator world;
+    public WorldGenerator worldGen;
     public List<DungeonGenerator> generators;
     int current;
     public float msPerFrame;
@@ -41,14 +41,16 @@ public class LevelLoader : MonoBehaviour
     [Header("Debug tools")]
     [Tooltip("Enables just-in-time loading. Levels are generated on-demand, instead of in the background.")]
     public bool JITLoading;
+    [Tooltip("Disables all loading options - the game wont start until the full map is deemed ready")]
+    public bool LoadAllLevelsAtStart;
     [Tooltip("Offsets the generated levels, allowing you to skip to a desired level at the start of the game")]
-    public int StartAt;
+    public string startAt;
+
+    [HideInInspector] public World world;
 
     // Start is called before the first frame update
     void Start()
     {
-        world = Instantiate(world);
-        world.Generate();
         if (!setup) Setup();
         
         if (!JITLoading)
@@ -59,6 +61,13 @@ public class LevelLoader : MonoBehaviour
 
     public void Setup()
     {
+        if (setup) return;
+        setup = true;
+
+        #if !UNITY_EDITOR
+        startAt = "";
+        #endif
+
         if (singleton != this)
         {
             if (singleton)
@@ -79,11 +88,22 @@ public class LevelLoader : MonoBehaviour
 
         UnityEngine.Random.InitState(seed);
 
+        
+        if (generators.Count > 0)
+        {
+            UnityEngine.Debug.Log("Having generators preset does not work!");
+        }
+        generators.Clear();
+
+        worldGen = Instantiate(worldGen);
+        world = worldGen.Generate();
+        world.PrepareLevelsForLoad(this);
+
         maps = new List<Map>(new Map[generators.Count]);
 
         for (int i = 0; i < generators.Count; i++)
         {
-            generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue), transform);
+            generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue), world, transform);
         }
 
         //Pull in generator info to the spawning scripts
@@ -97,8 +117,6 @@ public class LevelLoader : MonoBehaviour
             JITLoading = false;
         }
         #endif
-
-        setup = true;
     }
 
     IEnumerator GenerateAllLevels()
@@ -107,11 +125,22 @@ public class LevelLoader : MonoBehaviour
         Stopwatch total = new Stopwatch();
         watch.Start();
         total.Start();
-        current = StartAt < 0 ? -1 : StartAt - 1;
+
+        int startIndex = GetIndexOf(startAt);
+
+        current = startIndex < 0 ? -1 : startIndex - 1;
         while (true)
         {
-            current++;
-            if (current == generators.Count || generators[current].finished || generators[current].JIT)
+            while (generators[current].finished)
+            {
+                current++;
+                if (current == generators.Count)
+                {
+                    break;
+                }
+            }
+
+            if (current == generators.Count)
             {
                 current = FirstUnfinishedLevel();
             }
@@ -122,18 +151,13 @@ public class LevelLoader : MonoBehaviour
 
             while (generators[current].generation.MoveNext())
             {
-                if (watch.ElapsedMilliseconds > (msPerFrame / 2))
+                if (!LoadAllLevelsAtStart && watch.ElapsedMilliseconds > (msPerFrame / 2))
                 {
                     watch.Stop();
                     yield return null;
                     watch.Restart();
                 }
             }
-
-            //Take a pause here, to give some other coroutines a buffer to jump in
-            //This stopped errors earlier, but doesn't anymore. I think this is tied
-            //with the 1/100 bug where the generation is different.
-            //yield return null;
         }
 
         watch.Stop();
@@ -153,7 +177,7 @@ public class LevelLoader : MonoBehaviour
     {
         for (int i = 0; i < generators.Count; i++)
         {
-            if (generators[i] != null && !generators[i].finished && !generators[i].JIT)
+            if (generators[i] != null && !generators[i].finished)
             {
                 return i;
             }
@@ -196,5 +220,23 @@ public class LevelLoader : MonoBehaviour
     {
         if (maps == null) return false;
         return maps[index] != null;
+    }
+
+    public int GetLevelIndex(string name)
+    {
+        for (int i = 0; i < generators.Count; i++)
+        {
+            if (generators[i].name.Equals(name))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void ConfirmConnection(LevelConnection c)
+    {
+        FastLoadLevel(GetLevelIndex(c.from));
+        FastLoadLevel(GetLevelIndex(c.to));
     }
 }
