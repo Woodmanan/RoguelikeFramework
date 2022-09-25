@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95fcd403d5f53534a93ccf5ae31da169, type: 3}
+  m_Name: LairTiles
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 7376377351548235659, guid: e4e0a67806a278b47b6a39d4981f2245, type: 3}
+  - {fileID: 7376377351548235659, guid: 0bb10672a52b6cf47bc88e61538c60df, type: 3}
+  - {fileID: 1908841901842505032, guid: a7b29f11f62d0894db715052cea1448c, type: 3}
+  - {fileID: 0}
+  - {fileID: 4821211910169681474, guid: f454a5bfa52396d4c96664e687179e63, type: 3}
+  - {fileID: 5689475849249657673, guid: 94f92b17fe944564b915111f2ef958b9, type: 3}

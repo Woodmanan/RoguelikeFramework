@@ -44,7 +44,7 @@ MonoBehaviour:
       floors:
         rngType: 1
         min: 7
-        max: 10
+        max: 11
       weight: 1
       pickIfExists: 0
     requirements: []

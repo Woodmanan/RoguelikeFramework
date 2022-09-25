@@ -28,12 +28,18 @@ public class ChangeLevelAction : GameAction
                 yield return new WaitUntil(() => !UIController.WindowsOpen);
                 if (!keepGoing) yield break;*/
             }
-
             LevelLoader.singleton.ConfirmConnection(stair.connection);
+            int LevelToChange = stair.GetMatchingLevel();
+            if (LevelToChange >= 0)
+            {
+                GameController.singleton.MoveToLevel(stair.GetMatchingLevel());
+                caller.energy -= 100;
+            }
+            else
+            {
+                Debug.Log("Console: This gate is locked. Retrive the amulet of Yendor!");
+            }
 
-
-            GameController.singleton.MoveToLevel(stair.GetMatchingLevel());
-            caller.energy -= 100;
 
         }
         else

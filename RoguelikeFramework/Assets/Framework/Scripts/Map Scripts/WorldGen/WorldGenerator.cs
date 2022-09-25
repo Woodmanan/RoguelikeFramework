@@ -164,31 +164,57 @@ public class WorldGenerator : ScriptableObject
         return world;
     }
 
-    public void GenerateBranch(Target entryTarget, Target exitTarget, Branch branch)
+    public void GenerateBranch(Target entryTarget, Target exitTarget, Branch branchToConnect)
     {
-        world.connections.Add(new LevelConnection($"{entryTarget.branchName}:{entryTarget.floors.Evaluate()}", $"{branch.branchName}:0", branch.oneWay));
+        Branch entryBranch = world.branches.Where(x => x.branchName.Equals(entryTarget.branchName)).FirstOrDefault();
+
+        { //Add initial connection
+            LevelConnection connectionToAdd = new LevelConnection($"{entryTarget.branchName}:{entryTarget.floors.Evaluate()}", $"{branchToConnect.branchName}:0", branchToConnect.oneWay);
+            connectionToAdd.fromBranch = entryBranch;
+            connectionToAdd.toBranch = branchToConnect;
+            world.connections.Add(connectionToAdd);
+        }
 
         if (!string.IsNullOrEmpty(exitTarget.branchName))
         {
-            world.connections.Add(new LevelConnection($"{branch.branchName}:{branch.numberOfLevels - 1}", $"{exitTarget.branchName}:{exitTarget.floors.Evaluate()}", branch.oneWay));
+            //Add Exit connection
+            LevelConnection connectionToAdd = new LevelConnection($"{branchToConnect.branchName}:{branchToConnect.numberOfLevels - 1}", $"{exitTarget.branchName}:{exitTarget.floors.Evaluate()}", branchToConnect.oneWay);
+            connectionToAdd.fromBranch = branchToConnect;
+            connectionToAdd.toBranch = world.branches.Where(x => x.branchName.Equals(exitTarget.branchName)).FirstOrDefault();
+            world.connections.Add(connectionToAdd);
         }
 
-        for (int level = 0; level < branch.numberOfLevels - 1; level++)
+        for (int level = 0; level < branchToConnect.numberOfLevels - 1; level++)
         {
-            int numRegularConnections = branch.ConnectionsPerFloor.Evaluate();
+            int numRegularConnections = branchToConnect.ConnectionsPerFloor.Evaluate();
             for (int i = 0; i < numRegularConnections; i++)
             {
-                world.connections.Add(new LevelConnection($"{branch.branchName}:{level}", $"{branch.branchName}:{level + 1}", branch.oneWay));
+                //Add standard two way connection
+                LevelConnection connectionToAdd = new LevelConnection($"{branchToConnect.branchName}:{level}", $"{branchToConnect.branchName}:{level + 1}", branchToConnect.oneWay);
+                connectionToAdd.fromBranch = branchToConnect;
+                connectionToAdd.toBranch = branchToConnect;
+                world.connections.Add(connectionToAdd);
             }
 
-            int numOneWayConnections = branch.OneWayConnectionsPerFloor.Evaluate();
+            int numOneWayConnections = branchToConnect.OneWayConnectionsPerFloor.Evaluate();
             for (int i = 0; i < numOneWayConnections; i++)
             {
-                world.connections.Add(new LevelConnection($"{branch.branchName}:{level}", $"{branch.branchName}:{level + 1}", true));
-                world.connections.Add(new LevelConnection($"{branch.branchName}:{level+1}", $"{branch.branchName}:{level}", true));
+                { //First one way
+                    LevelConnection firstOneWayConnection = new LevelConnection($"{branchToConnect.branchName}:{level}", $"{branchToConnect.branchName}:{level + 1}", true);
+                    firstOneWayConnection.fromBranch = branchToConnect;
+                    firstOneWayConnection.toBranch = branchToConnect;
+                    world.connections.Add(firstOneWayConnection);
+                }
+
+                { //Second one way
+                    LevelConnection secondOneWayConnection = new LevelConnection($"{branchToConnect.branchName}:{level + 1}", $"{branchToConnect.branchName}:{level}", true);
+                    secondOneWayConnection.fromBranch = branchToConnect;
+                    secondOneWayConnection.toBranch = branchToConnect;
+                    world.connections.Add(secondOneWayConnection);
+                }
             }
         }
 
-        world.branches.Add(branch);
+        world.branches.Add(branchToConnect);
     }
 }

@@ -27,7 +27,7 @@ MonoBehaviour:
     machines:
     - {fileID: 11400000}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 9094edfdf1bccb4458287fbc03095547, type: 2}
+    - {fileID: 0}
     rooms:
     - {fileID: 0}
     - {fileID: 0}
@@ -48,9 +48,14 @@ MonoBehaviour:
     attemptsPerMachine: 100
     availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
-      rolls: 2
-      dice: 5
-    JIT: 0
+      rngType: 0
+      min: 0
+      max: 0
+    availableMonsters: {fileID: 0}
+    numMonsters:
+      rngType: 0
+      min: 0
+      max: 0
     finished: 1
   numRooms: 20
   attemptsBeforeFail: 100

@@ -64,6 +64,7 @@ public class CustomTile : MonoBehaviour
     public void Setup()
     {
         if (setup) return;
+        PreSetup();
         inventory = GetComponent<Inventory>(); //May need to be changed to a get/set singleton system
         inventory.Setup();
         //Starts as on, so that Unity 
@@ -86,6 +87,11 @@ public class CustomTile : MonoBehaviour
             movementCost = 1;
         }
         #endif
+    }
+
+    public virtual void PreSetup()
+    {
+
     }
 
     public void Reveal()

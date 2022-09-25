@@ -11,10 +11,12 @@ public class LevelConnection
     public string to;
     public Stair fromStair;
     public Vector2Int fromLocation;
-    public int fromLevel;
+    public Branch fromBranch;
+    public int fromLevel = -1;
     public Stair toStair;
     public Vector2Int toLocation;
-    public int toLevel;
+    public int toLevel = -1;
+    public Branch toBranch;
     public bool oneWay = false;
 
     public LevelConnection(string from, string to)
@@ -86,6 +88,7 @@ public class StairPlacer
             Vector2Int loc = r.GetOpenSpace(1, generator.map);
             connection.toLocation = loc;
             connection.toLevel = index;
+
             Debug.Log($"Floor {index} registered an in-connection: {connection.from} to {connection.to}{(connection.oneWay ? ": One Way" : "")}");
             if (!connection.oneWay) //Do we need a landing stair?
             {

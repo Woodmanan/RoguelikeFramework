@@ -128,7 +128,7 @@ public class LevelLoader : MonoBehaviour
 
         int startIndex = GetIndexOf(startAt);
 
-        current = startIndex < 0 ? -1 : startIndex - 1;
+        current = startIndex < 0 ? 0 : startIndex;
         while (true)
         {
             while (generators[current].finished)
@@ -236,7 +236,13 @@ public class LevelLoader : MonoBehaviour
 
     public void ConfirmConnection(LevelConnection c)
     {
-        FastLoadLevel(GetLevelIndex(c.from));
-        FastLoadLevel(GetLevelIndex(c.to));
+        if (c.fromBranch)
+        {
+            FastLoadLevel(GetLevelIndex(c.from));
+        }
+        if (c.toBranch)
+        {
+            FastLoadLevel(GetLevelIndex(c.to));
+        }
     }
 }

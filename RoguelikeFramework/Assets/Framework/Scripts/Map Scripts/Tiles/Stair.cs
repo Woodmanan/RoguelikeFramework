@@ -53,6 +53,8 @@ public class Stair : CustomTile
         this.from = from;
         int fromIndex = LevelLoader.singleton.GetIndexOf(connection.from);
         int toIndex = LevelLoader.singleton.GetIndexOf(connection.to);
+        SpriteRenderer render = GetComponent<SpriteRenderer>();
+
         if (from)
         {
             up = fromIndex > toIndex;
@@ -63,8 +65,6 @@ public class Stair : CustomTile
         }
 
         {//Set sprite based on paramters
-            SpriteRenderer render = GetComponent<SpriteRenderer>();
-
             if (connection.oneWay)
             {
                 if (up)
@@ -85,6 +85,22 @@ public class Stair : CustomTile
                 else
                 {
                     render.sprite = downSprite;
+                }
+            }
+        }
+
+        if (connection.fromBranch != connection.toBranch) //Detects a branch change
+        {
+            if (connection.toBranch) //We get our sprites from our entry point, always
+            {
+                if (up && connection.toBranch.exitTile)
+                {
+                    render.sprite = connection.toBranch.exitTile;
+                }
+                else if (!up && connection.toBranch.entryTile)
+                {
+
+                    render.sprite = connection.toBranch.entryTile;
                 }
             }
         }

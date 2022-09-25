@@ -32,8 +32,13 @@ public class Branch : ScriptableObject
     public Vector2Int size;
     public List<Machine> machines;
     public List<LevelOverride> overrides;
-    public TileList tiles;
 
+    [Header("Visual Elements")]
+    public TileList tiles;
+    public Sprite entryTile;
+    public Sprite exitTile;
+
+    [Header("Monsters and Items")]
     public LootPool availableItems;
     public RandomNumber numItemsPerLevel;
 

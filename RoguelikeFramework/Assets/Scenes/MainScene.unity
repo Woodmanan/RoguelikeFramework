@@ -4669,7 +4669,7 @@ MonoBehaviour:
   worldGen: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
   generators: []
   msPerFrame: 4
-  randomSeed: 1
+  randomSeed: 0
   seed: 42
   JITLoading: 0
   LoadAllLevelsAtStart: 0
