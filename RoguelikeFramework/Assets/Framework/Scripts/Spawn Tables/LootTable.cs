@@ -16,6 +16,8 @@ public class LootTable : ScriptableObject
 
     [SerializeReference] public List<Effect> elevationOptions;
 
+    public HashSet<int> containedDepths = new HashSet<int>();
+
     public int Count
     {
         get

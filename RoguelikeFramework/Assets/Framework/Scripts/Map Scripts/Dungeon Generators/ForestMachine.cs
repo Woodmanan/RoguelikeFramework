@@ -8,7 +8,7 @@ public class ForestMachine : Machine
     public float percentStart;
     public float numRounds;
 
-    public override void Activate()
+    public override IEnumerator Activate()
     {
         bool[,] map = new bool[size.x, size.y];
         for (int i = 0; i < map.GetLength(0); i++)
@@ -21,6 +21,7 @@ public class ForestMachine : Machine
 
         for (int r = 0; r < numRounds; r++)
         {
+            yield return null;
             bool[,] newMap = new bool[size.x, size.y];
             for (int i = 1; i < map.GetLength(0) - 1; i++)
             {
@@ -81,7 +82,7 @@ public class ForestMachine : Machine
             }
         }
 
-        Room room = new Room();
+        Room room = CreateInstance<Room>();
         room.start = Vector2Int.zero;
         room.end = size;
 

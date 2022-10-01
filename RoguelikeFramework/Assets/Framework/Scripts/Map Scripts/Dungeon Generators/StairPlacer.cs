@@ -74,7 +74,6 @@ public class StairPlacer
                 if (connection.from.Equals(generator.name))
                 {
                     outConnections.Add(connection);
-                    Debug.Log($"Floor {index} registered an out-connection: {connection.from} to {connection.to}{(connection.oneWay ? ": One Way" : "")}");
                 }
             }
         }
@@ -89,15 +88,9 @@ public class StairPlacer
             connection.toLocation = loc;
             connection.toLevel = index;
 
-            Debug.Log($"Floor {index} registered an in-connection: {connection.from} to {connection.to}{(connection.oneWay ? ": One Way" : "")}");
             if (!connection.oneWay) //Do we need a landing stair?
             {
                 generator.map[loc.x, loc.y] = stairIndex;
-                Debug.Log($"Placed a stair for it at {loc}");
-            }
-            else
-            {
-                Debug.Log($"Placed no stair, but did find a suitable landing zone at {loc}");
             }
 
             
@@ -123,10 +116,6 @@ public class StairPlacer
                 Stair stair = m.GetTile(connection.toLocation) as Stair;
                 connection.toStair = stair;
                 stair.SetConnection(connection, false);
-            }
-            else
-            {
-                m.GetTile(connection.toLocation).color = Color.red;
             }
         }
 

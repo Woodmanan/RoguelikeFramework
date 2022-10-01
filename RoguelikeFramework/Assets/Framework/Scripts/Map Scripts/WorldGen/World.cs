@@ -33,7 +33,6 @@ public class World
                 generator.machines.AddRange(branch.machines);
                 generator.tilesAvailable = branch.tiles;
 
-                generator.availableItems = branch.availableItems;
                 generator.numItems = branch.numItemsPerLevel;
 
                 generator.numMonsters = branch.numMonstersPerLevel;

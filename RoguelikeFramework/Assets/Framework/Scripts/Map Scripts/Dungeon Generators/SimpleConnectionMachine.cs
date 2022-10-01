@@ -9,7 +9,7 @@ public class SimpleConnectionMachine : Machine
 
 
     // Activate is called to start the machine
-    public override void Activate()
+    public override IEnumerator Activate()
     {
         //Get all unconnected rooms
         List<Room> toConnect = generator.rooms.FindAll(x=>!x.connected);
@@ -25,6 +25,7 @@ public class SimpleConnectionMachine : Machine
 
         foreach (Room r in toConnect)
         {
+            yield return null;
             //Find nearest room
             connected.Sort(
                 (x,y)=> Vector2Int.Distance(r.center, x.center).CompareTo(Vector2Int.Distance(r.center, y.center)));

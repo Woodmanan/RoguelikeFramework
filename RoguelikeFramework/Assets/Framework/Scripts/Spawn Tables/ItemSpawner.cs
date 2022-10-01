@@ -29,6 +29,10 @@ public class ItemSpawner : MonoBehaviour
         set { Singleton = value; }
     }
 
+    public List<LootChance> chances;
+
+    public List<int> rarities;
+
     public List<LootPool> pools;
     // Start is called before the first frame update
     void Start()
@@ -44,13 +48,23 @@ public class ItemSpawner : MonoBehaviour
 
     public void SetItemPools(List<DungeonGenerator> generators)
     {
+        this.pools = new List<LootPool>();
         //Copy pools and instantiate them
-        this.pools = generators.Select(x => Instantiate(x.availableItems)).ToList();
-
-        //Trim anyone that asks for that, politely.
         for (int i = 0; i < generators.Count; i++)
         {
-            if (pools[i].shouldTrim) pools[i].TrimToDepth(generators[i].depth);
+            Branch branch = generators[i].branch;
+            LootPool pool = new LootPool();
+
+            //Set pool data
+            pool.tables = branch.tables;
+            pool.shouldTrim = true;
+            pool.chances = chances;
+            pool.rarities = rarities;
+            pool.elevatesItems = branch.elevatesItems;
+
+            //Fire off optimization pass
+            pool.TrimToDepth(generators[i].depth);
+            pools.Add(pool);
         }
     }
 
@@ -98,11 +112,23 @@ public class ItemSpawner : MonoBehaviour
         {
             yield return null;
             Item item = pools[floor].GenerateItem();
+            int tries = 0;
             while (item == null)
             {
+                tries++;
+                if (tries == 100)
+                {
+                    numItems--;
+                    break;
+                }
                 yield return null;
-                Debug.LogWarning("Floor failed to spawn item correctly. Retrying...");
                 item = pools[floor].GenerateItem();
+            }
+
+            if (tries == 100)
+            {
+                Debug.LogWarning($"Failed to spawn item for floor {m.name}");
+                continue;
             }
 
             Vector2Int pos = new Vector2Int(-1, -1);

@@ -49,7 +49,6 @@ public class WorldGenerator : ScriptableObject
         foreach (BranchChoice current in choices)
         {
             if (!current.enabled) continue;
-            Debug.Log($"Starting step {current.name}");
             bool valid = true;
             Target chosenEntryTarget = new Target();
             Target chosenExitTarget = new Target();

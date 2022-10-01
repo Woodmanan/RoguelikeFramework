@@ -151,7 +151,7 @@ public class Map : MonoBehaviour
                 tiles[i, j] = custom;
                 custom.SetMap(this, new Vector2Int(i, j));
                 custom.Setup();
-                if (i % 33 == 32) yield return null;
+                yield return null;
             }
             yield return null;
         }
@@ -162,6 +162,7 @@ public class Map : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 tiles[i, j].RebuildMapData();
+                yield return null;
             }
             yield return null;
         }

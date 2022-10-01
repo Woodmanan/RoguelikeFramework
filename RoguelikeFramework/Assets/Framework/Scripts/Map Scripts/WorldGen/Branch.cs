@@ -38,13 +38,16 @@ public class Branch : ScriptableObject
     public Sprite entryTile;
     public Sprite exitTile;
 
-    [Header("Monsters and Items")]
-    public LootPool availableItems;
+    [Header("Item Info")]
+    public List<LootTable> tables;
     public RandomNumber numItemsPerLevel;
+    public bool elevatesItems;
 
-    [Header("Monster Pool")]
+    [Header("Monster Info")]
+    
     public List<MonsterTable> monsterTables;
     public RandomNumber numMonstersPerLevel;
+    [Range(0, 100)]
     public float chanceForOutOfDepth;
     public RandomNumber depthIncrease;
 }

@@ -40,11 +40,18 @@ public class RexRoom : Room
     public SadRex.Image image;
 
     public List<Replacement> conversions;
+
+    public Dictionary<Char, Replacement> conversionDict;
     
     public override void Setup()
     {
         image = RexpaintAssetPipeline.Load(RexFile);
         size = new Vector2Int(image.Width, image.Height);
+        conversionDict = new Dictionary<char, Replacement>();
+        foreach (Replacement r in conversions)
+        {
+            conversionDict.Add(r.glyph, r);
+        }
     }
 
     public override int GetValueAt(int x, int y)
@@ -67,10 +74,9 @@ public class RexRoom : Room
         {
             for (int j = 0; j < size.y; j++)
             {
-                char c = (char)image.Layers[0][i, j].Character;
-                if (tiles.Any(x => x.glyph == c))
+                Replacement r;
+                if (conversionDict.TryGetValue((char)image.Layers[0][i, j].Character, out r))
                 {
-                    Replacement r = tiles.First(x => x.glyph == c);
                     CustomTile tile = Instantiate(r.replacement).GetComponent<CustomTile>();
                     CustomTile toReplace = map.GetTile(start + new Vector2Int(i, j));
                     tile.gameObject.name = toReplace.gameObject.name;
@@ -83,6 +89,7 @@ public class RexRoom : Room
                     tile.SetMap(map, tile.location);
                     yield return null;
                 }
+                yield return null;
             }
             yield return null;
         }
@@ -108,39 +115,50 @@ public class RexRoom : Room
                 {
                     if (!image.Layers[1][i,j].IsTransparent())
                     {
-                        char c = (char)image.Layers[1][i, j].Character;
-                        Replacement r = items.First(x => x.glyph == c);
-                        if (r.option == ReplacementOption.SINGLE_ITEM)
+                        Replacement r;
+                        if (conversionDict.TryGetValue((char)image.Layers[1][i, j].Character, out r))
                         {
-                            //Instantiate item
-                            Item item = r.replacement.GetComponent<Item>().Instantiate();
-                            Vector2Int pos = start + new Vector2Int(i, j);
 
-                            //Place it in the world
-                            item.transform.parent = map.itemContainer;
-                            map.GetTile(pos).inventory.Add(item);
-                            yield return null;
-                        }
-                        else
-                        {
-                            //Create and trim loot pool
-                            LootPool pool = Instantiate<LootPool>((LootPool)r.pool);
-                            if (pool.shouldTrim) pool.TrimToDepth(map.depth);
-                            yield return null;
-
-                            //Generate item from trimmed pool, based on specs.
-                            Item item = pool.GenerateItem(r.type, r.rarity);
-
-                            //Place item into world.
-                            Vector2Int pos = start + new Vector2Int(i, j);
-                            item.transform.parent = map.itemContainer;
-                            map.GetTile(pos).inventory.Add(item);
-                            yield return null;
-
-                            if (r.allSame)
+                            if (r.option == ReplacementOption.SINGLE_ITEM)
                             {
-                                r.replacement = item.gameObject;
-                                r.option = ReplacementOption.SINGLE_ITEM;
+                                //Instantiate item
+                                if (r.replacement == null)
+                                {
+                                    continue;
+                                }
+                                Item item = r.replacement.GetComponent<Item>().Instantiate();
+                                Vector2Int pos = start + new Vector2Int(i, j);
+
+                                //Place it in the world
+                                item.transform.parent = map.itemContainer;
+                                map.GetTile(pos).inventory.Add(item);
+                                yield return null;
+                            }
+                            else
+                            {
+                                //Create and trim loot pool
+                                if (r.pool == null)
+                                {
+                                    continue;
+                                }
+                                LootTable pool = Instantiate<LootTable>((LootTable)r.pool);
+                                pool = pool.TrimToDepth(map.depth, false);
+                                yield return null;
+
+                                //Generate item from trimmed pool, based on specs.
+                                Item item = pool.RandomItemByRarity(r.rarity, true);
+
+                                //Place item into world.
+                                Vector2Int pos = start + new Vector2Int(i, j);
+                                item.transform.parent = map.itemContainer;
+                                map.GetTile(pos).inventory.Add(item);
+                                yield return null;
+
+                                if (r.allSame)
+                                {
+                                    r.replacement = item.gameObject;
+                                    r.option = ReplacementOption.SINGLE_ITEM;
+                                }
                             }
                         }
                     }
@@ -168,59 +186,61 @@ public class RexRoom : Room
                 {
                     if (!image.Layers[2][i, j].IsTransparent())
                     {
-                        char c = (char)image.Layers[2][i, j].Character;
-                        Replacement r = monsters.First(x => x.glyph == c);
-                        if (r == null)
+                        Replacement r;
+                        if (conversionDict.TryGetValue((char)image.Layers[2][i, j].Character, out r))
                         {
-                            continue;
-                        }
-                        if (r.option == ReplacementOption.SINGLE_MONSTER)
-                        {
-                            //Instantiate monster
-                            if (r.replacement == null)
+                            if (r == null)
                             {
                                 continue;
                             }
-                            Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
-                            Vector2Int pos = start + new Vector2Int(i, j);
-
-                            //Place it in the world
-                            monster.transform.parent = map.monsterContainer;
-                            map.monsters.Add(monster);
-                            monster.location = pos;
-                            map.GetTile(pos).SetMonster(monster);
-                            monster.currentTile = map.GetTile(pos);
-                            monster.transform.parent = map.monsterContainer;
-                            yield return null;
-                        }
-                        else
-                        {
-                            //Create and trim loot pool
-                            if (r.pool == null)
+                            if (r.option == ReplacementOption.SINGLE_MONSTER)
                             {
-                                continue;
-                            }    
-                            MonsterTable pool = Instantiate<MonsterTable>((MonsterTable)r.pool);
-                            yield return null;
+                                //Instantiate monster
+                                if (r.replacement == null)
+                                {
+                                    continue;
+                                }
+                                Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
+                                Vector2Int pos = start + new Vector2Int(i, j);
 
-                            //Generate monster from table, based on depth
-                            Monster monster = pool.RandomMonsterByDepth(map.depth);
-
-                            //Place item into world.
-                            Vector2Int pos = start + new Vector2Int(i, j);
-
-                            map.monsters.Add(monster);
-                            monster.location = pos;
-                            map.GetTile(pos).SetMonster(monster);
-                            monster.currentTile = map.GetTile(pos);
-                            monster.transform.parent = map.monsterContainer;
-
-                            yield return null;
-
-                            if (r.allSame)
+                                //Place it in the world
+                                monster.transform.parent = map.monsterContainer;
+                                map.monsters.Add(monster);
+                                monster.location = pos;
+                                map.GetTile(pos).SetMonster(monster);
+                                monster.currentTile = map.GetTile(pos);
+                                monster.transform.parent = map.monsterContainer;
+                                yield return null;
+                            }
+                            else
                             {
-                                r.replacement = monster.gameObject;
-                                r.option = ReplacementOption.SINGLE_MONSTER;
+                                //Create and trim loot pool
+                                if (r.pool == null)
+                                {
+                                    continue;
+                                }
+                                MonsterTable pool = Instantiate<MonsterTable>((MonsterTable)r.pool);
+                                yield return null;
+
+                                //Generate monster from table, based on depth
+                                Monster monster = pool.RandomMonsterByDepth(map.depth);
+
+                                //Place item into world.
+                                Vector2Int pos = start + new Vector2Int(i, j);
+
+                                map.monsters.Add(monster);
+                                monster.location = pos;
+                                map.GetTile(pos).SetMonster(monster);
+                                monster.currentTile = map.GetTile(pos);
+                                monster.transform.parent = map.monsterContainer;
+
+                                yield return null;
+
+                                if (r.allSame)
+                                {
+                                    r.replacement = monster.gameObject;
+                                    r.option = ReplacementOption.SINGLE_MONSTER;
+                                }
                             }
                         }
                     }

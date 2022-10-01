@@ -35,6 +35,7 @@ public class DungeonGenerator
     {
         this.seed = seed;
         UnityEngine.Random.State state;
+        UnityEngine.Random.State oldState = UnityEngine.Random.state;
         UnityEngine.Random.InitState(seed);
 
         rooms = new List<Room>();
@@ -72,16 +73,23 @@ public class DungeonGenerator
         {
 
             state = UnityEngine.Random.state;
+            UnityEngine.Random.state = oldState;
             yield return null;
+            oldState = UnityEngine.Random.state;
             UnityEngine.Random.state = state;
             map = new int[bounds.x, bounds.y];
 
             foreach (Machine m in machines)
             {
-                m.Activate();
-                state = UnityEngine.Random.state;
-                yield return null;
-                UnityEngine.Random.state = state;
+                IEnumerator machine = m.Activate();
+                while (machine.MoveNext())
+                {
+                    state = UnityEngine.Random.state;
+                    UnityEngine.Random.state = oldState;
+                    yield return machine.Current;
+                    oldState = UnityEngine.Random.state;
+                    UnityEngine.Random.state = state;
+                }
             }
 
             //Add stairs as final step
@@ -95,7 +103,9 @@ public class DungeonGenerator
             while (build.MoveNext())
             {
                 state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
                 yield return build.Current;
+                oldState = UnityEngine.Random.state;
                 UnityEngine.Random.state = state;
             }
 
@@ -113,7 +123,9 @@ public class DungeonGenerator
                 while (activate.MoveNext())
                 {
                     state = UnityEngine.Random.state;
+                    UnityEngine.Random.state = oldState;      
                     yield return activate.Current;
+                    oldState = UnityEngine.Random.state;
                     UnityEngine.Random.state = state;
                 }
             }
@@ -128,7 +140,9 @@ public class DungeonGenerator
             while (monsterSpawn.MoveNext())
             {
                 state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
                 yield return monsterSpawn.Current;
+                oldState = UnityEngine.Random.state;
                 UnityEngine.Random.state = state;
             }
 
@@ -139,7 +153,9 @@ public class DungeonGenerator
             while (itemSpawn.MoveNext())
             {
                 state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
                 yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
                 UnityEngine.Random.state = state;
             }
 
@@ -161,6 +177,7 @@ public class DungeonGenerator
             }
 
             finished = true;
+            UnityEngine.Random.state = oldState;
         }
 
     }

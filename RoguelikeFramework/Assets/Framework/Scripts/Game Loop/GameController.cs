@@ -30,10 +30,6 @@ public class GameController : MonoBehaviour
         set { Singleton = value; }
     }
 
-    [Header("Startup variables")]
-    [Tooltip("When set, preloads up to this level before letting the player enter the game.")]
-    [SerializeField] int preLoadUpTo;
-
     [Header("Runtime variables")]
     //Constant variables: change depending on runtime!
     public const long MONSTER_UPDATE_MS = 5;
@@ -63,7 +59,6 @@ public class GameController : MonoBehaviour
     {
         LevelLoader.singleton.Setup();
         int start = LevelLoader.singleton.GetIndexOf(LevelLoader.singleton.startAt);
-        UnityEngine.Debug.Log("Start is " + start);
         if (start < 0) start = 0;
         //Wait for initial level loading to finish
         if (LevelLoader.singleton.JITLoading)
@@ -72,18 +67,18 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            if (preLoadUpTo != start)
+            if (LevelLoader.singleton.preloadUpTo != start)
             {
-                if (start > preLoadUpTo)
+                if (start > LevelLoader.singleton.preloadUpTo)
                 {
                     UnityEngine.Debug.LogWarning("Waiting to preload for a level that is before where we start? Skipping Preload.");
                 }
                 else
                 {
-                    if (start < preLoadUpTo)
+                    if (start < LevelLoader.singleton.preloadUpTo)
                     {
-                        UnityEngine.Debug.Log($"Waiting for the levels up to {preLoadUpTo} to load");
-                        yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(preLoadUpTo));
+                        UnityEngine.Debug.Log($"Waiting for level preload load");
+                        yield return new WaitUntil(() => LevelLoader.singleton.IsMapLoaded(LevelLoader.singleton.preloadUpTo));
                     }
                 }
             }

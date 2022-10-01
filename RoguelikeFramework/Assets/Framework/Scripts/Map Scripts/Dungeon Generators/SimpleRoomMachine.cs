@@ -10,7 +10,7 @@ public class SimpleRoomMachine : Machine
     public List<Room> rooms;
     public List<Room> placedRooms;
 
-    override public void Activate()
+    override public IEnumerator Activate()
     {
         placedRooms = new List<Room>();
         int failureCount = 0;
@@ -18,6 +18,7 @@ public class SimpleRoomMachine : Machine
         {
             //Get a room (you two)
             Room current = Instantiate(rooms[Random.Range(0, rooms.Count)]);
+            yield return null;
             current.Setup();
 
             //Set it's position randomly, keeping it in bounds.

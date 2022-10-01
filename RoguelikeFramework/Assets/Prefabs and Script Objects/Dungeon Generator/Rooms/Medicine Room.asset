@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Medicine Room
   m_EditorClassIdentifier: 
   size: {x: 0, y: 0}
+  acceptsStairs: 1
   layout: 
   start: {x: 0, y: 0}
   end: {x: 0, y: 0}
@@ -23,14 +24,14 @@ MonoBehaviour:
   - glyph: 33
     option: 2
     replacement: {fileID: 5723771033562300097, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
-    pool: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
-    type: 1
+    pool: {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
+    type: 0
     rarity: 5
-    allSame: 0
+    allSame: 1
   - glyph: 71
     option: 4
     replacement: {fileID: 0}
-    pool: {fileID: 11400000, guid: c083bb6c4c4307340887537b8744d336, type: 2}
+    pool: {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
     type: 0
     rarity: 0
     allSame: 0

@@ -139,7 +139,7 @@ public class MonsterSpawner : MonoBehaviour
         List<MonsterTable> options = branch.monsterTables.Where(x => x.containedDepths.Contains(depth)).ToList();
         if (options.Count == 0)
         {
-            Debug.LogError($"This pool can't support spawning monsters at depth {depth}!");
+            Debug.LogError($"{branch.branchName} can't support spawning monsters at depth {depth}!");
             return null;
         }
 

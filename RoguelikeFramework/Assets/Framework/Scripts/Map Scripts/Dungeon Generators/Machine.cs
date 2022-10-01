@@ -62,7 +62,7 @@ public class Machine : ScriptableObject
         }
     }
 
-    public virtual void Activate() 
+    public virtual IEnumerator Activate() 
     {
         Debug.LogWarning("Default Machine call was made. Did you mean to do this, or did you forget to Override Activate()?", this);
         for (int i = start.x; i < end.x; i++)
@@ -72,6 +72,7 @@ public class Machine : ScriptableObject
                 generator.map[i,j] = 1;
             }
         }
+        yield break;
     }
 
     public virtual void PostActivation(Map m)

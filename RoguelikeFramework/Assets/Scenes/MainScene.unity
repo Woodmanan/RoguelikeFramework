@@ -1148,7 +1148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406155aae42b546bb02611f09bf7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preLoadUpTo: 0
   turn: 0
   energyPerTurn: 100
   player: {fileID: 546573371}
@@ -2944,7 +2943,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10c10433f62d234688a88acea4e89aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools: []
+  chances:
+  - type: 1
+    weight: 1
+  - type: 2
+    weight: 1
+  - type: 4
+    weight: 1
+  - type: 8
+    weight: 100
+  rarities: 200000001000000008000000040000000200000001000000
 --- !u!4 &1269666195
 Transform:
   m_ObjectHideFlags: 0
@@ -4667,12 +4675,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldGen: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
   generators: []
-  msPerFrame: 4
+  msPerFrame: 5
   randomSeed: 0
-  seed: 42
-  JITLoading: 1
+  seed: 182051489
+  preloadUpTo: 0
+  JITLoading: 0
   LoadAllLevelsAtStart: 0
-  startAt: Main Dungeon:0
+  startAt: 
 --- !u!4 &1953941108
 Transform:
   m_ObjectHideFlags: 0

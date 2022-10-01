@@ -29,7 +29,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public WorldGenerator worldGen;
-    public List<DungeonGenerator> generators;
+    [HideInInspector] public List<DungeonGenerator> generators;
     int current;
     public float msPerFrame;
     public bool randomSeed;
@@ -37,6 +37,9 @@ public class LevelLoader : MonoBehaviour
     private bool setup = false;
 
     public static List<Map> maps;
+
+    [Tooltip("When set, preloads up to this level before letting the player enter the game.")]
+    public int preloadUpTo;
 
     [Header("Debug tools")]
     [Tooltip("Enables just-in-time loading. Levels are generated on-demand, instead of in the background.")]
@@ -151,7 +154,7 @@ public class LevelLoader : MonoBehaviour
 
             while (generators[current].generation.MoveNext())
             {
-                if (!LoadAllLevelsAtStart && watch.ElapsedMilliseconds > (msPerFrame / 2))
+                if (!LoadAllLevelsAtStart && watch.ElapsedMilliseconds > msPerFrame) 
                 {
                     watch.Stop();
                     yield return null;
@@ -188,6 +191,11 @@ public class LevelLoader : MonoBehaviour
 
     public int GetIndexOf(string levelName)
     {
+        int level;
+        if (int.TryParse(levelName, out level))
+        {
+            return level;
+        }
         for (int i = 0; i < generators.Count; i++)
         {
             if (generators[i].name.Equals(levelName))

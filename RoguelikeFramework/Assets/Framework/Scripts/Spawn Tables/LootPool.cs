@@ -11,9 +11,7 @@ public struct LootChance
     public int weight;
 }
 
-[CreateAssetMenu(fileName = "New Loot Pool", menuName = "Distribution/Loot Pool", order = 2)]
-
-public class LootPool : ScriptableObject
+public class LootPool
 {
     public bool shouldTrim;
     public bool elevatesItems;
@@ -25,7 +23,6 @@ public class LootPool : ScriptableObject
     int raritySum;
 
     public List<LootTable> tables;
-
 
     // Start is called before the first frame update
     void Start()

@@ -80,7 +80,7 @@ public class CameraTracking : MonoBehaviour
     // Update is called once per frame
     void OnPreRender()
     {
-        Vector2 target = player.transform.position;
+        Vector2 target = Player.player.location;
 
         switch (mode)
         {
