@@ -310,6 +310,11 @@ public class Targeting
                 val = val && currentLOS.ValueAtWorld(x, y);
             }
 
+            if (!Map.current.ValidLocation(x, y))
+            {
+                return;
+            }
+
             area[xSpot, ySpot] = val && !Map.current.GetTile(x, y).isHidden;
             if (marking)
             {
@@ -337,7 +342,7 @@ public class Targeting
     private void DrawBrensham(Vector2Int point)
     {
 
-        BresenhamResults brensham = LOS.GetLineFrom(origin, target, true, !options.HasFlag(TargetTags.LINES_PIERCE));
+        BresenhamResults brensham = LOS.GetLineFrom(origin, point, true, !options.HasFlag(TargetTags.LINES_PIERCE));
 
         //Skip the first one
         foreach (CustomTile tile in brensham.path)

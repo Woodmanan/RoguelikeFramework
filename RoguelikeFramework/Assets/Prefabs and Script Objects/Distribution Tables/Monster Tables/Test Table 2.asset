@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d227bfe5ec9d084e951365e3fb400b2, type: 3}
-  m_Name: Default Pool
+  m_Script: {fileID: 11500000, guid: 90ec958dc3bda454b91afa99dd858f39, type: 3}
+  m_Name: Test Table 2
   m_EditorClassIdentifier: 
-  tables:
-  - {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
-  chanceForOutOfDepth: 0
-  maxDepthIncrease: 0
+  monsters: []
+  loadouts: []
+  chanceForHigherLoadout: 0
+  uniques: []
+  chanceForUnique: 0

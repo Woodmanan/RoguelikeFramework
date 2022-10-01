@@ -31,6 +31,8 @@ public class Map : MonoBehaviour
 
     public bool activeGraphics = false;
 
+    public Branch branch;
+
     public List<Monster> monsters = new List<Monster>();
     public List<Monster> spawnedMonsters = new List<Monster>();
 
@@ -189,6 +191,16 @@ public class Map : MonoBehaviour
     public CustomTile GetTile(int x, int y)
     {
         return tiles[x, y];
+    }
+    
+    public bool ValidLocation(Vector2Int loc)
+    {
+        return ValidLocation(loc.x, loc.y);
+    }
+
+    public bool ValidLocation(int x, int y)
+    {
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     public bool BlocksSight(int x, int y)

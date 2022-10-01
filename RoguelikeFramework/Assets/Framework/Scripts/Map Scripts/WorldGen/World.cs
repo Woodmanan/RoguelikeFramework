@@ -28,6 +28,7 @@ public class World
                 generator.depth = branch.branchDepth + level; //Depth increases level - fix this later if not intended
                 generator.bounds = branch.size;
 
+                generator.branch = branch;
                 generator.machines = new List<Machine>();
                 generator.machines.AddRange(branch.machines);
                 generator.tilesAvailable = branch.tiles;
@@ -35,7 +36,6 @@ public class World
                 generator.availableItems = branch.availableItems;
                 generator.numItems = branch.numItemsPerLevel;
 
-                generator.availableMonsters = branch.availableMonsters;
                 generator.numMonsters = branch.numMonstersPerLevel;
 
                 loader.generators.Add(generator);

@@ -28,17 +28,15 @@ public class MonsterSpawner : MonoBehaviour
         set { Singleton = value; }
     }
 
-    public List<MonsterPool> pools;
-
-    public void SetMonsterPools(List<DungeonGenerator> generators)
+    public void SetMonsterPools(World world)
     {
-        //Copy pools and instantiate them
-        this.pools = generators.Select(x => Instantiate(x.availableMonsters)).ToList();
-
-        //Trim anyone that asks for that, politely.
-        for (int i = 0; i < generators.Count; i++)
+        foreach (Branch branch in world.branches)
         {
-            pools[i].SetupTables();
+            branch.monsterTables = branch.monsterTables.Select(x => Instantiate(x)).ToList();
+            foreach (MonsterTable table in branch.monsterTables)
+            {
+                table.CalculateDepths();
+            }
         }
     }
 
@@ -92,12 +90,12 @@ public class MonsterSpawner : MonoBehaviour
         for (; m.monsterContainer.transform.childCount < numMonsters;)
         {
             yield return null;
-            Monster monster = pools[floor].SpawnMonster(m.depth);
+            Monster monster = GetMonsterFromBranchAndDepth(m.branch, m.depth);
             while (monster == null)
             {
                 yield return null;
                 Debug.LogWarning("Floor failed to spawn monster correctly. Retrying...");
-                monster = pools[floor].SpawnMonster(m.depth);
+                monster = GetMonsterFromBranchAndDepth(m.branch, m.depth);
             }
 
             Vector2Int pos = new Vector2Int(-1, -1);
@@ -127,5 +125,24 @@ public class MonsterSpawner : MonoBehaviour
             monster.location = pos;
             monster.transform.parent = m.monsterContainer;
         }
+    }
+
+    public Monster GetMonsterFromBranchAndDepth(Branch branch, int depth)
+    {
+        //Do out-of-depth check
+        if (Random.Range(0.0f, 99.99f) < branch.chanceForOutOfDepth)
+        {
+            depth += branch.depthIncrease.Evaluate();
+        }
+
+        //Filter to just tables that can support our query
+        List<MonsterTable> options = branch.monsterTables.Where(x => x.containedDepths.Contains(depth)).ToList();
+        if (options.Count == 0)
+        {
+            Debug.LogError($"This pool can't support spawning monsters at depth {depth}!");
+            return null;
+        }
+
+        return options[Random.Range(0, options.Count)].RandomMonsterByDepth(depth);
     }
 }

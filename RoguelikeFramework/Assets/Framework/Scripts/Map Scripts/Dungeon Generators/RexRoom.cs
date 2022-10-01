@@ -170,9 +170,17 @@ public class RexRoom : Room
                     {
                         char c = (char)image.Layers[2][i, j].Character;
                         Replacement r = monsters.First(x => x.glyph == c);
+                        if (r == null)
+                        {
+                            continue;
+                        }
                         if (r.option == ReplacementOption.SINGLE_MONSTER)
                         {
                             //Instantiate monster
+                            if (r.replacement == null)
+                            {
+                                continue;
+                            }
                             Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
                             Vector2Int pos = start + new Vector2Int(i, j);
 
@@ -188,12 +196,15 @@ public class RexRoom : Room
                         else
                         {
                             //Create and trim loot pool
-                            MonsterPool pool = Instantiate<MonsterPool>((MonsterPool)r.pool);
-                            pool.SetupTables();
+                            if (r.pool == null)
+                            {
+                                continue;
+                            }    
+                            MonsterTable pool = Instantiate<MonsterTable>((MonsterTable)r.pool);
                             yield return null;
 
-                            //Generate monster from trimmed pool, based on specs.
-                            Monster monster = pool.SpawnMonster(map.depth);
+                            //Generate monster from table, based on depth
+                            Monster monster = pool.RandomMonsterByDepth(map.depth);
 
                             //Place item into world.
                             Vector2Int pos = start + new Vector2Int(i, j);

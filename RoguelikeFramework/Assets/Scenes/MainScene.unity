@@ -2988,7 +2988,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8358b638e954a4d8d6fb0e7d904a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools: []
 --- !u!4 &1278248790
 Transform:
   m_ObjectHideFlags: 0
@@ -4671,7 +4670,7 @@ MonoBehaviour:
   msPerFrame: 4
   randomSeed: 0
   seed: 42
-  JITLoading: 0
+  JITLoading: 1
   LoadAllLevelsAtStart: 0
   startAt: Main Dungeon:0
 --- !u!4 &1953941108

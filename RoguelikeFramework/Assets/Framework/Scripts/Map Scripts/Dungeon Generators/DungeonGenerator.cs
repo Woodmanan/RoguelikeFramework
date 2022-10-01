@@ -4,9 +4,6 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-
-
-
 [Serializable]
 public class DungeonGenerator
 {
@@ -14,6 +11,7 @@ public class DungeonGenerator
     public int depth;
     [HideInInspector] public int seed;
     public Vector2Int bounds;
+    public Branch branch;
     public List<Machine> machines;
     [HideInInspector] public List<Room> rooms;
     public TileList tilesAvailable;
@@ -25,7 +23,6 @@ public class DungeonGenerator
     public LootPool availableItems;
     public RandomNumber numItems;
 
-    public MonsterPool availableMonsters;
     public RandomNumber numMonsters;
 
     public int[,] map;
@@ -47,6 +44,7 @@ public class DungeonGenerator
 
         gameMap.depth = depth;
         gameMap.index = index;
+        gameMap.branch = branch;
 
         mapInstance.name = name;
         mapInstance.transform.parent = parent;

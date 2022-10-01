@@ -42,6 +42,9 @@ public class Branch : ScriptableObject
     public LootPool availableItems;
     public RandomNumber numItemsPerLevel;
 
-    public MonsterPool availableMonsters;
+    [Header("Monster Pool")]
+    public List<MonsterTable> monsterTables;
     public RandomNumber numMonstersPerLevel;
+    public float chanceForOutOfDepth;
+    public RandomNumber depthIncrease;
 }
