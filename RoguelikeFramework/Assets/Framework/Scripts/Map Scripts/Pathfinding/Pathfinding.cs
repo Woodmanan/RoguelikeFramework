@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using Priority_Queue;
 
 //This file handles all of the pathfinding requests of the game. See below for more implementation information.
 
@@ -101,21 +100,7 @@ public static class Pathfinding
     private static Vector2Int source;
     private static Vector2Int goal;
 
-
-    //Max nodes should be checked; may not be enough. Currently supports up to 200x200
-    private static FastPriorityQueue<PathTile> frontier = new FastPriorityQueue<PathTile>(40000);
-
-    public class PathTile : FastPriorityQueueNode
-    {
-        public Vector2Int loc;
-        public float cost;
-
-        public PathTile(Vector2Int loc, float cost)
-        {
-            this.loc = loc;
-            this.cost = cost;
-        }
-    }
+    private static PriorityQueue<(Vector2Int, float)> frontier = new PriorityQueue<(Vector2Int, float)>();
 
     public static Path FindPath(Vector2Int start, Vector2Int end)
     {
@@ -129,7 +114,7 @@ public static class Pathfinding
         //Cleared to move forward, do expensive reset op.
         ClearSeenFlags();
         frontier.Clear();
-        frontier.Enqueue(new PathTile(start, 0), 0);
+        frontier.Enqueue((start, 0), 0);
 
         goal = end;
         source = start;
@@ -173,16 +158,16 @@ public static class Pathfinding
             }
             else
             {
-                PathTile current = frontier.Dequeue();
+                (Vector2Int currentLoc, float currentCost) = frontier.Dequeue();
 
                 //Have we already added this tile?
-                if (alreadyChecked[current.loc.x, current.loc.y])
+                if (alreadyChecked[currentLoc.x, currentLoc.y])
                 {
                     //By nature of the algorithm, we can't possibly be faster than whoever already saw it
                     continue;
                 }
 
-                if (current.loc == goal)
+                if (currentLoc == goal)
                 {
                     //Construct the path back
                     Stack<Vector2Int> path = new Stack<Vector2Int>();
@@ -246,11 +231,12 @@ public static class Pathfinding
                         }
                         searching = check;
                     }
-                    return new Path(path, current.cost);
+                    Debug.Log($"Searched finished: Max frontier was {frontier.GetMax()}");
+                    return new Path(path, currentCost);
                 }
 
-                alreadyChecked[current.loc.x, current.loc.y] = true;
-                costMap[current.loc.x, current.loc.y] = current.cost;
+                alreadyChecked[currentLoc.x, currentLoc.y] = true;
+                costMap[currentLoc.x, currentLoc.y] = currentCost;
 
                 for (int i = -1; i <= 1; i++)
                 {
@@ -269,7 +255,7 @@ public static class Pathfinding
                             continue;
                         }
 
-                        Vector2Int newLoc = current.loc + new Vector2Int(i, j);
+                        Vector2Int newLoc = currentLoc + new Vector2Int(i, j);
 
                         if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height || alreadyChecked[newLoc.x, newLoc.y])
                         {
@@ -285,7 +271,7 @@ public static class Pathfinding
                              */
                             if (newLoc == goal)
                             {
-                                frontier.Enqueue(new PathTile(newLoc, current.cost + 1.0f), current.cost + 1.0f);
+                                frontier.Enqueue((newLoc, currentCost + 1.0f), currentCost + 1.0f);
                             }
                             continue;
                         }
@@ -295,23 +281,23 @@ public static class Pathfinding
 
                         if (isCorner && Map.space == MapSpace.Euclidean)
                         {
-                            newCost = current.cost + sqrtTwo * m.MovementCostAt(newLoc);
+                            newCost = currentCost + sqrtTwo * m.MovementCostAt(newLoc);
                             newPriority = newCost + Heuristic(newLoc);
                         }
                         else
                         {
                             if (isCorner)
                             {
-                                newCost = current.cost + m.MovementCostAt(newLoc) + Epsilon;
+                                newCost = currentCost + m.MovementCostAt(newLoc) + Epsilon;
                                 newPriority = newCost + Heuristic(newLoc) + Epsilon;
                             }
                             else
                             {
-                                newCost = current.cost + m.MovementCostAt(newLoc);
+                                newCost = currentCost + m.MovementCostAt(newLoc);
                                 newPriority = newCost + Heuristic(newLoc);
                             }
                         }
-                        frontier.Enqueue(new PathTile(newLoc, newCost), newPriority);
+                        frontier.Enqueue((newLoc, newCost), newPriority);
                     }
                 }
 
@@ -434,7 +420,7 @@ public static class Pathfinding
             {
                 return results;
             }
-            frontier.Enqueue(new PathTile(vec, weight), weight);
+            frontier.Enqueue((vec, weight), weight);
         }
 
         goal = new Vector2Int(-1, -1);
@@ -448,28 +434,29 @@ public static class Pathfinding
         {
             if (frontier.Count == 0)
             {
+                Debug.Log($"Searched finished: Max frontier was {frontier.GetMax()}");
                 return results;
             }
             else
             {
-                PathTile current = frontier.Dequeue();
+                (Vector2Int currentLoc, float currentCost) = frontier.Dequeue();
 
                 //Have we already added this tile?
-                if (alreadyChecked[current.loc.x, current.loc.y])
+                if (alreadyChecked[currentLoc.x, currentLoc.y])
                 {
                     //By nature of the algorithm, we can't possibly be faster than whoever already saw it (Holds for Djikstra!)
                     continue;
                 }
 
-                if (current.loc == goal)
+                if (currentLoc == goal)
                 {
                     //Finished! Another function will need to construct the path.
                     return results;
                 }
 
-                alreadyChecked[current.loc.x, current.loc.y] = true;
-                costMap[current.loc.x, current.loc.y] = current.cost;
-                results[current.loc.x, current.loc.y] = current.cost;
+                alreadyChecked[currentLoc.x, currentLoc.y] = true;
+                costMap[currentLoc.x, currentLoc.y] = currentCost;
+                results[currentLoc.x, currentLoc.y] = currentCost;
 
                 for (int i = -1; i <= 1; i++)
                 {
@@ -488,7 +475,7 @@ public static class Pathfinding
                             continue;
                         }
 
-                        Vector2Int newLoc = current.loc + new Vector2Int(i, j);
+                        Vector2Int newLoc = currentLoc + new Vector2Int(i, j);
 
                         if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height || alreadyChecked[newLoc.x, newLoc.y])
                         {
@@ -504,7 +491,7 @@ public static class Pathfinding
                              */
                             if (newLoc == goal)
                             {
-                                frontier.Enqueue(new PathTile(newLoc, current.cost + 1.0f), current.cost + 1.0f);
+                                frontier.Enqueue((newLoc, currentCost + 1.0f), currentCost + 1.0f);
                             }
                             continue;
                         }
@@ -514,23 +501,23 @@ public static class Pathfinding
 
                         if (isCorner && Map.space == MapSpace.Euclidean)
                         {
-                            newCost = current.cost + sqrtTwo * map.MovementCostAt(newLoc);
+                            newCost = currentCost + sqrtTwo * map.MovementCostAt(newLoc);
                             newPriority = newCost;
                         }
                         else
                         {
                             if (isCorner)
                             {
-                                newCost = current.cost + map.MovementCostAt(newLoc) + 0.001f;
+                                newCost = currentCost + map.MovementCostAt(newLoc) + 0.001f;
                                 newPriority = newCost + 0.001f;
                             }
                             else
                             {
-                                newCost = current.cost + map.MovementCostAt(newLoc);
+                                newCost = currentCost + map.MovementCostAt(newLoc);
                                 newPriority = newCost;
                             }
                         }
-                        frontier.Enqueue(new PathTile(newLoc, newCost), newPriority);
+                        frontier.Enqueue((newLoc, newCost), newPriority);
                     }
                 }
             }
@@ -563,11 +550,10 @@ public static class Pathfinding
             case MapSpace.Manhattan:
                 return Mathf.Abs(loc.x - goal.x) + Mathf.Abs(loc.y - goal.y);
             case MapSpace.Chebyshev:
-            //return Mathf.Max(Mathf.Abs(loc.x - goal.x), Mathf.Abs(loc.y - goal.y));
+                return Mathf.Max(Mathf.Abs(loc.x - goal.x), Mathf.Abs(loc.y - goal.y));
             case MapSpace.Euclidean:
                 return (loc - goal).magnitude;
         }
-        return 0;
     }
 
     //Seperate Heuristic, designed to create nice, straight lines back - Essentially manhattan

@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c6c7585bb1c6344be94810522d6eed, type: 3}
+  m_Name: DeathWave
+  m_EditorClassIdentifier: 
+  displayName: Death Wave (DEV)
+  image: {fileID: 4054509398141438352, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 3
+    areaType: 1
+    range: 5
+    radius: 5
+    degree: 120
+    options: 1
+    targetPriority: 2
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    cooldown: 0
+    power: 100
+  stats:
+    cooldown: 0
+    power: 0
+  castQuery:
+    outOf: 5
+    terms:
+    - subject: 2
+      subjectMod: 0
+      subjectCount: 3
+      property: 0
+      resource: 0
+      equality: 4
+      value: 50
+      valueMod: 1
+      weight: 4
+    - subject: 2
+      subjectMod: 1
+      subjectCount: 3
+      property: 1
+      resource: 0
+      equality: 1
+      value: 3
+      valueMod: 0
+      weight: -4
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 02000000
+    _vals:
+    - 1
+  currentCooldown: 0
+  castable: 1
+  types: 1
+  effects: []
+  sprites:
+  - {fileID: -6569304708771454169, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  - {fileID: 5647580403619596446, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  - {fileID: 3482512805507413357, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  references:
+    version: 1

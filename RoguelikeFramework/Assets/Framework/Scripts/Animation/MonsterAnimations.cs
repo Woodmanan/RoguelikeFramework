@@ -16,8 +16,6 @@ public class MoveAnimation : RogueAnimation
         startLocation = new Vector3(oldLocation.x, oldLocation.y, Monster.monsterZPosition);
         endLocation = new Vector3(newLocation.x, newLocation.y, Monster.monsterZPosition);
         midPoint = (startLocation + endLocation) / 2 + Vector3.up;
-
-
     }
 
     public override void OnStart()

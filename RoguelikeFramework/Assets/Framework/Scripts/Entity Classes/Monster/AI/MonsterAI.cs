@@ -3,18 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Priority_Queue;
 using static Resources;
-
-public class IntNode : FastPriorityQueueNode
-{
-    public int value;
-
-    public IntNode(int value)
-    {
-        this.value = value;
-    }
-}
 
 
 public class MonsterAI : ActionController
@@ -33,6 +22,7 @@ public class MonsterAI : ActionController
     float loseDistance = 20;
 
     public Monster lastEnemy;
+    PriorityQueue<int> choices = new PriorityQueue<int>(20);
 
     //The main loop for monster AI! This assumes 
     public override IEnumerator DetermineAction()
@@ -49,7 +39,7 @@ public class MonsterAI : ActionController
 
         List<Monster> enemies = monster.view.visibleMonsters.Where(x => (x.faction & monster.faction) == 0).ToList();
 
-        FastPriorityQueue<IntNode> choices = new FastPriorityQueue<IntNode>(300);
+        choices.Clear();
 
         if (lastEnemy && (monster.location.GameDistance(lastEnemy.location) > loseDistance || currentTries == 0))
         {
@@ -65,28 +55,30 @@ public class MonsterAI : ActionController
 
             //1 - Take an existing interaction
             (InteractableTile tile, float interactableCost) = GetInteraction(false, interactionRange);
-            choices.Enqueue(new IntNode(1), 1f - interactableCost);
+            choices.Enqueue(1, 1f - interactableCost);
 
             //2 - Chase someone who we don't see anymore
             if (lastEnemy && currentTries > 0)
             {
-                choices.Enqueue(new IntNode(2), 1f - .8f);
+                choices.Enqueue(2, 1f - .8f);
             }
 
             //Wait for 60 turns on avg, then go explore
             if (UnityEngine.Random.Range(0, 60) == 0)
             {
-                choices.Enqueue(new IntNode(3), 1f - .7f);
+                choices.Enqueue(3, 1f - .7f);
             }
 
 
             //4 - Wait
-            choices.Enqueue(new IntNode(4), 1f - .1f);
+            choices.Enqueue(4, 1f - .1f);
 
             //5 - Heal up
-            choices.Enqueue(new IntNode(5), (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
+            choices.Enqueue(5, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
 
-            switch (choices.First.value)
+            int finalChoice = choices.Dequeue();
+
+            switch (finalChoice)
             {
                 case 1:
                     nextAction = tile.GetAction();
@@ -106,7 +98,7 @@ public class MonsterAI : ActionController
                     nextAction = new MonsterRest();
                     break;
                 default:
-                    Debug.LogError($"Monster does not have non-combat action set for choice {choices.First.value}", monster);
+                    Debug.LogError($"Monster does not have non-combat action set for choice {finalChoice}", monster);
                     break;
             }
             yield break;
@@ -131,14 +123,13 @@ public class MonsterAI : ActionController
 
             (InteractableTile tile, float interactableCost) = GetInteraction(false, interactionRange);
 
+            choices.Enqueue(0, 1f - flee);
+            choices.Enqueue(1, 1f - approach);
+            choices.Enqueue(2, 1f - spellValue);
+            choices.Enqueue(3, 1f - interactableCost);
 
-            choices.Enqueue(new IntNode(0), 1f - flee);
-            choices.Enqueue(new IntNode(1), 1f - approach);
-            choices.Enqueue(new IntNode(2), 1f - spellValue);
-            choices.Enqueue(new IntNode(3), 1f - interactableCost);
-
-
-            switch (choices.First.value)
+            int finalChoice = choices.Dequeue();
+            switch (finalChoice)
             {
                 case 0:
                     nextAction = new FleeAction();
@@ -172,7 +163,7 @@ public class MonsterAI : ActionController
                     nextAction = tile.GetAction();
                     break;
                 default:
-                    Debug.LogError($"Can't make choice {choices.First.value}, so waiting instead");
+                    Debug.LogError($"Can't make choice {finalChoice}, so waiting instead");
                     nextAction = new WaitAction();
                     break;
             }

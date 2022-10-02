@@ -99,11 +99,6 @@ public class DungeonGenerator
 
             gameMap.name = name;
 
-            /*
-            Coroutine MapRoutine = LevelLoader.singleton.StartCoroutine(gameMap.BuildFromTemplate(map, tilesAvailable));
-            yield return MapRoutine;
-            */
-
             IEnumerator build = gameMap.BuildFromTemplate(map, tilesAvailable);
 
             while (build.MoveNext())
@@ -141,11 +136,6 @@ public class DungeonGenerator
 
             gameMap.Setup();
 
-            Coroutine MonsterSpawn = LevelLoader.singleton.StartCoroutine(MonsterSpawner.singleton.SpawnForFloor(index, gameMap, numMonsters.Evaluate()));
-
-            yield return MonsterSpawn;
-
-            /*
             //TODO: Load monsters in
             IEnumerator monsterSpawn = MonsterSpawner.singleton.SpawnForFloor(index, gameMap, numMonsters.Evaluate());
             while (monsterSpawn.MoveNext())
@@ -156,12 +146,9 @@ public class DungeonGenerator
                 oldState = UnityEngine.Random.state;
                 UnityEngine.Random.state = state;
             }
-            */
+            
 
-            Coroutine ItemSpawn = LevelLoader.singleton.StartCoroutine(ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.Evaluate()));
-            yield return ItemSpawn;
-
-            /*
+            
             //Start loading items in
             IEnumerator itemSpawn = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.Evaluate());
 
@@ -172,20 +159,17 @@ public class DungeonGenerator
                 yield return itemSpawn.Current;
                 oldState = UnityEngine.Random.state;
                 UnityEngine.Random.state = state;
-            }*/
+            }
 
             //Allow tiles that need after-generation modifications to do so
             gameMap.SetAllTiles();
-            yield return null;
 
             //Rebuild any extra info that's changed during post-generation
             //This mostly catches edge cases from tiles spawned by rexpaint prefabs.
             gameMap.RebuildAllMapData();
-            yield return null;
 
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();
-            yield return null;
 
             //Monsters should almost by definition be setup now. Do it again, just in case, and then have themselves attach to the floor!
             foreach (Monster m in gameMap.monsters)

@@ -49,7 +49,7 @@ public class RexpaintAssetPipeline
 
                 UnityEngine.Debug.Log("Download complete! Installing...");
 
-                ZipFile.ExtractToDirectory(folderPath + "/REXPaint-v1.60.zip", folderPath);
+                //ZipFile.ExtractToDirectory(folderPath + "/REXPaint-v1.60.zip", folderPath);
 
                 UnityEngine.Debug.Log("Installation complete! Cleaning up unused files...");
 

@@ -1388,7 +1388,7 @@ MonoBehaviour:
   baseStats:
     _keys: 010000000300000005000000
     _vals:
-    - 100
+    - 10000
     - 100
     - 100
   currentStats:
@@ -4679,7 +4679,7 @@ MonoBehaviour:
   randomSeed: 0
   seed: 182051489
   preloadUpTo: 10
-  JITLoading: 0
+  JITLoading: 1
   LoadAllLevelsAtStart: 0
   startAt: 
 --- !u!4 &1953941108
