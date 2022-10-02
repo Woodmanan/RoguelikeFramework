@@ -4675,10 +4675,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldGen: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
   generators: []
-  msPerFrame: 5
+  msPerFrame: 0
   randomSeed: 0
   seed: 182051489
-  preloadUpTo: 0
+  preloadUpTo: 10
   JITLoading: 0
   LoadAllLevelsAtStart: 0
   startAt: 

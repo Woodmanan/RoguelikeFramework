@@ -122,7 +122,6 @@ public class Map : MonoBehaviour
         tiles = new CustomTile[xSize, ySize];
         blocksVision = new bool[xSize, ySize];
         moveCosts = new float[xSize, ySize];
-        yield return null;
 
         tileContainer = new GameObject("Tiles").transform;
         monsterContainer = new GameObject("Monsters").transform;

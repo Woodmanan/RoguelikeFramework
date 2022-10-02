@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+using UnityEngine.Scripting;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -160,6 +161,7 @@ public class LevelLoader : MonoBehaviour
                     yield return null;
                     watch.Restart();
                 }
+
             }
         }
 

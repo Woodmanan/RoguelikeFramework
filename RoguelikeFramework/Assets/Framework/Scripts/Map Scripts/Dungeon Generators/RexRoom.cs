@@ -57,7 +57,7 @@ public class RexRoom : Room
     public override int GetValueAt(int x, int y)
     {
         char c = (char)image.Layers[0][x, y].Character;
-        if (conversions.Any(r => r.glyph == c))
+        if (conversionDict.ContainsKey(c))
         {
             return 0;
         }

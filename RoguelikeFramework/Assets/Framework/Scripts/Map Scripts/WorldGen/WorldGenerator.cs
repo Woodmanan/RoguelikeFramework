@@ -152,7 +152,7 @@ public class WorldGenerator : ScriptableObject
 
                 current.branches.Remove(branchToGen);
 
-                //Very important - Instantiate to remove the connection to the asset
+                //Very important - Instantiate   to remove the connection to the asset
                 branchToGen = Instantiate(branchToGen);
                 chosenLevels.Add(branchToGen.branchName);
 

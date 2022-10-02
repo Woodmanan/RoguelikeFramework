@@ -24,6 +24,7 @@ MonoBehaviour:
     depth: 1
     seed: 1929387035
     bounds: {x: 50, y: 50}
+    branch: {fileID: 0}
     machines:
     - {fileID: 11400000}
     - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
@@ -46,19 +47,17 @@ MonoBehaviour:
     tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
     numberOfAttempts: 100
     attemptsPerMachine: 100
-    availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
     numItems:
       rngType: 0
       min: 0
       max: 0
-    availableMonsters: {fileID: 0}
     numMonsters:
       rngType: 0
       min: 0
       max: 0
     finished: 1
   numRooms: 20
-  attemptsBeforeFail: 100
+  attemptsPerRoom: 50
   rooms:
   - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
   - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
