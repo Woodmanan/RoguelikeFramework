@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[EffectGroup("Elemental Effects/Cold")]
+[Group("Elemental Effects/Cold")]
 [Priority(10)]
 public class FrostEffect : Effect
 {

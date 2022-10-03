@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Machine", menuName = "Dungeon Generator/Machines/ForestMachine", order = 1)]
+[Group("Room Placers")]
 public class ForestMachine : Machine
 {
     public float percentStart;
@@ -81,8 +81,8 @@ public class ForestMachine : Machine
                 }
             }
         }
-
-        Room room = CreateInstance<Room>();
+        
+        Room room = UnityEngine.ScriptableObject.CreateInstance<Room>();
         room.start = Vector2Int.zero;
         room.end = size;
 

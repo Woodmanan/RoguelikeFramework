@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Connector", menuName = "Dungeon Generator/Machines/Simple Connector", order = 2)]
+[Group("Connectors")]
 public class SimpleConnectionMachine : Machine
 {
 

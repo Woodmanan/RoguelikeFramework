@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Machine", menuName = "Dungeon Generator/Machines/Simple Room Machine", order = 1)]
+[Group("Room Placers")]
 public class SimpleRoomMachine : Machine
 {
     public int numRooms;
@@ -17,7 +17,7 @@ public class SimpleRoomMachine : Machine
         for (int i = 0; i < numRooms; i++)
         {
             //Get a room (you two)
-            Room current = Instantiate(rooms[Random.Range(0, rooms.Count)]);
+            Room current = ScriptableObject.Instantiate(rooms[Random.Range(0, rooms.Count)]);
             yield return null;
             current.Setup();
             failureCount = 0;

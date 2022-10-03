@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[EffectGroup("Weapon Brands")]
+[Group("Weapon Brands")]
 public class Electrocution : Effect
 {
     public int damagePerHit;

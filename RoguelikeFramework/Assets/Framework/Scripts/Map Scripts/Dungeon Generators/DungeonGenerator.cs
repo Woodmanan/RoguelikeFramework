@@ -56,7 +56,7 @@ public class DungeonGenerator
         machines = machines.FindAll(x => x != null);
 
         //Instance them all
-        machines = machines.Select(x => Machine.Instantiate(x)).ToList();
+        machines = machines.Select(x => x.Instantiate()).ToList();
 
         //Shuffle remaining instances, then sort (Equal priority machines are shuffled relative, still)
         var randomized = machines.OrderBy(item => UnityEngine.Random.Range(int.MinValue, int.MaxValue));

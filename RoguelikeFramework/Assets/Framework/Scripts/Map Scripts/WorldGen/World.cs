@@ -21,6 +21,7 @@ public class World
     {
         foreach (Branch branch in branches)
         {
+            branch.overrides.Sort(OverrideCompare);
             for (int level = 0; level < branch.numberOfLevels; level++)
             {
                 DungeonGenerator generator = new DungeonGenerator();
@@ -30,8 +31,33 @@ public class World
 
                 generator.branch = branch;
                 generator.machines = new List<Machine>();
-                generator.machines.AddRange(branch.machines);
                 generator.tilesAvailable = branch.tiles;
+
+                generator.machines.AddRange(branch.machines);
+                
+                foreach (LevelOverride levelOverride in branch.overrides)
+                {
+                    if (levelOverride.level == level)
+                    {
+                        switch (levelOverride.type)
+                        {
+                            case MachineOverrideType.Add:
+                                generator.machines.AddRange(levelOverride.machines);
+                                break;
+                            case MachineOverrideType.Delete:
+                                generator.machines.RemoveAt(levelOverride.deleteIndex);
+                                break;
+                            case MachineOverrideType.Resize:
+                                generator.bounds = levelOverride.resize;
+                                break;
+                            case MachineOverrideType.Replace:
+                                generator.bounds = levelOverride.resize;
+                                generator.machines.Clear();
+                                generator.machines.AddRange(levelOverride.machines);
+                                break;
+                        }
+                    }
+                }
 
                 generator.numItems = branch.numItemsPerLevel;
 
@@ -40,5 +66,15 @@ public class World
                 loader.generators.Add(generator);
             }
         }
+    }
+
+    public int OverrideCompare(LevelOverride one, LevelOverride two)
+    {
+        int comp = one.type.CompareTo(two.type);
+        if (comp == 0)
+        {
+            comp = two.deleteIndex.CompareTo(one.deleteIndex);
+        }
+        return comp;
     }
 }

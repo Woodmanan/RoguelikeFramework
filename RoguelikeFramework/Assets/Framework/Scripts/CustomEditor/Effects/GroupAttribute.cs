@@ -4,11 +4,11 @@ using UnityEngine;
 using System;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class EffectGroupAttribute : System.Attribute
+public class GroupAttribute : System.Attribute
 {
     private string group;
 
-    public EffectGroupAttribute(string group)
+    public GroupAttribute(string group)
     {
         this.group = group;
     }

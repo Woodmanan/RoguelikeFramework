@@ -28,17 +28,95 @@ MonoBehaviour:
   oneWay: 0
   size: {x: 35, y: 35}
   machines:
-  - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-  - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
+  - id: 0
+  - id: 1
   overrides: []
   tiles: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-  availableItems: {fileID: 11400000, guid: 74b47070ea93bb540bf92e42751605f5, type: 2}
+  entryTile: {fileID: 0}
+  exitTile: {fileID: 0}
+  tables: []
   numItemsPerLevel:
     rngType: 0
     min: 0
     max: 0
-  availableMonsters: {fileID: 11400000, guid: c083bb6c4c4307340887537b8744d336, type: 2}
+  elevatesItems: 0
+  monsterTables: []
   numMonstersPerLevel:
     rngType: 0
     min: 0
     max: 0
+  chanceForOutOfDepth: 0
+  depthIncrease:
+    rngType: 0
+    min: 0
+    max: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 0
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        generator:
+          name: 
+          depth: 0
+          seed: 0
+          bounds: {x: 0, y: 0}
+          branch: {fileID: 0}
+          machines: []
+          rooms: []
+          tilesAvailable: {fileID: 0}
+          numberOfAttempts: 100
+          attemptsPerMachine: 100
+          numItems:
+            rngType: 0
+            min: 0
+            max: 0
+          numMonsters:
+            rngType: 0
+            min: 0
+            max: 0
+          finished: 0
+        numRooms: 20
+        attemptsPerRoom: 50
+        rooms:
+        - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
+        - {fileID: 11400000, guid: 346530b3db94e004e8734ad450773cf5, type: 2}
+        - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
+        - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
+        placedRooms: []
+    00000001:
+      type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 1
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        generator:
+          name: 
+          depth: 0
+          seed: 0
+          bounds: {x: 0, y: 0}
+          branch: {fileID: 0}
+          machines: []
+          rooms: []
+          tilesAvailable: {fileID: 0}
+          numberOfAttempts: 100
+          attemptsPerMachine: 100
+          numItems:
+            rngType: 0
+            min: 0
+            max: 0
+          numMonsters:
+            rngType: 0
+            min: 0
+            max: 0
+          finished: 0

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Machine", menuName = "Dungeon Generator/Machines/Empty", order = 1)]
-public class Machine : ScriptableObject
+[System.Serializable]
+public class Machine
 {
     //Runtime Priority
     public int priority;
@@ -18,7 +18,6 @@ public class Machine : ScriptableObject
     public bool canExpand;
 
     public DungeonGenerator generator;
-    
     
     public virtual void Connect(DungeonGenerator d)
     {
@@ -64,7 +63,7 @@ public class Machine : ScriptableObject
 
     public virtual IEnumerator Activate() 
     {
-        Debug.LogWarning("Default Machine call was made. Did you mean to do this, or did you forget to Override Activate()?", this);
+        Debug.LogWarning("Default Machine call was made. Did you mean to do this, or did you forget to Override Activate()?");
         for (int i = start.x; i < end.x; i++)
         {
             for (int j = start.y; j < end.y; j++)
@@ -99,7 +98,7 @@ public class Machine : ScriptableObject
             {
                 if (!nonGlobalMachine.canShareSpace)
                 {
-                    Debug.LogError("Machine has Global Overlap and no sharing enabled.", globalMachine);
+                    Debug.LogError("Machine has Global Overlap and no sharing enabled.");
                 }
                 return true;
             }
@@ -117,5 +116,10 @@ public class Machine : ScriptableObject
         }
 
         return true;
+    }
+
+    public Machine Instantiate()
+    {
+        return (Machine) this.MemberwiseClone();
     }
 }

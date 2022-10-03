@@ -31,7 +31,7 @@ MonoBehaviour:
   - glyph: 71
     option: 4
     replacement: {fileID: 0}
-    pool: {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
+    pool: {fileID: 0}
     type: 0
     rarity: 0
     allSame: 0

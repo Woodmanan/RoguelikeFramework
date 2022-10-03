@@ -1148,6 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406155aae42b546bb02611f09bf7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnMSPerFrame: 10
   turn: 0
   energyPerTurn: 100
   player: {fileID: 546573371}

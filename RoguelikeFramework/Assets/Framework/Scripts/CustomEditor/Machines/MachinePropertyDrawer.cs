@@ -9,8 +9,8 @@ using System;
 using System.Linq;
 
 
-[CustomPropertyDrawer(typeof(Effect))]
-public class EffectPropertyDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(Machine))]
+public class MachinePropertyDrawer : PropertyDrawer
 {
     private readonly PropertyDrawerLayoutHelper layoutHelper = new PropertyDrawerLayoutHelper();
 
@@ -34,11 +34,11 @@ public class EffectPropertyDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        SelectImplementationAttribute typeAttribute = new SelectImplementationAttribute(typeof(Effect));
+        SelectImplementationAttribute typeAttribute = new SelectImplementationAttribute(typeof(Machine));
         
 
         TryCacheTypesLogic.Execute(editorData, typeAttribute);
-        TryCacheEffectNamesLogic.Execute(editorData, typeAttribute);
+        TryCacheMachineNamesLogic.Execute(editorData, typeAttribute);
 
         bool typeIndexFound = TryGetTypeIndexLogic.Execute(
             editorData,
@@ -124,7 +124,7 @@ public class EffectPropertyDrawer : PropertyDrawer
     }
 }
 
-public static class TryCacheEffectNamesLogic
+public static class TryCacheMachineNamesLogic
 {
     //Effect-only version
     public static void Execute(

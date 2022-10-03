@@ -8,11 +8,23 @@ using UnityEngine;
  * Data only right now
  */
 
+public enum MachineOverrideType
+{
+    Add,
+    Delete,
+    Resize,
+    Replace
+}
+
 [System.Serializable]
 public struct LevelOverride
 {
+    public string name;
     public int level;
-    public Machine machineToAdd;
+    public MachineOverrideType type;
+    [SerializeReference] public List<Machine> machines;
+    public int deleteIndex;
+    public Vector2Int resize;
 }
 
 [CreateAssetMenu(fileName = "New Branch", menuName = "Dungeon Generator/Branch", order = 3)]
@@ -30,6 +42,7 @@ public class Branch : ScriptableObject
     public RandomNumber OneWayConnectionsPerFloor;
     public bool oneWay = false;
     public Vector2Int size;
+    [SerializeReference]
     public List<Machine> machines;
     public List<LevelOverride> overrides;
 

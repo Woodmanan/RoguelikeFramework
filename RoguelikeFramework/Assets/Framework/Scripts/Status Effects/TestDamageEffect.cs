@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[EffectGroup("Damaging Effects")]
+[Group("Damaging Effects")]
 public class TestDamageEffect : Effect
 {
     [SerializeField] int damagePerTurn;

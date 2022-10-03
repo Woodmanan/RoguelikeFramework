@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Simple Box
   m_EditorClassIdentifier: 
   size: {x: 7, y: 7}
-  start: {x: 0, y: 0}
-  end: {x: 0, y: 0}
+  acceptsStairs: 1
   layout: '0000000
 
     0111110
@@ -28,4 +27,7 @@ MonoBehaviour:
     0111110
 
     0000000'
+  start: {x: 0, y: 0}
+  end: {x: 0, y: 0}
+  connected: 0
   center: {x: 0, y: 0}

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Diamond
   m_EditorClassIdentifier: 
   size: {x: 7, y: 7}
-  start: {x: 0, y: 0}
-  end: {x: 0, y: 0}
+  acceptsStairs: 1
   layout: '0001000
 
     0011100
@@ -28,4 +27,7 @@ MonoBehaviour:
     0011100
 
     0001000'
+  start: {x: 0, y: 0}
+  end: {x: 0, y: 0}
+  connected: 0
   center: {x: 0, y: 0}

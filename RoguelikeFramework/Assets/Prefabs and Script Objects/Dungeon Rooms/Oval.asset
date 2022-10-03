@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Oval
   m_EditorClassIdentifier: 
   size: {x: 10, y: 15}
+  acceptsStairs: 1
   layout: '0001111000
 
     0011111100

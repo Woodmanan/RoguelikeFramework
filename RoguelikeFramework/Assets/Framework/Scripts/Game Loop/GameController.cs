@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     [Header("Runtime variables")]
     //Constant variables: change depending on runtime!
-    public const long MONSTER_UPDATE_MS = 5;
+    public float turnMSPerFrame = 5;
     
     public int turn;
 
@@ -154,7 +154,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
-                if (watch.ElapsedMilliseconds > MONSTER_UPDATE_MS)
+                if (watch.ElapsedMilliseconds > turnMSPerFrame)
                 {
                     watch.Stop();
                     yield return null;
@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour
                         {
                             //Edge case - take a break during a check if we need to!
                             //Should make things a lot more fluid with complicated monster turns
-                            if (watch.ElapsedMilliseconds > MONSTER_UPDATE_MS)
+                            if (watch.ElapsedMilliseconds > turnMSPerFrame)
                             {
                                 watch.Stop();
                                 yield return null;

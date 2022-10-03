@@ -92,7 +92,7 @@ public class DeathAnimation : RogueAnimation
 
     Monster monster;
 
-    public DeathAnimation(Monster monster) : base(deathDuration, true)
+    public DeathAnimation(Monster monster) : base(deathDuration, false)
     {
         this.monster = monster;
     }
