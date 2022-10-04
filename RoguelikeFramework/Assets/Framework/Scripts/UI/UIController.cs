@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private ItemInspectionPanel inspection;
     [SerializeField] private TargetingPanel targetting;
     [SerializeField] private ConfirmationPanel confirm;
+    [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
     {
         get { return RogueUIPanel.WindowsOpen; }
@@ -150,6 +151,16 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void OpenCheats()
+    {
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        cheats.Activate();
+    #else
+        Debug.Log("Console: Hey! You found a way to enable cheats. Why are you doing that?");
+        Debug.Log("Console: If you like the game and want to improve it, you can message the developer with the details of your exploit.");
+        Debug.Log("Console: If it's a new exploit, you'll get your name in the credits! (And have helped make the game better)");
+    #endif
+    }
     public void PassInput(PlayerAction action)
     {
         if (action == PlayerAction.ESCAPE_SCREEN)

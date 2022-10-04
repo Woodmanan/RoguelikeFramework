@@ -225,6 +225,10 @@ public class InputTracking : MonoBehaviour
         {
             PushAction(PlayerAction.WAIT);
         }
+        else if (Cheat())
+        {
+            PushAction(PlayerAction.DEV_CHEAT);
+        }
         else if (Input.inputString != "") //FINAL CHECK! Use this to add empty input to the buffer for character checks. (MUST BE LAST CHECK)
         {
             PushAction(PlayerAction.NONE);
@@ -347,6 +351,11 @@ public class InputTracking : MonoBehaviour
     private bool AutoExplore()
     {
         return Input.GetKeyDown(KeyCode.O);
+    }
+
+    private bool Cheat()
+    {
+        return Input.GetKeyDown(KeyCode.BackQuote)|| Input.GetKeyDown(KeyCode.Tilde);
     }
 
 }

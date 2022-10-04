@@ -48,8 +48,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
   numMonstersPerLevel:
     rngType: 0
-    min: 0
-    max: 0
+    min: 40
+    max: 40
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0

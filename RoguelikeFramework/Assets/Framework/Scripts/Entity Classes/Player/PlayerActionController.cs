@@ -119,6 +119,10 @@ public class PlayerActionController : ActionController
                 case PlayerAction.AUTO_EXPLORE:
                     nextAction = new AutoExploreAction();
                     break;
+                case PlayerAction.DEV_CHEAT:
+                    UIController.singleton.OpenCheats();
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    break;
 
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
                 case PlayerAction.ESCAPE_SCREEN:

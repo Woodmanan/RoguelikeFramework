@@ -58,7 +58,8 @@ public enum PlayerAction
     ASCEND,
     DESCEND,
     AUTO_ATTACK,
-    AUTO_EXPLORE
+    AUTO_EXPLORE,
+    DEV_CHEAT = 100
 }
 
 [Flags]

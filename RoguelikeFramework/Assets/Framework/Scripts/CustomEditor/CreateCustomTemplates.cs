@@ -32,7 +32,7 @@ public class CreateCustomTemplates
 
     static string GetPathTo(string filename)
     {
-        string path = "Assets/Scripts";
+        string path = "Assets";
         var info = new DirectoryInfo(path);
 
         List<string> filesToModify = new List<string>();
