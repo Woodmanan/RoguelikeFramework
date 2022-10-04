@@ -53,7 +53,6 @@ public class PriorityQueue<T>
     public void Expand()
     {
         int newCapacity = (capacity < 4) ? 4 : capacity * 2;
-        Debug.Log($"Queue expanding to capacity {newCapacity}");
         Array.Resize(ref values, newCapacity);
         capacity = newCapacity;
     }

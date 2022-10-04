@@ -30,7 +30,8 @@ public class LevelLoader : MonoBehaviour
     }
 
     public WorldGenerator worldGen;
-    [HideInInspector] public List<DungeonGenerator> generators;
+    [SerializeReference]
+    public List<DungeonGenerator> generators;
     int current;
     public float msPerFrame;
     public bool randomSeed;

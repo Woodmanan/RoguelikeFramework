@@ -29,4 +29,13 @@ public struct RandomNumber
                 return 1;
         }
     }
+
+    public int Range()
+    {
+        if (rngType == RNGType.Linear)
+        {
+            return Mathf.Abs((max + 1) - min);
+        }
+        return Mathf.Abs(max - min);
+    }
 }

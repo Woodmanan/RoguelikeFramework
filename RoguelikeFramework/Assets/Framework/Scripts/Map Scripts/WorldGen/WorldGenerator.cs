@@ -5,6 +5,7 @@ using System.Linq;
 
 public enum ConnectionType
 {
+    NoChecking,
     AllOnSameFloor,
     SpreadEvenly
 }
@@ -29,7 +30,6 @@ public struct BranchChoice
     public RandomNumber numberOfBranches;
     public List<Branch> branches;
     public ConnectionType connectionType;
-    public RandomNumber numberOfConnections;
     public List<Target> exitTargets;
 }
 
@@ -118,6 +118,9 @@ public class WorldGenerator : ScriptableObject
             }
 
             int numBranches = current.numberOfBranches.Evaluate();
+
+            HashSet<int> usedFloors = new HashSet<int>();
+            int chosenFloorCached = -1;
     
             for (int count = 0; count < numBranches; count++)
             {
@@ -152,23 +155,51 @@ public class WorldGenerator : ScriptableObject
 
                 current.branches.Remove(branchToGen);
 
-                //Very important - Instantiate   to remove the connection to the asset
+                //Very important - Instantiate to remove the connection to the asset
                 branchToGen = Instantiate(branchToGen);
                 chosenLevels.Add(branchToGen.branchName);
 
-                GenerateBranch(chosenEntryTarget, chosenExitTarget, branchToGen);
+                int chosenFloor = chosenEntryTarget.floors.Evaluate();
+
+                switch(current.connectionType)
+                {
+                    case ConnectionType.AllOnSameFloor:
+                        if (chosenFloorCached == -1)
+                        {
+                            chosenFloorCached = chosenFloor;
+                        }
+                        else
+                        {
+                            chosenFloor = chosenFloorCached;
+                        }
+                        break;
+                    case ConnectionType.SpreadEvenly:
+                        while (usedFloors.Contains(chosenFloor))
+                        {
+                            chosenFloor = chosenEntryTarget.floors.Evaluate();
+                        }
+
+                        usedFloors.Add(chosenFloor);
+                        if (usedFloors.Count >= chosenEntryTarget.floors.Range())
+                        {
+                            usedFloors.Clear(); //Filled up evenly - clean it out!
+                        }
+                        break;
+                }
+
+                GenerateBranch(chosenEntryTarget, chosenFloor, chosenExitTarget, branchToGen);
             }
         }
 
         return world;
     }
 
-    public void GenerateBranch(Target entryTarget, Target exitTarget, Branch branchToConnect)
+    public void GenerateBranch(Target entryTarget, int chosenFloor, Target exitTarget, Branch branchToConnect)
     {
         Branch entryBranch = world.branches.Where(x => x.branchName.Equals(entryTarget.branchName)).FirstOrDefault();
 
         { //Add initial connection
-            LevelConnection connectionToAdd = new LevelConnection($"{entryTarget.branchName}:{entryTarget.floors.Evaluate()}", $"{branchToConnect.branchName}:0", branchToConnect.oneWay);
+            LevelConnection connectionToAdd = new LevelConnection($"{entryTarget.branchName}:{chosenFloor}", $"{branchToConnect.branchName}:0", branchToConnect.oneWay);
             connectionToAdd.fromBranch = entryBranch;
             connectionToAdd.toBranch = branchToConnect;
             world.connections.Add(connectionToAdd);

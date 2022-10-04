@@ -26,14 +26,14 @@ MonoBehaviour:
     min: 3
     max: 3
   oneWay: 0
-  size: {x: 50, y: 50}
+  size: {x: 75, y: 75}
   machines:
   - id: 0
   - id: 1
   overrides: []
   tiles: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
   entryTile: {fileID: 0}
-  exitTile: {fileID: 0}
+  exitTile: {fileID: -3298249590069243248, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   tables:
   - {fileID: 11400000, guid: 18c8dfd7158c105408f1e972ee925bea, type: 2}
   - {fileID: 11400000, guid: 70c0c964595c88c49a0ba00da8174ae5, type: 2}
@@ -98,13 +98,13 @@ MonoBehaviour:
     00000001:
       type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}
       data:
-        priority: 0
-        global: 0
+        priority: 1
+        global: 1
         size: {x: 0, y: 0}
         start: {x: 0, y: 0}
         end: {x: 0, y: 0}
-        canShareSpace: 0
-        canExpand: 0
+        canShareSpace: 1
+        canExpand: 1
         generator:
           name: 
           depth: 0

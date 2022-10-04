@@ -100,7 +100,7 @@ public static class Pathfinding
     private static Vector2Int source;
     private static Vector2Int goal;
 
-    private static PriorityQueue<(Vector2Int, float)> frontier = new PriorityQueue<(Vector2Int, float)>();
+    private static PriorityQueue<(Vector2Int, float)> frontier = new PriorityQueue<(Vector2Int, float)>(512);
 
     public static Path FindPath(Vector2Int start, Vector2Int end)
     {
@@ -434,7 +434,6 @@ public static class Pathfinding
         {
             if (frontier.Count == 0)
             {
-                Debug.Log($"Searched finished: Max frontier was {frontier.GetMax()}");
                 return results;
             }
             else

@@ -62,6 +62,15 @@ public class DungeonGenerator
         var randomized = machines.OrderBy(item => UnityEngine.Random.Range(int.MinValue, int.MaxValue));
         machines = randomized.OrderBy(item => item.priority).ToList();
 
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        for (int i = 0; i < machines.Count - 1; i++)
+        {
+            if (machines[i].priority == machines[i + 1].priority)
+            {
+                Debug.LogError($"Generator {name} has two machines with the same priority ({machines[i].priority})! This can cause unexpected generation errors");
+            }
+        }
+        #endif
         //Lower than here!
 
         foreach (Machine m in machines)
