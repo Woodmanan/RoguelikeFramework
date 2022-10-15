@@ -41,9 +41,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
   numItemsPerLevel:
     rngType: 0
-    min: 0
-    max: 10
+    min: 30
+    max: 30
   elevatesItems: 0
+  itemSpawnInfo:
+    rarities: []
+    types: []
+  usesCustomSpawnInfo: 0
   monsterTables:
   - {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
   numMonstersPerLevel:
@@ -67,26 +71,6 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        generator:
-          name: 
-          depth: 0
-          seed: 0
-          bounds: {x: 0, y: 0}
-          branch: {fileID: 0}
-          machines: []
-          rooms: []
-          tilesAvailable: {fileID: 0}
-          numberOfAttempts: 100
-          attemptsPerMachine: 100
-          numItems:
-            rngType: 0
-            min: 0
-            max: 0
-          numMonsters:
-            rngType: 0
-            min: 0
-            max: 0
-          finished: 0
         numRooms: 40
         attemptsPerRoom: 50
         rooms:
@@ -105,23 +89,3 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        generator:
-          name: 
-          depth: 0
-          seed: 0
-          bounds: {x: 0, y: 0}
-          branch: {fileID: 0}
-          machines: []
-          rooms: []
-          tilesAvailable: {fileID: 0}
-          numberOfAttempts: 100
-          attemptsPerMachine: 100
-          numItems:
-            rngType: 0
-            min: 0
-            max: 0
-          numMonsters:
-            rngType: 0
-            min: 0
-            max: 0
-          finished: 0

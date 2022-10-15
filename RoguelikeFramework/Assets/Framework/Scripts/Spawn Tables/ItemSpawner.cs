@@ -29,11 +29,11 @@ public class ItemSpawner : MonoBehaviour
         set { Singleton = value; }
     }
 
-    public List<LootChance> chances;
+    public ItemSpawnInfo spawnInfo;
 
-    public List<int> rarities;
+    [Tooltip("The max depth we expect an item to be spawned at. Used for the quadtree bounds.")]
+    public int maxDepth;
 
-    public List<LootPool> pools;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,26 +46,27 @@ public class ItemSpawner : MonoBehaviour
         
     }
 
-    public void SetItemPools(List<DungeonGenerator> generators)
+    public void SetItemPools(World world)
     {
-        this.pools = new List<LootPool>();
-        //Copy pools and instantiate them
-        for (int i = 0; i < generators.Count; i++)
+        foreach (Branch branch in world.branches)
         {
-            Branch branch = generators[i].branch;
-            LootPool pool = new LootPool();
-
-            //Set pool data
-            pool.tables = branch.tables;
-            pool.shouldTrim = true;
-            pool.chances = chances;
-            pool.rarities = rarities;
-            pool.elevatesItems = branch.elevatesItems;
-
-            //Fire off optimization pass
-            pool.TrimToDepth(generators[i].depth);
-            pools.Add(pool);
+            branch.lootPool = new LootPool(maxDepth, (int)ItemRarity.UNIQUE);
+            foreach (LootTable table in branch.tables)
+            {
+                branch.lootPool.AddItemsFromTable(Instantiate(table));
+            }
         }
+    }
+
+    public Item GetItemFromBranchAndDepth(Branch branch, int depth)
+    {
+        if (branch.usesCustomSpawnInfo)
+        {
+            return branch.lootPool.GenerateItem(depth, branch.itemSpawnInfo);
+        }
+
+        //Use default set on the loot spawner
+        return branch.lootPool.GenerateItem(depth, spawnInfo);
     }
 
     public IEnumerator SpawnForFloor(int floor, Map m, int numItems)
@@ -111,7 +112,8 @@ public class ItemSpawner : MonoBehaviour
         for (; m.itemContainer.transform.childCount < numItems;)
         {
             yield return null;
-            Item item = pools[floor].GenerateItem();
+
+            Item item = GetItemFromBranchAndDepth(m.branch, m.depth);
             int tries = 0;
             while (item == null)
             {
@@ -122,7 +124,7 @@ public class ItemSpawner : MonoBehaviour
                     break;
                 }
                 yield return null;
-                item = pools[floor].GenerateItem();
+                item = GetItemFromBranchAndDepth(m.branch, m.depth);
             }
 
             if (tries == 100)

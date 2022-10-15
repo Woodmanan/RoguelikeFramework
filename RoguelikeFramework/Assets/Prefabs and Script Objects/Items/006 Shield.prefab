@@ -96,11 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 1
   type: 4
   minDepth: 1
-  maxDepth: 40
-  elevatesTo: 0
+  maxDepth: 30
+  elevatesTo: 1
   ID: 0
   stackable: 0
   color: {r: 0, g: 0.074498415, b: 1, a: 1}

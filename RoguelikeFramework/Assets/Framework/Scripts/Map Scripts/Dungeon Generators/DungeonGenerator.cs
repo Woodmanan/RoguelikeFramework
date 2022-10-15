@@ -13,7 +13,7 @@ public class DungeonGenerator
     [HideInInspector] public int seed;
     public Vector2Int bounds;
     public Branch branch;
-    public List<Machine> machines;
+    [HideInInspector] public List<Machine> machines;
     [HideInInspector] public List<Room> rooms;
     public TileList tilesAvailable;
 
@@ -173,12 +173,36 @@ public class DungeonGenerator
             //Allow tiles that need after-generation modifications to do so
             gameMap.SetAllTiles();
 
+            { //Skip
+                state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
+                yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
+                UnityEngine.Random.state = state;
+            }
+
             //Rebuild any extra info that's changed during post-generation
             //This mostly catches edge cases from tiles spawned by rexpaint prefabs.
             gameMap.RebuildAllMapData();
 
+            { //Skip
+                state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
+                yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
+                UnityEngine.Random.state = state;
+            }
+
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();
+
+            { //Skip
+                state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
+                yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
+                UnityEngine.Random.state = state;
+            }
 
             //Monsters should almost by definition be setup now. Do it again, just in case, and then have themselves attach to the floor!
             foreach (Monster m in gameMap.monsters)

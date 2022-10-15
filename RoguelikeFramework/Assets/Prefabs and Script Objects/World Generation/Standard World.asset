@@ -34,7 +34,7 @@ MonoBehaviour:
     connectionType: 0
     exitTargets: []
   - name: Add Lair
-    enabled: 1
+    enabled: 0
     entryTargets:
     - branchName: Main Dungeon
       floors:
@@ -77,7 +77,7 @@ MonoBehaviour:
     connectionType: 2
     exitTargets: []
   - name: Add Random Branches
-    enabled: 1
+    enabled: 0
     entryTargets:
     - branchName: Main Dungeon
       floors:
@@ -120,7 +120,7 @@ MonoBehaviour:
     connectionType: 0
     exitTargets: []
   - name: Add Temple
-    enabled: 1
+    enabled: 0
     entryTargets:
     - branchName: Main Dungeon
       floors:
@@ -140,7 +140,7 @@ MonoBehaviour:
     connectionType: 0
     exitTargets: []
   - name: Add Vestibule
-    enabled: 1
+    enabled: 0
     entryTargets:
     - branchName: Main Dungeon
       floors:

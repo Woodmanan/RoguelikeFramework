@@ -142,11 +142,15 @@ public class RexRoom : Room
                                     continue;
                                 }
                                 LootTable pool = Instantiate<LootTable>((LootTable)r.pool);
-                                pool = pool.TrimToDepth(map.depth, false);
                                 yield return null;
 
                                 //Generate item from trimmed pool, based on specs.
                                 Item item = pool.RandomItemByRarity(r.rarity, true);
+
+                                if (item == null)
+                                {
+                                    Debug.LogWarning($"Pool couldn't spawn item of rarity {r.rarity} or lower into room");
+                                }
 
                                 //Place item into world.
                                 Vector2Int pos = start + new Vector2Int(i, j);

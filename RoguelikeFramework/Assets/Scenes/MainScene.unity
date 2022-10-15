@@ -6530,16 +6530,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10c10433f62d234688a88acea4e89aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chances:
-  - type: 1
-    weight: 1
-  - type: 2
-    weight: 1
-  - type: 4
-    weight: 1
-  - type: 8
-    weight: 100
-  rarities: 200000001000000008000000040000000200000001000000
+  spawnInfo:
+    rarities:
+    - rarity: 0
+      weight: 64
+    - rarity: 1
+      weight: 32
+    - rarity: 2
+      weight: 4
+    - rarity: 3
+      weight: 2
+    - rarity: 4
+      weight: 1
+    types:
+    - type: 1
+      weight: 1
+    - type: 2
+      weight: 1
+    - type: 4
+      weight: 1
+  maxDepth: 32
 --- !u!4 &1269666195
 Transform:
   m_ObjectHideFlags: 0
@@ -9333,8 +9343,8 @@ MonoBehaviour:
   randomSeed: 1
   seed: 42
   preloadUpTo: 0
-  JITLoading: 1
-  LoadAllLevelsAtStart: 0
+  JITLoading: 0
+  LoadAllLevelsAtStart: 1
   startAt: 0
   references:
     version: 1

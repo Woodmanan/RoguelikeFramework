@@ -198,11 +198,15 @@ public class Item : MonoBehaviour
     }
 
     //TODO: Items should elevate stats as well
-    public void ElevateRarityTo(ItemRarity rarity, List<Effect> extraOptions)
+    public void ElevateRarityTo(ItemRarity rarity, List<Effect> elevationOptions = null)
     {
         int numberToAdd = rarity - this.rarity;
-        optionalEffects.AddRange(extraOptions.AsEnumerable());
-        
+
+        if (elevationOptions != null)
+        {
+            optionalEffects.AddRange(elevationOptions);
+        }
+
         if (optionalEffects.Count < numberToAdd)
         {
             Debug.LogWarning($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");

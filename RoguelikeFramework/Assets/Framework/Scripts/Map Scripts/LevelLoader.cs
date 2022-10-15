@@ -113,7 +113,7 @@ public class LevelLoader : MonoBehaviour
 
         //Pull in generator info to the spawning scripts
         MonsterSpawner.singleton.SetMonsterPools(world);
-        ItemSpawner.singleton.SetItemPools(generators);
+        ItemSpawner.singleton.SetItemPools(world);
 
         #if !UNITY_EDITOR
         if (JITLoading)

@@ -90,6 +90,7 @@ public class MonsterSpawner : MonoBehaviour
         for (; m.monsterContainer.transform.childCount < numMonsters;)
         {
             yield return null;
+
             Monster monster = GetMonsterFromBranchAndDepth(m.branch, m.depth);
             while (monster == null)
             {
