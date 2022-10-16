@@ -9,7 +9,7 @@ using UnityEditor;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Inventory))]
-public class CustomTile : MonoBehaviour
+public class RogueTile : MonoBehaviour
 {
     //Stuff that will change a lot, and should be visible
     [Header("Active gameplay elements")]
@@ -110,7 +110,6 @@ public class CustomTile : MonoBehaviour
     public void ClearMonster()
     {
         currentlyStanding = null;
-        map.moveCosts[location.x, location.y] = 1 * movementCost;
     }
 
     public void SetMonster(Monster m)
@@ -121,13 +120,11 @@ public class CustomTile : MonoBehaviour
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);
-        map.moveCosts[location.x, location.y] = 5 * movementCost;
     }
 
     public void RebuildMapData()
     {
         map.blocksVision[location.x, location.y] = blocksVision;
-        map.moveCosts[location.x, location.y] = movementCost;
     }
 
     public void SetMap(Map map, Vector2Int location)
@@ -204,6 +201,11 @@ public class CustomTile : MonoBehaviour
 
         dirty = false;
     }
+
+    public virtual bool IsInteractable()
+    {
+        return false;
+    }
     
     //Called at the end of map construction, once this tile is guarunteed to be in the map!
     public virtual void SetInMap(Map m)
@@ -211,6 +213,21 @@ public class CustomTile : MonoBehaviour
 
     }
 
+    public virtual float GetMovementCost()
+    {
+        if (currentlyStanding)
+        {
+            return movementCost * 5;
+        }
+        return movementCost;
+    }
+
+    //The expected EXTRA cost to move from this tile to a tile in direction
+    //For most tiles, this is 0. If you're extra special fast, it can be negative. If it's a bad move, make it crazy high
+    public virtual float CostToMoveIn(Vector2Int direction)
+    {
+        return 0f;
+    }
 
     //Editor only functions - For convenience
     #if UNITY_EDITOR

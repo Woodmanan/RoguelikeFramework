@@ -60,7 +60,7 @@ public class SimpleConnectionMachine : Machine
                 //Do x first
                 for (int x = Math.Min(r.center.x, nearest.center.x); x <= Math.Max(r.center.x, nearest.center.x); x++)
                 {
-                    generator.map[x,corner.y] = 1;
+                    generator.map[x, corner.y] = 1;
                 }
             }
 

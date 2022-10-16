@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stair : CustomTile
+public class Stair : RogueTile
 {
     public LevelConnection connection;
     public bool up;

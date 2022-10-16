@@ -24,6 +24,7 @@ public class WaitAction : GameAction
         caller.SetPosition(caller.location);
         caller.view.CollectEntities(Map.current);
         caller.energy -= 100f;
+        caller.willSwap = true;
         yield break;
     }
 }

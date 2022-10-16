@@ -8,8 +8,8 @@ using System.Linq;
 //Should probably be a struct, but it might be large and unwieldy, so I didn't want to pass by value
 public class BresenhamResults
 {
-    public List<CustomTile> path;
-    public List<CustomTile> fullPath;
+    public List<RogueTile> path;
+    public List<RogueTile> fullPath;
     public bool blocked;
 }
 
@@ -18,8 +18,8 @@ public class Bresenham
     public static BresenhamResults CalculateLine(Vector2Int start, Vector2Int end, bool tilesBlock = true, bool monstersBlock = false)
     {
         BresenhamResults results = new BresenhamResults();
-        results.path = new List<CustomTile>();
-        results.fullPath = new List<CustomTile>();
+        results.path = new List<RogueTile>();
+        results.fullPath = new List<RogueTile>();
         bool beenBlocked = false;
 
         Vector2Int[] line = GetPointsOnLine(start.x, start.y, end.x, end.y).ToArray();
@@ -28,7 +28,7 @@ public class Bresenham
         { 
             //It's assumed that something that blocks movement blocks this line.
             //TODO: Make sure this assumption actually makes sense
-            CustomTile t = Map.current.GetTile(line[i]);
+            RogueTile t = Map.current.GetTile(line[i]);
             if (!beenBlocked)
             {
                 results.path.Add(t);

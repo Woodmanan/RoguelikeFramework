@@ -9343,8 +9343,8 @@ MonoBehaviour:
   randomSeed: 1
   seed: 42
   preloadUpTo: 0
-  JITLoading: 0
-  LoadAllLevelsAtStart: 1
+  JITLoading: 1
+  LoadAllLevelsAtStart: 0
   startAt: 0
   references:
     version: 1

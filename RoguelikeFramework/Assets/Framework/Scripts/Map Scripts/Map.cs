@@ -21,9 +21,8 @@ public class Map : MonoBehaviour
     public int index;
 
 
-    public CustomTile[,] tiles;
+    public RogueTile[,] tiles;
     public bool[,] blocksVision;
-    public float[,] moveCosts;
 
     public int width;
 
@@ -119,9 +118,8 @@ public class Map : MonoBehaviour
         int xSize = map.GetLength(0);
         int ySize = map.GetLength(1);
 
-        tiles = new CustomTile[xSize, ySize];
+        tiles = new RogueTile[xSize, ySize];
         blocksVision = new bool[xSize, ySize];
-        moveCosts = new float[xSize, ySize];
 
         tileContainer = new GameObject("Tiles").transform;
         monsterContainer = new GameObject("Monsters").transform;
@@ -141,7 +139,7 @@ public class Map : MonoBehaviour
             {
                 GameObject g = Instantiate(availableTiles.tiles[map[i, j]], row.transform, true);
                 g.name = $"Tile ({i}, {j})";
-                CustomTile custom = g.GetComponent<CustomTile>();
+                RogueTile custom = g.GetComponent<RogueTile>();
                 if (!custom)
                 {
                     Debug.LogError("Tile did not have tile component.");
@@ -180,15 +178,15 @@ public class Map : MonoBehaviour
 
     public float MovementCostAt(Vector2Int position)
     {
-        return moveCosts[position.x, position.y];
+        return GetTile(position).GetMovementCost();
     }
 
-    public CustomTile GetTile(Vector2Int loc)
+    public RogueTile GetTile(Vector2Int loc)
     {
         return GetTile(loc.x, loc.y);
     }
 
-    public CustomTile GetTile(int x, int y)
+    public RogueTile GetTile(int x, int y)
     {
         return tiles[x, y];
     }
@@ -219,7 +217,7 @@ public class Map : MonoBehaviour
 
     public bool NeedsExploring(Vector2Int location)
     {
-        CustomTile tile = GetTile(location);
+        RogueTile tile = GetTile(location);
         if (tile.BlocksMovement()) return false;
         if (tile.isHidden) return true;
 
@@ -284,7 +282,7 @@ public class Map : MonoBehaviour
             return true;
         }
 
-        return moveCosts[loc.x, loc.y] < 0;
+        return MovementCostAt(loc) < 0;
     }
 
     public Vector2Int GetRandomWalkableTile()
@@ -292,10 +290,40 @@ public class Map : MonoBehaviour
         while (true)
         {
             Vector2Int spot = new Vector2Int(Random.Range(1, width - 1), Random.Range(1, height - 1));
-            if (moveCosts[spot.x, spot.y] > 0)
+            if (MovementCostAt(spot) > 0)
             {
                 return spot;
             }
+        }
+    }
+
+    public void SwapMonsters(RogueTile first, RogueTile second)
+    {
+        Monster secondMonster = second.currentlyStanding;
+        Monster firstMonster = first.currentlyStanding;
+
+        if (secondMonster)
+        {
+            secondMonster.currentTile = null;
+            
+        }
+
+        if (firstMonster)
+        {
+            firstMonster.currentTile = null;
+        }
+
+        second.currentlyStanding = null;
+        first.currentlyStanding = null;
+
+        if (secondMonster)
+        {
+            secondMonster.SetPosition(first.location);
+        }
+
+        if (firstMonster)
+        {
+            firstMonster.SetPosition(second.location);
         }
     }
 }

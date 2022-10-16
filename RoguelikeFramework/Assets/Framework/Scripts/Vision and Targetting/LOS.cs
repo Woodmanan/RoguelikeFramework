@@ -133,7 +133,7 @@ public class LOSData
                     Vector2Int loc = new Vector2Int(i + start.x, j + start.y);
                     if (loc.x >= 0 && loc.x < map.width && loc.y >= 0 && loc.y < map.height)
                     {
-                        CustomTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
+                        RogueTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
                         if (tile.currentlyStanding)
                         {
                             visibleMonsters.Add(tile.currentlyStanding);

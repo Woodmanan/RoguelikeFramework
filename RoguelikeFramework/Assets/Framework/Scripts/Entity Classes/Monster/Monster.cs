@@ -52,9 +52,11 @@ public class Monster : MonoBehaviour
     public SpriteRenderer renderer;
 
     public GameAction currentAction;
-    public CustomTile currentTile;
+    public RogueTile currentTile;
 
     private bool setup = false;
+
+    [HideInInspector] public bool willSwap;
 
     //public int XP;
     public int XPFromKill;
@@ -341,6 +343,7 @@ public class Monster : MonoBehaviour
         CallRegenerateStats();
         abilities?.CheckAvailability();
         connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
+        willSwap = false;
     }
 
     public void EndTurn()

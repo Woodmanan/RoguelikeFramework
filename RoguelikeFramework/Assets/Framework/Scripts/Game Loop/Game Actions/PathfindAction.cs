@@ -27,6 +27,20 @@ public class PathfindAction : GameAction
         while (path.Count() > 0)
         {
             Vector2Int next = path.Pop();
+            if (Mathf.RoundToInt(Vector2Int.Distance(caller.location, next)) != 1)
+            {
+                if (caller.location == next)
+                {
+                    //We ended up on ourselves - skip one round, next one should be a movement from here.
+                    continue;
+                }
+                else
+                {
+                    path = Pathfinding.FindPath(caller.location, goal);
+                    continue;
+                }
+            }
+
             MoveAction act;
             if (takesStairs)
             {
@@ -50,6 +64,12 @@ public class PathfindAction : GameAction
                 yield return act.action.Current;
             }
             firstTurn = false;
+
+            //If we didn't move, we fought or interacted. Rebuild if we still think there's somewhere to go.
+            if (!act.didMove && path.Count() > 0)
+            {
+                path = Pathfinding.FindPath(caller.location, goal);
+            }
 
             //yield return new WaitForSeconds(.05f);
 

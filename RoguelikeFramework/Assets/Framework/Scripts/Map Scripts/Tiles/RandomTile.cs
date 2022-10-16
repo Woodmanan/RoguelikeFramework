@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomTile : CustomTile
+public class RandomTile : RogueTile
 {
     public List<Sprite> spritesToChoose;
     public int chosenTile = -1;

@@ -183,7 +183,7 @@ public class PlayerActionController : ActionController
     //Item pickup, but with a little logic for determining if a UI needs to get involved.
     private void PickupSmartDetection()
     {
-        CustomTile tile = Map.current.GetTile(monster.location);
+        RogueTile tile = Map.current.GetTile(monster.location);
         Inventory onFloor = tile.GetComponent<Inventory>();
         switch (onFloor.Count)
         {

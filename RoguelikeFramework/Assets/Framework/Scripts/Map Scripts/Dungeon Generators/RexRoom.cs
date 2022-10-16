@@ -77,8 +77,8 @@ public class RexRoom : Room
                 Replacement r;
                 if (conversionDict.TryGetValue((char)image.Layers[0][i, j].Character, out r))
                 {
-                    CustomTile tile = Instantiate(r.replacement).GetComponent<CustomTile>();
-                    CustomTile toReplace = map.GetTile(start + new Vector2Int(i, j));
+                    RogueTile tile = Instantiate(r.replacement).GetComponent<RogueTile>();
+                    RogueTile toReplace = map.GetTile(start + new Vector2Int(i, j));
                     tile.gameObject.name = toReplace.gameObject.name;
                     tile.location = toReplace.location;
                     Transform parent = toReplace.transform.parent;

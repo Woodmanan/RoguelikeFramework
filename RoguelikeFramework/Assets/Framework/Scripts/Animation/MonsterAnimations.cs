@@ -10,7 +10,7 @@ public class MoveAnimation : RogueAnimation
     Vector3 midPoint;
     Monster monster;
 
-    public MoveAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation) : base(movementDuration)
+    public MoveAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation, bool isBlocking = false) : base(movementDuration, isBlocking)
     {
         this.monster = monster;
         startLocation = new Vector3(oldLocation.x, oldLocation.y, Monster.monsterZPosition);

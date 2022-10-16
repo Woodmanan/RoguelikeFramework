@@ -52,8 +52,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
   numMonstersPerLevel:
     rngType: 0
-    min: 40
-    max: 40
+    min: 0
+    max: 30
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0
@@ -78,6 +78,8 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 346530b3db94e004e8734ad450773cf5, type: 2}
         - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
         - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
+        - {fileID: 11400000, guid: b8ebb937392d1a1449655cc5fb6ef03f, type: 2}
+        - {fileID: 11400000, guid: b7673ec1cb2b14a42951ab5700c5fa81, type: 2}
         placedRooms: []
     00000001:
       type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}

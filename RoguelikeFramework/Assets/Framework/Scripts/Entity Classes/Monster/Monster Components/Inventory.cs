@@ -111,7 +111,7 @@ public class Inventory : MonoBehaviour
         available = capacity;
         Items = new ItemStack[capacity];
 
-        CustomTile tile = GetComponent<CustomTile>();
+        RogueTile tile = GetComponent<RogueTile>();
         Monster monster = GetComponent<Monster>();
         
         if (tile)
@@ -374,7 +374,7 @@ public class Inventory : MonoBehaviour
 
     public void PickUpAll()
     {
-        CustomTile tile = Map.current.GetTile(monster.location);
+        RogueTile tile = Map.current.GetTile(monster.location);
         for (int i = capacity - 1; i >= 0; i--)
         {
             FloorToMonster(i);
