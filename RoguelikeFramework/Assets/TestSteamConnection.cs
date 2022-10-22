@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TestSteamConnection : MonoBehaviour
 {
+    int currentLevel = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,22 @@ public class TestSteamConnection : MonoBehaviour
     void Update()
     {
         Steamworks.SteamClient.RunCallbacks();
+
+        if (Player.player)
+        {
+            if (Player.player.level != currentLevel)
+            {
+                currentLevel = Player.player.level;
+                if (Steamworks.SteamFriends.SetRichPresence("steam_display", $"Level {currentLevel} warrior"))
+                {
+                    Debug.Log("Set rich presence!");
+                }
+                else
+                {
+                    Debug.LogError("Failed to set rich presence");
+                }
+            }
+        }
     }
 
     private void OnDestroy()

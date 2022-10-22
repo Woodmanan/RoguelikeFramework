@@ -16,7 +16,7 @@ MonoBehaviour:
   antiRequirements: []
   branchName: Clockwork
   branchDepth: 1
-  numberOfLevels: 40
+  numberOfLevels: 3
   ConnectionsPerFloor:
     rngType: 0
     min: 3

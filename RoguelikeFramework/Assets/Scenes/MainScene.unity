@@ -3021,7 +3021,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 0
-  level: 0
+  level: 1
 --- !u!4 &546573372
 Transform:
   m_ObjectHideFlags: 0

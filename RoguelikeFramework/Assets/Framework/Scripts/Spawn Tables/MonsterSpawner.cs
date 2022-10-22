@@ -125,6 +125,7 @@ public class MonsterSpawner : MonoBehaviour
             m.monsters.Add(monster);
             monster.location = pos;
             monster.transform.parent = m.monsterContainer;
+            monster.level = m.depth;
         }
     }
 
