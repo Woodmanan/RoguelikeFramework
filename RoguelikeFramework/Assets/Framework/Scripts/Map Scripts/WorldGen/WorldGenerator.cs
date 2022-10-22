@@ -37,6 +37,9 @@ public struct BranchChoice
 public class WorldGenerator : ScriptableObject
 {
     public List<BranchChoice> choices;
+    [SerializeReference]
+    public List<DungeonSystem> dungeonSystems;
+
     World world;
     HashSet<string> chosenLevels;
 
@@ -189,6 +192,18 @@ public class WorldGenerator : ScriptableObject
 
                 GenerateBranch(chosenEntryTarget, chosenFloor, chosenExitTarget, branchToGen);
             }
+        }
+
+        //Attach dungeon-wide systems
+        foreach (DungeonSystem system in dungeonSystems)
+        {
+            world.systems.Add(system.Instantiate());
+        }
+
+        //Setup those systems
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.Setup(world);
         }
 
         return world;

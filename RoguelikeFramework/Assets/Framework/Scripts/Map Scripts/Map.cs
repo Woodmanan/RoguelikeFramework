@@ -47,6 +47,8 @@ public class Map : MonoBehaviour
 
     public List<InteractableTile> interactables = new List<InteractableTile>();
 
+    public List<DungeonSystem> mapSystems = new List<DungeonSystem>();
+
     // Start is called before the first frame update
     void Start()
     {

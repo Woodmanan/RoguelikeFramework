@@ -503,19 +503,19 @@ public static class Pathfinding
                         if (isCorner && Map.space == MapSpace.Euclidean)
                         {
                             newCost = currentCost + sqrtTwo * map.MovementCostAt(newLoc);
-                            newPriority = newCost + map.GetTile(newLoc).CostToMoveIn(moveDirection);
+                            newPriority = newCost;// + map.GetTile(newLoc).CostToMoveIn(moveDirection);
                         }
                         else
                         {
                             if (isCorner)
                             {
                                 newCost = currentCost + map.MovementCostAt(newLoc) + 0.001f;
-                                newPriority = newCost + 0.001f + map.GetTile(newLoc).CostToMoveIn(moveDirection);
+                                newPriority = newCost + 0.001f;// + map.GetTile(newLoc).CostToMoveIn(moveDirection);
                             }
                             else
                             {
                                 newCost = currentCost + map.MovementCostAt(newLoc);
-                                newPriority = newCost + map.GetTile(newLoc).CostToMoveIn(moveDirection);
+                                newPriority = newCost;// + map.GetTile(newLoc).CostToMoveIn(moveDirection);
                             }
                         }
                         frontier.Enqueue((newLoc, newCost), newPriority);

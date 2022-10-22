@@ -211,6 +211,12 @@ public class DungeonGenerator
                 m.PostSetup(gameMap);
             }
 
+            //Lastly, activate any remaining dungeon systems
+            foreach (DungeonSystem system in gameMap.mapSystems)
+            {
+                system.Setup(world, branch, gameMap);
+            }
+
             finished = true;
             UnityEngine.Random.state = oldState;
         }

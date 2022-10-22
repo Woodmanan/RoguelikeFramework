@@ -3019,6 +3019,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   renderer: {fileID: 0}
   currentTile: {fileID: 0}
+  willSwap: 0
   XPFromKill: 0
   level: 0
 --- !u!4 &546573372
@@ -9340,12 +9341,12 @@ MonoBehaviour:
   worldGen: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
   generators: []
   msPerFrame: 0
-  randomSeed: 1
+  randomSeed: 0
   seed: 42
   preloadUpTo: 0
   JITLoading: 1
   LoadAllLevelsAtStart: 0
-  startAt: 0
+  startAt: Lair:0
   references:
     version: 1
 --- !u!4 &1953941108

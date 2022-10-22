@@ -40,6 +40,8 @@ public class GameController : MonoBehaviour
 
     public Player player;
 
+    World world;
+
     [HideInInspector] public int nextLevel = -1;
     
     // Start is called before the first frame update
@@ -85,7 +87,7 @@ public class GameController : MonoBehaviour
             LoadMap(start);
         }
 
-        World world = LevelLoader.singleton.world;
+        world = LevelLoader.singleton.world;
 
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
@@ -233,6 +235,19 @@ public class GameController : MonoBehaviour
         {
             m.OnTurnStartGlobalCall();
         }
+
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnGlobalTurnStart(turn);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnGlobalTurnStart(turn);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnGlobalTurnStart(turn);
+        }
     }
 
     public void MoveToLevel(int newLevel)
@@ -254,8 +269,10 @@ public class GameController : MonoBehaviour
         Map old = Map.current;
         if (stair)
         {
+            SystemExitLevel();
             LoadMap(nextLevel);
             MoveMonsters(player, stair, Map.current);
+            SystemEnterLevel();
         }
         else
         {
@@ -278,10 +295,56 @@ public class GameController : MonoBehaviour
         {
             m.OnTurnEndGlobalCall();
         }
+
+
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnGlobalTurnEnd(turn);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnGlobalTurnEnd(turn);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnGlobalTurnEnd(turn);
+        }
     }
 
     public void AddMonster(Monster m)
     {
         Map.current.monsters.Add(m);
+    }
+
+    public void SystemExitLevel()
+    {
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnExitLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnExitLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnExitLevel(Map.current);
+        }
+    }
+
+    public void SystemEnterLevel()
+    {
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnEnterLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnEnterLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnEnterLevel(Map.current);
+        }
     }
 }
