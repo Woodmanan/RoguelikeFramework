@@ -234,10 +234,10 @@ public class Monster : MonoBehaviour
     public void KillMonster(Monster target, DamageType type, DamageSource source)
     {
         connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
-        GainXP(target.XPFromKill);
+        GainXP(target, target.XPFromKill);
     }
 
-    public virtual void GainXP(int amount)
+    public virtual void GainXP(Monster source, int amount)
     {
         Debug.Log($"{DebugName()} has gained {amount} XP!");
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);

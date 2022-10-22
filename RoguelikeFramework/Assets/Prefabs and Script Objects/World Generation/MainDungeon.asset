@@ -46,9 +46,7 @@ MonoBehaviour:
   elevatesItems: 0
   itemSpawnInfo:
     rarities: []
-    raritySum: 0
     types: []
-    chanceSum: 0
   usesCustomSpawnInfo: 0
   monsterTables:
   - {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
@@ -61,8 +59,7 @@ MonoBehaviour:
     rngType: 0
     min: 1
     max: 1
-  branchSystems:
-  - id: 2
+  branchSystems: []
   references:
     version: 1
     00000000:
@@ -95,6 +92,3 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-    00000002:
-      type: {class: TestSystem, ns: , asm: Assembly-CSharp}
-      data: {branch: {fileID: 0}, map: {fileID: 0}}

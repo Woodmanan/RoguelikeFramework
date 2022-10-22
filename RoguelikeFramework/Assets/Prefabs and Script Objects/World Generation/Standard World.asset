@@ -189,10 +189,6 @@ MonoBehaviour:
         max: 0
       weight: 0
       pickIfExists: 0
-  dungeonSystems:
-  - id: 0
+  dungeonSystems: []
   references:
     version: 1
-    00000000:
-      type: {class: TestSystem, ns: , asm: Assembly-CSharp}
-      data: {branch: {fileID: 0}, map: {fileID: 0}}
