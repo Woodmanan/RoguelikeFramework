@@ -67,11 +67,11 @@ public class World
 
                 loader.generators.Add(generator);
 
-                branch.branchSystems = branch.branchSystems.Select(x => x.Instantiate()).ToList();
-                foreach (DungeonSystem system in branch.branchSystems)
+                //branch.branchSystems = branch.branchSystems.Select(x => x.Instantiate()).ToList();
+                /*foreach (DungeonSystem system in branch.branchSystems)
                 {
                     system.Setup(this, branch);
-                }
+                }*/
             }
         }
     }

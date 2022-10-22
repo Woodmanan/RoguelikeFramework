@@ -113,10 +113,12 @@ MonoBehaviour:
     to: 
     fromStair: {fileID: 0}
     fromLocation: {x: 0, y: 0}
+    fromBranch: {fileID: 0}
     fromLevel: 0
     toStair: {fileID: 0}
     toLocation: {x: 0, y: 0}
     toLevel: 0
+    toBranch: {fileID: 0}
     oneWay: 0
   up: 0
   from: 0

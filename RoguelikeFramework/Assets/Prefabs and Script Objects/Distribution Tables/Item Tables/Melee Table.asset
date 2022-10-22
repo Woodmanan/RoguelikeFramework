@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
   m_Name: Melee Table
   m_EditorClassIdentifier: 
-  type: 1
   items:
   - {fileID: 8493179263722202922, guid: 8da0ffdc4f51065469998c4a805f6fe5, type: 3}
   - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
-  minRarity: 0
-  maxRarity: 0
   elevationOptions: []
   references:
     version: 1

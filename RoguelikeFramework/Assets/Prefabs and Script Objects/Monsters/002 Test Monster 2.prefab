@@ -74,6 +74,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   renderer: {fileID: 0}
   currentTile: {fileID: 0}
+  willSwap: 0
   XPFromKill: 1
   level: 0
 --- !u!212 &7022932251972435264

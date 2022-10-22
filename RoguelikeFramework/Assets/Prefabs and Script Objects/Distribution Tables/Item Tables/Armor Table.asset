@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
   m_Name: Armor Table
   m_EditorClassIdentifier: 
-  type: 4
   items:
   - {fileID: 7913379573585751926, guid: a8b2b66d3017fd04fbdf4aa02653f65f, type: 3}
   - {fileID: 8514963120815226497, guid: 4255b4c1c522fc343ae3ac00415e0b1b, type: 3}
-  minRarity: 0
-  maxRarity: 0
   elevationOptions: []
   references:
     version: 1

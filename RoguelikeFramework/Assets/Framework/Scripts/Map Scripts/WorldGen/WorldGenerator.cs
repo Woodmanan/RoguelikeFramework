@@ -37,8 +37,8 @@ public struct BranchChoice
 public class WorldGenerator : ScriptableObject
 {
     public List<BranchChoice> choices;
-    [SerializeReference]
-    public List<DungeonSystem> dungeonSystems;
+    
+    [SerializeReference] public List<DungeonSystem> dungeonSystems = new List<DungeonSystem>();
 
     World world;
     HashSet<string> chosenLevels;

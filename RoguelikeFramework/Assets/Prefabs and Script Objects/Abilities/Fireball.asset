@@ -80,7 +80,6 @@ MonoBehaviour:
     _keys: 02000000
     _vals:
     - 4
-  maxCooldown: 0
   currentCooldown: 0
   castable: 1
   types: 1

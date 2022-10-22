@@ -71,7 +71,6 @@ MonoBehaviour:
     _keys: 00000000
     _vals:
     - 2
-  maxCooldown: 0
   currentCooldown: 0
   castable: 1
   types: 0
