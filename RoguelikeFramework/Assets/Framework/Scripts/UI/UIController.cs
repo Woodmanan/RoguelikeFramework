@@ -9,7 +9,6 @@ public class UIController : MonoBehaviour
     [SerializeField] private EquipmentScreen equipment;
     [SerializeField] private AbilitiesScreen abilities;
     [SerializeField] private ItemInspectionPanel inspection;
-    [SerializeField] private TargetingPanel targetting;
     [SerializeField] private ConfirmationPanel confirm;
     [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
@@ -137,18 +136,6 @@ public class UIController : MonoBehaviour
         ItemStack stack = inventory.items[index];
         inspection.Setup(stack);
         inspection.Activate();
-    }
-
-    public void OpenTargetting(Targeting t, BoolDelegate returnCall)
-    {
-        if (targetting.Setup(t, returnCall)) //Different from normal, to encapsulate skipping behaviour that's possible.
-        {
-            targetting.Activate();
-        }
-        else
-        {
-            RogueUIPanel.ExitAllWindows(); //SWITCH THIS TO UI CONTROLLER WHEN THAT'S IN
-        }
     }
 
     public void OpenCheats()

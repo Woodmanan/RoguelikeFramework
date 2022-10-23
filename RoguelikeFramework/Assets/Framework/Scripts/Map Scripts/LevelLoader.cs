@@ -32,7 +32,7 @@ public class LevelLoader : MonoBehaviour
     public WorldGenerator worldGen;
     [SerializeReference]
     public List<DungeonGenerator> generators;
-    int current;
+    [HideInInspector] public int current;
     public float msPerFrame;
     public bool randomSeed;
     public int seed;
@@ -56,8 +56,13 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!setup) Setup();
         
+    }
+
+    public void BeginGeneration()
+    {
+        if (!setup) Setup();
+
         if (!JITLoading)
         {
             StartCoroutine(GenerateAllLevels());

@@ -5,6 +5,8 @@ using System.Linq;
 
 public class PlayerActionController : ActionController
 {
+    public TargetingPanel targetingPanel;
+
     public override IEnumerator DetermineAction()
     {
         if (InputTracking.HasNextAction())
@@ -204,7 +206,14 @@ public class PlayerActionController : ActionController
 
     public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
     {
-        UIController.singleton.OpenTargetting(targeting, setValidityTo);
-        yield return new WaitUntil(() => !UIController.WindowsOpen);
+        if (targetingPanel.Setup(targeting, setValidityTo))
+        {
+            targetingPanel.Activate();
+            yield return new WaitUntil(() => !UIController.WindowsOpen);
+        }
+        else
+        {
+            RogueUIPanel.ExitAllWindows();
+        }
     }
 }

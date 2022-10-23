@@ -41,13 +41,13 @@ public class WorldGenerator : ScriptableObject
     [SerializeReference] public List<DungeonSystem> dungeonSystems = new List<DungeonSystem>();
 
     World world;
-    HashSet<string> chosenLevels;
+    public HashSet<string> generationOptions;
 
     public World Generate()
     {
         world = new World();
-        chosenLevels = new HashSet<string>();
-        chosenLevels.Add("Start");
+        generationOptions = new HashSet<string>();
+        generationOptions.Add("Start");
 
         foreach (BranchChoice current in choices)
         {
@@ -59,17 +59,17 @@ public class WorldGenerator : ScriptableObject
             { //Check for reqs and anti-reqs
                 foreach (string req in current.requirements)
                 {
-                    valid = valid && chosenLevels.Contains(req);
+                    valid = valid && generationOptions.Contains(req);
                 }
 
                 foreach (string areq in current.antiRequirements)
                 {
-                    valid = valid && !chosenLevels.Contains(areq);
+                    valid = valid && !generationOptions.Contains(areq);
                 }
             }
 
             { //Check for entry target - MUST HAPPEN
-                List<Target> validTargets = current.entryTargets.Where(x => chosenLevels.Contains(x.branchName)).ToList();
+                List<Target> validTargets = current.entryTargets.Where(x => generationOptions.Contains(x.branchName)).ToList();
 
                 if (validTargets.Count == 0)
                 {
@@ -105,7 +105,7 @@ public class WorldGenerator : ScriptableObject
                 List<Target> validTargets = new List<Target>();
                 foreach (Target target in current.exitTargets)
                 {
-                    if (chosenLevels.Contains(target.branchName))
+                    if (generationOptions.Contains(target.branchName))
                     {
                         validTargets.Add(target);
                     }
@@ -134,12 +134,12 @@ public class WorldGenerator : ScriptableObject
                     bool branchValid = true;
                     foreach (string req in branch.requirements)
                     {
-                        branchValid = branchValid && chosenLevels.Contains(req);
+                        branchValid = branchValid && generationOptions.Contains(req);
                     }
 
                     foreach (string areq in branch.antiRequirements)
                     {
-                        branchValid = branchValid && !chosenLevels.Contains(areq);
+                        branchValid = branchValid && !generationOptions.Contains(areq);
                     }
 
                     if (branchValid)
@@ -160,7 +160,7 @@ public class WorldGenerator : ScriptableObject
 
                 //Very important - Instantiate to remove the connection to the asset
                 branchToGen = Instantiate(branchToGen);
-                chosenLevels.Add(branchToGen.branchName);
+                generationOptions.Add(branchToGen.branchName);
 
                 int chosenFloor = chosenEntryTarget.floors.Evaluate();
 
