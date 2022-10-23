@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
 
     public int energyPerTurn;
 
-    public Player player;
+    public Monster player;
 
     World world;
 
@@ -47,8 +47,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        turn = 0;
-        StartCoroutine(BeginGame());
+        
     }
 
     // Update is called once per frame
@@ -57,9 +56,14 @@ public class GameController : MonoBehaviour
         
     }
 
+    public void StartGame()
+    {
+        StartCoroutine(BeginGame());
+    }
+
     IEnumerator BeginGame()
     {
-        LevelLoader.singleton.Setup();
+        turn = 0;
         int start = LevelLoader.singleton.GetIndexOf(LevelLoader.singleton.startAt);
         if (start < 0) start = 0;
         //Wait for initial level loading to finish
@@ -92,6 +96,7 @@ public class GameController : MonoBehaviour
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0].toLocation;
+        player = Player.player;
 
         //1 Frame pause to set up LOS
         yield return null;

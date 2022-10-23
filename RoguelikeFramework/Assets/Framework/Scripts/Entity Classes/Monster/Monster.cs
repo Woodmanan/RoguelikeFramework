@@ -33,7 +33,6 @@ public class Monster : MonoBehaviour
     public int visionRadius;
 
     public int energyPerStep;
-    public Loadout loadout;
 
     public static readonly float monsterZPosition = -5f;
 
@@ -92,8 +91,6 @@ public class Monster : MonoBehaviour
         inventory?.Setup();
         equipment?.Setup();
         controller?.Setup();
-
-        loadout?.Apply(this);
 
         spriteDir = GetComponent<SpriteRenderer>().flipX;
 

@@ -19,9 +19,6 @@ public class MonsterTable : ScriptableObject
     public static HashSet<int> UsedUniqueIDs = new HashSet<int>();
     public List<Monster> monsters;
 
-    public List<Loadout> loadouts;
-    public float chanceForHigherLoadout;
-
     public List<Monster> uniques;
     public float chanceForUnique;
     public HashSet<int> containedDepths = new HashSet<int>();
@@ -84,6 +81,7 @@ public class MonsterTable : ScriptableObject
             toReturn = toSpawn[Random.Range(0, toSpawn.Count)].Instantiate();
         }
 
+        /*
         List<Loadout> usableLoadouts = loadouts.FindAll(x => x.minDepth <= depth && x.maxDepth >= depth);
 
         //TODO: Sometimes just don't give monsters loadouts, or make them chance based.
@@ -96,7 +94,7 @@ public class MonsterTable : ScriptableObject
         {
             //Possible workaround for that TODO: add some null loadouts instead
             usableLoadouts[Random.Range(0, usableLoadouts.Count)]?.Apply(toReturn);
-        }
+        }*/
 
         return toReturn;
 
