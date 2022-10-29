@@ -121,6 +121,7 @@ public class TargetingPanel : RogueUIPanel
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
             }
+            endResult.Invoke(true);
             return false;
         }
     }

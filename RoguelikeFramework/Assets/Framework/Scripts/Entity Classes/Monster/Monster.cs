@@ -198,7 +198,7 @@ public class Monster : MonoBehaviour
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            Debug.Log($"{dealer.GetFormattedName()} deals {damage} {type}damage");
+            Debug.Log($"{dealer.GetFormattedName()} deals {damage} {type} damage with {source}");
         }
         
 

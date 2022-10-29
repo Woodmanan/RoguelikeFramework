@@ -50,7 +50,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000030000000500000006000000
     _vals:
-    - 100
+    - 20
     - 100
     - 1
     - 3
@@ -67,7 +67,6 @@ MonoBehaviour:
   location: {x: 15, y: 44}
   visionRadius: 8
   energyPerStep: 100
-  loadout: {fileID: 0}
   effects: []
   inventory: {fileID: 0}
   equipment: {fileID: 0}

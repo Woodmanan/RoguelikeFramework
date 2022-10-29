@@ -37,10 +37,6 @@ public class ConveyorSystem : DungeonSystem
 
     public override void OnGlobalTurnEnd(int turn)
     {
-        Debug.Log($"System for map {map.name} has turn {turn}");
-        Debug.Log($"Held is {held}");
-        Debug.Log($"Held[0] is {tiles[0].location}");
-
         //Force all other anims to finish before conveyor anim
         AnimationController.AddAnimation(new BlockAnimation());
 

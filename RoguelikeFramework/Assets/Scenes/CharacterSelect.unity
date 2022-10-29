@@ -1262,7 +1262,6 @@ GameObject:
   m_Component:
   - component: {fileID: 603355713}
   - component: {fileID: 603355712}
-  - component: {fileID: 603355711}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1270,14 +1269,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &603355711
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603355710}
-  m_Enabled: 1
 --- !u!20 &603355712
 Camera:
   m_ObjectHideFlags: 0
@@ -2178,7 +2169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2612,7 +2603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenSpecies: {fileID: 4311608207694994517, guid: c9b88d90c5229ac488186984a6cba063, type: 3}
   chosenClass: {fileID: 11400000, guid: 4bd1f2f3e5a7f2e4185ff9b90b82d200, type: 2}
-  chosenGenerator: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
+  chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
 --- !u!1 &1487906435

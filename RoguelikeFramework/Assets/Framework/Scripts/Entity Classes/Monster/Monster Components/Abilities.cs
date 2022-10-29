@@ -6,6 +6,7 @@ using System.Linq;
 //TODO: Come up with a better name for this?
 public class Abilities : MonoBehaviour
 {
+    public int maxAbilities = 10;
     Monster connectedTo;
     List<Ability> abilities = new List<Ability>();
 
@@ -35,6 +36,15 @@ public class Abilities : MonoBehaviour
         {
             a.CheckAvailable(connectedTo);
         }
+
+        //Force no casting on abilites lower than your level
+        for (int i = 0; i < abilities.Count; i++)
+        {
+            if (i > connectedTo.level)
+            {
+                abilities[i].castable = false;
+            }
+        }
     }
 
     public Ability this[int index]
@@ -45,7 +55,14 @@ public class Abilities : MonoBehaviour
 
     public void AddAbility(Ability abilityToAdd)
     {
-        abilities.Add(abilityToAdd.Instantiate());
+        if (abilities.Count < maxAbilities)
+        {
+            abilities.Add(abilityToAdd.Instantiate());
+        }
+        else
+        {
+            Debug.Log("Console: You can't learn that ability - max abilities reached");
+        }
     }
 
     public void OnTurnEndGlobal()

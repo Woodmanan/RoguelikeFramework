@@ -8849,13 +8849,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87f715e2fc82a347884471f577337d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldGen: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
+  worldGen: {fileID: 0}
   generators: []
   current: 0
   msPerFrame: 0
   randomSeed: 0
   seed: 42
-  preloadUpTo: 1
+  preloadUpTo: 2
   JITLoading: 0
   LoadAllLevelsAtStart: 0
   startAt: 0
