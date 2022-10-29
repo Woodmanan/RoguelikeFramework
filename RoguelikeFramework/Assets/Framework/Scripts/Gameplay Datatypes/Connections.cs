@@ -41,13 +41,13 @@ public class Connections
     public OrderedEvent<Stats> RegenerateStats = new OrderedEvent<Stats>();
     public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>();
     public OrderedEvent<int, int> OnAttacked = new OrderedEvent<int, int>();
-    public OrderedEvent<int, DamageType, DamageSource> OnDealDamage = new OrderedEvent<int, DamageType, DamageSource>();
-    public OrderedEvent<int, DamageType, DamageSource> OnTakeDamage = new OrderedEvent<int, DamageType, DamageSource>();
-    public OrderedEvent<int> OnHealing = new OrderedEvent<int>();
+    public OrderedEvent<float, DamageType, DamageSource> OnDealDamage = new OrderedEvent<float, DamageType, DamageSource>();
+    public OrderedEvent<float, DamageType, DamageSource> OnTakeDamage = new OrderedEvent<float, DamageType, DamageSource>();
+    public OrderedEvent<float> OnHealing = new OrderedEvent<float>();
     public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>();
     public OrderedEvent<AbilityAction, bool> OnCastAbility = new OrderedEvent<AbilityAction, bool>();
     public OrderedEvent<Stats> OnGainResources = new OrderedEvent<Stats>();
-    public OrderedEvent<int> OnGainXP = new OrderedEvent<int>();
+    public OrderedEvent<float> OnGainXP = new OrderedEvent<float>();
     public OrderedEvent<int> OnLevelUp = new OrderedEvent<int>();
     public OrderedEvent<Stats> OnLoseResources = new OrderedEvent<Stats>();
     public OrderedEvent<Targeting, AbilityBlock, Ability> OnRegenerateAbilityStats = new OrderedEvent<Targeting, AbilityBlock, Ability>();

@@ -73,7 +73,7 @@ MonoBehaviour:
     priority: 10
   - name: OnDealDamage
     types:
-    - type: int
+    - type: float
       name: damage
     - type: DamageType
       name: damageType
@@ -84,7 +84,7 @@ MonoBehaviour:
     priority: 11
   - name: OnTakeDamage
     types:
-    - type: int
+    - type: float
       name: damage
     - type: DamageType
       name: damageType
@@ -95,7 +95,7 @@ MonoBehaviour:
     priority: 12
   - name: OnHealing
     types:
-    - type: int
+    - type: float
       name: healAmount
     description: Called when a monster recieves a healing event request
     priority: 13
@@ -124,7 +124,7 @@ MonoBehaviour:
     priority: 16
   - name: OnGainXP
     types:
-    - type: int
+    - type: float
       name: XPAmount
     description: Called when this monster gains XP from any source.
     priority: 17

@@ -175,13 +175,13 @@ public class Effect
     public virtual void RegenerateStats(ref Stats stats) {}
     public virtual void OnEnergyGained(ref int energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
-    public virtual void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
-    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
-    public virtual void OnHealing(ref int healAmount) {}
+    public virtual void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public virtual void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public virtual void OnHealing(ref float healAmount) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
     public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
     public virtual void OnGainResources(ref Stats resources) {}
-    public virtual void OnGainXP(ref int XPAmount) {}
+    public virtual void OnGainXP(ref float XPAmount) {}
     public virtual void OnLevelUp(ref int Level) {}
     public virtual void OnLoseResources(ref Stats resources) {}
     public virtual void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
