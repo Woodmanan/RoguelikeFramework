@@ -24,7 +24,7 @@ public class ApplyableItem : MonoBehaviour
         foreach (Effect e in effectsToApply)
         {
             Effect nextEffect = e.Instantiate();
-            m.AddEffectInstatiate(nextEffect);
+            m.AddEffectInstantiate(nextEffect);
         }
     }
 }

@@ -30,7 +30,7 @@ public class AOEStatus : Ability
             {
                 Effect inst = e.Instantiate();
                 inst.credit = caster;
-                m.AddEffectInstatiate(inst);
+                m.AddEffectInstantiate(inst);
             }
         }
     }
