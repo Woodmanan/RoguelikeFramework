@@ -461,7 +461,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void AddEffectInstatiate(params Effect[] effectsToAdd)
+    public void AddEffectInstantiate(params Effect[] effectsToAdd)
     {
         Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
 
