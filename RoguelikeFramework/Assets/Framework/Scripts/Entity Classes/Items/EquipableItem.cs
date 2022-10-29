@@ -59,7 +59,7 @@ public class EquipableItem : MonoBehaviour
             clonedEffects.Add(e.Instantiate());
         }
 
-        m.AddEffect(clonedEffects.ToArray()); //Immediate status effect add
+        m.AddEffectInstatiate(clonedEffects.ToArray()); //Immediate status effect add
     }
 
 
