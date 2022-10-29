@@ -117,7 +117,7 @@ public class Monster : MonoBehaviour
         UpdateLOS(map);
     }
 
-    public void Heal(int healthReturned, bool shouldLog = false)
+    public void Heal(float healthReturned, bool shouldLog = false)
     {
         connections.OnHealing.BlendInvoke(other?.OnHealing, ref healthReturned);
 
@@ -133,7 +133,7 @@ public class Monster : MonoBehaviour
         }
         if (baseStats[HEALTH] >= currentStats[MAX_HEALTH])
         {
-            healthReturned -= (int) (currentStats[MAX_HEALTH] - currentStats[HEALTH]);
+            healthReturned -= (currentStats[MAX_HEALTH] - currentStats[HEALTH]);
             baseStats[HEALTH] = currentStats[MAX_HEALTH];
             connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
         }
@@ -166,7 +166,7 @@ public class Monster : MonoBehaviour
     }
 
 
-    private void Damage(int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
+    private void Damage(float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
         connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
         baseStats[HEALTH] -= damage;
@@ -185,7 +185,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void Damage(Monster dealer, int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
+    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
         if (dealer == null)
         {
@@ -234,7 +234,7 @@ public class Monster : MonoBehaviour
         GainXP(target, target.XPFromKill);
     }
 
-    public virtual void GainXP(Monster source, int amount)
+    public virtual void GainXP(Monster source, float amount)
     {
         Debug.Log($"{DebugName()} has gained {amount} XP!");
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);

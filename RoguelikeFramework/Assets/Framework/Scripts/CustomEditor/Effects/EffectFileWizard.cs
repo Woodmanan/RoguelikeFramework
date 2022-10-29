@@ -15,18 +15,20 @@ public class EffectFileWizard
     {
 
         //Load in our definitions from the file
-        EffectConnections declarations = AssetDatabase.LoadAssetAtPath<EffectConnections>("Assets/Scripts/CustomEditor/Effects/Effect Connections.asset");
+        EffectConnections declarations = AssetDatabase.LoadAssetAtPath<EffectConnections>("Assets/Framework/Scripts/CustomEditor/Effects/Effect Connections.asset");
 
-        declarations.connections.Sort((a, b) => a.priority.CompareTo(b.priority));
+        
 
         if (declarations == null)
         {
             Debug.LogError("AGH IT'S ALL ON FIRE WHAT DID YOU CHANGE");
-            Debug.LogError("The EffectFileWizard is having trouble finding the EffectConnections at 'Assets/Scripts/CustomEditor/Effects/Effect Connections.asset'. Did you move this? Move it back for fix the wizard.");
+            Debug.LogError("The EffectFileWizard is having trouble finding the EffectConnections at 'Assets/Framework/Scripts/CustomEditor/Effects/Effect Connections.asset'. Did you move this? Move it back or fix the wizard.");
             return;
         }
 
         Debug.Log($"Connections asset found. There are {declarations.connections.Count} connections total, which will be added to the files.");
+
+        declarations.connections.Sort((a, b) => a.priority.CompareTo(b.priority));
 
         //Write the declarations into Monster.cs
         WriteConnections(declarations);

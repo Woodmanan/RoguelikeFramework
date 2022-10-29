@@ -62,13 +62,13 @@ public class #SCRIPTNAME# : Effect
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    //public override void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
+    //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    //public override void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
+    //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster recieves a healing event request
-    //public override void OnHealing(ref int healAmount) {}
+    //public override void OnHealing(ref float healAmount) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnApplyStatusEffects(ref Effect[] effects) {}
@@ -80,7 +80,7 @@ public class #SCRIPTNAME# : Effect
     //public override void OnGainResources(ref Stats resources) {}
 
     //Called when this monster gains XP from any source.
-    //public override void OnGainXP(ref int XPAmount) {}
+    //public override void OnGainXP(ref float XPAmount) {}
 
     //Called when this monster levels up! Level CANNOT be modified.
     //public override void OnLevelUp(ref int Level) {}
