@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6687509776577718202}
   - component: {fileID: 6687509776577718203}
   - component: {fileID: 6687509776577718200}
-  - component: {fileID: 7301384935318704289}
+  - component: {fileID: 9125798170073048328}
   m_Layer: 0
   m_Name: 011 Potion of Healing
   m_TagString: Untagged
@@ -109,20 +109,18 @@ MonoBehaviour:
   name: Potion of Healing
   plural: Potions of Healing
   CanEquip: 0
-  CanApply: 0
-  CanTarget: 0
+  CanActivate: 0
   CanMelee: 0
   CanRanged: 0
   effects: []
   optionalEffects: []
-  applyable: {fileID: 0}
-  targetable: {fileID: 0}
+  activatable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
   references:
     version: 1
---- !u!114 &7301384935318704289
+--- !u!114 &9125798170073048328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,16 +129,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6687509776577718201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4b9c33063ced1c48b947458782fac9f, type: 3}
+  m_Script: {fileID: 11500000, guid: d0439e34c3cae514598d4471fb48773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectsToApply:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
-      data:
-        ReadyToDelete: 0
-        credit: {fileID: 0}
-        numTurns: 0
+  abilityOnActivation: {fileID: 11400000, guid: 4478e6e4cca6a6c40a83c5bf099b659d, type: 2}
+  ConsumedOnUse: 1

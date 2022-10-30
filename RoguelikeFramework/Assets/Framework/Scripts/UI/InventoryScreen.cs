@@ -91,7 +91,7 @@ public class InventoryScreen : RogueUIPanel
                 break;
             case ItemAction.APPLY:
                 title.text = "Apply which item?";
-                toDisplay = available.FindAll(x => x.held[0].CanApply);
+                toDisplay = available.FindAll(x => x.held[0].CanActivate);
                 break;
             default:
                 Debug.LogError($"Inventory screen is not set up to handle {queuedAction} types. Yell at Woody about this.");
@@ -220,8 +220,9 @@ public class InventoryScreen : RogueUIPanel
                     int index = Conversions.NumberingToInt(c);
                     if (index < examinedInventory.capacity && examinedInventory[index] != null && index >= 0)
                     {
-                        //Equip an item!
-                        Player.player.inventory.Apply(index);
+                        //Activate an item!
+                        ActivateAction act = new ActivateAction(index);
+                        Player.player.SetAction(act);
                         ExitAllWindows();
                         break;
                     }
@@ -233,8 +234,8 @@ public class InventoryScreen : RogueUIPanel
     //Handles a given item being click
     public void Click(int index)
     {
-        print($"Handling a click to {Conversions.IntToNumbering(index)}");
-        print($"UI state is {queuedAction}");
+        Debug.Log($"Handling a click to {Conversions.IntToNumbering(index)}");
+        Debug.Log($"UI state is {queuedAction}");
         switch (queuedAction)
         {
             case ItemAction.DROP:
@@ -261,7 +262,8 @@ public class InventoryScreen : RogueUIPanel
                 ExitAllWindows(); //After equiping, just exit
                 break;
             case ItemAction.APPLY:
-                Player.player.inventory.Apply(index);
+                ActivateAction act = new ActivateAction(index);
+                Player.player.SetAction(act);
                 ExitAllWindows();
                 break;
         }

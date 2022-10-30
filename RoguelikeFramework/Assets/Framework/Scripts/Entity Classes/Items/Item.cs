@@ -27,8 +27,7 @@ public class Item : MonoBehaviour
     [SerializeField] private string plural;
 
     [HideInInspector] public bool CanEquip;
-    [HideInInspector] public bool CanApply;
-    [HideInInspector] public bool CanTarget;
+    [HideInInspector] public bool CanActivate;
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
 
@@ -64,8 +63,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    [HideInInspector] public ApplyableItem applyable;
-    [HideInInspector] public TargetableItem targetable;
+    public ActivatableItem activatable;
     [HideInInspector] public EquipableItem equipable;
     [HideInInspector] public MeleeWeapon melee;
     [HideInInspector] public RangedWeapon ranged;
@@ -105,16 +103,14 @@ public class Item : MonoBehaviour
             Debug.LogError("An item is set to have no type! Please use ItemType.MISC if you have misc items.", this);
         }
 
-        applyable = GetComponent<ApplyableItem>();
-        targetable = GetComponent<TargetableItem>();
+        activatable = GetComponent<ActivatableItem>();
         equipable = GetComponent<EquipableItem>();
         melee = GetComponent<MeleeWeapon>();
         ranged = GetComponent<RangedWeapon>();
 
         //Quick check for components, better here than later
         CanEquip = (equipable != null);
-        CanApply = (applyable != null);
-        CanTarget = (targetable != null);
+        CanActivate = (activatable != null);
         CanMelee = (melee != null);
         CanRanged = (ranged != null);
 

@@ -190,39 +190,23 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    public void Apply(int index)
+    public void RemoveLastItemFromStack(int index)
     {
-        Apply(items[index]);
-    }
-
-    public void Apply(ItemStack stack)
-    {
-        int numItems = stack.held.Count;
-        Item toApply = stack.held[numItems - 1];
-        ApplyableItem apply = toApply.applyable;
-        if (apply == null)
+        ItemStack stack = items[index];
+        if (stack != null)
         {
-            Debug.LogError($"Couldn't apply item at index {stack.position}, last item has no ApplyableItem component");
-            return;
-        }
-
-        apply.Apply(monster);
-        monster.energy -= 100;
-
-        //Remove the item
-        Destroy(apply.gameObject);
-
-        if (numItems <= 1) //Potential error case for 0?
-        {
-            //Clear the list, garbage collection should get the rest
-            items[stack.position] = null;
-        }
-        else
-        {
-            //Cut last item, set new count
-            stack.held.RemoveAt(numItems - 1);
-            stack.count = numItems - 1;
-            stack.lastUpdated = updateCounter;
+            int numItems = stack.held.Count;
+            Destroy(stack.held[numItems - 1].gameObject);
+            if (numItems <= 1)
+            {
+                items[index] = null;
+            }
+            else
+            {
+                stack.held.RemoveAt(numItems - 1);
+                stack.count--;
+                stack.lastUpdated = updateCounter;
+            }
         }
     }
 
@@ -247,6 +231,7 @@ public class Inventory : MonoBehaviour
                     for (int j = 0; j < stack.count; j++)
                     {
                         Items[i].held.Add(stack.held[j]);
+                        stack.held[j].transform.parent = holder;
                     }
                     Items[i].lastUpdated = updateCounter;
                     return i;

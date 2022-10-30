@@ -111,7 +111,7 @@ public class UIController : MonoBehaviour
         equipment.Activate();
     }
 
-    public void OpenInventoryApply()
+    public void OpenInventoryActivate()
     {
         inventory.Setup(Player.player.inventory, ItemAction.APPLY);
         inventory.Activate();

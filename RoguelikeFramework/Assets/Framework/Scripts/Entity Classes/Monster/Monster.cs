@@ -366,7 +366,7 @@ public class Monster : MonoBehaviour
     {
         if (currentAction != null)
         {
-            Debug.LogError($"{this.displayName} had an action set, but it already had an action. Should this be allowed?", this);
+            Debug.LogError($"{this.displayName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Should this be allowed?", this);
         }
         currentAction = act;
         currentAction.Setup(this);

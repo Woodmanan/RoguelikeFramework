@@ -71,7 +71,7 @@ public class PlayerActionController : ActionController
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
                 case PlayerAction.APPLY:
-                    UIController.singleton.OpenInventoryApply();
+                    UIController.singleton.OpenInventoryActivate();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
                 case PlayerAction.CAST_SPELL:

@@ -62,6 +62,7 @@ public class Effect
         c.OnDealDamage.AddListener(100, OnDealDamage);
         c.OnTakeDamage.AddListener(100, OnTakeDamage);
         c.OnHealing.AddListener(100, OnHealing);
+        c.OnActivateItem.AddListener(100, OnActivateItem);
         c.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
         c.OnCastAbility.AddListener(100, OnCastAbility);
         c.OnGainResources.AddListener(100, OnGainResources);
@@ -121,6 +122,7 @@ public class Effect
         connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
         connectedTo.OnHealing.RemoveListener(OnHealing);
+        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
@@ -178,6 +180,7 @@ public class Effect
     public virtual void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
     public virtual void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
     public virtual void OnHealing(ref float healAmount) {}
+    public virtual void OnActivateItem(ref Item item, ref bool canContinue) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
     public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
     public virtual void OnGainResources(ref Stats resources) {}

@@ -99,6 +99,14 @@ MonoBehaviour:
       name: healAmount
     description: Called when a monster recieves a healing event request
     priority: 13
+  - name: OnActivateItem
+    types:
+    - type: Item
+      name: item
+    - type: bool
+      name: canContinue
+    description: Called when this monster attempts to activate an item.
+    priority: 14
   - name: OnApplyStatusEffects
     types:
     - type: Effect[]

@@ -97,6 +97,7 @@ public class GameController : MonoBehaviour
         Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0].toLocation;
         player = Player.player;
+        player.Setup();
 
         //1 Frame pause to set up LOS
         yield return null;
