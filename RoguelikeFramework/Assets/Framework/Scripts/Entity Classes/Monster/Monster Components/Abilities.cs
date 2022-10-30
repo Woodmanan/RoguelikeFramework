@@ -40,7 +40,7 @@ public class Abilities : MonoBehaviour
         //Force no casting on abilites lower than your level
         for (int i = 0; i < abilities.Count; i++)
         {
-            if (i > connectedTo.level)
+            if ((i+1) > connectedTo.level)
             {
                 abilities[i].castable = false;
             }

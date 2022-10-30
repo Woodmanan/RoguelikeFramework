@@ -116,8 +116,6 @@ public class MoveAction : GameAction
         didMove = true;
         caller.willSwap = true;
 
-        caller.connections.OnMove.Invoke();
-
         caller.SetPosition(intendedLocation);
 
         //Add the movement anim
@@ -129,6 +127,8 @@ public class MoveAction : GameAction
         {
             caller.transform.position = new Vector3(intendedLocation.x, intendedLocation.y, Monster.monsterZPosition);
         }
+
+        caller.connections.OnMove.Invoke();
 
         Stair stair = tile as Stair;
         if (stair && caller == Player.player && useStair)

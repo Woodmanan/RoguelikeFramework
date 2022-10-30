@@ -33,6 +33,7 @@ public class ActivateAction : GameAction
         } 
 
         Ability abilityOnActivation = item.abilityOnActivation;
+        abilityOnActivation.RegenerateStats(caller);
         if (abilityOnActivation.CheckAvailable(caller))
         {
             bool keepActivating = true;

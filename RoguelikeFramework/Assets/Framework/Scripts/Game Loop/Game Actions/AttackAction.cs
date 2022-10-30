@@ -8,6 +8,8 @@ public class AttackAction : GameAction
     public List<Weapon> primaryWeapons = new List<Weapon>();
     public List<Weapon> secondaryWeapons = new List<Weapon>();
 
+    public bool animates = true;
+
     List<EquipmentSlot> unarmedSlots = new List<EquipmentSlot>();
 
     public AttackAction()
@@ -56,7 +58,10 @@ public class AttackAction : GameAction
 
             caller.connections.OnGenerateArmedAttacks.Invoke(ref primaryWeapons, ref secondaryWeapons);
 
-            AnimationController.AddAnimation(new AttackAnimation(caller, target));
+            if (animates)
+            {
+                AnimationController.AddAnimation(new AttackAnimation(caller, target));
+            }
 
             foreach (Weapon w in primaryWeapons)
             {

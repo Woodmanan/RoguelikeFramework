@@ -109,6 +109,9 @@ public class AbilityAction : GameAction
         #else
         if (caller.abilities == null) return;
         #endif
-        toCast = caller.abilities[abilityIndex];
+        if (toCast == null)
+        {
+            toCast = caller.abilities[abilityIndex];
+        }
     }
 }
