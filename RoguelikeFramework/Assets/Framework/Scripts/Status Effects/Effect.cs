@@ -52,18 +52,19 @@ public class Effect
         c.OnTurnEndGlobal.AddListener(100, OnTurnEndGlobal);
         c.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
         c.OnTurnEndLocal.AddListener(100, OnTurnEndLocal);
+        c.OnMoveInitiated.AddListener(100, OnMoveInitiated);
         c.OnMove.AddListener(100, OnMove);
         c.OnFullyHealed.AddListener(100, OnFullyHealed);
-        c.OnKillMonster.AddListener(100, OnKillMonster);
         c.OnDeath.AddListener(100, OnDeath);
+        c.OnKillMonster.AddListener(100, OnKillMonster);
         c.RegenerateStats.AddListener(100, RegenerateStats);
         c.OnEnergyGained.AddListener(100, OnEnergyGained);
         c.OnAttacked.AddListener(100, OnAttacked);
         c.OnDealDamage.AddListener(100, OnDealDamage);
         c.OnTakeDamage.AddListener(100, OnTakeDamage);
         c.OnHealing.AddListener(100, OnHealing);
-        c.OnActivateItem.AddListener(100, OnActivateItem);
         c.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
+        c.OnActivateItem.AddListener(100, OnActivateItem);
         c.OnCastAbility.AddListener(100, OnCastAbility);
         c.OnGainResources.AddListener(100, OnGainResources);
         c.OnGainXP.AddListener(100, OnGainXP);
@@ -112,18 +113,19 @@ public class Effect
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
         connectedTo.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        connectedTo.OnMoveInitiated.RemoveListener(OnMoveInitiated);
         connectedTo.OnMove.RemoveListener(OnMove);
         connectedTo.OnFullyHealed.RemoveListener(OnFullyHealed);
-        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
         connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
         connectedTo.OnAttacked.RemoveListener(OnAttacked);
         connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
         connectedTo.OnHealing.RemoveListener(OnHealing);
-        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
         connectedTo.OnGainXP.RemoveListener(OnGainXP);
@@ -170,18 +172,19 @@ public class Effect
     public virtual void OnTurnEndGlobal() {}
     public virtual void OnTurnStartLocal() {}
     public virtual void OnTurnEndLocal() {}
+    public virtual void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
-    public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void OnDeath() {}
+    public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void RegenerateStats(ref Stats stats) {}
     public virtual void OnEnergyGained(ref int energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
     public virtual void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
     public virtual void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
     public virtual void OnHealing(ref float healAmount) {}
-    public virtual void OnActivateItem(ref Item item, ref bool canContinue) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
+    public virtual void OnActivateItem(ref Item item, ref bool canContinue) {}
     public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
     public virtual void OnGainResources(ref Stats resources) {}
     public virtual void OnGainXP(ref float XPAmount) {}

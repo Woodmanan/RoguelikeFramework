@@ -29,14 +29,26 @@ MonoBehaviour:
     types: []
     description: Called at the end of a monster's turn
     priority: 4
+  - name: OnMoveInitiated
+    types:
+    - type: Vector2Int
+      name: newLocation
+    - type: bool
+      name: canMove
+    description: Called whenever a monster wants to take a step.
+    priority: 5
   - name: OnMove
     types: []
-    description: Called whenever a monster takes a step
+    description: Called whenever a monster sucessfully takes a step.
     priority: 5
   - name: OnFullyHealed
     types: []
     description: Called whenever a monster returns to full health
     priority: 6
+  - name: OnDeath
+    types: []
+    description: Called when the connected monster dies
+    priority: 7
   - name: OnKillMonster
     types:
     - type: Monster
@@ -46,10 +58,6 @@ MonoBehaviour:
     - type: DamageSource
       name: source
     description: Called when a monster is killed by this unit.
-    priority: 7
-  - name: OnDeath
-    types: []
-    description: Called when the connected monster dies
     priority: 7
   - name: RegenerateStats
     types:
@@ -99,6 +107,13 @@ MonoBehaviour:
       name: healAmount
     description: Called when a monster recieves a healing event request
     priority: 13
+  - name: OnApplyStatusEffects
+    types:
+    - type: Effect[]
+      name: effects
+    description: Called when new status effects are added. All status effects coming
+      through are bunched together as a list.
+    priority: 14
   - name: OnActivateItem
     types:
     - type: Item
@@ -106,13 +121,6 @@ MonoBehaviour:
     - type: bool
       name: canContinue
     description: Called when this monster attempts to activate an item.
-    priority: 14
-  - name: OnApplyStatusEffects
-    types:
-    - type: Effect[]
-      name: effects
-    description: Called when new status effects are added. All status effects coming
-      through are bunched together as a list.
     priority: 14
   - name: OnCastAbility
     types:
