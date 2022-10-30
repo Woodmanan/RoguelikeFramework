@@ -48,8 +48,6 @@ public class MoveAction : GameAction
         }
         
 
-        caller.connections.OnMove.Invoke();
-
         if (tile.currentlyStanding != null)
         {
             if (caller.GetComponent<Monster>().IsEnemy(tile.currentlyStanding))
@@ -96,6 +94,8 @@ public class MoveAction : GameAction
             }
         }
 
+        
+
         if (costs)
         {
             caller.energy -= caller.energyPerStep * tile.movementCost;
@@ -107,6 +107,8 @@ public class MoveAction : GameAction
         //Set that we managed to change locations
         didMove = true;
         caller.willSwap = true;
+
+        caller.connections.OnMove.Invoke();
 
         caller.SetPosition(intendedLocation);
 

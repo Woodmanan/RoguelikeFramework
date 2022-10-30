@@ -48,10 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 010000000300000005000000
+    _keys: 01000000030000000500000006000000
     _vals:
     - 20
     - 100
+    - 1
     - 1
   currentStats:
     _keys: 
@@ -219,3 +220,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c5d49c9825a8d4b8ba6052b0b01b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAbilities: 10

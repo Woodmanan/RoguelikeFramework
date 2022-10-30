@@ -5,10 +5,14 @@ using UnityEngine;
 //[EffectGroup("Sample Group/Sample Subgroup")]
 [Priority(10)]
 [Group("Class Effects/Warrior")]
-public class DamageSingleTargets : Effect
+public class CowardStance : Effect
 {
-    public int duration;
-    public int bonusDamage;
+    int numMonstersInSight = 0;
+    bool addsExtraDamage = false;
+
+    public int refundEnergyOnScared;
+    public float percentDamageIncrease;
+    
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -18,7 +22,7 @@ public class DamageSingleTargets : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public DamageSingleTargets()
+    public CowardStance()
     {
         //Construct me!
     }
@@ -31,26 +35,46 @@ public class DamageSingleTargets : Effect
     /*public override void OnDisconnection() {} */
 
     //Called at the start of the global turn sequence
-    public override void OnTurnStartGlobal()
-    {
-        duration--;
-        if (duration <= 0)
-        {
-            Disconnect();
-        }
-    }
+    //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
     //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
-    //public override void OnTurnStartLocal() {}
+    public override void OnTurnStartLocal()
+    {
+        bool hasSpeed = (numMonstersInSight >= 2);
+        numMonstersInSight = 0;
+        foreach (Monster m in connectedTo.monster.view.visibleMonsters)
+        {
+            if (m.IsEnemy(connectedTo.monster))
+            {
+                numMonstersInSight++;
+            }
+        }
+
+        if (!hasSpeed && (numMonstersInSight >= 2))
+        {
+            Debug.Log("Console: You feel afraid - run away!!");
+        }
+        
+        if (hasSpeed && (numMonstersInSight < 2))
+        {
+            Debug.Log("You slow down.");
+        }
+    }
 
     //Called at the end of a monster's turn
     //public override void OnTurnEndLocal() {}
 
     //Called whenever a monster takes a step
-    //public override void OnMove() {}
+    public override void OnMove()
+    {
+        if (numMonstersInSight >= 2)
+        {
+            connectedTo.monster.AddEnergy(refundEnergyOnScared);
+        }
+    }
 
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}
@@ -71,13 +95,20 @@ public class DamageSingleTargets : Effect
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    //public override void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
+    public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
+    {
+        if (addsExtraDamage && source == DamageSource.MELEEATTACK)
+        {
+            Debug.Log("Adding extra damage!");
+            damage += (damage * percentDamageIncrease / 100f);
+        }
+    }
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    //public override void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
+    //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster recieves a healing event request
-    //public override void OnHealing(ref int healAmount) {}
+    //public override void OnHealing(ref float healAmount) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnApplyStatusEffects(ref Effect[] effects) {}
@@ -89,7 +120,7 @@ public class DamageSingleTargets : Effect
     //public override void OnGainResources(ref Stats resources) {}
 
     //Called when this monster gains XP from any source.
-    //public override void OnGainXP(ref int XPAmount) {}
+    //public override void OnGainXP(ref float XPAmount) {}
 
     //Called when this monster levels up! Level CANNOT be modified.
     //public override void OnLevelUp(ref int Level) {}
@@ -130,6 +161,7 @@ public class DamageSingleTargets : Effect
     //Called once a primary attack has generated a result. (Before result is used)
     public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
     {
+        addsExtraDamage = false;
         if (result == AttackResult.HIT)
         {
             int numMonsters = 0;
@@ -149,22 +181,22 @@ public class DamageSingleTargets : Effect
 
             if (numMonsters == 1 && lastMonster == action.target)
             {
-                action.target.Damage(action.caller, bonusDamage, DamageType.PIERCING, DamageSource.EFFECT, "{name} takes an extra damage from your passive.");
+                addsExtraDamage = true;
             }
         }
     }
 
     //Called after an attack has completely finished - results are final
-    //public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        addsExtraDamage = false;
+    }
 
     //Called before a secondary attack happens
     //public override void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
 
     //Called once a primary attack has generated a result. (Before result is used)
-    public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
-    {
-        Debug.Log("Secondary attack!");
-    }
+    //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after a seconary attack has completely finished - results are final
     //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}

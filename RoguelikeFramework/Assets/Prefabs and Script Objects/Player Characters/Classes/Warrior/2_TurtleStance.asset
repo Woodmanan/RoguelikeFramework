@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
-  m_Name: 1_SingleTarget
+  m_Script: {fileID: 11500000, guid: 779de5a3fd747614c8f843c6fb1a6163, type: 3}
+  m_Name: 2_TurtleStance
   m_EditorClassIdentifier: 
-  displayName: Duelist's Grace
-  image: {fileID: -9030670616898698601, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 0, g: 0.92931914, b: 1, a: 1}
+  displayName: Stance of the Turtle
+  image: {fileID: -7959649932252826357, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 0, g: 0.6415094, b: 0.10435703, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 0
     areaType: 0
-    range: 1
-    radius: 1
+    range: 0
+    radius: 0
     degree: 0
     options: 3
     targetPriority: 0
@@ -33,23 +33,14 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 20
+    cooldown: 0
     power: 0
   stats:
     cooldown: 0
     power: 0
   castQuery:
     outOf: 1
-    terms:
-    - subject: 2
-      subjectMod: 1
-      subjectCount: 0
-      property: 1
-      resource: 0
-      equality: 1
-      value: 2
-      valueMod: 0
-      weight: 1
+    terms: []
   targeting:
     numPoints: 1
     targetingType: 0
@@ -68,21 +59,21 @@ MonoBehaviour:
     offset: 0
     affected: []
   costs:
-    _keys: 02000000
-    _vals:
-    - 3
+    _keys: 
+    _vals: []
   currentCooldown: 0
   castable: 1
   types: 0
   effects: []
-  effectsToApply:
-  - id: 0
+  stance:
+    id: 0
   references:
     version: 1
     00000000:
-      type: {class: DamageSingleTargets, ns: , asm: Assembly-CSharp}
+      type: {class: TurtleStance, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
-        duration: 10
-        bonusDamage: 2
+        baseAC: 5
+        maxAC: 10
+        energyLostPerMove: 100

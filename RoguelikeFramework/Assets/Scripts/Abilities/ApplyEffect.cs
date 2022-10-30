@@ -23,7 +23,7 @@ public class ApplyEffect : Ability
     {
         foreach (Effect e in effectsToApply)
         {
-            caster.AddEffect(e);
+            caster.AddEffectInstantiate(e);
         }
     }
 }

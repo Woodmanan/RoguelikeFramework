@@ -52,7 +52,7 @@ public class Player : Monster
         return 15;
     }
 
-    public override void GainXP(Monster source, int amount)
+    public override void GainXP(Monster source, float amount)
     {
         while (amount > 0)
         {
