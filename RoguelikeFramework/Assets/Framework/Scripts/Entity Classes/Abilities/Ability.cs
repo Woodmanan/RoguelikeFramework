@@ -60,7 +60,6 @@ public class Ability : ScriptableObject
 
     public void AddEffect(params Effect[] effects)
     {
-        if (connections == null) connections = new Connections(this);
         foreach (Effect e in effects)
         {
             e.Connect(connections);
@@ -72,6 +71,7 @@ public class Ability : ScriptableObject
     public void Setup()
     {
         currentCooldown = 0;
+        if (connections == null) connections = new Connections(this);
         AddEffect(effects.Select(x => x.Instantiate()).ToArray());
     }
 
@@ -95,7 +95,7 @@ public class Ability : ScriptableObject
         }
         if (canCast)
         {
-            foreach (Resources r in Enum.GetValues(typeof(Resources)))
+            foreach (Resources r in costs.dictionary.Keys)
             {
                 if (caster.currentStats[r] < costs[r])
                 {

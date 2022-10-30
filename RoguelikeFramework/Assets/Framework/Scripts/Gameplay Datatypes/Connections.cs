@@ -44,6 +44,7 @@ public class Connections
     public OrderedEvent<float, DamageType, DamageSource> OnDealDamage = new OrderedEvent<float, DamageType, DamageSource>();
     public OrderedEvent<float, DamageType, DamageSource> OnTakeDamage = new OrderedEvent<float, DamageType, DamageSource>();
     public OrderedEvent<float> OnHealing = new OrderedEvent<float>();
+    public OrderedEvent<Item, bool> OnActivateItem = new OrderedEvent<Item, bool>();
     public OrderedEvent<Effect[]> OnApplyStatusEffects = new OrderedEvent<Effect[]>();
     public OrderedEvent<AbilityAction, bool> OnCastAbility = new OrderedEvent<AbilityAction, bool>();
     public OrderedEvent<Stats> OnGainResources = new OrderedEvent<Stats>();

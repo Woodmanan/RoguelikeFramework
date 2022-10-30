@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AbilityAction : GameAction
 {
-    public int abilityIndex;
+    public Ability toCast;
+    int abilityIndex;
 
     //Constuctor for the action; must include caller!
     public AbilityAction(int abilityIndex)
@@ -12,21 +13,21 @@ public class AbilityAction : GameAction
         this.abilityIndex = abilityIndex;
     }
 
+    public AbilityAction(Ability toCast)
+    {
+        this.toCast = toCast;
+    }
+
     //The main function! This EXACT coroutine will be executed, even across frames.
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        #if UNITY_EDITOR
-        if (caller.abilities == null)
+        if (toCast == null)
         {
-            Debug.LogError($"A monster without abilites tried to activate ability {abilityIndex}", caller);
+            Debug.LogError($"Monster {caller.name} tried to cast a null ability.", caller);
+            caller.energy -= 100;
             yield break;
         }
-        #else
-        if (caller.abilities == null) yield break;
-        #endif
-
-        Ability toCast = caller.abilities[abilityIndex];
 
         caller.other = toCast.connections;
         bool keepCasting = true;
@@ -36,6 +37,7 @@ public class AbilityAction : GameAction
         if (!keepCasting)
         {
             caller.other = null;
+            successful = false;
             yield break;
         }
 
@@ -45,6 +47,7 @@ public class AbilityAction : GameAction
         {
             Debug.Log($"You cannot cast {toCast.displayName}, it still has {toCast.currentCooldown} turns left.");
             caller.other = null;
+            successful = false;
             yield break;
         }
 
@@ -85,6 +88,10 @@ public class AbilityAction : GameAction
 
             caller.energy -= 100;
         }
+        else
+        {
+            successful = false;
+        }
 
         caller.other = null;
     }
@@ -93,6 +100,15 @@ public class AbilityAction : GameAction
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()
     {
-
+        #if UNITY_EDITOR
+        if (caller.abilities == null)
+        {
+            Debug.LogError($"A monster without abilites tried to activate ability {abilityIndex}", caller);
+            return;
+        }
+        #else
+        if (caller.abilities == null) return;
+        #endif
+        toCast = caller.abilities[abilityIndex];
     }
 }

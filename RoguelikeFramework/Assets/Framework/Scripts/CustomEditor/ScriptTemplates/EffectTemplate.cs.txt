@@ -70,6 +70,9 @@ public class #SCRIPTNAME# : Effect
     //Called when a monster recieves a healing event request
     //public override void OnHealing(ref float healAmount) {}
 
+    //Called when this monster attempts to activate an item.
+    //public override void OnActivateItem(ref Item item, ref bool canContinue) {}
+
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnApplyStatusEffects(ref Effect[] effects) {}
 
@@ -183,6 +186,7 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnDealDamage.AddListener(100, OnDealDamage);
         connectedTo.OnTakeDamage.AddListener(100, OnTakeDamage);
         connectedTo.OnHealing.AddListener(100, OnHealing);
+        connectedTo.OnActivateItem.AddListener(100, OnActivateItem);
         connectedTo.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
         connectedTo.OnCastAbility.AddListener(100, OnCastAbility);
         connectedTo.OnGainResources.AddListener(100, OnGainResources);
@@ -237,6 +241,7 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
         connectedTo.OnHealing.RemoveListener(OnHealing);
+        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
