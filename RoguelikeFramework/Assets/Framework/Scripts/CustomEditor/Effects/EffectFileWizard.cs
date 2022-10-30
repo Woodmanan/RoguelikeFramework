@@ -37,6 +37,10 @@ public class EffectFileWizard
 
         WriteTemplate(declarations);
 
+        Debug.Log("Base assets updated - triggering rebuild before classes are overwritten");
+
+        AssetDatabase.Refresh();
+
         //Rebuild the class files for each type
         foreach (Type type in GetAllEffectTypes())
         {

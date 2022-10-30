@@ -26,6 +26,14 @@ public class MoveAction : GameAction
     public override IEnumerator TakeAction()
     {
         yield return GameAction.StateCheck;
+        bool canMove = true;
+        caller.connections.OnMoveInitiated.Invoke(ref intendedLocation, ref canMove);
+
+        if (!canMove)
+        {
+            yield break;
+        }
+
         RogueTile tile = Map.current.GetTile(intendedLocation);
         if (tile.IsInteractable())
         {
