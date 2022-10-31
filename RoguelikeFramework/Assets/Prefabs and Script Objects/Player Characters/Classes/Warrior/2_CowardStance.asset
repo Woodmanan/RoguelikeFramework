@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 779de5a3fd747614c8f843c6fb1a6163, type: 3}
-  m_Name: 1_CowardStance
+  m_Name: 2_CowardStance
   m_EditorClassIdentifier: 
   displayName: Stance of the Coward
   image: {fileID: -4912298234137558551, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
@@ -75,4 +75,5 @@ MonoBehaviour:
         ReadyToDelete: 0
         credit: {fileID: 0}
         refundEnergyOnScared: 10
-        percentDamageIncrease: 20
+        percentDamageIncrease: 30
+        percentDamageDecreaseFear: 50

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 779de5a3fd747614c8f843c6fb1a6163, type: 3}
-  m_Name: 2_TurtleStance
+  m_Name: 4_TurtleStance
   m_EditorClassIdentifier: 
   displayName: Stance of the Turtle
   image: {fileID: -7959649932252826357, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}

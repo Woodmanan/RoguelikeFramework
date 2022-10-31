@@ -109,14 +109,12 @@ MonoBehaviour:
   name: Helmet
   plural: Helmets
   CanEquip: 0
-  CanApply: 0
-  CanTarget: 0
+  CanActivate: 0
   CanMelee: 0
   CanRanged: 0
   effects: []
   optionalEffects: []
-  applyable: {fileID: 0}
-  targetable: {fileID: 0}
+  activatable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
@@ -137,8 +135,9 @@ MonoBehaviour:
   primarySlot: 1
   secondarySlots: 
   addedStats:
-    _keys: 
-    _vals: []
+    _keys: 08000000
+    _vals:
+    - 3
   addedEffects:
   - id: 0
   isEquipped: 0

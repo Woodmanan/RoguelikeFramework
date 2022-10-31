@@ -5,16 +5,18 @@ using UnityEngine;
 //[EffectGroup("Sample Group/Sample Subgroup")]
 [Priority(10)]
 [Group("Class Effects/Warrior")]
-public class CowardStance : Effect
+public class BraveryStance : Effect
 {
-    int numMonstersInSight = 0;
-    bool addsExtraDamage = false;
-    bool isAfraid = false;
 
-    public int refundEnergyOnScared;
-    public float percentDamageIncrease;
-    public float percentDamageDecreaseFear;
-    
+    int bravery;
+    public int maxBravery;
+
+    public float percentageToDrop;
+
+    public float armorPerStack;
+    public float evasionPerStack;
+    public float damagePerStack;
+
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -24,7 +26,7 @@ public class CowardStance : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public CowardStance()
+    public BraveryStance()
     {
         //Construct me!
     }
@@ -43,52 +45,53 @@ public class CowardStance : Effect
     //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
-    public override void OnTurnStartLocal()
-    {
-        bool hasSpeed = (numMonstersInSight >= 2);
-        numMonstersInSight = 0;
-        foreach (Monster m in connectedTo.monster.view.visibleMonsters)
-        {
-            if (m.IsEnemy(connectedTo.monster))
-            {
-                numMonstersInSight++;
-            }
-        }
-
-        if (!hasSpeed && (numMonstersInSight >= 2))
-        {
-            Debug.Log("Console: You feel afraid - run away!!");
-        }
-        
-        if (hasSpeed && (numMonstersInSight < 2))
-        {
-            Debug.Log("You slow down.");
-        }
-    }
+    //public override void OnTurnStartLocal() {}
 
     //Called at the end of a monster's turn
     //public override void OnTurnEndLocal() {}
 
-    //Called whenever a monster takes a step
-    public override void OnMove()
-    {
-        if (numMonstersInSight >= 2)
-        {
-            connectedTo.monster.AddEnergy(refundEnergyOnScared);
-        }
-    }
+    //Called whenever a monster wants to take a step.
+    //public override void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
+
+    //Called whenever a monster sucessfully takes a step.
+    //public override void OnMove() {}
 
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}
 
-    //Called when a monster is killed by this unit.
-    //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
-
     //Called when the connected monster dies
     //public override void OnDeath() {}
 
+    //Called when a monster is killed by this unit.
+    public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
+    {
+        Debug.Log($"You feel braver!");
+        bravery++;
+        if (bravery == 1)
+        {
+            Debug.Log("Console: You begin to muster your courage.");
+        }
+        else if (bravery == maxBravery/2)
+        {
+            Debug.Log("Console: You're feeling even braver now. You roar!");
+        }
+        else if (bravery == maxBravery)
+        {
+            Debug.Log("Console: You feel as brave as possible!");
+        }
+
+        if (bravery > maxBravery)
+        {
+            bravery = maxBravery;
+        }
+    }
+
     //Called often, whenever a monster needs up-to-date stats.
-    //public override void RegenerateStats(ref Stats stats) {}
+    public override void RegenerateStats(ref Stats stats)
+    {
+        stats[Resources.AC] += armorPerStack * bravery;
+        stats[Resources.EV] += evasionPerStack * bravery;
+    }
 
     //Called wenever a monster gains energy
     //public override void OnEnergyGained(ref int energy) {}
@@ -97,27 +100,32 @@ public class CowardStance : Effect
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
-    {
-        if (addsExtraDamage && source == DamageSource.MELEEATTACK)
-        {
-            Debug.Log("Adding extra damage!");
-            damage += (damage * percentDamageIncrease / 100f);
-        }
-        else if (isAfraid && source == DamageSource.MELEEATTACK)
-        {
-            damage -= (damage * percentDamageDecreaseFear / 100f);
-        }
-    }
+    //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    [Priority(300)]
+    public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
+    {
+        float currentHealth = connectedTo.monster.currentStats[Resources.HEALTH] - damage;
+        float maxHealth = connectedTo.monster.currentStats[Resources.MAX_HEALTH];
+
+        float percentage = (currentHealth * 100) / maxHealth;
+
+        if (percentage < percentageToDrop)
+        {
+            Debug.Log("Console: Your health has fallen too low. You feel less brave.");
+            bravery = 0;
+        }
+    }
 
     //Called when a monster recieves a healing event request
     //public override void OnHealing(ref float healAmount) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
     //public override void OnApplyStatusEffects(ref Effect[] effects) {}
+
+    //Called when this monster attempts to activate an item.
+    //public override void OnActivateItem(ref Item item, ref bool canContinue) {}
 
     //Called when a spell is cast. Modify spell, or set continue to false in order to cancel the action!
     //public override void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
@@ -165,42 +173,15 @@ public class CowardStance : Effect
     //public override void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
 
     //Called once a primary attack has generated a result. (Before result is used)
-    public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
-    {
-        addsExtraDamage = false;
-        isAfraid = false;
-        if (result == AttackResult.HIT)
-        {
-            int numMonsters = 0;
-            Monster lastMonster = null;
-            for (int i = -1; i <= 1; i++)
-            {
-                for (int j = -1; j <= 1; j++)
-                {
-                    Monster temp = Map.current.GetTile(action.caller.location + new Vector2Int(i, j)).currentlyStanding;
-                    if (temp && temp.IsEnemy(action.caller))
-                    {
-                        numMonsters++;
-                        lastMonster = temp;
-                    }
-                }
-            }
-
-            if (numMonsters == 1 && lastMonster == action.target)
-            {
-                addsExtraDamage = true;
-            }
-            else if (numMonsters > 1)
-            {
-                isAfraid = true;
-            }
-        }
-    }
+    //public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after an attack has completely finished - results are final
     public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
     {
-        addsExtraDamage = false;
+        if (result == AttackResult.HIT)
+        {
+            action.target.Damage(connectedTo.monster, damagePerStack * bravery, DamageType.NONE, DamageSource.EFFECT);
+        }
     }
 
     //Called before a secondary attack happens
@@ -210,7 +191,13 @@ public class CowardStance : Effect
     //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after a seconary attack has completely finished - results are final
-    //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        if (result == AttackResult.HIT)
+        {
+            action.target.Damage(connectedTo.monster, damagePerStack * bravery / 2, DamageType.NONE, DamageSource.EFFECT);
+        }
+    }
 
     //Called when an attack has collected the unarmed slots that it will use.
     //public override void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}
@@ -222,7 +209,13 @@ public class CowardStance : Effect
     //public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
     //Called when an unarmed attack has a determined a result, after that result is used.
-    //public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+    public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result)
+    {
+        if (result == AttackResult.HIT)
+        {
+            action.target.Damage(connectedTo.monster, damagePerStack * bravery / 2, DamageType.NONE, DamageSource.EFFECT);
+        }
+    }
 
     //Called before this monster is hit by a primary attack from another monster.
     //public override void OnBeforePrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
@@ -252,10 +245,11 @@ public class CowardStance : Effect
         connectedTo.OnTurnEndGlobal.AddListener(100, OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
         connectedTo.OnTurnEndLocal.AddListener(100, OnTurnEndLocal);
+        connectedTo.OnMoveInitiated.AddListener(100, OnMoveInitiated);
         connectedTo.OnMove.AddListener(100, OnMove);
         connectedTo.OnFullyHealed.AddListener(100, OnFullyHealed);
-        connectedTo.OnKillMonster.AddListener(100, OnKillMonster);
         connectedTo.OnDeath.AddListener(100, OnDeath);
+        connectedTo.OnKillMonster.AddListener(100, OnKillMonster);
         connectedTo.RegenerateStats.AddListener(100, RegenerateStats);
         connectedTo.OnEnergyGained.AddListener(100, OnEnergyGained);
         connectedTo.OnAttacked.AddListener(100, OnAttacked);
@@ -263,6 +257,7 @@ public class CowardStance : Effect
         connectedTo.OnTakeDamage.AddListener(100, OnTakeDamage);
         connectedTo.OnHealing.AddListener(100, OnHealing);
         connectedTo.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
+        connectedTo.OnActivateItem.AddListener(100, OnActivateItem);
         connectedTo.OnCastAbility.AddListener(100, OnCastAbility);
         connectedTo.OnGainResources.AddListener(100, OnGainResources);
         connectedTo.OnGainXP.AddListener(100, OnGainXP);
@@ -306,10 +301,11 @@ public class CowardStance : Effect
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
         connectedTo.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        connectedTo.OnMoveInitiated.RemoveListener(OnMoveInitiated);
         connectedTo.OnMove.RemoveListener(OnMove);
         connectedTo.OnFullyHealed.RemoveListener(OnFullyHealed);
-        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
         connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
         connectedTo.OnAttacked.RemoveListener(OnAttacked);
@@ -317,6 +313,7 @@ public class CowardStance : Effect
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
         connectedTo.OnHealing.RemoveListener(OnHealing);
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
         connectedTo.OnGainXP.RemoveListener(OnGainXP);

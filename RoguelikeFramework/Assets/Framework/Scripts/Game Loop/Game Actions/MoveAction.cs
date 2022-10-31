@@ -117,6 +117,7 @@ public class MoveAction : GameAction
         caller.willSwap = true;
 
         caller.SetPosition(intendedLocation);
+        caller.UpdateLOS();
 
         //Add the movement anim
         if (animates && caller.renderer.enabled)
@@ -141,8 +142,6 @@ public class MoveAction : GameAction
             }
             yield return GameAction.AbortAll;
         }
-
-        caller.UpdateLOS();
     }
 
     //Called after construction, but before execution!

@@ -63,6 +63,8 @@ public class Monster : MonoBehaviour
 
     private bool spriteDir;
 
+    bool dead = false;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -165,26 +167,6 @@ public class Monster : MonoBehaviour
         return true;
     }
 
-
-    private void Damage(float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
-    {
-        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
-        baseStats[HEALTH] -= damage;
-
-        //Loggingstuff
-        string toPrint = FormatStringForName(message).Replace("{damage}", $"{damage}");
-        //Debug.Log($"Console print: {toPrint}");
-
-        if (baseStats[HEALTH] <= 0)
-        {
-            connections.OnDeath.BlendInvoke(other?.OnDeath);
-            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
-            {
-                Die();
-            }
-        }
-    }
-
     public void Damage(Monster dealer, float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
         if (dealer == null)
@@ -193,7 +175,8 @@ public class Monster : MonoBehaviour
         }
         dealer?.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
 
-        Damage(damage, type, source, message);
+        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
+        baseStats[HEALTH] -= damage;
 
         //Quick hacky fix - Make this always true!
         if (dealer != null)
@@ -202,15 +185,21 @@ public class Monster : MonoBehaviour
         }
         
 
-        if (baseStats[HEALTH] <= 0)
+        if (baseStats[HEALTH] <= 0 && !dead)
         {
-            dealer?.KillMonster(this, type, source);
+            connections.OnDeath.BlendInvoke(other?.OnDeath);
+            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
+            {
+                Die();
+                dealer?.KillMonster(this, type, source);
+            }
         }
     }
 
 
     public virtual void Die()
     {
+        dead = true;
         Debug.Log("Monster is dead!");
 
         //Clear tile, so other systems don't try to use a dead monster
