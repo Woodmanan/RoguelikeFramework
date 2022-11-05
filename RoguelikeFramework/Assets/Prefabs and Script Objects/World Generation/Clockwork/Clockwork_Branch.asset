@@ -32,7 +32,7 @@ MonoBehaviour:
   - id: 1
   - id: 2
   overrides: []
-  tiles: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
+  tiles: {fileID: 11400000, guid: 5f89280c4465fd74aa7a038922f300ff, type: 2}
   entryTile: {fileID: 3072715883528071421, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   exitTile: {fileID: 8621634034822304618, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   tables:
@@ -50,7 +50,7 @@ MonoBehaviour:
     types: []
   usesCustomSpawnInfo: 0
   monsterTables:
-  - {fileID: 11400000, guid: dd51a2be4a3feb84e8554dfc4d5f8726, type: 2}
+  - {fileID: 11400000, guid: bb905439f902c7047b612d92279898e6, type: 2}
   numMonstersPerLevel:
     rngType: 1
     min: 20
@@ -73,14 +73,15 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        numRooms: 10
-        attemptsPerRoom: 30
+        numRooms: 15
+        attemptsPerRoom: 50
         rooms:
         - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
-        - {fileID: 11400000, guid: 7b7924bc9153dc342bef1c1c6018ec26, type: 2}
-        - {fileID: 11400000, guid: b8ebb937392d1a1449655cc5fb6ef03f, type: 2}
-        - {fileID: 11400000, guid: b7673ec1cb2b14a42951ab5700c5fa81, type: 2}
         - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
+        - {fileID: 11400000, guid: e88b813664ab22a4ca3b2d8c885cd728, type: 2}
+        - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
+        - {fileID: 11400000, guid: 972fe2d7f02a39f48940c9e5a7a3b1ea, type: 2}
+        - {fileID: 11400000, guid: bb7aa3f79d6ebed4c9a3aea8c02f4381, type: 2}
         placedRooms: []
     00000001:
       type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}
@@ -104,5 +105,8 @@ MonoBehaviour:
         canExpand: 1
         systems:
         - id: 3
+        - id: 4
     00000003:
       type: {class: ConveyorSystem, ns: , asm: Assembly-CSharp}
+    00000004:
+      type: {class: PowerSystem, ns: , asm: Assembly-CSharp}

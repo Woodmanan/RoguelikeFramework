@@ -24,6 +24,8 @@ public class Monster : MonoBehaviour
     public int minDepth;
     public int maxDepth;
 
+    [SerializeReference]
+    public List<Effect> baseEffects;
 
     [Header("Runtime Attributes")]
     public float energy;
@@ -95,6 +97,8 @@ public class Monster : MonoBehaviour
         controller?.Setup();
 
         spriteDir = GetComponent<SpriteRenderer>().flipX;
+
+        AddEffectInstantiate(baseEffects.ToArray());
 
         setup = true;
     }

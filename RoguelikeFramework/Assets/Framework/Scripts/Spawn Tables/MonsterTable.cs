@@ -39,7 +39,7 @@ public class MonsterTable : ScriptableObject
 
     public Monster RandomMonsterByDepth(int depth)
     {
-        if (Random.Range(0.0f, 99.99f) > chanceForUnique)
+        if (Random.Range(0.0f, 99.99f) < chanceForUnique)
         {
             return SpawnUniqueMonster(depth);
         }

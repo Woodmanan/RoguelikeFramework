@@ -69,6 +69,18 @@ public class Room : ScriptableObject
         this.center = start + (size/2);
     }
 
+    public bool Contains(Vector2Int spot)
+    {
+        if (spot.x >= start.x && spot.x < end.x && spot.y >= start.y && spot.y < end.y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool Overlaps(Room other)
     {
         //Rectangle Magic

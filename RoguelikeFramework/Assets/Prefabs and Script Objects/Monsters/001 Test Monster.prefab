@@ -51,7 +51,7 @@ MonoBehaviour:
     _keys: 01000000030000000500000006000000
     _vals:
     - 20
-    - 100
+    - 20
     - 1
     - 1
   currentStats:
@@ -63,6 +63,8 @@ MonoBehaviour:
   ID: 0
   minDepth: 0
   maxDepth: 30
+  baseEffects:
+  - id: 0
   energy: 0
   location: {x: 15, y: 44}
   visionRadius: 8
@@ -77,6 +79,20 @@ MonoBehaviour:
   willSwap: 0
   XPFromKill: 1
   level: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: PoweredUp, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        range: 5
+        addedStats:
+          _keys: 08000000
+          _vals:
+          - 100
+        addedEnergy: 50
+        energyRefundPerStep: 50
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0
