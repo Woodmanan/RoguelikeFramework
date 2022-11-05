@@ -13,6 +13,7 @@ using System;
  *  - Monster collection. Inverse idea, monsters are the points and we want to be able to 
  *    query how many of them are near X point or in Y box.
  */
+
 public class Quadtree<T>
 {
     public Quadtree<T> SE;
@@ -88,6 +89,12 @@ public class Quadtree<T>
         return rect.Overlaps(newRect);
     }
 
+    //Extremely clever idea - clamp center of circle to nearest spot in rectangle. Compute distance. Done.
+    public bool Overlaps(Vector2 circleCenter, float circleRadiusSquared)
+    {
+        return rect.Overlaps(circleCenter, circleRadiusSquared);
+    }
+
     public void BuildChildren()
     {
         Rect working = rect;
@@ -159,6 +166,51 @@ public class Quadtree<T>
         }
     }
 
+    public List<T> GetItemsIn(Vector2 center, float radius)
+    {
+        List<T> itemsOut = new List<T>();
+        GetItemsIn(ref itemsOut, center, radius * radius);
+        return itemsOut;
+    }
+
+    public void GetItemsIn(ref List<T> current, Vector2 center, float radiusSquared)
+    {
+        for (int i = 0; i < held; i++)
+        {
+            (T item, Rect rect) = contained[i];
+            if (rect.Overlaps(center, radiusSquared))
+            {
+                current.Add(item);
+            }
+        }
+
+        if (SE == null)
+        {
+            return;
+        }
+
+        if (SE.Overlaps(center, radiusSquared))
+        {
+            SE.GetItemsIn(ref current, center, radiusSquared);
+        }
+
+        if (SW.Overlaps(center, radiusSquared))
+        {
+            SW.GetItemsIn(ref current, center, radiusSquared);
+        }
+
+        if (NE.Overlaps(center, radiusSquared))
+        {
+            NE.GetItemsIn(ref current, center, radiusSquared);
+        }
+
+        if (NW.Overlaps(center, radiusSquared))
+        {
+            NW.GetItemsIn(ref current, center, radiusSquared);
+        }
+    }
+
+
     public int GetDepth()
     {
         if (SW == null)
@@ -167,5 +219,19 @@ public class Quadtree<T>
         }
 
         return Mathf.Max(SW.GetDepth(), SE.GetDepth(), NE.GetDepth(), NW.GetDepth()) + 1;
+    }
+}
+
+public static class RectExtensions
+{
+    public static bool Overlaps(this Rect rect, Vector2 circleCenter, float circleRadiusSquared)
+    {
+        Vector2 nearest = new Vector2(
+                     Mathf.Clamp(circleCenter.x, rect.xMin, rect.xMax),  //Clamped X
+                     Mathf.Clamp(circleCenter.y, rect.yMin, rect.yMax)); //Clamped Y
+
+        nearest = nearest - circleCenter;
+
+        return (nearest.sqrMagnitude <= circleRadiusSquared);
     }
 }

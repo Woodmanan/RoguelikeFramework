@@ -260,5 +260,125 @@ namespace Tests
                 UnityEngine.Debug.Log($"Size {size} is depth {lastDepth}");
             }
         }
+
+        [Test]
+        public void FindSingleItemCircle()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Quadtree<int> testTree = new Quadtree<int>(new Rect(Vector2.zero, Vector2.one * 100));
+                Vector2 spot = new Vector2(Random.Range(0, 99), Random.Range(0, 99));
+                Rect itemRect = new Rect(spot, Vector2.one);
+                spot += Vector2.one / 2;
+                testTree.Insert(0, itemRect);
+
+                List<int> items = testTree.GetItemsIn(spot, .5f);
+                Assert.AreEqual(items.Count, 1);
+                Assert.AreEqual(items[0], 0);
+            }
+        }
+
+        [Test]
+        public void TestRectIntersections()
+        {
+            Rect rect = new Rect(Vector2.zero, 20 * Vector2.one);
+
+            //All inside
+            for (int i = 0; i < 10000; i++)
+            {
+                float rad = 10 * Random.value;
+                float x = Random.Range(rect.xMin, rect.xMax);
+                float y = Random.Range(rect.yMin, rect.yMax);
+                float radians = 2 * Mathf.PI * Random.value;
+                Vector2 offset = new Vector2(Mathf.Sin(radians), Mathf.Cos(radians)) * rad;
+                Vector2 center = new Vector2(x, y) + offset;
+
+                
+                if (!rect.Overlaps(center, rad * rad))
+                {
+                    UnityEngine.Debug.Log($"Circle: {center} with rad {rad}");
+                }
+
+                Assert.IsTrue(rect.Overlaps(center, rad*rad));
+            }
+
+            for (int i = 0; i < 1000; i++)
+            {
+                float rad = 5f;
+                Vector2 center = new Vector2((105.1f + i), Random.Range(0, 20));
+                Assert.IsFalse(rect.Overlaps(center, rad * rad));
+            }
+
+            for (int i = 0; i < 1000; i++)
+            {
+                float rad = 5f;
+                Vector2 center = new Vector2(Random.Range(0, 20), (105.1f + i));
+                Assert.IsFalse(rect.Overlaps(center, rad * rad));
+            }
+        }
+
+        [Test]
+        public void GetsCircleAnswersRandom()
+        {
+            int itemCount = 1000;
+            int testCount = 100;
+
+            (int, Rect)[] held = new (int, Rect)[itemCount];
+            Quadtree<int> testTree = new Quadtree<int>(new Rect(Vector2.zero, Vector2.one * 100));
+            for (int i = 0; i < itemCount; i++)
+            {
+                Vector2 size = new Vector2(Random.Range(0.1f, 100), Random.Range(0.1f, 100));
+                Vector2 pos = new Vector2(Random.Range(0, 100 - size.x), Random.Range(0, 100 - size.y));
+                Rect itemRect = new Rect(pos, size);
+                testTree.Insert(i, itemRect);
+                held[i] = (i, itemRect);
+            }
+
+            for (int i = 0; i < testCount; i++)
+            {
+                float rad = Random.Range(0, 100f);
+                Vector2 Center = new Vector2(Random.Range(rad, 100 - rad), Random.Range(rad, 100 - rad));
+
+                int numFound = testTree.GetItemsIn(Center, rad).Count;
+                int actual = 0;
+                foreach ((int j, Rect rect) in held)
+                {
+                    if (rect.Overlaps(Center, rad * rad)) actual++;
+                }
+                Assert.IsTrue(numFound == actual, $"Expected {actual} but got {numFound}");
+            }
+        }
+
+        [Test]
+        public void GetsCircleAnswersAverageCase()
+        {
+            int itemCount = 250;
+            int testCount = 20;
+
+            (int, Rect)[] held = new (int, Rect)[itemCount];
+            Quadtree<int> testTree = new Quadtree<int>(new Rect(Vector2.zero, Vector2.one * 100));
+            for (int i = 0; i < itemCount; i++)
+            {
+                Vector2 size = new Vector2(Random.Range(0.1f, 100), Random.Range(0.1f, 100));
+                Vector2 pos = new Vector2(Random.Range(0, 100 - size.x), Random.Range(0, 100 - size.y));
+                Rect itemRect = new Rect(pos, size);
+                testTree.Insert(i, itemRect);
+                held[i] = (i, itemRect);
+            }
+
+            for (int i = 0; i < testCount; i++)
+            {
+                float rad = Random.Range(0, 10f);
+                Vector2 Center = new Vector2(Random.Range(rad, 100 - rad), Random.Range(rad, 100 - rad));
+
+                int numFound = testTree.GetItemsIn(Center, rad).Count;
+                int actual = 0;
+                foreach ((int j, Rect rect) in held)
+                {
+                    if (rect.Overlaps(Center, rad * rad)) actual++;
+                }
+                Assert.IsTrue(numFound == actual, $"Expected {actual} but got {numFound}");
+            }
+        }
     }
 }
