@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
-  m_Name: Clockwork_Branch
+  m_Name: Nightmare_Branch
   m_EditorClassIdentifier: 
   requirements: []
   antiRequirements: []
-  branchName: Clockwork
-  branchDepth: 1
+  branchName: Nightmare
+  branchDepth: 3
   numberOfLevels: 3
   ConnectionsPerFloor:
     rngType: 0
@@ -30,16 +30,8 @@ MonoBehaviour:
   machines:
   - id: 0
   - id: 1
-  - id: 2
-  overrides:
-  - name: Add Secret
-    level: 2
-    type: 0
-    machines:
-    - id: 3
-    deleteIndex: 0
-    resize: {x: 0, y: 0}
-  tiles: {fileID: 11400000, guid: 5f89280c4465fd74aa7a038922f300ff, type: 2}
+  overrides: []
+  tiles: {fileID: 11400000, guid: 97a8b1b8629f68b4a9c65272404c6ab9, type: 2}
   entryTile: {fileID: 3072715883528071421, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   exitTile: {fileID: 8621634034822304618, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   tables:
@@ -57,7 +49,7 @@ MonoBehaviour:
     types: []
   usesCustomSpawnInfo: 0
   monsterTables:
-  - {fileID: 11400000, guid: bb905439f902c7047b612d92279898e6, type: 2}
+  - {fileID: 11400000, guid: a19f6ecfd8d49b044a46b3ab35f6627d, type: 2}
   numMonstersPerLevel:
     rngType: 1
     min: 20
@@ -86,13 +78,9 @@ MonoBehaviour:
         rooms:
         - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
         - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
-        - {fileID: 11400000, guid: e88b813664ab22a4ca3b2d8c885cd728, type: 2}
-        - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
-        - {fileID: 11400000, guid: 972fe2d7f02a39f48940c9e5a7a3b1ea, type: 2}
-        - {fileID: 11400000, guid: bb7aa3f79d6ebed4c9a3aea8c02f4381, type: 2}
         placedRooms: []
     00000001:
-      type: {class: ClockConnectMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}
       data:
         priority: 1
         global: 1
@@ -101,32 +89,3 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-    00000002:
-      type: {class: SystemMachine, ns: , asm: Assembly-CSharp}
-      data:
-        priority: 2
-        global: 1
-        size: {x: 0, y: 0}
-        start: {x: 0, y: 0}
-        end: {x: 0, y: 0}
-        canShareSpace: 1
-        canExpand: 1
-        systems:
-        - id: 4
-        - id: 5
-    00000003:
-      type: {class: ClockSecretMachine, ns: , asm: Assembly-CSharp}
-      data:
-        priority: -1
-        global: 1
-        size: {x: 0, y: 0}
-        start: {x: 0, y: 0}
-        end: {x: 0, y: 0}
-        canShareSpace: 1
-        canExpand: 1
-        secretRoom: {fileID: 11400000, guid: d24df9f0a9a41274aa67e3e977493a8f, type: 2}
-        attempts: 100
-    00000004:
-      type: {class: ConveyorSystem, ns: , asm: Assembly-CSharp}
-    00000005:
-      type: {class: PowerSystem, ns: , asm: Assembly-CSharp}

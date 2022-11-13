@@ -28,6 +28,7 @@ public class CharacterSelectController : MonoBehaviour
     public WorldGenerator chosenGenerator;
     public List<string> generationOptions;
     public LoadingScreen loadingScreen;
+    public string startAt;
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +72,7 @@ public class CharacterSelectController : MonoBehaviour
         }
 
         LevelLoader.singleton.worldGen = chosenGenerator;
+        LevelLoader.singleton.startAt = startAt;
         LevelLoader.singleton.BeginGeneration();
 
         GameController.singleton.StartGame();

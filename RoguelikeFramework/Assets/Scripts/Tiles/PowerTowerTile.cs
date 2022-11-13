@@ -5,6 +5,8 @@ using UnityEngine;
 public class PowerTowerTile : InteractableTile
 {
     public bool powered = true;
+    public Color poweredSprite;
+    public Color unpoweredSprite;
 
     public override IEnumerator Interact(Monster caller)
     {
@@ -24,6 +26,9 @@ public class PowerTowerTile : InteractableTile
                     Debug.Log("Console: The tower powers down with a whir.");
                 }
             }
+
+            this.color = powered ? poweredSprite : unpoweredSprite;
+            GetComponent<SpriteRenderer>().color = color;
         }
 
         yield break;

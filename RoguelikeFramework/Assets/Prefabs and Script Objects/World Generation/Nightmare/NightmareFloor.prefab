@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7376377351548235660}
-  - component: {fileID: -1848569008523798999}
   - component: {fileID: 7376377351548235661}
+  - component: {fileID: 3977412762327374224}
   - component: {fileID: -6831686445137475804}
   - component: {fileID: 419063275136374686}
   m_Layer: 0
-  m_Name: PowerTower
+  m_Name: NightmareFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,56 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1848569008523798999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7376377351548235659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6eb1c1864b87145ab9ca6a529be490, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisible: 0
-  isHidden: 1
-  dirty: 1
-  location: {x: 0, y: 0}
-  name: Power Tower
-  description: The source of energy for all clockworks. Don't let them get too close,
-    or they'll power up!
-  movementCost: -1
-  blocksVision: 0
-  color: {r: 0, g: 0.83271813, b: 1, a: 1}
-  currentlyStanding: {fileID: 0}
-  inventory: {fileID: 0}
-  useQuery:
-    outOf: 2
-    terms:
-    - subject: 0
-      subjectMod: 5
-      subjectCount: 2
-      property: 1
-      resource: 0
-      equality: 3
-      value: 1
-      valueMod: 0
-      weight: 1
-    - subject: 1
-      subjectMod: 5
-      subjectCount: 2
-      property: 0
-      resource: 0
-      equality: 1
-      value: 50
-      valueMod: 1
-      weight: 1
-  allowOutOfCombat: 1
-  allowInCombat: 1
-  powered: 1
-  poweredSprite: {r: 0, g: 0.8313726, b: 1, a: 1}
-  unpoweredSprite: {r: 0.54, g: 0.19364162, b: 0.18306, a: 1}
 --- !u!212 &7376377351548235661
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -124,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8663514251956507084, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0, g: 0.83271813, b: 1, a: 1}
+  m_Sprite: {fileID: -8882469605151552031, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  m_Color: {r: 0.56097555, g: 0.3140244, b: 0.625, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,6 +85,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3977412762327374224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376377351548235659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da0b7a4db942924397aecdb4c2eaf2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isVisible: 0
+  isHidden: 1
+  dirty: 1
+  location: {x: 0, y: 0}
+  name: Floor
+  description: Ah yes, the floor here is made of floor.
+  movementCost: 1
+  blocksVision: 0
+  color: {r: 0.56097555, g: 0.3140244, b: 0.625, a: 1}
+  currentlyStanding: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &-6831686445137475804
 MonoBehaviour:
   m_ObjectHideFlags: 0

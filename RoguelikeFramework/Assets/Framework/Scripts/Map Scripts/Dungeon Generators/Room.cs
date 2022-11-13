@@ -15,6 +15,7 @@ public class Room : ScriptableObject
     [HideInInspector] public Vector2Int end;
     [HideInInspector] public bool connected = false;
     [HideInInspector] public Vector2Int center;
+    [HideInInspector] public Vector2Int outermostPoint;
     
     public void Write(DungeonGenerator generator)
     {
@@ -67,6 +68,18 @@ public class Room : ScriptableObject
         this.start = start;
         this.end = start + size;
         this.center = start + (size/2);
+        this.outermostPoint = center;
+    }
+
+    public void CalculateOutermostPoint(Vector2Int mapBounds)
+    {
+        Vector2Int mapCenter = mapBounds / 2;
+        Vector2Int clampedCenter = new Vector2Int(
+            Mathf.Clamp(mapCenter.x, start.x, end.x - 1),
+            Mathf.Clamp(mapCenter.y, start.y, end.y - 1));
+
+        //Mathimagic - reflects clamped center over center point.
+        outermostPoint = 2 * center - clampedCenter;
     }
 
     public bool Contains(Vector2Int spot)

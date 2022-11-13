@@ -12,6 +12,7 @@ public class MonsterAI : ActionController
     public Query fightQuery;
     [HideInInspector] public bool isInBattle = false;
 
+    public bool willExplore = true;
     public float interactionRange;
     public bool ranged = false;
     public int minRange = 0;
@@ -63,8 +64,8 @@ public class MonsterAI : ActionController
                 choices.Enqueue(2, 1f - .8f);
             }
 
-            //Wait for 60 turns on avg, then go explore
-            if (UnityEngine.Random.Range(0, 60) == 0)
+            //Wait for 120 turns on avg, then go explore
+            if (willExplore && UnityEngine.Random.Range(0, 120) == 0)
             {
                 choices.Enqueue(3, 1f - .7f);
             }

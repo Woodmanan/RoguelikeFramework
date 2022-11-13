@@ -11,10 +11,18 @@ using UnityEngine;
  * too much and was never used anyways. Having just two uses instead of three makes things a lot
  * more manageable, and should impose a healthy constraint on the design.
  */
-
+[System.Flags]
+public enum ActivateType
+{
+    Ability = 1 << 0,
+    Effect  = 1 << 1
+}
 public class ActivatableItem : MonoBehaviour
 {
+    public ActivateType activateType;
     public Ability abilityOnActivation;
+    [SerializeReference]
+    public List<Effect> activationEffects;
     public bool ConsumedOnUse;
 
     // Start is called before the first frame update
