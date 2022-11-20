@@ -273,7 +273,7 @@ public class Monster : MonoBehaviour
     public bool IsDead()
     {
         //Oops, this must be <= 0, Sometimes people can overkill!
-        return baseStats[HEALTH] <= 0;
+        return dead || baseStats[HEALTH] <= 0;
     }
 
     private string FormatStringForName(string msg)

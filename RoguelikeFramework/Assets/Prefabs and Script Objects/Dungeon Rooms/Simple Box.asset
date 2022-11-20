@@ -14,20 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 7, y: 7}
   acceptsStairs: 1
-  layout: '0000000
+  layout: '1111111
 
-    0111110
+    1111111
 
-    0111110
+    1111111
 
-    0111110
+    1110111
 
-    0111110
+    1111111
 
-    0111110
+    1111111
 
-    0000000'
-  start: {x: 0, y: 0}
-  end: {x: 0, y: 0}
+    1111111'
+  start: {x: 2, y: 39}
+  end: {x: 9, y: 46}
   connected: 0
-  center: {x: 0, y: 0}
+  center: {x: 5, y: 42}
+  outermostPoint: {x: 5, y: 42}

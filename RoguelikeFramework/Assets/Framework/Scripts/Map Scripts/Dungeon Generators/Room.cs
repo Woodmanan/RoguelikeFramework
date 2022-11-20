@@ -16,7 +16,16 @@ public class Room : ScriptableObject
     [HideInInspector] public bool connected = false;
     [HideInInspector] public Vector2Int center;
     [HideInInspector] public Vector2Int outermostPoint;
-    
+
+
+    public Room() { }
+
+    public Room(Rect r)
+    {
+        size = new Vector2Int((int)r.width, (int)r.height);
+        SetPosition(new Vector2Int((int)r.x, (int)r.y));
+    }
+
     public void Write(DungeonGenerator generator)
     {
         layout = layout.Replace("\n", "");
@@ -114,7 +123,7 @@ public class Room : ScriptableObject
     {
         for (int attempt = 0; attempt < 100; attempt++)
         {
-            Vector2Int spot = new Vector2Int(Random.Range(start.x, end.x), Random.Range(start.y, end.y));
+            Vector2Int spot = new Vector2Int(Random.Range(start.x, end.x - 1), Random.Range(start.y, end.y - 1));
             if (map[spot.x, spot.y] == type)
             {
                 return spot;

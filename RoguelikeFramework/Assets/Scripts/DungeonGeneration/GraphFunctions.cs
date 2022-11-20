@@ -97,6 +97,12 @@ public class GraphFunctions
 
     public static List<Edge> GetMinimumSpanningTree(int nodes, List<Edge> edges)
     {
+        List<Edge> unused = null;
+        return GetMinimumSpanningTree(nodes, edges, ref unused);
+    }
+
+    public static List<Edge> GetMinimumSpanningTree(int nodes, List<Edge> edges, ref List<Edge> unused)
+    {
         List<Edge> MST = new List<Edge>();
 
         //Construct working set, sorted by weight
@@ -115,6 +121,13 @@ public class GraphFunctions
                 //Connect parents to one node, so we know they're in the same tree
                 parents[GetParent(edge.one, ref parents)] = GetParent(edge.two, ref parents);
             }
+            else
+            {
+                if (unused != null)
+                {
+                    unused.Add(edge);
+                }
+            }
         }
 
         return MST;
@@ -132,5 +145,43 @@ public class GraphFunctions
         //Optimization - skip us up the ladder, so we're O(1) next time without an update.
         parents[index] = workingIndex;
         return workingIndex;
+    }
+
+    public static bool Overlaps(Edge one, Edge two, ref List<Room> nodes)
+    {
+        Vector2Int p = nodes[one.one].center;
+        Vector2Int r = nodes[one.two].center - p;
+
+        Vector2Int q = nodes[two.one].center;
+        Vector2Int s = nodes[two.two].center - q;
+
+        Vector2Int qmp = q - p;
+
+        float rxs = r.Cross(s);
+        float qmpxr = qmp.Cross(r);
+        float qmpxs = qmp.Cross(s);
+
+        if (rxs == 0)
+        {
+            if (qmpxr == 0)
+            {
+                //Colinear! Any overlap means an intersection now.
+                Rect bboxOne = new Rect(p, r);
+                Rect bboxTwo = new Rect(q, s);
+                return bboxOne.Overlaps(bboxTwo);
+            }
+            else
+            {
+                //Parallel and non-intersecting
+                return false;
+            }
+        }
+        else
+        {
+            float t = qmpxs / rxs;
+            float u = qmpxr / rxs;
+
+            return (t > 0 && t < 1 && u > 0 && u < 1);
+        }
     }
 }

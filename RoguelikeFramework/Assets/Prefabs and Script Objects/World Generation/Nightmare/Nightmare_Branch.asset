@@ -26,7 +26,7 @@ MonoBehaviour:
     min: 0
     max: 0
   oneWay: 0
-  size: {x: 70, y: 70}
+  size: {x: 50, y: 50}
   machines:
   - id: 0
   - id: 1
@@ -52,8 +52,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a19f6ecfd8d49b044a46b3ab35f6627d, type: 2}
   numMonstersPerLevel:
     rngType: 1
-    min: 20
-    max: 25
+    min: 0
+    max: 0
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      type: {class: BSPMachine, ns: , asm: Assembly-CSharp}
       data:
         priority: 0
         global: 1
@@ -72,15 +72,14 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        numRooms: 15
-        attemptsPerRoom: 50
-        requiredRooms: []
-        rooms:
-        - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
-        - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
-        placedRooms: []
+        maxWidth: 1
+        MaxDepth: 3
+        chanceForHallway: 0
+        minHallwayConnects: 4
+        roomsToAdd:
+        - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
     00000001:
-      type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SystemMachine, ns: , asm: Assembly-CSharp}
       data:
         priority: 1
         global: 1
@@ -89,3 +88,23 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
+        systems:
+        - id: 2
+    00000002:
+      type: {class: NightmareSystem, ns: , asm: Assembly-CSharp}
+      data:
+        MonsterToSpawn: {fileID: 4402800733788238304, guid: ee6bbaad475e16c4e8284bf218dd6fc9, type: 3}
+        timeBetweenSummons:
+          rngType: 1
+          min: 100
+          max: 140
+        summonWarningAt: 15
+        nightmareLifetime:
+          rngType: 1
+          min: 15
+          max: 30
+        lifetimeWarningAt: 5
+        messageEvery:
+          rngType: 1
+          min: 40
+          max: 80

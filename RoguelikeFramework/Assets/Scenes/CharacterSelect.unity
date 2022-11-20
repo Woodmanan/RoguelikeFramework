@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_text: 'The standard tower.
 
 
-    Only floors 1-3 right now, sorry D:'
+    Only floors 1-6 right now.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2606,7 +2606,7 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 0
+  startAt: 3
 --- !u!1 &1487906435
 GameObject:
   m_ObjectHideFlags: 0

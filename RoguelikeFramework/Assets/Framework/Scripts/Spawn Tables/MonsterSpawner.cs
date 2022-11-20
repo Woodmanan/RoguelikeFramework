@@ -126,7 +126,24 @@ public class MonsterSpawner : MonoBehaviour
             monster.location = pos;
             monster.transform.parent = m.monsterContainer;
             monster.level = m.depth;
+
         }
+    }
+
+    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map)
+    {
+        map.monsters.Add(monster);
+        monster.location = location;
+        monster.transform.parent = map.monsterContainer;
+        monster.level = map.depth;
+        monster.Setup();
+        monster.PostSetup(Map.current);
+        return monster;
+    }
+
+    public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map)
+    {
+        return SpawnMonster(monster.Instantiate(), location, map);
     }
 
     public Monster GetMonsterFromBranchAndDepth(Branch branch, int depth)

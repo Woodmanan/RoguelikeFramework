@@ -54,6 +54,15 @@ public class StairPlacer
                 roomsToConnect.Add(r);
             }
         }
+        
+        if (roomsToConnect.Count == 0)
+        {
+            Debug.LogError("You must have some rooms for stairs! Adding in a backup.");
+            Room room = new Room();
+            room.size = generator.bounds;
+            room.SetPosition(Vector2Int.zero);
+            roomsToConnect.Add(room);
+        }
 
         //Shuffle!
         roomsToConnect = roomsToConnect.OrderBy(x => UnityEngine.Random.Range(int.MinValue, int.MaxValue)).ToList();
