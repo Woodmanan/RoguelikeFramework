@@ -165,6 +165,7 @@ public class Effect
 
     public virtual void OnConnection() {}
     public virtual void OnDisconnection() {}
+    public virtual void OnStack(Effect other, ref bool addThisEffect) {}
 
     //AUTO DECLARATIONS
 

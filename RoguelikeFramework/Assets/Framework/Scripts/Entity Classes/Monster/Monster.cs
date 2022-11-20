@@ -449,8 +449,12 @@ public class Monster : MonoBehaviour
         for (int i = 0; i < effectsToAdd.Length; i++)
         {
             Effect e = effectsToAdd[i];
-            e.Connect(this.connections);
-            effects.Add(e);
+            int index = DetermineBestIndex(e);
+            if (index > 0)
+            {
+                e.Connect(this.connections);
+                effects.Insert(index, e);
+            }
         }
     }
 
@@ -459,6 +463,46 @@ public class Monster : MonoBehaviour
         Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
 
         AddEffect(instEffects);
+
+    }
+
+    public int DetermineBestIndex(Effect effect)
+    {
+        //TODO: do this a better way.
+        int index = effects.Select(x => x.GetType().FullName).ToList().BinarySearch(effect.GetType().FullName);
+        if (index < 0) index = ~index;
+        bool shouldContinue = true;
+
+        //Search backwards for matching candidate
+        for (int i = index - 1; i >= 0; i++)
+        {
+            Effect other = effects[i];
+            if (other.GetType() != effect.GetType())
+            {
+                break;
+            }
+            effect.OnStack(other, ref shouldContinue);
+            if (!shouldContinue) return -1;
+        }
+
+        //Search forwards
+        for (int i = index; i < effects.Count; i++)
+        {
+            Effect other = effects[i];
+            if (other.GetType() != effect.GetType())
+            {
+                break;
+            }
+            effect.OnStack(other, ref shouldContinue);
+            if (!shouldContinue) return -1;
+        }
+
+        return index;
+    }
+
+    public int Compare(Effect a, Effect b)
+    {
+        return a.GetType().FullName.CompareTo(b.GetType().FullName);
     }
 
     //TODO: Add cost of moving from on spot to another
