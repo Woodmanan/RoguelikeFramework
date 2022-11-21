@@ -2,20 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[Group("Branch/Clockwork")]
+[Group("Branch/Nightmare")]
 [Priority(10)]
-public class PoweredUp : Effect
+public class SummonNightmare : Effect
 {
-    PowerSystem system;
-    PowerTowerTile tower;
-    bool isPowered;
-    public float range;
-
-    public Stats addedStats;
-    public int addedEnergy;
-    public int energyRefundPerStep;
-    public int addedDamage;
-
+    public int numTicks;
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -25,7 +16,7 @@ public class PoweredUp : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public PoweredUp()
+    public SummonNightmare()
     {
         //Construct me!
     }
@@ -37,6 +28,9 @@ public class PoweredUp : Effect
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
 
+    //Called when an effect "Clashes" with an effect of the same type
+    /* public override void OnStack(Effect other, ref bool addThisEffect) {} */
+
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
 
@@ -44,39 +38,7 @@ public class PoweredUp : Effect
     //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
-    public override void OnTurnStartLocal()
-    {
-        if (system == null)
-        {
-            foreach (DungeonSystem mapSystem in Map.current.mapSystems)
-            {
-                system = mapSystem as PowerSystem;
-                if (system != null) break;
-            }
-        }
-
-        if (system != null)
-        {
-            isPowered = false;
-            foreach (PowerTowerTile tile in system.GetTilesInRange(connectedTo.monster, range * 2f))
-            {
-                if (tile.location.GameDistance(connectedTo.monster.location) <= range
-                    && connectedTo.monster.view.ValueAtWorld(tile.location)
-                    && tile.powered)
-                {
-                    tower = tile;
-                    isPowered = true;
-                    break;
-                }
-            }
-        }
-
-        //TODO: SET UP ANIM
-        /*if (isPowered)
-        {
-            Debug.Log($"{connectedTo.monster.displayName} is powered up by tower at {tower.location}!");
-        }*/
-    }
+    //public override void OnTurnStartLocal() {}
 
     //Called at the end of a monster's turn
     //public override void OnTurnEndLocal() {}
@@ -85,52 +47,41 @@ public class PoweredUp : Effect
     //public override void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
 
     //Called whenever a monster sucessfully takes a step.
-    public override void OnMove()
-    {
-        if (isPowered)
-        {
-            connectedTo.monster.energy += energyRefundPerStep;
-        }
-    }
+    //public override void OnMove() {}
 
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    //public override void OnDeath() {}
+    public override void OnDeath()
+    {
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            NightmareSystem nightmare = system as NightmareSystem;
+            if (nightmare != null)
+            {
+                for (int i = 0; i < numTicks; i++)
+                {
+                    nightmare.TickNightmare();
+                }
+            }
+        }
+    }
 
     //Called when a monster is killed by this unit.
     //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
 
     //Called often, whenever a monster needs up-to-date stats.
-    public override void RegenerateStats(ref Stats stats)
-    {
-        if (isPowered)
-        {
-            stats += addedStats;
-        }
-    }
+    //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
-    public override void OnEnergyGained(ref int energy)
-    {
-        if (isPowered)
-        {
-            energy += addedEnergy;
-        }
-    }
+    //public override void OnEnergyGained(ref int energy) {}
 
     //Called when a monster gets attacked (REWORKING SOON!)
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
-    {
-        if (isPowered)
-        {
-            damage += addedDamage;
-        }
-    }
+    //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
     //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}

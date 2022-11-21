@@ -29,20 +29,8 @@ public class NightmareSystem : DungeonSystem
         messageTime = 20 + messageEvery.Evaluate();
     }
 
-
-    public override void OnGlobalTurnEnd(int turn)
+    public void TickNightmare()
     {
-        //Handle creepy messages
-        if (!currentlySummoned && timeUntilNext > 15)
-        { 
-            messageTime--;
-            if (messageTime == 0)
-            {
-                PlayMessage();
-                messageTime = messageEvery.Evaluate();
-            }
-        }
-
         timeUntilNext--;
 
         if (!currentlySummoned)
@@ -72,6 +60,23 @@ public class NightmareSystem : DungeonSystem
                 Debug.Log("Console: You feel yourself becoming more lucid.");
             }
         }
+    }
+
+
+    public override void OnGlobalTurnEnd(int turn)
+    {
+        //Handle creepy messages
+        if (!currentlySummoned && timeUntilNext > 15)
+        {
+            messageTime--;
+            if (messageTime == 0)
+            {
+                PlayMessage();
+                messageTime = messageEvery.Evaluate();
+            }
+        }
+
+        TickNightmare();
     }
 
     public void PlayMessage()

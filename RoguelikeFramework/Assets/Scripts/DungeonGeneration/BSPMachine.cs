@@ -131,7 +131,7 @@ public class BSPMachine : Machine
         {
             Rect firstRemainder, firstTemp, secondRemainder, roomRect;
 
-            if (false)
+            if (Random.value > .5f)
             {
                 //Horizontal case
                 if (Random.value > .5f)
@@ -622,7 +622,7 @@ public class BSPMachine : Machine
             }
             else
             {
-                y = RogueRNG.Linear(2, Mathf.RoundToInt(inRect.height - 3));
+                y = RogueRNG.Linear(lowerBound, upperBound);
             }
         }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   requirements: []
   antiRequirements: []
   branchName: Nightmare
-  branchDepth: 3
+  branchDepth: 4
   numberOfLevels: 3
   ConnectionsPerFloor:
     rngType: 0
@@ -51,9 +51,9 @@ MonoBehaviour:
   monsterTables:
   - {fileID: 11400000, guid: a19f6ecfd8d49b044a46b3ab35f6627d, type: 2}
   numMonstersPerLevel:
-    rngType: 1
-    min: 0
-    max: 0
+    rngType: 0
+    min: 30
+    max: 50
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0
