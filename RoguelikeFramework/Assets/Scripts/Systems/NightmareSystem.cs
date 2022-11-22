@@ -105,7 +105,7 @@ public class NightmareSystem : DungeonSystem
             {
                 Vector2Int pos = new Vector2Int(i, j);
                 RogueTile tile = Map.current.GetTile(pos);
-                if (!tile.BlocksMovement() && tile.isHidden)
+                if (!tile.BlocksMovement() && tile.isHidden && tile.currentlyStanding == null)
                 {
                     goals.Add(pos);
                 }

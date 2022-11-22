@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4402800733788238308}
   - component: {fileID: 4402800733788238309}
   m_Layer: 0
-  m_Name: Dream Caller
+  m_Name: Husk Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 1
-  level: 0
+  level: 10
   references:
     version: 1
 --- !u!212 &4402800733788238310
@@ -119,8 +119,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6807846231451575445, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0.8679245, g: 0.4905764, b: 0.21616231, a: 1}
+  m_Sprite: {fileID: 962021404205164990, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  m_Color: {r: 0.6016025, g: 0.56, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -155,15 +155,15 @@ MonoBehaviour:
       property: 0
       resource: 0
       equality: 0
-      value: 1
-      valueMod: 0
+      value: 70
+      valueMod: 1
       weight: 1
   isInBattle: 0
   willExplore: 0
   interactionRange: 0
   ranged: 0
   minRange: 0
-  intelligence: 1
+  intelligence: 2
   lastEnemy: {fileID: 0}
 --- !u!114 &4402800733788238308
 MonoBehaviour:
@@ -215,3 +215,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAbilities: 10
+  baseAbilities:
+  - {fileID: 11400000, guid: 8ca906d411bae6743a145af0e8fa1270, type: 2}

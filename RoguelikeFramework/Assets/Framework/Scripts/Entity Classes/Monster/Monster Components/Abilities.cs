@@ -8,6 +8,7 @@ public class Abilities : MonoBehaviour
 {
     public int maxAbilities = 10;
     Monster connectedTo;
+    public List<Ability> baseAbilities;
     List<Ability> abilities = new List<Ability>();
 
     public int Count
@@ -18,6 +19,10 @@ public class Abilities : MonoBehaviour
     private void Awake()
     {
         connectedTo = GetComponent<Monster>();
+        foreach (Ability ability in baseAbilities)
+        {
+            AddAbility(ability);
+        }
     }
 
     public void RegenerateAbilities()

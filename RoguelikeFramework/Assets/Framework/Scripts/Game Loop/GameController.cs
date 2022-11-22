@@ -297,8 +297,10 @@ public class GameController : MonoBehaviour
     public void CallTurnEndGlobal()
     {
         player.OnTurnEndGlobalCall();
-        foreach (Monster m in Map.current.monsters)
+        for (int i = 0; i < Map.current.monsters.Count; i++)
         {
+            Monster m = Map.current.monsters[i];
+            UnityEngine.Debug.Log(m.name + "" + m.location);
             m.OnTurnEndGlobalCall();
         }
 

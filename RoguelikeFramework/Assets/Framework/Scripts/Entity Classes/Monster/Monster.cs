@@ -450,7 +450,7 @@ public class Monster : MonoBehaviour
         {
             Effect e = effectsToAdd[i];
             int index = DetermineBestIndex(e);
-            if (index > 0)
+            if (index >= 0)
             {
                 e.Connect(this.connections);
                 effects.Insert(index, e);

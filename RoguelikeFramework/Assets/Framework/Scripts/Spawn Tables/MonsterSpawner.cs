@@ -70,8 +70,9 @@ public class MonsterSpawner : MonoBehaviour
             {
                 if (positions[i, j] > 0)
                 {
+                    RogueTile tile = m.GetTile(i, j);
                     //Confirm that two monsters won't spawn on each other
-                    if (m.GetTile(i, j).currentlyStanding == null)
+                    if (!tile.IsInteractable() && m.GetTile(i, j).currentlyStanding == null)
                     {
                         tickets[i, j] = Mathf.RoundToInt(Mathf.Log(positions[i, j], 2));
                         ticketSum += tickets[i, j];

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Nightmare
   m_EditorClassIdentifier: 
   monsters:
-  - {fileID: 4402800733788238304, guid: 80608225228ed7d4fa9672ddccf72b7c, type: 3}
+  - {fileID: 4402800733788238304, guid: 1f4021bfab0323d4b8c6bcfd00e70fd4, type: 3}
+  - {fileID: 4402800733788238304, guid: 549d1f78fed3d5b45b2a374c3f0b3793, type: 3}
+  - {fileID: 4402800733788238304, guid: 365beaf4ff0350f4c80e6a353beebf28, type: 3}
   uniques: []
   chanceForUnique: 0

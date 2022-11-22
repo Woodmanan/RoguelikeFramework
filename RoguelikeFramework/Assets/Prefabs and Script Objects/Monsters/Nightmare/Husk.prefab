@@ -48,10 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 0100000006000000
+    _keys: 01000000
     _vals:
     - 2
-    - 1
   currentStats:
     _keys: 
     _vals: []
@@ -169,7 +168,7 @@ MonoBehaviour:
   interactionRange: 0
   ranged: 0
   minRange: 0
-  intelligence: 1
+  intelligence: 2
   lastEnemy: {fileID: 0}
 --- !u!114 &4402800733788238308
 MonoBehaviour:
@@ -221,3 +220,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAbilities: 10
+  baseAbilities: []
