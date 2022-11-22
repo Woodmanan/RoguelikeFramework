@@ -155,8 +155,8 @@ MonoBehaviour:
       property: 0
       resource: 0
       equality: 0
-      value: 1
-      valueMod: 0
+      value: 70
+      valueMod: 1
       weight: 1
   isInBattle: 0
   willExplore: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2139ecc33eb8b0e48b17f6f30f1f807e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanUnequip: 1
+  CanUnequip: 0
   monster: {fileID: 0}
   equipmentSlots:
   - slotName: Claws
@@ -215,3 +215,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAbilities: 10
+  baseAbilities:
+  - {fileID: 11400000, guid: 0fe41a91464a73546ad3262c566ac32b, type: 2}

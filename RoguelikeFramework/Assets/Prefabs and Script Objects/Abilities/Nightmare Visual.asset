@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
-  m_Name: Summon Husks
+  m_Name: Nightmare Visual
   m_EditorClassIdentifier: 
-  displayName: Summon Husks
-  image: {fileID: 529817674177622992, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 1, g: 0.63529414, b: 0.8862745, a: 1}
+  displayName: Nightmare Connection
+  image: {fileID: -4658246047469269665, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 1, g: 0, b: 0, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 4
@@ -73,17 +73,17 @@ MonoBehaviour:
     - 5
   currentCooldown: 0
   castable: 1
-  types: 1
+  types: 0
   effects: []
   effectsToApply:
   - id: 0
   references:
     version: 1
     00000000:
-      type: {class: SummonHusksTimed, ns: , asm: Assembly-CSharp}
+      type: {class: NightmareVisualConnection, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
-        numTurnsUntilSummon: 5
-        numHusksToSummon: 4
-        huskPrefab: {fileID: 4402800733788238304, guid: 80608225228ed7d4fa9672ddccf72b7c, type: 3}
+        numTurnsUntilAdd: 5
+        numberOfTicksToAdd: 10
+        maintainWith: {fileID: 0}

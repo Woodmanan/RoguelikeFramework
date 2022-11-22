@@ -84,7 +84,7 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
-        numTicks: 5
+        numTicks: 3
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0

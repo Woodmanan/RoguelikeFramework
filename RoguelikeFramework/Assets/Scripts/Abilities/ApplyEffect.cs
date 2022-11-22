@@ -25,7 +25,9 @@ public class ApplyEffect : Ability
         {
             foreach (Effect e in effectsToApply)
             {
-                target.AddEffectInstantiate(e);
+                Effect toAdd = e.Instantiate();
+                toAdd.credit = caster;
+                target.AddEffect(toAdd);
             }
         }
     }

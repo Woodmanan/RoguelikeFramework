@@ -29,6 +29,14 @@ public class NightmareSystem : DungeonSystem
         messageTime = 20 + messageEvery.Evaluate();
     }
 
+    public void TickNightmareSummonOnly()
+    {
+        if (!currentlySummoned)
+        {
+            TickNightmare();
+        }
+    }
+
     public void TickNightmare()
     {
         timeUntilNext--;

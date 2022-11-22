@@ -216,4 +216,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAbilities: 10
   baseAbilities:
-  - {fileID: 11400000, guid: 8ca906d411bae6743a145af0e8fa1270, type: 2}
+  - {fileID: 11400000, guid: 1a5424e79c801264f90f3d9acdfae005, type: 2}
