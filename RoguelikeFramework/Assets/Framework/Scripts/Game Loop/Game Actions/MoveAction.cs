@@ -117,7 +117,7 @@ public class MoveAction : GameAction
         caller.willSwap = true;
 
         caller.SetPosition(intendedLocation);
-        caller.UpdateLOS();
+        //caller.UpdateLOS();
 
         //Add the movement anim
         if (animates && caller.renderer.enabled)

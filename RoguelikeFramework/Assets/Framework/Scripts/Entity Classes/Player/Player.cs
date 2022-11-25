@@ -44,7 +44,7 @@ public class Player : Monster
     public override void UpdateLOS()
     {
         view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
-
+        view.CollectEntities(Map.current);
     }
 
     public override int XPTillNextLevel()

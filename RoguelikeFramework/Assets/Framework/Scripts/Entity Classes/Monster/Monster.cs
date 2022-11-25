@@ -320,6 +320,7 @@ public class Monster : MonoBehaviour
     public virtual void UpdateLOS(Map map)
     {
         this.view = LOS.LosAt(map, location, visionRadius);
+        view.CollectEntities(map);
     }
 
     public string DebugName()
@@ -330,6 +331,7 @@ public class Monster : MonoBehaviour
 
     public void StartTurn()
     {
+        UpdateLOS();
         CallRegenerateStats();
         abilities?.CheckAvailability();
         connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
