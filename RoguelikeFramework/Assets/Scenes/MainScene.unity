@@ -8855,8 +8855,8 @@ MonoBehaviour:
   msPerFrame: 0
   randomSeed: 0
   seed: 1450156029
-  preloadUpTo: 2
-  JITLoading: 0
+  preloadUpTo: 0
+  JITLoading: 1
   LoadAllLevelsAtStart: 0
   startAt: 0
   references:

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Clockwork
   m_EditorClassIdentifier: 
   monsters:
-  - {fileID: 4402800733788238304, guid: 85a41dd4b56600e459fd7f6dce4bf860, type: 3}
-  - {fileID: 4402800733788238304, guid: 41120e2d6ae8d9a48831fc48bcfbdc5f, type: 3}
+  - toSpawn: {fileID: 4402800733788238304, guid: 85a41dd4b56600e459fd7f6dce4bf860, type: 3}
+    weight: 3
+  - toSpawn: {fileID: 4402800733788238304, guid: 41120e2d6ae8d9a48831fc48bcfbdc5f, type: 3}
+    weight: 5
+  - toSpawn: {fileID: 4402800733788238304, guid: 48e7233e98a59c2439172656608cd63b, type: 3}
+    weight: 1
   uniques: []
   chanceForUnique: 0

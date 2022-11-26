@@ -48,10 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 0100000003000000050000000600000009000000
+    _keys: 01000000050000000600000009000000
     _vals:
     - 10
-    - 0
     - 1
     - 1
     - 3
@@ -230,3 +229,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAbilities: 10
+  baseAbilities: []
