@@ -13,6 +13,7 @@ public class Monster : MonoBehaviour
 {
     [Header("Setup Variables")]
     public Stats baseStats;
+
     public Stats currentStats;
 
     //TODO: Abstract these out to another class!!!
@@ -355,6 +356,25 @@ public class Monster : MonoBehaviour
     {
         currentStats = baseStats.Copy();
         connections.RegenerateStats.BlendInvoke(other?.RegenerateStats, ref currentStats);
+    }
+
+    public void AddBaseStat(Resources r, float value)
+    {
+        baseStats[r] += value;
+        ResetStatsToMax();
+    }
+
+    public void AddBaseStats(Stats s)
+    {
+        baseStats += s;
+        ResetStatsToMax();
+    }
+
+    public void ResetStatsToMax()
+    {
+        baseStats[HEALTH] = Mathf.Min(baseStats[HEALTH], baseStats[MAX_HEALTH]);
+        baseStats[MANA] = Mathf.Min(baseStats[MANA], baseStats[MAX_MANA]);
+        baseStats[STAMINA] = Mathf.Min(baseStats[STAMINA], baseStats[MAX_STAMINA]);
     }
 
     public void SetAction(GameAction act)

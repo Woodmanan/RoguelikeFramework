@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a9d9b7feb3aa44aab38fbc400db822, type: 3}
+  m_Name: Blink
+  m_EditorClassIdentifier: 
+  displayName: Blink
+  image: {fileID: 2722812233613454123, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 0, g: 0.62741375, b: 1, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 3
+    areaType: 0
+    range: 6
+    radius: 0
+    degree: 0
+    options: 67
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    cooldown: 1
+    power: 0
+  stats:
+    cooldown: 0
+    power: 0
+  castQuery:
+    outOf: 1
+    terms: []
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 02000000
+    _vals:
+    - 3
+  currentCooldown: 0
+  castable: 1
+  types: 0
+  effects: []
+  damage:
+    rngType: 1
+    min: 20
+    max: 80
+  punishmentEffect:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: Instability, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        maxDuration: 10
+        numStacks: 1

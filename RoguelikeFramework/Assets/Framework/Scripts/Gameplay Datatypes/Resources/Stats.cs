@@ -88,4 +88,28 @@ public class Stats : ISerializationCallbackReceiver
         }
         return first;
     }
+
+    public static Stats operator /(Stats first, float value)
+    {
+        Stats result = new Stats();
+
+        foreach (Resources r in first.dictionary.Keys)
+        {
+            result[r] = first[r] / value;
+        }
+
+        return result;
+    }
+
+    public static Stats operator *(Stats first, float value)
+    {
+        Stats result = new Stats();
+
+        foreach (Resources r in first.dictionary.Keys)
+        {
+            result[r] = first[r] * value;
+        }
+
+        return result;
+    }
 }

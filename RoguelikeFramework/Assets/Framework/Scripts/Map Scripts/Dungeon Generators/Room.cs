@@ -7,6 +7,7 @@ public class Room : ScriptableObject
 {
     public Vector2Int size;
     public bool acceptsStairs = true;
+    public bool forciblyWritesWalls = false;
     
     public string layout;
 
@@ -33,7 +34,11 @@ public class Room : ScriptableObject
         {
             for (int j = 0; j < size.y; j++)
             {
-                generator.map[start.x + i, start.y + j] = GetValueAt(i, j);
+                int valToWrite = GetValueAt(i, j);
+                if (forciblyWritesWalls || valToWrite != 0)
+                {
+                    generator.map[start.x + i, start.y + j] = valToWrite;
+                }
             }
         }
     }

@@ -10,6 +10,9 @@ public class Class : ScriptableObject
     //Should be replaced by a book at some point!
     public List<Ability> abilities;
 
+    [SerializeReference]
+    public List<Effect> effects;
+
     public void Apply(Monster m)
     {
         //Attempt setup, in case the monster hasn't been configured yet.
@@ -47,5 +50,7 @@ public class Class : ScriptableObject
         {
             m.abilities.AddAbility(ability.Instantiate());
         }
+
+        m.AddEffectInstantiate(effects.ToArray());
     }
 }

@@ -16,3 +16,17 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 4478e6e4cca6a6c40a83c5bf099b659d, type: 2}
   - {fileID: 11400000, guid: 1a5424e79c801264f90f3d9acdfae005, type: 2}
+  effects:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DevInvincible, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        statsPerTurn:
+          _keys: 0000000002000000
+          _vals:
+          - 5
+          - 5
