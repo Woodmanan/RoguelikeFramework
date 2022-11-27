@@ -170,6 +170,16 @@ public enum Resources
     EV
 }
 
+public enum AbilityResources
+{
+    COOLDOWN,
+    MAX_COOLDOWN,
+    RANGE_INCREASE,
+    RADIUS_INCREASE,
+    COOLDOWN_DECREASE,
+    POWER
+}
+
 [Flags]
 public enum AbilityTypes
 {

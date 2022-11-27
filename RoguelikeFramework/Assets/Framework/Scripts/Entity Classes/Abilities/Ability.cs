@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using static AbilityResources;
 
 /*********** The Ability Class **************
  * 
@@ -34,15 +35,25 @@ public class Ability : ScriptableObject
 
     //Public Resources
     public Targeting baseTargeting;
-    public AbilityBlock baseStats;
-    [HideInInspector] public AbilityBlock stats;
+    public AbilityStats baseStats;
+    [HideInInspector] public AbilityStats currentStats;
 
     public Query castQuery;
 
     [HideInInspector] public Targeting targeting;
     public Stats costs;
     
-    [HideInInspector] public int currentCooldown = 0;
+    [HideInInspector] public int currentCooldown
+    {
+        get
+        {
+            return Mathf.RoundToInt(baseStats[COOLDOWN]);
+        }
+        set
+        {
+            baseStats[COOLDOWN] = value;
+        }
+    }
 
     [HideInInspector] public bool castable = true;
 
@@ -80,10 +91,12 @@ public class Ability : ScriptableObject
     {
         //I am losing my fucking mind
         targeting = baseTargeting.ShallowCopy();
-        stats = baseStats;
+        currentStats = baseStats;
         Ability ability = this;
 
-        connections.OnRegenerateAbilityStats.BlendInvoke(m.connections?.OnRegenerateAbilityStats, ref targeting, ref stats, ref ability);
+        connections.OnRegenerateAbilityStats.BlendInvoke(m.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
+        targeting.range += Mathf.RoundToInt(currentStats[RANGE_INCREASE]);
+        targeting.radius += Mathf.RoundToInt(currentStats[RADIUS_INCREASE]);
     }
 
     public bool CheckAvailable(Monster caster)
@@ -143,7 +156,7 @@ public class Ability : ScriptableObject
         //TODO: Call the OnCast modifier!
         OnCast(caster);
 
-        currentCooldown = stats.cooldown;
+        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - baseStats[COOLDOWN_DECREASE]);
     }
 
     public virtual void OnCast(Monster caster)

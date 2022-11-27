@@ -116,7 +116,7 @@ public class MonsterWindow : EditorWindow
             Debug.Log("Refresh " + refreshMovingVal);
             CacheMonsterData();
             refreshCount = 0;
-            enumNames = System.Enum.GetNames(typeof(Resources));
+            enumNames = System.Enum.GetNames(typeof(AbilityResources));
             BuildStyle();
         }
         refreshCount++;
