@@ -5,8 +5,8 @@ using UnityEditor;
 using Juce.ImplementationSelector.Layout;
 using System.Linq;
 
-[CustomPropertyDrawer(typeof(Stats))]
-public class StatBlockPropertyDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(AbilityStats))]
+public class AbilityStatBlockPropertyDrawer : PropertyDrawer
 {
     private readonly PropertyDrawerLayoutHelper layoutHelper = new PropertyDrawerLayoutHelper();
 
@@ -114,7 +114,7 @@ public class StatBlockPropertyDrawer : PropertyDrawer
                     keys.GetArrayElementAtIndex(keys.arraySize - 1).enumValueIndex = pairs[index];
 
                     vals.InsertArrayElementAtIndex(vals.arraySize);
-                    vals.GetArrayElementAtIndex(vals.arraySize - 1).floatValue = 100f;
+                    vals.GetArrayElementAtIndex(vals.arraySize - 1).floatValue = 10f;
                     return;
                 }
             }
@@ -139,7 +139,7 @@ public class StatBlockPropertyDrawer : PropertyDrawer
                         keys.GetArrayElementAtIndex(keys.arraySize - 1).enumValueIndex = i;
 
                         vals.InsertArrayElementAtIndex(vals.arraySize);
-                        vals.GetArrayElementAtIndex(vals.arraySize - 1).floatValue = 100f;
+                        vals.GetArrayElementAtIndex(vals.arraySize - 1).floatValue = 10f;
                     }
                 }
             }

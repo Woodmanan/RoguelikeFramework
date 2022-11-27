@@ -191,7 +191,7 @@ public class Effect
     public virtual void OnGainXP(ref float XPAmount) {}
     public virtual void OnLevelUp(ref int Level) {}
     public virtual void OnLoseResources(ref Stats resources) {}
-    public virtual void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
+    public virtual void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability) {}
     public virtual void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
     public virtual void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}
     public virtual void OnPreCast(ref Ability ability) {}

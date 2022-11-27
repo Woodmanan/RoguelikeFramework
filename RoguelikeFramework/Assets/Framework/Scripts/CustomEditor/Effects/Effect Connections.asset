@@ -159,10 +159,10 @@ MonoBehaviour:
     priority: 17
   - name: OnRegenerateAbilityStats
     types:
-    - type: Targeting
-      name: targeting
-    - type: AbilityBlock
-      name: abilityBlock
+    - type: Monster
+      name: caster
+    - type: AbilityStats
+      name: abilityStats
     - type: Ability
       name: ability
     description: Called when new status effects are added. All status effects coming
