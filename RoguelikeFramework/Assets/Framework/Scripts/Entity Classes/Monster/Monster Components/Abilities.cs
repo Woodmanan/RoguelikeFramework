@@ -146,4 +146,9 @@ public class Abilities : MonoBehaviour
 
         return (bestIndex[UnityEngine.Random.Range(0, bestIndex.Count)], bestValue);
     }
+
+    public IEnumerable<Ability> GetAbilitiesAsEnumerable()
+    {
+        return abilities.AsEnumerable();
+    }
 }

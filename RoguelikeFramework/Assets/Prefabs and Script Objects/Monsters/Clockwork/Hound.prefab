@@ -50,7 +50,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000050000000600000009000000
     _vals:
-    - 10
+    - 4
     - 1
     - 1
     - 3

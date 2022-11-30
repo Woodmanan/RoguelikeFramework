@@ -95,7 +95,7 @@ public class ClickButton : MonoBehaviour
 
     public void SetCooldown(float cooldown, float max)
     {
-        if (cooldown == 0 || max == 0)
+        if (cooldown == 0)
         {
             Enable();
             cooldownText.text = "";
@@ -106,7 +106,14 @@ public class ClickButton : MonoBehaviour
             Disable();
             image.color = savedColor;
             cooldownText.text = $"{cooldown}";
-            cooldownImage.fillAmount = ((float) cooldown) / max;
+            if (max == 0)
+            {
+                cooldownImage.fillAmount = 1;
+            }
+            else
+            {
+                cooldownImage.fillAmount = ((float)cooldown) / max;
+            }
         }
     }
 

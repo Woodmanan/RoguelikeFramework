@@ -79,7 +79,7 @@ public class CameraTracking : MonoBehaviour
     void OnPreRender()
     {
         if (!Player.player) return;
-        Vector2 target = Player.player.location;
+        Vector2 target = Player.player.transform.position;
 
         switch (mode)
         {

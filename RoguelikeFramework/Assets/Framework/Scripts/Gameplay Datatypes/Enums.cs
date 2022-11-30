@@ -177,7 +177,8 @@ public enum AbilityResources
     RANGE_INCREASE,
     RADIUS_INCREASE,
     COOLDOWN_DECREASE,
-    POWER
+    POWER,
+    DURATION
 }
 
 [Flags]

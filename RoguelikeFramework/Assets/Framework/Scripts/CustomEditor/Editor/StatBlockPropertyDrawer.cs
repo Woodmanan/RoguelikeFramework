@@ -79,13 +79,13 @@ public class StatBlockPropertyDrawer : PropertyDrawer
         buttonRectTwo.x += buttonRectOne.width;
         buttonRectTwo.width -= buttonRectOne.width;
 
-        System.Array values = System.Enum.GetValues(typeof(AbilityResources));
+        System.Array values = System.Enum.GetValues(typeof(Resources));
         //Check if we can cancel early
         if (keys.arraySize != values.Length)
         {
             {//Create the custom "Add" button with dropdown
-                List<string> names = System.Enum.GetNames(typeof(AbilityResources)).ToList();
-                List<int> pairs = System.Enum.GetValues(typeof(AbilityResources)).Cast<int>().ToList();
+                List<string> names = System.Enum.GetNames(typeof(Resources)).ToList();
+                List<int> pairs = System.Enum.GetValues(typeof(Resources)).Cast<int>().ToList();
 
                 for (int i = pairs.Count - 1; i >= 0; i--)
                 {
@@ -169,7 +169,7 @@ public class StatBlockPropertyDrawer : PropertyDrawer
 
             int max = Mathf.Min(keys.arraySize, vals.arraySize);
 
-            System.Array values = System.Enum.GetValues(typeof(AbilityResources));
+            System.Array values = System.Enum.GetValues(typeof(Resources));
             //Check if we can cancel early
             if (keys.arraySize != values.Length)
             {

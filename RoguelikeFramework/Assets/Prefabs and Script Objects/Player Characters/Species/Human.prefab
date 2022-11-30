@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4311608207694994520}
   - component: {fileID: 4311608207694994515}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Human
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,11 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 010000000300000005000000
+    _keys: 010000000300000007000000
     _vals:
     - 100
-    - 100
-    - 100
+    - 15
+    - 15
   currentStats:
     _keys: 
     _vals: []
@@ -65,7 +65,8 @@ MonoBehaviour:
   ID: 0
   minDepth: 0
   maxDepth: 0
-  baseEffects: []
+  baseEffects:
+  - id: 0
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
@@ -76,12 +77,27 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 0
   level: 5
+  personalAttribute:
+    ReadyToDelete: 0
+    credit: {fileID: 0}
   references:
     version: 1
+    00000000:
+      type: {class: HumanPassive, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        statsPerLevel:
+          _keys: 0100000003000000
+          _vals:
+          - 5
+          - 3
+        UpToLevel: 30
 --- !u!114 &4311608207694994516
 MonoBehaviour:
   m_ObjectHideFlags: 0

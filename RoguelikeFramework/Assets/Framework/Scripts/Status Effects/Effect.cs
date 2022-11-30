@@ -95,6 +95,8 @@ public class Effect
         c.OnAfterSecondaryAttackTarget.AddListener(100, OnAfterSecondaryAttackTarget);
         c.OnBeforeUnarmedAttackTarget.AddListener(100, OnBeforeUnarmedAttackTarget);
         c.OnAfterUnarmedAttackTarget.AddListener(100, OnAfterUnarmedAttackTarget);
+        c.OnGenerateLOSPreCollection.AddListener(100, OnGenerateLOSPreCollection);
+        c.OnGenerateLOSPostCollection.AddListener(100, OnGenerateLOSPostCollection);
         
         //END AUTO CONNECT
 
@@ -156,6 +158,8 @@ public class Effect
         connectedTo.OnAfterSecondaryAttackTarget.RemoveListener(OnAfterSecondaryAttackTarget);
         connectedTo.OnBeforeUnarmedAttackTarget.RemoveListener(OnBeforeUnarmedAttackTarget);
         connectedTo.OnAfterUnarmedAttackTarget.RemoveListener(OnAfterUnarmedAttackTarget);
+        connectedTo.OnGenerateLOSPreCollection.RemoveListener(OnGenerateLOSPreCollection);
+        connectedTo.OnGenerateLOSPostCollection.RemoveListener(OnGenerateLOSPostCollection);
 
         //END AUTO DISCONNECT
 
@@ -216,5 +220,7 @@ public class Effect
     public virtual void OnAfterSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnBeforeUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+    public virtual void OnGenerateLOSPreCollection(ref LOSData view) {}
+    public virtual void OnGenerateLOSPostCollection(ref LOSData view) {}
 
 }

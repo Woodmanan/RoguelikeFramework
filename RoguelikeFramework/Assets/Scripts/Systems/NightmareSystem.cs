@@ -143,7 +143,7 @@ public class NightmareSystem : DungeonSystem
         //AnimationController.AddAnimation(new BlockAnimation());
         if (currentNightmare != null)
         {
-            currentNightmare.Die();
+            currentNightmare.DestroyMonster();
         }
         else
         {

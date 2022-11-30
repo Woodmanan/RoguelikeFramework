@@ -112,6 +112,11 @@ public class RogueTile : MonoBehaviour
         currentlyStanding = null;
     }
 
+    public bool IsOpen()
+    {
+        return !BlocksMovement() && currentlyStanding == null;
+    }
+
     public void SetMonster(Monster m)
     {
         if (currentlyStanding != m && currentlyStanding != null)

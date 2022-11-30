@@ -54,6 +54,7 @@ public class StatBar : MonoBehaviour
                 if (image.enabled)
                 {
                     image.enabled = false;
+                    gameObject.SetActive(false);
                 }
             }
         }

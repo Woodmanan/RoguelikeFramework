@@ -19,7 +19,7 @@ MonoBehaviour:
     numPoints: 1
     targetingType: 4
     areaType: 0
-    range: 5
+    range: 3
     radius: 0
     degree: 0
     options: 3
@@ -33,11 +33,12 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 5
-    power: 0
-  stats:
-    cooldown: 0
-    power: 0
+    _keys: 01000000
+    _vals:
+    - 5
+  currentStats:
+    _keys: 
+    _vals: []
   castQuery:
     outOf: 1
     terms:
@@ -71,7 +72,6 @@ MonoBehaviour:
     _keys: 02000000
     _vals:
     - 5
-  currentCooldown: 0
   castable: 1
   types: 1
   effects: []

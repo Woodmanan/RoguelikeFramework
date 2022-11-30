@@ -855,7 +855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &188479610
 RectTransform:
   m_ObjectHideFlags: 0
@@ -871,10 +871,10 @@ RectTransform:
   m_Father: {fileID: 304776026}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 142.77376, y: -20}
+  m_SizeDelta: {x: 275.54752, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188479611
 MonoBehaviour:
@@ -3175,13 +3175,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chosenSpecies: {fileID: 4311608207694994517, guid: c9b88d90c5229ac488186984a6cba063, type: 3}
-  chosenClass: {fileID: 11400000, guid: 827d14ccb68ea7f45a3d9a1e25c846d1, type: 2}
+  chosenClass: {fileID: 11400000, guid: 4bd1f2f3e5a7f2e4185ff9b90b82d200, type: 2}
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
   startAt: 3
   playerPassives:
   - id: 0
+  personalAttributes:
+  - id: 1
   references:
     version: 1
     00000000:
@@ -3198,8 +3200,15 @@ MonoBehaviour:
           _keys: 0000000002000000
           _vals:
           - 50
-          - 100
+          - 50
         TurnsTillSafety: 15
+    00000001:
+      type: {class: GreySkin, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        percentOfLastDamage: 80
+        overXTurns: 5
 --- !u!1 &1487906435
 GameObject:
   m_ObjectHideFlags: 0

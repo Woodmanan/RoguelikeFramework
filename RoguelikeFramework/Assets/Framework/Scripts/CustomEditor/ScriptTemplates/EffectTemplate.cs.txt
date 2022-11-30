@@ -172,6 +172,12 @@ public class #SCRIPTNAME# : Effect
     //Called after this monster is hit by an unarmed attack from another monster. (Can't modify anymore)
     //public override void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
+    //Called after this monster generates LOS, but before visible entity collection.
+    //public override void OnGenerateLOSPreCollection(ref LOSData view) {}
+
+    //Called after this monster generates LOS and visible entities.
+    //public override void OnGenerateLOSPostCollection(ref LOSData view) {}
+
 
     //BEGIN CONNECTION
     //TEMPORARY CONNECTION - THIS WILL BE AUTO-REMOVED ONCE EFFECTS ARE REBUILT.
@@ -225,6 +231,8 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnAfterSecondaryAttackTarget.AddListener(100, OnAfterSecondaryAttackTarget);
         connectedTo.OnBeforeUnarmedAttackTarget.AddListener(100, OnBeforeUnarmedAttackTarget);
         connectedTo.OnAfterUnarmedAttackTarget.AddListener(100, OnAfterUnarmedAttackTarget);
+        connectedTo.OnGenerateLOSPreCollection.AddListener(100, OnGenerateLOSPreCollection);
+        connectedTo.OnGenerateLOSPostCollection.AddListener(100, OnGenerateLOSPostCollection);
         OnConnection();
     }
     //END CONNECTION
@@ -281,6 +289,8 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnAfterSecondaryAttackTarget.RemoveListener(OnAfterSecondaryAttackTarget);
         connectedTo.OnBeforeUnarmedAttackTarget.RemoveListener(OnBeforeUnarmedAttackTarget);
         connectedTo.OnAfterUnarmedAttackTarget.RemoveListener(OnAfterUnarmedAttackTarget);
+        connectedTo.OnGenerateLOSPreCollection.RemoveListener(OnGenerateLOSPreCollection);
+        connectedTo.OnGenerateLOSPostCollection.RemoveListener(OnGenerateLOSPostCollection);
         ReadyToDelete = true;
     }
     //END DISCONNECTION

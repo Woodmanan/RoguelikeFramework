@@ -17,12 +17,12 @@ MonoBehaviour:
   color: {r: 0, g: 0.62741375, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
-    targetingType: 3
+    targetingType: 2
     areaType: 0
     range: 6
     radius: 0
     degree: 0
-    options: 67
+    options: 71
     targetPriority: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
@@ -33,11 +33,11 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 1
-    power: 0
-  stats:
-    cooldown: 0
-    power: 0
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
   castQuery:
     outOf: 1
     terms: []
@@ -62,7 +62,6 @@ MonoBehaviour:
     _keys: 02000000
     _vals:
     - 3
-  currentCooldown: 0
   castable: 1
   types: 0
   effects: []
@@ -72,6 +71,7 @@ MonoBehaviour:
     max: 80
   punishmentEffect:
     id: 0
+  landingZoneOnly: 1
   references:
     version: 1
     00000000:
@@ -79,5 +79,5 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
-        maxDuration: 10
+        maxDuration: 20
         numStacks: 1

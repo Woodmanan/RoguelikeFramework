@@ -171,6 +171,21 @@ public class LOSData
             }
         }
     }
+
+    public IEnumerable<Vector2Int> GetVisibleTiles(Map map)
+    {
+        Vector2Int start = origin - Vector2Int.one * radius;
+        for (int i = 0; i < (radius * 2 + 1); i++)
+        {
+            for (int j = 0; j < (radius * 2 + 1); j++)
+            {
+                if (definedArea[i, j])
+                {
+                    yield return new Vector2Int(i + start.x, j + start.y);
+                }
+            }
+        }
+    }
 }
 
 public struct fraction
@@ -320,6 +335,8 @@ public class LOS : MonoBehaviour
         }
 
         lastCall = LosAt(map, location, radius);
+        Player.player.view = lastCall;
+        Player.player.UpdateLOSPreCollection();
         lastCall.Imprint(Map.current);
         return lastCall;
     }

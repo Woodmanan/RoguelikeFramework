@@ -32,12 +32,18 @@ public class Player : Monster
         }
     }
 
+    [HideInInspector] public Effect personalAttribute;
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         Setup();
         player = this;
+        if (level >= 5)
+        {
+            AddEffectInstantiate(personalAttribute);
+        }
     }
 
     //Special case, because it affects the world around it through the player's view.
@@ -45,6 +51,7 @@ public class Player : Monster
     {
         view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
         view.CollectEntities(Map.current);
+        UpdateLOSPostCollection();
     }
 
     public override int XPTillNextLevel()
@@ -78,9 +85,13 @@ public class Player : Monster
     public override void OnLevelUp()
     {
         Debug.Log("Log: YOU LEVEL UP!");
+        if (level == 5)
+        {
+            AddEffectInstantiate(personalAttribute);
+        }
     }
 
-    public override void Die()
+    protected override void Die()
     {
         Remove();
         if (baseStats[HEALTH] <= 0)

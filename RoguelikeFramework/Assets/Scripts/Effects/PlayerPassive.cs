@@ -83,7 +83,10 @@ public class PlayerPassive : Effect
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
+    {
+        currentCombatTurns = TurnsTillSafety;
+    }
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
     public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source)

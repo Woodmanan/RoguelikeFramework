@@ -33,11 +33,12 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 5
-    power: 0
-  stats:
-    cooldown: 0
-    power: 0
+    _keys: 00000000
+    _vals:
+    - 5
+  currentStats:
+    _keys: 
+    _vals: []
   castQuery:
     outOf: 1
     terms:
@@ -71,7 +72,6 @@ MonoBehaviour:
     _keys: 02000000
     _vals:
     - 5
-  currentCooldown: 0
   castable: 1
   types: 0
   effects: []
@@ -84,6 +84,6 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
-        numTurnsUntilAdd: 5
-        numberOfTicksToAdd: 10
+        numTurnsUntilAdd: 7
+        numberOfTicksToAdd: 70
         maintainWith: {fileID: 0}

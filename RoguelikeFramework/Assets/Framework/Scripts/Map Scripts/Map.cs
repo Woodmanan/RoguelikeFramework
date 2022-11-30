@@ -4,6 +4,7 @@ using System.Xml;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 /* Map class that  is used as a handler and container for the game maps. Holds a the
  * structs and has functionality for getting and setting information about the world
@@ -327,5 +328,26 @@ public class Map : MonoBehaviour
         {
             firstMonster.SetPosition(second.location);
         }
+    }
+
+    public IEnumerable<Vector2Int> GetLocationsAround(Vector2Int point, int radius)
+    {
+        int minX = Mathf.Max(point.x - radius, 0);
+        int maxX = Mathf.Min(point.x + radius, width - 1);
+        int minY = Mathf.Max(point.y - radius, 0);
+        int maxY = Mathf.Min(point.y + radius, height - 1);
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                yield return new Vector2Int(x, y);
+            }
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetOpenLocationsAround(Vector2Int point, int radius)
+    {
+        return GetLocationsAround(point, radius).Where(x => GetTile(x).IsOpen());
     }
 }

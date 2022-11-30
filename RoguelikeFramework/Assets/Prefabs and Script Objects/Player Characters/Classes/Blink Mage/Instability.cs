@@ -75,6 +75,12 @@ public class Instability : Effect
         }
     }
 
+    public void ClearStacks()
+    {
+        currentDuration = 0;
+        numStacks = 0;
+    }
+
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
 
@@ -136,7 +142,17 @@ public class Instability : Effect
     //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
-    //public override void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
+    public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability)
+    {
+        if (ability.displayName.Equals("Blink", System.StringComparison.OrdinalIgnoreCase))
+        {
+            abilityStats[AbilityResources.RANGE_INCREASE] -= numStacks;
+        }
+        else if (ability.displayName.Equals("Summon Black Hole", System.StringComparison.OrdinalIgnoreCase))
+        {
+            abilityStats[AbilityResources.DURATION] += numStacks;
+        }
+    }
 
     //Called by spells, in order to determine whether they are allowed to be cast.
     //public override void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}

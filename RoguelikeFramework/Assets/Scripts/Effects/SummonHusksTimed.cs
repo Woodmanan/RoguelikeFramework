@@ -27,6 +27,10 @@ public class SummonHusksTimed : Effect
 
     public void CallSummon()
     {
+        if (credit == null)
+        {
+            numHusksToSummon /= 2;
+        }
         List<Vector2Int> positions = GetNearestUnexploredTiles(connectedTo.monster, numHusksToSummon);
         foreach (Vector2Int position in positions)
         {
@@ -94,10 +98,19 @@ public class SummonHusksTimed : Effect
 
     public void SpawnAt(Vector2Int location, Monster caster, Monster target)
     {
+
         Monster spawned = MonsterSpawner.singleton.SpawnMonsterInstantiate(huskPrefab, location, Map.current);
-        spawned.faction = caster.faction;
+        if (caster)
+        {
+            spawned.faction = caster.faction;
+        }
+        else
+        {
+            spawned.faction = ~target.faction;
+        }
         spawned.energy = 0;
         spawned.GetComponent<MonsterAI>().SetToFollow(target);
+
     }
 
     //Called the moment an effect connects to a monster

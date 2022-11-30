@@ -52,6 +52,7 @@ public class Monster : MonoBehaviour
     [HideInInspector] public ActionController controller;
 
     public SpriteRenderer renderer;
+    public List<GameObject> FXObjects;
 
     public GameAction currentAction;
     public RogueTile currentTile;
@@ -107,7 +108,7 @@ public class Monster : MonoBehaviour
     public Monster Instantiate()
     {
         Monster newMonster = Instantiate(gameObject).GetComponent<Monster>(); //Should be guaranteed to work, unless things are incredibly borked
-        newMonster.Setup();
+        //newMonster.Setup();
         return newMonster;
     }
 
@@ -201,8 +202,15 @@ public class Monster : MonoBehaviour
         }
     }
 
+    //Kills this monster, without damage
+    public void DestroyMonster()
+    {
+        connections.OnDeath.BlendInvoke(other?.OnDeath);
+        Die();
+    }
 
-    public virtual void Die()
+
+    protected virtual void Die()
     {
         dead = true;
         Debug.Log("Monster is dead!");
@@ -321,7 +329,19 @@ public class Monster : MonoBehaviour
     public virtual void UpdateLOS(Map map)
     {
         this.view = LOS.LosAt(map, location, visionRadius);
+        UpdateLOSPreCollection();
         view.CollectEntities(map);
+        UpdateLOSPostCollection();
+    }
+
+    public void UpdateLOSPreCollection()
+    {
+        connections.OnGenerateLOSPreCollection.BlendInvoke(other?.OnGenerateLOSPreCollection, ref view);
+    }
+
+    public void UpdateLOSPostCollection()
+    {
+        connections.OnGenerateLOSPostCollection.BlendInvoke(other?.OnGenerateLOSPostCollection, ref view);
     }
 
     public string DebugName()
@@ -372,9 +392,9 @@ public class Monster : MonoBehaviour
 
     public void ResetStatsToMax()
     {
-        baseStats[HEALTH] = Mathf.Min(baseStats[HEALTH], baseStats[MAX_HEALTH]);
-        baseStats[MANA] = Mathf.Min(baseStats[MANA], baseStats[MAX_MANA]);
-        baseStats[STAMINA] = Mathf.Min(baseStats[STAMINA], baseStats[MAX_STAMINA]);
+        baseStats[HEALTH] = Mathf.Min(baseStats[HEALTH], currentStats[MAX_HEALTH]);
+        baseStats[MANA] = Mathf.Min(baseStats[MANA], currentStats[MAX_MANA]);
+        baseStats[STAMINA] = Mathf.Min(baseStats[STAMINA], currentStats[MAX_STAMINA]);
     }
 
     public void SetAction(GameAction act)
@@ -564,10 +584,23 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void SetPositionNoGraphicsUpdate(Vector2Int newPosition)
+    {
+        SetPositionNoGraphicsUpdate(Map.current, newPosition);
+    }
+
+    public void SetPositionNoGraphicsUpdate(Map map, Vector2Int newPosition)
+    {
+        bool rendering = renderer.enabled;
+        SetPosition(map, newPosition);
+        SetGraphics(rendering);
+    }
+
     public void SetPositionSnap(Map map, Vector2Int newPosition)
     {
         SetPosition(map, newPosition);
         transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
+        //UpdateLOS();
     }
 
     //Function to activate event call of Global turn start
@@ -628,5 +661,26 @@ public class Monster : MonoBehaviour
     public void SetGraphics(bool state)
     {
         renderer.enabled = state;
+        foreach (GameObject g in FXObjects)
+        {
+            g.SetActive(state);
+        }
+    }
+
+    public void UpdatePositionToLocation(Vector2Int location)
+    {
+        transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        SetGraphics(Map.current.GetTile(location).isVisible);
+    }
+
+    public T GetEffect<T>() where T : Effect
+    {
+        foreach (Effect e in effects)
+        {
+            T cast = e as T;
+            if (cast != null) return cast;
+        }
+
+        return null;
     }
 }

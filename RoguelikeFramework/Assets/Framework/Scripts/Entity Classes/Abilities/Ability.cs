@@ -84,6 +84,7 @@ public class Ability : ScriptableObject
         currentCooldown = 0;
         if (connections == null) connections = new Connections(this);
         AddEffect(effects.Select(x => x.Instantiate()).ToArray());
+        RegenerateStats(null);
     }
 
     //TODO: Set this up in a nice way
@@ -91,10 +92,10 @@ public class Ability : ScriptableObject
     {
         //I am losing my fucking mind
         targeting = baseTargeting.ShallowCopy();
-        currentStats = baseStats;
+        currentStats = baseStats.Copy();
         Ability ability = this;
 
-        connections.OnRegenerateAbilityStats.BlendInvoke(m.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
+        connections.OnRegenerateAbilityStats.BlendInvoke(m?.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
         targeting.range += Mathf.RoundToInt(currentStats[RANGE_INCREASE]);
         targeting.radius += Mathf.RoundToInt(currentStats[RADIUS_INCREASE]);
     }

@@ -77,5 +77,7 @@ public class Connections
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnAfterSecondaryAttackTarget = new OrderedEvent<Weapon, AttackAction, AttackResult>();
     public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnBeforeUnarmedAttackTarget = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
     public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnAfterUnarmedAttackTarget = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
+    public OrderedEvent<LOSData> OnGenerateLOSPreCollection = new OrderedEvent<LOSData>();
+    public OrderedEvent<LOSData> OnGenerateLOSPostCollection = new OrderedEvent<LOSData>();
 
 }

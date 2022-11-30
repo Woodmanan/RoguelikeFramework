@@ -388,3 +388,16 @@ MonoBehaviour:
     description: Called after this monster is hit by an unarmed attack from another
       monster. (Can't modify anymore)
     priority: 52
+  - name: OnGenerateLOSPreCollection
+    types:
+    - type: LOSData
+      name: view
+    description: Called after this monster generates LOS, but before visible entity
+      collection.
+    priority: 53
+  - name: OnGenerateLOSPostCollection
+    types:
+    - type: LOSData
+      name: view
+    description: Called after this monster generates LOS and visible entities.
+    priority: 54
