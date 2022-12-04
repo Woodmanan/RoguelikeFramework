@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 0, y: 0}
   acceptsStairs: 1
+  forciblyWritesWalls: 0
   layout: 
   start: {x: 0, y: 0}
   end: {x: 0, y: 0}
   connected: 0
   center: {x: 0, y: 0}
+  outermostPoint: {x: 0, y: 0}
   RexFile: {fileID: 9027929339269108002, guid: f674e12b4c398df479591aee72fcd145, type: 3}
   conversions:
   - glyph: 75

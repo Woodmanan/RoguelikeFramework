@@ -4036,7 +4036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 2
   speed: 5
-  lerpAmount: 0.01
+  lerpAmount: 0.8
   stopDist: 1
   stopSpeed: -1
   stopSpeedMultiplier: 1.6

@@ -33,11 +33,11 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 10
-    power: 0
-  stats:
-    cooldown: 0
-    power: 0
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
   castQuery:
     outOf: 5
     terms:
@@ -71,7 +71,6 @@ MonoBehaviour:
     _keys: 00000000
     _vals:
     - 2
-  currentCooldown: 0
   castable: 1
   types: 0
   effects:
@@ -88,10 +87,46 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         numTurns: 0
     00000001:
       type: {class: FrostEffect, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         numTurns: 5

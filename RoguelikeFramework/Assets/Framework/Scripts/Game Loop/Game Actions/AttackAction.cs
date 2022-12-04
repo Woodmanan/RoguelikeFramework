@@ -118,7 +118,7 @@ public class AttackAction : GameAction
         }
         else
         {
-            Debug.Log($"Console: The {attacker.displayName} misses!");
+            Debug.Log($"Console: The {attacker.GetLocalizedName()} misses!");
         }
 
         defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);

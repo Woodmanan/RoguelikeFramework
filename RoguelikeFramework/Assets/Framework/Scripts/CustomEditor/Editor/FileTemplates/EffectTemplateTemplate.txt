@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 //[EffectGroup("Sample Group/Sample Subgroup")]
 [Priority(10)]
@@ -13,6 +14,10 @@ public class #SCRIPTNAME# : Effect
      * To override for individual functions, use the [Priority(int)] attribute 
      */
     //public override int priority { get { return 10; } }
+
+    /*public overrde string GetName() { return name.GetLocalizedString(this); }*/
+
+    /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing

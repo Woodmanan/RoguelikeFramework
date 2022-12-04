@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using System.Text.RegularExpressions; //Oh god oh fuck (so true)
 using System.Linq;
-
+using UnityEngine.Localization;
 
 using static Resources;
 
@@ -17,7 +17,9 @@ public class Monster : MonoBehaviour
     public Stats currentStats;
 
     //TODO: Abstract these out to another class!!!
-    public string displayName;
+    public LocalizedString localName;
+    public LocalizedString localDescription;
+    public string friendlyName;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
     public Faction faction = Faction.STANDARD;
@@ -317,6 +319,7 @@ public class Monster : MonoBehaviour
 
     public string GetFormattedName()
     {
+        string displayName = localName.GetLocalizedString();
         return nameRequiresPluralVerbs ? "the " + displayName : displayName;
     }
 
@@ -349,9 +352,14 @@ public class Monster : MonoBehaviour
         connections.OnGenerateLOSPostCollection.BlendInvoke(other?.OnGenerateLOSPostCollection, ref view);
     }
 
+    public string GetLocalizedName()
+    {
+        return localName.GetLocalizedString();
+    }
+
     public string DebugName()
     {
-        return $"{this.name} ({this.location})";
+        return $"{this.friendlyName} ({this.location})";
     }
 
 
@@ -406,7 +414,7 @@ public class Monster : MonoBehaviour
     {
         if (currentAction != null)
         {
-            Debug.LogError($"{this.displayName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Should this be allowed?", this);
+            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Should this be allowed?", this);
         }
         currentAction = act;
         currentAction.Setup(this);

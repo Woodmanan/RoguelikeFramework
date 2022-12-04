@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using System.Linq;
+using UnityEngine.Localization;
 
 /*
  * Mostly empty class used as a base for status effects. If you want to create a new
@@ -21,9 +22,22 @@ public class Effect
     [HideInInspector] public bool ReadyToDelete = false;
     [HideInInspector] public Monster credit;
 
+    [SerializeField] protected LocalizedString name;
+    [SerializeField] protected LocalizedString description;
+
     public Effect Instantiate()
     {
         return (Effect) this.MemberwiseClone();
+    }
+
+    public virtual string GetName()
+    {
+        return name.GetLocalizedString(this);
+    }
+
+    public virtual string GetDescription()
+    {
+        return description.GetLocalizedString(this);
     }
 
     /* Connect:

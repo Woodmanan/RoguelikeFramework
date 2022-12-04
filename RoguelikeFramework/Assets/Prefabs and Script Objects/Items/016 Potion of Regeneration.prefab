@@ -144,6 +144,24 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 134442852352
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 4691566731264
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         instantHealth: 0
         healingPerTurn: 2
         numTurns: 20

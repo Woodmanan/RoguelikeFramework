@@ -50,15 +50,33 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000003000000060000000800000009000000
     _vals:
-    - 7
+    - 60
     - 20
     - 1
-    - 1
     - 4
+    - 1
   currentStats:
     _keys: 
     _vals: []
-  displayName: Clockwork Dragon
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 1715624157184
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 1720606990336
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: ClockDragon
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
@@ -88,6 +106,24 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         range: 5
         addedStats:
           _keys: 0800000009000000
@@ -215,7 +251,7 @@ MonoBehaviour:
     unarmedAttack:
       chanceToHit: 50
       accuracy: -3
-      piercing: 5
+      piercing: 10
       damage:
       - damage:
           rolls: 1

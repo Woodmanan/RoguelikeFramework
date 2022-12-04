@@ -90,6 +90,7 @@ public class PoweredUpLightning : MonoBehaviour
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
     }
 
     // Update is called once per frame

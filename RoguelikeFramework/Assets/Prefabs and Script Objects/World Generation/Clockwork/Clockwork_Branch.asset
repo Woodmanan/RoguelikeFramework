@@ -26,7 +26,7 @@ MonoBehaviour:
     min: 0
     max: 0
   oneWay: 0
-  size: {x: 70, y: 70}
+  size: {x: 40, y: 40}
   machines:
   - id: 0
   - id: 1
@@ -39,6 +39,20 @@ MonoBehaviour:
     - id: 3
     deleteIndex: 0
     resize: {x: 0, y: 0}
+  - name: Set Size
+    level: 1
+    type: 2
+    machines:
+    - id: 3
+    deleteIndex: 0
+    resize: {x: 50, y: 50}
+  - name: Set Size
+    level: 2
+    type: 2
+    machines:
+    - id: 3
+    deleteIndex: 0
+    resize: {x: 60, y: 60}
   tiles: {fileID: 11400000, guid: 5f89280c4465fd74aa7a038922f300ff, type: 2}
   entryTile: {fileID: 3072715883528071421, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   exitTile: {fileID: 8621634034822304618, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
@@ -51,7 +65,7 @@ MonoBehaviour:
   numItemsPerLevel:
     rngType: 1
     min: 10
-    max: 20
+    max: 15
   elevatesItems: 0
   itemSpawnInfo:
     rarities: []
@@ -61,8 +75,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bb905439f902c7047b612d92279898e6, type: 2}
   numMonstersPerLevel:
     rngType: 1
-    min: 20
-    max: 25
+    min: 15
+    max: 18
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0

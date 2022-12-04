@@ -33,11 +33,11 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 0
-    power: 2
-  stats:
-    cooldown: 0
-    power: 0
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
   castQuery:
     outOf: 1
     terms:
@@ -70,7 +70,6 @@ MonoBehaviour:
   costs:
     _keys: 
     _vals: []
-  currentCooldown: 0
   castable: 1
   types: 0
   effects: []

@@ -651,7 +651,6 @@ MonoBehaviour:
   equipment: {fileID: 2050102317}
   abilities: {fileID: 2050324972}
   inspection: {fileID: 1984115623}
-  targetting: {fileID: 1717730531}
   confirm: {fileID: 957919038}
   cheats: {fileID: 0}
 --- !u!224 &216533713
@@ -671,7 +670,7 @@ RectTransform:
   - {fileID: 1984115620}
   - {fileID: 957919039}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -738,6 +737,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &242536444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383252631}
+  m_Layer: 0
+  m_Name: Recovery GameObject (383252631)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &247750767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,7 +1135,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &383252628
 Transform:
@@ -1134,7 +1149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &383252629
 Transform:
@@ -1148,7 +1163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &383252630
 Transform:
@@ -1162,9 +1177,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &383252631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242536444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &383252631 stripped
+--- !u!4 &383252632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 383252626}
@@ -1356,7 +1385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &546573365
 GameObject:
@@ -1392,6 +1421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c5d49c9825a8d4b8ba6052b0b01b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAbilities: 10
+  baseAbilities: []
 --- !u!114 &546573367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1582,27 +1613,69 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
-  displayName: 
+  localName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: 
   nameRequiresPluralVerbs: 1
   faction: 1
   ID: 0
   minDepth: 0
   maxDepth: 0
+  baseEffects: []
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
   energyPerStep: 100
-  loadout: {fileID: 0}
   effects: []
   inventory: {fileID: 546573368}
   equipment: {fileID: 0}
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 0
   level: 0
+  personalAttribute:
+    ReadyToDelete: 0
+    credit: {fileID: 0}
+    name:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 1
 --- !u!4 &546573372
 Transform:
   m_ObjectHideFlags: 0
@@ -1616,7 +1689,7 @@ Transform:
   m_Children:
   - {fileID: 1717730532}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553205232
 GameObject:
@@ -1682,7 +1755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &601617125
 PrefabInstance:
@@ -2321,7 +2394,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941426431
 GameObject:
@@ -4268,7 +4341,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 383252631}
+  - {fileID: 383252632}
   - {fileID: 897755775}
   m_Father: {fileID: 546573372}
   m_RootOrder: 0
@@ -4724,6 +4797,7 @@ MonoBehaviour:
   - id: 0
   - id: 0
   - id: 0
+  current: 0
   msPerFrame: 4
   randomSeed: 0
   seed: 43
@@ -4747,7 +4821,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1984115619
 GameObject:

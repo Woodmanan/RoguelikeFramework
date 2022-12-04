@@ -58,7 +58,25 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
-  displayName: The Nightmare
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 6525488406528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 6592391749632
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: NightNightmare
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0

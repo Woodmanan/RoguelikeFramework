@@ -38,7 +38,7 @@ public class MonsterSortWizard
                 val = (a.maxDepth.CompareTo(b.maxDepth));
                 if (val == 0)
                 {
-                    val = a.displayName.CompareTo(b.displayName);
+                    val = a.friendlyName.CompareTo(b.friendlyName);
                 }
             }
             return val;
@@ -49,7 +49,7 @@ public class MonsterSortWizard
         {
             monsters[i].ID = i;
             EditorUtility.SetDirty(monsters[i]);
-            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(monsters[i]), $"{i.ToString().PadLeft(3, '0')} {monsters[i].displayName}");
+            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(monsters[i]), $"{i.ToString().PadLeft(3, '0')} {monsters[i].friendlyName}");
             //items[i].gameObject.name = $"{i.ToString().PadLeft(0, '0')} {items[i].name}";
             //Debug.Log($"{i}{(i >= 10 ? "" : " ")}: {items[i].name}");
         }

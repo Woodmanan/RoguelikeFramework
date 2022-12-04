@@ -112,4 +112,17 @@ public class Stats : ISerializationCallbackReceiver
 
         return result;
     }
+
+    public new string ToString()
+    {
+        string toReturn = "";
+        bool first = true;
+        foreach (Resources key in dictionary.Keys)
+        {
+            toReturn += $"{(first ? "" : " + ")}{dictionary[key]} {key}";
+            first = false;
+        }
+
+        return toReturn;
+    }
 }

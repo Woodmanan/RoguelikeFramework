@@ -15,7 +15,7 @@ public class EffectFileWizard
     {
 
         //Load in our definitions from the file
-        EffectConnections declarations = AssetDatabase.LoadAssetAtPath<EffectConnections>("Assets/Framework/Scripts/CustomEditor/Effects/Effect Connections.asset");
+        EffectConnections declarations = AssetDatabase.LoadAssetAtPath<EffectConnections>("Assets/Framework/Scripts/CustomEditor/Editor/Effects/Effect Connections.asset");
 
         
 

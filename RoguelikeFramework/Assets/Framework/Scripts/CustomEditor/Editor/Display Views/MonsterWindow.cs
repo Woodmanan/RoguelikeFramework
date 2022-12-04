@@ -207,7 +207,7 @@ public class MonsterWindow : EditorWindow
         edit.serializedObject.Update();
 
         {//Name
-            SerializedProperty name = edit.serializedObject.FindProperty("displayName");
+            SerializedProperty name = edit.serializedObject.FindProperty("friendlyName");
             EditorGUI.PropertyField(rect, name, new GUIContent());
         }
 

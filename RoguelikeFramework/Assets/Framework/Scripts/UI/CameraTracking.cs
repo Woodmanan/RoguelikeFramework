@@ -100,7 +100,7 @@ public class CameraTracking : MonoBehaviour
                 break;
             case CameraTrackingMode.Lerp:
                 float lerpDist = (target - (Vector2) transform.position).magnitude;
-                target = Vector2.Lerp(transform.position, target, lerpAmount);
+                target = Vector2.Lerp(transform.position, target, lerpAmount * Time.deltaTime);
                 if (lerpDist < stopDist)
                 {
                     if (stopSpeed < 0) stopSpeed = ((Vector2)Player.player.transform.position - target).magnitude * stopSpeedMultiplier;

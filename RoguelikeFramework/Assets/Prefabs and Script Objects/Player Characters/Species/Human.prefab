@@ -59,7 +59,25 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
-  displayName: You
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 11914657341440
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 11979270594560
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: playerHuman
   nameRequiresPluralVerbs: 1
   faction: 2
   ID: 0
@@ -85,6 +103,24 @@ MonoBehaviour:
   personalAttribute:
     ReadyToDelete: 0
     credit: {fileID: 0}
+    name:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   references:
     version: 1
     00000000:
@@ -92,6 +128,24 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         statsPerLevel:
           _keys: 0100000003000000
           _vals:

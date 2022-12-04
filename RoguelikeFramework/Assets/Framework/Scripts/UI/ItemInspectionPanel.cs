@@ -144,9 +144,22 @@ public class ItemInspectionPanel : RogueUIPanel
                 string effectText = "This item will grant the following status effects on equip:\n";
                 foreach (Effect e in item.equipable.addedEffects)
                 {
-                    effectText += $"{e.GetType().Name} - description goes here. Just guess for now, sorry.\n";
+                    effectText += $"{e.GetName()} - {e.GetDescription()}\n";
                 }
                 text += effectText + "\n";
+            }
+        }
+
+        if (item.activatable)
+        {
+            if ((item.activatable.activateType & ActivateType.Effect) > 0)
+            {
+                string effectText = "Upon activation, this item will grant the following effects:\n";
+                foreach (Effect e in item.activatable.activationEffects)
+                {
+                    effectText += $"{e.GetName()} - {e.GetDescription()}\n";
+                }
+                text += effectText;
             }
         }
 

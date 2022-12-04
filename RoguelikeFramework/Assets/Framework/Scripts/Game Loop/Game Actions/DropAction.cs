@@ -33,14 +33,14 @@ public class DropAction : GameAction
     {
         if (caller.inventory == null)
         {
-            Debug.LogError($"{caller.displayName} cannot drop without an inventory! Skipping turn to prevent deadlock.", caller);
+            Debug.LogError($"{caller.GetLocalizedName()} cannot drop without an inventory! Skipping turn to prevent deadlock.", caller);
             caller.energy = 0;
             yield break;
         }
 
         if (indices.Count == 0)
         {
-            Debug.Log($"{caller.displayName} tried to drop no items.");
+            Debug.Log($"{caller.GetLocalizedName()} tried to drop no items.");
             yield break;
         }
 

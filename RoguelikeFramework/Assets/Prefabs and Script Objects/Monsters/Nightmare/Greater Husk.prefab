@@ -55,7 +55,25 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
-  displayName: Greater Husk
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 5173018304512
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
+    m_TableEntryReference:
+      m_KeyId: 5324176826368
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: NightBigHusk
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
@@ -73,6 +91,7 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 1
@@ -84,6 +103,24 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         numTicks: 3
 --- !u!212 &4402800733788238310
 SpriteRenderer:

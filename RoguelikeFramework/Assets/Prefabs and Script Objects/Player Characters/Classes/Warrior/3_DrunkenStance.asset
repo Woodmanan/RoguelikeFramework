@@ -33,11 +33,11 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    cooldown: 0
-    power: 0
-  stats:
-    cooldown: 0
-    power: 0
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
   castQuery:
     outOf: 1
     terms: []
@@ -61,7 +61,6 @@ MonoBehaviour:
   costs:
     _keys: 
     _vals: []
-  currentCooldown: 0
   castable: 1
   types: 0
   effects: []
@@ -74,6 +73,24 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
         durationOnDrink: 20
         baseAttackDamagePercent: 40
         damagePerDrinkStack: 20
@@ -81,4 +98,3 @@ MonoBehaviour:
         dodgePerDrinkStack: 10
         maxDrinkStacks: 5
         currentDrinks: 0
-        damageIncrease: 1

@@ -93,7 +93,7 @@ public class MonsterTable : ScriptableObject
 
         //Ensure that unique does not get re-added
         UsedUniqueIDs.Add(spawned.ID);
-        Debug.Log($"Just spawned Unique {spawned.displayName} with ID {spawned.ID}");
+        Debug.Log($"Just spawned Unique {spawned.friendlyName} with ID {spawned.ID}");
         return spawned;
     }
 

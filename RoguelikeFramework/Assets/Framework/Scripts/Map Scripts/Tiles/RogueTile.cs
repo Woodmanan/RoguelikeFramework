@@ -121,7 +121,7 @@ public class RogueTile : MonoBehaviour
     {
         if (currentlyStanding != m && currentlyStanding != null)
         {
-            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.displayName} is there.", this);
+            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.friendlyName} is there.", this);
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);

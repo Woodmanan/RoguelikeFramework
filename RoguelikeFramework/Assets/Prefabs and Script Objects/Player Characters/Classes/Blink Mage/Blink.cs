@@ -52,7 +52,7 @@ public class Blink : Ability
         }
         else
         {
-            Debug.Log($"Console: The blink fails because {goalTile.currentlyStanding.displayName} is standing there.");
+            Debug.Log($"Console: The blink fails because {goalTile.currentlyStanding.GetLocalizedName()} is standing there.");
         }
 
         caster.AddEffect(punishmentEffect.Instantiate());
