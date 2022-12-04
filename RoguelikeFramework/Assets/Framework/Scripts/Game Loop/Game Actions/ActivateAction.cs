@@ -54,15 +54,6 @@ public class ActivateAction : GameAction
                 {
                     yield return castAction.action.Current;
                 }
-
-                if (castAction.successful)
-                {
-                    //Remove the item!
-                    if (item.ConsumedOnUse)
-                    {
-                        caller.inventory.RemoveLastItemFromStack(index);
-                    }
-                }
             }
             else
             {
@@ -74,6 +65,15 @@ public class ActivateAction : GameAction
         if ((item.activateType & ActivateType.Effect) > 0)
         {
             caller.AddEffectInstantiate(item.activationEffects.ToArray());
+        }
+
+        if (this.successful)
+        {
+            //Remove the item!
+            if (item.ConsumedOnUse)
+            {
+                caller.inventory.RemoveLastItemFromStack(index);
+            }
         }
     }
 

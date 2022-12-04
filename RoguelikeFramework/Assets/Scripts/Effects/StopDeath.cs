@@ -27,7 +27,7 @@ public class StopDeath : Effect
     {
         Dictionary<string, int> values = new Dictionary<string, int>();
         values.Add("threshold", Mathf.RoundToInt(keepHealthAbove));
-        values.Add("duration", duration);
+        values.Add("numTurns", duration);
 
         return description.GetLocalizedString(values);
     }
