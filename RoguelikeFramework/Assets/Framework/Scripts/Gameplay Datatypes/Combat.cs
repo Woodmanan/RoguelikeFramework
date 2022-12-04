@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static Resources;
 
 public class Combat
 {
     public static AttackResult DetermineHit(Monster defender, WeaponBlock stats)
     {
-        if (UnityEngine.Random.Range(0, 99.99f) < stats.chanceToHit)
+        if (UnityEngine.Random.Range(0, 99.99f) < stats.chanceToHit && !GetDodged(defender, stats))
         {
             //We didn't miss!
             //TODO: Determine blocking stats
@@ -23,8 +24,28 @@ public class Combat
     {
         foreach (DamagePairing damage in stats.damage)
         {
-            defender.Damage(attacker, damage.damage.evaluate(), damage.type, source);
+            defender.Damage(attacker, GetArmorDamageShave(defender, stats) * damage.damage.evaluate(), damage.type, source);
         }
+    }
+
+    public static float GetArmorDamageShave(float inArmor)
+    {
+        return 1.0f / Mathf.Pow(2, inArmor / 10);
+    }
+
+    public static float GetEvasionDodgeBar(float inEvasion)
+    {
+        return 100f / Mathf.Pow(2, inEvasion / 10);
+    }
+
+    public static bool GetDodged(Monster monster, WeaponBlock attack)
+    {
+        return UnityEngine.Random.Range(0, 99.99f) > GetEvasionDodgeBar(monster.currentStats[EV] - attack.accuracy);
+    }
+
+    public static float GetArmorDamageShave(Monster monster, WeaponBlock attack)
+    {
+        return GetArmorDamageShave(monster.currentStats[AC] - attack.piercing);
     }
 }
 

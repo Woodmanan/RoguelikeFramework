@@ -14,8 +14,8 @@ using UnityEngine;
 [System.Flags]
 public enum ActivateType
 {
-    Ability = 1 << 0,
-    Effect  = 1 << 1
+    Ability = 1 << 1,
+    Effect  = 1 << 2
 }
 public class ActivatableItem : MonoBehaviour
 {
@@ -29,12 +29,17 @@ public class ActivatableItem : MonoBehaviour
     void Start()
     {
         this.enabled = false;
-        abilityOnActivation = abilityOnActivation.Instantiate();
+        if (abilityOnActivation)
+        {
+            abilityOnActivation = abilityOnActivation.Instantiate();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+
 }

@@ -54,7 +54,7 @@ MonoBehaviour:
   description: The source of energy for all clockworks. Don't let them get too close,
     or they'll power up!
   movementCost: -1
-  blocksVision: 0
+  blocksVision: 1
   color: {r: 0, g: 0.83271813, b: 1, a: 1}
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}

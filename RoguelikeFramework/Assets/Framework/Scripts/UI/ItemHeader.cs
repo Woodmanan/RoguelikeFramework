@@ -35,7 +35,7 @@ public class ItemHeader : MonoBehaviour
 
     public void Setup(ItemType t)
     {
-        HeaderPair pair = pairs.Find(x => x.type == t);
+        HeaderPair pair = pairs.Find(x => (x.type & t) > 0);
         textBox.text = pair.name;
         image.sprite = pair.image;
         image.color = pair.color;

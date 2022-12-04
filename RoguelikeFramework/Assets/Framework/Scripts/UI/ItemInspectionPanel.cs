@@ -34,6 +34,8 @@ public class ItemInspectionPanel : RogueUIPanel
     public void Setup(ItemStack toInspect)
     {
         inspecting = toInspect;
+
+        Item represt = toInspect.held[0];
     }
 
     /*
@@ -78,6 +80,77 @@ public class ItemInspectionPanel : RogueUIPanel
         SpriteRenderer render = inspecting.held[0].GetComponent<SpriteRenderer>();
         image.sprite = render.sprite;
         image.color = render.color;
+
+        DetermineDescription(inspecting.held[0]);
+        DetermineAttributes(inspecting.held[0]);
+    }
+
+    public void DetermineDescription(Item item)
+    {
+        string text = "";
+        text = $"This is a clone of item {item.ID}, named {item.GetNameClean()}. It will have a description some day, but doesn't quite yet. For now this dynamic entry is proof that that could happen. Please be nice to it despite it's many flaws.";
+        descriptionBox.text = text;
+    }
+
+    public void DetermineAttributes(Item item)
+    {
+        string text = "";
+
+        if (item.CanMelee)
+        {
+            string meleeText = "";
+            WeaponBlock block = item.melee.primary;
+            meleeText += $"As a primary weapon, this weapon has <color=#2222CC>{block.accuracy} accuracy<#000000> and <#22CC22>{block.piercing} piercing<#000000> with a default {block.chanceToHit}% chance to hit.\n";
+            meleeText += $"On a hit, it deals ";
+            bool first = true;
+            foreach (DamagePairing pair in block.damage)
+            {
+                meleeText += $"{(first ? "" : " + ")}{pair.damage.rolls}d{pair.damage.dice} {pair.type}";
+                first = false;
+            }
+            meleeText += " damage.\n\n";
+
+            block = item.melee.secondary;
+            meleeText += $"As a secondary weapon, this weapon has <color=#2222CC>{block.accuracy} accuracy<#000000> and <#33AA33>{block.piercing} piercing<#000000> with a default {block.chanceToHit}% chance to hit.\n";
+            meleeText += $"On a hit, it deals ";
+            first = true;
+            foreach (DamagePairing pair in block.damage)
+            {
+                meleeText += $"{(first ? "" : " + ")}{pair.damage.rolls}d{pair.damage.dice} {pair.type}";
+                first = false;
+            }
+            meleeText += " damage.\n\n";
+
+            text += meleeText;
+        }
+
+        if (item.equipable)
+        {
+            Dictionary<Resources, float> stats = item.equipable.addedStats.dictionary;
+            if (stats.Count > 0)
+            {
+                string equipText = "When equipped, this item will add:\n";
+                int i = 0;
+                foreach (Resources key in stats.Keys)
+                {
+                    int value = Mathf.RoundToInt(stats[key]);
+                    equipText += $"{value} {key.ToString()}\n";
+                }
+                text += equipText + "\n";
+            }
+            
+            if (item.equipable.addedEffects.Count > 0)
+            {
+                string effectText = "This item will grant the following status effects on equip:\n";
+                foreach (Effect e in item.equipable.addedEffects)
+                {
+                    effectText += $"{e.GetType().Name} - description goes here. Just guess for now, sorry.\n";
+                }
+                text += effectText + "\n";
+            }
+        }
+
+        attributesBox.text = text;
     }
     
     /* Called every time this panel is deactived by the controller */

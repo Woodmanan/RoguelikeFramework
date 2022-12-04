@@ -76,6 +76,7 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 1

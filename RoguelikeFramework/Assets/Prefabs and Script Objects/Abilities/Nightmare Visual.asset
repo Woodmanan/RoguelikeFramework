@@ -87,3 +87,4 @@ MonoBehaviour:
         numTurnsUntilAdd: 7
         numberOfTicksToAdd: 70
         maintainWith: {fileID: 0}
+        nightmareFXObject: {fileID: 8933536236102033547, guid: 5cba46c1d0a16604a9c666fa55575380, type: 3}

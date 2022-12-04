@@ -3179,7 +3179,7 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 3
+  startAt: 0
   playerPassives:
   - id: 0
   personalAttributes:
@@ -3207,7 +3207,7 @@ MonoBehaviour:
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
-        percentOfLastDamage: 80
+        percentOfLastDamage: 73.69
         overXTurns: 5
 --- !u!1 &1487906435
 GameObject:

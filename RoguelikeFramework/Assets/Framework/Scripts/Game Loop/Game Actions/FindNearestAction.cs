@@ -28,11 +28,11 @@ public class FindNearestAction : GameAction
             yield break;
         }
 
-        Path path = Pathfinding.CreateDjikstraPath(caller.location, goals);
+        Path path = Pathfinding.CreateDjikstraWithAstar(caller.location, goals);
 
         if (path.Cost() < 0)
         {
-            Debug.LogWarning("Monster cannot find path to location! Aborting");
+            Debug.LogWarning("Monster cannot find path to location from here! Aborting.");
             yield break;
         }
 

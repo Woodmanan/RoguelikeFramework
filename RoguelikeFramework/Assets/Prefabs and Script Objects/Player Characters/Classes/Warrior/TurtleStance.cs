@@ -74,12 +74,12 @@ public class TurtleStance : Effect
             }
         }
 
-        if (!hasSpeed && (numMonstersInSight > 0))
+        if (hasSpeed && (numMonstersInSight > 0))
         {
             Debug.Log("Console: You hunker down, and begin moving more slowly.");
         }
 
-        if (hasSpeed && (numMonstersInSight == 0))
+        if (!hasSpeed && (numMonstersInSight == 0))
         {
             Debug.Log("Console: You speed back up!");
         }

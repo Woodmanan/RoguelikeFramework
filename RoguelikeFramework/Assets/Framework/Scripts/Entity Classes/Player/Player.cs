@@ -97,6 +97,7 @@ public class Player : Monster
         if (baseStats[HEALTH] <= 0)
         {
             Debug.Log("Game over!");
+            SceneManager.LoadScene("CharacterSelect");
         }
     }
 }

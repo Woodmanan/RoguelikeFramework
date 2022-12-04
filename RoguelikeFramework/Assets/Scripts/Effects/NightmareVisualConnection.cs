@@ -10,6 +10,9 @@ public class NightmareVisualConnection : Effect
     public int numTurnsUntilAdd;
     public int numberOfTicksToAdd;
     [HideInInspector] public Monster maintainWith;
+    public GameObject nightmareFXObject;
+    NightmareConnectionFX nightmareFX;
+
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -26,10 +29,18 @@ public class NightmareVisualConnection : Effect
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        nightmareFX = GameObject.Instantiate(nightmareFXObject).GetComponent<NightmareConnectionFX>();
+        nightmareFX.transform.parent = connectedTo.monster.transform;
+        nightmareFX.Setup(connectedTo.monster, credit);
+    }
 
     //Called when an effect gets disconnected from a monster
-    /*public override void OnDisconnection() {} */
+    public override void OnDisconnection()
+    {
+        GameObject.Destroy(nightmareFX.gameObject);
+    }
 
     //Called when an effect "Clashes" with an effect of the same type
     /* public override void OnStack(Effect other, ref bool addThisEffect) {} */

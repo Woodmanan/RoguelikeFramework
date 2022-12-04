@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
+  m_Name: Global Consumables Table
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
+  - {fileID: 6687509776577718200, guid: b3e7383757eb7b446bef8253bee84eb5, type: 3}
+  - {fileID: 6687509776577718200, guid: 06784b07027ef32418a4dbfc56d33d8e, type: 3}
+  - {fileID: 6687509776577718200, guid: 7daf323228b13874886fab1dc53e72fa, type: 3}
+  elevationOptions: []
+  references:
+    version: 1

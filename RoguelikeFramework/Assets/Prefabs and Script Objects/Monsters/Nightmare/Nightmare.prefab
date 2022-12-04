@@ -48,12 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 01000000050000000600000009000000
+    _keys: 0100000005000000060000000800000009000000
     _vals:
     - 120
     - 1
     - 1
-    - 3
+    - 7
+    - 7
   currentStats:
     _keys: 
     _vals: []

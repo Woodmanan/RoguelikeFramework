@@ -30,42 +30,50 @@ public class ActivateAction : GameAction
             caller.energy -= 100;
             Debug.LogError("Someone activate an item with no activatable? Draining to prevent softlock.", caller);
             yield break;
-        } 
+        }
 
-        Ability abilityOnActivation = item.abilityOnActivation;
-        abilityOnActivation.RegenerateStats(caller);
-        if (abilityOnActivation.CheckAvailable(caller))
+        if ((item.activateType & ActivateType.Ability) > 0)
         {
-            bool keepActivating = true;
-            Item itemRef = stack.held[stack.count - 1];
-            caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
-
-            if (!keepActivating)
+            Ability abilityOnActivation = item.abilityOnActivation;
+            abilityOnActivation.RegenerateStats(caller);
+            if (abilityOnActivation.CheckAvailable(caller))
             {
-                Debug.Log("Console: You cannot activate this item right now (caused by connected effect).");
-                yield break;
-            }
+                bool keepActivating = true;
+                Item itemRef = stack.held[stack.count - 1];
+                caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
 
-            AbilityAction castAction = new AbilityAction(abilityOnActivation);
-            castAction.Setup(caller);
-            while (castAction.action.MoveNext())
-            {
-                yield return castAction.action.Current;
-            }
-
-            if (castAction.successful)
-            {
-                //Remove the item!
-                if (item.ConsumedOnUse)
+                if (!keepActivating)
                 {
-                    caller.inventory.RemoveLastItemFromStack(index);
+                    Debug.Log("Console: You cannot activate this item right now (caused by connected effect).");
+                    yield break;
+                }
+
+                AbilityAction castAction = new AbilityAction(abilityOnActivation);
+                castAction.Setup(caller);
+                while (castAction.action.MoveNext())
+                {
+                    yield return castAction.action.Current;
+                }
+
+                if (castAction.successful)
+                {
+                    //Remove the item!
+                    if (item.ConsumedOnUse)
+                    {
+                        caller.inventory.RemoveLastItemFromStack(index);
+                    }
                 }
             }
+            else
+            {
+                Debug.Log("Console: You cannot activate this item right now.");
+                this.successful = false;
+            }
         }
-        else
+
+        if ((item.activateType & ActivateType.Effect) > 0)
         {
-            Debug.Log("Console: You cannot activate this item right now.");
-            this.successful = false;
+            caller.AddEffectInstantiate(item.activationEffects.ToArray());
         }
     }
 

@@ -215,6 +215,11 @@ public class Monster : MonoBehaviour
         dead = true;
         Debug.Log("Monster is dead!");
 
+        foreach (Effect effect in effects)
+        {
+            effect.Disconnect();
+        }
+
         //Clear tile, so other systems don't try to use a dead monster
         if (currentTile.currentlyStanding == this)
             currentTile.currentlyStanding = null;

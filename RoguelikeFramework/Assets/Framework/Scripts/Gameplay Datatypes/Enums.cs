@@ -114,7 +114,8 @@ public enum EquipSlotType
     PRIMARY_HAND,
     SECONDARY_HAND,
     BODY,
-    TAIL
+    TAIL,
+    FEET
 }
 
 //Order is very important here! Order written is order shown in inventory.

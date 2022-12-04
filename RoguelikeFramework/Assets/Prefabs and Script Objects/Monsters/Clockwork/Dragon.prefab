@@ -50,10 +50,10 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000003000000060000000800000009000000
     _vals:
-    - 50
+    - 7
     - 20
-    - 4
-    - 6
+    - 1
+    - 1
     - 4
   currentStats:
     _keys: 
@@ -76,6 +76,7 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 1
@@ -96,6 +97,7 @@ MonoBehaviour:
         addedEnergy: 20
         energyRefundPerStep: 0
         addedDamage: 4
+        lightningEffect: {fileID: 8933536236102033547, guid: ba97ccf4ea2d19a47919231bbeecc5b0, type: 3}
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -212,12 +214,12 @@ MonoBehaviour:
     CanAttackUnarmed: 1
     unarmedAttack:
       chanceToHit: 50
-      accuracy: 0
-      piercing: 0
+      accuracy: -3
+      piercing: 5
       damage:
       - damage:
           rolls: 1
-          dice: 10
+          dice: 5
         type: 3
   - slotName: Claws
     type: 01000000
@@ -254,3 +256,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAbilities: 10
+  baseAbilities: []

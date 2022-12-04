@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 7913379573585751926, guid: a8b2b66d3017fd04fbdf4aa02653f65f, type: 3}
-  - {fileID: 8514963120815226497, guid: 4255b4c1c522fc343ae3ac00415e0b1b, type: 3}
   - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
-  - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
-  - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
+  - {fileID: 6687509776577718200, guid: b3e7383757eb7b446bef8253bee84eb5, type: 3}
   - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
   abilities:
   - {fileID: 11400000, guid: 39c471a50af4a8240bc83bd0c5037e58, type: 2}
@@ -25,3 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7694dba35f116704fba601e35f6bbf9e, type: 2}
   - {fileID: 11400000, guid: e60fa2fcc1dca9e4681d685c56c47b85, type: 2}
   - {fileID: 11400000, guid: 7d3238d224840544f8602902f14739f0, type: 2}
+  effects: []
+  references:
+    version: 1

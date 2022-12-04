@@ -40,9 +40,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ba99da266c2c3c4e84f949d2b24a125, type: 2}
   - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
   numItemsPerLevel:
-    rngType: 0
+    rngType: 1
     min: 5
-    max: 5
+    max: 20
   elevatesItems: 0
   itemSpawnInfo:
     rarities: []

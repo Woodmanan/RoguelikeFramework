@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62bc60c6f5d4f6042a1c52f654e31bc4, type: 3}
   m_Name: Blink Mage
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 8514963120815226497, guid: 8aeb060f702c4f841b087bd8cf19216f, type: 3}
+  - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
   abilities:
   - {fileID: 11400000, guid: dedeaffeff98828499242c5d1e1adde8, type: 2}
   - {fileID: 11400000, guid: e7de8d7274bb5a04ba1cfe2db4cb0fe0, type: 2}

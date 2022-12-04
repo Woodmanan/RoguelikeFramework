@@ -116,6 +116,10 @@ public class AttackAction : GameAction
         {
             Combat.Hit(attacker, defender, DamageSource.UNARMEDATTACK, slot.unarmedAttack);
         }
+        else
+        {
+            Debug.Log($"Console: The {attacker.displayName} misses!");
+        }
 
         defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);
 

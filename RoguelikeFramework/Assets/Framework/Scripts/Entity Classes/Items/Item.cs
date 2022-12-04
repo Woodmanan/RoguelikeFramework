@@ -63,7 +63,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    public ActivatableItem activatable;
+    [HideInInspector] public ActivatableItem activatable;
     [HideInInspector] public EquipableItem equipable;
     [HideInInspector] public MeleeWeapon melee;
     [HideInInspector] public RangedWeapon ranged;

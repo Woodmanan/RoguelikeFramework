@@ -16,6 +16,12 @@ public class PoweredUp : Effect
     public int energyRefundPerStep;
     public int addedDamage;
 
+    [Header("Dispaly FX")]
+    public GameObject lightningEffect;
+    private PoweredUpLightning lightning;
+
+    int connectedFloor = -1;
+
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -32,10 +38,21 @@ public class PoweredUp : Effect
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        lightning = GameObject.Instantiate(lightningEffect).GetComponent<PoweredUpLightning>();
+        lightning.transform.parent = connectedTo.monster.transform;
+        lightning.monster = connectedTo.monster.GetComponent<SpriteRenderer>();
+    }
 
     //Called when an effect gets disconnected from a monster
-    /*public override void OnDisconnection() {} */
+    public override void OnDisconnection()
+    {
+        if (lightning)
+        {
+            GameObject.Destroy(lightning.gameObject);
+        }
+    }
 
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
@@ -46,8 +63,9 @@ public class PoweredUp : Effect
     //Called at the start of a monster's turn
     public override void OnTurnStartLocal()
     {
-        if (system == null)
+        if (system == null || connectedFloor != Map.current.index)
         {
+            connectedFloor = Map.current.index;
             foreach (DungeonSystem mapSystem in Map.current.mapSystems)
             {
                 system = mapSystem as PowerSystem;
@@ -71,11 +89,15 @@ public class PoweredUp : Effect
             }
         }
 
-        //TODO: SET UP ANIM
-        /*if (isPowered)
+        //Set up anim
+        if (isPowered)
         {
-            Debug.Log($"{connectedTo.monster.displayName} is powered up by tower at {tower.location}!");
-        }*/
+            lightning.tower = tower;
+        }
+        else
+        {
+            lightning.tower = null;
+        }
     }
 
     //Called at the end of a monster's turn

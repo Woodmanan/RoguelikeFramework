@@ -81,7 +81,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 0
-  level: 5
+  level: 1
   personalAttribute:
     ReadyToDelete: 0
     credit: {fileID: 0}
@@ -254,6 +254,24 @@ MonoBehaviour:
         type: 1
   - slotName: Body
     type: 04000000
+    equipped:
+      id: 0
+      type: 0
+      count: 0
+      held: []
+      position: 0
+      lastUpdated: 0
+    active: 0
+    removable: 1
+    position: 0
+    CanAttackUnarmed: 0
+    unarmedAttack:
+      chanceToHit: 0
+      accuracy: 0
+      piercing: 0
+      damage: []
+  - slotName: Feet
+    type: 06000000
     equipped:
       id: 0
       type: 0

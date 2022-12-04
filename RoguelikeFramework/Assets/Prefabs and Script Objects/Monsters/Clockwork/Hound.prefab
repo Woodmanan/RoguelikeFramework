@@ -50,10 +50,10 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000050000000600000009000000
     _vals:
-    - 4
+    - 7
+    - 20
     - 1
     - 1
-    - 3
   currentStats:
     _keys: 
     _vals: []
@@ -75,6 +75,7 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 1
@@ -88,11 +89,13 @@ MonoBehaviour:
         credit: {fileID: 0}
         range: 5
         addedStats:
-          _keys: 
-          _vals: []
+          _keys: 09000000
+          _vals:
+          - 7
         addedEnergy: 0
         energyRefundPerStep: 50
         addedDamage: 0
+        lightningEffect: {fileID: 8933536236102033547, guid: ba97ccf4ea2d19a47919231bbeecc5b0, type: 3}
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0

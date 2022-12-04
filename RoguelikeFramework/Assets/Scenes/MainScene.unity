@@ -1945,7 +1945,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -14.805023}
+  m_SizeDelta: {x: 0, y: -2.457016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &273582752
 MonoBehaviour:
@@ -5462,8 +5462,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5480,7 +5480,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 2
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -6456,6 +6456,8 @@ MonoBehaviour:
     - type: 2
       weight: 1
     - type: 4
+      weight: 1
+    - type: 8
       weight: 1
   maxDepth: 32
 --- !u!4 &1269666195
@@ -8303,7 +8305,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.55
+  m_fontSize: 64.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9226,8 +9228,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9244,7 +9246,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 2
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -9500,10 +9502,10 @@ MonoBehaviour:
   generators: []
   current: 0
   msPerFrame: 0
-  randomSeed: 0
+  randomSeed: 1
   seed: 1450156029
-  preloadUpTo: 0
-  JITLoading: 1
+  preloadUpTo: 3
+  JITLoading: 0
   LoadAllLevelsAtStart: 0
   startAt: 0
   references:
