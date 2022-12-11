@@ -94,4 +94,4 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         duration: 10
-        range: 3
+        range: 4

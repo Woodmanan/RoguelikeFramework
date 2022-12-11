@@ -111,5 +111,14 @@ MonoBehaviour:
     m_Localized: A featherless biped.
     m_Metadata:
       m_Items: []
+  - m_Id: 2637749302583296
+    m_Localized: Desperado
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2638195727523840
+    m_Localized: A bandit, covering thier face with a dusty cloth. Better not fight
+      them with a scimitar.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

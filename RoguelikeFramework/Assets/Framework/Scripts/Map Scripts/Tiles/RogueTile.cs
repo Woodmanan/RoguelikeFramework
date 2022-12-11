@@ -27,6 +27,7 @@ public class RogueTile : MonoBehaviour
     public float movementCost;
     public bool blocksVision;
     public Color color = Color.white;
+    public float minGreyAlpha;
     public Monster currentlyStanding;
 
     //Floor visualization
@@ -69,7 +70,7 @@ public class RogueTile : MonoBehaviour
         inventory.Setup();
         //Starts as on, so that Unity 
         render = GetComponent<SpriteRenderer>();
-        render.enabled = false;
+        render.enabled = true;
 
         //Set up initial visibility
         itemVis = GetComponent<ItemVisiblity>();
@@ -184,9 +185,8 @@ public class RogueTile : MonoBehaviour
             //TODO: Item coloring on tiles that are not visible anymore
             if (!isHidden)
             {
-                render.enabled = true;
                 float gray = color.grayscale / 2;
-                render.color = new Color(gray, gray, gray);
+                render.color = new Color(gray, gray, gray, Mathf.Max(minGreyAlpha, color.a));
             }
             else
             {
@@ -194,8 +194,7 @@ public class RogueTile : MonoBehaviour
                 {
                     Debug.LogError("Someone didn't do something right!", this);
                 }
-                render.enabled = false;
-                render.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                render.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
             }
         }
         

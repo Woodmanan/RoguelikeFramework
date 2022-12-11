@@ -17,12 +17,12 @@ MonoBehaviour:
   color: {r: 0, g: 0.62741375, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
-    targetingType: 2
+    targetingType: 3
     areaType: 0
     range: 6
     radius: 0
     degree: 0
-    options: 71
+    options: 199
     targetPriority: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
@@ -68,7 +68,7 @@ MonoBehaviour:
   damage:
     rngType: 1
     min: 20
-    max: 80
+    max: 40
   punishmentEffect:
     id: 0
   landingZoneOnly: 1

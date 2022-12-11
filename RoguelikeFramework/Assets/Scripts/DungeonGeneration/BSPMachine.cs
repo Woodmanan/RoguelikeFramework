@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[Group("Connectors")]
+[Group("Branch/Nightmare")]
 public class BSPMachine : Machine
 {
     public int maxWidth; //Written this way to prevent even numbers!

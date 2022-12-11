@@ -199,7 +199,8 @@ public enum TargetTags
     INCLUDES_CASTER_SPACE   = (1 << 3),
     RECOMMENDS_SELF_TARGET  = (1 << 4),
     RECOMMNEDS_ALLY_TARGET  = (1 << 5),
-    RETARGETS_SAME_MONSTER  = (1 << 6)
+    RETARGETS_SAME_MONSTER  = (1 << 6),
+    REQUIRES_WALKABLE_POINT = (1 << 7)
 }
 
 public enum TargetPriority

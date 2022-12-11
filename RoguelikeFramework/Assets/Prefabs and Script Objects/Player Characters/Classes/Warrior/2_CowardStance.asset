@@ -92,5 +92,5 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         refundEnergyOnScared: 10
-        percentDamageIncrease: 30
+        percentDamageIncrease: 60
         percentDamageDecreaseFear: 50

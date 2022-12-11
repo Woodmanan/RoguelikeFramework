@@ -91,7 +91,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        percentExtraDamage: 20
-        percentDamageReturned: 50
+        percentExtraDamage: 50
+        percentDamageReturned: 60
         combatHealthPerTurn: 1
         healthPerKill: 3

@@ -53,6 +53,26 @@ MonoBehaviour:
     - {fileID: 11400000, guid: edf6eaac81ea5034593affdf2e4f8762, type: 2}
     connectionType: 0
     exitTargets: []
+  - name: Floors 7-9
+    enabled: 1
+    entryTargets:
+    - branchName: Nightmare
+      floors:
+        rngType: 0
+        min: 2
+        max: 2
+      weight: 0
+      pickIfExists: 0
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 0
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: 42973791fa167f74fa4b3c8b266e397d, type: 2}
+    connectionType: 0
+    exitTargets: []
   dungeonSystems: []
   references:
     version: 1

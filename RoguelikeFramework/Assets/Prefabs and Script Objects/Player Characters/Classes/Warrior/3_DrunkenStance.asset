@@ -92,9 +92,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         durationOnDrink: 20
-        baseAttackDamagePercent: 40
-        damagePerDrinkStack: 20
-        baseDodgePercent: 0
+        baseAttackDamagePercent: 75
+        damagePerDrinkStack: 25
+        baseDodgePercent: 25
         dodgePerDrinkStack: 10
         maxDrinkStacks: 5
         currentDrinks: 0

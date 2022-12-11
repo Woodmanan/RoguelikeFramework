@@ -41,7 +41,7 @@ public class StatBar : MonoBehaviour
                 {
                     image.enabled = true;
                 }
-                float goalFillAmount = player.currentStats[main] / Mathf.Max(player.currentStats[max], 0.001f);
+                float goalFillAmount = player.baseStats[main] / Mathf.Max(player.currentStats[max], 0.001f);
                 currentFillAmount = Mathf.Lerp(currentFillAmount, goalFillAmount, .05f);
                 if (Mathf.Abs(goalFillAmount - currentFillAmount) < .005)
                 {

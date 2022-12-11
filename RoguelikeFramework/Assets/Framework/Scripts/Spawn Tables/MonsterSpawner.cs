@@ -5,6 +5,7 @@ using System.Linq;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    public float dontSpawnNearStairDist;
     private static MonsterSpawner Singleton;
     public static MonsterSpawner singleton
     {
@@ -51,10 +52,11 @@ public class MonsterSpawner : MonoBehaviour
             starts.Add(connection.toLocation);
         }
 
+        /*
         foreach (LevelConnection connection in m.exits)
         {
             starts.Add(connection.fromLocation);
-        }
+        }*/
 
         //Create positions map
         float[,] positions = Pathfinding.CreateDijkstraMap(m, starts.ToList());
@@ -74,7 +76,9 @@ public class MonsterSpawner : MonoBehaviour
                     //Confirm that two monsters won't spawn on each other
                     if (!tile.IsInteractable() && m.GetTile(i, j).currentlyStanding == null)
                     {
-                        tickets[i, j] = Mathf.RoundToInt(Mathf.Log(positions[i, j], 2));
+                        float dist = Mathf.Max(positions[i, j] - dontSpawnNearStairDist, 1);
+                        dist = Mathf.Max(Mathf.Log(dist, 2), 0); //This number can't be negative, or monsters WILL spawn on each other.
+                        tickets[i, j] = Mathf.RoundToInt(dist);
                         ticketSum += tickets[i, j];
                     }
                     else
@@ -139,6 +143,7 @@ public class MonsterSpawner : MonoBehaviour
         monster.level = map.depth;
         monster.Setup();
         monster.PostSetup(Map.current);
+        monster.currentTile = map.GetTile(location);
         return monster;
     }
 
@@ -164,5 +169,19 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         return options[Random.Range(0, options.Count)].RandomMonsterByDepth(depth);
+    }
+
+    public void SpawnMonsterAt(Map map, Vector2Int location)
+    {
+        Branch branch = map.branch;
+        Monster toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
+        if (toSpawn)
+        {
+            SpawnMonsterInstantiate(toSpawn, location, map);
+        }
+        else
+        {
+            Debug.LogError("Couldn't spawn anything! Monster to spawn was null.");
+        }    
     }
 }

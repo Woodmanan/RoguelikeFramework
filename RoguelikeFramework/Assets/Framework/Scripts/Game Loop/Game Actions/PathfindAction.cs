@@ -21,6 +21,7 @@ public class PathfindAction : GameAction
         if (path.Cost() < 0)
         {
             Debug.LogWarning("Monster cannot find path to location! Aborting");
+            caller.energy -= 100;
             yield return GameAction.Abort;
         }
 

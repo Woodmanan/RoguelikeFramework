@@ -159,6 +159,11 @@ public class Targeting
             valid = valid && (atTarget != null);
         }
 
+        if ((options & TargetTags.REQUIRES_WALKABLE_POINT) > 0)
+        {
+            valid = valid && !Map.current.GetTile(target).BlocksMovement();
+        }
+
         return valid;
     }
 
