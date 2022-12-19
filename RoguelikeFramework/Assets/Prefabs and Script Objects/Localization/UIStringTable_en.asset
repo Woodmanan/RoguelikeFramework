@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UIStringTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f5c0042fb20f9a54ca72398f2094cedd, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 13936304128
+    m_Localized: Your health points, or HP. Running out of these kills you. ({0}/{1})
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 272498368512
+    m_Localized: Your mana points, or MP. You use these to cast spells. ({0}/{1})
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 281267172745216
+    m_Localized: 'Your stats, which represent the current state of your character.
+      Click to learn more!
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 283617929142272
+    m_Localized: Character Stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789282925780992
+    m_Localized: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789451641659392
+    m_Localized: Armor reduces damage by the shown percent.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789725789757440
+    m_Localized: Evasion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789799643062272
+    m_Localized: Evasion helps increase you dodge chance. Dodge chance can't go below
+      0%.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0020ab3e0300000000202b723f000000

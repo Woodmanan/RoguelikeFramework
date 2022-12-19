@@ -120,5 +120,26 @@ MonoBehaviour:
       them with a scimitar.
     m_Metadata:
       m_Items: []
+  - m_Id: 4768710009757696
+    m_Localized: Black Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768776544002048
+    m_Localized: It's a black hole!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768904969396224
+    m_Localized: White Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768988608012288
+    m_Localized: It's a white hole! It redirects the teleports of its caster around
+      it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5159747383402496
+    m_Localized: A hulking beast with leathery green skin. Oh wait, it's you!
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

@@ -61,7 +61,7 @@ MonoBehaviour:
   costs:
     _keys: 02000000
     _vals:
-    - 3
+    - 6
   castable: 1
   types: 0
   effects: []

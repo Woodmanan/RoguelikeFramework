@@ -20,7 +20,7 @@ public class Fireball : Ability
 
         foreach (Monster m in targeting.affected)
         {
-            m.Damage(caster, currentStats[POWER], DamageType.CUTTING, DamageSource.ABILITY);
+            m.Damage(caster, currentStats[POWER], DamageType.FIRE, DamageSource.ABILITY);
         }
     }
 }

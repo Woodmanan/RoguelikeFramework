@@ -32,8 +32,8 @@ MonoBehaviour:
   - id: 1
   overrides: []
   tiles: {fileID: 11400000, guid: 97a8b1b8629f68b4a9c65272404c6ab9, type: 2}
-  entryTile: {fileID: 3072715883528071421, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  exitTile: {fileID: 8621634034822304618, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  entryTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  exitTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
   tables:
   - {fileID: 11400000, guid: 18c8dfd7158c105408f1e972ee925bea, type: 2}
   - {fileID: 11400000, guid: 70c0c964595c88c49a0ba00da8174ae5, type: 2}
@@ -106,5 +106,5 @@ MonoBehaviour:
         lifetimeWarningAt: 5
         messageEvery:
           rngType: 1
-          min: 40
-          max: 80
+          min: 200
+          max: 260

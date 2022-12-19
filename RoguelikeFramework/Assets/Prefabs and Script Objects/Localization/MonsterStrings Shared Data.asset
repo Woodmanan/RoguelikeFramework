@@ -103,6 +103,26 @@ MonoBehaviour:
     m_Key: DesperadoDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 4768710009757696
+    m_Key: BlackHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768776544002048
+    m_Key: BlackHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768904969396224
+    m_Key: WhiteHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768988608012288
+    m_Key: WhiteHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5159747383402496
+    m_Key: TrollDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

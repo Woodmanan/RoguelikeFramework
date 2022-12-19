@@ -77,7 +77,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  friendlyName: playerHuman
+  friendlyName: PlayerHuman
   nameRequiresPluralVerbs: 1
   faction: 2
   ID: 0
@@ -204,8 +204,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: -3750807631049975716, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0.10062516, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: acc893d7053461c47adba17e2422fa9e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

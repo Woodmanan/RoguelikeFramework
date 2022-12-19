@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4614304156240390126, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0.2867924, g: 0.8601128, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 956a4f52a8cbc114181cbbcb6bb65c93, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   description: A lovely Window
   movementCost: -2
   blocksVision: 0
-  color: {r: 0.2867924, g: 0.8601128, b: 1, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   minGreyAlpha: 0.8
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}

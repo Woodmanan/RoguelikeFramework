@@ -69,12 +69,17 @@ public enum Faction
     PLAYER      = (1 << 1)
 }
 
+[Flags]
 public enum DamageType
 {
-    NONE,
-    BLUNT,
-    CUTTING,
-    PIERCING
+    NONE = 0,
+    PHYSICAL    = (1 << 0),
+    MAGICAL     = (1 << 1),
+    TRUE        = (1 << 2),
+    FIRE        = (1 << 3),
+    ICE         = (1 << 4),
+    ELECTRICAL  = (1 << 5),
+    BLEED       = (1 << 6)
 }
 
 [Flags]

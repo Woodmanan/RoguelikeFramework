@@ -55,6 +55,7 @@ public class CastAbilityOnDeath: Effect
     //Called when the connected monster dies
     public override void OnDeath()
     {
+        connectedTo.monster.UpdateLOS();
         if (connectedTo.monster == Player.player && toCast.targeting.targetingType != TargetType.SELF)
         {
             Debug.LogError("This doesn't work for humans yet! Can't allow aiming, unfortunately.");

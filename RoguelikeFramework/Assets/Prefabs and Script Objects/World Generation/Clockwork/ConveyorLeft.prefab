@@ -106,11 +106,12 @@ MonoBehaviour:
   movementCost: 1
   blocksVision: 0
   color: {r: 0.8218324, g: 1, b: 0.23018867, a: 1}
+  minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
   movesTo: {x: -1, y: 0}
   leniency: 0.4
-  penalty: -0.8
+  penalty: 0
   heldMonster: {fileID: 0}
 --- !u!114 &-6831686445137475804
 MonoBehaviour:

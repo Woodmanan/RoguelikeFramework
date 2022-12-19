@@ -102,8 +102,7 @@ MonoBehaviour:
   dirty: 1
   location: {x: 0, y: 0}
   name: Horse
-  description: It's an oddly distended horse. Why does it look like that? Was the
-    author too lazy to find a real horse tile?
+  description: It's an oddly distended horse. Why does it look like that?
   movementCost: 1
   blocksVision: 0
   color: {r: 0.7924528, g: 0.74646807, b: 0.45902455, a: 1}

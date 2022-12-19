@@ -102,7 +102,7 @@ MonoBehaviour:
   dirty: 1
   location: {x: 0, y: 0}
   name: Air
-  description: Ah yes, the floor here is made of floor.
+  description: Smells great, hard to stand on.
   movementCost: -2
   blocksVision: 0
   color: {r: 0, g: 0, b: 0, a: 0}

@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8882469605151552031, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0.7924528, g: 0.74646807, b: 0.45902455, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 88331113d1bc09c479682759912d51db, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +105,8 @@ MonoBehaviour:
   description: Ah yes, the floor here is made of floor.
   movementCost: 1
   blocksVision: 0
-  color: {r: 0.7924528, g: 0.74646807, b: 0.45902455, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!114 &-6831686445137475804

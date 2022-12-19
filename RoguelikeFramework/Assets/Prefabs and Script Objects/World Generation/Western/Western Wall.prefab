@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0.6981132, g: 0.42553416, b: 0.18045564, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ba6b266f397b6304a92aa3f5bc79018b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +105,8 @@ MonoBehaviour:
   description: It's a wall!
   movementCost: -2
   blocksVision: 1
-  color: {r: 0.6981132, g: 0.42553416, b: 0.18045564, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
 --- !u!114 &-5104389745567183696

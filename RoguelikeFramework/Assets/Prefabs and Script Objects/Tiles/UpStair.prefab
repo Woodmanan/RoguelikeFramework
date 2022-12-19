@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5035941147320666483, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 0, g: 0.75526, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 37a32d5a87b0e0d4298047cfd0ccb6ea, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +105,8 @@ MonoBehaviour:
   description: A convenient connection.
   movementCost: 1
   blocksVision: 0
-  color: {r: 0, g: 0.75526, b: 1, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 4044338785546170514}
   connection:
@@ -122,10 +123,10 @@ MonoBehaviour:
     oneWay: 0
   up: 0
   from: 0
-  upSprite: {fileID: -5035941147320666483, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  downSprite: {fileID: 4904313895962827525, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  upSpriteOneWay: {fileID: -3317297401675540975, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  downSpriteOneWay: {fileID: 8520586183337980492, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  upSprite: {fileID: 21300000, guid: 6f7437f97ceb7b6439e8fde2c6619af5, type: 3}
+  downSprite: {fileID: 21300000, guid: 37a32d5a87b0e0d4298047cfd0ccb6ea, type: 3}
+  upSpriteOneWay: {fileID: 21300000, guid: 6f7437f97ceb7b6439e8fde2c6619af5, type: 3}
+  downSpriteOneWay: {fileID: 21300000, guid: 37a32d5a87b0e0d4298047cfd0ccb6ea, type: 3}
 --- !u!114 &4044338785546170514
 MonoBehaviour:
   m_ObjectHideFlags: 0

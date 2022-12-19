@@ -98,7 +98,7 @@ public class BriarStance : Effect
 
             if (options.Count > 0)
             {
-                options[0].Damage(connectedTo.monster, damagePassed, DamageType.PIERCING, DamageSource.EFFECT, "Your thorns pierce the {name}");
+                options[0].Damage(connectedTo.monster, damagePassed, DamageType.BLEED, DamageSource.EFFECT, "Your thorns pierce the {name}");
             }
         }
     }

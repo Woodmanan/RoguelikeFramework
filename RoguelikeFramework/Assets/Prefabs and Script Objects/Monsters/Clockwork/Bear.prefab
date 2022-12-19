@@ -127,7 +127,7 @@ MonoBehaviour:
         addedStats:
           _keys: 08000000
           _vals:
-          - 10
+          - 30
         addedEnergy: 0
         energyRefundPerStep: 0
         addedDamage: 0
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3951848711225795761, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04bf8f62a24dd6a4ab3b7934894b337a, type: 3}
   m_Color: {r: 0.97544163, g: 1, b: 0.48900002, a: 1}
   m_FlipX: 0
   m_FlipY: 0

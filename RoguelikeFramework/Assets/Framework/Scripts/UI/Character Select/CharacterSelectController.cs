@@ -66,6 +66,11 @@ public class CharacterSelectController : MonoBehaviour
         chosenClass = classToChoose;
     }
 
+    public void SetChosenSpecies(Monster species)
+    {
+        chosenSpecies = species;
+    }
+
     IEnumerator LaunchGameRoutine()
     {
         yield return SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);

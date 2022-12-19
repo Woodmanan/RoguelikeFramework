@@ -34,14 +34,14 @@ public class Blink : Ability
         {
             if (goalTile.currentlyStanding)
             {
-                goalTile.currentlyStanding.Damage(caster, damage.Evaluate(), DamageType.PIERCING, DamageSource.ABILITY, "{name} is torn by the warping space");
+                goalTile.currentlyStanding.Damage(caster, damage.Evaluate(), DamageType.MAGICAL, DamageSource.ABILITY, "{name} is torn by the warping space");
             }
         }
         else
         {
             foreach (Monster hit in targeting.affected)
             {
-                hit.Damage(caster, damage.Evaluate(), DamageType.PIERCING, DamageSource.ABILITY, "{name} is torn by the warping space");
+                hit.Damage(caster, damage.Evaluate(), DamageType.MAGICAL, DamageSource.ABILITY, "{name} is torn by the warping space");
             }
         }
 
