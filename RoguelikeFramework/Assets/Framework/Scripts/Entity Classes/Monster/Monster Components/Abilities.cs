@@ -56,6 +56,11 @@ public class Abilities : MonoBehaviour
     {
         get { return abilities[index]; }
     }
+
+    public bool HasAbility(int index)
+    {
+        return (index >= 0 && index < abilities.Count && abilities[index] != null);
+    }
     
 
     public void AddAbility(Ability abilityToAdd)

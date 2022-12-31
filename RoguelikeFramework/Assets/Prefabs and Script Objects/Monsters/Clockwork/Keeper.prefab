@@ -59,6 +59,9 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
+  resistances: 0
+  weaknesses: 0
+  immunities: 0
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
@@ -97,7 +100,7 @@ MonoBehaviour:
   FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
-  XPFromKill: 1
+  XPFromKill: 2
   level: 0
   references:
     version: 1
@@ -223,7 +226,8 @@ MonoBehaviour:
       - damage:
           rolls: 1
           dice: 5
-        type: 3
+        type: 2
+  WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:
   m_ObjectHideFlags: 0

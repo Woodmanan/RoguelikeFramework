@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4402800733788238305}
   - component: {fileID: 4402800733788238304}
   - component: {fileID: 4402800733788238310}
+  - component: {fileID: 1604850196754765813}
   - component: {fileID: 4402800733788238311}
   - component: {fileID: 4402800733788238308}
   - component: {fileID: 4402800733788238309}
@@ -50,10 +51,13 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 2
+    - 6
   currentStats:
     _keys: 
     _vals: []
+  resistances: 0
+  weaknesses: 0
+  immunities: 0
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
@@ -147,6 +151,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1604850196754765813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402800733788238307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 829d5bb3115166641830ea4e04506d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 10
+  baseItems:
+  - {fileID: 9015174743555470457, guid: 2891e0573827b9d409b75b32fffdf7e4, type: 3}
 --- !u!114 &4402800733788238311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,8 +216,8 @@ MonoBehaviour:
   CanUnequip: 1
   monster: {fileID: 0}
   equipmentSlots:
-  - slotName: Claws
-    type: 02000000
+  - slotName: Primary
+    type: 0200000003000000
     equipped:
       id: 0
       type: 0
@@ -207,7 +226,7 @@ MonoBehaviour:
       position: 0
       lastUpdated: 0
     active: 0
-    removable: 0
+    removable: 1
     position: 0
     CanAttackUnarmed: 1
     unarmedAttack:
@@ -218,7 +237,30 @@ MonoBehaviour:
       - damage:
           rolls: 1
           dice: 5
-        type: 3
+        type: 1
+  - slotName: Secondary
+    type: 03000000
+    equipped:
+      id: 0
+      type: 0
+      count: 0
+      held: []
+      position: 0
+      lastUpdated: 0
+    active: 0
+    removable: 1
+    position: 0
+    CanAttackUnarmed: 1
+    unarmedAttack:
+      chanceToHit: 100
+      accuracy: 0
+      piercing: 0
+      damage:
+      - damage:
+          rolls: 1
+          dice: 5
+        type: 1
+  WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:
   m_ObjectHideFlags: 0

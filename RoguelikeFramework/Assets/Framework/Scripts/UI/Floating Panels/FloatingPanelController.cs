@@ -6,6 +6,10 @@ public class FloatingPanelController : MonoBehaviour
 {
     public static List<FloatingPanel> panels = new List<FloatingPanel>();
 
+    public Quadtree<FloatingPanel> quadtree;
+
+    PanelComparer comp = new PanelComparer();
+
     public static FloatingPanelController Singleton;
     public static FloatingPanelController singleton
     {
@@ -37,7 +41,6 @@ public class FloatingPanelController : MonoBehaviour
 
     bool dirty = true;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +60,10 @@ public class FloatingPanelController : MonoBehaviour
 
     public void AddPanel(FloatingPanel panel)
     {
-        panels.Add(panel);
+        int index = panels.BinarySearch(panel, comp);
+        if (index < 0) index = ~index;
+        panels.Insert(index, panel);
+
         if (routine != null)
         {
             StopAllCoroutines();
@@ -87,60 +93,12 @@ public class FloatingPanelController : MonoBehaviour
     {
         dirty = false;
 
-        for (int count = 0; count < maxIterations; count++)
+        quadtree = new Quadtree<FloatingPanel>(new Rect(0, 0, Screen.width, Screen.height));
+
+        for (int i = 0; i < panels.Count; i++)
         {
-            bool hasMoves = false;
-            foreach (FloatingPanel panel in panels)
-            {
-                if (panel.canMove)
-                {
-                    panel.velocity = Vector2.zero;
-                    foreach (FloatingPanel other in panels)
-                    {
-                        if (other.rect.Overlaps(panel.rect) && other != panel)
-                        {
-
-                            Vector2 offset = FastestEscapeRoute(other.rect, panel.rect);
-                            if (!other.canMove)
-                            {
-                                offset *= staticPushMultiplier;
-                            }
-                            panel.velocity += offset;
-                        }
-                    }
-
-                    if (panel.velocity.magnitude > 0)
-                    {
-                        panel.velocity = panel.velocity.normalized * speedPerIteration / panel.weight;
-                        panel.velocity += (panel.goal - panel.rect.center).normalized * goalSpeed / panel.weight;
-                        hasMoves = true;
-                    }
-
-                    if (panel.rect.min.x < 0 || panel.rect.min.y < 0 || panel.rect.max.x > 1 || panel.rect.max.y > 1)
-                    {
-                        panel.velocity += ((Vector2.one / 2) - panel.rect.center).normalized * speedPerIteration;
-                        hasMoves = true;
-                    }
-                }
-            }
-
-            if (!hasMoves)
-            {
-                break;
-            }
-
-            foreach (FloatingPanel panel in panels)
-            {
-                if (panel.canMove)
-                {
-                    panel.rect.position += panel.velocity;
-                }
-            }
-        }
-
-        foreach (FloatingPanel panel in panels)
-        {
-            panel.UpdatePositionFromRect();
+            FloatingPanel panel = panels[i];
+            Debug.Log($"Working on panel {i} with weight {panel.weight} and dim {panel.GenerateActualBounds()}");
         }
     }
 
@@ -165,5 +123,13 @@ public class FloatingPanelController : MonoBehaviour
         Vector2 x = new Vector2(moving.center.x - box.center.x, 0);
         Vector2 y = new Vector2(0, moving.center.y - box.center.y);
         return x * (1 - aspect) + y * aspect;
+    }
+}
+
+public class PanelComparer : IComparer<FloatingPanel>
+{
+    public int Compare(FloatingPanel a, FloatingPanel b)
+    {
+        return b.weight.CompareTo(a.weight);
     }
 }

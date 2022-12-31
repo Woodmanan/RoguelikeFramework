@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
     World world;
 
     [HideInInspector] public int nextLevel = -1;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -133,7 +133,6 @@ public class GameController : MonoBehaviour
         //Main loop
         while (true)
         {
-            
             CallTurnStartGlobal();
 
             //Player turn sequence
@@ -161,6 +160,10 @@ public class GameController : MonoBehaviour
             watch.Restart();
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
+                //Local scope counter for stalling - prevent a monster from taking > 1000 sub-turns
+                int stallCount = 0;
+                
+
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
                 if (watch.ElapsedMilliseconds > turnMSPerFrame)
                 {
@@ -198,6 +201,16 @@ public class GameController : MonoBehaviour
                                 watch.Restart();
                             }
                         }
+
+                        //Stall check!
+                        stallCount++;
+                        if (stallCount > 10-0)
+                        {
+                            UnityEngine.Debug.LogError($"Main loop stalled during the turn of {m.friendlyName}, recovering...", m);
+                            m.energy = 0;
+                            break;
+                        }
+                        
                     }
 
                     //Turn is ended!

@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
   m_Name: Nightmare Visual
   m_EditorClassIdentifier: 
-  displayName: Nightmare Connection
+  friendlyName: 
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   image: {fileID: -4658246047469269665, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   color: {r: 1, g: 0, b: 0, a: 1}
   baseTargeting:
@@ -103,6 +121,6 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         numTurnsUntilAdd: 7
-        numberOfTicksToAdd: 70
+        numberOfTicksToAdd: 800
         maintainWith: {fileID: 0}
         nightmareFXObject: {fileID: 8933536236102033547, guid: 5cba46c1d0a16604a9c666fa55575380, type: 3}

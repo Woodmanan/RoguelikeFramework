@@ -83,8 +83,8 @@ public class ForestMachine : Machine
         }
         
         Room room = UnityEngine.ScriptableObject.CreateInstance<Room>();
-        room.start = Vector2Int.zero;
-        room.end = size;
+        room.size = size;
+        room.SetPosition(Vector2Int.zero);
 
         generator.rooms.Add(room);
     }

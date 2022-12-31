@@ -14,6 +14,8 @@ public class ItemStack
     [HideInInspector] public int position;
     [HideInInspector] public int lastUpdated; //Used to find what items should float to the top
 
+    
+
     public string GetName()
     {
         if (count == 1)
@@ -31,10 +33,12 @@ public class Inventory : MonoBehaviour
 {
     //Regular variables
     public int capacity;
-    public int available;
+    int available;
 
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
+
+    public List<Item> baseItems;
 
     Transform holder;
 
@@ -128,6 +132,10 @@ public class Inventory : MonoBehaviour
 
         Debug.Assert(holder != null, "Inventory wasn't attached to monster or tile? Make sure to update inventory logic if this is intentional.", this);
 
+        foreach (Item item in baseItems)
+        {
+            Add(item.Instantiate());
+        }
 
         //TODO: REWORK THIS
         this.enabled = false; //This is really, really dumb. I know. Gives us back 15 fps, though

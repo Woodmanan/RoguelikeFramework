@@ -45,7 +45,7 @@ public class AbilityAction : GameAction
 
         if (toCast.currentCooldown > 0)
         {
-            Debug.Log($"You cannot cast {toCast.displayName}, it still has {toCast.currentCooldown} turns left.");
+            Debug.Log($"You cannot cast {toCast.friendlyName}, it still has {toCast.currentCooldown} turns left.");
             caller.other = null;
             successful = false;
             yield break;
@@ -76,7 +76,7 @@ public class AbilityAction : GameAction
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
-            Debug.Log($"Log: {caller.GetFormattedName()} cast {toCast.displayName}!");
+            Debug.Log($"Log: {caller.GetFormattedName()} cast {toCast.friendlyName}!");
             toCast.Cast(caller);
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);

@@ -220,7 +220,8 @@ MonoBehaviour:
       - damage:
           rolls: 1
           dice: 5
-        type: 3
+        type: 1
+  WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:
   m_ObjectHideFlags: 0

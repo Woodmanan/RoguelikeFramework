@@ -22,7 +22,9 @@ public class DamagePairingPropertyDrawer : PropertyDrawer
 
         var rect = new Rect(position.x + position.width - typeSize, position.y, typeSize, EditorGUIUtility.singleLineHeight);
         var saveRect = rect;
-        damageType.enumValueIndex = EditorGUI.Popup(rect, damageType.enumValueIndex, damageType.enumDisplayNames);
+
+        EditorGUI.PropertyField(rect, damageType, new GUIContent(""));
+        //damageType.enumValueIndex = EditorGUI.Popup(rect, damageType.enumValueIndex, damageType.enumDisplayNames);
 
         float rollSize = position.width + gap - typeSize - EditorGUIUtility.labelWidth;
 
@@ -36,7 +38,7 @@ public class DamagePairingPropertyDrawer : PropertyDrawer
         int[] nums = { rolls.intValue, dice.intValue };
 
 
-        damageType.enumValueIndex = EditorGUI.Popup(saveRect, damageType.enumValueIndex, damageType.enumDisplayNames);
+        //damageType.enumValueIndex = EditorGUI.Popup(saveRect, damageType.enumValueIndex, damageType.enumDisplayNames);
         EditorGUI.MultiIntField(rect, list, nums);
 
 

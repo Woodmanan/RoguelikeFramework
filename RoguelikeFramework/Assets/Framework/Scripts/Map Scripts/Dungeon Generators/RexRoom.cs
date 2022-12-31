@@ -214,6 +214,7 @@ public class RexRoom : Room
                                 map.GetTile(pos).SetMonster(monster);
                                 monster.currentTile = map.GetTile(pos);
                                 monster.transform.parent = map.monsterContainer;
+                                monster.level = map.depth;
                                 monster.Setup();
                                 yield return null;
                             }

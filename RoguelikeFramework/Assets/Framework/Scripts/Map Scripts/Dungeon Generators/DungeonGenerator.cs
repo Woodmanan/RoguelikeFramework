@@ -28,6 +28,9 @@ public class DungeonGenerator
 
     public int[,] map;
 
+    public List<Vector2Int> desiredInStairs;
+    public List<Vector2Int> desiredOutStairs;
+
     public IEnumerator generation = null;
     public bool finished = false;
     
@@ -40,6 +43,8 @@ public class DungeonGenerator
         UnityEngine.Random.InitState(seed);
 
         rooms = new List<Room>();
+        desiredInStairs = new List<Vector2Int>();
+        desiredOutStairs = new List<Vector2Int>();
 
         GameObject mapInstance = new GameObject();
         Map gameMap = mapInstance.AddComponent<Map>();

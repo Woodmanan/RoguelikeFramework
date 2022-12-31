@@ -7,18 +7,28 @@ public static class GameplayExtensions
         switch (Map.space)
         {
             case MapSpace.Chebyshev:
-                int x = Mathf.Abs(current.x - other.x);
-                int y = Mathf.Abs(current.y - other.y);
-                return Mathf.Max(x, y);
+                return ChebyshevDistance(current, other);
             case MapSpace.Manhattan:
-                x = Mathf.Abs(current.x - other.x);
-                y = Mathf.Abs(current.x - other.x);
-                return x + y;
+                return ManhattanDistance(current, other);
             case MapSpace.Euclidean:
                 return Vector2Int.Distance(current, other);
             default:
                 return -1;
         }
+    }
+
+    public static int ChebyshevDistance(Vector2Int start, Vector2Int end)
+    {
+        int x = Mathf.Abs(start.x - end.x);
+        int y = Mathf.Abs(start.y - end.y);
+        return Mathf.Max(x, y);
+    }
+
+    public static int ManhattanDistance(Vector2Int start, Vector2Int end)
+    {
+        int x = Mathf.Abs(start.x - end.x);
+        int y = Mathf.Abs(start.y - end.y);
+        return x + y;
     }
 
     public static float Cross(this Vector2Int current, Vector2Int other)

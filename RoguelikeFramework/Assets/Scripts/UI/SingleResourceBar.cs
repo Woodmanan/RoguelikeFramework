@@ -52,7 +52,7 @@ public class SingleResourceBar : MonoBehaviour
             {
                 currentFillAmount = goalFillAmount;
             }
-            Debug.Log("Goal fill amount is :" + goalFillAmount);
+
             mat.SetFloat("_fillAmount", currentFillAmount);
             valueText.text = amount.ToString("0.0");
             percentText.text = $"{(goalFillAmount * 100).ToString("0.0")}%";

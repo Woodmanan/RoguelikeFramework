@@ -350,4 +350,27 @@ public class Map : MonoBehaviour
     {
         return GetLocationsAround(point, radius).Where(x => GetTile(x).IsOpen());
     }
+
+    public IEnumerable<RogueTile> GetNeighboringTiles(RogueTile tile)
+    {
+        return GetNeighboringTiles(tile.location);
+    }
+
+    public IEnumerable<RogueTile> GetNeighboringTiles(Vector2Int tile)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                //skip middle
+                if (i == 0 && j == 0) continue;
+                Vector2Int toCheck = tile + new Vector2Int(i, j);
+
+                if (ValidLocation(toCheck))
+                {
+                    yield return GetTile(toCheck);
+                }
+            }
+        }
+    }
 }

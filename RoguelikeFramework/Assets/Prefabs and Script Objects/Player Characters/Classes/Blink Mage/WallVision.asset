@@ -12,9 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
   m_Name: WallVision
   m_EditorClassIdentifier: 
-  displayName: Astral Vision
-  image: {fileID: -4658246047469269665, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 0.531, g: 1, b: 0.53996176, a: 1}
+  friendlyName: AstralVision
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 948606252649af74293d5ee3ef5a3094, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 0

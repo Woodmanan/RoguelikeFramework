@@ -34,7 +34,7 @@ public class Class : ScriptableObject
                 }
                 else
                 {
-                    Debug.LogError($"Could not safely equip {item.GetName()}");
+                    Debug.Log($"Could not safely equip {item.GetName()}, storing it in inventory");
                 }
             }
             else

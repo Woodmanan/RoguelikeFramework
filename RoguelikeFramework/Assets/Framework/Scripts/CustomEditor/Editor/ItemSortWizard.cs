@@ -10,6 +10,7 @@ public class ItemSortWizard
     [MenuItem("Tools/Dangerous/Sort Items")]
     static void SortItems()
     {
+        Selection.activeGameObject = null;
         string path = GetPathToFolder("Items");
         Debug.Log($"Path to folder is {path}");
 
@@ -48,11 +49,15 @@ public class ItemSortWizard
 
         for (int i = 0; i < items.Count; i++)
         {
+            Undo.RecordObject(items[i], "Set ID");
             items[i].ID = i;
+
+            EditorUtility.SetDirty(items[i]);
+
             AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(items[i]), $"{i.ToString().PadLeft(3, '0')} {items[i].GetNameClean()}");
-            //items[i].gameObject.name = $"{i.ToString().PadLeft(0, '0')} {items[i].name}";
-            //Debug.Log($"{i}{(i >= 10 ? "" : " ")}: {items[i].name}");
         }
+
+        AssetDatabase.SaveAssets();
 
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
 

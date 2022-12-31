@@ -13,8 +13,15 @@ MonoBehaviour:
   m_Name: Melee Table
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 8493179263722202922, guid: 8da0ffdc4f51065469998c4a805f6fe5, type: 3}
+  - {fileID: 5723771033562300096, guid: 79bb7aed26e1c3e4687d66795f5268f4, type: 3}
+  - {fileID: 5723771033562300096, guid: 855c4566b51c6444db67171f38678225, type: 3}
+  - {fileID: 5723771033562300096, guid: 75b0471bb938ca449b6f37ffadb46459, type: 3}
+  - {fileID: 5723771033562300096, guid: cc5735a40ca332a4c8646487c572e73b, type: 3}
   - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
+  - {fileID: 8493179263722202922, guid: 8da0ffdc4f51065469998c4a805f6fe5, type: 3}
+  - {fileID: 5723771033562300096, guid: d2566ef741c24b441b6f9d3501d55710, type: 3}
+  - {fileID: 5723771033562300096, guid: 1ec28023275c68d4e9134a075de30a1f, type: 3}
+  - {fileID: 5723771033562300096, guid: 37fbd6f5c66de9c489fc58b4440dd9e7, type: 3}
   elevationOptions: []
   references:
     version: 1

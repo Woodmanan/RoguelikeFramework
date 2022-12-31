@@ -46,9 +46,7 @@ public class UIController : MonoBehaviour
 
     public void HandleInput()
     {
-        Tuple<PlayerAction, string> pair = InputTracking.PopNextPair();
-        PlayerAction action = pair.Item1;
-        string inputString = pair.Item2;
+        (PlayerAction action, string inputString) = InputTracking.PopNextPair();
         switch (action)
         {
             case PlayerAction.ESCAPE_SCREEN: //Breaks free early, so panels themselves don't have to all try to handle this input.

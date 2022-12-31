@@ -60,14 +60,14 @@ public class Connections
     public OrderedEvent<AbilityAction> OnTargetedByAbility = new OrderedEvent<AbilityAction>();
     public OrderedEvent<AbilityAction> OnHitByAbility = new OrderedEvent<AbilityAction>();
     public OrderedEvent<AttackAction, bool> OnStartAttack = new OrderedEvent<AttackAction, bool>();
-    public OrderedEvent<List<Weapon>, List<Weapon>> OnGenerateArmedAttacks = new OrderedEvent<List<Weapon>, List<Weapon>>();
+    public OrderedEvent<AttackAction, List<Weapon>, List<Weapon>> OnGenerateArmedAttacks = new OrderedEvent<AttackAction, List<Weapon>, List<Weapon>>();
     public OrderedEvent<Weapon, AttackAction> OnBeginPrimaryAttack = new OrderedEvent<Weapon, AttackAction>();
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnPrimaryAttackResult = new OrderedEvent<Weapon, AttackAction, AttackResult>();
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnEndPrimaryAttack = new OrderedEvent<Weapon, AttackAction, AttackResult>();
     public OrderedEvent<Weapon, AttackAction> OnBeginSecondaryAttack = new OrderedEvent<Weapon, AttackAction>();
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnSecondaryAttackResult = new OrderedEvent<Weapon, AttackAction, AttackResult>();
     public OrderedEvent<Weapon, AttackAction, AttackResult> OnEndSecondaryAttack = new OrderedEvent<Weapon, AttackAction, AttackResult>();
-    public OrderedEvent<List<EquipmentSlot>> OnGenerateUnarmedAttacks = new OrderedEvent<List<EquipmentSlot>>();
+    public OrderedEvent<AttackAction, List<EquipmentSlot>> OnGenerateUnarmedAttacks = new OrderedEvent<AttackAction, List<EquipmentSlot>>();
     public OrderedEvent<EquipmentSlot, AttackAction> OnBeginUnarmedAttack = new OrderedEvent<EquipmentSlot, AttackAction>();
     public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnUnarmedAttackResult = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();
     public OrderedEvent<EquipmentSlot, AttackAction, AttackResult> OnEndUnarmedAttack = new OrderedEvent<EquipmentSlot, AttackAction, AttackResult>();

@@ -16,6 +16,10 @@ public class Monster : MonoBehaviour
 
     public Stats currentStats;
 
+    public DamageType resistances;
+    public DamageType weaknesses;
+    public DamageType immunities;
+
     //TODO: Abstract these out to another class!!!
     public LocalizedString localName;
     public LocalizedString localDescription;
@@ -177,6 +181,22 @@ public class Monster : MonoBehaviour
 
     public void Damage(Monster dealer, float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
+        float damageMod = 1f;
+        if ((resistances & type) > 0)
+        {
+            damageMod = damageMod / 2;
+        }
+        if ((weaknesses & type) > 0)
+        {
+            damageMod = damageMod * 2;
+        }
+        if ((immunities & type) > 0)
+        {
+            damageMod = 0;
+        }
+
+        damage *= damageMod;
+
         if (dealer == null)
         {
             Debug.LogError("Dealer was null!");
@@ -195,11 +215,17 @@ public class Monster : MonoBehaviour
 
         if (baseStats[HEALTH] <= 0 && !dead)
         {
+            //Mark as dead temporarily, to prevent infinite loop
+            dead = true;
             connections.OnDeath.BlendInvoke(other?.OnDeath);
             if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
             {
                 Die();
                 dealer?.KillMonster(this, type, source);
+            }
+            else
+            {
+                dead = false;
             }
         }
     }
@@ -414,8 +440,15 @@ public class Monster : MonoBehaviour
     {
         if (currentAction != null)
         {
-            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Should this be allowed?", this);
+            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Try SetActionOverride isntead!", this);
         }
+        currentAction = act;
+        currentAction.Setup(this);
+    }
+
+    //Currently identical, but split up to cover edge cases that might arise
+    public void SetActionOverride(GameAction act)
+    {
         currentAction = act;
         currentAction.Setup(this);
     }

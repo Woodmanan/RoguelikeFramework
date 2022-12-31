@@ -173,7 +173,8 @@ public enum Resources
     XP,
     NEXT_LEVEL_XP,
     AC,
-    EV
+    EV,
+    MR
 }
 
 public enum AbilityResources

@@ -96,15 +96,15 @@ MonoBehaviour:
         MonsterToSpawn: {fileID: 4402800733788238304, guid: ee6bbaad475e16c4e8284bf218dd6fc9, type: 3}
         timeBetweenSummons:
           rngType: 1
-          min: 100
-          max: 140
+          min: 500
+          max: 700
         summonWarningAt: 15
         nightmareLifetime:
           rngType: 1
-          min: 15
-          max: 30
+          min: 20
+          max: 40
         lifetimeWarningAt: 5
         messageEvery:
           rngType: 1
-          min: 200
-          max: 260
+          min: 150
+          max: 200

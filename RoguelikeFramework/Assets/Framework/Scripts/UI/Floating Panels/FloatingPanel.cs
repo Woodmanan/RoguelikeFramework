@@ -5,11 +5,10 @@ using UnityEngine;
 public class FloatingPanel : MonoBehaviour
 {
     public bool canMove = true;
-    public Vector2 size;
     public float weight = 1;
     [HideInInspector] public Vector2 velocity;
 
-    [HideInInspector] public Vector2 goal;
+    public Vector2 goal;
 
     RectTransform rectTrans;
 
@@ -31,14 +30,13 @@ public class FloatingPanel : MonoBehaviour
         }
         else
         {
-            Set(new Vector2(Random.value, Random.value));
+            Set();
         }
     }
 
-    public void Set(Vector2 goalPos)
+    public void Set()
     {
         //Slight random offset, to prevent perfect overlaps
-        goal = goalPos + ((new Vector2(Random.value, Random.value) - (Vector2.one / 2)) / 100);
         if (weight <= .1f)
         {
             weight = 1;
@@ -46,9 +44,7 @@ public class FloatingPanel : MonoBehaviour
         }
 
         rectTrans = GetComponent<RectTransform>();
-        rect = new Rect(goal - size / 2, size);
-        rectTrans.anchorMin = rect.min;
-        rectTrans.anchorMax = rect.max;
+        rect = rectTrans.rect;
 
         FloatingPanelController.singleton.AddPanel(this);
     }
@@ -78,6 +74,17 @@ public class FloatingPanel : MonoBehaviour
         rectTrans.anchorMin = rect.min;
         rectTrans.anchorMax = rect.max;
 
+    }
+
+    public Rect GenerateActualBounds()
+    {
+        Vector3[] corners = new Vector3[4];
+        rectTrans.GetLocalCorners(corners);
+
+        Vector2 min = (Vector2)corners[0];
+        Vector2 max = (Vector2)corners[2];
+
+        return new Rect((Vector2) rectTrans.localPosition, (max - min));
     }
 
     // Update is called once per frame

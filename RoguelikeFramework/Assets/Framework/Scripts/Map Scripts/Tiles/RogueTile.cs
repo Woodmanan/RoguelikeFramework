@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Localization;
 #if  UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -19,13 +20,14 @@ public class RogueTile : MonoBehaviour
     private bool setup = false;
 
     public Vector2Int location;
-    
+
     //Stuff that will not change a lot, and should not be (too) visible
-    [Header("Static elements")] 
-    public new string name;
-    public string description;
+    [Header("Static elements")]
+    public LocalizedString localName;
+    public LocalizedString localDescription;
     public float movementCost;
     public bool blocksVision;
+    public bool blocksProjectiles;
     public Color color = Color.white;
     public float minGreyAlpha;
     public Monster currentlyStanding;

@@ -20,11 +20,22 @@ public class Combat
         }
     }
 
-    public static void Hit(Monster attacker, Monster defender, DamageSource source, WeaponBlock stats)
+    public static void Hit(Monster attacker, Monster defender, DamageSource source, WeaponBlock stats, float damageModifier = 1f)
     {
         foreach (DamagePairing damage in stats.damage)
         {
-            defender.Damage(attacker, GetArmorDamageShave(defender, stats) * damage.damage.evaluate(), damage.type, source);
+            float armorShave = 1f;
+            float magiceShave = 1f;
+            if (damage.type.HasFlag(DamageType.PHYSICAL))
+            {
+                armorShave = GetArmorDamageShave(defender, stats);
+            }
+            if (damage.type.HasFlag(DamageType.MAGICAL))
+            {
+                magiceShave = GetMagicDamageShave(defender);
+            }
+
+            defender.Damage(attacker, damageModifier * armorShave * magiceShave * damage.damage.evaluate(), damage.type, source);
         }
     }
 
@@ -33,10 +44,16 @@ public class Combat
         return 1.0f / Mathf.Pow(2, inArmor / 10);
     }
 
+    public static float GetMagicDamageShave(float inMagicResist)
+    {
+        return 1.0f / Mathf.Pow(2, inMagicResist / 10);
+    }
+
     public static float GetEvasionDodgeBar(float inEvasion)
     {
         return 100f / Mathf.Pow(2, inEvasion / 10);
     }
+
 
     public static bool GetDodged(Monster monster, WeaponBlock attack)
     {
@@ -46,6 +63,11 @@ public class Combat
     public static float GetArmorDamageShave(Monster monster, WeaponBlock attack)
     {
         return GetArmorDamageShave(monster.currentStats[AC] - attack.piercing);
+    }
+
+    public static float GetMagicDamageShave(Monster monster)
+    {
+        return GetMagicDamageShave(monster.currentStats[MR]);
     }
 }
 

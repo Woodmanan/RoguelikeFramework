@@ -183,6 +183,12 @@ public class CheatsPanel : RogueUIPanel
     }
 
     [Cheat]
+    public void SetLevel(int level)
+    {
+        Player.player.level = level;
+    }
+
+    [Cheat]
     public void ShowMap()
     {
         Map map = Map.current;

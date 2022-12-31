@@ -12,9 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a9d9b7feb3aa44aab38fbc400db822, type: 3}
   m_Name: Blink
   m_EditorClassIdentifier: 
-  displayName: Blink
-  image: {fileID: 2722812233613454123, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 0, g: 0.62741375, b: 1, a: 1}
+  friendlyName: Blink
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 441f87efc3f625b4792bd8114dc5aec7, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 3

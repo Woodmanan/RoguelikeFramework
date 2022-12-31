@@ -231,10 +231,20 @@ public class MonsterAI : ActionController
                     index = 0;
                 }
                 targeting.MoveTarget(targets[index].location);
-                if (!targeting.LockPoint())
+                if (targeting.IsValid())
                 {
-                    Debug.LogError("Something has gone very wrong. Monster was unable to target correctly.");
-                    yield return null; //Try to prevent a freeze from occuring, if the monster keeps trying and failing.
+                    if (!targeting.LockPoint())
+                    {
+                        Debug.LogError("Something has gone very wrong. Monster was unable to target correctly.");
+                        yield return null; //Try to prevent a freeze from occuring, if the monster keeps trying and failing.
+                    }
+                }
+                else
+                {
+                    Debug.Log("Monster could not shoot, and probably needs to pick something else to do!");
+                    //monster.renderer.color = Color.red;
+                    monster.energy -= 100;
+                    break;
                 }
             }
 
@@ -262,6 +272,7 @@ public class MonsterAI : ActionController
     public override void Setup()
     {
         GetComponent<Equipment>().OnEquipmentAdded += UpdateRanged;
+        UpdateRanged();
     }
 
     void UpdateRanged()

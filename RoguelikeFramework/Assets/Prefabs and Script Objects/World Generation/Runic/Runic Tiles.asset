@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95fcd403d5f53534a93ccf5ae31da169, type: 3}
+  m_Name: Runic Tiles
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 7376377351548235659, guid: 659a75df04082c94ab056e151244d78a, type: 3}
+  - {fileID: 7376377351548235659, guid: 7a5e44cebfa2f9e499ff22cb8f2646ac, type: 3}
+  - {fileID: 1908841901842505032, guid: a7b29f11f62d0894db715052cea1448c, type: 3}

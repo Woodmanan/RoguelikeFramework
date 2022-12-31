@@ -89,7 +89,22 @@ public class StairPlacer
 
         int roomIndex = 0;
 
-        foreach (LevelConnection connection in inConnections)
+        int maxUp = Mathf.Min(generator.desiredInStairs.Count, inConnections.Count);
+
+        for (int i = 0; i < maxUp; i++)
+        {
+            LevelConnection connection = inConnections[i];
+            Vector2Int loc = generator.desiredInStairs[i];
+            connection.toLocation = loc;
+            connection.toLevel = index;
+
+            if (!connection.oneWay)
+            {
+                generator.map[loc.x, loc.y] = stairIndex;
+            }
+        }
+
+        foreach (LevelConnection connection in inConnections.Skip(maxUp))
         {
             Room r = roomsToConnect[roomIndex];
             roomIndex = (roomIndex + 1) % roomsToConnect.Count;
@@ -101,11 +116,21 @@ public class StairPlacer
             {
                 generator.map[loc.x, loc.y] = stairIndex;
             }
-
-            
         }
 
-        foreach (LevelConnection connection in outConnections)
+        int maxDown = Mathf.Min(generator.desiredOutStairs.Count, outConnections.Count);
+
+        for (int i = 0; i < maxDown; i++)
+        {
+            LevelConnection connection = outConnections[i];
+            Vector2Int loc = generator.desiredOutStairs[i];
+
+            connection.fromLocation = loc;
+            connection.fromLevel = index;
+            generator.map[loc.x, loc.y] = stairIndex;
+        }
+
+        foreach (LevelConnection connection in outConnections.Skip(maxDown))
         {
             Room r = roomsToConnect[roomIndex];
             roomIndex = (roomIndex + 1) % roomsToConnect.Count;

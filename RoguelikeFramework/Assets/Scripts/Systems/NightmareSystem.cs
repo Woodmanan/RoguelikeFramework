@@ -40,6 +40,7 @@ public class NightmareSystem : DungeonSystem
     public void TickNightmare()
     {
         timeUntilNext--;
+        Debug.Log(timeUntilNext);
 
         if (!currentlySummoned)
         {

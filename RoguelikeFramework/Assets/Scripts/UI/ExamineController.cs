@@ -78,8 +78,8 @@ public class ExamineController : MonoBehaviour
                 }
                 else if (tile)
                 {
-                    shortHoverTitle.text = tile.name;
-                    shortHoverDesc.text = tile.description;
+                    shortHoverTitle.text = tile.localName.GetLocalizedString();
+                    shortHoverDesc.text = tile.localDescription.GetLocalizedString();
                 }
             }
             else

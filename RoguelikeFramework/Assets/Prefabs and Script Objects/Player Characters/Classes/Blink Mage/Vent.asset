@@ -12,9 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f774497b10d410e4e92bdc3011fc82c1, type: 3}
   m_Name: Vent
   m_EditorClassIdentifier: 
-  displayName: Vent Instability
-  image: {fileID: -3248735419247104126, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 0.8456236, g: 0.866, b: 0.28187454, a: 1}
+  friendlyName: Vent
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 750389c916eb40041bb452f095323c85, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 5

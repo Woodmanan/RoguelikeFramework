@@ -26,7 +26,7 @@ MonoBehaviour:
     min: 0
     max: 0
   oneWay: 0
-  size: {x: 40, y: 40}
+  size: {x: 35, y: 35}
   machines:
   - id: 0
   - id: 1
@@ -75,8 +75,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bb905439f902c7047b612d92279898e6, type: 2}
   numMonstersPerLevel:
     rngType: 1
-    min: 15
-    max: 18
+    min: 7
+    max: 12
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0

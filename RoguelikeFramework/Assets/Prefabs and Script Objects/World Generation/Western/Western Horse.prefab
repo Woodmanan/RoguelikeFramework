@@ -101,14 +101,32 @@ MonoBehaviour:
   isHidden: 1
   dirty: 1
   location: {x: 0, y: 0}
-  name: Horse
-  description: It's an oddly distended horse. Why does it look like that?
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
+    m_TableEntryReference:
+      m_KeyId: 2266613407744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
+    m_TableEntryReference:
+      m_KeyId: 2306950029312
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   movementCost: 1
   blocksVision: 0
   color: {r: 0.7924528, g: 0.74646807, b: 0.45902455, a: 1}
   minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &-6831686445137475804
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ public class Quadtree<T>
 
     public void Insert(T item, Rect newRect)
     {
+
         if (newRect.size.x <= 0 || newRect.size.y <= 0)
         {
             Debug.Log("Can't insert 0 area rect into the quad tree.");

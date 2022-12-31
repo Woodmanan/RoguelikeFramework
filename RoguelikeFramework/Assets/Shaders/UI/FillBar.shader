@@ -9,7 +9,6 @@
         _borderWidth("Border Width", float) = 0.05
         _fillAmount("FillAmount", float) = .5
         _AACount("AA Count", int) = 5
-        _Size("Size", float) = 100
     }
     SubShader
     {
@@ -103,20 +102,18 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 color = sampleAt(i.uv);
-                float offset = 1.0 / (_AACount * _Size);
+                float2 offset = abs(float2(ddx(i.uv.x), ddy(i.uv.y))) / (_AACount);
+
                 int AABound = _AACount / 2;
-                if (color.a > 0)
+                for (int x = -AABound; x <= AABound; x++)
                 {
-                    for (int x = -AABound; x <= AABound; x++)
+                    for (int y = -AABound; y <= AABound; y++)
                     {
-                        for (int y = -AABound; y <= AABound; y++)
-                        {
-                            float2 coordOffset = float2(x * offset, y * offset);
-                            color += sampleAt(i.uv + coordOffset);
-                        }
+                        float2 coordOffset = float2(x * offset.x, y * offset.y);
+                        color += sampleAt(i.uv + coordOffset);
                     }
-                    color = color / ((_AACount * _AACount) + 1.0);
                 }
+                color = color / ((_AACount * _AACount) + 1.0);
                 return color;
             }
             ENDCG

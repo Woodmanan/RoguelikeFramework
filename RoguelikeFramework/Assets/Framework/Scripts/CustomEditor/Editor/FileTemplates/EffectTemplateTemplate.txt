@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-//[EffectGroup("Sample Group/Sample Subgroup")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
 public class #SCRIPTNAME# : Effect
 {

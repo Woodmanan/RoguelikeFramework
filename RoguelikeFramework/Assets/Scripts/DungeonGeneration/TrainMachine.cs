@@ -78,6 +78,10 @@ public class TrainMachine : Machine
             }
         }
 
+        //Create in and out stairs
+        generator.desiredInStairs.Add(addedRooms[0].center);
+        generator.desiredOutStairs.Add(addedRooms[addedRooms.Count - 1].center);
+
         generator.rooms.AddRange(addedRooms);
     }
 

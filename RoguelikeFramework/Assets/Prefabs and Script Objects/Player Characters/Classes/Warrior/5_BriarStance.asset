@@ -12,9 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779de5a3fd747614c8f843c6fb1a6163, type: 3}
   m_Name: 5_BriarStance
   m_EditorClassIdentifier: 
-  displayName: Stance of the Bramble Knight
-  image: {fileID: 2072636034469501393, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 0, g: 0.6226415, b: 0.07544594, a: 1}
+  friendlyName: BriarStance
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 455768481792
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 457270042624
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 4ce713deff3836a409deb402757299e7, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 0

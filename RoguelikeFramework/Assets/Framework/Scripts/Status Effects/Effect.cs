@@ -217,14 +217,14 @@ public class Effect
     public virtual void OnTargetedByAbility(ref AbilityAction action) {}
     public virtual void OnHitByAbility(ref AbilityAction action) {}
     public virtual void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
-    public virtual void OnGenerateArmedAttacks(ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
+    public virtual void OnGenerateArmedAttacks(ref AttackAction attack, ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
     public virtual void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
     public virtual void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
     public virtual void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
-    public virtual void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}
+    public virtual void OnGenerateUnarmedAttacks(ref AttackAction attack, ref List<EquipmentSlot> slots) {}
     public virtual void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}
     public virtual void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}

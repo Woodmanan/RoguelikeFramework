@@ -12,7 +12,7 @@ public class PlayerActionController : ActionController
         if (InputTracking.HasNextAction())
         {
             Player.player.view.CollectEntities(Map.current);
-            PlayerAction action = InputTracking.PopNextAction();
+            (PlayerAction action, string inputString) = InputTracking.PopNextPair();
             switch (action)
             {
                 //Handle Movement code
@@ -133,7 +133,20 @@ public class PlayerActionController : ActionController
                     break;
                 case PlayerAction.ACCEPT:
                 case PlayerAction.NONE:
-                    Debug.Log("Player read an input set to do nothing", this);
+                    bool foundAction = false;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (inputString.Contains($"{(i + 1)%10}"))
+                        {
+                            nextAction = new AbilityAction(i);
+                            foundAction = true;
+                            break;
+                        }
+                    }
+                    if (!foundAction)
+                    {
+                        Debug.Log("Player read an input set to do nothing", this);
+                    }
                     break;
                 default:
                     Debug.LogError($"Player read an input that has no switch case: {action}");

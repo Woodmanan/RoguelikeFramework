@@ -19,7 +19,7 @@ public class ExplosionAnimation : RogueAnimation
         maxSprites = sprites.Length - 1;
         this.targeting = targeting;
         grid = (new GameObject("ExplosionGrid")).AddComponent<SpriteGrid>();
-        grid.Build(radius * 2 + 1, radius * 2 + 1, sprites.Length, 16);
+        grid.Build(radius * 2 + 1, radius * 2 + 1, sprites.Length, Mathf.RoundToInt(sprites[0].rect.width));
         grid.AddSprites(sprites);
         grid.SetCenter(center);
     }

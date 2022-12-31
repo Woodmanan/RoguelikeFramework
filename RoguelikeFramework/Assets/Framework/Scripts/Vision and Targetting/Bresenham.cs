@@ -35,7 +35,7 @@ public class Bresenham
                 results.fullPath.Add(t);
             }
             //Check for movement block validity
-            if (tilesBlock && t.BlocksMovement())
+            if (tilesBlock && t.blocksProjectiles)
             {
                 beenBlocked = true;
                 break;
@@ -101,27 +101,52 @@ public class Bresenham
      * rely on setting things up to a quadrant to work correctly. Much nicer behavior, since all
      * lines now originate from x0, y0
      */
-    public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
+    /*public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
     {
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = -Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-        int err = dx + dy, e2;                                  /* error value e_xy */
+        int err = dx + dy, e2;                                  /* error value e_xy 
 
 
         for (; ; )
-        {                                                        /* loop */
+        {                                                        /* loop 
             yield return new Vector2Int(x0, y0);
             e2 = 2 * err;
             if (e2 >= dy)
-            {                                       /* e_xy+e_x > 0 */
+            {                                       /* e_xy+e_x > 0 
                 if (x0 == x1) break;
                 err += dy; x0 += sx;
             }
             if (e2 <= dx)
-            {                                       /* e_xy+e_y < 0 */
+            {                                       /* e_xy+e_y < 0 
                 if (y0 == y1) break;
                 err += dx; y0 += sy;
             }
+        }
+    }*/
+
+    private static void Swap<T>(ref T lhs, ref T rhs) { T temp; temp = lhs; lhs = rhs; rhs = temp; }
+
+    public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
+    {
+        bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+        if (steep) { Swap<int>(ref x0, ref y0); Swap<int>(ref x1, ref y1); }
+        if (x0 > x1) { Swap<int>(ref x0, ref x1); Swap<int>(ref y0, ref y1); }
+        int dX = (x1 - x0), dY = Math.Abs(y1 - y0), err = (dX / 2), ystep = (y0 < y1 ? 1 : -1), y = y0;
+
+        for (int x = x0; x <= x1; ++x)
+        {
+            if (steep)
+            {
+                yield return new Vector2Int(y, x);
+            }
+            else
+            {
+                yield return new Vector2Int(x, y);
+            }
+            
+            err = err - dY;
+            if (err < 0) { y += ystep; err += dX; }
         }
     }
 

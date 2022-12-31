@@ -12,9 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779de5a3fd747614c8f843c6fb1a6163, type: 3}
   m_Name: 2_CowardStance
   m_EditorClassIdentifier: 
-  displayName: Stance of the Coward
-  image: {fileID: -4912298234137558551, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 1, g: 0, b: 0, a: 1}
+  friendlyName: CowardStance
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 107930656768
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 112301121536
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 8a9a9dd4d10e84046bb97d112e30e937, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 0

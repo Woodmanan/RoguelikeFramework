@@ -144,7 +144,7 @@ public class SpriteGrid : MonoBehaviour
         {
             if (sprite.textureRect.width != spriteSize || sprite.textureRect.height != spriteSize)
             {
-                Debug.LogError($"Sprite has incorrect size! Must be square, with h/w of {spriteSize} instead of {sprite.texture.width}x{sprite.texture.height}");
+                Debug.LogError($"Sprite has incorrect size! Must be square, with h/w of {spriteSize} instead of {sprite.textureRect.width}x{sprite.textureRect.height}");
                 return;
             }
         }

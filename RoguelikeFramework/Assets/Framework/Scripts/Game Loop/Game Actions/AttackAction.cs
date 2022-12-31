@@ -10,7 +10,7 @@ public class AttackAction : GameAction
 
     public bool animates = true;
 
-    List<EquipmentSlot> unarmedSlots = new List<EquipmentSlot>();
+    public List<EquipmentSlot> unarmedSlots = new List<EquipmentSlot>();
 
     public AttackAction()
     {
@@ -35,7 +35,8 @@ public class AttackAction : GameAction
             yield break;
         }
         List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
-        unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed && !x.active);
+        unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed);
+        unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].type.HasFlag(ItemType.MELEE_WEAPON) && !x.equipped.held[0].type.HasFlag(ItemType.RANGED_WEAPON)));
 
         //Do we have any weapons equipped?
         if (slots.Count > 0 || unarmedSlots.Count > 0)
@@ -56,7 +57,9 @@ public class AttackAction : GameAction
                 }
             }
 
-            caller.connections.OnGenerateArmedAttacks.Invoke(ref primaryWeapons, ref secondaryWeapons);
+            AttackAction action = this;
+
+            caller.connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
 
             if (animates)
             {
@@ -73,7 +76,7 @@ public class AttackAction : GameAction
                 w.SecondaryAttack(caller, target, this);
             }
 
-            caller.connections.OnGenerateUnarmedAttacks.Invoke(ref unarmedSlots);
+            caller.connections.OnGenerateUnarmedAttacks.Invoke(ref action, ref unarmedSlots);
 
             foreach (EquipmentSlot slot in unarmedSlots)
             {

@@ -141,5 +141,13 @@ MonoBehaviour:
     m_Localized: A hulking beast with leathery green skin. Oh wait, it's you!
     m_Metadata:
       m_Items: []
+  - m_Id: 5916982623854592
+    m_Localized: Shotgunner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5917053113327616
+    m_Localized: Has a shotgun.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

@@ -50,14 +50,17 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000003000000060000000800000009000000
     _vals:
-    - 60
+    - 7
     - 20
     - 1
-    - 4
+    - 1
     - 1
   currentStats:
     _keys: 
     _vals: []
+  resistances: 56
+  weaknesses: 0
+  immunities: 64
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
@@ -256,7 +259,7 @@ MonoBehaviour:
       - damage:
           rolls: 1
           dice: 5
-        type: 3
+        type: 2
   - slotName: Claws
     type: 01000000
     equipped:
@@ -279,6 +282,7 @@ MonoBehaviour:
           rolls: 2
           dice: 5
         type: 2
+  WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:
   m_ObjectHideFlags: 0

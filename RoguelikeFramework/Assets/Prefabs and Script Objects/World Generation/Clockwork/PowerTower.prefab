@@ -50,9 +50,24 @@ MonoBehaviour:
   isHidden: 1
   dirty: 1
   location: {x: 0, y: 0}
-  name: Power Tower
-  description: The source of energy for all clockworks. Don't let them get too close,
-    or they'll power up!
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
+    m_TableEntryReference:
+      m_KeyId: 1855915548672
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
+    m_TableEntryReference:
+      m_KeyId: 1887104393216
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   movementCost: -1
   blocksVision: 1
   color: {r: 1, g: 0.9921569, b: 0, a: 1}
@@ -85,6 +100,8 @@ MonoBehaviour:
   powered: 1
   poweredSprite: {r: 1, g: 0.9916909, b: 0, a: 1}
   unpoweredSprite: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
+  references:
+    version: 1
 --- !u!212 &7376377351548235661
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class Door : InteractableTile
     {
         open = true;
         blocksVision = false;
+        blocksProjectiles = false;
         RebuildMapData();
         GetComponent<SpriteRenderer>().sprite = openSprite;
     }

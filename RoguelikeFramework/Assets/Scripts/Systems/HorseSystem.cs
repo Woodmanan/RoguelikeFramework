@@ -13,18 +13,21 @@ public class HorseSystem : DungeonSystem
     public RogueTile tilePrefab;
     public RogueTile airPrefab;
 
-    List<RogueTile> currentHorses = new List<RogueTile>();
+    List<RogueTile> currentHorses;
     RogueTile goal;
 
     List<RogueTile> goalSpots;
+    List<RogueTile> rightGoals;
+    List<RogueTile> leftGoals;
     int currentDuration;
     int bursts;
-
-
 
     public override void OnSetup(World world, Branch branch = null, Map map = null)
     {
         goalSpots = new List<RogueTile>();
+        rightGoals = new List<RogueTile>();
+        leftGoals = new List<RogueTile>();
+        currentHorses = new List<RogueTile>();
         if (map == null)
         {
             Debug.LogError("This must be a map system! Can't be anything else.");
@@ -57,14 +60,28 @@ public class HorseSystem : DungeonSystem
                     RogueTile down = map.GetTile(i, j - 1);
                     RogueTile right = map.GetTile(i + 1, j);
                     RogueTile left = map.GetTile(i - 1, j);
+
+                    bool rightOpen = (right.BlocksMovement() && !right.blocksVision && right.color.a == 0);
+                    bool leftOpen = (left.BlocksMovement() && !left.blocksVision && left.color.a == 0);
+
                     nextToOpen |= (up.BlocksMovement() && !up.blocksVision && up.color.a == 0);
                     nextToOpen |= (down.BlocksMovement() && !down.blocksVision && down.color.a == 0);
-                    nextToOpen |= (right.BlocksMovement() && !right.blocksVision && right.color.a == 0);
-                    nextToOpen |= (left.BlocksMovement() && !left.blocksVision && left.color.a == 0);
+                    nextToOpen |= rightOpen;
+                    nextToOpen |= leftOpen;
 
                     if (nextToOpen)
                     {
                         goalSpots.Add(current);
+
+                        if (rightOpen)
+                        {
+                            rightGoals.Add(current);
+                        }
+
+                        if (leftOpen)
+                        {
+                            leftGoals.Add(current);
+                        }
                     }
                 }
             }
@@ -86,34 +103,51 @@ public class HorseSystem : DungeonSystem
                 bursts = 0;
                 return;
             }
-            int index = RogueRNG.Linear(0, goalSpots.Count);
-            goal = goalSpots[index];
-            goalSpots.RemoveAt(index);
+
+            bool right = (RogueRNG.Linear(0, leftGoals.Count + rightGoals.Count) >= leftGoals.Count);
+
+            if (right)
+            {
+                int index = RogueRNG.Linear(0, rightGoals.Count);
+                goal = rightGoals[index];
+                rightGoals.RemoveAt(index);
+            } 
+            else
+            {
+                int index = RogueRNG.Linear(0, leftGoals.Count);
+                goal = leftGoals[index];
+                leftGoals.RemoveAt(index);
+            }
 
             goal.color = Color.yellow;
 
             List<RogueTile> openSpots = new List<RogueTile>();
 
-            for (int x = 0; x < 4; x++)
+            if (!right)
             {
-                for (int y = 0; y < 3; y++)
+                for (int x = 0; x < 4; x++)
                 {
-                    RogueTile current = map.GetTile(x, y);
-                    if (!current.blocksVision && current.BlocksMovement())
+                    for (int y = 0; y < 3; y++)
                     {
-                        openSpots.Add(current);
+                        RogueTile current = map.GetTile(x, y);
+                        if (!current.blocksVision && current.BlocksMovement())
+                        {
+                            openSpots.Add(current);
+                        }
                     }
                 }
             }
-
-            for (int x = map.width - 4; x < map.width; x++)
+            else
             {
-                for (int y = 0; y < 3; y++)
+                for (int x = map.width - 4; x < map.width; x++)
                 {
-                    RogueTile current = map.GetTile(x, y);
-                    if (!current.blocksVision && current.BlocksMovement())
+                    for (int y = 0; y < 3; y++)
                     {
-                        openSpots.Add(current);
+                        RogueTile current = map.GetTile(x, y);
+                        if (!current.blocksVision && current.BlocksMovement())
+                        {
+                            openSpots.Add(current);
+                        }
                     }
                 }
             }

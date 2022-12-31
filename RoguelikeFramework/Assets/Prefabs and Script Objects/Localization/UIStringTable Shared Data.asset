@@ -47,6 +47,14 @@ MonoBehaviour:
     m_Key: EvasionDesc
     m_Metadata:
       m_Items: []
+  - m_Id: 3343340718989312
+    m_Key: LockedName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3343432964317184
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

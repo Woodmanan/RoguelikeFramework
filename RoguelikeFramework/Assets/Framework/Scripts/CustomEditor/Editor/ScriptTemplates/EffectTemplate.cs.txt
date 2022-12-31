@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-//[EffectGroup("Sample Group/Sample Subgroup")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
 public class #SCRIPTNAME# : Effect
 {
@@ -127,7 +127,7 @@ public class #SCRIPTNAME# : Effect
     //public override void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
 
     //Called when an attack has collected the weapons that it will use.
-    //public override void OnGenerateArmedAttacks(ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
+    //public override void OnGenerateArmedAttacks(ref AttackAction attack, ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
 
     //Called before a primary attack happens
     //public override void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
@@ -148,7 +148,7 @@ public class #SCRIPTNAME# : Effect
     //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called when an attack has collected the unarmed slots that it will use.
-    //public override void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}
+    //public override void OnGenerateUnarmedAttacks(ref AttackAction attack, ref List<EquipmentSlot> slots) {}
 
     //Called before an unarmed attack begins.
     //public override void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}

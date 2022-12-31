@@ -57,6 +57,14 @@ MonoBehaviour:
       0%.
     m_Metadata:
       m_Items: []
+  - m_Id: 3343340718989312
+    m_Localized: Locked Slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3343432964317184
+    m_Localized: Level up to unlock it!
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

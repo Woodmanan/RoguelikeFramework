@@ -123,6 +123,22 @@ MonoBehaviour:
     m_Key: TrollDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 5916374181339136
+    m_Key: SniperName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916408478162944
+    m_Key: SniperDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916982623854592
+    m_Key: ShotgunnerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5917053113327616
+    m_Key: ShotgunnerDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

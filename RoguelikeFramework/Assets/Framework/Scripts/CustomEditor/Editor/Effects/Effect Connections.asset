@@ -220,6 +220,8 @@ MonoBehaviour:
     priority: 35
   - name: OnGenerateArmedAttacks
     types:
+    - type: AttackAction
+      name: attack
     - type: List<Weapon>
       name: primaryWeapons
     - type: List<Weapon>
@@ -287,6 +289,8 @@ MonoBehaviour:
     priority: 42
   - name: OnGenerateUnarmedAttacks
     types:
+    - type: AttackAction
+      name: attack
     - type: List<EquipmentSlot>
       name: slots
     description: Called when an attack has collected the unarmed slots that it will

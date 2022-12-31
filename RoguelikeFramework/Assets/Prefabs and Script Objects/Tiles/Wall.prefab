@@ -101,14 +101,33 @@ MonoBehaviour:
   isHidden: 1
   dirty: 1
   location: {x: 0, y: 0}
-  name: Wall
-  description: It's a wall!
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
+    m_TableEntryReference:
+      m_KeyId: 192936927232
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
+    m_TableEntryReference:
+      m_KeyId: 303410700288
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   movementCost: -2
   blocksVision: 1
+  blocksProjectiles: 1
   color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &-5104389745567183696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 52
-  available: 0
+  baseItems: []
 --- !u!114 &-4125795896994960125
 MonoBehaviour:
   m_ObjectHideFlags: 0

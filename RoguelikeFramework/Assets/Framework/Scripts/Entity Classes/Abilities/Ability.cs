@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using static AbilityResources;
+using UnityEngine.Localization;
 
 /*********** The Ability Class **************
  * 
@@ -29,7 +30,11 @@ using static AbilityResources;
 
 public class Ability : ScriptableObject
 {
-    public string displayName;
+    public string friendlyName;
+
+    public LocalizedString locName;
+    public LocalizedString locDescription;
+
     public Sprite image;
     public Color color;
 

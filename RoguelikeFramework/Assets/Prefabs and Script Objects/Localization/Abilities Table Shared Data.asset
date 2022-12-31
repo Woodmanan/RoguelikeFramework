@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Abilities Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Abilities Table
+  m_TableCollectionNameGuidString: 999deef778c7e2541a99b8b0c8daef13
+  m_Entries:
+  - m_Id: 11793014784
+    m_Key: BraveStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51307552768
+    m_Key: BranceStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 107930656768
+    m_Key: CowardStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 112301121536
+    m_Key: CowardStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 342660685824
+    m_Key: DrunkenStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 360645861376
+    m_Key: DrunkenStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 449976147968
+    m_Key: TurtleStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 453159624704
+    m_Key: TurtleStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455768481792
+    m_Key: BriarStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457270042624
+    m_Key: BriarStanceDescription
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1672095913304
