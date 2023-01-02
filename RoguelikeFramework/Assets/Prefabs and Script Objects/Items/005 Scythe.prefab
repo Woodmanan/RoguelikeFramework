@@ -101,14 +101,31 @@ MonoBehaviour:
   type: 1
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 0
+  elevatesTo: 1
   ID: 5
   stackable: 0
   color: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  name: Scythe
-  plural: Scythves???
+  friendlyName: Scythe
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
+    m_TableEntryReference:
+      m_KeyId: 8018363146240
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
+    m_TableEntryReference:
+      m_KeyId: 8056875245568
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   CanEquip: 0
   CanActivate: 0
   CanMelee: 0
@@ -194,5 +211,7 @@ MonoBehaviour:
     accuracy: 0
     piercing: 0
     damage: []
+  enchantment: 0
+  maxEnchantment: 0
   source: 0
   item: {fileID: 0}

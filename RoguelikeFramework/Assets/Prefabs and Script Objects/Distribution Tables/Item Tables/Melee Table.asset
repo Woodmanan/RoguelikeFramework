@@ -15,13 +15,154 @@ MonoBehaviour:
   items:
   - {fileID: 5723771033562300096, guid: 79bb7aed26e1c3e4687d66795f5268f4, type: 3}
   - {fileID: 5723771033562300096, guid: 855c4566b51c6444db67171f38678225, type: 3}
-  - {fileID: 5723771033562300096, guid: 75b0471bb938ca449b6f37ffadb46459, type: 3}
   - {fileID: 5723771033562300096, guid: cc5735a40ca332a4c8646487c572e73b, type: 3}
   - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
+  - {fileID: 5723771033562300096, guid: 3ad640a8fa1fa084da7bd21301d80b15, type: 3}
   - {fileID: 8493179263722202922, guid: 8da0ffdc4f51065469998c4a805f6fe5, type: 3}
-  - {fileID: 5723771033562300096, guid: d2566ef741c24b441b6f9d3501d55710, type: 3}
   - {fileID: 5723771033562300096, guid: 1ec28023275c68d4e9134a075de30a1f, type: 3}
+  - {fileID: 5723771033562300096, guid: 75b0471bb938ca449b6f37ffadb46459, type: 3}
+  - {fileID: 5723771033562300096, guid: d2566ef741c24b441b6f9d3501d55710, type: 3}
+  - {fileID: 5723771033562300096, guid: 076345326b5b9164a876955b656a1622, type: 3}
   - {fileID: 5723771033562300096, guid: 37fbd6f5c66de9c489fc58b4440dd9e7, type: 3}
-  elevationOptions: []
+  - {fileID: 5723771033562300096, guid: dc78f63ed61209646bd533839ce3afc8, type: 3}
+  - {fileID: 5723771033562300096, guid: baa91b405e9e8214c843df4f3edaacfb, type: 3}
+  elevationOptions:
+  - id: 0
+  - id: 1
+  - id: 2
   references:
     version: 1
+    00000000:
+      type: {class: ApplyEffectOnHit, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 9899796184686592
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 9899945791315968
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        primaryAdd:
+        - id: 3
+        secondaryAdd: []
+        unarmedAdd: []
+    00000001:
+      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 9900407500300288
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 10542167880310784
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        toAttach:
+          id: 4
+    00000002:
+      type: {class: DamageVamp, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 10552238504878080
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 10545121681154048
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        drainsOn: -1
+        drainsFrom: 16
+        efficiency: 30
+    00000003:
+      type: {class: DamageOverTime, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        damagePerTick: 4
+        numTicks: 4
+        type: 64
+        ticksAtStart: 0
+    00000004:
+      type: {class: BrandProtection, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        statsPerKill:
+          _keys: 08000000
+          _vals:
+          - 1.4
+        maxKills: 5
+        decayPerTurn: 0.33333334

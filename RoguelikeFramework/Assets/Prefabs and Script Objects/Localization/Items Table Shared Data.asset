@@ -1,0 +1,307 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Items Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Items Table
+  m_TableCollectionNameGuidString: 8b1b859889db9e742b537669627078d7
+  m_Entries:
+  - m_Id: 7419953405952
+    m_Key: AxeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7454023737344
+    m_Key: AxeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7571543941120
+    m_Key: FlailName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7617001807872
+    m_Key: FlailDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7669183143936
+    m_Key: KatanaName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7708232114176
+    m_Key: KatanaDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7795075178496
+    m_Key: KnifeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7838549139456
+    m_Key: KnifeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7940198096896
+    m_Key: PikeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7970061541376
+    m_Key: PikeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8018363146240
+    m_Key: ScytheName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8056875245568
+    m_Key: ScytheDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8098814091264
+    m_Key: WhipName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8120351842304
+    m_Key: WhipDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8171639791616
+    m_Key: FlambergeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8206653841408
+    m_Key: FlambergeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8255311962112
+    m_Key: WakizashiName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8322840256512
+    m_Key: WakizashiDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8377198436352
+    m_Key: LaserPikeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8416406790144
+    m_Key: LaserPikeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8490977320960
+    m_Key: RazorwhipName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8520584912896
+    m_Key: RazorwhipDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8571797364736
+    m_Key: GodKillerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8599282638848
+    m_Key: GodKillerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9045099405312
+    m_Key: CrossbowName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9077676564480
+    m_Key: CrossbowDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9128398282752
+    m_Key: SixShooterName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9158052012032
+    m_Key: SixShooterDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9215170043904
+    m_Key: BowName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9250058264576
+    m_Key: BowDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9316420542464
+    m_Key: ShotgunName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9348750237696
+    m_Key: ShotgunDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9391909625856
+    m_Key: SniperName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434716692480
+    m_Key: SniperDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9484633104384
+    m_Key: LeatherArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9523346530304
+    m_Key: LeatherArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9576924569600
+    m_Key: LeatherHelmetName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9605961736192
+    m_Key: LeatherHelmetDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9729161027584
+    m_Key: LeatherBootsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9771951316992
+    m_Key: LeatherBootsDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9814900989952
+    m_Key: SteelBootsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9874246197248
+    m_Key: SteelBootsDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10586216718336
+    m_Key: LightShieldName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10634220527616
+    m_Key: LightShieldDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10693389574144
+    m_Key: SteelHelmetName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10804131782656
+    m_Key: SteelHelmetDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10858146029568
+    m_Key: SteelArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10890962264064
+    m_Key: SteelArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10942799667200
+    m_Key: PoweredArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10973858488320
+    m_Key: PoweredArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11020859858944
+    m_Key: PoweredBootsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11067437604864
+    m_Key: PoweredBootsDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11120139034624
+    m_Key: FuzzyBootsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11153064321024
+    m_Key: FuzzyBootsDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11216343785472
+    m_Key: FuzzyArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11260061016064
+    m_Key: FuzzyArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11395616727040
+    m_Key: TowerShieldName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11433185107968
+    m_Key: TowerShieldDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11489636245504
+    m_Key: RegenPotionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11535182192640
+    m_Key: RegenPotionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12498731261952
+    m_Key: HastePotionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12598878658560
+    m_Key: HastePotionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12671297511424
+    m_Key: HealthPotionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12716524691456
+    m_Key: HealthPotionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12761231777792
+    m_Key: DeathPotionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12798087127040
+    m_Key: DeathPotionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 664682304839680
+    m_Key: VladSpearName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 664712264753152
+    m_Key: VladSpearDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 665611896823808
+    m_Key: VampiricHelmName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 665646059429888
+    m_Key: VampiricHelmDescription
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1672513518662

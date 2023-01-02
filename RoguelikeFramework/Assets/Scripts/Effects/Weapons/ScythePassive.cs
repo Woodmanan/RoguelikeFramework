@@ -154,7 +154,7 @@ public class ScythePassive : Effect
 
             foreach (Monster monster in nearbyTargets)
             {
-                Combat.Hit(action.caller, monster, DamageSource.ITEM, weapon.primary, (percentDamage / 100f));
+                Combat.Hit(action.caller, monster, DamageSource.ITEM, weapon.primary, damageModifier: (percentDamage / 100f));
             }
         }
     }
@@ -179,7 +179,7 @@ public class ScythePassive : Effect
 
             foreach (Monster monster in nearbyTargets)
             {
-                Combat.Hit(action.caller, action.target, DamageSource.ITEM, weapon.secondary, (percentDamage / 100f));
+                Combat.Hit(action.caller, action.target, DamageSource.ITEM, weapon.secondary, damageModifier: (percentDamage / 100f));
             }
         }
     }

@@ -101,14 +101,31 @@ MonoBehaviour:
   type: 1
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 0
+  elevatesTo: 1
   ID: 0
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  name: Axe
-  plural: 
+  friendlyName: Axe
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
+    m_TableEntryReference:
+      m_KeyId: 7419953405952
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
+    m_TableEntryReference:
+      m_KeyId: 7454023737344
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   CanEquip: 0
   CanActivate: 0
   CanMelee: 0
@@ -181,13 +198,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primary:
-    chanceToHit: 70
+    chanceToHit: 100
     accuracy: 0
-    piercing: 20
+    piercing: 0
     damage:
     - damage:
-        rolls: 5
-        dice: 1
+        rolls: 2
+        dice: 10
       type: 1
   secondary:
     chanceToHit: 50
@@ -198,5 +215,7 @@ MonoBehaviour:
         rolls: 1
         dice: 3
       type: 1
+  enchantment: 0
+  maxEnchantment: 0
   source: 0
   item: {fileID: 0}

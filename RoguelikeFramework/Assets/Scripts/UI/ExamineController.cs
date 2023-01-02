@@ -73,7 +73,7 @@ public class ExamineController : MonoBehaviour
                 }
                 else if (item)
                 {
-                    shortHoverTitle.text = item.GetNameClean();
+                    shortHoverTitle.text = item.GetName();
                     shortHoverDesc.text = "";// item.GetNameClean();
                 }
                 else if (tile)

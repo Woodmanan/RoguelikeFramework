@@ -7,7 +7,10 @@ public class Weapon : MonoBehaviour
 {
     public WeaponBlock primary;
     public WeaponBlock secondary;
-    public DamageSource source;
+    public int enchantment;
+    public int maxEnchantment;
+
+    [HideInInspector] public DamageSource source;
     public Connections connections;
 
     [HideInInspector] public Item item;
@@ -19,6 +22,8 @@ public class Weapon : MonoBehaviour
         connections = item.connections;
         
         source = (item.type == ItemType.MELEE_WEAPON) ? DamageSource.MELEEATTACK : DamageSource.RANGEDATTACK;
+
+        enchantment = Mathf.Clamp(enchantment, -1 * maxEnchantment, maxEnchantment);
     }
 
     public void AddEffect(params Effect[] effects)
@@ -50,7 +55,7 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, primary);
+            Combat.Hit(attacker, defender, source, primary, enchantment: enchantment);
         }
 
         defender.connections.OnAfterPrimaryAttackTarget
@@ -82,7 +87,7 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, secondary);
+            Combat.Hit(attacker, defender, source, secondary, enchantment: enchantment);
         }
 
         defender.connections.OnAfterSecondaryAttackTarget

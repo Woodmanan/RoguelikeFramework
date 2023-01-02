@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 5723771033562300096, guid: 75b0471bb938ca449b6f37ffadb46459, type: 3}
+  - {fileID: 5723771033562300096, guid: 1ec28023275c68d4e9134a075de30a1f, type: 3}
   - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
   - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
   abilities:

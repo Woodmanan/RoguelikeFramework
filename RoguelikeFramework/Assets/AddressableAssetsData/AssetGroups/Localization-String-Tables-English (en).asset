@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 7f3d39ba0551453468f9ca0a14063a5e
   m_SerializeEntries:
   - m_GUID: efa5c213c99d4cf4889924c3986d38ea
-    m_Address: EffectTable_en
+    m_Address: EffectsTable_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -41,6 +41,12 @@ MonoBehaviour:
     - Preload
   - m_GUID: 79b87632fcfa2f049ba8c5acf915917e
     m_Address: Abilities Table_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Preload
+  - m_GUID: ea863eb58cd09234680f144a3a40a5b6
+    m_Address: Items Table_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

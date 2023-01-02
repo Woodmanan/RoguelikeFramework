@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using System.Linq;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -23,15 +24,16 @@ public class Item : MonoBehaviour
     [HideInInspector] public Vector2Int location;
     public bool held;
     private Monster heldBy;
-    [SerializeField] new private string name;
-    [SerializeField] private string plural;
+    [SerializeField] public string friendlyName;
+    [SerializeField] LocalizedString localName;
+    [SerializeField] LocalizedString localDescription;
 
     [HideInInspector] public bool CanEquip;
     [HideInInspector] public bool CanActivate;
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
 
-    public Connections connections = new Connections();
+    public Connections connections;
     [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
 
     [SerializeReference] public List<Effect> effects;
@@ -114,6 +116,9 @@ public class Item : MonoBehaviour
         CanMelee = (melee != null);
         CanRanged = (ranged != null);
 
+        //Set up connections before attaching default effects
+        if (connections == null) connections = new Connections(this);
+
         AddEffect(effects.Select(x => x.Instantiate()).ToArray());
         setup = true;
     }
@@ -175,22 +180,43 @@ public class Item : MonoBehaviour
 
     public string GetName()
     {
+        string name = "";
+        if (melee && melee.enchantment > 0)
+        {
+            name = $"+{melee.enchantment} ";
+        }
+        else if (ranged && ranged.enchantment > 0)
+        {
+            name = $"+{ranged.enchantment} ";
+        }
+
+        name += GetNameClean();
+
+        foreach (Effect effect in attachedEffects)
+        {
+            if (effect.ShouldDisplay())
+            {
+                name += $" {{{effect.GetName()}}}";
+            }
+        }
+        
         if (CanEquip && equipable.isEquipped)
         {
-            return name + " [Equipped]";
+            name += " [Equipped]";
         }
+
         return name;
     }
 
     //Returns the name without modifiers. As of right now, just returns the straight name.
     public string GetNameClean()
     {
-        return name;
+        return localName.GetLocalizedString();
     }
 
     public string GetPlural()
     {
-        return plural;
+        return localName.GetLocalizedString();
     }
 
     //TODO: Items should elevate stats as well
@@ -205,7 +231,7 @@ public class Item : MonoBehaviour
 
         if (optionalEffects.Count < numberToAdd)
         {
-            Debug.LogWarning($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
+            Debug.LogWarning($"{friendlyName} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
         }
 
         for (int i = 0; i < System.Math.Min(numberToAdd, optionalEffects.Count); i++)
@@ -219,7 +245,6 @@ public class Item : MonoBehaviour
 
     public void AddEffect(params Effect[] effects)
     {
-        if (connections == null) connections = new Connections(this);
         foreach (Effect e in effects)
         {
             e.Connect(connections);

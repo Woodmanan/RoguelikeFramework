@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: EffectsTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: EffectsTable
+  m_TableCollectionNameGuidString: 5ab25f9d37eb27a4fa6b82a9c471e1aa
+  m_Entries:
+  - m_Id: 134442852352
+    m_Key: RegenName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4691566731264
+    m_Key: HealingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7134149025792
+    m_Key: HealName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9482179125248
+    m_Key: StopDeathName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9585128316928
+    m_Key: StopDeathDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10985740640256
+    m_Key: HasteDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11588000751616
+    m_Key: HasteName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11729252327424
+    m_Key: PoweredUpName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11801167863808
+    m_Key: PoweredUpDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9899796184686592
+    m_Key: BleedOnHit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9899945791315968
+    m_Key: BleedDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9900407500300288
+    m_Key: ArmorProtectionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10542167880310784
+    m_Key: ArmorProtectionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10545121681154048
+    m_Key: VampAllDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10545186227298304
+    m_Key: VampAllName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10552238504878080
+    m_Key: WeaponVampName
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1670157949406

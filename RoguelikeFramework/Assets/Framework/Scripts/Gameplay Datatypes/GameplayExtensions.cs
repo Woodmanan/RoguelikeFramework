@@ -17,6 +17,14 @@ public static class GameplayExtensions
         }
     }
 
+    //Normalize for chebyshev space - length is greater of x or y, so vector becomes 8-way direction vector;
+    public static Vector2Int ChebyshevNormalize(this Vector2Int current)
+    {
+        current.x = Mathf.Clamp(current.x, -1, 1);
+        current.y = Mathf.Clamp(current.y, -1, 1);
+        return current;
+    }
+
     public static int ChebyshevDistance(Vector2Int start, Vector2Int end)
     {
         int x = Mathf.Abs(start.x - end.x);

@@ -20,7 +20,7 @@ public class Combat
         }
     }
 
-    public static void Hit(Monster attacker, Monster defender, DamageSource source, WeaponBlock stats, float damageModifier = 1f)
+    public static void Hit(Monster attacker, Monster defender, DamageSource source, WeaponBlock stats, int enchantment = 0, float damageModifier = 1f)
     {
         foreach (DamagePairing damage in stats.damage)
         {
@@ -35,7 +35,7 @@ public class Combat
                 magiceShave = GetMagicDamageShave(defender);
             }
 
-            defender.Damage(attacker, damageModifier * armorShave * magiceShave * damage.damage.evaluate(), damage.type, source);
+            defender.Damage(attacker, damageModifier * armorShave * magiceShave * (damage.damage.evaluate() + enchantment), damage.type, source);
         }
     }
 

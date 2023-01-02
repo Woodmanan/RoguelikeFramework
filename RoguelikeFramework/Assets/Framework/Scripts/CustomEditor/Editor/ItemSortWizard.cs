@@ -20,12 +20,12 @@ public class ItemSortWizard
 
         foreach (FileInfo f in info.GetFiles("*.prefab"))
         {
-            Debug.Log($"File {f.Name} being searched!");
+            //Debug.Log($"File {f.Name} being searched!");
             string filePath = f.FullName;
             int length = filePath.Length - info.FullName.Length + path.Length;
             filePath = filePath.Substring(f.FullName.Length - length, length);
 
-            Debug.Log($"Loading {filePath} from that!");
+            //Debug.Log($"Loading {filePath} from that!");
 
             items.Add(AssetDatabase.LoadAssetAtPath<Item>(filePath));
         }
@@ -40,7 +40,7 @@ public class ItemSortWizard
                     val = (a.rarity.CompareTo(b.rarity));
                     if (val == 0)
                     {
-                        val = a.GetNameClean().CompareTo(b.GetNameClean());
+                        val = a.friendlyName.CompareTo(b.friendlyName);
                     }
                 }
                 return val;
@@ -54,7 +54,7 @@ public class ItemSortWizard
 
             EditorUtility.SetDirty(items[i]);
 
-            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(items[i]), $"{i.ToString().PadLeft(3, '0')} {items[i].GetNameClean()}");
+            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(items[i]), $"{i.ToString().PadLeft(3, '0')} {items[i].friendlyName}");
         }
 
         AssetDatabase.SaveAssets();
