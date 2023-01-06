@@ -101,7 +101,7 @@ MonoBehaviour:
   type: 1
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 1
+  elevatesTo: 2
   ID: 5
   stackable: 0
   color: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
@@ -130,7 +130,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
+  attachedEffects: []
+  baseEffects:
   - id: 0
   optionalEffects: []
   activatable: {fileID: 0}

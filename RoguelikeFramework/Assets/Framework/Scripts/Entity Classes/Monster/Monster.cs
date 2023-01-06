@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
     public static readonly float monsterZPosition = -5f;
 
     [HideInInspector] public Connections connections;
-    [HideInInspector] public Connections other = null;
+    [HideInInspector] private Connections other = null;
 
     [HideInInspector] public LOSData view;
 
@@ -564,24 +564,24 @@ public class Monster : MonoBehaviour
         //Search backwards for matching candidate
         for (int i = index - 1; i >= 0; i++)
         {
-            Effect other = effects[i];
-            if (other.GetType() != effect.GetType())
+            Effect otherEffect = effects[i];
+            if (otherEffect.GetType() != effect.GetType())
             {
                 break;
             }
-            effect.OnStack(other, ref shouldContinue);
+            effect.OnStack(otherEffect, ref shouldContinue);
             if (!shouldContinue) return -1;
         }
 
         //Search forwards
         for (int i = index; i < effects.Count; i++)
         {
-            Effect other = effects[i];
-            if (other.GetType() != effect.GetType())
+            Effect otherEffect = effects[i];
+            if (otherEffect.GetType() != effect.GetType())
             {
                 break;
             }
-            effect.OnStack(other, ref shouldContinue);
+            effect.OnStack(otherEffect, ref shouldContinue);
             if (!shouldContinue) return -1;
         }
 
@@ -717,6 +717,25 @@ public class Monster : MonoBehaviour
     {
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
         SetGraphics(Map.current.GetTile(location).isVisible);
+    }
+
+    public void AddConnection(Connections toAdd)
+    {
+        if (other != null)
+        {
+            RemoveConnection(other);
+        }
+        toAdd.monster = this;
+        other = toAdd;
+    }
+
+    public void RemoveConnection(Connections toRemove)
+    {
+        if (toRemove != null)
+        {
+            toRemove.monster = null;
+            other = null;
+        }
     }
 
     public T GetEffect<T>() where T : Effect

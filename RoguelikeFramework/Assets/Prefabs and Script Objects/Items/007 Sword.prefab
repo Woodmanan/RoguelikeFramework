@@ -101,13 +101,13 @@ MonoBehaviour:
   type: 1
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 1
+  elevatesTo: 2
   ID: 7
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: Sword
+  friendlyName: Flamberge
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
@@ -130,7 +130,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
+  attachedEffects: []
+  baseEffects:
   - id: 0
   optionalEffects: []
   activatable: {fileID: 0}
@@ -146,9 +147,9 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 11956501554913280
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
@@ -173,25 +174,25 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 9899796184686592
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 9899945791315968
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        damagePerTick: 4
-        numTicks: 7
-        type: 0
+        damagePerTick: 2
+        numTicks: 5
+        type: 64
         ticksAtStart: 0
 --- !u!114 &8340609320983818534
 MonoBehaviour:

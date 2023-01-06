@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[Group("Editor Utilities")]
+[Group("Weapon Passives")]
 [Priority(10)]
-public class AttachBrandAsEquip : Effect
+public class ApplyEffectOnHit : Effect
 {
     [SerializeReference]
-    Effect toAttach;
+    List<Effect> primaryAdd;
+
+    [SerializeReference]
+    List<Effect> secondaryAdd;
+
+    [SerializeReference]
+    List<Effect> unarmedAdd;
+
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -16,33 +23,39 @@ public class AttachBrandAsEquip : Effect
      */
     //public override int priority { get { return 10; } }
 
-    /*public overrde string GetName() { return name.GetLocalizedString(this); }*/
+    public override string GetName(bool shorten = false)
+    {
+        if (shorten)
+        {
+            return primaryAdd[0].GetName();
+        }
+        else
+        {
+            return primaryAdd[0].GetName() + name.GetLocalizedString(this);
+        }
+    }
 
-    /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
+    public override string GetDescription()
+    {
+        return primaryAdd[0].GetDescription();
+    }
+
+    //Special case - we just use a prefix, so confirm we have that. Allows hiding for unwanted apply-on-hits
+    public override bool ShouldDisplay()
+    {
+        return !name.IsEmpty && primaryAdd[0].ShouldDisplay();
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public AttachBrandAsEquip()
+    public ApplyEffectOnHit()
     {
         //Construct me!
     }
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    public override void OnConnection()
-    {
-        if (connectedTo.item == null)
-        {
-            Debug.LogError("This effect can only be attached to items!");
-            return;
-        }
-        if (!connectedTo.item.equipable)
-        {
-            Debug.LogError("Item that isn't equipable has equipment brand?");
-            return;
-        }
-        connectedTo.item.equipable.addedEffects.Add(toAttach);
-    }
+    /*public override void OnConnection() {}*/
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
@@ -150,7 +163,13 @@ public class AttachBrandAsEquip : Effect
     //public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after an attack has completely finished - results are final
-    //public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        if (result == AttackResult.HIT)
+        {
+            action.target.AddEffectInstantiate(primaryAdd.ToArray());
+        }
+    }
 
     //Called before a secondary attack happens
     //public override void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
@@ -159,7 +178,13 @@ public class AttachBrandAsEquip : Effect
     //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after a seconary attack has completely finished - results are final
-    //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        if (result == AttackResult.HIT)
+        {
+            action.target.AddEffectInstantiate(secondaryAdd.ToArray());
+        }
+    }
 
     //Called when an attack has collected the unarmed slots that it will use.
     //public override void OnGenerateUnarmedAttacks(ref AttackAction attack, ref List<EquipmentSlot> slots) {}
@@ -171,7 +196,13 @@ public class AttachBrandAsEquip : Effect
     //public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
     //Called when an unarmed attack has a determined a result, after that result is used.
-    //public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+    public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result)
+    {
+        if (result == AttackResult.HIT)
+        {
+            action.target.AddEffectInstantiate(unarmedAdd.ToArray());
+        }
+    }
 
     //Called before this monster is hit by a primary attack from another monster.
     //public override void OnBeforePrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}

@@ -47,7 +47,7 @@ public class ItemSpawnInfo
         return ItemRarity.COMMON;
     }
 
-    public ItemType GetType()
+    public ItemType GetItemType()
     {
         if (chanceSum == 0)
         {
@@ -97,7 +97,7 @@ public class LootPool
     {
         Item toSpawn = null;
         ItemRarity rarity = info.GetRarity();
-        ItemType type = info.GetType();
+        ItemType type = info.GetItemType();
         for (int i = 0; i < 20; i++)
         {
             Vector2 searchPoint = new Vector2((int)rarity, depth);
@@ -106,7 +106,7 @@ public class LootPool
 
             if (found.Count == 0)
             {
-                //Debug.LogWarning($"Attempt {i}: Could not spawn any item of rarity {rarity} at depth {depth}. {(i < 19 ? " Retrying at lower rarity..." : "")}");
+                Debug.LogWarning($"Attempt {i}: Could not spawn any item of rarity {rarity} at depth {depth}. {(i < 19 ? " Retrying at lower rarity..." : "")}");
                 if (rarity != ItemRarity.COMMON)
                 {
                     rarity--;
@@ -122,8 +122,8 @@ public class LootPool
                 found = found.Where(x => x.type == type).ToList();
                 if (found.Count == 0)
                 {
-                    //Debug.LogWarning($"Attempt {i}: Found 0 items of type {type} at depth {depth} and rarity {rarity}. {(i < 19 ? " Retrying with new data..." : "")}");
-                    type = info.GetType();
+                    Debug.LogWarning($"Attempt {i}: Found 0 items of type {type} at depth {depth} and rarity {rarity}. {(i < 19 ? " Retrying with new data..." : "")}");
+                    type = info.GetItemType();
                     rarity = info.GetRarity();
                 }
                 else

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ItemInspectionPanel : RogueUIPanel
 {
@@ -16,6 +17,13 @@ public class ItemInspectionPanel : RogueUIPanel
     [SerializeField] private TextMeshProUGUI descriptionBox;
     [SerializeField] private TextMeshProUGUI attributesBox;
     [SerializeField] private Image image;
+    [SerializeField] RectTransform effectsPanel;
+    [SerializeField] TextMeshProUGUI equipEffectsText;
+    [SerializeField] RectTransform equipEffectsPanel;
+    [SerializeField] TextMeshProUGUI activateEffectsText;
+    [SerializeField] RectTransform activateEffectsPanel;
+    [SerializeField] private GameObject efffectDisplayPrefab;
+    [SerializeField] TMP_Dropdown rarityDisplay;
     //[SerializeField] private TextMeshProUGUI quote TODO: Add quotes?
 
 
@@ -34,8 +42,6 @@ public class ItemInspectionPanel : RogueUIPanel
     public void Setup(ItemStack toInspect)
     {
         inspecting = toInspect;
-
-        Item represt = toInspect.held[0];
     }
 
     /*
@@ -75,7 +81,6 @@ public class ItemInspectionPanel : RogueUIPanel
     /* Called every time this panel is activated by the controller */
     public override void OnActivation()
     {
-        Debug.Log($"Is inspecting null? {inspecting.GetName()}");
         nameBox.text = $"{Conversions.IntToNumbering(inspecting.position)} - {inspecting.GetName()}";
         SpriteRenderer render = inspecting.held[0].GetComponent<SpriteRenderer>();
         image.sprite = render.sprite;
@@ -83,12 +88,22 @@ public class ItemInspectionPanel : RogueUIPanel
 
         DetermineDescription(inspecting.held[0]);
         DetermineAttributes(inspecting.held[0]);
+        ShowConnectedEffects(inspecting.held[0].attachedEffects.Where(x => x.ShouldDisplay()).ToList());
+        rarityDisplay.value = (int) inspecting.held[0].currentRarity;
+        rarityDisplay.itemText.color = Item.GetRarityColor(inspecting.held[0].currentRarity);
     }
 
     public void DetermineDescription(Item item)
     {
         string text = "";
-        text = $"This is a clone of item {item.ID}, named {item.GetNameClean()}. It will have a description some day, but doesn't quite yet. For now this dynamic entry is proof that that could happen. Please be nice to it despite it's many flaws.";
+        if (item.localDescription.IsEmpty)
+        {
+            text = "Missing description! Sorry about that, please let Woody know.";
+        }
+        else
+        {
+            text = item.localDescription.GetLocalizedString();
+        }
         descriptionBox.text = text;
     }
 
@@ -130,40 +145,127 @@ public class ItemInspectionPanel : RogueUIPanel
             if (stats.Count > 0)
             {
                 string equipText = "When equipped, this item will add:\n";
-                int i = 0;
                 foreach (Resources key in stats.Keys)
                 {
                     int value = Mathf.RoundToInt(stats[key]);
-                    equipText += $"{value} {key.ToString()}\n";
+                    equipText += $"{value} {key}\n";
                 }
                 text += equipText + "\n";
             }
-            
-            if (item.equipable.addedEffects.Count > 0)
-            {
-                string effectText = "This item will grant the following status effects on equip:\n";
-                foreach (Effect e in item.equipable.addedEffects)
-                {
-                    effectText += $"{e.GetName()} - {e.GetDescription()}\n";
-                }
-                text += effectText + "\n";
-            }
+
+            ShowAttachedEffects(item.equipable.addedEffects.Where(x => x.ShouldDisplay()).ToList());
+        }
+        else
+        {
+            ShowAttachedEffects(new List<Effect>());
         }
 
         if (item.activatable)
         {
             if ((item.activatable.activateType & ActivateType.Effect) > 0)
             {
-                string effectText = "Upon activation, this item will grant the following effects:\n";
-                foreach (Effect e in item.activatable.activationEffects)
-                {
-                    effectText += $"{e.GetName()} - {e.GetDescription()}\n";
-                }
-                text += effectText;
+                ShowActivatedEffects(item.activatable.activationEffects.Where(x => x.ShouldDisplay()).ToList());
             }
+        }
+        else
+        {
+            ShowActivatedEffects(new List<Effect>());
         }
 
         attributesBox.text = text;
+    }
+
+    public void ShowConnectedEffects(List<Effect> effects)
+    {
+        while (effectsPanel.childCount < effects.Count)
+        {
+            GameObject spawned = Instantiate(efffectDisplayPrefab);
+            spawned.transform.parent = effectsPanel;
+        }
+
+        if (effectsPanel.childCount > effects.Count)
+        {
+            for (int i = effects.Count; i < effectsPanel.childCount; i++)
+            {
+                effectsPanel.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < effects.Count; i++)
+        {
+            effectsPanel.GetChild(i).gameObject.SetActive(true);
+            effectsPanel.GetChild(i).GetComponent<EffectDisplay>().SetDisplay(effects[i]);
+        }
+    }
+
+    public void ShowAttachedEffects(List<Effect> effects)
+    {
+        if (effects.Count == 0)
+        {
+            equipEffectsText.gameObject.SetActive(false);
+            equipEffectsPanel.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            equipEffectsText.gameObject.SetActive(true);
+            equipEffectsPanel.gameObject.SetActive(true);
+        }
+
+        while (effectsPanel.childCount < effects.Count)
+        {
+            GameObject spawned = Instantiate(efffectDisplayPrefab);
+            spawned.transform.parent = equipEffectsPanel;
+        }
+
+        if (equipEffectsPanel.childCount > effects.Count)
+        {
+            for (int i = effects.Count; i < equipEffectsPanel.childCount; i++)
+            {
+                equipEffectsPanel.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < effects.Count; i++)
+        {
+            equipEffectsPanel.GetChild(i).gameObject.SetActive(true);
+            equipEffectsPanel.GetChild(i).GetComponent<EffectDisplay>().SetDisplay(effects[i]);
+        }
+    }
+
+    public void ShowActivatedEffects(List<Effect> effects)
+    {
+        if (effects.Count == 0)
+        {
+            activateEffectsText.gameObject.SetActive(false);
+            activateEffectsPanel.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            activateEffectsText.gameObject.SetActive(true);
+            activateEffectsPanel.gameObject.SetActive(true);
+        }
+
+        while (effectsPanel.childCount < effects.Count)
+        {
+            GameObject spawned = Instantiate(efffectDisplayPrefab);
+            spawned.transform.parent = activateEffectsPanel;
+        }
+
+        if (activateEffectsPanel.childCount > effects.Count)
+        {
+            for (int i = effects.Count; i < activateEffectsPanel.childCount; i++)
+            {
+                activateEffectsPanel.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < effects.Count; i++)
+        {
+            activateEffectsPanel.GetChild(i).gameObject.SetActive(true);
+            activateEffectsPanel.GetChild(i).GetComponent<EffectDisplay>().SetDisplay(effects[i]);
+        }
     }
     
     /* Called every time this panel is deactived by the controller */

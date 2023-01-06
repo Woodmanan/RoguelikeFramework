@@ -39,7 +39,7 @@ public class Weapon : MonoBehaviour
 
     public AttackResult PrimaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
-        attacker.other = connections;
+        attacker.AddConnection(connections);
         Weapon weapon = this;
 
         attacker.connections.OnBeginPrimaryAttack
@@ -64,14 +64,14 @@ public class Weapon : MonoBehaviour
         attacker.connections.OnEndPrimaryAttack
             .BlendInvoke(connections.OnEndPrimaryAttack, ref weapon, ref action, ref result);
 
-        attacker.other = null;
+        attacker.RemoveConnection(connections);
 
         return result;
     }
 
     public AttackResult SecondaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
-        attacker.other = connections;
+        attacker.AddConnection(connections);
         Weapon weapon = this;
 
         attacker.connections.OnBeginSecondaryAttack
@@ -96,8 +96,19 @@ public class Weapon : MonoBehaviour
         attacker.connections.OnEndSecondaryAttack
             .BlendInvoke(connections.OnEndSecondaryAttack, ref weapon, ref action, ref result);
 
-        attacker.other = null;
+        attacker.RemoveConnection(connections);
 
         return result;
+    }
+
+    public bool CanAddEnchantment()
+    {
+        return enchantment < maxEnchantment;
+    }
+
+
+    public void AddEnchantment(int amount)
+    {
+        enchantment = Mathf.Clamp(enchantment + amount, -maxEnchantment, maxEnchantment);
     }
 }

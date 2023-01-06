@@ -52,7 +52,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9899796184686592
-    m_Key: BleedOnHit
+    m_Key: BleedName
     m_Metadata:
       m_Items: []
   - m_Id: 9899945791315968
@@ -77,6 +77,42 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 10552238504878080
     m_Key: WeaponVampName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655314553593856
+    m_Key: WhipName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655500688416768
+    m_Key: WhipDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11227532316631040
+    m_Key: CowardiceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11227933401145344
+    m_Key: CowardiceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11229331224256512
+    m_Key: CourageName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11229455887360000
+    m_Key: CourageDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11375975198613504
+    m_Key: MasochismName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11376159483748352
+    m_Key: MasochismDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11956501554913280
+    m_Key: OnHitSuffix
     m_Metadata:
       m_Items: []
   m_Metadata:

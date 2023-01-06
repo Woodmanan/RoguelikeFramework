@@ -68,8 +68,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9899945791315968
-    m_Localized: Enemies hit by this will bleed for {primaryAdd[0].damagePerTick}
-      health per turn.
+    m_Localized: Enemies hit by this will bleed for {damagePerTick} health per turn
+      for {numTicks} turns.
     m_Metadata:
       m_Items:
       - id: 0
@@ -95,9 +95,54 @@ MonoBehaviour:
     m_Localized: Vamp
     m_Metadata:
       m_Items: []
+  - m_Id: 10655314553593856
+    m_Localized: Whip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655500688416768
+    m_Localized: When equipped, this item will consume your movements to hit enemies
+      directly ahead of you by up to {range} tiles, if any are available.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11227532316631040
+    m_Localized: Cowardice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11227933401145344
+    m_Localized: Gain stats when above {lowerPercent}% health, with maximum stats
+      granted at {higherPercent}% health.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11229331224256512
+    m_Localized: Courage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11229455887360000
+    m_Localized: Start to gain stats when below {higherPercent} health, maxing out
+      when below {lowerPercent}.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11375975198613504
+    m_Localized: Masochism - {grantedResource}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11376159483748352
+    m_Localized: '{triggersEvery:cond:>1?Every {triggersEvery} attacks, y|Y}ou absorb
+      {efficiency}% of the incoming attack damage and convert it into {grantedResource}.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11956501554913280
+    m_Localized: ' (On Hit)'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb762500
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee32700

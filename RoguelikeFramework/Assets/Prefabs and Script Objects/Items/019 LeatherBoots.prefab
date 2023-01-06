@@ -100,7 +100,7 @@ MonoBehaviour:
   type: 4
   minDepth: 1
   maxDepth: 10
-  elevatesTo: 0
+  elevatesTo: 2
   ID: 19
   stackable: 0
   color: {r: 0.6415094, g: 0.4154408, b: 0.25055176, a: 1}

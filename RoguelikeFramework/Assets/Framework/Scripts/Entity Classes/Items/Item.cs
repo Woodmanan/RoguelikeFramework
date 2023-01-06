@@ -14,6 +14,8 @@ public class Item : MonoBehaviour
     public int maxDepth;
     public ItemRarity elevatesTo;
 
+    [HideInInspector] public ItemRarity currentRarity;
+
     [Header("Basic item variables")]
     public int ID;
     public bool stackable;
@@ -25,8 +27,8 @@ public class Item : MonoBehaviour
     public bool held;
     private Monster heldBy;
     [SerializeField] public string friendlyName;
-    [SerializeField] LocalizedString localName;
-    [SerializeField] LocalizedString localDescription;
+    [SerializeField] public LocalizedString localName;
+    [SerializeField] public LocalizedString localDescription;
 
     [HideInInspector] public bool CanEquip;
     [HideInInspector] public bool CanActivate;
@@ -34,9 +36,9 @@ public class Item : MonoBehaviour
     [HideInInspector] public bool CanRanged;
 
     public Connections connections;
-    [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
+    [HideInInspector] public List<Effect> attachedEffects = new List<Effect>();
 
-    [SerializeReference] public List<Effect> effects;
+    [SerializeReference] public List<Effect> baseEffects;
 
 
     [SerializeReference] public List<Effect> optionalEffects;
@@ -119,7 +121,8 @@ public class Item : MonoBehaviour
         //Set up connections before attaching default effects
         if (connections == null) connections = new Connections(this);
 
-        AddEffect(effects.Select(x => x.Instantiate()).ToArray());
+        AddEffect(baseEffects.Select(x => x.Instantiate()).ToArray());
+        currentRarity = rarity;
         setup = true;
     }
 
@@ -190,19 +193,30 @@ public class Item : MonoBehaviour
             name = $"+{ranged.enchantment} ";
         }
 
-        name += GetNameClean();
+        name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}>" + GetNameClean();
 
         foreach (Effect effect in attachedEffects)
         {
             if (effect.ShouldDisplay())
             {
-                name += $" {{{effect.GetName()}}}";
+                name += $" {{{effect.GetName(true)}}}";
+            }
+        }
+
+        if (equipable)
+        {
+            foreach (Effect effect in equipable.addedEffects)
+            {
+                if (effect.ShouldDisplay())
+                {
+                    name += $" {{{effect.GetName(true)}}}";
+                }
             }
         }
         
         if (CanEquip && equipable.isEquipped)
         {
-            name += " [Equipped]";
+            name += " <color=#74AE93> [Equipped]";
         }
 
         return name;
@@ -241,6 +255,17 @@ public class Item : MonoBehaviour
             optionalEffects.RemoveAt(index);
             this.rarity++;
         }
+
+        if (melee != null || ranged != null)
+        {
+            Weapon weapon = (melee != null) ? (Weapon) melee : (Weapon) ranged;
+            if (weapon.CanAddEnchantment())
+            {
+                weapon.AddEnchantment(Mathf.RoundToInt(RogueRNG.BoundedParetoCut(1, numberToAdd + RogueRNG.Linear(0, numberToAdd), 1, 2)));
+            }
+        }
+
+        currentRarity = rarity;
     }
 
     public void AddEffect(params Effect[] effects)
@@ -269,4 +294,31 @@ public class Item : MonoBehaviour
     }
     #endif
 
+    public static Color GetRarityColor(ItemRarity rarity)
+    {
+        Color outColor = Color.black;
+        switch (rarity)
+        {
+            case ItemRarity.COMMON:
+                ColorUtility.TryParseHtmlString("#282C34", out outColor);
+                break;
+            case ItemRarity.UNCOMMON:
+                ColorUtility.TryParseHtmlString("#98C379", out outColor);
+                break;
+            case ItemRarity.RARE:
+                ColorUtility.TryParseHtmlString("#E06C75", out outColor);
+                break;
+            case ItemRarity.EPIC:
+                ColorUtility.TryParseHtmlString("#C678DD", out outColor);
+                break;
+            case ItemRarity.LEGENDARY:
+                ColorUtility.TryParseHtmlString("#E5C07B", out outColor);
+                break;
+            case ItemRarity.UNIQUE:
+                ColorUtility.TryParseHtmlString("#56B6C2", out outColor);
+                break;
+        }
+
+        return outColor;
+    }
 }

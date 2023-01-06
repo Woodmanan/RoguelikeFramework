@@ -43,7 +43,7 @@ public class ConveyorSystem : DungeonSystem
         //Step 1 - Clear cached data for movement
         for (int i = 0; i < held; i++)
         {
-            tiles[i].Clear();
+            tiles[i].ClearMovementCache();
         }
 
         //Step 2 - tiles pick up what they've got (prevent loop issues)

@@ -101,7 +101,7 @@ MonoBehaviour:
   type: 1
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 1
+  elevatesTo: 2
   ID: 6
   stackable: 0
   color: {r: 0.774, g: 0.5619525, b: 0.19117798, a: 1}
@@ -168,18 +168,18 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 10655314553593856
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 10655500688416768
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0

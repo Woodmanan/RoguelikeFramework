@@ -29,14 +29,14 @@ public class AbilityAction : GameAction
             yield break;
         }
 
-        caller.other = toCast.connections;
+        caller.AddConnection(toCast.connections);
         bool keepCasting = true;
         AbilityAction action = this;
         caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
 
         if (!keepCasting)
         {
-            caller.other = null;
+            caller.RemoveConnection(toCast.connections);
             successful = false;
             yield break;
         }
@@ -46,7 +46,7 @@ public class AbilityAction : GameAction
         if (toCast.currentCooldown > 0)
         {
             Debug.Log($"You cannot cast {toCast.friendlyName}, it still has {toCast.currentCooldown} turns left.");
-            caller.other = null;
+            caller.RemoveConnection(toCast.connections);
             successful = false;
             yield break;
         }
@@ -93,7 +93,7 @@ public class AbilityAction : GameAction
             successful = false;
         }
 
-        caller.other = null;
+        caller.RemoveConnection(toCast.connections);
     }
 
     //Called after construction, but before execution!

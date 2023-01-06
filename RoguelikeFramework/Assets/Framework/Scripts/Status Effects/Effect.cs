@@ -30,12 +30,12 @@ public class Effect
         return (Effect) this.MemberwiseClone();
     }
 
-    public bool ShouldDisplay()
+    public virtual bool ShouldDisplay()
     {
         return !name.IsEmpty && !description.IsEmpty;
     }
 
-    public virtual string GetName()
+    public virtual string GetName(bool shorten = false)
     {
         return name.GetLocalizedString(this);
     }

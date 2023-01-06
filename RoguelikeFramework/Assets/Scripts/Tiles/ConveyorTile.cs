@@ -39,7 +39,7 @@ public class ConveyorTile : RogueTile
     }
 
     //Undo caching - things have likely moved.
-    public void Clear()
+    public void ClearMovementCache()
     {
         willMove = false;
         hasChecked = false;

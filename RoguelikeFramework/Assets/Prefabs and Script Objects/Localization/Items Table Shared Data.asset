@@ -295,6 +295,14 @@ MonoBehaviour:
     m_Key: VampiricHelmDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 769712689504256
+    m_Key: AntimagArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769798098116608
+    m_Key: AntimagArmorDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -130,7 +130,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
+  attachedEffects: []
+  baseEffects:
   - id: 0
   optionalEffects: []
   activatable: {fileID: 0}

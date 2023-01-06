@@ -74,7 +74,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 8120351842304
     m_Localized: Not very useful in a gun fight. Or a knife fight. Or a whip fight.
-      Why do you have this?
+      But damn do you look cool.
     m_Metadata:
       m_Items: []
   - m_Id: 8171639791616
@@ -111,9 +111,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8520584912896
-    m_Localized: Atom-thin blades, carried along by a superconducting coil. Robbing
-      heat from the users hand, the blade whips into action at the slightest gesture.
-      An elegant weapon from a more civilized age.
+    m_Localized: Atom-thin blades, carried along by a superconducting coil. Generating
+      enegy by robbing heat from the user's hand, the blade whips into action at
+      the slightest gesture. An elegant weapon from a more civilized age.
     m_Metadata:
       m_Items: []
   - m_Id: 8571797364736
@@ -320,6 +320,15 @@ MonoBehaviour:
     m_Localized: This helm comes equipped with bat ears and a set of (probably fake)
       teeth. You have absolutely no desire to put it on and exsanguite the nearest
       living creature.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769712689504256
+    m_Localized: Magicite Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769798098116608
+    m_Localized: A thin suit of armor made entirely of magicite. You can feel as
+      slight tug in the air as it draws magic into itself.
     m_Metadata:
       m_Items: []
   references:
