@@ -24,7 +24,7 @@ public class ItemStack
         }
         else
         {
-            return $"{count} {held[0].GetPlural()}";
+            return $"{count} {held[0].GetName()}";
         }
     }
 }

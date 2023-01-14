@@ -300,7 +300,7 @@ public class Item : MonoBehaviour
         switch (rarity)
         {
             case ItemRarity.COMMON:
-                ColorUtility.TryParseHtmlString("#282C34", out outColor);
+                ColorUtility.TryParseHtmlString("#ABB2BF", out outColor);
                 break;
             case ItemRarity.UNCOMMON:
                 ColorUtility.TryParseHtmlString("#98C379", out outColor);

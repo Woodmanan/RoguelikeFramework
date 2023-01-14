@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StatBar : MonoBehaviour
 {
     Monster player;
     Material mat;
     Image image;
+    TextMeshProUGUI text;
 
     public Resources main;
     public Resources max;
-    public Color fillColor;
+    public Gradient gradient;
     public bool alwaysShow;
 
     float currentFillAmount;
@@ -21,12 +23,11 @@ public class StatBar : MonoBehaviour
         image = transform.GetChild(0).GetComponent<Image>();
         mat = Instantiate<Material>(image.material);
         image.material = mat;
-        mat.SetColor("_fillColor", fillColor);
         currentFillAmount = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    public void CheckForStats()
     {
         if (player == null)
         {
@@ -39,6 +40,7 @@ public class StatBar : MonoBehaviour
             {
                 if (!image.enabled)
                 {
+                    gameObject.SetActive(true);
                     image.enabled = true;
                 }
                 float goalFillAmount = player.baseStats[main] / Mathf.Max(player.currentStats[max], 0.001f);
@@ -48,6 +50,7 @@ public class StatBar : MonoBehaviour
                     currentFillAmount = goalFillAmount;
                 }
                 mat.SetFloat("_fillAmount", currentFillAmount);
+                mat.SetColor("_fillColor", gradient.Evaluate(currentFillAmount));
             }
             else
             {

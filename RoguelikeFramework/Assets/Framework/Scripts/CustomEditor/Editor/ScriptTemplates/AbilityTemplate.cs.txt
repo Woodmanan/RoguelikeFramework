@@ -17,6 +17,11 @@ public class #SCRIPTNAME# : Ability
         return true;
     }
 
+    public override void OnRegenerateStats(Monster caster)
+    {
+        
+    }
+
     public override void OnCast(Monster caster)
     {
         

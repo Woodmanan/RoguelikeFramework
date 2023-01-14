@@ -129,30 +129,32 @@ public class Bresenham
 
     public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
     {
-        bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
-        if (steep) { Swap<int>(ref x0, ref y0); Swap<int>(ref x1, ref y1); }
-        if (x0 > x1) { Swap<int>(ref x0, ref x1); Swap<int>(ref y0, ref y1); }
-        int dX = (x1 - x0), dY = Math.Abs(y1 - y0), err = (dX / 2), ystep = (y0 < y1 ? 1 : -1), y = y0;
-
-        for (int x = x0; x <= x1; ++x)
-        {
-            if (steep)
-            {
-                yield return new Vector2Int(y, x);
-            }
-            else
-            {
-                yield return new Vector2Int(x, y);
-            }
-            
-            err = err - dY;
-            if (err < 0) { y += ystep; err += dX; }
-        }
+        return GetPointsOnLine(new Vector2Int(x0, y0), new Vector2Int(x1, y1));
     }
 
+    /* 4th? rebuild of the line drawing
+     * 
+     * Losing my mind - why are all line drawing algorithms so bad?
+     * Newest version runs off of Red Blob Games initial idea of just basing lines on Lerp
+     * I really like this, because it's simple and easy to think about. BUT It's not symmetric.
+     * This is a rebuild of that algorithm, with the main change being that we think entirely in relative space,
+     * and then bias our rounding towards 0. The result is that the algorithm is innaccurate to a very small scale,
+     * but symmettric for lines that are not extremely large. Yay! Algorithm is now fast, symmetric, and predictable.
+     */
+    
     public static IEnumerable<Vector2Int> GetPointsOnLine(Vector2Int start, Vector2Int end)
     {
-        return GetPointsOnLine(start.x, start.y, end.x, end.y);
+        Vector2Int offset = (end - start);
+        int dist = offset.ChebyshevDistance();
+        for (int step = 0; step <= dist; step++)
+        {
+            float t = (dist == 0) ? 0.0f : ((float) step) / dist;
+            Vector2 coord = Vector2.Lerp(Vector2Int.zero, offset, t);
+            float x = (coord.x < 0) ? coord.x + .5001f : coord.x + .4999f;
+            float y = (coord.y < 0) ? coord.y + .5001f : coord.y + .4999f;
+
+            yield return new Vector2Int(Mathf.FloorToInt(x + start.x), Mathf.FloorToInt(y + start.y));
+        }
     }
 
 }

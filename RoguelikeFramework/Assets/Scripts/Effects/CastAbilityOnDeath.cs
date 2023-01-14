@@ -56,12 +56,15 @@ public class CastAbilityOnDeath: Effect
     public override void OnDeath()
     {
         connectedTo.monster.UpdateLOS();
-        if (connectedTo.monster == Player.player && toCast.targeting.targetingType != TargetType.SELF)
+        if (connectedTo.monster == Player.player && toCast.baseTargeting.targetingType != TargetType.SELF)
         {
             Debug.LogError("This doesn't work for humans yet! Can't allow aiming, unfortunately.");
             return;
         }
-        AbilityAction cast = new AbilityAction(toCast.Instantiate());
+        Ability instCast = toCast.Instantiate();
+        instCast.Setup();
+        instCast.RegenerateStats(connectedTo.monster);
+        AbilityAction cast = new AbilityAction(instCast);
         cast.Setup(connectedTo.monster);
         while (cast.action.MoveNext()) { }
     }

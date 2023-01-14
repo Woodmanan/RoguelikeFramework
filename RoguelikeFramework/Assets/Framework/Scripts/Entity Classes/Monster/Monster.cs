@@ -194,6 +194,10 @@ public class Monster : MonoBehaviour
         {
             damageMod = 0;
         }
+        if ((type & DamageType.TRUE) > 0)
+        {
+            damageMod = Mathf.Max(damageMod, 1);
+        }
 
         damage *= damageMod;
 
@@ -432,8 +436,9 @@ public class Monster : MonoBehaviour
     public void ResetStatsToMax()
     {
         baseStats[HEALTH] = Mathf.Min(baseStats[HEALTH], currentStats[MAX_HEALTH]);
-        baseStats[MANA] = Mathf.Min(baseStats[MANA], currentStats[MAX_MANA]);
+        baseStats[MANA] = Mathf.Clamp(baseStats[MANA], 0, currentStats[MAX_MANA]);
         baseStats[STAMINA] = Mathf.Min(baseStats[STAMINA], currentStats[MAX_STAMINA]);
+        baseStats[HEAT] = Mathf.Clamp(baseStats[HEAT], 0, currentStats[MAX_HEAT]);
     }
 
     public void SetAction(GameAction act)

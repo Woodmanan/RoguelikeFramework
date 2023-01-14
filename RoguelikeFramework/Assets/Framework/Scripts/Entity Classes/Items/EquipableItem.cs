@@ -14,6 +14,7 @@ public class EquipableItem : MonoBehaviour
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
     public bool removable = true;
+    public bool blocksUnarmed = true;
 
     Monster equippedTo;
     int equippedIndex; //Primary index

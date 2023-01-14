@@ -36,7 +36,7 @@ public class AttackAction : GameAction
         }
         List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
         unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed);
-        unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].type.HasFlag(ItemType.MELEE_WEAPON) && !x.equipped.held[0].type.HasFlag(ItemType.RANGED_WEAPON)));
+        unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].equipable.blocksUnarmed));
 
         //Do we have any weapons equipped?
         if (slots.Count > 0 || unarmedSlots.Count > 0)

@@ -76,6 +76,9 @@ public class LevelLoader : MonoBehaviour
 
         #if !UNITY_EDITOR
         startAt = "";
+        #else
+        JITLoading = true;
+        preloadUpTo = 0;
         #endif
 
         if (singleton != this)

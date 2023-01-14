@@ -88,4 +88,26 @@ public class AbilityStats : ISerializationCallbackReceiver
         }
         return first;
     }
+
+    public static AbilityStats operator *(AbilityStats first, float value)
+    {
+        AbilityStats result = new AbilityStats();
+
+        foreach (AbilityResources r in first.dictionary.Keys)
+        {
+            result[r] = first[r] * value;
+        }
+
+        return result;
+    }
+
+    public static AbilityStats operator *(float value, AbilityStats stats)
+    {
+        return stats * value;
+    }
+
+    public static AbilityStats Lerp(AbilityStats a, AbilityStats b, float t)
+    {
+        return (1f - t) * a + t * b;
+    }
 }

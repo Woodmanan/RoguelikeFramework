@@ -25,6 +25,11 @@ public static class GameplayExtensions
         return current;
     }
 
+    public static int ChebyshevDistance(this Vector2Int current)
+    {
+        return Mathf.Max(Mathf.Abs(current.x), Mathf.Abs(current.y));
+    }
+
     public static int ChebyshevDistance(Vector2Int start, Vector2Int end)
     {
         int x = Mathf.Abs(start.x - end.x);

@@ -37,14 +37,13 @@ public class NightmareSystem : DungeonSystem
         }
     }
 
-    public void TickNightmare()
+    public void TickNightmare(int amount = 1)
     {
-        timeUntilNext--;
-        Debug.Log(timeUntilNext);
+        timeUntilNext -= amount;
 
         if (!currentlySummoned)
         {
-            if (timeUntilNext == 0)
+            if (timeUntilNext <= 0)
             {
                 Spawn();
                 timeUntilNext = nightmareLifetime.Evaluate();
@@ -58,7 +57,7 @@ public class NightmareSystem : DungeonSystem
         }
         else
         {
-            if (timeUntilNext == 0)
+            if (timeUntilNext <= 0)
             {
                 Despawn();
                 timeUntilNext = timeBetweenSummons.Evaluate();

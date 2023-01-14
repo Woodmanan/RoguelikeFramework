@@ -60,10 +60,7 @@ public class SummonNightmare : Effect
             NightmareSystem nightmare = system as NightmareSystem;
             if (nightmare != null)
             {
-                for (int i = 0; i < numTicks; i++)
-                {
-                    nightmare.TickNightmare();
-                }
+                nightmare.TickNightmare(numTicks);
             }
         }
     }

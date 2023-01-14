@@ -89,7 +89,9 @@ public class Ability : ScriptableObject
         currentCooldown = 0;
         if (connections == null) connections = new Connections(this);
         AddEffect(effects.Select(x => x.Instantiate()).ToArray());
-        RegenerateStats(null);
+        OnSetup();
+
+        //RegenerateStats(null);
     }
 
     //TODO: Set this up in a nice way
@@ -100,10 +102,19 @@ public class Ability : ScriptableObject
         currentStats = baseStats.Copy();
         Ability ability = this;
 
+        OnRegenerateStats(m);
+
         connections.OnRegenerateAbilityStats.BlendInvoke(m?.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
         targeting.range += Mathf.RoundToInt(currentStats[RANGE_INCREASE]);
         targeting.radius += Mathf.RoundToInt(currentStats[RADIUS_INCREASE]);
     }
+
+    public virtual void OnRegenerateStats(Monster caster)
+    {
+
+    }
+
+    public virtual void OnSetup() { }
 
     public bool CheckAvailable(Monster caster)
     {
@@ -132,7 +143,9 @@ public class Ability : ScriptableObject
         Ability casting = this;
 
         //Link in status effects for this system
+        connections.monster = caster;
         caster.connections.OnCheckAvailability.BlendInvoke(connections.OnCheckAvailability, ref casting, ref canCast);
+        connections.monster = null;
 
         if (canCast)
         {
@@ -162,7 +175,7 @@ public class Ability : ScriptableObject
         //TODO: Call the OnCast modifier!
         OnCast(caster);
 
-        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - baseStats[COOLDOWN_DECREASE]);
+        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - currentStats[COOLDOWN_DECREASE]);
     }
 
     public virtual void OnCast(Monster caster)

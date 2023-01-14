@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0fdfd878e4cc24bba7654450d9e497, type: 3}
+  m_Name: 5_DragonsBreath
+  m_EditorClassIdentifier: 
+  friendlyName: DragonsBreath
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: f06087cedfc16184a85fcd5d55e76d7d, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 3
+    areaType: 1
+    range: 6
+    radius: 6
+    degree: 60
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
+  castQuery:
+    outOf: 1
+    terms: []
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 02000000
+    _vals:
+    - 5
+  castable: 1
+  types: 0
+  effects:
+  - id: 0
+  damage:
+    rngType: 1
+    min: 15
+    max: 30
+  heatToAdd: 4
+  sprites:
+  - {fileID: 21300000, guid: 44497742eb2238d46b197b30c41396b8, type: 3}
+  - {fileID: 21300000, guid: ab829b38bea88ed4db711bb59ca3e1be, type: 3}
+  - {fileID: 21300000, guid: 44497742eb2238d46b197b30c41396b8, type: 3}
+  - {fileID: 21300000, guid: ab829b38bea88ed4db711bb59ca3e1be, type: 3}
+  - {fileID: 21300000, guid: 44497742eb2238d46b197b30c41396b8, type: 3}
+  - {fileID: 21300000, guid: ab829b38bea88ed4db711bb59ca3e1be, type: 3}
+  references:
+    version: 1
+    00000000:
+      type: {class: HeatToCast, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        minimumNeeded: 75
+        maximumAllowed: 99

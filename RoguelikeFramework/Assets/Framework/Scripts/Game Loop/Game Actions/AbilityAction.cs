@@ -30,18 +30,6 @@ public class AbilityAction : GameAction
         }
 
         caller.AddConnection(toCast.connections);
-        bool keepCasting = true;
-        AbilityAction action = this;
-        caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
-
-        if (!keepCasting)
-        {
-            caller.RemoveConnection(toCast.connections);
-            successful = false;
-            yield break;
-        }
-
-
 
         if (toCast.currentCooldown > 0)
         {
@@ -49,6 +37,30 @@ public class AbilityAction : GameAction
             caller.RemoveConnection(toCast.connections);
             successful = false;
             yield break;
+        }
+
+        if (!toCast.castable)
+        {
+            Debug.Log($"Console: You cannot cast {toCast.friendlyName}.");
+            caller.RemoveConnection(toCast.connections);
+            successful = false;
+            yield break;
+        }
+
+        AbilityAction action = this;
+
+        { //Caller override check
+            
+            bool keepCasting = true;
+            
+            caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
+
+            if (!keepCasting)
+            {
+                caller.RemoveConnection(toCast.connections);
+                successful = false;
+                yield break;
+            }
         }
 
         bool canFire = false;

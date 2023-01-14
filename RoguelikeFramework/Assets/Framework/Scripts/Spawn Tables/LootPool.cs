@@ -77,7 +77,7 @@ public class LootPool
         tree = new Quadtree<Item>(new Rect(Vector2.zero, new Vector2Int(maxRarity + 1, maxDepth + 1)));
     }
 
-    public void AddItemsFromTable(LootTable table)
+    public void AddItemsFromTable(LootTable table, Transform holder)
     {
         foreach (Item i in table.items)
         {
@@ -90,6 +90,7 @@ public class LootPool
             int maxDepth = i.maxDepth + 1;
             Rect itemRect = new Rect(minRarity, minDepth, maxRarity - minRarity, maxDepth - minDepth); //Build a spatial rect from our rarity and depth data
             tree.Insert(working, itemRect);
+            working.transform.parent = holder;
         }
     }
 

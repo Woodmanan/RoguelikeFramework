@@ -174,7 +174,9 @@ public enum Resources
     NEXT_LEVEL_XP,
     AC,
     EV,
-    MR
+    MR,
+    HEAT,
+    MAX_HEAT
 }
 
 public enum AbilityResources

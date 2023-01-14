@@ -53,7 +53,7 @@ public class ItemSpawner : MonoBehaviour
             branch.lootPool = new LootPool(maxDepth, (int)ItemRarity.UNIQUE);
             foreach (LootTable table in branch.tables)
             {
-                branch.lootPool.AddItemsFromTable(Instantiate(table));
+                branch.lootPool.AddItemsFromTable(table, transform);
             }
         }
     }
