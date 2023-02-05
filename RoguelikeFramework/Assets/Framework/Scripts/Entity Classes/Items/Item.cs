@@ -5,7 +5,7 @@ using UnityEngine.Localization;
 using System.Linq;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IDescribable
 {
     [Header("Generation attributes")]
     public ItemRarity rarity;
@@ -124,6 +124,21 @@ public class Item : MonoBehaviour
         AddEffect(baseEffects.Select(x => x.Instantiate()).ToArray());
         currentRarity = rarity;
         setup = true;
+    }
+
+    public string GetName(bool shorten = false)
+    {
+        return localName.GetLocalizedString(this);
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return render.sprite;
     }
 
 

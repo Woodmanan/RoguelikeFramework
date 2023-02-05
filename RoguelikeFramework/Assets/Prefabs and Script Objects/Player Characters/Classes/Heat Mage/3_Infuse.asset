@@ -15,18 +15,18 @@ MonoBehaviour:
   friendlyName: Infuse
   locName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14749722445815808
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   locDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14749753156509696
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -111,5 +111,6 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         duration: 25
         toCastOnDeath: {fileID: 11400000, guid: d7016986f5102174683d25e12a749046, type: 2}

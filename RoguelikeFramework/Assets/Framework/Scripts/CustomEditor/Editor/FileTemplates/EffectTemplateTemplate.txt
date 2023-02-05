@@ -11,6 +11,8 @@ public class #SCRIPTNAME# : Effect
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
+    /*public override Spirte GetImage() { return image; }*/
+
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }
 
     //Constuctor for the object; use this in code if you're not using the asset version!

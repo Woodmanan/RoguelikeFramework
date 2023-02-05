@@ -15,18 +15,18 @@ MonoBehaviour:
   friendlyName: WhiteHole
   locName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14758077579075584
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   locDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14758104686862336
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000006000000
     _vals:
-    - 10
+    - 120
     - 120
   currentStats:
     _keys: 
@@ -113,6 +113,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         duration: 0
         canAct: 0
         floating: 0

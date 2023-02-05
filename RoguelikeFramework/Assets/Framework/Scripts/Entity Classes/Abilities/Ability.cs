@@ -28,11 +28,14 @@ using UnityEngine.Localization;
  */
 
 
-public class Ability : ScriptableObject
+public class Ability : ScriptableObject, IDescribable
 {
     public string friendlyName;
 
+    [SerializeField]
     public LocalizedString locName;
+
+    [SerializeField]
     public LocalizedString locDescription;
 
     public Sprite image;
@@ -47,6 +50,8 @@ public class Ability : ScriptableObject
 
     [HideInInspector] public Targeting targeting;
     public Stats costs;
+
+    protected bool dirty = true;
     
     [HideInInspector] public int currentCooldown
     {
@@ -72,6 +77,21 @@ public class Ability : ScriptableObject
         Ability copy = Instantiate(this);
         copy.Setup();
         return copy;
+    }
+
+    public virtual string GetName(bool shorten = false)
+    {
+        return locName.GetLocalizedString(this);
+    }
+
+    public virtual string GetDescription()
+    {
+        return locDescription.GetLocalizedString(this);
+    }
+
+    public virtual Sprite GetImage()
+    {
+        return image;
     }
 
     public void AddEffect(params Effect[] effects)
@@ -206,5 +226,15 @@ public class Ability : ScriptableObject
         {
             if (attachedEffects[i].ReadyToDelete) { attachedEffects.RemoveAt(i); }
         }
+    }
+
+    public bool IsDirty()
+    {
+        return dirty;
+    }
+
+    public void ClearDirty()
+    {
+        dirty = false;
     }
 }

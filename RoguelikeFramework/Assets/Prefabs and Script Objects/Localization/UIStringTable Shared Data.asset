@@ -55,6 +55,22 @@ MonoBehaviour:
     m_Key: New Entry
     m_Metadata:
       m_Items: []
+  - m_Id: 18064015660621824
+    m_Key: MagicResistName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18064213300420608
+    m_Key: MagicResistDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18069471787425792
+    m_Key: ExamineButtonName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18069617019396096
+    m_Key: ExamineButtonDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

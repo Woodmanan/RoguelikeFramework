@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
 
-public class AbilityButton : MonoBehaviour
+public class AbilityButton : MonoBehaviour, IDescribable
 {
     public int index;
     public Image backgroundImage;
@@ -12,10 +13,11 @@ public class AbilityButton : MonoBehaviour
     public Image cooldownImage;
     public TextMeshProUGUI cooldownText;
     public TextMeshProUGUI numberText;
-    public ExamineDescription description;
 
     public bool locked = true;
     public bool set = false;
+
+    Ability ability;
 
     // Start is called before the first frame update
     void Start()
@@ -33,24 +35,61 @@ public class AbilityButton : MonoBehaviour
         numberText.text = $"{(index + 1)%10}";
     }
 
+    public string GetName(bool shorten = false)
+    {
+        if (ability)
+        {
+            return ability.GetName();
+        }
+        else
+        {
+            return "Unavailable";
+        }
+    }
+
+    public string GetDescription()
+    {
+        if (ability)
+        {
+            return ability.GetDescription();
+        }
+        else
+        {
+            return "No ability in this slot!";
+        }
+    }
+
+    public Sprite GetImage()
+    {
+        if (ability)
+        {
+            return ability.GetImage();
+        }
+        else
+        {
+            //Return whatever got set as our default
+            return backgroundImage.sprite;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         //Check for setup
-        if (!set)
+        if (Player.player != null && Player.player.abilities.HasAbility(index))
         {
-            if (Player.player != null && Player.player.abilities.HasAbility(index))
+            Ability abilityToCheck = Player.player.abilities[index];
+            if (abilityToCheck.IsDirty())
             {
-                backgroundImage.sprite = Player.player.abilities[index].image;
+                backgroundImage.sprite = Player.player.abilities[index].GetImage();
                 backgroundImage.color = Player.player.abilities[index].color;
-                description.locName = Player.player.abilities[index].locName;
-                description.locDescription = Player.player.abilities[index].locDescription;
-                set = true;
+                //description.locName = new LocalizedString()
+                abilityToCheck.ClearDirty();
             }
-            else
-            {
-                return;
-            }
+        }
+        else
+        {
+            return;
         }
         
 
@@ -60,7 +99,7 @@ public class AbilityButton : MonoBehaviour
             StartCoroutine(UnlockShift(1f));
         }
 
-        Ability ability = Player.player.abilities[index];
+        ability = Player.player.abilities[index];
 
         if (ability.castable)
         {

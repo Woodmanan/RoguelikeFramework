@@ -1,12 +1,19 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-//[Group("Sample Group/Sample Subgroup")]
+[Group("Class Effects/Heat Mage")]
 [Priority(10)]
-public class #SCRIPTNAME# : Effect
+public class VortexCold : Effect
 {
+    public int duration;
+    public float damagePerTurn;
+    public float manaBurnPerTurn;
+    [Range(0, 100)]
+    public float percentBurnToDamage;
+    public float energyRobbedPerMove;
+
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -17,7 +24,7 @@ public class #SCRIPTNAME# : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public #SCRIPTNAME#()
+    public VortexCold()
     {
         //Construct me!
     }
@@ -36,7 +43,22 @@ public class #SCRIPTNAME# : Effect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() {}
+    public override void OnTurnEndGlobal()
+    {
+        connectedTo.monster.Damage(credit, damagePerTurn, DamageType.MAGICAL | DamageType.ICE, DamageSource.EFFECT);
+        float burnAmount = Mathf.Min(manaBurnPerTurn, connectedTo.monster.baseStats[Resources.MANA]);
+        if (burnAmount > 0)
+        {
+            connectedTo.monster.baseStats[Resources.MANA] -= burnAmount;
+            connectedTo.monster.Damage(credit, burnAmount * (percentBurnToDamage * 0.01f), DamageType.MAGICAL, DamageSource.EFFECT);
+        }
+
+        duration--;
+        if (duration == 0)
+        {
+            Disconnect();
+        }
+    }
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -48,7 +70,10 @@ public class #SCRIPTNAME# : Effect
     //public override void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
 
     //Called whenever a monster sucessfully takes a step.
-    //public override void OnMove() {}
+    public override void OnMove()
+    {
+        connectedTo.monster.energy -= energyRobbedPerMove;
+    }
 
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}

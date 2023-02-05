@@ -15,18 +15,18 @@ MonoBehaviour:
   friendlyName: DragonsBreath
   locName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14751126694600704
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   locDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14751174643884032
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -121,5 +121,6 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         minimumNeeded: 75
         maximumAllowed: 99

@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-public class ExamineDescription : MonoBehaviour
+public class ExamineDescription : MonoBehaviour, IDescribable
 {
     public LocalizedString locName;
     public LocalizedString locDescription;
+    public Sprite image;
 
-    // Start is called before the first frame update
-    void Start()
+    public string GetName(bool shorten = false)
     {
-        
+        return locName.GetLocalizedString(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public string GetDescription()
     {
-        
+        return locDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return image;
     }
 }

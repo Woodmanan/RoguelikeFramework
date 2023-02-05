@@ -59,7 +59,7 @@ public class Abilities : MonoBehaviour
 
     public bool HasAbility(int index)
     {
-        return (index >= 0 && index < abilities.Count && abilities[index] != null);
+        return index >= 0 && index < abilities.Count && abilities[index] != null;
     }
     
 

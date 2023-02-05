@@ -45,7 +45,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 789451641659392
-    m_Localized: Armor reduces damage by the shown percent.
+    m_Localized: Armor reduces physical damage by the shown percent.
     m_Metadata:
       m_Items: []
   - m_Id: 789725789757440
@@ -63,6 +63,24 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 3343432964317184
     m_Localized: Level up to unlock it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18064015660621824
+    m_Localized: Magic Resist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18064213300420608
+    m_Localized: Magic resist reduces magical damage by the shown percentage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18069471787425792
+    m_Localized: Examine Button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18069617019396096
+    m_Localized: 'Toggles examine mode, mouse over anything to see a description.
+
+'
     m_Metadata:
       m_Items: []
   references:

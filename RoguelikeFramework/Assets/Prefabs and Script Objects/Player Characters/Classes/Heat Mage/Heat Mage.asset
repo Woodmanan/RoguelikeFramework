@@ -18,6 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4225706cab8db541b30ff92e8401436, type: 2}
   - {fileID: 11400000, guid: 8cdc76ad18bdc3d4dacf3c783a9754ee, type: 2}
   - {fileID: 11400000, guid: 7d2a9e76526beb8479176173993bebca, type: 2}
+  - {fileID: 11400000, guid: 13fdfa1a929160246b0f2d27d506b021, type: 2}
   - {fileID: 11400000, guid: 1aecba8e10031604892cc33efac59a33, type: 2}
   effects:
   - id: 0
@@ -47,6 +48,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         setTo:
           _keys: 0b0000000c000000
           _vals:
@@ -75,6 +77,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         lossPerTurn:
           rngType: 1
           min: 3

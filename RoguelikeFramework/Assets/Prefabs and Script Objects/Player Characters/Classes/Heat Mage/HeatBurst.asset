@@ -15,18 +15,18 @@ MonoBehaviour:
   friendlyName: HeatBurst
   locName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14749610042662912
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   locDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 14749671216586752
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

@@ -9,7 +9,7 @@ using UnityEngine.Localization;
 
 using static Resources;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDescribable
 {
     [Header("Setup Variables")]
     public Stats baseStats;
@@ -129,6 +129,21 @@ public class Monster : MonoBehaviour
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
         SetPosition(map, location);
         UpdateLOS(map);
+    }
+
+    public string GetName(bool shorten = false)
+    {
+        return localName.GetLocalizedString(this);
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return renderer.sprite;
     }
 
     public void Heal(float healthReturned, bool shouldLog = false)

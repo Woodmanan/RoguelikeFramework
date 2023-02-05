@@ -16,7 +16,7 @@ using UnityEngine.Localization;
  */
 
 [System.Serializable]
-public class Effect
+public class Effect : IDescribable
 {
     [HideInInspector] public Connections connectedTo;
     [HideInInspector] public bool ReadyToDelete = false;
@@ -24,6 +24,7 @@ public class Effect
 
     [SerializeField] protected LocalizedString name;
     [SerializeField] protected LocalizedString description;
+    [SerializeField] protected Sprite image;
 
     public Effect Instantiate()
     {
@@ -43,6 +44,11 @@ public class Effect
     public virtual string GetDescription()
     {
         return description.GetLocalizedString(this);
+    }
+
+    public virtual Sprite GetImage()
+    {
+        return image;
     }
 
     /* Connect:

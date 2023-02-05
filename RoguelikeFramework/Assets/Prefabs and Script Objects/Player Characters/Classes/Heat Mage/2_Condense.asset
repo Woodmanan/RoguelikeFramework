@@ -15,7 +15,7 @@ MonoBehaviour:
   friendlyName: Condense
   locName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: 
@@ -112,5 +112,6 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         minimumNeeded: 15
         maximumAllowed: 60

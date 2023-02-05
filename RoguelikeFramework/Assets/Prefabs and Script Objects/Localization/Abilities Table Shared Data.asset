@@ -55,6 +55,102 @@ MonoBehaviour:
     m_Key: BriarStanceDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 14749235248046080
+    m_Key: BlazeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749283251855360
+    m_Key: BlazeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749439036694528
+    m_Key: CondenseIceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749572495253504
+    m_Key: CondenseIceDesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749610042662912
+    m_Key: CondenseFireName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749671216586752
+    m_Key: CondenseFireDesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749722445815808
+    m_Key: InfuseName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749753156509696
+    m_Key: InfuseDesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749821905346560
+    m_Key: PolarVortexName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749879765770240
+    m_Key: PolarVortexDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750527559245824
+    m_Key: HeatVortexName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750565949710336
+    m_Key: HeatVortexDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751126694600704
+    m_Key: DragonBreathName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751174643884032
+    m_Key: DragonBreathDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757368603287552
+    m_Key: BlinkName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757399645331456
+    m_Key: BlinkDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757630118141952
+    m_Key: BlackHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757655200079872
+    m_Key: BlackHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757707087814656
+    m_Key: VentName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757747051143168
+    m_Key: VentDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757963636613120
+    m_Key: AstralVisionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757999086870528
+    m_Key: AstralVisionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758077579075584
+    m_Key: WhiteHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758104686862336
+    m_Key: WhiteHoleDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

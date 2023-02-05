@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a9d9b7feb3aa44aab38fbc400db822, type: 3}
-  m_Name: Blink
+  m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
+  m_Name: PolarVortex
   m_EditorClassIdentifier: 
-  friendlyName: Blink
+  friendlyName: PolarVortex
   locName:
     m_TableReference:
       m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 14757368603287552
+      m_KeyId: 14749821905346560
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -26,21 +26,21 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 14757399645331456
+      m_KeyId: 14749879765770240
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  image: {fileID: 21300000, guid: 441f87efc3f625b4792bd8114dc5aec7, type: 3}
+  image: {fileID: 21300000, guid: 6a9d3ec26838df142b5d078482760ef1, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
-    targetingType: 3
+    targetingType: 4
     areaType: 0
-    range: 6
+    range: 4
     radius: 0
     degree: 0
-    options: 199
+    options: 3
     targetPriority: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
@@ -51,8 +51,9 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    _keys: 
-    _vals: []
+    _keys: 01000000
+    _vals:
+    - 5
   currentStats:
     _keys: 
     _vals: []
@@ -79,21 +80,16 @@ MonoBehaviour:
   costs:
     _keys: 02000000
     _vals:
-    - 6
+    - 4
   castable: 1
   types: 0
   effects: []
-  damage:
-    rngType: 1
-    min: 20
-    max: 40
-  punishmentEffect:
-    id: 0
-  landingZoneOnly: 1
+  effectsToApply:
+  - id: 0
   references:
     version: 1
     00000000:
-      type: {class: Instability, ns: , asm: Assembly-CSharp}
+      type: {class: VortexCold, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -116,5 +112,8 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
-        maxDuration: 20
-        numStacks: 1
+        duration: 10
+        damagePerTurn: 2
+        manaBurnPerTurn: 4
+        percentBurnToDamage: 50
+        energyRobbedPerMove: 25

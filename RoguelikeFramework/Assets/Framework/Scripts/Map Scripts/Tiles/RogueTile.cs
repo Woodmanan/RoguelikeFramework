@@ -10,7 +10,7 @@ using UnityEditor;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Inventory))]
-public class RogueTile : MonoBehaviour
+public class RogueTile : MonoBehaviour, IDescribable
 {
     //Stuff that will change a lot, and should be visible
     [Header("Active gameplay elements")]
@@ -90,6 +90,21 @@ public class RogueTile : MonoBehaviour
             movementCost = 1;
         }
         #endif
+    }
+
+    public string GetName(bool shorten = false)
+    {
+        return localName.GetLocalizedString(this);
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return render.sprite;
     }
 
     public virtual void PreSetup()

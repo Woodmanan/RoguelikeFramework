@@ -245,7 +245,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.45
+  m_fontSize: 26.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 115
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -379,12 +379,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 45.8
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 30
+  m_fontSizeMax: 90
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -433,8 +433,8 @@ GameObject:
   - component: {fileID: 4058716524004869397}
   - component: {fileID: 4058716524004869396}
   - component: {fileID: 4058716524004869399}
-  - component: {fileID: 3634754396739171578}
   - component: {fileID: 2392307349941545866}
+  - component: {fileID: 2575652170283884398}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -515,38 +515,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 3
   m_AspectRatio: 1
---- !u!114 &3634754396739171578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4058716524004869417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099f9c980efd0ea4481a4c7545a7fa81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locName:
-    m_TableReference:
-      m_TableCollectionName: GUID:f5c0042fb20f9a54ca72398f2094cedd
-    m_TableEntryReference:
-      m_KeyId: 3343340718989312
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  locDescription:
-    m_TableReference:
-      m_TableCollectionName: GUID:f5c0042fb20f9a54ca72398f2094cedd
-    m_TableEntryReference:
-      m_KeyId: 3343432964317184
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  references:
-    version: 1
 --- !u!114 &2392307349941545866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,7 +558,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4058716524966335781}
+      - m_Target: {fileID: 2575652170283884398}
         m_TargetAssemblyTypeName: AbilityButton, Assembly-CSharp
         m_MethodName: Cast
         m_Mode: 1
@@ -602,6 +570,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2575652170283884398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058716524004869417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0d130f9f2342748aa6bb9a077dcc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  backgroundImage: {fileID: 4058716525179429732}
+  mask: {fileID: 4058716525035282974}
+  cooldownImage: {fileID: 4058716523188489417}
+  cooldownText: {fileID: 4058716523636316474}
+  numberText: {fileID: 4058716523586060173}
+  locked: 1
+  set: 0
 --- !u!1 &4058716524966335801
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +601,6 @@ GameObject:
   - component: {fileID: 4058716524966335782}
   - component: {fileID: 4058716524966335780}
   - component: {fileID: 4058716524966335783}
-  - component: {fileID: 4058716524966335781}
   m_Layer: 5
   m_Name: AbilityButton
   m_TagString: Untagged
@@ -679,27 +666,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4058716524966335781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4058716524966335801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0d130f9f2342748aa6bb9a077dcc02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
-  backgroundImage: {fileID: 4058716525179429732}
-  mask: {fileID: 4058716525035282974}
-  cooldownImage: {fileID: 4058716523188489417}
-  cooldownText: {fileID: 4058716523636316474}
-  numberText: {fileID: 4058716523586060173}
-  description: {fileID: 3634754396739171578}
-  locked: 1
-  set: 0
 --- !u!1 &4058716525035282960
 GameObject:
   m_ObjectHideFlags: 0

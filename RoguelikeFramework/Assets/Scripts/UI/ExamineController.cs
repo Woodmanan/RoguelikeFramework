@@ -49,37 +49,13 @@ public class ExamineController : MonoBehaviour
                 shortHover.SetActive(true);
 
                 GameObject target = targets[index];
-                ExamineDescription desc = target.GetComponent<ExamineDescription>();
-                Monster monster = target.GetComponent<Monster>();
-                RogueTile tile = target.GetComponent<RogueTile>();
-                Item item = target.GetComponent<Item>();
-                if (desc)
+                IDescribable desc = target.GetComponent<IDescribable>();
+                if (desc != null)
                 {
                     shortHoverTitle.text = "";
                     shortHoverDesc.text = "";
-                    if (!desc.locName.IsEmpty)
-                    {
-                        shortHoverTitle.text = desc.locName.GetLocalizedString();
-                    }
-                    if (!desc.locDescription.IsEmpty)
-                    {
-                        shortHoverDesc.text = desc.locDescription.GetLocalizedString();
-                    }
-                }
-                else if (monster)
-                {
-                    shortHoverTitle.text = monster.localName.GetLocalizedString();
-                    shortHoverDesc.text = monster.localDescription.GetLocalizedString();
-                }
-                else if (item)
-                {
-                    shortHoverTitle.text = item.GetName();
-                    shortHoverDesc.text = item.localDescription.GetLocalizedString();
-                }
-                else if (tile)
-                {
-                    shortHoverTitle.text = tile.localName.GetLocalizedString();
-                    shortHoverDesc.text = tile.localDescription.GetLocalizedString();
+                    shortHoverTitle.text = desc.GetName();
+                    shortHoverDesc.text = desc.GetDescription();
                 }
             }
             else
@@ -113,7 +89,7 @@ public class ExamineController : MonoBehaviour
             //Find first gameobject with a description
             foreach (RaycastResult result in results)
             {
-                if (result.gameObject.GetComponent<ExamineDescription>())
+                if (result.gameObject.GetComponent<IDescribable>() != null)
                 {
                     objects.Add(result.gameObject);
                     break;

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4101030637876210395, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d09d7edb9dc4cc04fa3938023911547e, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,18 +103,18 @@ MonoBehaviour:
   location: {x: 0, y: 0}
   localName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 192936927232
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   localDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:c1c18723c3f7f844cb3462d5787b8ff5
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 303410700288
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

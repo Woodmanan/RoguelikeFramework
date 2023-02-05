@@ -45,7 +45,7 @@ public class TooltipControl : MonoBehaviour
 
         if (finalPosition.y > background.rect.height)
         {
-            finalPosition.y = background.rect.height;
+            finalPosition.y = background.rect.height - 2*offset.y;
         }
 
         rect.position = finalPosition;

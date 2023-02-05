@@ -82,6 +82,7 @@ public class LootPool
         foreach (Item i in table.items)
         {
             Item working = i.Instantiate();
+            working.gameObject.SetActive(false);
             working.optionalEffects.AddRange(table.elevationOptions); //Tie our table options to the item - now we don't need the table.
             int minRarity = (int)i.rarity;
             int maxRarity = (int)i.elevatesTo + 1;

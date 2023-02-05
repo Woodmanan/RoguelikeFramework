@@ -68,5 +68,117 @@ MonoBehaviour:
     m_Localized: Briar's Stance
     m_Metadata:
       m_Items: []
+  - m_Id: 14749235248046080
+    m_Localized: Blaze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749439036694528
+    m_Localized: Icy Armor (Condense)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749610042662912
+    m_Localized: Steam Blast (Condense)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749722445815808
+    m_Localized: Infuse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749821905346560
+    m_Localized: Polar Vortex (Vortex)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750527559245824
+    m_Localized: Inferno (Vortex)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751126694600704
+    m_Localized: Dragon's Breath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749283251855360
+    m_Localized: Blast a fireball at a chosen enemy. Range increases and cooldown
+      decreases as heat builds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749572495253504
+    m_Localized: Condense the nearby moisture into an icy armor. Gain AC as long
+      as you don't move.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749671216586752
+    m_Localized: Condense the nearby moisture onto yourself, creating a steam explosion.
+      Pushes back enemies in range, dealing extra damage for enemies thrown into
+      obstacles.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749753156509696
+    m_Localized: Infuse an enemy with pure flame. They take fire damage as true instead,
+      and release an explosion upon death.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749879765770240
+    m_Localized: Surround a target with freezing winds. Deals cold damage, slows,
+      and burns away mana.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750565949710336
+    m_Localized: Surround a target with a blazing inferno. Deals high fire damage
+      per turn, and grants you a percentage of the targets mana if they are killed
+      while active.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751174643884032
+    m_Localized: Emit a massive, highly damaging wave of fire. Gain 5 heat per cast
+      instead of 1.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757368603287552
+    m_Localized: Blink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757399645331456
+    m_Localized: Blink a short distance away. Blinking into a monster deals massive
+      damage to it, teleporting you only if it dies. Each cast adds Instability.
+      For each stack of instability, range decreases by 1.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757630118141952
+    m_Localized: Summon Black Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757655200079872
+    m_Localized: Summons a black hole, which decays after (3 + instability) turns.
+      When it fully decays, the black hole sucks in all nearby creatures (3 tiles),
+      teleporting them randomly over a large distance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757707087814656
+    m_Localized: Vent Instability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757747051143168
+    m_Localized: Fully expunge your instability in a violent explosion. Deals extremely
+      high damage, removes all instability, drains your mana to 0, and sets all abilities
+      on cooldown.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757963636613120
+    m_Localized: Astral Vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757999086870528
+    m_Localized: You can see through walls within 4 tiles for 10 turns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758077579075584
+    m_Localized: Summon White Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758104686862336
+    m_Localized: Summons a white hole, which lasts for 120 turns. The white hole
+      redirects all random teleports to land within its line of sight.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
