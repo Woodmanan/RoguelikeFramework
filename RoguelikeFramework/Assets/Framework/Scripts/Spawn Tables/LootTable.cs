@@ -23,7 +23,7 @@ public class LootTable : ScriptableObject
     public Item RandomItemByRarity(ItemRarity rarity, bool takesLower = true)
     {
         List<Item> workingSet;
-        workingSet = items.FindAll(x => x.rarity == rarity);
+        workingSet = items.FindAll(x => x.rarity <= rarity && x.elevatesTo >= rarity);
 
         while (workingSet.Count == 0)
         {

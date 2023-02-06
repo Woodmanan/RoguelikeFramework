@@ -139,6 +139,54 @@ MonoBehaviour:
     m_Key: ShotgunnerDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 22994904169521152
+    m_Key: AntDroneName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22994942425767936
+    m_Key: AntDroneDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995177071910912
+    m_Key: MageKillerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995227206426624
+    m_Key: MageKillerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995593956368384
+    m_Key: AntSpitterName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995628295135232
+    m_Key: AntSpitterDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996061919059968
+    m_Key: AntDefenderName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996091144970240
+    m_Key: AntDefenderDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996376718352384
+    m_Key: AntRoyalName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996408448262144
+    m_Key: AntRoyalDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996559267045376
+    m_Key: AntQueenName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996586525827072
+    m_Key: AntQueenDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

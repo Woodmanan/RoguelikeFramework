@@ -149,5 +149,60 @@ MonoBehaviour:
     m_Localized: Has a shotgun.
     m_Metadata:
       m_Items: []
+  - m_Id: 22994904169521152
+    m_Localized: Drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22994942425767936
+    m_Localized: The workers of the hive. They make up for their individual weakness
+      with numbers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995177071910912
+    m_Localized: Mage Killer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995227206426624
+    m_Localized: The Hive's adaptive response to invading magicians - a magicite-infused
+      ant with a mana-burning bite. Mages may want to keep their distance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995593956368384
+    m_Localized: Spitter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995628295135232
+    m_Localized: These ants come with a vile maw, dripping with acid. They're happy
+      to sit in the backline and spit acid, but even stronger up close.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996061919059968
+    m_Localized: Defender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996091144970240
+    m_Localized: Armored and enlarged drones. They generally guard the queen, but
+      can occasionally be found around the hive.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996376718352384
+    m_Localized: Royal Ant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996408448262144
+    m_Localized: A young ant halfway on it's journey to become a queen. Very, very
+      dangerous.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996559267045376
+    m_Localized: Queen Ant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996586525827072
+    m_Localized: The ruler of the hive. Strong, smart, and capable to rearing an
+      almost endless supply of ants to vanquish its foes. Be wary - any ant will
+      die for its queen.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

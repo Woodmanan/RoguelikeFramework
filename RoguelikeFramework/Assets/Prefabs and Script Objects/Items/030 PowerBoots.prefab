@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8514963120815226497}
   - component: {fileID: 7423869216615676256}
   m_Layer: 0
-  m_Name: 029 PowerBoots
+  m_Name: 030 PowerBoots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,8 @@ MonoBehaviour:
   minDepth: 1
   maxDepth: 10
   elevatesTo: 1
-  ID: 29
+  currentRarity: 0
+  ID: 30
   stackable: 0
   color: {r: 0.8465522, g: 0.93333334, b: 0.44313726, a: 1}
   location: {x: 0, y: 0}
@@ -129,7 +130,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects: []
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -159,6 +161,7 @@ MonoBehaviour:
   - id: 0
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
     00000000:
@@ -184,6 +187,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         range: 5
         addedStats:
           _keys: 09000000

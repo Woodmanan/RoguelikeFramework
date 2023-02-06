@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 034 DeathPot
+  m_Name: 033 HastePot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 21300000, guid: db813d04e5908524c8164d0eba96c293, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5342c072d1757e94e8b8cd6750890d8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,22 +96,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 4
+  rarity: 1
   type: 8
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 4
-  ID: 34
+  elevatesTo: 1
+  currentRarity: 0
+  ID: 33
   stackable: 1
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: DeathPot
+  friendlyName: HastePot
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 12761231777792
+      m_KeyId: 12498731261952
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 12798087127040
+      m_KeyId: 12598878658560
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -129,7 +130,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects: []
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -157,7 +159,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: StopDeath, ns: , asm: Assembly-CSharp}
+      type: {class: Haste, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -165,7 +167,7 @@ MonoBehaviour:
           m_TableReference:
             m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 9482179125248
+            m_KeyId: 11588000751616
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
@@ -174,10 +176,11 @@ MonoBehaviour:
           m_TableReference:
             m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 9585128316928
+            m_KeyId: 10985740640256
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        keepHealthAbove: 10
-        duration: 10
+        image: {fileID: 0}
+        energyPerTurn: 50
+        duration: 20

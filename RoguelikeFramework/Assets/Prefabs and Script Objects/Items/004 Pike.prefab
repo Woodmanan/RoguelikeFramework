@@ -102,6 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 30
   elevatesTo: 2
+  currentRarity: 0
   ID: 4
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
@@ -163,6 +164,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         numSquaresBehind: 1
         percentDamage: 50
 --- !u!114 &8340609320983818534
@@ -185,6 +187,7 @@ MonoBehaviour:
   addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
 --- !u!114 &5952500659652189400

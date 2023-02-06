@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
+  m_Name: Hive_Branch
+  m_EditorClassIdentifier: 
+  requirements: []
+  antiRequirements: []
+  branchName: Hive
+  branchDepth: 4
+  numberOfLevels: 3
+  ConnectionsPerFloor:
+    rngType: 0
+    min: 3
+    max: 3
+  OneWayConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  oneWay: 0
+  size: {x: 50, y: 50}
+  machines:
+  - id: 0
+  - id: 1
+  overrides:
+  - name: Add Queen room
+    level: 2
+    type: 2
+    machines:
+    - id: 2
+    deleteIndex: 0
+    resize: {x: 70, y: 70}
+  - name: Add Queen room
+    level: 2
+    type: 0
+    machines:
+    - id: 2
+    deleteIndex: 0
+    resize: {x: 0, y: 0}
+  tiles: {fileID: 11400000, guid: 98e4242c2b8bcf34897a3981beb24073, type: 2}
+  entryTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  exitTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  tables:
+  - {fileID: 11400000, guid: 18c8dfd7158c105408f1e972ee925bea, type: 2}
+  - {fileID: 11400000, guid: 70c0c964595c88c49a0ba00da8174ae5, type: 2}
+  - {fileID: 11400000, guid: 7ba99da266c2c3c4e84f949d2b24a125, type: 2}
+  - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
+  numItemsPerLevel:
+    rngType: 1
+    min: 5
+    max: 10
+  elevatesItems: 1
+  itemSpawnInfo:
+    rarities: []
+    types: []
+  usesCustomSpawnInfo: 0
+  monsterTables:
+  - {fileID: 11400000, guid: 9a01e06de06dca547b4991a396ea0954, type: 2}
+  numMonstersPerLevel:
+    rngType: 1
+    min: 20
+    max: 50
+  chanceForOutOfDepth: 1
+  depthIncrease:
+    rngType: 0
+    min: 3
+    max: 3
+  branchSystems: []
+  references:
+    version: 1
+    00000000:
+      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 0
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        numRooms: 10
+        attemptsPerRoom: 100
+        requiredRooms: []
+        rooms:
+        - {fileID: 11400000, guid: 84d30c85ced2d454fa4cb0ed95f9cd9f, type: 2}
+        - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
+        placedRooms: []
+    00000001:
+      type: {class: ComplexConnectMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 1
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        NumberOfExtraEdges: 3
+    00000002:
+      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: -1
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        numRooms: 1
+        attemptsPerRoom: 100
+        requiredRooms:
+        - {fileID: 11400000, guid: 6bde6d37eabb7924abd3fc780016bddb, type: 2}
+        rooms: []
+        placedRooms: []

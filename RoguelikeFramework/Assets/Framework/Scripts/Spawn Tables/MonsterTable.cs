@@ -114,7 +114,7 @@ public class MonsterTable : ScriptableObject
         {
             foreach (WeightedSpawn option in toSpawn)
             {
-                if (choice <= option.weight)
+                if (choice < option.weight)
                 {
                     spawned = option.toSpawn.Instantiate();
                     break;

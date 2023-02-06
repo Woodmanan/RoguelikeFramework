@@ -57,7 +57,7 @@ public class ComplexConnectMachine : Machine
         {
             yield return null;
             
-            int index = Mathf.Max(unused.Count - 1, toConnect.Count * 2 - 1); ;// Random.Range(0, edges.Count);
+            int index = Mathf.Min(unused.Count - 1, toConnect.Count * 2 - 1); ;// Random.Range(0, edges.Count);
             Edge edge = unused[index];
             unused.RemoveAt(index);
 

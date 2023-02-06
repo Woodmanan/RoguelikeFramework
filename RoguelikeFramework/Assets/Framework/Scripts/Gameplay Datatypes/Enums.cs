@@ -79,7 +79,8 @@ public enum DamageType
     FIRE        = (1 << 3),
     ICE         = (1 << 4),
     ELECTRICAL  = (1 << 5),
-    BLEED       = (1 << 6)
+    BLEED       = (1 << 6),
+    POISON      = (1 << 7)
 }
 
 [Flags]

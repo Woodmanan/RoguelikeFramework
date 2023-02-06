@@ -102,6 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 30
   elevatesTo: 2
+  currentRarity: 0
   ID: 2
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,7 +131,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects: []
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -158,6 +160,7 @@ MonoBehaviour:
   addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
 --- !u!114 &5952500659652189400

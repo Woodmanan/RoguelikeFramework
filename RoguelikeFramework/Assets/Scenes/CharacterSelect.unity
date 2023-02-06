@@ -3882,7 +3882,7 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 0
+  startAt: 5
   playerPassives:
   - id: 0
   personalAttributes:

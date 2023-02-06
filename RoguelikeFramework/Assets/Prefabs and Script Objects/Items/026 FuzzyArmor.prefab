@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8514963120815226497}
   - component: {fileID: 7423869216615676256}
   m_Layer: 0
-  m_Name: 025 FuzzyArmor
+  m_Name: 026 FuzzyArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,8 @@ MonoBehaviour:
   minDepth: 1
   maxDepth: 10
   elevatesTo: 3
-  ID: 25
+  currentRarity: 0
+  ID: 26
   stackable: 0
   color: {r: 0.5178518, g: 0.41213953, b: 0.9622642, a: 1}
   location: {x: 0, y: 0}
@@ -129,7 +130,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects: []
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -159,5 +161,6 @@ MonoBehaviour:
   addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1

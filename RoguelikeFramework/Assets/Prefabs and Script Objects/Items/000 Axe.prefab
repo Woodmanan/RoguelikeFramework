@@ -102,6 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 30
   elevatesTo: 2
+  currentRarity: 0
   ID: 0
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,8 +131,8 @@ MonoBehaviour:
   CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects:
-  - id: 0
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -139,30 +140,6 @@ MonoBehaviour:
   ranged: {fileID: 0}
   references:
     version: 1
-    00000000:
-      type: {class: AxePassive, ns: , asm: Assembly-CSharp}
-      data:
-        ReadyToDelete: 0
-        credit: {fileID: 0}
-        name:
-          m_TableReference:
-            m_TableCollectionName: 
-          m_TableEntryReference:
-            m_KeyId: 0
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        description:
-          m_TableReference:
-            m_TableCollectionName: 
-          m_TableEntryReference:
-            m_KeyId: 0
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        percentDamage: 40
 --- !u!114 &8340609320983818534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +160,7 @@ MonoBehaviour:
   addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
 --- !u!114 &5952500659652189400

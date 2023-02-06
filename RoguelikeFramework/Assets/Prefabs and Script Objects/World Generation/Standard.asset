@@ -59,12 +59,20 @@ MonoBehaviour:
       max: 1
     branches:
     - {fileID: 11400000, guid: edf6eaac81ea5034593affdf2e4f8762, type: 2}
+    - {fileID: 11400000, guid: fba605c78e9ddb14899b3f93bdd24821, type: 2}
     connectionType: 0
     exitTargets: []
   - name: Floors 7-9
     enabled: 1
     entryTargets:
     - branchName: Nightmare
+      floors:
+        rngType: 0
+        min: 2
+        max: 2
+      weight: 0
+      pickIfExists: 0
+    - branchName: Hive
       floors:
         rngType: 0
         min: 2

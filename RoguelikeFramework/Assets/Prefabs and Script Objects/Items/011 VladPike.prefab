@@ -102,6 +102,7 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 30
   elevatesTo: 3
+  currentRarity: 0
   ID: 11
   stackable: 0
   color: {r: 0.831, g: 0.48862797, b: 0.48862797, a: 1}
@@ -133,6 +134,7 @@ MonoBehaviour:
   attachedEffects: []
   baseEffects:
   - id: 0
+  - id: 1
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -163,9 +165,36 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         drainsOn: -1
         drainsFrom: -1
         efficiency: 100
+    00000001:
+      type: {class: SpearPassive, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        numSquaresBehind: 1
+        percentDamage: 50
 --- !u!114 &8340609320983818534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +215,7 @@ MonoBehaviour:
   addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
 --- !u!114 &5952500659652189400
