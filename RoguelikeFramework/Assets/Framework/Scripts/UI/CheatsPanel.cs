@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using System.Reflection;
 using System.Linq;
 using System.ComponentModel;
+using System;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 public struct CheatInfo
@@ -109,6 +110,7 @@ public class CheatsPanel : RogueUIPanel
 
         if (cachedCheats.Count == 0)
         {
+            //MethodInfo[] methods = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).SelectMany(x => x.GetMethods().Where(y => y.IsPublic)).ToArray();
             MethodInfo[] methods = typeof(CheatsPanel).GetMethods();
             foreach (MethodInfo method in methods)
             {
@@ -213,6 +215,24 @@ public class CheatsPanel : RogueUIPanel
                 monster.Damage(Player.player, 1000, DamageType.NONE, DamageSource.MONSTER, "{name} dies to a cheat.");
             }
         }
+    }
+
+    [Cheat]
+    public void ClearAllAchievements()
+    {
+        SteamController.singleton.ClearAllAchievements();
+    }
+
+    [Cheat]
+    public void GiveAchievement(string name)
+    {
+        SteamController.singleton.GiveAchievement(name);
+    }
+
+    [Cheat]
+    public void PrintSteamDiagnostics()
+    {
+        SteamController.singleton.PrintDiagnostics();
     }
     #endif
 }

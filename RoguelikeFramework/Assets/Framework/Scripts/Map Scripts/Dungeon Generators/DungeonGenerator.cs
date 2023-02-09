@@ -107,6 +107,20 @@ public class DungeonGenerator
                 }
             }
 
+            //Pre stair activation for rooms - lets rexrooms mark desired stair positions
+            foreach (Room r in rooms)
+            {
+                IEnumerator activate = r.PreStairActivation(gameMap, this);
+                while (activate.MoveNext())
+                {
+                    state = UnityEngine.Random.state;
+                    UnityEngine.Random.state = oldState;
+                    yield return activate.Current;
+                    oldState = UnityEngine.Random.state;
+                    UnityEngine.Random.state = state;
+                }
+            }
+
             //Add stairs as final step
             StairPlacer stairs = new StairPlacer();
             stairs.Activate(world, this, index);
@@ -127,23 +141,25 @@ public class DungeonGenerator
             foreach (Machine m in machines)
             {
                 m.PostActivation(gameMap);
-            }
+            }            
 
             //Post activation for stairs - attach the actual stair objects
             stairs.SetupStairTiles(gameMap);
 
+            //Post activation for rooms - fill in final tile replacements
             foreach (Room r in rooms)
             {
-                IEnumerator activate = r.PostActivation(gameMap);
+                IEnumerator activate = r.PostActivation(gameMap, this);
                 while (activate.MoveNext())
                 {
                     state = UnityEngine.Random.state;
-                    UnityEngine.Random.state = oldState;      
+                    UnityEngine.Random.state = oldState;
                     yield return activate.Current;
                     oldState = UnityEngine.Random.state;
                     UnityEngine.Random.state = state;
                 }
             }
+
 
 
             LevelLoader.maps[index] = gameMap;

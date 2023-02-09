@@ -51,8 +51,9 @@ MonoBehaviour:
     offset: 0
     affected: []
   baseStats:
-    _keys: 
-    _vals: []
+    _keys: 01000000
+    _vals:
+    - 15
   currentStats:
     _keys: 
     _vals: []

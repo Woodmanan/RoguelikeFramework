@@ -10040,7 +10040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 9.035714
+  m_AspectRatio: 12.3785715
 --- !u!1 &1116750417
 GameObject:
   m_ObjectHideFlags: 0
@@ -16499,7 +16499,7 @@ MonoBehaviour:
   generators: []
   current: 0
   msPerFrame: 0
-  randomSeed: 0
+  randomSeed: 1
   seed: 1453183054
   preloadUpTo: 3
   JITLoading: 0

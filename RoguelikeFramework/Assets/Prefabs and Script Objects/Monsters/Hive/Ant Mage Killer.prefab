@@ -50,7 +50,7 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000003000000060000000a000000
     _vals:
-    - 10
+    - 100
     - 1
     - 4
     - 20
@@ -99,7 +99,7 @@ MonoBehaviour:
   FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
-  XPFromKill: 2
+  XPFromKill: 1
   level: 0
   references:
     version: 1

@@ -18,7 +18,7 @@ public class ChangeLevelAction : GameAction
     {
         Debug.Log("Moving levels!");
         Stair stair = Map.current.GetTile(caller.location) as Stair;
-        if (stair)
+        if (stair && !stair.locked)
         {
             if (stair.up ^ up)
             {

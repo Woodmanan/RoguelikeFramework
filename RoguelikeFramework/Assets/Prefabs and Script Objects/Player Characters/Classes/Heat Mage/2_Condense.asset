@@ -113,5 +113,5 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
-        minimumNeeded: 15
-        maximumAllowed: 60
+        minimumNeeded: 0
+        maximumAllowed: 100

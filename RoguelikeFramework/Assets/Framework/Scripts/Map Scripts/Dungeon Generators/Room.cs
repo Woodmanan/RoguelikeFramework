@@ -64,9 +64,16 @@ public class Room : ScriptableObject
         }
     }
 
+    //Called after machines, but before stairs. Used primarily for flagging the generator that
+    //certain values are needed.
+    public virtual IEnumerator PreStairActivation(Map m, DungeonGenerator generator)
+    {
+        yield break;
+    }
+
     //Called after the map has been finished! Use this for any room-specific
     //fanciness you want.
-    public virtual IEnumerator PostActivation(Map m)
+    public virtual IEnumerator PostActivation(Map m, DungeonGenerator generator)
     {
         yield break;
     }

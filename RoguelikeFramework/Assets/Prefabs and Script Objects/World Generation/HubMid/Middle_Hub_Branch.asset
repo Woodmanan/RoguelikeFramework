@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
+  m_Name: Middle_Hub_Branch
+  m_EditorClassIdentifier: 
+  requirements: []
+  antiRequirements: []
+  branchName: Middle_Hub
+  branchDepth: 10
+  numberOfLevels: 3
+  ConnectionsPerFloor:
+    rngType: 0
+    min: 1
+    max: 1
+  OneWayConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  oneWay: 1
+  size: {x: 11, y: 11}
+  machines:
+  - id: 0
+  overrides:
+  - name: Boss Room
+    level: 1
+    type: 3
+    machines:
+    - id: 1
+    deleteIndex: 0
+    resize: {x: 31, y: 31}
+  - name: Landing Floor
+    level: 2
+    type: 3
+    machines:
+    - id: 2
+    deleteIndex: 0
+    resize: {x: 15, y: 15}
+  tiles: {fileID: 11400000, guid: 282a719fcd89f734fbc3efd610051bbc, type: 2}
+  entryTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  exitTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  tables:
+  - {fileID: 11400000, guid: 18c8dfd7158c105408f1e972ee925bea, type: 2}
+  - {fileID: 11400000, guid: 70c0c964595c88c49a0ba00da8174ae5, type: 2}
+  - {fileID: 11400000, guid: 7ba99da266c2c3c4e84f949d2b24a125, type: 2}
+  - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
+  numItemsPerLevel:
+    rngType: 1
+    min: 0
+    max: 0
+  elevatesItems: 1
+  itemSpawnInfo:
+    rarities: []
+    types: []
+  usesCustomSpawnInfo: 0
+  monsterTables:
+  - {fileID: 11400000, guid: 9a01e06de06dca547b4991a396ea0954, type: 2}
+  numMonstersPerLevel:
+    rngType: 1
+    min: 0
+    max: 0
+  chanceForOutOfDepth: 1
+  depthIncrease:
+    rngType: 0
+    min: 3
+    max: 3
+  branchSystems: []
+  references:
+    version: 1
+    00000000:
+      type: {class: PrefabFloorMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 0
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        floorLayout: {fileID: 11400000, guid: b2a71662dbd25444ea320054f88e4f24, type: 2}
+    00000001:
+      type: {class: PrefabFloorMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 0
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        floorLayout: {fileID: 11400000, guid: 40539590d4d19b14caa672721d1a3794, type: 2}
+    00000002:
+      type: {class: PrefabFloorMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 0
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        floorLayout: {fileID: 11400000, guid: 4b61f697ecd119749aa946688036b96f, type: 2}

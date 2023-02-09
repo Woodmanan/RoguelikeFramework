@@ -132,7 +132,7 @@ public class MoveAction : GameAction
         caller.connections.OnMove.Invoke();
 
         Stair stair = tile as Stair;
-        if (stair && caller == Player.player && useStair)
+        if (stair && !stair.locked && caller == Player.player && useStair)
         {
             ChangeLevelAction act = new ChangeLevelAction(stair.up);
             act.Setup(caller);

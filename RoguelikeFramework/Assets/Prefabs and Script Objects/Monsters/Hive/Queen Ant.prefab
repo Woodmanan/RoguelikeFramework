@@ -101,7 +101,7 @@ MonoBehaviour:
   FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
-  XPFromKill: 2
+  XPFromKill: 5
   level: 0
   references:
     version: 1
