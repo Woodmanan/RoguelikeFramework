@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private AbilitiesScreen abilities;
     [SerializeField] private ItemInspectionPanel inspection;
     [SerializeField] private ConfirmationPanel confirm;
+    [SerializeField] private ClassPanel classPanel;
     [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
     {
@@ -57,7 +58,6 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
-
 
     public void OpenInventoryInspect()
     {
@@ -119,6 +119,12 @@ public class UIController : MonoBehaviour
     {
         abilities.Setup(Player.player.abilities);
         abilities.Activate();
+    }
+
+    public void OpenClassPanel(Class classToGive)
+    {
+        classPanel.Setup(classToGive);
+        classPanel.Activate();
     }
 
     public void OpenItemInspect(Inventory inventory, int index)

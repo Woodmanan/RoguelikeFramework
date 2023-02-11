@@ -331,5 +331,31 @@ MonoBehaviour:
       slight tug in the air as it draws magic into itself.
     m_Metadata:
       m_Items: []
+  - m_Id: 15154172402540544
+    m_Localized: Translocation Treatise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154220691562496
+    m_Localized: Everything you'd need to know to be everywhere at once.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154323254878208
+    m_Localized: On Thermodynamics, Magic, and Pugilism
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154337406459904
+    m_Localized: An inspired but somewhat rambling thesis, detailing a new way to
+      build internal heat, convert it to magic, and punch someone with it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158481018101760
+    m_Localized: The Many Forms of Combat, Vol 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154441265815552
+    m_Localized: A book written by a knight-errant, detailing some of the most common
+      and useful fighting techniques found in the tower.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

@@ -6,4 +6,6 @@ using System;
 public class RangedWeapon : Weapon
 {
     public Targeting targeting;
+    [SerializeReference]
+    public List<RogueAnimation> animations;
 }

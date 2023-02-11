@@ -133,7 +133,7 @@ public enum ItemType
     ARMOR           = (1 << 2),
     CONSUMABLE      = (1 << 3),
     ACTIVATABLE     = (1 << 4),
-    MISC            = (1 << 5)
+    SPELLBOOK       = (1 << 5)
 }
 
 public enum TargetType

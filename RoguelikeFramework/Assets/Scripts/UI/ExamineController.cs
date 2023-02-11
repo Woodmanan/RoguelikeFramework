@@ -39,6 +39,7 @@ public class ExamineController : MonoBehaviour
     {
         if (isExamining)
         {
+            transform.SetAsLastSibling();
             List<GameObject> targets = FindValidObjectsForExamine();
             if (targets.Count > 0)
             {

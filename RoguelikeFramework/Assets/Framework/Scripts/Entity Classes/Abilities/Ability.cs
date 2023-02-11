@@ -43,6 +43,8 @@ public class Ability : ScriptableObject, IDescribable
 
     //Public Resources
     public Targeting baseTargeting;
+    [SerializeReference]
+    public List<RogueAnimation> animations;
     public AbilityStats baseStats;
     [HideInInspector] public AbilityStats currentStats;
 

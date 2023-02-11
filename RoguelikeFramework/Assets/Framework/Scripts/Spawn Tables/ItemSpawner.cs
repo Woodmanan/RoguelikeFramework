@@ -157,6 +157,7 @@ public class ItemSpawner : MonoBehaviour
             }
 
             item.transform.parent = m.itemContainer;
+            item.gameObject.SetActive(true);
             m.GetTile(pos).inventory.Add(item);
         }
     }

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62bc60c6f5d4f6042a1c52f654e31bc4, type: 3}
   m_Name: Debug
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 6687509776577718200, guid: 19732384394b5724b89bd28032c74d2d, type: 3}
+  - {fileID: 6687509776577718200, guid: 19732384394b5724b89bd28032c74d2d, type: 3}
+  - {fileID: 6687509776577718200, guid: 5704634c2e36dd34d9ee9f971d6b4be7, type: 3}
+  - {fileID: 6687509776577718200, guid: 8c88d3f1369ab3143b2a115fb85761d1, type: 3}
   abilities:
   - {fileID: 11400000, guid: 4478e6e4cca6a6c40a83c5bf099b659d, type: 2}
   - {fileID: 11400000, guid: 10e6c7c7e4ac05d42a474d574b9f2583, type: 2}
@@ -44,6 +48,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         statsPerTurn:
           _keys: 0000000002000000
           _vals:

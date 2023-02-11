@@ -13,36 +13,38 @@ public class Class : ScriptableObject
     [SerializeReference]
     public List<Effect> effects;
 
-    public void Apply(Monster m)
+    public void Apply(Monster m, bool giveItems = true)
     {
         //Attempt setup, in case the monster hasn't been configured yet.
         m.Setup();
 
-        //Get the items attached
-        foreach (Item item in items)
+        if (giveItems)
         {
-            EquipableItem equip = item.GetComponent<EquipableItem>();
-            if (equip)
+            //Get the items attached
+            foreach (Item item in items)
             {
-                //Item is equipable, so try to equip it. Otherwise, dumpt it.
-                int equipSlot = m.equipment.CanSafelyEquip(equip);
-                if (equipSlot >= 0)
+                EquipableItem equip = item.GetComponent<EquipableItem>();
+                if (equip)
                 {
-                    Item i = item.Instantiate();
-                    int itemSlot = m.inventory.Add(i);
-                    m.equipment.Equip(itemSlot, equipSlot);
+                    //Item is equipable, so try to equip it. Otherwise, dumpt it.
+                    int equipSlot = m.equipment.CanSafelyEquip(equip);
+                    if (equipSlot >= 0)
+                    {
+                        Item i = item.Instantiate();
+                        int itemSlot = m.inventory.Add(i);
+                        m.equipment.Equip(itemSlot, equipSlot);
+                    }
+                    else
+                    {
+                        Debug.Log($"Could not safely equip {item.GetName()}, storing it in inventory");
+                    }
                 }
                 else
                 {
-                    Debug.Log($"Could not safely equip {item.GetName()}, storing it in inventory");
+                    //Item is a consumable / usable thing, so let the monster keep it!
+                    m.inventory.Add(item.Instantiate());
                 }
             }
-            else
-            {
-                //Item is a consumable / usable thing, so let the monster keep it!
-                m.inventory.Add(item.Instantiate());
-            }
-            
         }
 
         //Atttach abilities

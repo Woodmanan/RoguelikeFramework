@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 188479612}
   - component: {fileID: 188479611}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1021,8 +1021,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 191.55827, y: -20}
-  m_SizeDelta: {x: 373.11655, y: 30}
+  m_AnchoredPosition: {x: 147.93526, y: -70}
+  m_SizeDelta: {x: 285.8705, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188479611
 MonoBehaviour:
@@ -3056,8 +3056,8 @@ MonoBehaviour:
   m_text: 'The standard tower.
 
 
-    Only floors 1-9 right now, but soon it may grow
-    large enough to contain the hubris of man.'
+    Only floors 1-12 right now, but soon it may
+    grow large enough to contain the hubris of man.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3882,11 +3882,12 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 9
+  startAt: 0
   playerPassives:
   - id: 0
-  personalAttributes:
   - id: 1
+  personalAttributes:
+  - id: 2
   references:
     version: 1
     00000000:
@@ -3925,6 +3926,31 @@ MonoBehaviour:
           - 40
         TurnsTillSafety: 15
     00000001:
+      type: {class: UnlockAchOnDeath, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        achievementName: ACH_PLAYER_DEATH
+    00000002:
       type: {class: GreySkin, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0

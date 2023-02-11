@@ -303,6 +303,30 @@ MonoBehaviour:
     m_Key: AntimagArmorDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 15154172402540544
+    m_Key: BlinkSpellbookName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154220691562496
+    m_Key: BlinkSpellbookDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154323254878208
+    m_Key: HeatMageSpellbookName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154337406459904
+    m_Key: HeatMageSpellbookDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154441265815552
+    m_Key: WarriorSpellbookDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158481018101760
+    m_Key: WarriorSpellbookName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

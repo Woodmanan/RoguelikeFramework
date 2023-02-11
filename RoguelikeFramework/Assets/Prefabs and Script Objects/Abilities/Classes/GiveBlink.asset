@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af72bda3ccede047af46d664bfc7056, type: 3}
-  m_Name: 4_Vortex
+  m_Script: {fileID: 11500000, guid: 1e8f0a6504a0f78479e117d8f4b488f8, type: 3}
+  m_Name: GiveBlink
   m_EditorClassIdentifier: 
-  friendlyName: Vortex
+  friendlyName: GiveWarrior
   locName:
     m_TableReference:
       m_TableCollectionName: 
@@ -31,8 +31,8 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  image: {fileID: 21300000, guid: 6a9d3ec26838df142b5d078482760ef1, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  image: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   baseTargeting:
     numPoints: 1
     targetingType: 0
@@ -82,9 +82,6 @@ MonoBehaviour:
   castable: 1
   types: 0
   effects: []
-  below: {fileID: 11400000, guid: 46ab726b8accf234cbf0bea5ca04b70d, type: 2}
-  above: {fileID: 11400000, guid: 3da071b28d199874d8d7ecd25ce47d5c, type: 2}
-  resource: 11
-  checkAmount: 60
+  classToGive: {fileID: 11400000, guid: a3890cc5a713e024b9a04b4a0b6a8706, type: 2}
   references:
     version: 1

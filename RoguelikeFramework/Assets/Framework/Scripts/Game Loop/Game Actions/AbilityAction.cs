@@ -25,7 +25,7 @@ public class AbilityAction : GameAction
         if (toCast == null)
         {
             Debug.LogError($"Monster {caller.name} tried to cast a null ability.", caller);
-            caller.energy -= 100;
+            caller.energy -= 1;
             yield break;
         }
 
@@ -123,7 +123,10 @@ public class AbilityAction : GameAction
         #endif
         if (toCast == null)
         {
-            toCast = caller.abilities[abilityIndex];
+            if (caller.abilities.HasAbility(abilityIndex))
+            {
+                toCast = caller.abilities[abilityIndex];
+            }
         }
     }
 }
