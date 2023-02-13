@@ -50,9 +50,8 @@ MonoBehaviour:
           m_LocalVariables: []
         image: {fileID: 0}
         setTo:
-          _keys: 0b0000000c000000
+          _keys: 0c000000
           _vals:
-          - 60
           - 100
     00000001:
       type: {class: HeatMageTempo, ns: , asm: Assembly-CSharp}
@@ -61,23 +60,23 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 25715220343889920
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 25715251511762944
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: 7d21b9525f1e92b4ea5e24dcd4513045, type: 3}
         lossPerTurn:
           rngType: 1
           min: 3

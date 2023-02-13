@@ -78,10 +78,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10542167880310784
-    m_Localized: Every kill adds a stack, granting one temporary armor (up to 8).
+    m_Localized: Every kill adds a stack, granting 1.4 temporary armor (up to {maxKills}).
       Your stacks fall by 1 every three turns.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - id: 0
   - m_Id: 10545186227298304
     m_Localized: Omni-Vamp
     m_Metadata:
@@ -140,9 +141,93 @@ MonoBehaviour:
     m_Localized: ' (On Hit)'
     m_Metadata:
       m_Items: []
+  - m_Id: 25714029350297600
+    m_Localized: Due to repeated translocations, your physical form is struggling
+      to stay intact. Reduce the range of translocations by {numStacks} for {currentDuration}
+      more turns, refreshing to {maxDuration} and becoming more severe with repeated
+      casts.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25713987025575936
+    m_Localized: Instability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25715251511762944
+    m_Localized: Gain 5 heat per unarmed attack, and 1 heat per spell cast. When
+      above {fireDamageAfter} heat, begin applying fire damage to your attacks. Ignore
+      {fireDamageConversion}% of fire damage, converting it to heat with {fireDamageEfficiency}%
+      effeciency. When at max heat, begin burning for {burnPerTurn} true damage.
+      Cooldown in {cooldown} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25715220343889920
+    m_Localized: Tempo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25719556734132224
+    m_Localized: While above {percentageToDrop}% health, you begin accumulating stacks
+      of bravery. Each stack adds {armorPerStack} armor, {evasionPerStack} evasion,
+      and {damagePerStack} damage. You can have up to {maxBravery} stacks, with all
+      stacks disappearing when you fall below the threshold.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25719525838888960
+    m_Localized: Bravery (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721049788915712
+    m_Localized: Fear (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722757394931712
+    m_Localized: Stumble (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722857110315008
+    m_Localized: Turtled (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25723543579467776
+    m_Localized: Thorny (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721101924114432
+    m_Localized: Gain {percentDamageIncrease}% more damage in 1v1 fights. Lose {percentDamageDecreaseFear}%
+      damage in fights with more than 1 enemy next to you.  Gain {refundEnergyOnScared}%
+      speed when two or more enemies are visible.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25722797387620352
+    m_Localized: Gain up to {maxDrinkStacks} stacks of Stumble by drinking potions.
+      When moving, attack enemies around you for ({baseAttackDamagePercent} + {damagePerDrinkStack}
+      * stacks)% of your regular attack damage. Passively dodge incoming attacks
+      with ({baseDodgePercent} + {dodgePerDrinkStack} * stacks)% chance. Drinks decay
+      in {currentDuration} turns, reseting to {durationOnDrink} whenever a potion
+      is quaffed.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25722884796915712
+    m_Localized: Gain 5 passive AC, climbing to 10 as you wait in one spot. Move
+      at half speed while monsters are in LOS.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25723499606384640
+    m_Localized: Take an extra {percentExtraDamage}% damage. Convert {percentDamageReturned}%
+      damage taken to an attack that targets the lowest health enemy in LOS. Regenerate
+      {combatHealthPerTurn} health per turn, and heal for {healthPerKill} health
+      on a kill.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee32700
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b742500

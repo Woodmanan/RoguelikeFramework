@@ -22,6 +22,16 @@ public class BrandProtection : Effect
 
     /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
+    public override string GetUISubtext()
+    {
+        return Mathf.CeilToInt(numKills).ToString();
+    }
+
+    public override float GetUIFillPercent()
+    {
+        return 1f - (numKills % 1f);
+    }
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
     public BrandProtection()

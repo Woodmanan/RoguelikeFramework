@@ -51,6 +51,16 @@ public class Effect : IDescribable
         return image;
     }
 
+    public virtual string GetUISubtext()
+    {
+        return "";
+    }
+
+    public virtual float GetUIFillPercent()
+    {
+        return 0.0f;
+    }
+
     /* Connect:
      * The method that links this effect to a given monster, and hooks up its event calls.
      *

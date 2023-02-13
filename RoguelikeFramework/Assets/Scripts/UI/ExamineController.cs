@@ -53,9 +53,7 @@ public class ExamineController : MonoBehaviour
                 IDescribable desc = target.GetComponent<IDescribable>();
                 if (desc != null)
                 {
-                    shortHoverTitle.text = "";
-                    shortHoverDesc.text = "";
-                    shortHoverTitle.text = desc.GetName();
+                    shortHoverTitle.text = desc.GetName(true);
                     shortHoverDesc.text = desc.GetDescription();
                 }
             }

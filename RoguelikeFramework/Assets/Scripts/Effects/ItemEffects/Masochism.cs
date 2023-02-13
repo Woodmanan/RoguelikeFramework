@@ -25,6 +25,23 @@ public class Masochism : Effect
 
     /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
+    public override float GetUIFillPercent()
+    {
+        return 1f - ((float)counter + 1) / (triggersEvery);
+    }
+
+    public override string GetUISubtext()
+    {
+        if (counter < (triggersEvery - 1))
+        {
+            return (triggersEvery - counter - 1).ToString();
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
     public Masochism()

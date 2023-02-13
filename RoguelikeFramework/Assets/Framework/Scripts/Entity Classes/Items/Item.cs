@@ -128,7 +128,43 @@ public class Item : MonoBehaviour, IDescribable
 
     public string GetName(bool shorten = false)
     {
-        return localName.GetLocalizedString(this);
+        string name = "";
+        if (melee && melee.enchantment > 0)
+        {
+            name = $"+{melee.enchantment} ";
+        }
+        else if (ranged && ranged.enchantment > 0)
+        {
+            name = $"+{ranged.enchantment} ";
+        }
+
+        name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}>" + localName.GetLocalizedString(shorten);
+
+        foreach (Effect effect in attachedEffects)
+        {
+            if (effect.ShouldDisplay())
+            {
+                name += $" {{{effect.GetName(shorten)}}}";
+            }
+        }
+
+        if (equipable)
+        {
+            foreach (Effect effect in equipable.addedEffects)
+            {
+                if (effect.ShouldDisplay())
+                {
+                    name += $" {{{effect.GetName(shorten)}}}";
+                }
+            }
+        }
+
+        if (CanEquip && equipable.isEquipped)
+        {
+            name += " <color=#74AE93> [Equipped]";
+        }
+
+        return name;
     }
 
     public string GetDescription()
@@ -194,47 +230,6 @@ public class Item : MonoBehaviour, IDescribable
     public virtual void RegenerateStats()
     {
 
-    }
-
-    public string GetName()
-    {
-        string name = "";
-        if (melee && melee.enchantment > 0)
-        {
-            name = $"+{melee.enchantment} ";
-        }
-        else if (ranged && ranged.enchantment > 0)
-        {
-            name = $"+{ranged.enchantment} ";
-        }
-
-        name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}>" + GetNameClean();
-
-        foreach (Effect effect in attachedEffects)
-        {
-            if (effect.ShouldDisplay())
-            {
-                name += $" {{{effect.GetName(true)}}}";
-            }
-        }
-
-        if (equipable)
-        {
-            foreach (Effect effect in equipable.addedEffects)
-            {
-                if (effect.ShouldDisplay())
-                {
-                    name += $" {{{effect.GetName(true)}}}";
-                }
-            }
-        }
-        
-        if (CanEquip && equipable.isEquipped)
-        {
-            name += " <color=#74AE93> [Equipped]";
-        }
-
-        return name;
     }
 
     //Returns the name without modifiers. As of right now, just returns the straight name.

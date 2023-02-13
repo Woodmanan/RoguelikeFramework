@@ -22,8 +22,8 @@ public class HeatMageTempo : Effect
     public float fireDamageEfficiency;
 
     public float burnPerTurn;
-
-    int cooldown = 0;
+    [HideInInspector]
+    public int cooldown = 0;
     public int maxCooldown;
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
@@ -35,6 +35,11 @@ public class HeatMageTempo : Effect
     /*public overrde string GetName() { return name.GetLocalizedString(this); }*/
 
     /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
+
+    public override string GetUISubtext()
+    {
+        return $"{cooldown}";
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing

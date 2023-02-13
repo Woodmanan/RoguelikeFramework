@@ -132,7 +132,8 @@ MonoBehaviour:
   CanMelee: 0
   CanRanged: 0
   attachedEffects: []
-  baseEffects: []
+  baseEffects:
+  - id: 0
   optionalEffects: []
   activatable: {fileID: 0}
   equipable: {fileID: 0}
@@ -140,6 +141,31 @@ MonoBehaviour:
   ranged: {fileID: 0}
   references:
     version: 1
+    00000000:
+      type: {class: AxePassive, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        percentDamage: 40
 --- !u!114 &8340609320983818534
 MonoBehaviour:
   m_ObjectHideFlags: 0

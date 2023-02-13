@@ -13,7 +13,23 @@ public class Instability : Effect
 {
     public int maxDuration;
     public int numStacks;
-    int currentDuration;
+    [HideInInspector]
+    public int currentDuration;
+
+    public override bool ShouldDisplay()
+    {
+        return base.ShouldDisplay() && numStacks > 0;
+    }
+
+    public override float GetUIFillPercent()
+    {
+        return ((float)currentDuration) / maxDuration;
+    }
+
+    public override string GetUISubtext()
+    {
+        return $"{numStacks}";
+    }
 
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
@@ -31,7 +47,10 @@ public class Instability : Effect
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        currentDuration = maxDuration;
+    }
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */

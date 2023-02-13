@@ -10,12 +10,18 @@ public class TurtleStance : Effect
     public int baseAC;
     public int maxAC;
 
-    int givenAC = 0;
+    [HideInInspector]
+    public int givenAC = 0;
     bool movedLastTurn = false;
 
     public int energyLostPerMove;
 
     int numMonstersInSight = 0;
+
+    public override string GetUISubtext()
+    {
+        return givenAC.ToString();
+    }
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 

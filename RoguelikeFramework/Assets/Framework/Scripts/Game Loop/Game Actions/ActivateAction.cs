@@ -32,22 +32,22 @@ public class ActivateAction : GameAction
             yield break;
         }
 
+        bool keepActivating = true;
+        Item itemRef = stack.held[stack.count - 1];
+        caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
+
+        if (!keepActivating)
+        {
+            Debug.Log("Console: You cannot activate this item right now (caused by connected effect).");
+            yield break;
+        }
+
         if ((item.activateType & ActivateType.Ability) > 0)
         {
             Ability abilityOnActivation = item.abilityOnActivation;
             abilityOnActivation.RegenerateStats(caller);
             if (abilityOnActivation.CheckAvailable(caller))
             {
-                bool keepActivating = true;
-                Item itemRef = stack.held[stack.count - 1];
-                caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
-
-                if (!keepActivating)
-                {
-                    Debug.Log("Console: You cannot activate this item right now (caused by connected effect).");
-                    yield break;
-                }
-
                 AbilityAction castAction = new AbilityAction(abilityOnActivation);
                 castAction.Setup(caller);
                 while (castAction.action.MoveNext())

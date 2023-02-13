@@ -55,6 +55,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 21300000, guid: e91932175b8efd64ab707d454953a33d, type: 3}
         primaryAdd:
         - id: 3
         secondaryAdd: []
@@ -66,22 +67,23 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+            m_TableCollectionName: 
           m_TableEntryReference:
-            m_KeyId: 9900407500300288
+            m_KeyId: 0
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+            m_TableCollectionName: 
           m_TableEntryReference:
-            m_KeyId: 10542167880310784
+            m_KeyId: 0
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         toAttach:
           id: 4
     00000002:
@@ -107,6 +109,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         drainsOn: -1
         drainsFrom: 16
         efficiency: 30
@@ -133,6 +136,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         damagePerTick: 4
         numTicks: 4
         type: 64
@@ -144,22 +148,23 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 9900407500300288
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 10542167880310784
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 21300000, guid: d088e0defe1f8934aaee7844e39683d9, type: 3}
         statsPerKill:
           _keys: 08000000
           _vals:

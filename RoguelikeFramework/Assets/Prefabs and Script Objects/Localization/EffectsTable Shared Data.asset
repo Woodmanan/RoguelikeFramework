@@ -115,6 +115,62 @@ MonoBehaviour:
     m_Key: OnHitSuffix
     m_Metadata:
       m_Items: []
+  - m_Id: 25713987025575936
+    m_Key: InstabilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25714029350297600
+    m_Key: InstabilityDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25715220343889920
+    m_Key: HeatMageTempoName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25715251511762944
+    m_Key: HeatMageTempoDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25719525838888960
+    m_Key: BraveryStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25719556734132224
+    m_Key: BraveryStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721049788915712
+    m_Key: CowardStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721101924114432
+    m_Key: CowardStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722757394931712
+    m_Key: DrunkenStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722797387620352
+    m_Key: DrunkenStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722857110315008
+    m_Key: TurtleStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722884796915712
+    m_Key: TurtleStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25723499606384640
+    m_Key: BriarStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25723543579467776
+    m_Key: BriarStanceName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

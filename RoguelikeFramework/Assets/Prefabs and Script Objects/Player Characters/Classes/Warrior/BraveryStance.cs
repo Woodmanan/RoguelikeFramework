@@ -7,8 +7,8 @@ using UnityEngine;
 [Group("Class Effects/Warrior")]
 public class BraveryStance : Effect
 {
-
-    int bravery;
+    [HideInInspector]
+    public int bravery;
     public int maxBravery;
 
     public float percentageToDrop;
@@ -23,6 +23,11 @@ public class BraveryStance : Effect
      * To override for individual functions, use the [Priority(int)] attribute 
      */
     //public override int priority { get { return 10; } }
+
+    public override string GetUISubtext()
+    {
+        return bravery.ToString();
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing

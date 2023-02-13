@@ -15,8 +15,10 @@ public class DrunkenStance : Effect
     public float dodgePerDrinkStack;
 
     public int maxDrinkStacks;
-
-    int currentDuration = 0;
+    
+    [HideInInspector]
+    public int currentDuration = 0;
+    [HideInInspector]
     public int currentDrinks;
     float damageIncrease = 1.0f;
 
@@ -26,6 +28,16 @@ public class DrunkenStance : Effect
      * To override for individual functions, use the [Priority(int)] attribute 
      */
     //public override int priority { get { return 10; } }
+
+    public override float GetUIFillPercent()
+    {
+        return ((float)currentDuration) / durationOnDrink;
+    }
+
+    public override string GetUISubtext()
+    {
+        return currentDrinks.ToString();
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
@@ -140,7 +152,7 @@ public class DrunkenStance : Effect
     //Called when this monster attempts to activate an item.
     public override void OnActivateItem(ref Item item, ref bool canContinue)
     {
-        if (item.name.ToLower().Contains("potion")) //TODO: FIX ME WHEN TAGS ARE DONE
+        if (item.friendlyName.ToLower().Contains("pot")) //TODO: FIX ME WHEN TAGS ARE DONE
         {
             if (currentDrinks == 0)
             {
