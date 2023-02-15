@@ -33,9 +33,6 @@ public class CharacterSelectController : MonoBehaviour
     [SerializeReference]
     public List<Effect> playerPassives;
 
-    [SerializeReference]
-    public List<Effect> personalAttributes;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -82,7 +79,6 @@ public class CharacterSelectController : MonoBehaviour
         chosenClass.Apply(Player.player);
         Player.player.AddEffectInstantiate(playerPassives.ToArray());
         Player castPlayer = Player.player as Player;
-        castPlayer.personalAttribute = personalAttributes[RogueRNG.Linear(0, personalAttributes.Count)];
         SceneManager.MoveGameObjectToScene(Player.player.gameObject, SceneManager.GetSceneByName("MainScene"));
 
         foreach (string s in generationOptions)

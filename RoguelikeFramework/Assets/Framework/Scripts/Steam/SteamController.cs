@@ -41,6 +41,11 @@ public class SteamController : MonoBehaviour
         }
     }
 
+    #if UNITY_EDITOR
+    [SerializeField]
+    bool DevSkipConnection = false;
+    #endif
+
     private bool connected = false;
 
     public bool EstablishConnection()
@@ -90,6 +95,13 @@ public class SteamController : MonoBehaviour
             Debug.LogError("Sorry, you have to name it 'Steam Controller'");
             this.name = "Steam Controller";
         }
+
+        #if UNITY_EDITOR
+        if (DevSkipConnection)
+        {
+            connected = true;
+        }
+        #endif
 
         if (!EstablishConnection())
         {

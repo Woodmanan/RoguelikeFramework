@@ -9,6 +9,7 @@ public class Healing : Effect
     public float instantHealth;
     public float healingPerTurn;
     public float numTurns;
+    float maxTurns;
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -23,6 +24,21 @@ public class Healing : Effect
         //Construct me!
     }
 
+    public override float GetUIFillPercent()
+    {
+        if (maxTurns > 0)
+        {
+            return numTurns / maxTurns;
+        }
+        return 0.0f;
+    }
+
+    public override string GetUISubtext()
+    {
+        return healingPerTurn.ToString("0.0");
+    }
+
+    //Override - hide this effect if it's
     public override string GetDescription()
     {
         Dictionary<string, int> values = new Dictionary<string, int>();
@@ -37,6 +53,7 @@ public class Healing : Effect
     //Use this to apply effects or stats immediately, before the next frame
     public override void OnConnection()
     {
+        maxTurns = numTurns;
         connectedTo.monster.Heal(instantHealth);
         if (numTurns == 0) Disconnect();
     }

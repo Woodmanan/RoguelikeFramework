@@ -145,6 +145,10 @@ public class LootPool
 
         toSpawn = toSpawn.Instantiate();
 
+        //Get internals ready before we begin attaching other effects
+        //Can't happen in Instantiate(), since not all copies should have base effects applied.
+        toSpawn.Setup();
+
         if (toSpawn.rarity < rarity)
         {
             toSpawn.ElevateRarityTo(rarity);

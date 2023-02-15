@@ -125,7 +125,7 @@ public class ClassPanel : RogueUIPanel
         selected.Sort();
         foreach (int index in selected)
         {
-            Player.player.abilities.AddAbility(current.abilities[index].Instantiate());
+            Player.player.abilities.AddAbilityInstantiate(current.abilities[index].Instantiate());
         }
         if (selected.Count > 0)
         {

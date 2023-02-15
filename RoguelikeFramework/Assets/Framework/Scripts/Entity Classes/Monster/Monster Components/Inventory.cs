@@ -134,7 +134,9 @@ public class Inventory : MonoBehaviour
 
         foreach (Item item in baseItems)
         {
-            Add(item.Instantiate());
+            Item i = item.Instantiate();
+            i.Setup();
+            Add(i);
         }
 
         //TODO: REWORK THIS

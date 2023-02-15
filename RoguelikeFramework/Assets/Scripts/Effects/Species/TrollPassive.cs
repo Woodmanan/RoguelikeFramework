@@ -24,6 +24,17 @@ public class TrollPassive : Effect
 
     /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
+    public override float GetUIFillPercent()
+    {
+        return currentWait / numTurnsHaltOnWeakness;
+    }
+
+    public override string GetUISubtext()
+    {
+        if (currentWait > 0) return "";
+        return (baseRegenPerTurn + connectedTo.monster.level * extraRegenPerLevel).ToString("0.0");
+    }
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
     public TrollPassive()

@@ -31,6 +31,7 @@ public class Class : ScriptableObject
                     if (equipSlot >= 0)
                     {
                         Item i = item.Instantiate();
+                        i.Setup();
                         int itemSlot = m.inventory.Add(i);
                         m.equipment.Equip(itemSlot, equipSlot);
                     }
@@ -50,7 +51,7 @@ public class Class : ScriptableObject
         //Atttach abilities
         foreach (Ability ability in abilities)
         {
-            m.abilities.AddAbility(ability.Instantiate());
+            m.abilities.AddAbilityInstantiate(ability.Instantiate());
         }
 
         m.AddEffectInstantiate(effects.ToArray());

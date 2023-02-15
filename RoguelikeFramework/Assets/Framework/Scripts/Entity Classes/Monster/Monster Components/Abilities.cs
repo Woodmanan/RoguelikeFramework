@@ -21,7 +21,7 @@ public class Abilities : MonoBehaviour
         connectedTo = GetComponent<Monster>();
         foreach (Ability ability in baseAbilities)
         {
-            AddAbility(ability);
+            AddAbilityInstantiate(ability);
         }
     }
 
@@ -61,17 +61,35 @@ public class Abilities : MonoBehaviour
     {
         return index >= 0 && index < abilities.Count && abilities[index] != null;
     }
-    
+
 
     public void AddAbility(Ability abilityToAdd)
     {
         if (abilities.Count < maxAbilities)
         {
-            abilities.Add(abilityToAdd.Instantiate());
+            abilities.Add(abilityToAdd);
         }
         else
         {
             Debug.Log("Console: You can't learn that ability - max abilities reached");
+        }
+    }
+
+    public void AddAbilityInstantiate(Ability abilityToAdd)
+    {
+        AddAbility(abilityToAdd.Instantiate());
+    }
+
+    public void RemoveAbility(Ability abilityToRemove)
+    {
+        int index = abilities.IndexOf(abilityToRemove);
+        if (index >= 0)
+        {
+            abilities.RemoveAt(index);
+            foreach (Ability ability in abilities)
+            {
+                ability.SetDirty();
+            }
         }
     }
 

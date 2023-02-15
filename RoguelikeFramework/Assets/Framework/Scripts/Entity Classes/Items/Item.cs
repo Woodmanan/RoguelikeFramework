@@ -95,7 +95,6 @@ public class Item : MonoBehaviour, IDescribable
     public Item Instantiate()
     {
         Item i = Instantiate(gameObject).GetComponent<Item>();
-        i.Setup();
         return i;
     }
 

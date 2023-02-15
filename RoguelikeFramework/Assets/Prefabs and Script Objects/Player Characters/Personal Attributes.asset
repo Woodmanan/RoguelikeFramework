@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b480904ef74d8634d9449312beabddfa, type: 3}
+  m_Name: Personal Attributes
+  m_EditorClassIdentifier: 
+  effects:
+  - id: 0
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: GreySkin, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 26038848566534144
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 26038924827369472
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: 62cee4ca57eb2ea408540af2963afdbb, type: 3}
+        percentOfLastDamage: 70
+        overXTurns: 3
+    00000001:
+      type: {class: Copycat, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 26586050867175424
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 26586135680196608
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: 905135f12d9530547b48e6bf75c0fe75, type: 3}
+        granted: {fileID: 0}
+        source: {fileID: 0}
+        numberOfCastsBase: 1
+        numberOfCastsKill: 5
+        dropTurnsLength: 100
+        castsRemaining: 0
+        dropTurnsRemaining: 0

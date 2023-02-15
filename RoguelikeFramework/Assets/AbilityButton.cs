@@ -14,6 +14,9 @@ public class AbilityButton : MonoBehaviour, IDescribable
     public TextMeshProUGUI cooldownText;
     public TextMeshProUGUI numberText;
 
+    [SerializeField]
+    Sprite empty;
+
     public bool locked = true;
     public bool set = false;
 
@@ -89,6 +92,14 @@ public class AbilityButton : MonoBehaviour, IDescribable
         }
         else
         {
+            if (!locked)
+            {
+                backgroundImage.sprite = empty;
+                backgroundImage.color = Color.black;
+                locked = true;
+                StopAllCoroutines();
+                StartCoroutine(LockShift(1f));
+            }
             return;
         }
         
@@ -96,30 +107,38 @@ public class AbilityButton : MonoBehaviour, IDescribable
         if (locked && Player.player.level >= (index + 1))
         {
             locked = false;
+            //cooldownImage.enabled = true;
+            //cooldownImage.fillAmount = 1;
+            StopAllCoroutines();
             StartCoroutine(UnlockShift(1f));
         }
 
-        ability = Player.player.abilities[index];
+        if (!locked)
+        {
 
-        if (ability.castable)
-        {
-            cooldownImage.enabled = false;
-        }
-        else
-        {
-            cooldownImage.enabled = true;
-            cooldownImage.fillAmount = 1;
-        }
+            ability = Player.player.abilities[index];
 
-        if (ability.currentCooldown > 0)
-        {
-            cooldownImage.fillAmount = (ability.currentCooldown / ability.currentStats[AbilityResources.MAX_COOLDOWN]);
-            cooldownText.enabled = true;
-            cooldownText.text = $"{ability.currentCooldown}";
-        }
-        else
-        {
-            cooldownText.enabled = false;
+
+            if (ability.castable)
+            {
+                cooldownImage.enabled = false;
+            }
+            else
+            {
+                cooldownImage.enabled = true;
+                cooldownImage.fillAmount = 1;
+            }
+
+            if (ability.currentCooldown > 0)
+            {
+                cooldownImage.fillAmount = (ability.currentCooldown / ability.currentStats[AbilityResources.MAX_COOLDOWN]);
+                cooldownText.enabled = true;
+                cooldownText.text = $"{ability.currentCooldown}";
+            }
+            else
+            {
+                cooldownText.enabled = false;
+            }
         }
     }
 
@@ -140,6 +159,26 @@ public class AbilityButton : MonoBehaviour, IDescribable
 
         mask.materialForRendering.SetFloat("_blendAmount", blendAmount);
         backgroundImage.material.SetFloat("_blendAmount", 0);
+        mask.SetMaterialDirty();
+    }
+
+    IEnumerator LockShift(float time)
+    {
+        float blendAmount = 0;
+        for (float t = 0; t < time; t += Time.deltaTime)
+        {
+            blendAmount = (t / time);
+            mask.materialForRendering.SetFloat("_blendAmount", blendAmount);
+            backgroundImage.material.SetFloat("_blendAmount", blendAmount);
+            Color color = Color.white * (1f - (t / time));
+            color.a = 1;
+            backgroundImage.material.SetColor("_fillColor", color);
+            mask.SetMaterialDirty();
+            yield return null;
+        }
+
+        mask.materialForRendering.SetFloat("_blendAmount", blendAmount);
+        backgroundImage.material.SetFloat("_blendAmount", 1);
         mask.SetMaterialDirty();
     }
 

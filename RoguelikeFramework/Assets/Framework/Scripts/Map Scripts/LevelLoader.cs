@@ -99,6 +99,8 @@ public class LevelLoader : MonoBehaviour
             seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         }
 
+        UnityEngine.Debug.Log($"Creating game with seed {seed}");
+
         UnityEngine.Random.InitState(seed);
 
         

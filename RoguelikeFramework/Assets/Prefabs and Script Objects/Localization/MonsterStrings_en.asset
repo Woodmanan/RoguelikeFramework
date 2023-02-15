@@ -204,5 +204,14 @@ MonoBehaviour:
       die for its queen.
     m_Metadata:
       m_Items: []
+  - m_Id: 23538955327315968
+    m_Localized: The Custodian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23538982233776128
+    m_Localized: Their world is gone, but they remain. Forced into a state between
+      life and death, they are the first filter for candidates climbing the tower.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

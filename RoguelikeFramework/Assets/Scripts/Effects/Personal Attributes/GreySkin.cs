@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Group("P_Attributes")]
+[Group("Personal Attributes")]
 [Priority(10)]
 public class GreySkin : Effect
 {
@@ -16,7 +16,21 @@ public class GreySkin : Effect
      * 
      * To override for individual functions, use the [Priority(int)] attribute 
      */
-    //public override int priority { get { return 10; } }
+    //public override int priority { get { return 10; } 
+
+    public override float GetUIFillPercent()
+    {
+        return turnsRemaining / overXTurns;
+    }
+
+    public override string GetUISubtext()
+    {
+        if (turnsRemaining > 0)
+        {
+            return healthPerTurn.ToString("0.0");
+        }
+        return "";
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing

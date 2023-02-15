@@ -129,8 +129,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14751174643884032
-    m_Localized: Emit a massive, highly damaging wave of fire. Gain 5 heat per cast
-      instead of 1.
+    m_Localized: Only castable at 75 heat or above. Emit a massive, highly damaging
+      wave of fire. Gain 5 heat per cast instead of 1.
     m_Metadata:
       m_Items: []
   - m_Id: 14757368603287552

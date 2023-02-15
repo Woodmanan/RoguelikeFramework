@@ -225,9 +225,62 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 26038848566534144
+    m_Localized: Half Slime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26038924827369472
+    m_Localized: Given time, you can always stitch yourself back together. Heal for
+      {percentOfLastDamage}% percent of the last damage you took over {overXTurns}
+      the next turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26232492334456832
+    m_Localized: Hidden Potential
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26232552963121152
+    m_Localized: The tower never selects ordinary candidates - you just don't know
+      what's so special about yourself yet. When you reach level {levelToGrantAt},
+      gain a Personal Attribute or a boost to your stats.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26416516331937792
+    m_Localized: Passively heal by {baseRegenPerTurn} + level/10 health per turn.
+      Taking fire damage will end this healing for {numTurnsHaltOnWeakness} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26416474627973120
+    m_Localized: Super Regenration (Troll passive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418645973016576
+    m_Localized: Flexibility (Human Passive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418745768091648
+    m_Localized: Gain 3 health and 1 mana per level, up to level 30.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586050867175424
+    m_Localized: Copy Cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586135680196608
+    m_Localized: You can perfectly mimic any ability that hits you. When mimicking
+      an ability in this way, you can cast it {numberOfCastsBase:once|{numberOfCastsBase}
+      times}. If you slay the monster whose ability you are mimicking, you gain an
+      additional {numberOfCastsKill} casts. Not using the ability for {dropTurnsLength}
+      turns will cause it to be dropped.{dropTurnsRemaining:cond:=0?| ({dropTurnsRemaining}/{dropTurnsLength})}
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b742500
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e00

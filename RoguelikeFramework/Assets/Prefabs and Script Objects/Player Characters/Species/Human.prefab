@@ -59,6 +59,9 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
+  resistances: 0
+  weaknesses: 0
+  immunities: 0
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
@@ -121,6 +124,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
+    image: {fileID: 0}
   references:
     version: 1
     00000000:
@@ -130,27 +134,28 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 26418645973016576
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 26418745768091648
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 21300000, guid: acc893d7053461c47adba17e2422fa9e, type: 3}
         statsPerLevel:
           _keys: 0100000003000000
           _vals:
-          - 5
           - 3
+          - 1
         UpToLevel: 30
 --- !u!114 &4311608207694994516
 MonoBehaviour:
@@ -228,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 52
-  available: 0
+  baseItems: []
 --- !u!114 &4311608207694994521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +347,7 @@ MonoBehaviour:
       accuracy: 0
       piercing: 0
       damage: []
+  WillEquipInventory: 1
 --- !u!114 &4311608207694994520
 MonoBehaviour:
   m_ObjectHideFlags: 0

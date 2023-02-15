@@ -171,6 +171,46 @@ MonoBehaviour:
     m_Key: BriarStanceName
     m_Metadata:
       m_Items: []
+  - m_Id: 26038848566534144
+    m_Key: GreySkinName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26038924827369472
+    m_Key: GreySkinDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26232492334456832
+    m_Key: GrantAttributeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26232552963121152
+    m_Key: GrantAttributeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26416474627973120
+    m_Key: TrollPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26416516331937792
+    m_Key: TrollPassiveDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418645973016576
+    m_Key: HumanPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418745768091648
+    m_Key: Human Passive Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586050867175424
+    m_Key: CopycatName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586135680196608
+    m_Key: CopycatDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

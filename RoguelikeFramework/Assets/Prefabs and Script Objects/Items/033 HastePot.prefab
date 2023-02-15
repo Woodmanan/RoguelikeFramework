@@ -181,6 +181,6 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: 5342c072d1757e94e8b8cd6750890d8f, type: 3}
         energyPerTurn: 50
         duration: 20

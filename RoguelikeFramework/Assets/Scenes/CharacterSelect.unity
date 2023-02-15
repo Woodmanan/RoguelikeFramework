@@ -3883,11 +3883,10 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 0
+  startAt: 7
   playerPassives:
   - id: 0
   - id: 1
-  personalAttributes:
   - id: 2
   references:
     version: 1
@@ -3952,31 +3951,31 @@ MonoBehaviour:
         image: {fileID: 0}
         achievementName: ACH_PLAYER_DEATH
     00000002:
-      type: {class: GreySkin, ns: , asm: Assembly-CSharp}
+      type: {class: GrantPersonalAttribute, ns: , asm: Assembly-CSharp}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 26232492334456832
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 26232552963121152
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
-        percentOfLastDamage: 73.69
-        overXTurns: 5
+        image: {fileID: 21300000, guid: 8bd1223c2af166f47a8abbb0b41c471b, type: 3}
+        levelToGrantAt: 5
+        possibleEffects: {fileID: 11400000, guid: 0a826d7b02e700043b65ec4633f0534e, type: 2}
 --- !u!1 &1487906435
 GameObject:
   m_ObjectHideFlags: 0
@@ -5654,6 +5653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbd27be90a0f73409cbbf363d5a91c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DevSkipConnection: 0
 --- !u!4 &2011120302
 Transform:
   m_ObjectHideFlags: 0

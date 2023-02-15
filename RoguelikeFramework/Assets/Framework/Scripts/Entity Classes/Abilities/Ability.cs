@@ -230,6 +230,11 @@ public class Ability : ScriptableObject, IDescribable
         }
     }
 
+    new public void SetDirty()
+    {
+        dirty = true;
+    }
+
     public bool IsDirty()
     {
         return dirty;

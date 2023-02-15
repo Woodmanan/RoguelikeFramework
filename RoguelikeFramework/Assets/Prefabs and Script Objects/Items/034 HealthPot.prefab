@@ -181,7 +181,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: 1250d04abd74c084eac5333e8142bb3c, type: 3}
         instantHealth: 30
         healingPerTurn: 0
         numTurns: 0
