@@ -47,7 +47,7 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: ${{ matrix.projectPath }}/Library
           key: Library-test-project-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-test-project-
@@ -56,6 +56,7 @@ jobs:
         uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
+          projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
           checkName: ${{ matrix.testMode }} test results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -96,13 +97,14 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: ${{ matrix.projectPath }}/Library
           key: Library-build-StandaloneWindows64
           restore-keys: |
             Library-build-
             Library-
       - uses: game-ci/unity-builder@v2
         with:
+          projectPath: ${{ matrix.projectPath }}
           targetPlatform: StandaloneWindows64
 
       - uses: actions/upload-artifact@v2
