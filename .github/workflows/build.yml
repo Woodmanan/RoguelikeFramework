@@ -59,3 +59,29 @@ jobs:
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
+
+  deployToSteam:
+    needs: buildWindows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Download StandaloneWindows64 Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-StandaloneWindows64
+          path: build/StandaloneWindows64
+      - uses: game-ci/steam-deploy@v2
+        with:
+          username: ${{ secrets.STEAM_USERNAME }}
+          password: ${{ secrets.STEAM_PASSWORD }}
+          configVdf: ${{ secrets.STEAM_CONFIG_VDF}}
+          ssfnFileName: ${{ secrets.STEAM_SSFN_FILE_NAME }}
+          ssfnFileContents: ${{ secrets.STEAM_SSFN_FILE_CONTENTS }}
+          appId: ${{ secrets.STEAM_APP_ID }}
+          buildDescription: v${{ needs.buildForWindowsAndLinux.outputs.buildVersion }}
+          rootPath: build
+          depot1Path: StandaloneWindows64
+          releaseBranch: beta
