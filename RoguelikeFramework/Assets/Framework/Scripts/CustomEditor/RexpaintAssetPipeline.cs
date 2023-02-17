@@ -63,36 +63,11 @@ public class RexpaintAssetPipeline
                 AssetDatabase.Refresh();
             }
         }
-        #if UNITY_EDITOR_WIN
         path = GetPathTo(name);
         ProcessStartInfo info = new ProcessStartInfo(path);
         //info.WorkingDirectory = GetPathToFolder("Rex Files");
         info.WorkingDirectory = path.Remove(path.Length - name.Length);
         Process.Start(info);
-        #endif
-
-        #if UNITY_EDITOR_OSX
-        UnityEngine.Debug.LogError("This currently does not work on mac. Want it to? Yell at Woody and maybe let me borrow your mac for an hour");
-        return;
-        path = GetPathTo(name);
-        var command = "wine";
-        var processInfo = new ProcessStartInfo()
-        {
-            FileName = command,
-            //Arguments = "Rexpaint.exe",
-            WorkingDirectory = path.Remove(path.Length - name.Length),
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            CreateNoWindow = false
-        };
- 
-        Process process = Process.Start(processInfo);
-        while (!process.StandardOutput.EndOfStream)
-        {
-            UnityEngine.Debug.Log(process.StandardOutput.ReadLine());
-        }
-        #endif
-
     }
 
 
