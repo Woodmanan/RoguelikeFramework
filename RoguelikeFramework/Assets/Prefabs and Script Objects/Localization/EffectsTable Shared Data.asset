@@ -211,6 +211,14 @@ MonoBehaviour:
     m_Key: CopycatDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 26810941981794304
+    m_Key: NightmareVisName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26811077919186944
+    m_Key: NightmareVisDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

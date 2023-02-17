@@ -191,12 +191,22 @@ public enum AbilityResources
     DURATION
 }
 
+//TODO: Maybe this is a tag?
 [Flags]
 public enum AbilityTypes
 {
     Conjuration = 1 << 0,
     Elemental   = 1 << 1,
     Healing     = 1 << 2
+}
+
+[System.Flags]
+public enum CastBlocker
+{
+    RESOURCE = (1 << 0),
+    SOFTCHECK = (1 << 1),
+    HARDCHECK = (1 << 2),
+    EFFECT = (1 << 3)
 }
 
 [Flags]

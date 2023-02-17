@@ -27,7 +27,6 @@ using UnityEngine.Localization;
  * 5. Tie ins with all that goodness to the main system
  */
 
-
 public class Ability : ScriptableObject, IDescribable
 {
     public string friendlyName;

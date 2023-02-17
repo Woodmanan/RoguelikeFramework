@@ -278,9 +278,20 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 26810941981794304
+    m_Localized: Slipping Sanity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26811077919186944
+    m_Localized: Just being near this thing is driving you insane. If you can't break
+      line of sight within {numTurnsUntilAdd} {numTurnsUntilAdd:turn|turns}, the
+      Nightmare will be summmoned.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e00
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f00

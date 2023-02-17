@@ -160,7 +160,17 @@ public class Copycat : Effect
     //public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability) {}
 
     //Called by spells, in order to determine whether they are allowed to be cast.
-    //public override void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
+    //TODO: Use new ability cast check system here instead.
+    public override void OnCheckAvailability(ref Ability abilityToCheck, ref bool available)
+    {
+        if (abilityToCheck == granted)
+        {
+            if (granted.currentCooldown == 0)
+            {
+                available = true;
+            }
+        }
+    }
 
     //Called by spells once targets are selected.
     //public override void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}
@@ -188,6 +198,7 @@ public class Copycat : Effect
         if (granted == null && action.caller != connectedTo.monster)
         {
             granted = action.toCast.Instantiate();
+            granted.currentCooldown = 0;
             source = action.caller;
             castsRemaining = numberOfCastsBase;
             connectedTo.monster.abilities.AddAbility(granted);

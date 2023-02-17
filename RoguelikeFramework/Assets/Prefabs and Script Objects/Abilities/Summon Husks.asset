@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
   m_Name: Summon Husks
   m_EditorClassIdentifier: 
-  displayName: Summon Husks
+  friendlyName: SummonHusks
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18674720415883264
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18674753173397504
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   image: {fileID: 529817674177622992, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   color: {r: 1, g: 0.63529414, b: 0.8862745, a: 1}
   baseTargeting:
@@ -102,6 +120,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         numTurnsUntilSummon: 5
         numHusksToSummon: 4
         huskPrefab: {fileID: 4402800733788238304, guid: 80608225228ed7d4fa9672ddccf72b7c, type: 3}

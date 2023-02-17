@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f556522d393c922408149510fd25459a, type: 3}
   m_Name: TeleportOther
   m_EditorClassIdentifier: 
-  displayName: Teleport Other
+  friendlyName: TeleportOther
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18687588049821696
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18687648045146112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   image: {fileID: -6998988829417238427, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   color: {r: 0.916, g: 0.63940394, b: 0, a: 1}
   baseTargeting:

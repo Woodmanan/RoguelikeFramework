@@ -12,27 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
   m_Name: Nightmare Visual
   m_EditorClassIdentifier: 
-  friendlyName: 
+  friendlyName: SummonNightmare
   locName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 18682100411211776
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   locDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 18682151204233216
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  image: {fileID: -4658246047469269665, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color: {r: 1, g: 0, b: 0, a: 1}
+  image: {fileID: 21300000, guid: 1a43b905a8d1bf64daba7e4e657f340d, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 4
@@ -53,7 +53,7 @@ MonoBehaviour:
   baseStats:
     _keys: 00000000
     _vals:
-    - 5
+    - 8
   currentStats:
     _keys: 
     _vals: []
@@ -104,22 +104,23 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 26810941981794304
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 26811077919186944
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 21300000, guid: 1a43b905a8d1bf64daba7e4e657f340d, type: 3}
         numTurnsUntilAdd: 7
         numberOfTicksToAdd: 100000
         maintainWith: {fileID: 0}

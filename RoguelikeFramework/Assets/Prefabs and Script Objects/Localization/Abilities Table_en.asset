@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 999deef778c7e2541a99b8b0c8daef13, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 11793014784
     m_Localized: Lionheart's Stance
@@ -180,5 +181,43 @@ MonoBehaviour:
       redirects all random teleports to land within its line of sight.
     m_Metadata:
       m_Items: []
+  - m_Id: 18674372896825344
+    m_Localized: Generate an explosion in a wide area around you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674319083905024
+    m_Localized: Dynamite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674720415883264
+    m_Localized: Summon Husks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674753173397504
+    m_Localized: Summon husks from out of sight to come and attack the targeted monster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682151204233216
+    m_Localized: Establish a mental link to an enemy, and afflfict with horrific
+      visions. If the link is not broken in 7 turns, summon The Nightmare.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 18682100411211776
+    m_Localized: Summon Nightmare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687588049821696
+    m_Localized: Mass Teleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687648045146112
+    m_Localized: Teleport all monsters around you a medium distance away.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00202b4a515f4200

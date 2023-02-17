@@ -151,6 +151,46 @@ MonoBehaviour:
     m_Key: WhiteHoleDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 18674319083905024
+    m_Key: MonsterDynamiteName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674372896825344
+    m_Key: MonsterDynamiteDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674720415883264
+    m_Key: SummonHusksName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674753173397504
+    m_Key: SummonHusksDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674982106898432
+    m_Key: AntPoisonSpitName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18675039438839808
+    m_Key: AntPoisonSpitDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682100411211776
+    m_Key: SummonNightmareName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682151204233216
+    m_Key: SummonNightmareDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687588049821696
+    m_Key: TeleportOtherName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687648045146112
+    m_Key: TeleportOtherDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd108358a4a5b84cb3429e77fd9ac4a, type: 3}
   m_Name: Dynamite
   m_EditorClassIdentifier: 
-  displayName: Dynamite Detonation
+  friendlyName: MonsterDynamite
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18674319083905024
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18674372896825344
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   image: {fileID: 21300000, guid: f41d40d3ba4a5af418799cde8d729275, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
@@ -59,8 +77,9 @@ MonoBehaviour:
     offset: 0
     affected: []
   costs:
-    _keys: 
-    _vals: []
+    _keys: 02000000
+    _vals:
+    - 3
   castable: 1
   types: 1
   effects: []
