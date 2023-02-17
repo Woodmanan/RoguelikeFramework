@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Steamworks;
 
 //A true singleton! If it does not exist, make it. If it does exist, there is NO reason to ever drop it.
 public class SteamController : MonoBehaviour
