@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Unity - Request Activation File
-        uses: game-ci/unity-request-activation-file@v2.0.0
+      - uses: webbertakken/unity-request-manual-activation-file@v2
+        id: getManualLicenseFile
 
       - uses: actions/upload-artifact@v2
         with:
