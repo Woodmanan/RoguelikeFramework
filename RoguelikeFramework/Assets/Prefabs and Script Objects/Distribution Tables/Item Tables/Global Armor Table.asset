@@ -33,7 +33,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      type: {class: AttachBrandAsEquip, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
         toAttach:
           id: 4
     00000001:
-      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      type: {class: AttachBrandAsEquip, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -85,7 +85,7 @@ MonoBehaviour:
         toAttach:
           id: 5
     00000002:
-      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      type: {class: AttachBrandAsEquip, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
         toAttach:
           id: 6
     00000003:
-      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      type: {class: AttachBrandAsEquip, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
         toAttach:
           id: 7
     00000004:
-      type: {class: AddVariableStats, ns: , asm: Assembly-CSharp}
+      type: {class: AddVariableStats, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
         amount: 0
         fromMax: 1
     00000005:
-      type: {class: AddVariableStats, ns: , asm: Assembly-CSharp}
+      type: {class: AddVariableStats, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
         amount: 0
         fromMax: 1
     00000006:
-      type: {class: Masochism, ns: , asm: Assembly-CSharp}
+      type: {class: Masochism, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -239,7 +239,7 @@ MonoBehaviour:
         efficiency: 10
         grantedResource: 2
     00000007:
-      type: {class: Masochism, ns: , asm: Assembly-CSharp}
+      type: {class: Masochism, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

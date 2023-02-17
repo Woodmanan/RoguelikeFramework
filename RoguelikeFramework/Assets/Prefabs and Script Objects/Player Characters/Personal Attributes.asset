@@ -18,7 +18,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: GreySkin, ns: , asm: Assembly-CSharp}
+      type: {class: GreySkin, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
         percentOfLastDamage: 70
         overXTurns: 3
     00000001:
-      type: {class: Copycat, ns: , asm: Assembly-CSharp}
+      type: {class: Copycat, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

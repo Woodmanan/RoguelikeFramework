@@ -76,7 +76,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: PrefabFloorMachine, ns: , asm: Assembly-CSharp}
+      type: {class: PrefabFloorMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
         canExpand: 1
         floorLayout: {fileID: 11400000, guid: b2a71662dbd25444ea320054f88e4f24, type: 2}
     00000001:
-      type: {class: PrefabFloorMachine, ns: , asm: Assembly-CSharp}
+      type: {class: PrefabFloorMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -98,7 +98,7 @@ MonoBehaviour:
         canExpand: 1
         floorLayout: {fileID: 11400000, guid: 40539590d4d19b14caa672721d1a3794, type: 2}
     00000002:
-      type: {class: PrefabFloorMachine, ns: , asm: Assembly-CSharp}
+      type: {class: PrefabFloorMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1

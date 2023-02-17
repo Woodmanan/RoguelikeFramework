@@ -1,0 +1,19 @@
+{
+    "name": "RogueEditor",
+    "references": [
+        "GUID:490e047ffd297f546a31964fbb71a10b",
+        "GUID:1bbc05c702b8f424a87904fc5cab75c9",
+        "GUID:1089a22bce0ea9a468bf8e5a4f8cbad5"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

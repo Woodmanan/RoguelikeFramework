@@ -3891,7 +3891,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: PlayerPassive, ns: , asm: Assembly-CSharp}
+      type: {class: PlayerPassive, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -3926,7 +3926,7 @@ MonoBehaviour:
           - 40
         TurnsTillSafety: 15
     00000001:
-      type: {class: UnlockAchOnDeath, ns: , asm: Assembly-CSharp}
+      type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -3951,7 +3951,7 @@ MonoBehaviour:
         image: {fileID: 0}
         achievementName: ACH_PLAYER_DEATH
     00000002:
-      type: {class: GrantPersonalAttribute, ns: , asm: Assembly-CSharp}
+      type: {class: GrantPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

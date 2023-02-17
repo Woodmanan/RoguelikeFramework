@@ -142,7 +142,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: ScythePassive, ns: , asm: Assembly-CSharp}
+      type: {class: ScythePassive, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

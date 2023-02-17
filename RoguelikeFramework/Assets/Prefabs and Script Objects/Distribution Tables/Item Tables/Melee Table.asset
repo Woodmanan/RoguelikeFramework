@@ -33,7 +33,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: ApplyEffectOnHit, ns: , asm: Assembly-CSharp}
+      type: {class: ApplyEffectOnHit, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
         secondaryAdd: []
         unarmedAdd: []
     00000001:
-      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      type: {class: AttachBrandAsEquip, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
         toAttach:
           id: 4
     00000002:
-      type: {class: DamageVamp, ns: , asm: Assembly-CSharp}
+      type: {class: DamageVamp, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
         drainsFrom: 16
         efficiency: 30
     00000003:
-      type: {class: DamageOverTime, ns: , asm: Assembly-CSharp}
+      type: {class: DamageOverTime, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
         type: 64
         ticksAtStart: 0
     00000004:
-      type: {class: BrandProtection, ns: , asm: Assembly-CSharp}
+      type: {class: BrandProtection, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

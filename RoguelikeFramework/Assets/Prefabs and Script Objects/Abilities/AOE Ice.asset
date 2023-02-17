@@ -83,7 +83,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: FrostEffect, ns: , asm: Assembly-CSharp}
+      type: {class: FrostEffect, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
           m_LocalVariables: []
         numTurns: 0
     00000001:
-      type: {class: FrostEffect, ns: , asm: Assembly-CSharp}
+      type: {class: FrostEffect, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
