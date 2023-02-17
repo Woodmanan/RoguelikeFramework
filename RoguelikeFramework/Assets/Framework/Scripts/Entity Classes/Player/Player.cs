@@ -44,26 +44,50 @@ public class Player : Monster
     public override void UpdateLOS()
     {
         view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
-
+        view.CollectEntities(Map.current);
+        UpdateLOSPostCollection();
     }
 
     public override int XPTillNextLevel()
     {
-        baseStats[NEXT_LEVEL_XP] = level;
-        return level;
+        return 15;
+    }
+
+    public override void GainXP(Monster source, float amount)
+    {
+        while (amount > 0)
+        {
+            if (source.level < level)
+            {
+                Debug.Log("Console: That felt unrewarding.");
+                return;
+            }
+
+            if (amount >= (XPTillNextLevel() - baseStats[XP]))
+            {
+                amount -= (XPTillNextLevel() - (int) baseStats[XP]);
+                baseStats[XP] = 0;
+                LevelUp();
+                continue;
+            }
+
+            baseStats[XP] += amount;
+            amount = 0;
+        }
     }
 
     public override void OnLevelUp()
     {
-        Debug.Log("Log: LEVEL UP!");
+        Debug.Log("Log: YOU LEVEL UP!");
     }
 
-    public override void Die()
+    protected override void Die()
     {
         Remove();
         if (baseStats[HEALTH] <= 0)
         {
             Debug.Log("Game over!");
+            SceneManager.LoadScene("CharacterSelect");
         }
     }
 }

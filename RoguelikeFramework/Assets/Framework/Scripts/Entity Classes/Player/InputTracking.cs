@@ -35,17 +35,17 @@ public class InputTracking : MonoBehaviour
         }
     }
 
-    public static Tuple<PlayerAction, string> PopNextPair()
+    public static (PlayerAction, string) PopNextPair()
     {
         if (HasNextAction())
         {
             PlayerAction act = actions.Dequeue();
             string inp = inputs.Dequeue();
-            return new Tuple<PlayerAction, string>(act, inp);
+            return (act, inp);
         }
         else
         {
-            return new Tuple<PlayerAction, string>(PlayerAction.NONE, "");
+            return (PlayerAction.NONE, "");
         }
     }
 

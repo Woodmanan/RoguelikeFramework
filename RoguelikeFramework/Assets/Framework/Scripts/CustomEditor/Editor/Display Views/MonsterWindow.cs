@@ -113,10 +113,9 @@ public class MonsterWindow : EditorWindow
     {
         if (monsters == null || monsters.Length == 0 || refreshCount >= refreshMovingVal)
         {
-            Debug.Log("Refresh " + refreshMovingVal);
             CacheMonsterData();
             refreshCount = 0;
-            enumNames = System.Enum.GetNames(typeof(Resources));
+            enumNames = System.Enum.GetNames(typeof(AbilityResources));
             BuildStyle();
         }
         refreshCount++;
@@ -208,7 +207,7 @@ public class MonsterWindow : EditorWindow
         edit.serializedObject.Update();
 
         {//Name
-            SerializedProperty name = edit.serializedObject.FindProperty("displayName");
+            SerializedProperty name = edit.serializedObject.FindProperty("friendlyName");
             EditorGUI.PropertyField(rect, name, new GUIContent());
         }
 
@@ -242,7 +241,6 @@ public class MonsterWindow : EditorWindow
                     float newVal = EditorGUI.DelayedFloatField(rect, 0, style);
                     if (newVal != 0)
                     {
-                        Debug.Log("Adding!!");
                         keys.InsertArrayElementAtIndex(keys.arraySize);
                         vals.InsertArrayElementAtIndex(vals.arraySize);
                         keys.GetArrayElementAtIndex(keys.arraySize - 1).enumValueIndex = showInd;

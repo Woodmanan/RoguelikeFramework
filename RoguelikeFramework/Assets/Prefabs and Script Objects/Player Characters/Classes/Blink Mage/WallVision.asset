@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
+  m_Name: WallVision
+  m_EditorClassIdentifier: 
+  friendlyName: AstralVision
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 14757963636613120
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 14757999086870528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 948606252649af74293d5ee3ef5a3094, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    _keys: 01000000
+    _vals:
+    - 20
+  currentStats:
+    _keys: 
+    _vals: []
+  castQuery:
+    outOf: 1
+    terms: []
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 02000000
+    _vals:
+    - 5
+  castable: 1
+  types: 0
+  effects: []
+  effectsToApply:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ExtendLOS, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        duration: 10
+        range: 4

@@ -13,7 +13,7 @@ public class DungeonGenerator
     [HideInInspector] public int seed;
     public Vector2Int bounds;
     public Branch branch;
-    public List<Machine> machines;
+    [HideInInspector] public List<Machine> machines;
     [HideInInspector] public List<Room> rooms;
     public TileList tilesAvailable;
 
@@ -28,6 +28,9 @@ public class DungeonGenerator
 
     public int[,] map;
 
+    public List<Vector2Int> desiredInStairs;
+    public List<Vector2Int> desiredOutStairs;
+
     public IEnumerator generation = null;
     public bool finished = false;
     
@@ -40,6 +43,8 @@ public class DungeonGenerator
         UnityEngine.Random.InitState(seed);
 
         rooms = new List<Room>();
+        desiredInStairs = new List<Vector2Int>();
+        desiredOutStairs = new List<Vector2Int>();
 
         GameObject mapInstance = new GameObject();
         Map gameMap = mapInstance.AddComponent<Map>();
@@ -102,6 +107,20 @@ public class DungeonGenerator
                 }
             }
 
+            //Pre stair activation for rooms - lets rexrooms mark desired stair positions
+            foreach (Room r in rooms)
+            {
+                IEnumerator activate = r.PreStairActivation(gameMap, this);
+                while (activate.MoveNext())
+                {
+                    state = UnityEngine.Random.state;
+                    UnityEngine.Random.state = oldState;
+                    yield return activate.Current;
+                    oldState = UnityEngine.Random.state;
+                    UnityEngine.Random.state = state;
+                }
+            }
+
             //Add stairs as final step
             StairPlacer stairs = new StairPlacer();
             stairs.Activate(world, this, index);
@@ -122,23 +141,25 @@ public class DungeonGenerator
             foreach (Machine m in machines)
             {
                 m.PostActivation(gameMap);
-            }
+            }            
 
             //Post activation for stairs - attach the actual stair objects
             stairs.SetupStairTiles(gameMap);
 
+            //Post activation for rooms - fill in final tile replacements
             foreach (Room r in rooms)
             {
-                IEnumerator activate = r.PostActivation(gameMap);
+                IEnumerator activate = r.PostActivation(gameMap, this);
                 while (activate.MoveNext())
                 {
                     state = UnityEngine.Random.state;
-                    UnityEngine.Random.state = oldState;      
+                    UnityEngine.Random.state = oldState;
                     yield return activate.Current;
                     oldState = UnityEngine.Random.state;
                     UnityEngine.Random.state = state;
                 }
             }
+
 
 
             LevelLoader.maps[index] = gameMap;
@@ -173,18 +194,48 @@ public class DungeonGenerator
             //Allow tiles that need after-generation modifications to do so
             gameMap.SetAllTiles();
 
+            { //Skip
+                state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
+                yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
+                UnityEngine.Random.state = state;
+            }
+
             //Rebuild any extra info that's changed during post-generation
             //This mostly catches edge cases from tiles spawned by rexpaint prefabs.
             gameMap.RebuildAllMapData();
 
+            { //Skip
+                state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
+                yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
+                UnityEngine.Random.state = state;
+            }
+
             //Refresh so that monsters and items don't show.
             gameMap.RefreshGraphics();
+
+            { //Skip
+                state = UnityEngine.Random.state;
+                UnityEngine.Random.state = oldState;
+                yield return itemSpawn.Current;
+                oldState = UnityEngine.Random.state;
+                UnityEngine.Random.state = state;
+            }
 
             //Monsters should almost by definition be setup now. Do it again, just in case, and then have themselves attach to the floor!
             foreach (Monster m in gameMap.monsters)
             {
                 m.Setup();
                 m.PostSetup(gameMap);
+            }
+
+            //Lastly, activate any remaining dungeon systems
+            foreach (DungeonSystem system in gameMap.mapSystems)
+            {
+                system.Setup(world, branch, gameMap);
             }
 
             finished = true;

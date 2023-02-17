@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemVisiblity : MonoBehaviour
 {
     [SerializeField] private Item visible;
-    private CustomTile tile;
+    private RogueTile tile;
     Inventory inventory;
 
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class ItemVisiblity : MonoBehaviour
     public void Setup()
     {
         inventory = GetComponent<Inventory>();
-        tile = GetComponent<CustomTile>();
+        tile = GetComponent<RogueTile>();
         inventory.itemsAdded += ItemIsAdded;
         inventory.itemsRemoved += ItemIsRemoved;
         this.enabled = false;

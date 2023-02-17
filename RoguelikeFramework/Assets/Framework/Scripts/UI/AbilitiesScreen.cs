@@ -46,7 +46,7 @@ public class AbilitiesScreen : RogueUIPanel
             if (index < examinedAbilities.Count && examinedAbilities[index].castable)
             {
                 //Cast a spell
-                Debug.Log($"Button {index} was pressed. Casting {examinedAbilities[index].displayName}!");
+                Debug.Log($"Button {index} was pressed. Casting {examinedAbilities[index].friendlyName}!");
                 Player.player.SetAction(new AbilityAction(index));
                 ExitAllWindows();
                 break;
@@ -76,8 +76,8 @@ public class AbilitiesScreen : RogueUIPanel
         {
             displayed[i].gameObject.SetActive(true);
             displayed[i].Setup(Cast, i);
-            displayed[i].SetDisplay(examinedAbilities[i].image, $"{Conversions.IntToNumbering(i)} - {examinedAbilities[i].displayName}", examinedAbilities[i].color);
-            displayed[i].SetCooldown(examinedAbilities[i].currentCooldown, examinedAbilities[i].stats.cooldown);
+            displayed[i].SetDisplay(examinedAbilities[i].image, $"{Conversions.IntToNumbering(i)} - {examinedAbilities[i].friendlyName}", examinedAbilities[i].color);
+            displayed[i].SetCooldown(examinedAbilities[i]);
             if (!examinedAbilities[i].castable)
             {
                 displayed[i].Disable();
@@ -112,7 +112,7 @@ public class AbilitiesScreen : RogueUIPanel
     {
         if (displayed[index].clickable)
         {
-            Debug.Log($"Button {index} was pressed. Casting {examinedAbilities[index].displayName}!");
+            Debug.Log($"Button {index} was pressed. Casting {examinedAbilities[index].friendlyName}!");
             Player.player.SetAction(new AbilityAction(index));
             ExitAllWindows();
         }

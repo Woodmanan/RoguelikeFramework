@@ -39,12 +39,20 @@ public class SimpleConnectionMachine : Machine
                 //Do x first
                 for (int x = Math.Min(r.center.x, nearest.center.x); x <= Math.Max(r.center.x, nearest.center.x); x++)
                 {
-                    generator.map[x,corner.y] = 1;
+                    Vector2Int loc = new Vector2Int(x, corner.y);
+                    if ((!nearest.Contains(loc) && !r.Contains(loc)) || generator.map[loc.x, loc.y] == 0)
+                    {
+                        generator.map[x, corner.y] = 1;
+                    }
                 }
 
                 for (int y = Math.Min(r.center.y, nearest.center.y); y <= Math.Max(r.center.y, nearest.center.y); y++)
                 {
-                    generator.map[corner.x, y] = 1;
+                    Vector2Int loc = new Vector2Int(corner.x, y);
+                    if ((!nearest.Contains(loc) && !r.Contains(loc)) || generator.map[loc.x, loc.y] == 0)
+                    {
+                        generator.map[corner.x, y] = 1;
+                    }
                 }
             }
             else
@@ -54,13 +62,21 @@ public class SimpleConnectionMachine : Machine
 
                 for (int y = Math.Min(r.center.y, nearest.center.y); y <= Math.Max(r.center.y, nearest.center.y); y++)
                 {
-                    generator.map[corner.x, y] = 1;
+                    Vector2Int loc = new Vector2Int(corner.x, y);
+                    if ((!nearest.Contains(loc) && !r.Contains(loc)) || generator.map[loc.x, loc.y] == 0)
+                    {
+                        generator.map[corner.x, y] = 1;
+                    }
                 }
 
                 //Do x first
                 for (int x = Math.Min(r.center.x, nearest.center.x); x <= Math.Max(r.center.x, nearest.center.x); x++)
                 {
-                    generator.map[x,corner.y] = 1;
+                    Vector2Int loc = new Vector2Int(x, corner.y);
+                    if ((!nearest.Contains(loc) && !r.Contains(loc)) || generator.map[loc.x, loc.y] == 0)
+                    {
+                        generator.map[x, corner.y] = 1;
+                    }
                 }
             }
 

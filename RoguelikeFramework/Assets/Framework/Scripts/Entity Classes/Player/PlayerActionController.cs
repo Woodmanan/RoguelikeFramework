@@ -5,12 +5,14 @@ using System.Linq;
 
 public class PlayerActionController : ActionController
 {
+    public TargetingPanel targetingPanel;
+
     public override IEnumerator DetermineAction()
     {
         if (InputTracking.HasNextAction())
         {
             Player.player.view.CollectEntities(Map.current);
-            PlayerAction action = InputTracking.PopNextAction();
+            (PlayerAction action, string inputString) = InputTracking.PopNextPair();
             switch (action)
             {
                 //Handle Movement code
@@ -69,7 +71,7 @@ public class PlayerActionController : ActionController
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
                 case PlayerAction.APPLY:
-                    UIController.singleton.OpenInventoryApply();
+                    UIController.singleton.OpenInventoryActivate();
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
                     break;
                 case PlayerAction.CAST_SPELL:
@@ -131,7 +133,20 @@ public class PlayerActionController : ActionController
                     break;
                 case PlayerAction.ACCEPT:
                 case PlayerAction.NONE:
-                    Debug.Log("Player read an input set to do nothing", this);
+                    bool foundAction = false;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (inputString.Contains($"{(i + 1)%10}"))
+                        {
+                            nextAction = new AbilityAction(i);
+                            foundAction = true;
+                            break;
+                        }
+                    }
+                    if (!foundAction)
+                    {
+                        Debug.Log("Player read an input set to do nothing", this);
+                    }
                     break;
                 default:
                     Debug.LogError($"Player read an input that has no switch case: {action}");
@@ -183,7 +198,7 @@ public class PlayerActionController : ActionController
     //Item pickup, but with a little logic for determining if a UI needs to get involved.
     private void PickupSmartDetection()
     {
-        CustomTile tile = Map.current.GetTile(monster.location);
+        RogueTile tile = Map.current.GetTile(monster.location);
         Inventory onFloor = tile.GetComponent<Inventory>();
         switch (onFloor.Count)
         {
@@ -204,7 +219,14 @@ public class PlayerActionController : ActionController
 
     public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
     {
-        UIController.singleton.OpenTargetting(targeting, setValidityTo);
-        yield return new WaitUntil(() => !UIController.WindowsOpen);
+        if (targetingPanel.Setup(targeting, setValidityTo))
+        {
+            targetingPanel.Activate();
+            yield return new WaitUntil(() => !UIController.WindowsOpen);
+        }
+        else
+        {
+            RogueUIPanel.ExitAllWindows();
+        }
     }
 }

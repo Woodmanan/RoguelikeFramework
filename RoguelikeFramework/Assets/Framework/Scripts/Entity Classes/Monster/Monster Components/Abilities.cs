@@ -6,7 +6,9 @@ using System.Linq;
 //TODO: Come up with a better name for this?
 public class Abilities : MonoBehaviour
 {
+    public int maxAbilities = 10;
     Monster connectedTo;
+    public List<Ability> baseAbilities;
     List<Ability> abilities = new List<Ability>();
 
     public int Count
@@ -17,6 +19,10 @@ public class Abilities : MonoBehaviour
     private void Awake()
     {
         connectedTo = GetComponent<Monster>();
+        foreach (Ability ability in baseAbilities)
+        {
+            AddAbilityInstantiate(ability);
+        }
     }
 
     public void RegenerateAbilities()
@@ -35,17 +41,56 @@ public class Abilities : MonoBehaviour
         {
             a.CheckAvailable(connectedTo);
         }
+
+        //Force no casting on abilites lower than your level
+        for (int i = 0; i < abilities.Count; i++)
+        {
+            if ((i+1) > connectedTo.level && HasAbility(i))
+            {
+                abilities[i].castable = false;
+            }
+        }
     }
 
     public Ability this[int index]
     {
         get { return abilities[index]; }
     }
-    
+
+    public bool HasAbility(int index)
+    {
+        return index >= 0 && index < abilities.Count && abilities[index] != null;
+    }
+
 
     public void AddAbility(Ability abilityToAdd)
     {
-        abilities.Add(abilityToAdd.Instantiate());
+        if (abilities.Count < maxAbilities)
+        {
+            abilities.Add(abilityToAdd);
+        }
+        else
+        {
+            Debug.Log("Console: You can't learn that ability - max abilities reached");
+        }
+    }
+
+    public void AddAbilityInstantiate(Ability abilityToAdd)
+    {
+        AddAbility(abilityToAdd.Instantiate());
+    }
+
+    public void RemoveAbility(Ability abilityToRemove)
+    {
+        int index = abilities.IndexOf(abilityToRemove);
+        if (index >= 0)
+        {
+            abilities.RemoveAt(index);
+            foreach (Ability ability in abilities)
+            {
+                ability.SetDirty();
+            }
+        }
     }
 
     public void OnTurnEndGlobal()
@@ -123,5 +168,10 @@ public class Abilities : MonoBehaviour
         }
 
         return (bestIndex[UnityEngine.Random.Range(0, bestIndex.Count)], bestValue);
+    }
+
+    public IEnumerable<Ability> GetAbilitiesAsEnumerable()
+    {
+        return abilities.AsEnumerable();
     }
 }

@@ -4,6 +4,7 @@ using System.Xml;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 /* Map class that  is used as a handler and container for the game maps. Holds a the
  * structs and has functionality for getting and setting information about the world
@@ -21,9 +22,8 @@ public class Map : MonoBehaviour
     public int index;
 
 
-    public CustomTile[,] tiles;
+    public RogueTile[,] tiles;
     public bool[,] blocksVision;
-    public float[,] moveCosts;
 
     public int width;
 
@@ -47,6 +47,8 @@ public class Map : MonoBehaviour
     public Transform itemContainer;
 
     public List<InteractableTile> interactables = new List<InteractableTile>();
+
+    public List<DungeonSystem> mapSystems = new List<DungeonSystem>();
 
     // Start is called before the first frame update
     void Start()
@@ -119,9 +121,8 @@ public class Map : MonoBehaviour
         int xSize = map.GetLength(0);
         int ySize = map.GetLength(1);
 
-        tiles = new CustomTile[xSize, ySize];
+        tiles = new RogueTile[xSize, ySize];
         blocksVision = new bool[xSize, ySize];
-        moveCosts = new float[xSize, ySize];
 
         tileContainer = new GameObject("Tiles").transform;
         monsterContainer = new GameObject("Monsters").transform;
@@ -141,7 +142,7 @@ public class Map : MonoBehaviour
             {
                 GameObject g = Instantiate(availableTiles.tiles[map[i, j]], row.transform, true);
                 g.name = $"Tile ({i}, {j})";
-                CustomTile custom = g.GetComponent<CustomTile>();
+                RogueTile custom = g.GetComponent<RogueTile>();
                 if (!custom)
                 {
                     Debug.LogError("Tile did not have tile component.");
@@ -180,15 +181,15 @@ public class Map : MonoBehaviour
 
     public float MovementCostAt(Vector2Int position)
     {
-        return moveCosts[position.x, position.y];
+        return GetTile(position).GetMovementCost();
     }
 
-    public CustomTile GetTile(Vector2Int loc)
+    public RogueTile GetTile(Vector2Int loc)
     {
         return GetTile(loc.x, loc.y);
     }
 
-    public CustomTile GetTile(int x, int y)
+    public RogueTile GetTile(int x, int y)
     {
         return tiles[x, y];
     }
@@ -219,7 +220,7 @@ public class Map : MonoBehaviour
 
     public bool NeedsExploring(Vector2Int location)
     {
-        CustomTile tile = GetTile(location);
+        RogueTile tile = GetTile(location);
         if (tile.BlocksMovement()) return false;
         if (tile.isHidden) return true;
 
@@ -284,7 +285,7 @@ public class Map : MonoBehaviour
             return true;
         }
 
-        return moveCosts[loc.x, loc.y] < 0;
+        return MovementCostAt(loc) < 0;
     }
 
     public Vector2Int GetRandomWalkableTile()
@@ -292,9 +293,83 @@ public class Map : MonoBehaviour
         while (true)
         {
             Vector2Int spot = new Vector2Int(Random.Range(1, width - 1), Random.Range(1, height - 1));
-            if (moveCosts[spot.x, spot.y] > 0)
+            if (MovementCostAt(spot) > 0)
             {
                 return spot;
+            }
+        }
+    }
+
+    public void SwapMonsters(RogueTile first, RogueTile second)
+    {
+        Monster secondMonster = second.currentlyStanding;
+        Monster firstMonster = first.currentlyStanding;
+
+        if (secondMonster)
+        {
+            secondMonster.currentTile = null;
+            
+        }
+
+        if (firstMonster)
+        {
+            firstMonster.currentTile = null;
+        }
+
+        second.currentlyStanding = null;
+        first.currentlyStanding = null;
+
+        if (secondMonster)
+        {
+            secondMonster.SetPosition(first.location);
+        }
+
+        if (firstMonster)
+        {
+            firstMonster.SetPosition(second.location);
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetLocationsAround(Vector2Int point, int radius)
+    {
+        int minX = Mathf.Max(point.x - radius, 0);
+        int maxX = Mathf.Min(point.x + radius, width - 1);
+        int minY = Mathf.Max(point.y - radius, 0);
+        int maxY = Mathf.Min(point.y + radius, height - 1);
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                yield return new Vector2Int(x, y);
+            }
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetOpenLocationsAround(Vector2Int point, int radius)
+    {
+        return GetLocationsAround(point, radius).Where(x => GetTile(x).IsOpen());
+    }
+
+    public IEnumerable<RogueTile> GetNeighboringTiles(RogueTile tile)
+    {
+        return GetNeighboringTiles(tile.location);
+    }
+
+    public IEnumerable<RogueTile> GetNeighboringTiles(Vector2Int tile)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                //skip middle
+                if (i == 0 && j == 0) continue;
+                Vector2Int toCheck = tile + new Vector2Int(i, j);
+
+                if (ValidLocation(toCheck))
+                {
+                    yield return GetTile(toCheck);
+                }
             }
         }
     }

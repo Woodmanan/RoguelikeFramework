@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f556522d393c922408149510fd25459a, type: 3}
+  m_Name: TeleportOther
+  m_EditorClassIdentifier: 
+  friendlyName: TeleportOther
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18687588049821696
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18687648045146112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: -6998988829417238427, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  color: {r: 0.916, g: 0.63940394, b: 0, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 5
+    areaType: 5
+    range: 0
+    radius: 3
+    degree: 0
+    options: 43
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
+  castQuery:
+    outOf: 1
+    terms: []
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 
+    _vals: []
+  castable: 1
+  types: 0
+  effects: []
+  teleportRange: 15
+  sprites:
+  - {fileID: 4307816776127727184, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+  references:
+    version: 1

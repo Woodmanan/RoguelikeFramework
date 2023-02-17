@@ -1,0 +1,111 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using System.Reflection;
+using System.Linq;
+using UnityEngine.Localization;
+
+/*
+ * Mostly empty class used as a base for status effects. If you want to create a new
+ * status effect, DO NOT EDIT THIS CLASS. Instead, use the template and fill in your
+ * child class from there. This class mostly exists to make that process easy, and have
+ * process of hooking up complicated effects be really painless.
+ *
+ * I have suffered so you don't have to ;_;
+ */
+
+[System.Serializable]
+public class Effect : IDescribable
+{
+    [HideInInspector] public Connections connectedTo;
+    [HideInInspector] public bool ReadyToDelete = false;
+    [HideInInspector] public Monster credit;
+
+    [SerializeField] protected LocalizedString name;
+    [SerializeField] protected LocalizedString description;
+    [SerializeField] protected Sprite image;
+
+    public Effect Instantiate()
+    {
+        return (Effect) this.MemberwiseClone();
+    }
+
+    public virtual bool ShouldDisplay()
+    {
+        return !name.IsEmpty && !description.IsEmpty;
+    }
+
+    public virtual string GetName(bool shorten = false)
+    {
+        return name.GetLocalizedString(this);
+    }
+
+    public virtual string GetDescription()
+    {
+        return description.GetLocalizedString(this);
+    }
+
+    public virtual Sprite GetImage()
+    {
+        return image;
+    }
+
+    public virtual string GetUISubtext()
+    {
+        return "";
+    }
+
+    public virtual float GetUIFillPercent()
+    {
+        return 0.0f;
+    }
+
+    /* Connect:
+     * The method that links this effect to a given monster, and hooks up its event calls.
+     *
+     * It's an absolute monster of a method. This is horrible and innefficient, BUT,
+     * it takes roughly .01 ms to run and there's no way we need 1000 of these per
+     * frame. The tradeoff for doing it this way is that new implemented effects only
+     * need to override the given methods; once they do that, this function will
+     * automatically connect the function to the given event, and we're good to go.
+     *
+     * Benchmark is ~1000 calls per second still runs at 60 FPS. This gets the greenlight.
+     *
+     * Adding new events to this stack is a little jank. If you think there needs to
+     * be a new connection, let me (Woody) know and we can get it added!
+     */
+    public virtual void Connect(Connections c)
+    {
+        Debug.LogError("You should override connection on this object! It should NEVER be called unmodified.");
+
+        connectedTo = c;
+
+        //BEGIN AUTO CONNECT
+        
+        //END AUTO CONNECT
+
+        OnConnection();
+    }
+
+    public virtual void Disconnect()
+    {
+        Debug.LogError("You should override disconnection on this object! It should NEVER be called unmodified.");
+
+        OnDisconnection();
+
+        //BEGIN AUTO DISCONNECT
+
+        //END AUTO DISCONNECT
+
+        ReadyToDelete = true;
+        
+    }
+
+    public virtual void OnConnection() {}
+    public virtual void OnDisconnection() {}
+    public virtual void OnStack(Effect other, ref bool addThisEffect) {}
+
+    //AUTO DECLARATIONS
+
+}

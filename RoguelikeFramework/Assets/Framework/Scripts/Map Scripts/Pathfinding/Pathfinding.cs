@@ -231,7 +231,6 @@ public static class Pathfinding
                         }
                         searching = check;
                     }
-                    Debug.Log($"Searched finished: Max frontier was {frontier.GetMax()}");
                     return new Path(path, currentCost);
                 }
 
@@ -255,7 +254,9 @@ public static class Pathfinding
                             continue;
                         }
 
-                        Vector2Int newLoc = currentLoc + new Vector2Int(i, j);
+                        Vector2Int moveDirection = new Vector2Int(i, j);
+
+                        Vector2Int newLoc = currentLoc + moveDirection;
 
                         if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height || alreadyChecked[newLoc.x, newLoc.y])
                         {
@@ -279,21 +280,23 @@ public static class Pathfinding
                         float newCost = 0.0f;
                         float newPriority = 0.0f;
 
+                        float weightedDirectionCost = m.GetTile(currentLoc).CostToMoveIn(moveDirection);
+
                         if (isCorner && Map.space == MapSpace.Euclidean)
                         {
-                            newCost = currentCost + sqrtTwo * m.MovementCostAt(newLoc);
+                            newCost = currentCost + sqrtTwo * m.MovementCostAt(newLoc) + weightedDirectionCost;
                             newPriority = newCost + Heuristic(newLoc);
                         }
                         else
                         {
                             if (isCorner)
                             {
-                                newCost = currentCost + m.MovementCostAt(newLoc) + Epsilon;
+                                newCost = currentCost + m.MovementCostAt(newLoc) + Epsilon + weightedDirectionCost;
                                 newPriority = newCost + Heuristic(newLoc) + Epsilon;
                             }
                             else
                             {
-                                newCost = currentCost + m.MovementCostAt(newLoc);
+                                newCost = currentCost + m.MovementCostAt(newLoc) + weightedDirectionCost;
                                 newPriority = newCost + Heuristic(newLoc);
                             }
                         }
@@ -323,15 +326,12 @@ public static class Pathfinding
         if (goals.Count == 0) return new Path(new Stack<Vector2Int>(), -1);
         Vector2Int best = goals.OrderBy(g => map[g.x, g.y]).First();
 
-        Debug.Log($"Djikstra path thinks that {start} to {best} is the shortest path!");
-
         //Hard part - build that path back!
         Stack<Vector2Int> path = new Stack<Vector2Int>();
         Vector2Int searching = best;
         float totalCost = 0;
         while (searching != start)
         {
-            Debug.Log($"Currently searching at {searching}");
             path.Push(searching);
             totalCost += map[searching.x, searching.y];
             Vector2Int check = Vector2Int.zero;
@@ -474,7 +474,9 @@ public static class Pathfinding
                             continue;
                         }
 
-                        Vector2Int newLoc = currentLoc + new Vector2Int(i, j);
+                        Vector2Int moveDirection = new Vector2Int(i, j);
+
+                        Vector2Int newLoc = currentLoc + moveDirection;
 
                         if (newLoc.x < 0 || newLoc.y < 0 || newLoc.x >= width || newLoc.y >= height || alreadyChecked[newLoc.x, newLoc.y])
                         {
@@ -501,19 +503,19 @@ public static class Pathfinding
                         if (isCorner && Map.space == MapSpace.Euclidean)
                         {
                             newCost = currentCost + sqrtTwo * map.MovementCostAt(newLoc);
-                            newPriority = newCost;
+                            newPriority = newCost;// + map.GetTile(newLoc).CostToMoveIn(moveDirection);
                         }
                         else
                         {
                             if (isCorner)
                             {
                                 newCost = currentCost + map.MovementCostAt(newLoc) + 0.001f;
-                                newPriority = newCost + 0.001f;
+                                newPriority = newCost + 0.001f;// + map.GetTile(newLoc).CostToMoveIn(moveDirection);
                             }
                             else
                             {
                                 newCost = currentCost + map.MovementCostAt(newLoc);
-                                newPriority = newCost;
+                                newPriority = newCost;// + map.GetTile(newLoc).CostToMoveIn(moveDirection);
                             }
                         }
                         frontier.Enqueue((newLoc, newCost), newPriority);
@@ -616,5 +618,13 @@ public static class Pathfinding
             }
         }
     }*/
-
+    public static Path CreateDjikstraWithAstar(Vector2Int start, List<Vector2Int> goals)
+    {
+        Path path = CreateDjikstraPath(start, goals);
+        if (path.Count() > 0)
+        {
+            path = FindPath(start, path.destination);
+        }
+        return path;
+    }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AbilityAction : GameAction
 {
-    public int abilityIndex;
+    public Ability toCast;
+    int abilityIndex;
 
     //Constuctor for the action; must include caller!
     public AbilityAction(int abilityIndex)
@@ -12,40 +13,54 @@ public class AbilityAction : GameAction
         this.abilityIndex = abilityIndex;
     }
 
+    public AbilityAction(Ability toCast)
+    {
+        this.toCast = toCast;
+    }
+
     //The main function! This EXACT coroutine will be executed, even across frames.
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        #if UNITY_EDITOR
-        if (caller.abilities == null)
+        if (toCast == null)
         {
-            Debug.LogError($"A monster without abilites tried to activate ability {abilityIndex}", caller);
-            yield break;
-        }
-        #else
-        if (caller.abilities == null) yield break;
-        #endif
-
-        Ability toCast = caller.abilities[abilityIndex];
-
-        caller.other = toCast.connections;
-        bool keepCasting = true;
-        AbilityAction action = this;
-        caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
-
-        if (!keepCasting)
-        {
-            caller.other = null;
+            Debug.LogError($"Monster {caller.name} tried to cast a null ability.", caller);
+            caller.energy -= 1;
             yield break;
         }
 
-
+        caller.AddConnection(toCast.connections);
 
         if (toCast.currentCooldown > 0)
         {
-            Debug.Log($"You cannot cast {toCast.displayName}, it still has {toCast.currentCooldown} turns left.");
-            caller.other = null;
+            Debug.Log($"You cannot cast {toCast.friendlyName}, it still has {toCast.currentCooldown} turns left.");
+            caller.RemoveConnection(toCast.connections);
+            successful = false;
             yield break;
+        }
+
+        if (!toCast.castable)
+        {
+            Debug.Log($"Console: You cannot cast {toCast.friendlyName}.");
+            caller.RemoveConnection(toCast.connections);
+            successful = false;
+            yield break;
+        }
+
+        AbilityAction action = this;
+
+        { //Caller override check
+            
+            bool keepCasting = true;
+            
+            caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
+
+            if (!keepCasting)
+            {
+                caller.RemoveConnection(toCast.connections);
+                successful = false;
+                yield break;
+            }
         }
 
         bool canFire = false;
@@ -73,7 +88,7 @@ public class AbilityAction : GameAction
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
-            Debug.Log($"Log: {caller.GetFormattedName()} cast {toCast.displayName}!");
+            Debug.Log($"Log: {caller.GetFormattedName()} cast {toCast.friendlyName}!");
             toCast.Cast(caller);
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);
@@ -85,14 +100,33 @@ public class AbilityAction : GameAction
 
             caller.energy -= 100;
         }
+        else
+        {
+            successful = false;
+        }
 
-        caller.other = null;
+        caller.RemoveConnection(toCast.connections);
     }
 
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()
     {
-
+        #if UNITY_EDITOR
+        if (caller.abilities == null)
+        {
+            Debug.LogError($"A monster without abilites tried to activate ability {abilityIndex}", caller);
+            return;
+        }
+        #else
+        if (caller.abilities == null) return;
+        #endif
+        if (toCast == null)
+        {
+            if (caller.abilities.HasAbility(abilityIndex))
+            {
+                toCast = caller.abilities[abilityIndex];
+            }
+        }
     }
 }

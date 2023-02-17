@@ -12,6 +12,7 @@ public class MonsterAI : ActionController
     public Query fightQuery;
     [HideInInspector] public bool isInBattle = false;
 
+    public bool willExplore = true;
     public float interactionRange;
     public bool ranged = false;
     public int minRange = 0;
@@ -63,8 +64,8 @@ public class MonsterAI : ActionController
                 choices.Enqueue(2, 1f - .8f);
             }
 
-            //Wait for 60 turns on avg, then go explore
-            if (UnityEngine.Random.Range(0, 60) == 0)
+            //Wait for 120 turns on avg, then go explore
+            if (willExplore && UnityEngine.Random.Range(0, 120) == 0)
             {
                 choices.Enqueue(3, 1f - .7f);
             }
@@ -230,10 +231,20 @@ public class MonsterAI : ActionController
                     index = 0;
                 }
                 targeting.MoveTarget(targets[index].location);
-                if (!targeting.LockPoint())
+                if (targeting.IsValid())
                 {
-                    Debug.LogError("Something has gone very wrong. Monster was unable to target correctly.");
-                    yield return null; //Try to prevent a freeze from occuring, if the monster keeps trying and failing.
+                    if (!targeting.LockPoint())
+                    {
+                        Debug.LogError("Something has gone very wrong. Monster was unable to target correctly.");
+                        yield return null; //Try to prevent a freeze from occuring, if the monster keeps trying and failing.
+                    }
+                }
+                else
+                {
+                    Debug.Log("Monster could not shoot, and probably needs to pick something else to do!");
+                    //monster.renderer.color = Color.red;
+                    monster.energy -= 100;
+                    break;
                 }
             }
 
@@ -261,6 +272,7 @@ public class MonsterAI : ActionController
     public override void Setup()
     {
         GetComponent<Equipment>().OnEquipmentAdded += UpdateRanged;
+        UpdateRanged();
     }
 
     void UpdateRanged()
@@ -271,5 +283,11 @@ public class MonsterAI : ActionController
         {
             minRange = slots.Min(x => x.equipped.held[0].ranged.targeting.range);
         }
+    }
+
+    public void SetToFollow(Monster target)
+    {
+        lastEnemy = target;
+        currentTries = intelligence;
     }
 }

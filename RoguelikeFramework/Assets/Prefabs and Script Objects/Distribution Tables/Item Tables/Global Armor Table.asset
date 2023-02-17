@@ -1,0 +1,268 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
+  m_Name: Global Armor Table
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 8514963120815226497, guid: 8aeb060f702c4f841b087bd8cf19216f, type: 3}
+  - {fileID: 8514963120815226497, guid: 1563c7d8b7bd8a64dbec7ec88064ff28, type: 3}
+  - {fileID: 8514963120815226497, guid: adcafd5137423fc4dbc9e9faef9cffb1, type: 3}
+  - {fileID: 8514963120815226497, guid: fb972a41b52ce9e408de05aab000bb64, type: 3}
+  - {fileID: 8514963120815226497, guid: 4255b4c1c522fc343ae3ac00415e0b1b, type: 3}
+  - {fileID: 8514963120815226497, guid: 047861c0e3b080140b157f47a5e6f7ee, type: 3}
+  - {fileID: 8514963120815226497, guid: a8a3295bb43507840a688a4993fd1132, type: 3}
+  - {fileID: 7913379573585751926, guid: a8b2b66d3017fd04fbdf4aa02653f65f, type: 3}
+  - {fileID: 7913379573585751926, guid: c5efec28de60ffb469fffc1728c67db2, type: 3}
+  - {fileID: 8514963120815226497, guid: 6b53e68d4eb20a44cab6d6ace5ca0281, type: 3}
+  - {fileID: 8514963120815226497, guid: d909a9a300992514ab9844c16d1b1f9f, type: 3}
+  - {fileID: 8514963120815226497, guid: f573ee2b152ab0643b106e37bebd99f8, type: 3}
+  elevationOptions:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  references:
+    version: 1
+    00000000:
+      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        toAttach:
+          id: 4
+    00000001:
+      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        toAttach:
+          id: 5
+    00000002:
+      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        toAttach:
+          id: 6
+    00000003:
+      type: {class: AttachBrandAsEquip, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        toAttach:
+          id: 7
+    00000004:
+      type: {class: AddVariableStats, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11227532316631040
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11227933401145344
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: e3f4d7c9b4ef0ce48b8a8b267e2a9629, type: 3}
+        lowerPercent: 40
+        lowerStats:
+          _keys: 
+          _vals: []
+        higherPercent: 70
+        higherStats:
+          _keys: 08000000090000000a000000
+          _vals:
+          - 4
+          - 4
+          - 4
+        amount: 0
+        fromMax: 1
+    00000005:
+      type: {class: AddVariableStats, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11229331224256512
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11229455887360000
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: 0b9dc603525f499409c92fba49186726, type: 3}
+        lowerPercent: 20
+        lowerStats:
+          _keys: 08000000090000000a000000
+          _vals:
+          - 3
+          - 3
+          - 3
+        higherPercent: 70
+        higherStats:
+          _keys: 
+          _vals: []
+        amount: 0
+        fromMax: 1
+    00000006:
+      type: {class: Masochism, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11375975198613504
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11376159483748352
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: f251f9bf0a1b2fc439f436e611d09065, type: 3}
+        counter: 0
+        triggersEvery: 1
+        efficiency: 10
+        grantedResource: 2
+    00000007:
+      type: {class: Masochism, ns: , asm: Assembly-CSharp}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11375975198613504
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11376159483748352
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: 7207c7794c125d148896b4109d8ea1ea, type: 3}
+        counter: 0
+        triggersEvery: 7
+        efficiency: 100
+        grantedResource: 0

@@ -18,7 +18,9 @@ public enum ReplacementOption
     SINGLE_ITEM,
     ITEM_FROM_SET,
     SINGLE_MONSTER,
-    MONSTER_FROM_SET
+    MONSTER_FROM_SET,
+    DOWN_STAIR,
+    UP_STAIR
 }
 
 [Serializable]
@@ -59,16 +61,48 @@ public class RexRoom : Room
         char c = (char)image.Layers[0][x, y].Character;
         if (conversionDict.ContainsKey(c))
         {
-            return 0;
+            return 1;
         }
 
         return c - '0';
     }
 
-    
-    public override IEnumerator PostActivation(Map map)
+    public override IEnumerator PreStairActivation(Map m, DungeonGenerator generator)
     {
-        List<Replacement> tiles = conversions.Where(x => x.option == ReplacementOption.TILE).ToList();
+        //Perform Stair overrides
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                char toReplace = (char)image.Layers[0][i, j].Character;
+                Replacement r;
+                if (conversionDict.TryGetValue((char)image.Layers[0][i, j].Character, out r))
+                {
+                    switch (r.option)
+                    {
+                        case ReplacementOption.DOWN_STAIR:
+                            generator.desiredOutStairs.Add(start + new Vector2Int(i, j));
+                            break;
+                        case ReplacementOption.UP_STAIR:
+                            generator.desiredInStairs.Add(start + new Vector2Int(i, j));
+                            break;
+                        case ReplacementOption.TILE:
+                            break;
+                        default:
+                            Debug.LogError($"Tile layer cannot handle replacement of {r.glyph} with type {r.option} at this step.");
+                            break;
+                    }
+
+                }
+                yield return null;
+            }
+            yield return null;
+        }
+    }
+
+
+    public override IEnumerator PostActivation(Map map, DungeonGenerator generator)
+    {
         //Perform floor overrides first
         for (int i = 0; i < size.x; i++)
         {
@@ -77,17 +111,32 @@ public class RexRoom : Room
                 Replacement r;
                 if (conversionDict.TryGetValue((char)image.Layers[0][i, j].Character, out r))
                 {
-                    CustomTile tile = Instantiate(r.replacement).GetComponent<CustomTile>();
-                    CustomTile toReplace = map.GetTile(start + new Vector2Int(i, j));
-                    tile.gameObject.name = toReplace.gameObject.name;
-                    tile.location = toReplace.location;
-                    Transform parent = toReplace.transform.parent;
-                    map.tiles[start.x + i, start.y + j] = tile;
-                    Destroy(toReplace.gameObject);
-                    tile.transform.parent = parent;
-                    tile.transform.position = new Vector3(tile.location.x, tile.location.y, 0);
-                    tile.SetMap(map, tile.location);
-                    yield return null;
+                    switch (r.option)
+                    { 
+                        case ReplacementOption.TILE:
+                            RogueTile tile = Instantiate(r.replacement).GetComponent<RogueTile>();
+                            RogueTile toReplace = map.GetTile(start + new Vector2Int(i, j));
+                            tile.gameObject.name = toReplace.gameObject.name;
+                            tile.location = toReplace.location;
+                            Transform parent = toReplace.transform.parent;
+                            map.tiles[start.x + i, start.y + j] = tile;
+                            Destroy(toReplace.gameObject);
+                            tile.transform.parent = parent;
+                            tile.transform.position = new Vector3(tile.location.x, tile.location.y, 0);
+                            tile.SetMap(map, tile.location);
+                            yield return null;
+                            break;
+                        case ReplacementOption.DOWN_STAIR:
+                            //generator.desiredOutStairs.Add(start + new Vector2Int(i, j));
+                            break;
+                        case ReplacementOption.UP_STAIR:
+                            //generator.desiredInStairs.Add(start + new Vector2Int(i, j));
+                            break;
+                        default:
+                            Debug.LogError($"Tile layer cannot handle replacement of {r.glyph} with type {r.option}");
+                            break;
+                    }
+                    
                 }
                 yield return null;
             }
@@ -142,11 +191,15 @@ public class RexRoom : Room
                                     continue;
                                 }
                                 LootTable pool = Instantiate<LootTable>((LootTable)r.pool);
-                                pool = pool.TrimToDepth(map.depth, false);
                                 yield return null;
 
                                 //Generate item from trimmed pool, based on specs.
                                 Item item = pool.RandomItemByRarity(r.rarity, true);
+
+                                if (item == null)
+                                {
+                                    Debug.LogWarning($"Pool couldn't spawn item of rarity {r.rarity} or lower into room");
+                                }
 
                                 //Place item into world.
                                 Vector2Int pos = start + new Vector2Int(i, j);
@@ -210,6 +263,8 @@ public class RexRoom : Room
                                 map.GetTile(pos).SetMonster(monster);
                                 monster.currentTile = map.GetTile(pos);
                                 monster.transform.parent = map.monsterContainer;
+                                monster.level = map.depth;
+                                monster.Setup();
                                 yield return null;
                             }
                             else

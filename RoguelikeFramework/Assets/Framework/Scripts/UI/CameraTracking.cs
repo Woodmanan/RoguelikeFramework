@@ -61,7 +61,6 @@ public class CameraTracking : MonoBehaviour
     [Tooltip("When switching to constant speed, the amount by which to increase the speed")]
     public float stopSpeedMultiplier = 1f;
 
-    Monster player;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,13 +73,13 @@ public class CameraTracking : MonoBehaviour
         {
             Destroy(this);
         }
-        player = Player.player;
     }
 
     // Update is called once per frame
     void OnPreRender()
     {
-        Vector2 target = Player.player.location;
+        if (!Player.player) return;
+        Vector2 target = Player.player.transform.position;
 
         switch (mode)
         {
@@ -92,7 +91,7 @@ public class CameraTracking : MonoBehaviour
                 dir = dir.normalized * speed * Time.deltaTime;
                 if (dist < dir.magnitude)
                 {
-                    target = player.transform.position;
+                    target = Player.player.transform.position;
                 }
                 else
                 {
@@ -101,18 +100,18 @@ public class CameraTracking : MonoBehaviour
                 break;
             case CameraTrackingMode.Lerp:
                 float lerpDist = (target - (Vector2) transform.position).magnitude;
-                target = Vector2.Lerp(transform.position, target, lerpAmount);
+                target = Vector2.Lerp(transform.position, target, lerpAmount * Time.deltaTime);
                 if (lerpDist < stopDist)
                 {
-                    if (stopSpeed < 0) stopSpeed = ((Vector2)player.transform.position - target).magnitude * stopSpeedMultiplier;
-                    target = player.transform.position;
+                    if (stopSpeed < 0) stopSpeed = ((Vector2)Player.player.transform.position - target).magnitude * stopSpeedMultiplier;
+                    target = Player.player.transform.position;
                     //Switch to constant speed for stop!
                     dir = target - (Vector2)transform.position;
                     dist = dir.magnitude;
                     dir = dir.normalized * stopSpeed * Time.deltaTime;
                     if (dist < dir.magnitude)
                     {
-                        target = player.transform.position;
+                        target = Player.player.transform.position;
                     }
                     else
                     {
@@ -131,7 +130,7 @@ public class CameraTracking : MonoBehaviour
 
     public void JumpToPlayer()
     {
-        Vector3 target = player.transform.position;
+        Vector3 target = Player.player.transform.position;
         transform.position = new Vector3(target.x, target.y, camera_z_position);
     }
 }

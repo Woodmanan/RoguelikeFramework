@@ -14,6 +14,8 @@ public class ItemStack
     [HideInInspector] public int position;
     [HideInInspector] public int lastUpdated; //Used to find what items should float to the top
 
+    
+
     public string GetName()
     {
         if (count == 1)
@@ -22,7 +24,7 @@ public class ItemStack
         }
         else
         {
-            return $"{count} {held[0].GetPlural()}";
+            return $"{count} {held[0].GetName()}";
         }
     }
 }
@@ -31,10 +33,12 @@ public class Inventory : MonoBehaviour
 {
     //Regular variables
     public int capacity;
-    public int available;
+    int available;
 
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
+
+    public List<Item> baseItems;
 
     Transform holder;
 
@@ -111,7 +115,7 @@ public class Inventory : MonoBehaviour
         available = capacity;
         Items = new ItemStack[capacity];
 
-        CustomTile tile = GetComponent<CustomTile>();
+        RogueTile tile = GetComponent<RogueTile>();
         Monster monster = GetComponent<Monster>();
         
         if (tile)
@@ -128,6 +132,12 @@ public class Inventory : MonoBehaviour
 
         Debug.Assert(holder != null, "Inventory wasn't attached to monster or tile? Make sure to update inventory logic if this is intentional.", this);
 
+        foreach (Item item in baseItems)
+        {
+            Item i = item.Instantiate();
+            i.Setup();
+            Add(i);
+        }
 
         //TODO: REWORK THIS
         this.enabled = false; //This is really, really dumb. I know. Gives us back 15 fps, though
@@ -190,39 +200,23 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    public void Apply(int index)
+    public void RemoveLastItemFromStack(int index)
     {
-        Apply(items[index]);
-    }
-
-    public void Apply(ItemStack stack)
-    {
-        int numItems = stack.held.Count;
-        Item toApply = stack.held[numItems - 1];
-        ApplyableItem apply = toApply.applyable;
-        if (apply == null)
+        ItemStack stack = items[index];
+        if (stack != null)
         {
-            Debug.LogError($"Couldn't apply item at index {stack.position}, last item has no ApplyableItem component");
-            return;
-        }
-
-        apply.Apply(monster);
-        monster.energy -= 100;
-
-        //Remove the item
-        Destroy(apply.gameObject);
-
-        if (numItems <= 1) //Potential error case for 0?
-        {
-            //Clear the list, garbage collection should get the rest
-            items[stack.position] = null;
-        }
-        else
-        {
-            //Cut last item, set new count
-            stack.held.RemoveAt(numItems - 1);
-            stack.count = numItems - 1;
-            stack.lastUpdated = updateCounter;
+            int numItems = stack.held.Count;
+            Destroy(stack.held[numItems - 1].gameObject);
+            if (numItems <= 1)
+            {
+                items[index] = null;
+            }
+            else
+            {
+                stack.held.RemoveAt(numItems - 1);
+                stack.count--;
+                stack.lastUpdated = updateCounter;
+            }
         }
     }
 
@@ -247,6 +241,7 @@ public class Inventory : MonoBehaviour
                     for (int j = 0; j < stack.count; j++)
                     {
                         Items[i].held.Add(stack.held[j]);
+                        stack.held[j].transform.parent = holder;
                     }
                     Items[i].lastUpdated = updateCounter;
                     return i;
@@ -374,7 +369,7 @@ public class Inventory : MonoBehaviour
 
     public void PickUpAll()
     {
-        CustomTile tile = Map.current.GetTile(monster.location);
+        RogueTile tile = Map.current.GetTile(monster.location);
         for (int i = capacity - 1; i >= 0; i--)
         {
             FloorToMonster(i);

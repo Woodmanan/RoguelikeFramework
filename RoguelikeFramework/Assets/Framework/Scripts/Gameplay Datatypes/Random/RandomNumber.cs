@@ -30,6 +30,20 @@ public struct RandomNumber
         }
     }
 
+    public float EvaluateFloat()
+    {
+        switch (rngType)
+        {
+            case Constant:
+                return Mathf.Max((float)min, max);
+            case Linear:
+                return RogueRNG.Linear((float)min, max);
+            default:
+                Debug.LogError($"RandomNumber using invalid rng type - {rngType}");
+                return 1f;
+        }
+    }
+
     public int Range()
     {
         if (rngType == RNGType.Linear)

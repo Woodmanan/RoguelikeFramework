@@ -6,7 +6,7 @@ public class InteractAction : GameAction
 {
     InteractableTile tile;
     //Constuctor for the action; must include caller!
-    public InteractAction(CustomTile tile)
+    public InteractAction(RogueTile tile)
     {
         this.tile = tile as InteractableTile;
         if (this.tile == null)

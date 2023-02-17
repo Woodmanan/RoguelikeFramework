@@ -7,6 +7,7 @@ public class Room : ScriptableObject
 {
     public Vector2Int size;
     public bool acceptsStairs = true;
+    public bool forciblyWritesWalls = false;
     
     public string layout;
 
@@ -15,7 +16,17 @@ public class Room : ScriptableObject
     [HideInInspector] public Vector2Int end;
     [HideInInspector] public bool connected = false;
     [HideInInspector] public Vector2Int center;
-    
+    [HideInInspector] public Vector2Int outermostPoint;
+
+
+    public Room() { }
+
+    public Room(Rect r)
+    {
+        size = new Vector2Int((int)r.width, (int)r.height);
+        SetPosition(new Vector2Int((int)r.x, (int)r.y));
+    }
+
     public void Write(DungeonGenerator generator)
     {
         layout = layout.Replace("\n", "");
@@ -23,7 +34,11 @@ public class Room : ScriptableObject
         {
             for (int j = 0; j < size.y; j++)
             {
-                generator.map[start.x + i, start.y + j] = GetValueAt(i, j);
+                int valToWrite = GetValueAt(i, j);
+                if (forciblyWritesWalls || valToWrite != 0)
+                {
+                    generator.map[start.x + i, start.y + j] = valToWrite;
+                }
             }
         }
     }
@@ -49,9 +64,16 @@ public class Room : ScriptableObject
         }
     }
 
+    //Called after machines, but before stairs. Used primarily for flagging the generator that
+    //certain values are needed.
+    public virtual IEnumerator PreStairActivation(Map m, DungeonGenerator generator)
+    {
+        yield break;
+    }
+
     //Called after the map has been finished! Use this for any room-specific
     //fanciness you want.
-    public virtual IEnumerator PostActivation(Map m)
+    public virtual IEnumerator PostActivation(Map m, DungeonGenerator generator)
     {
         yield break;
     }
@@ -67,6 +89,30 @@ public class Room : ScriptableObject
         this.start = start;
         this.end = start + size;
         this.center = start + (size/2);
+        this.outermostPoint = center;
+    }
+
+    public void CalculateOutermostPoint(Vector2Int mapBounds)
+    {
+        Vector2Int mapCenter = mapBounds / 2;
+        Vector2Int clampedCenter = new Vector2Int(
+            Mathf.Clamp(mapCenter.x, start.x, end.x - 1),
+            Mathf.Clamp(mapCenter.y, start.y, end.y - 1));
+
+        //Mathimagic - reflects clamped center over center point.
+        outermostPoint = 2 * center - clampedCenter;
+    }
+
+    public bool Contains(Vector2Int spot)
+    {
+        if (spot.x >= start.x && spot.x < end.x && spot.y >= start.y && spot.y < end.y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool Overlaps(Room other)
@@ -89,7 +135,7 @@ public class Room : ScriptableObject
     {
         for (int attempt = 0; attempt < 100; attempt++)
         {
-            Vector2Int spot = new Vector2Int(Random.Range(start.x, end.x), Random.Range(start.y, end.y));
+            Vector2Int spot = new Vector2Int(Random.Range(start.x, end.x - 1), Random.Range(start.y, end.y - 1));
             if (map[spot.x, spot.y] == type)
             {
                 return spot;

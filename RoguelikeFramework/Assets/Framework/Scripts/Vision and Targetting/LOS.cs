@@ -133,7 +133,7 @@ public class LOSData
                     Vector2Int loc = new Vector2Int(i + start.x, j + start.y);
                     if (loc.x >= 0 && loc.x < map.width && loc.y >= 0 && loc.y < map.height)
                     {
-                        CustomTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
+                        RogueTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
                         if (tile.currentlyStanding)
                         {
                             visibleMonsters.Add(tile.currentlyStanding);
@@ -168,6 +168,21 @@ public class LOSData
             for (int j = 0; j < (radius * 2 + 1); j++)
             {
                 map.ClearLOS(new Vector2Int(i + start.x, j + start.y));
+            }
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetVisibleTiles(Map map)
+    {
+        Vector2Int start = origin - Vector2Int.one * radius;
+        for (int i = 0; i < (radius * 2 + 1); i++)
+        {
+            for (int j = 0; j < (radius * 2 + 1); j++)
+            {
+                if (definedArea[i, j])
+                {
+                    yield return new Vector2Int(i + start.x, j + start.y);
+                }
             }
         }
     }
@@ -320,6 +335,8 @@ public class LOS : MonoBehaviour
         }
 
         lastCall = LosAt(map, location, radius);
+        Player.player.view = lastCall;
+        Player.player.UpdateLOSPreCollection();
         lastCall.Imprint(Map.current);
         return lastCall;
     }

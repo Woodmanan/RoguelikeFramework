@@ -5,6 +5,7 @@ using System.Linq;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    public float dontSpawnNearStairDist;
     private static MonsterSpawner Singleton;
     public static MonsterSpawner singleton
     {
@@ -51,10 +52,11 @@ public class MonsterSpawner : MonoBehaviour
             starts.Add(connection.toLocation);
         }
 
+        /*
         foreach (LevelConnection connection in m.exits)
         {
             starts.Add(connection.fromLocation);
-        }
+        }*/
 
         //Create positions map
         float[,] positions = Pathfinding.CreateDijkstraMap(m, starts.ToList());
@@ -70,10 +72,13 @@ public class MonsterSpawner : MonoBehaviour
             {
                 if (positions[i, j] > 0)
                 {
+                    RogueTile tile = m.GetTile(i, j);
                     //Confirm that two monsters won't spawn on each other
-                    if (m.GetTile(i, j).currentlyStanding == null)
+                    if (!tile.IsInteractable() && m.GetTile(i, j).currentlyStanding == null)
                     {
-                        tickets[i, j] = Mathf.RoundToInt(Mathf.Log(positions[i, j], 2));
+                        float dist = Mathf.Max(positions[i, j] - dontSpawnNearStairDist, 1);
+                        dist = Mathf.Max(Mathf.Log(dist, 2), 0); //This number can't be negative, or monsters WILL spawn on each other.
+                        tickets[i, j] = Mathf.RoundToInt(dist);
                         ticketSum += tickets[i, j];
                     }
                     else
@@ -90,6 +95,7 @@ public class MonsterSpawner : MonoBehaviour
         for (; m.monsterContainer.transform.childCount < numMonsters;)
         {
             yield return null;
+
             Monster monster = GetMonsterFromBranchAndDepth(m.branch, m.depth);
             while (monster == null)
             {
@@ -124,7 +130,26 @@ public class MonsterSpawner : MonoBehaviour
             m.monsters.Add(monster);
             monster.location = pos;
             monster.transform.parent = m.monsterContainer;
+            monster.level = m.depth;
+            monster.Setup();
         }
+    }
+
+    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map)
+    {
+        map.monsters.Add(monster);
+        monster.location = location;
+        monster.transform.parent = map.monsterContainer;
+        monster.level = map.depth;
+        monster.Setup();
+        monster.PostSetup(Map.current);
+        monster.currentTile = map.GetTile(location);
+        return monster;
+    }
+
+    public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map)
+    {
+        return SpawnMonster(monster.Instantiate(), location, map);
     }
 
     public Monster GetMonsterFromBranchAndDepth(Branch branch, int depth)
@@ -144,5 +169,19 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         return options[Random.Range(0, options.Count)].RandomMonsterByDepth(depth);
+    }
+
+    public void SpawnMonsterAt(Map map, Vector2Int location)
+    {
+        Branch branch = map.branch;
+        Monster toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
+        if (toSpawn)
+        {
+            SpawnMonsterInstantiate(toSpawn, location, map);
+        }
+        else
+        {
+            Debug.LogError("Couldn't spawn anything! Monster to spawn was null.");
+        }    
     }
 }

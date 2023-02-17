@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.IO.Compression;
-using UnityEditor.AssetImporters;
-using UnityEditor.Experimental.AssetImporters;
 using System.Net;
 using System.Diagnostics;
 
+#if UNITY_EDITOR
+using UnityEditor.Experimental.AssetImporters;
+#endif
+
+
 public class RexpaintAssetPipeline
 {
+    #if UNITY_EDITOR
     //This ended up being unecessary! The regular files seem to work fine. If the clutter
     //becomes to much, come back and package them isntead!
     /*
@@ -49,7 +53,7 @@ public class RexpaintAssetPipeline
 
                 UnityEngine.Debug.Log("Download complete! Installing...");
 
-                //ZipFile.ExtractToDirectory(folderPath + "/REXPaint-v1.60.zip", folderPath);
+                ZipFile.ExtractToDirectory(folderPath + "/REXPaint-v1.60.zip", folderPath);
 
                 UnityEngine.Debug.Log("Installation complete! Cleaning up unused files...");
 
@@ -128,8 +132,8 @@ public class RexpaintAssetPipeline
         }
         return "No Folder Found!";
     }
+    #endif
 
-    
     public static SadRex.Image Load(TextAsset asset)
     {
         MemoryStream stream = new MemoryStream(System.Convert.FromBase64String(asset.text));
@@ -137,6 +141,7 @@ public class RexpaintAssetPipeline
     }
 }
 
+#if UNITY_EDITOR
 /*
  * What the hell is this doing? Good question, I'm not entirely sure myself.
  * 
@@ -176,4 +181,4 @@ public class RexpaintImporter : ScriptedImporter
         ctx.SetMainObject(xp);
     }
 }
-
+#endif

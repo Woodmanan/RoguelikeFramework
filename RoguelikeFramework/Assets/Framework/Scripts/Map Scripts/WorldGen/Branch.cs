@@ -55,12 +55,18 @@ public class Branch : ScriptableObject
     public List<LootTable> tables;
     public RandomNumber numItemsPerLevel;
     public bool elevatesItems;
+    public ItemSpawnInfo itemSpawnInfo;
+    public bool usesCustomSpawnInfo;
+    public LootPool lootPool;
 
     [Header("Monster Info")]
-    
     public List<MonsterTable> monsterTables;
     public RandomNumber numMonstersPerLevel;
     [Range(0, 100)]
     public float chanceForOutOfDepth;
     public RandomNumber depthIncrease;
+
+    [Header("Branch systems")]
+    [SerializeReference]
+    public List<DungeonSystem> branchSystems;
 }

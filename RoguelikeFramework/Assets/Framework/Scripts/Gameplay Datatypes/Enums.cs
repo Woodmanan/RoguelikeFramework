@@ -69,12 +69,18 @@ public enum Faction
     PLAYER      = (1 << 1)
 }
 
+[Flags]
 public enum DamageType
 {
-    NONE,
-    BLUNT,
-    CUTTING,
-    PIERCING
+    NONE = 0,
+    PHYSICAL    = (1 << 0),
+    MAGICAL     = (1 << 1),
+    TRUE        = (1 << 2),
+    FIRE        = (1 << 3),
+    ICE         = (1 << 4),
+    ELECTRICAL  = (1 << 5),
+    BLEED       = (1 << 6),
+    POISON      = (1 << 7)
 }
 
 [Flags]
@@ -114,7 +120,8 @@ public enum EquipSlotType
     PRIMARY_HAND,
     SECONDARY_HAND,
     BODY,
-    TAIL
+    TAIL,
+    FEET
 }
 
 //Order is very important here! Order written is order shown in inventory.
@@ -126,7 +133,7 @@ public enum ItemType
     ARMOR           = (1 << 2),
     CONSUMABLE      = (1 << 3),
     ACTIVATABLE     = (1 << 4),
-    MISC            = (1 << 5)
+    SPELLBOOK       = (1 << 5)
 }
 
 public enum TargetType
@@ -167,15 +174,39 @@ public enum Resources
     XP,
     NEXT_LEVEL_XP,
     AC,
-    EV
+    EV,
+    MR,
+    HEAT,
+    MAX_HEAT
 }
 
+public enum AbilityResources
+{
+    COOLDOWN,
+    MAX_COOLDOWN,
+    RANGE_INCREASE,
+    RADIUS_INCREASE,
+    COOLDOWN_DECREASE,
+    POWER,
+    DURATION
+}
+
+//TODO: Maybe this is a tag?
 [Flags]
 public enum AbilityTypes
 {
     Conjuration = 1 << 0,
     Elemental   = 1 << 1,
     Healing     = 1 << 2
+}
+
+[System.Flags]
+public enum CastBlocker
+{
+    RESOURCE = (1 << 0),
+    SOFTCHECK = (1 << 1),
+    HARDCHECK = (1 << 2),
+    EFFECT = (1 << 3)
 }
 
 [Flags]
@@ -187,7 +218,8 @@ public enum TargetTags
     INCLUDES_CASTER_SPACE   = (1 << 3),
     RECOMMENDS_SELF_TARGET  = (1 << 4),
     RECOMMNEDS_ALLY_TARGET  = (1 << 5),
-    RETARGETS_SAME_MONSTER  = (1 << 6)
+    RETARGETS_SAME_MONSTER  = (1 << 6),
+    REQUIRES_WALKABLE_POINT = (1 << 7)
 }
 
 public enum TargetPriority

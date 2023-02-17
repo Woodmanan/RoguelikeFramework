@@ -38,15 +38,16 @@ public class GameController : MonoBehaviour
 
     public int energyPerTurn;
 
-    public Player player;
+    public Monster player;
+
+    World world;
 
     [HideInInspector] public int nextLevel = -1;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        turn = 0;
-        StartCoroutine(BeginGame());
+        
     }
 
     // Update is called once per frame
@@ -55,9 +56,14 @@ public class GameController : MonoBehaviour
         
     }
 
+    public void StartGame()
+    {
+        StartCoroutine(BeginGame());
+    }
+
     IEnumerator BeginGame()
     {
-        LevelLoader.singleton.Setup();
+        turn = 0;
         int start = LevelLoader.singleton.GetIndexOf(LevelLoader.singleton.startAt);
         if (start < 0) start = 0;
         //Wait for initial level loading to finish
@@ -85,11 +91,13 @@ public class GameController : MonoBehaviour
             LoadMap(start);
         }
 
-        World world = LevelLoader.singleton.world;
+        world = LevelLoader.singleton.world;
 
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0].toLocation;
+        player = Player.player;
+        player.Setup();
 
         //1 Frame pause to set up LOS
         yield return null;
@@ -125,7 +133,6 @@ public class GameController : MonoBehaviour
         //Main loop
         while (true)
         {
-            
             CallTurnStartGlobal();
 
             //Player turn sequence
@@ -153,6 +160,10 @@ public class GameController : MonoBehaviour
             watch.Restart();
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
+                //Local scope counter for stalling - prevent a monster from taking > 1000 sub-turns
+                int stallCount = 0;
+                
+
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
                 if (watch.ElapsedMilliseconds > turnMSPerFrame)
                 {
@@ -190,6 +201,16 @@ public class GameController : MonoBehaviour
                                 watch.Restart();
                             }
                         }
+
+                        //Stall check!
+                        stallCount++;
+                        if (stallCount > 10-0)
+                        {
+                            UnityEngine.Debug.LogError($"Main loop stalled during the turn of {m.friendlyName}, recovering...", m);
+                            m.energy = 0;
+                            break;
+                        }
+                        
                     }
 
                     //Turn is ended!
@@ -233,6 +254,19 @@ public class GameController : MonoBehaviour
         {
             m.OnTurnStartGlobalCall();
         }
+
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnGlobalTurnStart(turn);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnGlobalTurnStart(turn);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnGlobalTurnStart(turn);
+        }
     }
 
     public void MoveToLevel(int newLevel)
@@ -254,8 +288,10 @@ public class GameController : MonoBehaviour
         Map old = Map.current;
         if (stair)
         {
+            SystemExitLevel();
             LoadMap(nextLevel);
             MoveMonsters(player, stair, Map.current);
+            SystemEnterLevel();
         }
         else
         {
@@ -274,14 +310,61 @@ public class GameController : MonoBehaviour
     public void CallTurnEndGlobal()
     {
         player.OnTurnEndGlobalCall();
-        foreach (Monster m in Map.current.monsters)
+        for (int i = 0; i < Map.current.monsters.Count; i++)
         {
+            Monster m = Map.current.monsters[i];
             m.OnTurnEndGlobalCall();
+        }
+
+
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnGlobalTurnEnd(turn);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnGlobalTurnEnd(turn);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnGlobalTurnEnd(turn);
         }
     }
 
     public void AddMonster(Monster m)
     {
         Map.current.monsters.Add(m);
+    }
+
+    public void SystemExitLevel()
+    {
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnExitLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnExitLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnExitLevel(Map.current);
+        }
+    }
+
+    public void SystemEnterLevel()
+    {
+        foreach (DungeonSystem system in world.systems)
+        {
+            system.OnEnterLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.branch.branchSystems)
+        {
+            system.OnEnterLevel(Map.current);
+        }
+        foreach (DungeonSystem system in Map.current.mapSystems)
+        {
+            system.OnEnterLevel(Map.current);
+        }
     }
 }

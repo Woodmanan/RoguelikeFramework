@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: MonsterStrings_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 5873f9f72e5da164293d3497af0bb6bf, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 468980539392
+    m_Localized: Clockwork Hound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496830717952
+    m_Localized: A small hound, carefully constructed from thousands of gears. When
+      it receives enough power, its legs extend and actuate faster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1222260760576
+    m_Localized: Clockwork Bear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1267076898816
+    m_Localized: A large bear, carefully constructed from thousands of gears. When
+      it recieves enough power, large plates of armor shift around it to protect
+      it from attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1616378535936
+    m_Localized: Clockwork Keeper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1634627952640
+    m_Localized: He's a keeper. ;)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1715624157184
+    m_Localized: Clockwork Dragon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1720606990336
+    m_Localized: Oh shit oh shit oh shit oh shit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473416785920
+    m_Localized: Dream Caller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4716610920448
+    m_Localized: One of the first to be consumed by the Nightmare. They share an
+      incredible psychic bond with it, and will readily extend that bond if given
+      the chance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5173018304512
+    m_Localized: Greater Husk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5324176826368
+    m_Localized: A former civilian, artificially enlarged to prolong its suffering.
+      Soon, it will be drained completely.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5627546640384
+    m_Localized: Husk Node
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5694307377152
+    m_Localized: The Husk Node is a direct offshoot of the Nightmare, functioning
+      as both a control mechanism and the psychic equivalent of a straw. Beware their
+      scream, as they will bring in multitudes of husks to protect themselves.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6234701504512
+    m_Localized: Husk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6280994037760
+    m_Localized: The withered husk of what used to be a civilian here. Now, all that's
+      left is a shambling mass of withered flesh and bone, barely held together by
+      a greater psychic power.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6525488406528
+    m_Localized: Nightmare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6592391749632
+    m_Localized: 'The restless sleep of an unfathomable entity, given form. Is it
+      even real? Or is this another attack on your mind? Best not to find out.
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11914657341440
+    m_Localized: You
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11979270594560
+    m_Localized: A featherless biped.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2637749302583296
+    m_Localized: Desperado
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2638195727523840
+    m_Localized: A bandit, covering thier face with a dusty cloth. Better not fight
+      them with a scimitar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768710009757696
+    m_Localized: Black Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768776544002048
+    m_Localized: It's a black hole!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768904969396224
+    m_Localized: White Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768988608012288
+    m_Localized: It's a white hole! It redirects the teleports of its caster around
+      it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5159747383402496
+    m_Localized: A hulking beast with leathery green skin. Oh wait, it's you!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916982623854592
+    m_Localized: Shotgunner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5917053113327616
+    m_Localized: Has a shotgun.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22994904169521152
+    m_Localized: Drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22994942425767936
+    m_Localized: The workers of the hive. They make up for their individual weakness
+      with numbers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995177071910912
+    m_Localized: Mage Killer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995227206426624
+    m_Localized: The Hive's adaptive response to invading magicians - a magicite-infused
+      ant with a mana-burning bite. Mages may want to keep their distance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995593956368384
+    m_Localized: Spitter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995628295135232
+    m_Localized: These ants come with a vile maw, dripping with acid. They're happy
+      to sit in the backline and spit acid, but even stronger up close.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996061919059968
+    m_Localized: Defender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996091144970240
+    m_Localized: Armored and enlarged drones. They generally guard the queen, but
+      can occasionally be found around the hive.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996376718352384
+    m_Localized: Royal Ant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996408448262144
+    m_Localized: A young ant halfway on it's journey to become a queen. Very, very
+      dangerous.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996559267045376
+    m_Localized: Queen Ant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996586525827072
+    m_Localized: The ruler of the hive. Strong, smart, and capable to rearing an
+      almost endless supply of ants to vanquish its foes. Be wary - any ant will
+      die for its queen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23538955327315968
+    m_Localized: The Custodian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23538982233776128
+    m_Localized: Their world is gone, but they remain. Forced into a state between
+      life and death, they are the first filter for candidates climbing the tower.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1

@@ -37,7 +37,9 @@ public class RangedAttackAction : AttackAction
                 }
             }
 
-            caller.connections.OnGenerateArmedAttacks.Invoke(ref primaryWeapons, ref secondaryWeapons);
+            AttackAction action = this;
+
+            caller.connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
             int numShots = 0;
             bool canFire = false; //Assume we CANNOT fire by default.
 
@@ -70,7 +72,8 @@ public class RangedAttackAction : AttackAction
                 }
             }
 
-            if (!canFire && numShots == 0)
+            //Cancel early - we failed to fire a primary weapon
+            if (!canFire && numShots == 0 && primaryWeapons.Count > 0)
             {
                 yield break;
             }

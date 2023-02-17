@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /**************************
  * World
@@ -16,6 +17,7 @@ public class World
 {
     public List<Branch> branches = new List<Branch>();
     public List<LevelConnection> connections = new List<LevelConnection>();
+    public List<DungeonSystem> systems = new List<DungeonSystem>();
 
     public void PrepareLevelsForLoad(LevelLoader loader)
     {
@@ -64,6 +66,12 @@ public class World
                 generator.numMonsters = branch.numMonstersPerLevel;
 
                 loader.generators.Add(generator);
+
+                //branch.branchSystems = branch.branchSystems.Select(x => x.Instantiate()).ToList();
+                /*foreach (DungeonSystem system in branch.branchSystems)
+                {
+                    system.Setup(this, branch);
+                }*/
             }
         }
     }

@@ -88,4 +88,41 @@ public class Stats : ISerializationCallbackReceiver
         }
         return first;
     }
+
+    public static Stats operator /(Stats first, float value)
+    {
+        Stats result = new Stats();
+
+        foreach (Resources r in first.dictionary.Keys)
+        {
+            result[r] = first[r] / value;
+        }
+
+        return result;
+    }
+
+    public static Stats operator *(Stats first, float value)
+    {
+        Stats result = new Stats();
+
+        foreach (Resources r in first.dictionary.Keys)
+        {
+            result[r] = first[r] * value;
+        }
+
+        return result;
+    }
+
+    public new string ToString()
+    {
+        string toReturn = "";
+        bool first = true;
+        foreach (Resources key in dictionary.Keys)
+        {
+            toReturn += $"{(first ? "" : " + ")}{dictionary[key]} {key}";
+            first = false;
+        }
+
+        return toReturn;
+    }
 }

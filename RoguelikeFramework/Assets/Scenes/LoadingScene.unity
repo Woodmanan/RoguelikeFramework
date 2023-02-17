@@ -651,8 +651,8 @@ MonoBehaviour:
   equipment: {fileID: 2050102317}
   abilities: {fileID: 2050324972}
   inspection: {fileID: 1984115623}
-  targetting: {fileID: 1717730531}
   confirm: {fileID: 957919038}
+  cheats: {fileID: 0}
 --- !u!224 &216533713
 RectTransform:
   m_ObjectHideFlags: 0
@@ -670,7 +670,7 @@ RectTransform:
   - {fileID: 1984115620}
   - {fileID: 957919039}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -737,6 +737,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &242536444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383252631}
+  m_Layer: 0
+  m_Name: Recovery GameObject (383252631)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &247750767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,22 +1123,97 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7427ac0677505a459d23290b996a56b, type: 3}
---- !u!224 &383252627 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2289866050971919017, guid: f7427ac0677505a459d23290b996a56b, type: 3}
+--- !u!4 &383252627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124220186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &383252628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652917482}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &383252629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707037277}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &383252630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387140420}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &383252631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242536444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &383252632 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 383252626}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &383252628 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1788069891803880246, guid: f7427ac0677505a459d23290b996a56b, type: 3}
-  m_PrefabInstance: {fileID: 383252626}
+--- !u!1 &387140420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dd83b1465b162240abd08d16b4b98cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383252630}
+  m_Layer: 0
+  m_Name: Recovery GameObject (383252630)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &436678498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40406155aae42b546bb02611f09bf7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preLoadUpTo: 3
+  turnMSPerFrame: 5
   turn: 0
   energyPerTurn: 100
   player: {fileID: 546573371}
@@ -1294,7 +1385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &546573365
 GameObject:
@@ -1330,9 +1421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c5d49c9825a8d4b8ba6052b0b01b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAbilities:
-  - {fileID: 11400000, guid: c5e9332c1b918f24bb40e86cfa955eef, type: 2}
-  - {fileID: 11400000, guid: c1f6324b3e6051e4bb94f02add99337d, type: 2}
+  maxAbilities: 10
+  baseAbilities: []
 --- !u!114 &546573367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1442,7 +1532,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 52
   available: 0
-  startingItems: []
 --- !u!212 &546573369
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1519,25 +1608,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    resources:
-      health: 100
-      mana: 20
-      stamina: 20
-    ac: 5
-    ev: 5
-  stats:
-    resources:
-      health: 0
-      mana: 0
-      stamina: 0
-    ac: 0
-    ev: 0
-  resources:
-    health: 0
-    mana: 0
-    stamina: 0
-  name: player
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
+  localName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: 
   nameRequiresPluralVerbs: 1
+  faction: 1
+  ID: 0
+  minDepth: 0
+  maxDepth: 0
+  baseEffects: []
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
@@ -1546,7 +1646,36 @@ MonoBehaviour:
   inventory: {fileID: 546573368}
   equipment: {fileID: 0}
   abilities: {fileID: 0}
-  uiControls: {fileID: 216533712}
+  controller: {fileID: 0}
+  renderer: {fileID: 0}
+  FXObjects: []
+  currentTile: {fileID: 0}
+  willSwap: 0
+  XPFromKill: 0
+  level: 0
+  personalAttribute:
+    ReadyToDelete: 0
+    credit: {fileID: 0}
+    name:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 1
 --- !u!4 &546573372
 Transform:
   m_ObjectHideFlags: 0
@@ -1560,7 +1689,7 @@ Transform:
   m_Children:
   - {fileID: 1717730532}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553205232
 GameObject:
@@ -1626,7 +1755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &601617125
 PrefabInstance:
@@ -2265,7 +2394,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941426431
 GameObject:
@@ -2912,6 +3041,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079236546}
   m_CullTransparentMesh: 0
+--- !u!1 &1124220186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383252627}
+  m_Layer: 0
+  m_Name: Recovery GameObject (383252627)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1183646570
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,6 +3895,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652232605}
   m_CullTransparentMesh: 0
+--- !u!1 &1652917482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383252628}
+  m_Layer: 0
+  m_Name: Recovery GameObject (383252628)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1658537392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4097,6 +4258,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697134976}
   m_CullTransparentMesh: 0
+--- !u!1 &1707037277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383252629}
+  m_Layer: 0
+  m_Name: Recovery GameObject (383252629)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1717730530
 GameObject:
   m_ObjectHideFlags: 0
@@ -4138,10 +4315,8 @@ MonoBehaviour:
     range: 0
     radius: 0
     degree: 0
-    pointsShareOverlap: 1
-    pointsRequireLOS: 1
-    includesCasterSpace: 0
-    recommendsPlayerTarget: 0
+    options: 3
+    targetPriority: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
     points: []
@@ -4150,9 +4325,11 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
-  highlightPrefab: {fileID: 2415315086530851241, guid: f7427ac0677505a459d23290b996a56b, type: 3}
-  rangeHighlight: {fileID: 383252628}
   targetingIcon: {fileID: 897755775}
+  highlight: {r: 0, g: 0, b: 0, a: 0}
+  blockedHighlight: {r: 0, g: 0, b: 0, a: 0}
+  pointLocked: {fileID: 0}
+  lastTarget: {fileID: 0}
 --- !u!224 &1717730532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4164,7 +4341,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 383252627}
+  - {fileID: 383252632}
   - {fileID: 897755775}
   m_Father: {fileID: 546573372}
   m_RootOrder: 0
@@ -4612,96 +4789,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87f715e2fc82a347884471f577337d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldGen: {fileID: 0}
   generators:
-  - name: Level 1
-    seed: 0
-    bounds: {x: 50, y: 50}
-    machines:
-    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 9094edfdf1bccb4458287fbc03095547, type: 2}
-    rooms: []
-    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-    numberOfAttempts: 100
-    attemptsPerMachine: 100
-    player: {fileID: 0}
-    JIT: 0
-    finished: 0
-  - name: Level 2
-    seed: 0
-    bounds: {x: 60, y: 60}
-    machines:
-    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
-    rooms: []
-    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-    numberOfAttempts: 100
-    attemptsPerMachine: 100
-    player: {fileID: 0}
-    JIT: 0
-    finished: 0
-  - name: Level 3
-    seed: 0
-    bounds: {x: 60, y: 60}
-    machines:
-    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
-    rooms: []
-    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-    numberOfAttempts: 100
-    attemptsPerMachine: 100
-    player: {fileID: 0}
-    JIT: 0
-    finished: 0
-  - name: Level 4
-    seed: 0
-    bounds: {x: 60, y: 60}
-    machines:
-    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
-    rooms: []
-    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-    numberOfAttempts: 100
-    attemptsPerMachine: 100
-    player: {fileID: 0}
-    JIT: 0
-    finished: 0
-  - name: Level 5
-    seed: 0
-    bounds: {x: 60, y: 60}
-    machines:
-    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
-    rooms: []
-    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-    numberOfAttempts: 100
-    attemptsPerMachine: 100
-    player: {fileID: 0}
-    JIT: 0
-    finished: 0
-  - name: Level 6
-    seed: 0
-    bounds: {x: 60, y: 60}
-    machines:
-    - {fileID: 11400000, guid: 32cc623154e2c9a4a9503c84815c324a, type: 2}
-    - {fileID: 11400000, guid: 4b3adc1c4598ed24d86c152c0b35c092, type: 2}
-    - {fileID: 11400000, guid: 8e52873289ff63644825909600306421, type: 2}
-    rooms: []
-    tilesAvailable: {fileID: 11400000, guid: d12cc22fd59ffdc42b6d908da9f32db2, type: 2}
-    numberOfAttempts: 100
-    attemptsPerMachine: 100
-    player: {fileID: 0}
-    JIT: 0
-    finished: 0
+  - id: 0
+  - id: 0
+  - id: 0
+  - id: 0
+  - id: 0
+  - id: 0
+  current: 0
   msPerFrame: 4
   randomSeed: 0
   seed: 43
+  preloadUpTo: 0
   JITLoading: 0
-  StartAt: 0
+  LoadAllLevelsAtStart: 0
+  startAt: 
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
 --- !u!4 &1953941108
 Transform:
   m_ObjectHideFlags: 0
@@ -4714,7 +4821,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1984115619
 GameObject:
@@ -4810,9 +4917,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInFocus: 0
   canBeEscaped: 1
-  name: {fileID: 1697134978}
-  description: {fileID: 1919058212}
-  attributes: {fileID: 1079236548}
+  nameBox: {fileID: 0}
+  descriptionBox: {fileID: 0}
+  attributesBox: {fileID: 0}
   image: {fileID: 273582753}
 --- !u!1 &2050102313
 GameObject:

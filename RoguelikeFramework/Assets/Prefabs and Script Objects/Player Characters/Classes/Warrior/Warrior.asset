@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62bc60c6f5d4f6042a1c52f654e31bc4, type: 3}
+  m_Name: Warrior
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 7913379573585751926, guid: a8b2b66d3017fd04fbdf4aa02653f65f, type: 3}
+  - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
+  - {fileID: 6687509776577718200, guid: dc9cae99654190544ba6eb24580d8aca, type: 3}
+  abilities:
+  - {fileID: 11400000, guid: 39c471a50af4a8240bc83bd0c5037e58, type: 2}
+  - {fileID: 11400000, guid: 972b8696d4732fc4bb905f40fb8cf800, type: 2}
+  - {fileID: 11400000, guid: 7694dba35f116704fba601e35f6bbf9e, type: 2}
+  - {fileID: 11400000, guid: e60fa2fcc1dca9e4681d685c56c47b85, type: 2}
+  - {fileID: 11400000, guid: 7d3238d224840544f8602902f14739f0, type: 2}
+  effects: []
+  references:
+    version: 1

@@ -17,7 +17,8 @@ public class Machine
     public bool canShareSpace;
     public bool canExpand;
 
-    public DungeonGenerator generator;
+    [NonSerialized]
+    protected DungeonGenerator generator;
     
     public virtual void Connect(DungeonGenerator d)
     {

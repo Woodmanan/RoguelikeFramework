@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd108358a4a5b84cb3429e77fd9ac4a, type: 3}
+  m_Name: Dynamite
+  m_EditorClassIdentifier: 
+  friendlyName: MonsterDynamite
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18674319083905024
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 18674372896825344
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: f41d40d3ba4a5af418799cde8d729275, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 5
+    areaType: 5
+    range: 0
+    radius: 5
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
+  castQuery:
+    outOf: 1
+    terms: []
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 02000000
+    _vals:
+    - 3
+  castable: 1
+  types: 1
+  effects: []
+  damage:
+    damage:
+      rolls: 2
+      dice: 10
+    type: 8
+  sprites:
+  - {fileID: 21300000, guid: c7ab7bf606a70d747b129f5e9a02392c, type: 3}
+  - {fileID: 21300000, guid: 8fd93ed947a8119469d6186175995a52, type: 3}
+  - {fileID: 21300000, guid: c68dff137c1584b459dfc8ab0c9d2919, type: 3}
+  - {fileID: 21300000, guid: 66984625370c2b84c9f3a24f58691b54, type: 3}
+  references:
+    version: 1

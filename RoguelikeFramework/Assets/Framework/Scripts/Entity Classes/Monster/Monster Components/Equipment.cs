@@ -26,6 +26,9 @@ public class Equipment : MonoBehaviour
 
     public List<EquipmentSlot> equipmentSlots;
 
+    [Tooltip("Will this monster attempt to equip anything loaded into it's inventory?")]
+    public bool WillEquipInventory = true;
+
     public EquipmentSlot this[int index]
     {
         get { return equipmentSlots[index]; }
@@ -45,6 +48,25 @@ public class Equipment : MonoBehaviour
         {
             equipmentSlots[i].position = i;
             equipmentSlots[i].equipped = null;
+        }
+
+        if (WillEquipInventory && inventory != null)
+        {
+            //Setup inventory to confirm we've loaded our items.
+            inventory.Setup();
+
+            foreach (int itemIndex in inventory.AllIndices())
+            {
+                EquipableItem equip = inventory[itemIndex].held[0].GetComponent<EquipableItem>();
+                if (equip)
+                {
+                    int equipSlot = CanSafelyEquip(equip);
+                    if (equipSlot >= 0)
+                    {
+                        Equip(itemIndex, equipSlot);
+                    }
+                }
+            }
         }
     }
 

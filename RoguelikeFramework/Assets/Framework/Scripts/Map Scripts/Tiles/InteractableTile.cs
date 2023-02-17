@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableTile : CustomTile
+public class InteractableTile : RogueTile
 {
     public Query useQuery;
     public bool allowOutOfCombat = true;
@@ -39,5 +39,10 @@ public class InteractableTile : CustomTile
     {
         if (isInCombat) return allowInCombat;
         else return allowOutOfCombat;
+    }
+
+    public override bool IsInteractable()
+    {
+        return true;
     }
 }

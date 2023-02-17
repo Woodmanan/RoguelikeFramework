@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using System.Linq;
+using UnityEngine.Localization;
 
 /*
  * Mostly empty class used as a base for status effects. If you want to create a new
@@ -15,15 +16,49 @@ using System.Linq;
  */
 
 [System.Serializable]
-public class Effect
+public class Effect : IDescribable
 {
     [HideInInspector] public Connections connectedTo;
     [HideInInspector] public bool ReadyToDelete = false;
     [HideInInspector] public Monster credit;
 
+    [SerializeField] protected LocalizedString name;
+    [SerializeField] protected LocalizedString description;
+    [SerializeField] protected Sprite image;
+
     public Effect Instantiate()
     {
         return (Effect) this.MemberwiseClone();
+    }
+
+    public virtual bool ShouldDisplay()
+    {
+        return !ReadyToDelete && !name.IsEmpty && !description.IsEmpty;
+    }
+
+    public virtual string GetName(bool shorten = false)
+    {
+        return name.GetLocalizedString(this);
+    }
+
+    public virtual string GetDescription()
+    {
+        return description.GetLocalizedString(this);
+    }
+
+    public virtual Sprite GetImage()
+    {
+        return image;
+    }
+
+    public virtual string GetUISubtext()
+    {
+        return "";
+    }
+
+    public virtual float GetUIFillPercent()
+    {
+        return 0.0f;
     }
 
     /* Connect:
@@ -52,10 +87,11 @@ public class Effect
         c.OnTurnEndGlobal.AddListener(100, OnTurnEndGlobal);
         c.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
         c.OnTurnEndLocal.AddListener(100, OnTurnEndLocal);
+        c.OnMoveInitiated.AddListener(100, OnMoveInitiated);
         c.OnMove.AddListener(100, OnMove);
         c.OnFullyHealed.AddListener(100, OnFullyHealed);
-        c.OnKillMonster.AddListener(100, OnKillMonster);
         c.OnDeath.AddListener(100, OnDeath);
+        c.OnKillMonster.AddListener(100, OnKillMonster);
         c.RegenerateStats.AddListener(100, RegenerateStats);
         c.OnEnergyGained.AddListener(100, OnEnergyGained);
         c.OnAttacked.AddListener(100, OnAttacked);
@@ -63,6 +99,7 @@ public class Effect
         c.OnTakeDamage.AddListener(100, OnTakeDamage);
         c.OnHealing.AddListener(100, OnHealing);
         c.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
+        c.OnActivateItem.AddListener(100, OnActivateItem);
         c.OnCastAbility.AddListener(100, OnCastAbility);
         c.OnGainResources.AddListener(100, OnGainResources);
         c.OnGainXP.AddListener(100, OnGainXP);
@@ -93,6 +130,8 @@ public class Effect
         c.OnAfterSecondaryAttackTarget.AddListener(100, OnAfterSecondaryAttackTarget);
         c.OnBeforeUnarmedAttackTarget.AddListener(100, OnBeforeUnarmedAttackTarget);
         c.OnAfterUnarmedAttackTarget.AddListener(100, OnAfterUnarmedAttackTarget);
+        c.OnGenerateLOSPreCollection.AddListener(100, OnGenerateLOSPreCollection);
+        c.OnGenerateLOSPostCollection.AddListener(100, OnGenerateLOSPostCollection);
         
         //END AUTO CONNECT
 
@@ -111,10 +150,11 @@ public class Effect
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
         connectedTo.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        connectedTo.OnMoveInitiated.RemoveListener(OnMoveInitiated);
         connectedTo.OnMove.RemoveListener(OnMove);
         connectedTo.OnFullyHealed.RemoveListener(OnFullyHealed);
-        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
         connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
         connectedTo.OnAttacked.RemoveListener(OnAttacked);
@@ -122,6 +162,7 @@ public class Effect
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
         connectedTo.OnHealing.RemoveListener(OnHealing);
         connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
         connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
         connectedTo.OnGainResources.RemoveListener(OnGainResources);
         connectedTo.OnGainXP.RemoveListener(OnGainXP);
@@ -152,6 +193,8 @@ public class Effect
         connectedTo.OnAfterSecondaryAttackTarget.RemoveListener(OnAfterSecondaryAttackTarget);
         connectedTo.OnBeforeUnarmedAttackTarget.RemoveListener(OnBeforeUnarmedAttackTarget);
         connectedTo.OnAfterUnarmedAttackTarget.RemoveListener(OnAfterUnarmedAttackTarget);
+        connectedTo.OnGenerateLOSPreCollection.RemoveListener(OnGenerateLOSPreCollection);
+        connectedTo.OnGenerateLOSPostCollection.RemoveListener(OnGenerateLOSPostCollection);
 
         //END AUTO DISCONNECT
 
@@ -161,6 +204,7 @@ public class Effect
 
     public virtual void OnConnection() {}
     public virtual void OnDisconnection() {}
+    public virtual void OnStack(Effect other, ref bool addThisEffect) {}
 
     //AUTO DECLARATIONS
 
@@ -168,23 +212,25 @@ public class Effect
     public virtual void OnTurnEndGlobal() {}
     public virtual void OnTurnStartLocal() {}
     public virtual void OnTurnEndLocal() {}
+    public virtual void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
-    public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void OnDeath() {}
+    public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void RegenerateStats(ref Stats stats) {}
     public virtual void OnEnergyGained(ref int energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
-    public virtual void OnDealDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
-    public virtual void OnTakeDamage(ref int damage, ref DamageType damageType, ref DamageSource source) {}
-    public virtual void OnHealing(ref int healAmount) {}
+    public virtual void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public virtual void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public virtual void OnHealing(ref float healAmount) {}
     public virtual void OnApplyStatusEffects(ref Effect[] effects) {}
+    public virtual void OnActivateItem(ref Item item, ref bool canContinue) {}
     public virtual void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
     public virtual void OnGainResources(ref Stats resources) {}
-    public virtual void OnGainXP(ref int XPAmount) {}
+    public virtual void OnGainXP(ref float XPAmount) {}
     public virtual void OnLevelUp(ref int Level) {}
     public virtual void OnLoseResources(ref Stats resources) {}
-    public virtual void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
+    public virtual void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability) {}
     public virtual void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
     public virtual void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}
     public virtual void OnPreCast(ref Ability ability) {}
@@ -192,14 +238,14 @@ public class Effect
     public virtual void OnTargetedByAbility(ref AbilityAction action) {}
     public virtual void OnHitByAbility(ref AbilityAction action) {}
     public virtual void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
-    public virtual void OnGenerateArmedAttacks(ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
+    public virtual void OnGenerateArmedAttacks(ref AttackAction attack, ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
     public virtual void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
     public virtual void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
     public virtual void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
-    public virtual void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}
+    public virtual void OnGenerateUnarmedAttacks(ref AttackAction attack, ref List<EquipmentSlot> slots) {}
     public virtual void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}
     public virtual void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
@@ -209,5 +255,7 @@ public class Effect
     public virtual void OnAfterSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnBeforeUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
     public virtual void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+    public virtual void OnGenerateLOSPreCollection(ref LOSData view) {}
+    public virtual void OnGenerateLOSPostCollection(ref LOSData view) {}
 
 }

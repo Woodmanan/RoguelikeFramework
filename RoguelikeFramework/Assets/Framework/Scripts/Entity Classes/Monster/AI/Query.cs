@@ -333,7 +333,7 @@ public class QueryTerm
 
     public float EvaluatePower(Ability ability)
     {
-        float power = ability.stats.power;
+        float power = ability.currentStats[AbilityResources.POWER];
         float valueCopy = value;
         if (valueMod == QueryValueModifier.NEAREST_INT)
         {

@@ -159,6 +159,11 @@ public class Targeting
             valid = valid && (atTarget != null);
         }
 
+        if ((options & TargetTags.REQUIRES_WALKABLE_POINT) > 0)
+        {
+            valid = valid && !Map.current.GetTile(target).BlocksMovement();
+        }
+
         return valid;
     }
 
@@ -345,7 +350,7 @@ public class Targeting
         BresenhamResults brensham = LOS.GetLineFrom(origin, point, true, !options.HasFlag(TargetTags.LINES_PIERCE));
 
         //Skip the first one
-        foreach (CustomTile tile in brensham.path)
+        foreach (RogueTile tile in brensham.path)
         {
             int x = tile.location.x;
             int y = tile.location.y;

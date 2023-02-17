@@ -9,8 +9,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private EquipmentScreen equipment;
     [SerializeField] private AbilitiesScreen abilities;
     [SerializeField] private ItemInspectionPanel inspection;
-    [SerializeField] private TargetingPanel targetting;
     [SerializeField] private ConfirmationPanel confirm;
+    [SerializeField] private ClassPanel classPanel;
     [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
     {
@@ -47,9 +47,7 @@ public class UIController : MonoBehaviour
 
     public void HandleInput()
     {
-        Tuple<PlayerAction, string> pair = InputTracking.PopNextPair();
-        PlayerAction action = pair.Item1;
-        string inputString = pair.Item2;
+        (PlayerAction action, string inputString) = InputTracking.PopNextPair();
         switch (action)
         {
             case PlayerAction.ESCAPE_SCREEN: //Breaks free early, so panels themselves don't have to all try to handle this input.
@@ -60,7 +58,6 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
-
 
     public void OpenInventoryInspect()
     {
@@ -76,7 +73,7 @@ public class UIController : MonoBehaviour
 
     public void OpenInventoryPickup()
     {
-        CustomTile tile = Map.current.GetTile(Player.player.location);
+        RogueTile tile = Map.current.GetTile(Player.player.location);
         inventory.Setup(tile.inventory, ItemAction.PICK_UP);
         inventory.Activate();
     }
@@ -112,7 +109,7 @@ public class UIController : MonoBehaviour
         equipment.Activate();
     }
 
-    public void OpenInventoryApply()
+    public void OpenInventoryActivate()
     {
         inventory.Setup(Player.player.inventory, ItemAction.APPLY);
         inventory.Activate();
@@ -122,6 +119,12 @@ public class UIController : MonoBehaviour
     {
         abilities.Setup(Player.player.abilities);
         abilities.Activate();
+    }
+
+    public void OpenClassPanel(Class classToGive)
+    {
+        classPanel.Setup(classToGive);
+        classPanel.Activate();
     }
 
     public void OpenItemInspect(Inventory inventory, int index)
@@ -137,18 +140,6 @@ public class UIController : MonoBehaviour
         ItemStack stack = inventory.items[index];
         inspection.Setup(stack);
         inspection.Activate();
-    }
-
-    public void OpenTargetting(Targeting t, BoolDelegate returnCall)
-    {
-        if (targetting.Setup(t, returnCall)) //Different from normal, to encapsulate skipping behaviour that's possible.
-        {
-            targetting.Activate();
-        }
-        else
-        {
-            RogueUIPanel.ExitAllWindows(); //SWITCH THIS TO UI CONTROLLER WHEN THAT'S IN
-        }
     }
 
     public void OpenCheats()

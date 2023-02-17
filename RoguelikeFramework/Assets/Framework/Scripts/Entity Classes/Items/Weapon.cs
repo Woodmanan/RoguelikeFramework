@@ -7,7 +7,10 @@ public class Weapon : MonoBehaviour
 {
     public WeaponBlock primary;
     public WeaponBlock secondary;
-    public DamageSource source;
+    public int enchantment;
+    public int maxEnchantment;
+
+    [HideInInspector] public DamageSource source;
     public Connections connections;
 
     [HideInInspector] public Item item;
@@ -19,6 +22,8 @@ public class Weapon : MonoBehaviour
         connections = item.connections;
         
         source = (item.type == ItemType.MELEE_WEAPON) ? DamageSource.MELEEATTACK : DamageSource.RANGEDATTACK;
+
+        enchantment = Mathf.Clamp(enchantment, -1 * maxEnchantment, maxEnchantment);
     }
 
     public void AddEffect(params Effect[] effects)
@@ -34,7 +39,7 @@ public class Weapon : MonoBehaviour
 
     public AttackResult PrimaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
-        attacker.other = connections;
+        attacker.AddConnection(connections);
         Weapon weapon = this;
 
         attacker.connections.OnBeginPrimaryAttack
@@ -50,7 +55,7 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, primary);
+            Combat.Hit(attacker, defender, source, primary, enchantment: enchantment);
         }
 
         defender.connections.OnAfterPrimaryAttackTarget
@@ -59,14 +64,14 @@ public class Weapon : MonoBehaviour
         attacker.connections.OnEndPrimaryAttack
             .BlendInvoke(connections.OnEndPrimaryAttack, ref weapon, ref action, ref result);
 
-        attacker.other = null;
+        attacker.RemoveConnection(connections);
 
         return result;
     }
 
     public AttackResult SecondaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
-        attacker.other = connections;
+        attacker.AddConnection(connections);
         Weapon weapon = this;
 
         attacker.connections.OnBeginSecondaryAttack
@@ -82,7 +87,7 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, secondary);
+            Combat.Hit(attacker, defender, source, secondary, enchantment: enchantment);
         }
 
         defender.connections.OnAfterSecondaryAttackTarget
@@ -91,8 +96,19 @@ public class Weapon : MonoBehaviour
         attacker.connections.OnEndSecondaryAttack
             .BlendInvoke(connections.OnEndSecondaryAttack, ref weapon, ref action, ref result);
 
-        attacker.other = null;
+        attacker.RemoveConnection(connections);
 
         return result;
+    }
+
+    public bool CanAddEnchantment()
+    {
+        return enchantment < maxEnchantment;
+    }
+
+
+    public void AddEnchantment(int amount)
+    {
+        enchantment = Mathf.Clamp(enchantment + amount, -maxEnchantment, maxEnchantment);
     }
 }

@@ -15,7 +15,7 @@ public class RestAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        if (caller.baseStats[HEALTH] == caller.currentStats[MAX_HEALTH])
+        if (ReadyToStop())
         {
             yield break;
         }
@@ -38,7 +38,7 @@ public class RestAction : GameAction
                 yield return act.action.Current;
             }
 
-            if (caller.baseStats[HEALTH] == caller.currentStats[MAX_HEALTH])
+            if (ReadyToStop())
             {
                 Debug.Log("Console: You finish resting.");
                 yield break;
@@ -53,5 +53,25 @@ public class RestAction : GameAction
     public override void OnSetup()
     {
 
+    }
+
+    public bool ReadyToStop()
+    {
+        if (caller.baseStats[HEALTH] != caller.currentStats[MAX_HEALTH])
+        {
+            return false;
+        }
+
+        if (caller.baseStats[MANA] != caller.currentStats[MAX_MANA])
+        {
+            return false;
+        }
+
+        if (caller.baseStats[HEAT] > 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

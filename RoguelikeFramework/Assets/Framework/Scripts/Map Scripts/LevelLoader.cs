@@ -32,7 +32,7 @@ public class LevelLoader : MonoBehaviour
     public WorldGenerator worldGen;
     [SerializeReference]
     public List<DungeonGenerator> generators;
-    int current;
+    [HideInInspector] public int current;
     public float msPerFrame;
     public bool randomSeed;
     public int seed;
@@ -56,8 +56,13 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!setup) Setup();
         
+    }
+
+    public void BeginGeneration()
+    {
+        if (!setup) Setup();
+
         if (!JITLoading)
         {
             StartCoroutine(GenerateAllLevels());
@@ -71,6 +76,9 @@ public class LevelLoader : MonoBehaviour
 
         #if !UNITY_EDITOR
         startAt = "";
+        #else
+        JITLoading = true;
+        preloadUpTo = 0;
         #endif
 
         if (singleton != this)
@@ -90,6 +98,8 @@ public class LevelLoader : MonoBehaviour
         {
             seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         }
+
+        UnityEngine.Debug.Log($"Creating game with seed {seed}");
 
         UnityEngine.Random.InitState(seed);
 
@@ -113,12 +123,12 @@ public class LevelLoader : MonoBehaviour
 
         //Pull in generator info to the spawning scripts
         MonsterSpawner.singleton.SetMonsterPools(world);
-        ItemSpawner.singleton.SetItemPools(generators);
+        ItemSpawner.singleton.SetItemPools(world);
 
         #if !UNITY_EDITOR
         if (JITLoading)
         {
-            Debug.LogError("JIT Loading was left on! Don't do that!");
+            UnityEngine.Debug.LogError("JIT Loading was left on! Don't do that!");
             JITLoading = false;
         }
         #endif

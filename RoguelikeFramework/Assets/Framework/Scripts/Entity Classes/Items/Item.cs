@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using System.Linq;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IDescribable
 {
     [Header("Generation attributes")]
     public ItemRarity rarity;
@@ -12,6 +13,8 @@ public class Item : MonoBehaviour
     public int minDepth;
     public int maxDepth;
     public ItemRarity elevatesTo;
+
+    [HideInInspector] public ItemRarity currentRarity;
 
     [Header("Basic item variables")]
     public int ID;
@@ -23,19 +26,19 @@ public class Item : MonoBehaviour
     [HideInInspector] public Vector2Int location;
     public bool held;
     private Monster heldBy;
-    [SerializeField] new private string name;
-    [SerializeField] private string plural;
+    [SerializeField] public string friendlyName;
+    [SerializeField] public LocalizedString localName;
+    [SerializeField] public LocalizedString localDescription;
 
     [HideInInspector] public bool CanEquip;
-    [HideInInspector] public bool CanApply;
-    [HideInInspector] public bool CanTarget;
+    [HideInInspector] public bool CanActivate;
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
 
-    public Connections connections = new Connections();
-    [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
+    public Connections connections;
+    [HideInInspector] public List<Effect> attachedEffects = new List<Effect>();
 
-    [SerializeReference] public List<Effect> effects;
+    [SerializeReference] public List<Effect> baseEffects;
 
 
     [SerializeReference] public List<Effect> optionalEffects;
@@ -64,8 +67,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    [HideInInspector] public ApplyableItem applyable;
-    [HideInInspector] public TargetableItem targetable;
+    [HideInInspector] public ActivatableItem activatable;
     [HideInInspector] public EquipableItem equipable;
     [HideInInspector] public MeleeWeapon melee;
     [HideInInspector] public RangedWeapon ranged;
@@ -93,7 +95,6 @@ public class Item : MonoBehaviour
     public Item Instantiate()
     {
         Item i = Instantiate(gameObject).GetComponent<Item>();
-        i.Setup();
         return i;
     }
 
@@ -105,21 +106,74 @@ public class Item : MonoBehaviour
             Debug.LogError("An item is set to have no type! Please use ItemType.MISC if you have misc items.", this);
         }
 
-        applyable = GetComponent<ApplyableItem>();
-        targetable = GetComponent<TargetableItem>();
+        activatable = GetComponent<ActivatableItem>();
         equipable = GetComponent<EquipableItem>();
         melee = GetComponent<MeleeWeapon>();
         ranged = GetComponent<RangedWeapon>();
 
         //Quick check for components, better here than later
         CanEquip = (equipable != null);
-        CanApply = (applyable != null);
-        CanTarget = (targetable != null);
+        CanActivate = (activatable != null);
         CanMelee = (melee != null);
         CanRanged = (ranged != null);
 
-        AddEffect(effects.Select(x => x.Instantiate()).ToArray());
+        //Set up connections before attaching default effects
+        if (connections == null) connections = new Connections(this);
+
+        AddEffect(baseEffects.Select(x => x.Instantiate()).ToArray());
+        currentRarity = rarity;
         setup = true;
+    }
+
+    public string GetName(bool shorten = false)
+    {
+        string name = "";
+        if (melee && melee.enchantment > 0)
+        {
+            name = $"+{melee.enchantment} ";
+        }
+        else if (ranged && ranged.enchantment > 0)
+        {
+            name = $"+{ranged.enchantment} ";
+        }
+
+        name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}>" + localName.GetLocalizedString(shorten);
+
+        foreach (Effect effect in attachedEffects)
+        {
+            if (effect.ShouldDisplay())
+            {
+                name += $" {{{effect.GetName(shorten)}}}";
+            }
+        }
+
+        if (equipable)
+        {
+            foreach (Effect effect in equipable.addedEffects)
+            {
+                if (effect.ShouldDisplay())
+                {
+                    name += $" {{{effect.GetName(shorten)}}}";
+                }
+            }
+        }
+
+        if (CanEquip && equipable.isEquipped)
+        {
+            name += " <color=#74AE93> [Equipped]";
+        }
+
+        return name;
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return render.sprite;
     }
 
 
@@ -177,35 +231,30 @@ public class Item : MonoBehaviour
 
     }
 
-    public string GetName()
-    {
-        if (CanEquip && equipable.isEquipped)
-        {
-            return name + " [Equipped]";
-        }
-        return name;
-    }
-
     //Returns the name without modifiers. As of right now, just returns the straight name.
     public string GetNameClean()
     {
-        return name;
+        return localName.GetLocalizedString();
     }
 
     public string GetPlural()
     {
-        return plural;
+        return localName.GetLocalizedString();
     }
 
     //TODO: Items should elevate stats as well
-    public void ElevateRarityTo(ItemRarity rarity, List<Effect> extraOptions)
+    public void ElevateRarityTo(ItemRarity rarity, List<Effect> elevationOptions = null)
     {
         int numberToAdd = rarity - this.rarity;
-        optionalEffects.AddRange(extraOptions.AsEnumerable());
-        
+
+        if (elevationOptions != null)
+        {
+            optionalEffects.AddRange(elevationOptions);
+        }
+
         if (optionalEffects.Count < numberToAdd)
         {
-            Debug.LogWarning($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
+            Debug.LogWarning($"{friendlyName} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
         }
 
         for (int i = 0; i < System.Math.Min(numberToAdd, optionalEffects.Count); i++)
@@ -215,11 +264,21 @@ public class Item : MonoBehaviour
             optionalEffects.RemoveAt(index);
             this.rarity++;
         }
+
+        if (melee != null || ranged != null)
+        {
+            Weapon weapon = (melee != null) ? (Weapon) melee : (Weapon) ranged;
+            if (weapon.CanAddEnchantment())
+            {
+                weapon.AddEnchantment(Mathf.RoundToInt(RogueRNG.BoundedParetoCut(1, numberToAdd + RogueRNG.Linear(0, numberToAdd), 1, 2)));
+            }
+        }
+
+        currentRarity = rarity;
     }
 
     public void AddEffect(params Effect[] effects)
     {
-        if (connections == null) connections = new Connections(this);
         foreach (Effect e in effects)
         {
             e.Connect(connections);
@@ -244,4 +303,31 @@ public class Item : MonoBehaviour
     }
     #endif
 
+    public static Color GetRarityColor(ItemRarity rarity)
+    {
+        Color outColor = Color.black;
+        switch (rarity)
+        {
+            case ItemRarity.COMMON:
+                ColorUtility.TryParseHtmlString("#ABB2BF", out outColor);
+                break;
+            case ItemRarity.UNCOMMON:
+                ColorUtility.TryParseHtmlString("#98C379", out outColor);
+                break;
+            case ItemRarity.RARE:
+                ColorUtility.TryParseHtmlString("#E06C75", out outColor);
+                break;
+            case ItemRarity.EPIC:
+                ColorUtility.TryParseHtmlString("#C678DD", out outColor);
+                break;
+            case ItemRarity.LEGENDARY:
+                ColorUtility.TryParseHtmlString("#E5C07B", out outColor);
+                break;
+            case ItemRarity.UNIQUE:
+                ColorUtility.TryParseHtmlString("#56B6C2", out outColor);
+                break;
+        }
+
+        return outColor;
+    }
 }

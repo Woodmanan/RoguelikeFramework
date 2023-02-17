@@ -9,6 +9,7 @@ public class MoveAction : GameAction
     public bool costs;
     public bool useStair;
     public bool animates;
+    public bool didMove = false;
 
     //Constuctor for the action
     public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true)
@@ -25,8 +26,16 @@ public class MoveAction : GameAction
     public override IEnumerator TakeAction()
     {
         yield return GameAction.StateCheck;
-        CustomTile tile = Map.current.GetTile(intendedLocation);
-        if (tile.BlocksMovement())
+        bool canMove = true;
+        caller.connections.OnMoveInitiated.Invoke(ref intendedLocation, ref canMove);
+
+        if (!canMove)
+        {
+            yield break;
+        }
+
+        RogueTile tile = Map.current.GetTile(intendedLocation);
+        if (tile.IsInteractable())
         {
             InteractableTile interact = tile as InteractableTile;
             if (interact)
@@ -39,14 +48,13 @@ public class MoveAction : GameAction
                 }
                 yield break;
             }
-            else
-            {
-                Debug.Log("Console Message: You don't can't do that.");
-                yield break;
-            }
         }
-
-        caller.connections.OnMove.Invoke();
+        else if (tile.BlocksMovement())
+        {
+            Debug.Log("Console Message: You don't can't do that.");
+            yield break;
+        }
+        
 
         if (tile.currentlyStanding != null)
         {
@@ -63,10 +71,38 @@ public class MoveAction : GameAction
             else
             {
                 // Don't hurt your friends stupid
-                caller.energy -= caller.energyPerStep * tile.movementCost;
+                Monster other = tile.currentlyStanding;
+
+                if (other.willSwap)
+                {
+
+                    RogueTile currentTile = caller.currentTile;
+                    RogueTile otherTile = other.currentTile;
+
+                    //Force a swap to happen
+                    Map.current.SwapMonsters(currentTile, otherTile);
+
+                    //Drain some energy - prevents weird double-ups happening - faster monsters get to the front.
+                    other.energy -= other.energyPerStep * currentTile.movementCost;
+                    caller.energy -= caller.energyPerStep * otherTile.movementCost;
+
+                    if (animates && caller.renderer.enabled)
+                    {
+                        AnimationController.AddAnimation(new MoveAnimation(caller, currentTile.location, otherTile.location, true));
+                        AnimationController.AddAnimation(new MoveAnimation(other, otherTile.location, currentTile.location, true));
+                    }
+                }
+                else
+                {
+                    //Don't swap with someone who's doing stuff.
+                    caller.energy -= caller.energyPerStep * tile.movementCost;
+                }
+
                 yield break;
             }
         }
+
+        
 
         if (costs)
         {
@@ -76,7 +112,12 @@ public class MoveAction : GameAction
         //Pull out the old location for the animation
         Vector2Int oldLocation = caller.location;
 
+        //Set that we managed to change locations
+        didMove = true;
+        caller.willSwap = true;
+
         caller.SetPosition(intendedLocation);
+        //caller.UpdateLOS();
 
         //Add the movement anim
         if (animates && caller.renderer.enabled)
@@ -88,8 +129,10 @@ public class MoveAction : GameAction
             caller.transform.position = new Vector3(intendedLocation.x, intendedLocation.y, Monster.monsterZPosition);
         }
 
+        caller.connections.OnMove.Invoke();
+
         Stair stair = tile as Stair;
-        if (stair && caller == Player.player && useStair)
+        if (stair && !stair.locked && caller == Player.player && useStair)
         {
             ChangeLevelAction act = new ChangeLevelAction(stair.up);
             act.Setup(caller);
@@ -99,8 +142,6 @@ public class MoveAction : GameAction
             }
             yield return GameAction.AbortAll;
         }
-
-        caller.UpdateLOS();
     }
 
     //Called after construction, but before execution!

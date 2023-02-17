@@ -57,16 +57,32 @@ public class AutoExploreAction : GameAction
                 yield break;
             }
 
-            Path path = Pathfinding.CreateDjikstraPath(caller.location, goals);
+            Path path = Pathfinding.CreateDjikstraWithAstar(caller.location, goals);
 
             if (path.Count() == 0)
             {
-                Debug.Log("Log: Can't reach anymore unexplored spaces!");
+                Debug.Log("Log: Can't reach anymore unexplored spaces from here!");
                 yield break;
             }
 
             while (path.Count() > 0)
             {
+                //Did we get moved on our path? Great, skip one.
+                if(caller.location == path.Peek())
+                {
+                    path.Pop();
+                    if (path.Count() == 0)
+                    {
+                        break;
+                    }
+                }
+
+                if (Vector2Int.Distance(caller.location, path.Peek()) > 1.8f)
+                {
+                    Debug.Log("Not making any progress, aborting!");
+                    this.successful = false;
+                    yield break;
+                }
                 Vector2Int next = path.Pop();
                 MoveAction act = new MoveAction(next, true, false);
 
@@ -88,7 +104,7 @@ public class AutoExploreAction : GameAction
                 //Copied to try and get ahead of the wait check.
                 if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
                 {
-                    Debug.Log($"Log: You see a " + caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller))[0].displayName + " and stop.");
+                    Debug.Log($"Log: You see a " + caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller))[0].GetLocalizedName() + " and stop.");
                     yield break;
                 }
 

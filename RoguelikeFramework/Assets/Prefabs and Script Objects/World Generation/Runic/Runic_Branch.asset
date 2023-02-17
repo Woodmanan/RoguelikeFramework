@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
+  m_Name: Runic_Branch
+  m_EditorClassIdentifier: 
+  requirements: []
+  antiRequirements: []
+  branchName: Runic
+  branchDepth: 1
+  numberOfLevels: 3
+  ConnectionsPerFloor:
+    rngType: 0
+    min: 3
+    max: 3
+  OneWayConnectionsPerFloor:
+    rngType: 0
+    min: 0
+    max: 0
+  oneWay: 0
+  size: {x: 35, y: 35}
+  machines:
+  - id: 0
+  overrides: []
+  tiles: {fileID: 11400000, guid: 8e4a46105c7d4c2488d07d4a57149b83, type: 2}
+  entryTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  exitTile: {fileID: 21300000, guid: c117c353396e74c4b949b88fe8c7eaff, type: 3}
+  tables:
+  - {fileID: 11400000, guid: 18c8dfd7158c105408f1e972ee925bea, type: 2}
+  - {fileID: 11400000, guid: 70c0c964595c88c49a0ba00da8174ae5, type: 2}
+  - {fileID: 11400000, guid: 7ba99da266c2c3c4e84f949d2b24a125, type: 2}
+  - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
+  - {fileID: 11400000, guid: 6c13e4696f6648e448a08aee431b4f87, type: 2}
+  numItemsPerLevel:
+    rngType: 1
+    min: 5
+    max: 10
+  elevatesItems: 0
+  itemSpawnInfo:
+    rarities: []
+    types: []
+  usesCustomSpawnInfo: 0
+  monsterTables:
+  - {fileID: 11400000, guid: 20e0c5fff7d7c244bb7414f04939d28a, type: 2}
+  numMonstersPerLevel:
+    rngType: 1
+    min: 9
+    max: 14
+  chanceForOutOfDepth: 0
+  depthIncrease:
+    rngType: 0
+    min: 0
+    max: 0
+  branchSystems: []
+  references:
+    version: 1
+    00000000:
+      type: {class: ForestMachine, ns: , asm: Assembly-CSharp}
+      data:
+        priority: 0
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        percentStart: 50
+        numRounds: 5

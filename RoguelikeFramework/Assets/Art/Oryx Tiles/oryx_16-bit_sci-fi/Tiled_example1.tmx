@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="64" height="64" tilewidth="24" tileheight="24">
+ <tileset firstgid="1" name="oryx_16bit_scifi_world" tilewidth="24" tileheight="24">
+  <image source="oryx_16bit_scifi_world.png" trans="000000" width="840" height="984"/>
+ </tileset>
+ <tileset firstgid="1436" name="oryx_16bit_scifi_world_trans" tilewidth="24" tileheight="24">
+  <tileoffset x="0" y="-6"/>
+  <image source="oryx_16bit_scifi_world_trans.png" trans="000000" width="840" height="984"/>
+ </tileset>
+ <tileset firstgid="2871" name="oryx_16bit_scifi_creatures" tilewidth="24" tileheight="24">
+  <tileoffset x="0" y="-6"/>
+  <image source="oryx_16bit_scifi_creatures.png" trans="000000" width="768" height="984"/>
+ </tileset>
+ <tileset firstgid="4183" name="oryx_16bit_scifi_creatures" tilewidth="24" tileheight="24">
+  <tileoffset x="0" y="-3"/>
+  <image source="oryx_16bit_scifi_creatures.png" trans="000000" width="768" height="984"/>
+ </tileset>
+ <tileset firstgid="5495" name="oryx_16bit_scifi_items" tilewidth="16" tileheight="16">
+  <tileoffset x="4" y="-6"/>
+  <image source="oryx_16bit_scifi_items.png" trans="000000" width="352" height="144"/>
+ </tileset>
+ <tileset firstgid="5693" name="oryx_16bit_scifi_world_decals" tilewidth="24" tileheight="24">
+  <image source="oryx_16bit_scifi_world_decals.png" trans="000000" width="240" height="264"/>
+ </tileset>
+ <layer name="space" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt2EEOgyAQBVAXHp3qtU3TTWNA09ACHd7ibVzxZxggpnVZEgAAXWwDrKGlx8S1KeV5/75/oW6jZCxlyeWJ1OtWWSLVLJKZ+9Ii+7+chbPkUDuecrOf61Nt76KcrzU5rt5WvZnNdqLMQhTeP/akOr18sk/P99nd/4HRa1fKnlv3XZbR5/0X+wEAAAAAAAAAgLID3ZSAvg==
+  </data>
+ </layer>
+ <layer name="ground" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt11FKw0AUheETBVEotoJbkIDV2iK++NS16Fs34msXoq7RGZIht22SSYgEJ/4fXELTacnJzcy0EgAAAADgt1y7umqp+dG4t/L46mrt6t28tu/PlYaZq11Lbcy4sx41Gy3BMCG/v+alDjPsVOUI+R/Vfr/8mHOlk3+l6rr3pkLOVTnO57lXdV9i+Z9GSzCM7b+tTPX975o/lf7H5n/I4deBKeZfqFjHw5qd63BPuCnHfajK/+nqq6a+ld7zb/me5arvXZ/1P2v4jr/ouNc+/0Kn+3/X/HeuLpROfj+vHxTfx/vkv3R1O1qCYWK5/LOwVfFsTLH/bfn9b4Dc1NKcn8r8b8of5oRfH7Yq1gF7PpZ/ozQ05c/Ubf5nDZVK/+1a/1weX3S6/9txa7X/Z7SfAwAAAAAAAAAAAAAAAPA//QDtlSeV
+  </data>
+ </layer>
+ <layer name="shadows" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt1UsKwjAUBdBAyMhx3ZafbYgb0LEDd61Bih9oTbFVGs+BRwm0EPJu80IAAACA8RxTd5W+1/fd3OybX+8AvifnfUjmD6n/Sd1yn3O1uWnX/9T/mmbE69yuZY4PcU73ykrzXMMZnVL3P/wuC6sYwvZay8X0+5zSY+9LrOPzehPnfSeMcX/vmlvNPQsAAAAAAAAAAACfugDY1x9f
+  </data>
+ </layer>
+ <layer name="objects" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt1L0OAUEQwPENCVcIHYVSouAJUKLxAB4BpaiERklHK/EOKJQ8kq9CRGPEFnIhPu5ylz3/XzIZu5m9zGRllQIAAAAAuK0o0ZaISnT0upb0tSVPpd6sv6nvhZz346d0TA2cnJ8ZPv87ZZ0rOldt+0Gfv6FzU+eWbd+0+TPyzmVdfOtMm/8bow9qpgGdf2hbn+L3+Efnh7kPct/HANz5+uF3T6L7wZmtzL2T2Bs+/1xiIbH84ezYUmpiudyQh+qRe97424avbve/cviNi34Txob9F3Lh5/v9F3X5F/WFhFKlhGttAQAAAAAAAAAAAAAAAICxrsZnHQA=
+  </data>
+ </layer>
+</map>

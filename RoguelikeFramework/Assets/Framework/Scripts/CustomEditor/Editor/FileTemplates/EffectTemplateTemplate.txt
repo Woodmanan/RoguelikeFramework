@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Localization;
+
+//[Group("Sample Group/Sample Subgroup")]
+[Priority(10)]
+public class #SCRIPTNAME# : Effect
+{
+    /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
+
+    /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
+
+    /*public override Spirte GetImage() { return image; }*/
+
+    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
+
+    /*public override string GetUISubtext() { return ""; }*/
+
+    /*public override float GetUIFillPercent() { return 0.0f; }*/
+
+    //Constuctor for the object; use this in code if you're not using the asset version!
+    //Generally nice to include, just for future feature proofing
+    public #SCRIPTNAME#()
+    {
+        //Construct me!
+    }
+
+    //Called the moment an effect connects to a monster
+    //Use this to apply effects or stats immediately, before the next frame
+    /*public override void OnConnection() {}*/
+
+    //Called when an effect gets disconnected from a monster
+    /*public override void OnDisconnection() {} */
+
+    //Called when an effect "Clashes" with an effect of the same type
+    /*public override void OnStack(Effect other, ref bool addThisEffect) {} */
+
+    //AUTO CONNECTIONS
+
+    //BEGIN CONNECTION
+    //END CONNECTION
+
+    //BEGIN DISCONNECTION
+    //END DISCONNECTION
+}

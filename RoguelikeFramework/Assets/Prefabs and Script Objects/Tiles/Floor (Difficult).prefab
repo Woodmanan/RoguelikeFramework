@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4821211910169681477}
   - component: {fileID: 4821211910169681476}
-  - component: {fileID: 4821211910169681475}
+  - component: {fileID: 5741150443054458979}
   - component: {fileID: -2254733748644891752}
   - component: {fileID: -415484293093329821}
   m_Layer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4821211910169681475
+--- !u!114 &5741150443054458979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,16 +94,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4821211910169681474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fa3c21ff597d8247ad9be531e2c2f47, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da0b7a4db942924397aecdb4c2eaf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 0
   isHidden: 1
   dirty: 1
-  x: 0
-  y: 0
-  name: 
-  description: 
+  location: {x: 0, y: 0}
+  name: Mushroom
+  description: This peculiar mushroom takes two turns to walk across. Suspicious.
   movementCost: 2
   blocksVision: 0
   color: {r: 1, g: 0.9729996, b: 0, a: 1}
@@ -123,7 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 52
   available: 0
-  startingItems: []
 --- !u!114 &-415484293093329821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198a8cedfc211f745ac3c825730e29ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visible: {fileID: 0}

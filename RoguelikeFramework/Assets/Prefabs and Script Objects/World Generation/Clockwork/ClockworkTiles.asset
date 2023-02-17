@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95fcd403d5f53534a93ccf5ae31da169, type: 3}
+  m_Name: ClockworkTiles
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 7376377351548235659, guid: 35f5601475338dc4fa5771a18d1832eb, type: 3}
+  - {fileID: 7376377351548235659, guid: 13325691b2a0b274d8da9dc3f4701a89, type: 3}
+  - {fileID: 1908841901842505032, guid: a7b29f11f62d0894db715052cea1448c, type: 3}
+  - {fileID: 7376377351548235659, guid: a077fb00d5e52ec449fc245957b219b6, type: 3}
+  - {fileID: 7376377351548235659, guid: 3d0948827a6df4041bb524d5f97a3f57, type: 3}
+  - {fileID: 7376377351548235659, guid: 53a399321e7f7624cb9d3819acd42a09, type: 3}
+  - {fileID: 7376377351548235659, guid: c1b22ac3d3ee11f4f8be80cc510f72dd, type: 3}
+  - {fileID: 7376377351548235659, guid: d83e6d1ac0969dc4c90e157a29d18505, type: 3}
+  - {fileID: 7376377351548235659, guid: 1c128d36f44f5e0409588a0f82430851, type: 3}

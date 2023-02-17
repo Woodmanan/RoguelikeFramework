@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8f0a6504a0f78479e117d8f4b488f8, type: 3}
+  m_Name: GiveBlink
+  m_EditorClassIdentifier: 
+  friendlyName: GiveWarrior
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  baseStats:
+    _keys: 
+    _vals: []
+  currentStats:
+    _keys: 
+    _vals: []
+  castQuery:
+    outOf: 1
+    terms: []
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 
+    _vals: []
+  castable: 1
+  types: 0
+  effects: []
+  classToGive: {fileID: 11400000, guid: a3890cc5a713e024b9a04b4a0b6a8706, type: 2}
+  references:
+    version: 1

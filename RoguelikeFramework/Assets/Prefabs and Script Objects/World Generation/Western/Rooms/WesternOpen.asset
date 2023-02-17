@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75dbd5333633834a84ba926bb5a8afc, type: 3}
+  m_Name: WesternOpen
+  m_EditorClassIdentifier: 
+  size: {x: 3, y: 9}
+  acceptsStairs: 1
+  forciblyWritesWalls: 1
+  layout: 
+  start: {x: 0, y: 0}
+  end: {x: 0, y: 0}
+  connected: 0
+  center: {x: 0, y: 0}
+  outermostPoint: {x: 0, y: 0}
+  RexFile: {fileID: 9027929339269108002, guid: 846312b6a82b3744c8fde016f694a16e, type: 3}
+  conversions: []

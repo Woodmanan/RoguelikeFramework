@@ -121,6 +121,7 @@ public class TargetingPanel : RogueUIPanel
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
             }
+            endResult.Invoke(true);
             return false;
         }
     }
@@ -240,7 +241,7 @@ public class TargetingPanel : RogueUIPanel
                         break;
                     }
 
-                    CustomTile tile = Map.current.GetTile(current.points[0]);
+                    RogueTile tile = Map.current.GetTile(current.points[0]);
                     lastTarget = tile.currentlyStanding;
 
                     ReturnConfirmed(true);
@@ -259,7 +260,7 @@ public class TargetingPanel : RogueUIPanel
     void ReturnConfirmed(bool value)
     {
         returnCall(value);
-        CustomTile tile = Map.current.GetTile(current.points[0]);
+        RogueTile tile = Map.current.GetTile(current.points[0]);
         lastTarget = tile.currentlyStanding;
         ExitAllWindows();
     }

@@ -85,7 +85,15 @@ public class ClickButton : MonoBehaviour
         }
     }
 
-    public void SetCooldown(int cooldown, int max)
+    public void SetCooldown(Ability ability)
+    {
+        float cooldown = ability.currentStats[AbilityResources.COOLDOWN];
+        float max = ability.currentStats[AbilityResources.MAX_COOLDOWN] - ability.currentStats[AbilityResources.COOLDOWN_DECREASE];
+
+        SetCooldown(cooldown, Mathf.Max(0, max));
+    }
+
+    public void SetCooldown(float cooldown, float max)
     {
         if (cooldown == 0)
         {
@@ -98,7 +106,14 @@ public class ClickButton : MonoBehaviour
             Disable();
             image.color = savedColor;
             cooldownText.text = $"{cooldown}";
-            cooldownImage.fillAmount = ((float) cooldown) / max;
+            if (max == 0)
+            {
+                cooldownImage.fillAmount = 1;
+            }
+            else
+            {
+                cooldownImage.fillAmount = ((float)cooldown) / max;
+            }
         }
     }
 

@@ -5,18 +5,25 @@ using System;
 using UnityEngine;
 using System.Text.RegularExpressions; //Oh god oh fuck (so true)
 using System.Linq;
-
+using UnityEngine.Localization;
 
 using static Resources;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDescribable
 {
     [Header("Setup Variables")]
     public Stats baseStats;
+
     public Stats currentStats;
 
+    public DamageType resistances;
+    public DamageType weaknesses;
+    public DamageType immunities;
+
     //TODO: Abstract these out to another class!!!
-    public string displayName;
+    public LocalizedString localName;
+    public LocalizedString localDescription;
+    public string friendlyName;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
     public Faction faction = Faction.STANDARD;
@@ -24,6 +31,8 @@ public class Monster : MonoBehaviour
     public int minDepth;
     public int maxDepth;
 
+    [SerializeReference]
+    public List<Effect> baseEffects;
 
     [Header("Runtime Attributes")]
     public float energy;
@@ -33,12 +42,11 @@ public class Monster : MonoBehaviour
     public int visionRadius;
 
     public int energyPerStep;
-    public Loadout loadout;
 
     public static readonly float monsterZPosition = -5f;
 
     [HideInInspector] public Connections connections;
-    [HideInInspector] public Connections other = null;
+    [HideInInspector] private Connections other = null;
 
     [HideInInspector] public LOSData view;
 
@@ -50,17 +58,22 @@ public class Monster : MonoBehaviour
     [HideInInspector] public ActionController controller;
 
     public SpriteRenderer renderer;
+    public List<GameObject> FXObjects;
 
     public GameAction currentAction;
-    public CustomTile currentTile;
+    public RogueTile currentTile;
 
     private bool setup = false;
+
+    [HideInInspector] public bool willSwap;
 
     //public int XP;
     public int XPFromKill;
     public int level;
 
     private bool spriteDir;
+
+    bool dead = false;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -91,9 +104,9 @@ public class Monster : MonoBehaviour
         equipment?.Setup();
         controller?.Setup();
 
-        loadout?.Apply(this);
-
         spriteDir = GetComponent<SpriteRenderer>().flipX;
+
+        AddEffectInstantiate(baseEffects.ToArray());
 
         setup = true;
     }
@@ -101,7 +114,7 @@ public class Monster : MonoBehaviour
     public Monster Instantiate()
     {
         Monster newMonster = Instantiate(gameObject).GetComponent<Monster>(); //Should be guaranteed to work, unless things are incredibly borked
-        newMonster.Setup();
+        //newMonster.Setup();
         return newMonster;
     }
 
@@ -118,7 +131,22 @@ public class Monster : MonoBehaviour
         UpdateLOS(map);
     }
 
-    public void Heal(int healthReturned, bool shouldLog = false)
+    public string GetName(bool shorten = false)
+    {
+        return localName.GetLocalizedString(this);
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return renderer.sprite;
+    }
+
+    public void Heal(float healthReturned, bool shouldLog = false)
     {
         connections.OnHealing.BlendInvoke(other?.OnHealing, ref healthReturned);
 
@@ -134,7 +162,7 @@ public class Monster : MonoBehaviour
         }
         if (baseStats[HEALTH] >= currentStats[MAX_HEALTH])
         {
-            healthReturned -= (int) (currentStats[MAX_HEALTH] - currentStats[HEALTH]);
+            healthReturned -= (currentStats[MAX_HEALTH] - currentStats[HEALTH]);
             baseStats[HEALTH] = currentStats[MAX_HEALTH];
             connections.OnFullyHealed.BlendInvoke(other?.OnFullyHealed);
         }
@@ -166,53 +194,78 @@ public class Monster : MonoBehaviour
         return true;
     }
 
-
-    private void Damage(int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
+    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
     {
-        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
-        baseStats[HEALTH] -= damage;
-
-        //Loggingstuff
-        string toPrint = FormatStringForName(message).Replace("{damage}", $"{damage}");
-        //Debug.Log($"Console print: {toPrint}");
-
-        if (baseStats[HEALTH] <= 0)
+        float damageMod = 1f;
+        if ((resistances & type) > 0)
         {
-            connections.OnDeath.BlendInvoke(other?.OnDeath);
-            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
-            {
-                Die();
-            }
+            damageMod = damageMod / 2;
         }
-    }
+        if ((weaknesses & type) > 0)
+        {
+            damageMod = damageMod * 2;
+        }
+        if ((immunities & type) > 0)
+        {
+            damageMod = 0;
+        }
+        if ((type & DamageType.TRUE) > 0)
+        {
+            damageMod = Mathf.Max(damageMod, 1);
+        }
 
-    public void Damage(Monster dealer, int damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
-    {
+        damage *= damageMod;
+
         if (dealer == null)
         {
             Debug.LogError("Dealer was null!");
         }
         dealer?.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
 
-        Damage(damage, type, source, message);
+        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
+        baseStats[HEALTH] -= damage;
 
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            Debug.Log($"{dealer.GetFormattedName()} deals {damage} {type}damage");
+            Debug.Log($"{dealer.GetFormattedName()} deals {damage} {type} damage with {source}");
         }
         
 
-        if (baseStats[HEALTH] <= 0)
+        if (baseStats[HEALTH] <= 0 && !dead)
         {
-            dealer?.KillMonster(this, type, source);
+            //Mark as dead temporarily, to prevent infinite loop
+            dead = true;
+            connections.OnDeath.BlendInvoke(other?.OnDeath);
+            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
+            {
+                Die();
+                dealer?.KillMonster(this, type, source);
+            }
+            else
+            {
+                dead = false;
+            }
         }
     }
 
-
-    public virtual void Die()
+    //Kills this monster, without damage
+    public void DestroyMonster()
     {
+        connections.OnDeath.BlendInvoke(other?.OnDeath);
+        Die();
+    }
+
+
+    protected virtual void Die()
+    {
+        dead = true;
         Debug.Log("Monster is dead!");
+
+        foreach (Effect effect in effects)
+        {
+            effect.Disconnect();
+        }
 
         //Clear tile, so other systems don't try to use a dead monster
         if (currentTile.currentlyStanding == this)
@@ -232,10 +285,10 @@ public class Monster : MonoBehaviour
     public void KillMonster(Monster target, DamageType type, DamageSource source)
     {
         connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
-        GainXP(target.XPFromKill);
+        GainXP(target, target.XPFromKill);
     }
 
-    public virtual void GainXP(int amount)
+    public virtual void GainXP(Monster source, float amount)
     {
         Debug.Log($"{DebugName()} has gained {amount} XP!");
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);
@@ -281,7 +334,7 @@ public class Monster : MonoBehaviour
     public bool IsDead()
     {
         //Oops, this must be <= 0, Sometimes people can overkill!
-        return baseStats[HEALTH] <= 0;
+        return dead || baseStats[HEALTH] <= 0;
     }
 
     private string FormatStringForName(string msg)
@@ -311,6 +364,7 @@ public class Monster : MonoBehaviour
 
     public string GetFormattedName()
     {
+        string displayName = localName.GetLocalizedString();
         return nameRequiresPluralVerbs ? "the " + displayName : displayName;
     }
 
@@ -328,19 +382,39 @@ public class Monster : MonoBehaviour
     public virtual void UpdateLOS(Map map)
     {
         this.view = LOS.LosAt(map, location, visionRadius);
+        UpdateLOSPreCollection();
+        view.CollectEntities(map);
+        UpdateLOSPostCollection();
+    }
+
+    public void UpdateLOSPreCollection()
+    {
+        connections.OnGenerateLOSPreCollection.BlendInvoke(other?.OnGenerateLOSPreCollection, ref view);
+    }
+
+    public void UpdateLOSPostCollection()
+    {
+        connections.OnGenerateLOSPostCollection.BlendInvoke(other?.OnGenerateLOSPostCollection, ref view);
+    }
+
+    public string GetLocalizedName()
+    {
+        return localName.GetLocalizedString();
     }
 
     public string DebugName()
     {
-        return $"{this.name} ({this.location})";
+        return $"{this.friendlyName} ({this.location})";
     }
 
 
     public void StartTurn()
     {
+        UpdateLOS();
         CallRegenerateStats();
         abilities?.CheckAvailability();
         connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
+        willSwap = false;
     }
 
     public void EndTurn()
@@ -362,12 +436,39 @@ public class Monster : MonoBehaviour
         connections.RegenerateStats.BlendInvoke(other?.RegenerateStats, ref currentStats);
     }
 
+    public void AddBaseStat(Resources r, float value)
+    {
+        baseStats[r] += value;
+        ResetStatsToMax();
+    }
+
+    public void AddBaseStats(Stats s)
+    {
+        baseStats += s;
+        ResetStatsToMax();
+    }
+
+    public void ResetStatsToMax()
+    {
+        baseStats[HEALTH] = Mathf.Min(baseStats[HEALTH], currentStats[MAX_HEALTH]);
+        baseStats[MANA] = Mathf.Clamp(baseStats[MANA], 0, currentStats[MAX_MANA]);
+        baseStats[STAMINA] = Mathf.Min(baseStats[STAMINA], currentStats[MAX_STAMINA]);
+        baseStats[HEAT] = Mathf.Clamp(baseStats[HEAT], 0, currentStats[MAX_HEAT]);
+    }
+
     public void SetAction(GameAction act)
     {
         if (currentAction != null)
         {
-            Debug.LogError($"{this.displayName} had an action set, but it already had an action. Should this be allowed?", this);
+            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Try SetActionOverride isntead!", this);
         }
+        currentAction = act;
+        currentAction.Setup(this);
+    }
+
+    //Currently identical, but split up to cover edge cases that might arise
+    public void SetActionOverride(GameAction act)
+    {
         currentAction = act;
         currentAction.Setup(this);
     }
@@ -450,18 +551,66 @@ public class Monster : MonoBehaviour
         }
     }
 
-
     public void AddEffect(params Effect[] effectsToAdd)
     {
-        Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
-
         connections.OnApplyStatusEffects.BlendInvoke(other?.OnApplyStatusEffects, ref effectsToAdd);
         for (int i = 0; i < effectsToAdd.Length; i++)
         {
             Effect e = effectsToAdd[i];
-            e.Connect(this.connections);
-            effects.Add(e);
+            int index = DetermineBestIndex(e);
+            if (index >= 0)
+            {
+                e.Connect(this.connections);
+                effects.Insert(index, e);
+            }
         }
+    }
+
+    public void AddEffectInstantiate(params Effect[] effectsToAdd)
+    {
+        Effect[] instEffects = effectsToAdd.Select(x => x.Instantiate()).ToArray();
+
+        AddEffect(instEffects);
+
+    }
+
+    public int DetermineBestIndex(Effect effect)
+    {
+        //TODO: do this a better way.
+        int index = effects.Select(x => x.GetType().FullName).ToList().BinarySearch(effect.GetType().FullName);
+        if (index < 0) index = ~index;
+        bool shouldContinue = true;
+
+        //Search backwards for matching candidate
+        for (int i = index - 1; i >= 0; i++)
+        {
+            Effect otherEffect = effects[i];
+            if (otherEffect.GetType() != effect.GetType())
+            {
+                break;
+            }
+            effect.OnStack(otherEffect, ref shouldContinue);
+            if (!shouldContinue) return -1;
+        }
+
+        //Search forwards
+        for (int i = index; i < effects.Count; i++)
+        {
+            Effect otherEffect = effects[i];
+            if (otherEffect.GetType() != effect.GetType())
+            {
+                break;
+            }
+            effect.OnStack(otherEffect, ref shouldContinue);
+            if (!shouldContinue) return -1;
+        }
+
+        return index;
+    }
+
+    public int Compare(Effect a, Effect b)
+    {
+        return a.GetType().FullName.CompareTo(b.GetType().FullName);
     }
 
     //TODO: Add cost of moving from on spot to another
@@ -501,10 +650,23 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void SetPositionNoGraphicsUpdate(Vector2Int newPosition)
+    {
+        SetPositionNoGraphicsUpdate(Map.current, newPosition);
+    }
+
+    public void SetPositionNoGraphicsUpdate(Map map, Vector2Int newPosition)
+    {
+        bool rendering = renderer.enabled;
+        SetPosition(map, newPosition);
+        SetGraphics(rendering);
+    }
+
     public void SetPositionSnap(Map map, Vector2Int newPosition)
     {
         SetPosition(map, newPosition);
         transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
+        //UpdateLOS();
     }
 
     //Function to activate event call of Global turn start
@@ -565,5 +727,45 @@ public class Monster : MonoBehaviour
     public void SetGraphics(bool state)
     {
         renderer.enabled = state;
+        foreach (GameObject g in FXObjects)
+        {
+            g.SetActive(state);
+        }
+    }
+
+    public void UpdatePositionToLocation(Vector2Int location)
+    {
+        transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        SetGraphics(Map.current.GetTile(location).isVisible);
+    }
+
+    public void AddConnection(Connections toAdd)
+    {
+        if (other != null)
+        {
+            RemoveConnection(other);
+        }
+        toAdd.monster = this;
+        other = toAdd;
+    }
+
+    public void RemoveConnection(Connections toRemove)
+    {
+        if (toRemove != null)
+        {
+            toRemove.monster = null;
+            other = null;
+        }
+    }
+
+    public T GetEffect<T>() where T : Effect
+    {
+        foreach (Effect e in effects)
+        {
+            T cast = e as T;
+            if (cast != null) return cast;
+        }
+
+        return null;
     }
 }
