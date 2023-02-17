@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ./
+          - ./RoguelikeFramework/
         testMode:
           - EditMode
           - PlayMode
@@ -73,7 +73,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ./
+          - ./RoguelikeFramework/
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
