@@ -89,7 +89,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: VortexCold, ns: , asm: Assembly-CSharp}
+      type: {class: VortexCold, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

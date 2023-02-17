@@ -87,7 +87,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SimpleRoomMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -108,7 +108,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: bb7aa3f79d6ebed4c9a3aea8c02f4381, type: 2}
         placedRooms: []
     00000001:
-      type: {class: ClockConnectMachine, ns: , asm: Assembly-CSharp}
+      type: {class: ClockConnectMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 1
         global: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
         canShareSpace: 1
         canExpand: 1
     00000002:
-      type: {class: SystemMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SystemMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 2
         global: 1
@@ -131,7 +131,7 @@ MonoBehaviour:
         - id: 4
         - id: 5
     00000003:
-      type: {class: ClockSecretMachine, ns: , asm: Assembly-CSharp}
+      type: {class: ClockSecretMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: -1
         global: 1
@@ -143,6 +143,6 @@ MonoBehaviour:
         secretRoom: {fileID: 11400000, guid: d24df9f0a9a41274aa67e3e977493a8f, type: 2}
         attempts: 100
     00000004:
-      type: {class: ConveyorSystem, ns: , asm: Assembly-CSharp}
+      type: {class: ConveyorSystem, ns: , asm: RoguelikeFramework}
     00000005:
-      type: {class: PowerSystem, ns: , asm: Assembly-CSharp}
+      type: {class: PowerSystem, ns: , asm: RoguelikeFramework}

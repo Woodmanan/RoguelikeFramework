@@ -78,7 +78,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SimpleRoomMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 596dce8643df7f04898139f1f8e2c79e, type: 2}
         placedRooms: []
     00000001:
-      type: {class: ComplexConnectMachine, ns: , asm: Assembly-CSharp}
+      type: {class: ComplexConnectMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 1
         global: 1
@@ -106,7 +106,7 @@ MonoBehaviour:
         canExpand: 1
         NumberOfExtraEdges: 3
     00000002:
-      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SimpleRoomMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: -1
         global: 1

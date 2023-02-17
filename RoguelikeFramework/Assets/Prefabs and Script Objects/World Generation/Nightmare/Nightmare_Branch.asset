@@ -64,7 +64,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: BSPMachine, ns: , asm: Assembly-CSharp}
+      type: {class: BSPMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
         roomsToAdd:
         - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
     00000001:
-      type: {class: SystemMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SystemMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 1
         global: 1
@@ -92,7 +92,7 @@ MonoBehaviour:
         systems:
         - id: 2
     00000002:
-      type: {class: NightmareSystem, ns: , asm: Assembly-CSharp}
+      type: {class: NightmareSystem, ns: , asm: RoguelikeFramework}
       data:
         MonsterToSpawn: {fileID: 4402800733788238304, guid: ee6bbaad475e16c4e8284bf218dd6fc9, type: 3}
         timeBetweenSummons:

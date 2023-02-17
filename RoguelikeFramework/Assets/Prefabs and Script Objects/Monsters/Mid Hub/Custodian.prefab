@@ -107,7 +107,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: BossLock, ns: , asm: Assembly-CSharp}
+      type: {class: BossLock, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
           m_LocalVariables: []
         image: {fileID: 0}
     00000001:
-      type: {class: UnlockAchOnDeath, ns: , asm: Assembly-CSharp}
+      type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

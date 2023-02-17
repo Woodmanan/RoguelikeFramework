@@ -106,7 +106,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: SummonGuards, ns: , asm: Assembly-CSharp}
+      type: {class: SummonGuards, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
           max: 1
         maxSpawn: 6
     00000001:
-      type: {class: QueenRoar, ns: , asm: Assembly-CSharp}
+      type: {class: QueenRoar, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

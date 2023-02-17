@@ -26,7 +26,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: SetValue, ns: , asm: Assembly-CSharp}
+      type: {class: SetValue, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
           _vals:
           - 100
     00000001:
-      type: {class: HeatMageTempo, ns: , asm: Assembly-CSharp}
+      type: {class: HeatMageTempo, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

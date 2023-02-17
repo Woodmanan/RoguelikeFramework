@@ -167,7 +167,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: DamageVamp, ns: , asm: Assembly-CSharp}
+      type: {class: DamageVamp, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}

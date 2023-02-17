@@ -65,7 +65,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: TrainMachine, ns: , asm: Assembly-CSharp}
+      type: {class: TrainMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -88,7 +88,7 @@ MonoBehaviour:
           max: 3
         buffer: 10
     00000001:
-      type: {class: SpawnObjectMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SpawnObjectMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 1
         global: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
         canExpand: 0
         toSpawn: {fileID: 5390476583268987304, guid: 7cc291407730e26419701d3b27af509b, type: 3}
     00000002:
-      type: {class: SystemMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SystemMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 2
         global: 1
@@ -111,7 +111,7 @@ MonoBehaviour:
         systems:
         - id: 3
     00000003:
-      type: {class: HorseSystem, ns: , asm: Assembly-CSharp}
+      type: {class: HorseSystem, ns: , asm: RoguelikeFramework}
       data:
         numHorsesPerBurst:
           rngType: 1

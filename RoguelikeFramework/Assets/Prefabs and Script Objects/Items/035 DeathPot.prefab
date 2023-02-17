@@ -159,7 +159,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: StopDeath, ns: , asm: Assembly-CSharp}
+      type: {class: StopDeath, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
