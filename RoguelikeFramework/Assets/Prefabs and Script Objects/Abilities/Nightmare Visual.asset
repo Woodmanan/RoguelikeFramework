@@ -16,23 +16,55 @@ MonoBehaviour:
   locName:
     m_TableReference:
       m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 1
     m_TableEntryReference:
-      m_KeyId: 18682100411211776
       m_Key: 
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 2
     m_FallbackState: 0
     m_WaitForCompletion: 0
+    m_LocaleOverride: {fileID: 0}
+    m_CurrentTable:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 1
+    m_CurrentTableEntry:
+      m_Key: 
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 2
     m_LocalVariables: []
+    m_CurrentStringChangedValue: 
+    m_WaitingForVariablesEndUpdate: 0
   locDescription:
     m_TableReference:
       m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 1
     m_TableEntryReference:
-      m_KeyId: 18682151204233216
       m_Key: 
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 2
     m_FallbackState: 0
     m_WaitForCompletion: 0
+    m_LocaleOverride: {fileID: 0}
+    m_CurrentTable:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 1
+    m_CurrentTableEntry:
+      m_Key: 
+      m_Valid: 0
+      <ReferenceType>k__BackingField: 2
     m_LocalVariables: []
+    m_CurrentStringChangedValue: 
+    m_WaitingForVariablesEndUpdate: 0
   image: {fileID: 21300000, guid: 1a43b905a8d1bf64daba7e4e657f340d, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   baseTargeting:
     numPoints: 1
     targetingType: 4
@@ -49,6 +81,8 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
+    marking: 0
+    tempAffected: []
     affected: []
   baseStats:
     _keys: 00000000
@@ -85,14 +119,18 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
+    marking: 0
+    tempAffected: []
     affected: []
   costs:
     _keys: 02000000
     _vals:
     - 5
+  dirty: 1
   castable: 1
   types: 0
   effects: []
+  attachedEffects: []
   effectsToApply:
   - id: 0
   references:
@@ -105,23 +143,52 @@ MonoBehaviour:
         name:
           m_TableReference:
             m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 1
           m_TableEntryReference:
-            m_KeyId: 26810941981794304
             m_Key: 
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 2
           m_FallbackState: 0
           m_WaitForCompletion: 0
+          m_LocaleOverride: {fileID: 0}
+          m_CurrentTable:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 1
+          m_CurrentTableEntry:
+            m_Key: 
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 2
           m_LocalVariables: []
+          m_CurrentStringChangedValue: 
+          m_WaitingForVariablesEndUpdate: 0
         description:
           m_TableReference:
             m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 1
           m_TableEntryReference:
-            m_KeyId: 26811077919186944
             m_Key: 
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 2
           m_FallbackState: 0
           m_WaitForCompletion: 0
+          m_LocaleOverride: {fileID: 0}
+          m_CurrentTable:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 1
+          m_CurrentTableEntry:
+            m_Key: 
+            m_Valid: 0
+            <ReferenceType>k__BackingField: 2
           m_LocalVariables: []
+          m_CurrentStringChangedValue: 
+          m_WaitingForVariablesEndUpdate: 0
         image: {fileID: 21300000, guid: 1a43b905a8d1bf64daba7e4e657f340d, type: 3}
         numTurnsUntilAdd: 7
         numberOfTicksToAdd: 100000
         maintainWith: {fileID: 0}
         nightmareFXObject: {fileID: 8933536236102033547, guid: 5cba46c1d0a16604a9c666fa55575380, type: 3}
+        nightmareFX: {fileID: 0}
