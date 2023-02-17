@@ -53,7 +53,6 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           projectPath: ${{ matrix.projectPath }}
-          unityVersion: 2020.3.42f1
           targetPlatform: StandaloneWindows64
 
       - uses: actions/upload-artifact@v2
