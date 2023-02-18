@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-build-{{ matrix.targetPlatform }}
+          key: Library-build-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-build-
             Library-
@@ -62,12 +62,12 @@ jobs:
           versioning: Semantic
           projectPath: ${{ matrix.projectPath }}
           buildName: RoguelikeFramework
-          targetPlatform: {{ matrix.targetPlatform }}
+          targetPlatform: ${{ matrix.targetPlatform }}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-{{ matrix.targetPlatform }}
-          path: build/{{ matrix.targetPlatform }}
+          name: build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
 
   deployAllToSteam:
     needs: buildAll
