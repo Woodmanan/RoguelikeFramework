@@ -52,7 +52,9 @@ jobs:
             Library-
       - uses: game-ci/unity-builder@v2
         with:
+          versioning: Semantic
           projectPath: ${{ matrix.projectPath }}
+          buildName: RoguelikeFramework
           targetPlatform: StandaloneWindows64
 
       - uses: actions/upload-artifact@v2
@@ -60,8 +62,9 @@ jobs:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
 
-  deployToSteam:
+  deployAllToSteam:
     needs: buildWindows
+    name: Deploy builds to Steam ✈️
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
