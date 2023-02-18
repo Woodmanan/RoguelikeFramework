@@ -63,6 +63,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           buildName: RoguelikeFramework
           targetPlatform: ${{ matrix.targetPlatform }}
+          customParameters: -Development
 
       - uses: actions/upload-artifact@v2
         with:
