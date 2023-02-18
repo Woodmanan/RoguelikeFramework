@@ -86,12 +86,12 @@ jobs:
       - name: Download StandaloneLinux64 Artifact
         uses: actions/download-artifact@v2
         with:
-          name: Build-StandaloneLinux64
+          name: build-StandaloneLinux64
           path: build/StandaloneLinux64
       - name: Download StandaloneOSX Artifact
         uses: actions/download-artifact@v2
         with:
-          name: Build-StandaloneOSX
+          name: build-StandaloneOSX
           path: build/StandaloneOSX
       - uses: game-ci/steam-deploy@v2
         with:
