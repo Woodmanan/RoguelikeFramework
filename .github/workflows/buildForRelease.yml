@@ -1,4 +1,4 @@
-name: Deploy Development Build 🛠
+name: ⚠️ Deploy Release Candidate ⚠
 
 on: workflow_dispatch
 
@@ -16,7 +16,7 @@ jobs:
 
   buildAll:
     needs: checkLicense
-    name: Build for ${{ matrix.targetPlatform }} 🏗
+    name: Build for ${{ matrix.targetPlatform }} 🏭
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -63,7 +63,6 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           buildName: RoguelikeFramework
           targetPlatform: ${{ matrix.targetPlatform }}
-          customParameters: -Development
 
       - uses: actions/upload-artifact@v2
         with:
@@ -73,7 +72,7 @@ jobs:
 
   deployAllToSteam:
     needs: buildAll
-    name: Deploy dev build v${{ needs.buildAll.outputs.buildVersion }} to Steam ✈️
+    name: Deploy release build v${{ needs.buildAll.outputs.buildVersion }} to Steam 🚀
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -103,9 +102,9 @@ jobs:
           ssfnFileName: ${{ secrets.STEAM_SSFN_FILE_NAME }}
           ssfnFileContents: ${{ secrets.STEAM_SSFN_FILE_CONTENTS }}
           appId: ${{ secrets.STEAM_APP_ID }}
-          buildDescription: v${{ needs.buildAll.outputs.buildVersion }} - Development Build
+          buildDescription: v${{ needs.buildAll.outputs.buildVersion }} - Release Build
           rootPath: build
           depot1Path: StandaloneWindows64
           depot2Path: StandaloneLinux64
           depot3Path: StandaloneOSX
-          releaseBranch: beta
+          releaseBranch: release

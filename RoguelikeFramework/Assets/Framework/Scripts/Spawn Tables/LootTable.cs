@@ -45,7 +45,9 @@ public class LootTable : ScriptableObject
             }
         }
 
-        Item i =  workingSet[UnityEngine.Random.Range(0, workingSet.Count)].Instantiate();
+        Item i = workingSet[UnityEngine.Random.Range(0, workingSet.Count)].Instantiate();
+        i.Setup();
+        
 
         if (i.rarity < rarity)
         {
