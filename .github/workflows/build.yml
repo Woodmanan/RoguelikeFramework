@@ -14,15 +14,21 @@ jobs:
           if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
           run: exit 1
 
-  buildWindows:
+  buildAll:
     needs: checkLicense
-    name: Build for Windows 🖥️
+    name: Build for ${{ matrix.targetPlatform }} 🖥️
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         projectPath:
           - ./RoguelikeFramework/
+        targetPlatform:
+          - StandaloneWindows64
+          - StandaloneLinux64
+          - StandaloneOSX
+    outputs:
+      buildVersion: ${{ steps.build.outputs.buildVersion }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -46,25 +52,26 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-build-StandaloneWindows64
+          key: Library-build-{{ matrix.targetPlatform }}
           restore-keys: |
             Library-build-
             Library-
       - uses: game-ci/unity-builder@v2
+        id: build
         with:
           versioning: Semantic
           projectPath: ${{ matrix.projectPath }}
           buildName: RoguelikeFramework
-          targetPlatform: StandaloneWindows64
+          targetPlatform: {{ matrix.targetPlatform }}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-StandaloneWindows64
-          path: build/StandaloneWindows64
+          name: build-{{ matrix.targetPlatform }}
+          path: build/{{ matrix.targetPlatform }}
 
   deployAllToSteam:
-    needs: buildWindows
-    name: Deploy build v${{ needs.buildWindows.outputs.buildVersion }} to Steam ✈️
+    needs: buildAll
+    name: Deploy build v${{ needs.buildAll.outputs.buildVersion }} to Steam ✈️
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -76,6 +83,16 @@ jobs:
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
+      - name: Download StandaloneLinux64 Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Build-StandaloneLinux64
+          path: build/StandaloneLinux64
+      - name: Download StandaloneOSX Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Build-StandaloneOSX
+          path: build/StandaloneOSX
       - uses: game-ci/steam-deploy@v2
         with:
           username: ${{ secrets.STEAM_USERNAME }}
@@ -84,7 +101,9 @@ jobs:
           ssfnFileName: ${{ secrets.STEAM_SSFN_FILE_NAME }}
           ssfnFileContents: ${{ secrets.STEAM_SSFN_FILE_CONTENTS }}
           appId: ${{ secrets.STEAM_APP_ID }}
-          buildDescription: v${{ needs.buildWindows.outputs.buildVersion }}
+          buildDescription: v${{ needs.buildAll.outputs.buildVersion }}
           rootPath: build
           depot1Path: StandaloneWindows64
+          depot2Path: StandaloneLinux64
+          depot3Path: StandaloneOSX
           releaseBranch: beta
