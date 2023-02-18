@@ -64,7 +64,7 @@ jobs:
 
   deployAllToSteam:
     needs: buildWindows
-    name: Deploy builds to Steam ✈️
+    name: Deploy build v${{ needs.buildWindows.outputs.buildVersion }} to Steam ✈️
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -84,7 +84,7 @@ jobs:
           ssfnFileName: ${{ secrets.STEAM_SSFN_FILE_NAME }}
           ssfnFileContents: ${{ secrets.STEAM_SSFN_FILE_CONTENTS }}
           appId: ${{ secrets.STEAM_APP_ID }}
-          buildDescription: v${{ needs.buildForWindowsAndLinux.outputs.buildVersion }}
+          buildDescription: v${{ needs.buildWindows.outputs.buildVersion }}
           rootPath: build
           depot1Path: StandaloneWindows64
           releaseBranch: beta
