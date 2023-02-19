@@ -55,6 +55,9 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
+  resistances: 0
+  weaknesses: 0
+  immunities: 0
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
@@ -94,7 +97,7 @@ MonoBehaviour:
   FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
-  XPFromKill: 0
+  XPFromKill: 1
   level: 0
   references:
     version: 1
@@ -121,6 +124,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
         toCast: {fileID: 11400000, guid: d7016986f5102174683d25e12a749046, type: 2}
 --- !u!212 &4402800733788238310
 SpriteRenderer:

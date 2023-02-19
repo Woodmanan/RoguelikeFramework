@@ -251,6 +251,30 @@ MonoBehaviour:
     m_Key: ArchmageDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 27983633053327360
+    m_Key: AmbidextrousName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27983680180527104
+    m_Key: AmbidextrousDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990080797483008
+    m_Key: HeroTrapName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990137307340800
+    m_Key: HeroTrapDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044662181404672
+    m_Key: PerfectReflexesName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044731655856128
+    m_Key: PerfectReflexesDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

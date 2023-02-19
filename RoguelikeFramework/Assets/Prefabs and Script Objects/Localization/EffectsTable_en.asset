@@ -336,9 +336,40 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 27983633053327360
+    m_Localized: Ambidextrous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27983680180527104
+    m_Localized: All of your secondary hands are upgraded to match your primary hand.
+      This upgrade includes passive attributes, attacks, and other slot characteristic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990080797483008
+    m_Localized: Hero Trap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990137307340800
+    m_Localized: You're the hero of this story. Deal a significant amout of true
+      damage per hit to enemies, increasing with both the total strength difference
+      and how close you are to death.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044662181404672
+    m_Localized: Perfect Reflexes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044731655856128
+    m_Localized: You reflexively use the momemtum of your dodges to fuel your attacks.
+      Every sucessful dodge adds a stack, up to {maxDodges}. When attacking an enemy
+      unarmed, consume all current stacks to deal {damagePerStack} true damage per
+      stack.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f0000206b61522b63000020abac1735630000206bb4bf3c630000206bfae13c630000202b150a426300
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f0000206b61522b63000020abac1735630000206bb4bf3c630000206bfae13c630000202b150a42630000202bec88a26300

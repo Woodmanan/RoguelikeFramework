@@ -768,4 +768,57 @@ public class Monster : MonoBehaviour, IDescribable
 
         return null;
     }
+
+    public float GetEstimatedStrength()
+    {
+        float strength = 0;
+        //Benefit of all of these being ~equal value
+        strength += (currentStats[MAX_HEALTH] * (currentStats[AC] + currentStats[EV] + currentStats[MR])) / 10;
+
+        if (equipment)
+        {
+            foreach (EquipmentSlot slot in equipment.equipmentSlots)
+            {
+                if (slot.active)
+                {
+                    Item i = slot.equipped.held[0];
+                    if (i.melee || i.ranged)
+                    {
+                        Weapon weapon = (i.melee != null) ? i.melee as Weapon : i.ranged as Weapon;
+                        if (slot.type.Contains(EquipSlotType.PRIMARY_HAND))
+                        {
+                            foreach (DamagePairing pair in weapon.primary.damage)
+                            {
+                                strength += (pair.damage.dice * pair.damage.rolls / 2) * weapon.primary.accuracy * weapon.primary.accuracy;
+                            }
+                        }
+                        else
+                        {
+                            foreach (DamagePairing pair in weapon.secondary.damage)
+                            {
+                                strength += (pair.damage.dice * pair.damage.rolls / 2) * weapon.secondary.accuracy * weapon.secondary.piercing;
+                            }
+                        }
+                    }
+                }
+                else if (slot.CanAttackUnarmed)
+                {
+                    foreach (DamagePairing pair in slot.unarmedAttack.damage)
+                    {
+                        strength += (pair.damage.dice * pair.damage.rolls / 2) * slot.unarmedAttack.accuracy * slot.unarmedAttack.piercing;
+                    }
+                }
+            }
+        }
+
+        //Casting is a general indicator of strength
+        //More abilities is also more powerful
+        if (abilities)
+        {
+            strength += abilities.Count * currentStats[MAX_MANA] / 3;
+        }
+
+
+        return strength;
+    }
 }

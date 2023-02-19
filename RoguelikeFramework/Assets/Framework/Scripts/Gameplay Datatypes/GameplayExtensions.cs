@@ -73,5 +73,4 @@ public static class GameplayExtensions
         return (bottom, top);
     }
 
-
 }

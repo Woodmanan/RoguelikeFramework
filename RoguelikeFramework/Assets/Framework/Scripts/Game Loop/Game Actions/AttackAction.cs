@@ -27,6 +27,14 @@ public class AttackAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
+        AttackAction reference = this;
+        bool canContinue = true;
+        caller.connections.OnStartAttack.Invoke(ref reference, ref canContinue);
+        if (canContinue == false)
+        {
+            yield break;
+        }
+
         //See if we have any weapons actively equipped, or unarmed slots that can attack
         if (caller.equipment == null)
         {

@@ -28,6 +28,15 @@ MonoBehaviour:
   - rarity: 1
     effect:
       id: 4
+  - rarity: 0
+    effect:
+      id: 5
+  - rarity: 3
+    effect:
+      id: 6
+  - rarity: 0
+    effect:
+      id: 7
   references:
     version: 1
     00000000:
@@ -115,7 +124,7 @@ MonoBehaviour:
         levelToGrantAt: 10
         possibleEffects: {fileID: 11400000}
         backup:
-          id: 5
+          id: 8
         rarities:
           rarities:
           - rarity: 2
@@ -185,6 +194,83 @@ MonoBehaviour:
         percentManaToPower: 20
         percentManaToRange: 10
     00000005:
+      type: {class: Ambidextrous, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 27983633053327360
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 27983680180527104
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: 159f7031ef5e7c947b112aee17fecc50, type: 3}
+    00000006:
+      type: {class: HeroTrap, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 27990080797483008
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 27990137307340800
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: dd7d69fd0c463444bb4d7ea1461f5e68, type: 3}
+        scalingHealthMultiple: 2
+        damagePerDifference: 2
+    00000007:
+      type: {class: PerfectReflexes, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 28044662181404672
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 28044731655856128
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: b745c58d6a27e1042875ed55919a01e3, type: 3}
+        maxDodges: 5
+        currentDodges: 0
+        damagePerStack: 3
+    00000008:
       type: {class: NoPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
