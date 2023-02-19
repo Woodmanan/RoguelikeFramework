@@ -24,6 +24,11 @@ public class DamageOverTime : Effect
 
     /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
+    public override string GetUISubtext()
+    {
+        return numTicks.ToString();
+    }
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
     public DamageOverTime()

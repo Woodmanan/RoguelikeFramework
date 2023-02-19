@@ -41,11 +41,16 @@ public class EffectFileWizard
 
         AssetDatabase.Refresh();
 
-        //Rebuild the class files for each type
-        foreach (Type type in GetAllEffectTypes())
+        List<Type> types = GetAllEffectTypes();
+        for (int i = 0; i < types.Count; i++)
         {
+            Type type = types[i];
+            EditorUtility.DisplayProgressBar($"Rebuilding {types.Count} effects", $"({i.ToString("00")}/{types.Count}) Rebuilding {type.Name}", ((float)i) / types.Count);
+            //Rebuild the class files for each type
             RebuildClassConnections(type, declarations);
         }
+
+        EditorUtility.ClearProgressBar();
 
 
         //Reload the asset database, triggering a recompile and yelling at us if this didn't work right.
@@ -57,8 +62,6 @@ public class EffectFileWizard
     {
         string name = type.Name + ".cs";
         string path = GetPathTo(name);
-
-        Debug.Log($"Rebuilding {type.Name}.");
 
         {//Write the connection part!
             List<string> connectionText = new List<string>();
@@ -235,7 +238,6 @@ public class EffectFileWizard
         }
 
         writer.Close();
-        Debug.Log("Finished writing connections");
     }
 
     static void WriteEffect(EffectConnections declarations)
@@ -298,7 +300,6 @@ public class EffectFileWizard
         }
 
         writer.Close();
-        Debug.Log("Finished writing effect file");
     }
 
     static void WriteTemplate(EffectConnections declarations)
@@ -371,7 +372,6 @@ public class EffectFileWizard
         }
 
         writer.Close();
-        Debug.Log("Finished writing script template");
     }
 
     static void WriteSetup(Connection c, StreamWriter writer, int index)

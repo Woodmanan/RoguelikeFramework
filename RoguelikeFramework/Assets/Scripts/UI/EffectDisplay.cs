@@ -16,6 +16,7 @@ public class EffectDisplay : MonoBehaviour
         {
             title.text = toDisplay.GetName();
             description.text = toDisplay.GetDescription();
+            image.sprite = toDisplay.GetImage();
         }
         else
         {

@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private ItemInspectionPanel inspection;
     [SerializeField] private ConfirmationPanel confirm;
     [SerializeField] private ClassPanel classPanel;
+    [SerializeField] private PersonalAttributePanel attributePanel;
     [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
     {
@@ -125,6 +126,12 @@ public class UIController : MonoBehaviour
     {
         classPanel.Setup(classToGive);
         classPanel.Activate();
+    }
+
+    public void OpenAttributePanel(Effect attribute, Effect backup)
+    {
+        attributePanel.Setup(attribute, backup);
+        attributePanel.Activate();
     }
 
     public void OpenItemInspect(Inventory inventory, int index)

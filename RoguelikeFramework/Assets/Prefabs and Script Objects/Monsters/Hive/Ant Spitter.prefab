@@ -51,7 +51,7 @@ MonoBehaviour:
     _keys: 010000000300000006000000
     _vals:
     - 20
-    - 1
+    - 10
     - 4
   currentStats:
     _keys: 

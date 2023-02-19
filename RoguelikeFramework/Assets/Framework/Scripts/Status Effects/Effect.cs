@@ -33,7 +33,7 @@ public class Effect : IDescribable
 
     public virtual bool ShouldDisplay()
     {
-        return !ReadyToDelete && !name.IsEmpty && !description.IsEmpty;
+        return !name.IsEmpty && !description.IsEmpty;
     }
 
     public virtual string GetName(bool shorten = false)

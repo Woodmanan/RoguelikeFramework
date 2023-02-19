@@ -25,7 +25,7 @@ public class ClassPanel : RogueUIPanel
     // Start is called before the first frame update
     void Start()
     {
-        Setup(current);
+        this.canBeEscaped = false;
     }
 
     // Update is called once per frame

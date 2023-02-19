@@ -16,55 +16,23 @@ MonoBehaviour:
   locName:
     m_TableReference:
       m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 1
     m_TableEntryReference:
+      m_KeyId: 18674720415883264
       m_Key: 
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 2
     m_FallbackState: 0
     m_WaitForCompletion: 0
-    m_LocaleOverride: {fileID: 0}
-    m_CurrentTable:
-      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 1
-    m_CurrentTableEntry:
-      m_Key: 
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 2
     m_LocalVariables: []
-    m_CurrentStringChangedValue: 
-    m_WaitingForVariablesEndUpdate: 0
   locDescription:
     m_TableReference:
       m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 1
     m_TableEntryReference:
+      m_KeyId: 18674753173397504
       m_Key: 
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 2
     m_FallbackState: 0
     m_WaitForCompletion: 0
-    m_LocaleOverride: {fileID: 0}
-    m_CurrentTable:
-      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 1
-    m_CurrentTableEntry:
-      m_Key: 
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 2
     m_LocalVariables: []
-    m_CurrentStringChangedValue: 
-    m_WaitingForVariablesEndUpdate: 0
   image: {fileID: 529817674177622992, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  color:
-    r: 1
-    g: 0.63529414
-    b: 0.8862745
-    a: 1
+  color: {r: 1, g: 0.63529414, b: 0.8862745, a: 1}
   baseTargeting:
     numPoints: 1
     targetingType: 4
@@ -81,8 +49,6 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
-    marking: 0
-    tempAffected: []
     affected: []
   baseStats:
     _keys: 01000000
@@ -119,18 +85,14 @@ MonoBehaviour:
     isFinished: 0
     length: 0
     offset: 0
-    marking: 0
-    tempAffected: []
     affected: []
   costs:
     _keys: 02000000
     _vals:
     - 5
-  dirty: 1
   castable: 1
   types: 1
   effects: []
-  attachedEffects: []
   effectsToApply:
   - id: 0
   references:
@@ -143,49 +105,21 @@ MonoBehaviour:
         name:
           m_TableReference:
             m_TableCollectionName: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
           m_TableEntryReference:
+            m_KeyId: 0
             m_Key: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
           m_FallbackState: 0
           m_WaitForCompletion: 0
-          m_LocaleOverride: {fileID: 0}
-          m_CurrentTable:
-            m_TableCollectionName: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
-          m_CurrentTableEntry:
-            m_Key: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
           m_LocalVariables: []
-          m_CurrentStringChangedValue: 
-          m_WaitingForVariablesEndUpdate: 0
         description:
           m_TableReference:
             m_TableCollectionName: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
           m_TableEntryReference:
+            m_KeyId: 0
             m_Key: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
           m_FallbackState: 0
           m_WaitForCompletion: 0
-          m_LocaleOverride: {fileID: 0}
-          m_CurrentTable:
-            m_TableCollectionName: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
-          m_CurrentTableEntry:
-            m_Key: 
-            m_Valid: 0
-            <ReferenceType>k__BackingField: 0
           m_LocalVariables: []
-          m_CurrentStringChangedValue: 
-          m_WaitingForVariablesEndUpdate: 0
         image: {fileID: 0}
         numTurnsUntilSummon: 5
         numHusksToSummon: 4

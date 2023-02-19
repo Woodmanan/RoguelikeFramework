@@ -5,16 +5,8 @@ using UnityEngine.Localization;
 
 [Group("Personal Attributes")]
 [Priority(10)]
-public class GrantPersonalAttribute : Effect
+public class NoPersonalAttribute : Effect
 {
-    public int levelToGrantAt;
-    public EffectGroup possibleEffects;
-    [SerializeReference]
-    public Effect backup;
-
-    [SerializeField]
-    ItemSpawnInfo rarities;
-
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -23,35 +15,26 @@ public class GrantPersonalAttribute : Effect
 
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
 
-    public override string GetUISubtext() { 
-        return (levelToGrantAt - connectedTo.monster.level).ToString(); 
-    }
+    /*public override string GetUISubtext() { return ""; }*/
 
     /*public override float GetCooldownFillPercent() { return 0.0f; }*/
 
+    public Stats toGive;
+
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public GrantPersonalAttribute()
+    public NoPersonalAttribute()
     {
         //Construct me!
     }
 
-    public void GrantAttribute()
-    {
-        if (connectedTo.monster == Player.player)
-        {
-            UIController.singleton.OpenAttributePanel(possibleEffects.GetRandomEffectWithRarity(rarities), backup);
-        }
-        else //Monsters ALWAYS take this if they have it - more interesting
-        {
-            connectedTo.monster.AddEffectInstantiate(possibleEffects.GetRandomEffectWithRarity(rarities));
-        }
-        Disconnect();
-    }
-
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        connectedTo.monster.baseStats += toGive;
+        Disconnect();
+    }
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
@@ -62,17 +45,8 @@ public class GrantPersonalAttribute : Effect
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
 
-    //For testing - check every turn. Shouldn't be necessary for real builds.
-    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     //Called at the end of the global turn sequence
-    public override void OnTurnEndGlobal() 
-    {
-        if (connectedTo.monster.level >= levelToGrantAt)
-        {
-            GrantAttribute();
-        }
-    }
-    #endif
+    //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -129,13 +103,7 @@ public class GrantPersonalAttribute : Effect
     //public override void OnGainXP(ref float XPAmount) {}
 
     //Called when this monster levels up! Level CANNOT be modified.
-    public override void OnLevelUp(ref int level)
-    {
-        if (level >= levelToGrantAt)
-        {
-            GrantAttribute();
-        }
-    }
+    //public override void OnLevelUp(ref int Level) {}
 
     //Called when this monster loses resources. (Different from damage, but can take health)
     //public override void OnLoseResources(ref Stats resources) {}
@@ -227,10 +195,6 @@ public class GrantPersonalAttribute : Effect
     {
         connectedTo = c;
 
-        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
-
-        c.OnLevelUp.AddListener(10, OnLevelUp);
-
         OnConnection();
     }
     //END CONNECTION
@@ -239,10 +203,6 @@ public class GrantPersonalAttribute : Effect
     public override void Disconnect()
     {
         OnDisconnection();
-
-        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
-
-        connectedTo.OnLevelUp.RemoveListener(OnLevelUp);
 
         ReadyToDelete = true;
     }

@@ -84,7 +84,8 @@ MonoBehaviour:
   ID: 0
   minDepth: 1
   maxDepth: 3
-  baseEffects: []
+  baseEffects:
+  - id: 0
   energy: 0
   location: {x: 15, y: 44}
   visionRadius: 8
@@ -102,6 +103,31 @@ MonoBehaviour:
   level: 0
   references:
     version: 1
+    00000000:
+      type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        achievementName: ACH_KILL_GOLEM
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -4,49 +4,64 @@ using UnityEngine;
 using UnityEngine.Localization;
 
 [Group("Personal Attributes")]
-[Priority(10)]
-public class GrantPersonalAttribute : Effect
+[Priority(300)]
+public class LastStand : Effect
 {
-    public int levelToGrantAt;
-    public EffectGroup possibleEffects;
-    [SerializeReference]
-    public Effect backup;
+    [Range(0, 100)]
+    public float percentOfMaxHealthPassive;
+    public int numberOfTurnsDown;
+    [Range(0, 100)]
+    public float returnWithXPercentHealth;
 
-    [SerializeField]
-    ItemSpawnInfo rarities;
+    [HideInInspector]
+    public int turnsRemaining;
+    bool active = false;
+
+    public Sprite downImage;
+
+    Monster storedCredit;
 
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
-    /*public override Spirte GetImage() { return image; }*/
+    public override Sprite GetImage()
+    {
+        if (active)
+        {
+            return downImage;
+        }
+        else
+        {
+            return image;
+        }
+    }
 
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
 
-    public override string GetUISubtext() { 
-        return (levelToGrantAt - connectedTo.monster.level).ToString(); 
+    public override string GetUISubtext()
+    {
+        if (active)
+        {
+            return turnsRemaining.ToString();
+        }
+        return "";
     }
 
-    /*public override float GetCooldownFillPercent() { return 0.0f; }*/
+    public override float GetUIFillPercent()
+    {
+        if (active)
+        {
+            return ((float)turnsRemaining) / numberOfTurnsDown;
+        }
+        return 0f;
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public GrantPersonalAttribute()
+    public LastStand()
     {
         //Construct me!
-    }
-
-    public void GrantAttribute()
-    {
-        if (connectedTo.monster == Player.player)
-        {
-            UIController.singleton.OpenAttributePanel(possibleEffects.GetRandomEffectWithRarity(rarities), backup);
-        }
-        else //Monsters ALWAYS take this if they have it - more interesting
-        {
-            connectedTo.monster.AddEffectInstantiate(possibleEffects.GetRandomEffectWithRarity(rarities));
-        }
-        Disconnect();
     }
 
     //Called the moment an effect connects to a monster
@@ -62,17 +77,22 @@ public class GrantPersonalAttribute : Effect
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
 
-    //For testing - check every turn. Shouldn't be necessary for real builds.
-    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     //Called at the end of the global turn sequence
-    public override void OnTurnEndGlobal() 
+    public override void OnTurnEndGlobal()
     {
-        if (connectedTo.monster.level >= levelToGrantAt)
+        if (active)
         {
-            GrantAttribute();
+            if (turnsRemaining == 0)
+            {
+                //TODO: Rebuild this when the credit stack system is ready
+                connectedTo.monster.DestroyMonster();
+            }
+            else
+            {
+                turnsRemaining--;
+            }
         }
     }
-    #endif
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -90,13 +110,31 @@ public class GrantPersonalAttribute : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    //public override void OnDeath() {}
+    public override void OnDeath()
+    {
+        if (!active)
+        {
+            active = true;
+            turnsRemaining = numberOfTurnsDown;
+            connectedTo.monster.baseStats[Resources.HEALTH] = 1;
+        }
+    }
 
     //Called when a monster is killed by this unit.
-    //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
+    public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
+    {
+        if (active)
+        {
+            active = false;
+            connectedTo.monster.baseStats[Resources.HEALTH] = connectedTo.monster.currentStats[Resources.MAX_HEALTH] * returnWithXPercentHealth / 100;
+        }
+    }
 
     //Called often, whenever a monster needs up-to-date stats.
-    //public override void RegenerateStats(ref Stats stats) {}
+    public override void RegenerateStats(ref Stats stats)
+    {
+        stats[Resources.MAX_HEALTH] *= percentOfMaxHealthPassive / 100;
+    }
 
     //Called wenever a monster gains energy
     //public override void OnEnergyGained(ref int energy) {}
@@ -108,7 +146,13 @@ public class GrantPersonalAttribute : Effect
     //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
+    {
+        if (active)
+        {
+            damage = 0;
+        }
+    }
 
     //Called when a monster recieves a healing event request
     //public override void OnHealing(ref float healAmount) {}
@@ -129,13 +173,7 @@ public class GrantPersonalAttribute : Effect
     //public override void OnGainXP(ref float XPAmount) {}
 
     //Called when this monster levels up! Level CANNOT be modified.
-    public override void OnLevelUp(ref int level)
-    {
-        if (level >= levelToGrantAt)
-        {
-            GrantAttribute();
-        }
-    }
+    //public override void OnLevelUp(ref int Level) {}
 
     //Called when this monster loses resources. (Different from damage, but can take health)
     //public override void OnLoseResources(ref Stats resources) {}
@@ -227,9 +265,15 @@ public class GrantPersonalAttribute : Effect
     {
         connectedTo = c;
 
-        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+        c.OnTurnEndGlobal.AddListener(300, OnTurnEndGlobal);
 
-        c.OnLevelUp.AddListener(10, OnLevelUp);
+        c.OnDeath.AddListener(300, OnDeath);
+
+        c.OnKillMonster.AddListener(300, OnKillMonster);
+
+        c.RegenerateStats.AddListener(300, RegenerateStats);
+
+        c.OnTakeDamage.AddListener(300, OnTakeDamage);
 
         OnConnection();
     }
@@ -242,7 +286,13 @@ public class GrantPersonalAttribute : Effect
 
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
-        connectedTo.OnLevelUp.RemoveListener(OnLevelUp);
+        connectedTo.OnDeath.RemoveListener(OnDeath);
+
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
+
+        connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
+
+        connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
 
         ReadyToDelete = true;
     }

@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 //Class for holding a large group of effects, and some convenience
 //functions for accessing those effects. Mostly used as a cleanup tool.
 
+[System.Serializable]
+public struct EffectRarityPairing
+{
+    public ItemRarity rarity;
+    [SerializeReference]
+    public Effect effect;
+}
+
 [CreateAssetMenu(fileName = "New EffectGroup", menuName = "ScriptableObjects/Effect Group", order = 2)]
 public class EffectGroup : ScriptableObject
 {
-    [SerializeReference]
-    List<Effect> effects;
+    [SerializeField]
+    List<EffectRarityPairing> effects;
 
     public Effect GetRandomEffect()
     {
@@ -18,7 +27,25 @@ public class EffectGroup : ScriptableObject
             Debug.LogError("No effects in this grouping!", this);
             return null;
         }
-        return effects[RogueRNG.Linear(0, effects.Count)];
+        return effects[RogueRNG.Linear(0, effects.Count)].effect;
+    }
+
+    public Effect GetRandomEffectWithRarity(ItemSpawnInfo rarities)
+    {
+        ItemRarity toGet = rarities.GetRarity();
+        List<EffectRarityPairing> options = effects.Where(x => x.rarity == toGet).ToList();
+        while (options.Count == 0)
+        {
+            if (toGet == ItemRarity.COMMON)
+            {
+                Debug.LogError("Paired effects could not return even a common effect!");
+                return GetRandomEffect();
+            }
+            toGet--;
+            options = effects.Where(x => x.rarity == toGet).ToList();
+        }
+
+        return options[RogueRNG.Linear(0, options.Count)].effect;
     }
 
     public Effect GetRandomEffectInstantiated()
@@ -28,6 +55,6 @@ public class EffectGroup : ScriptableObject
             Debug.LogError("No effects in this grouping!", this);
             return null;
         }
-        return effects[RogueRNG.Linear(0, effects.Count)].Instantiate();
+        return effects[RogueRNG.Linear(0, effects.Count)].effect.Instantiate();
     }
 }

@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[Group("Personal Attributes")]
-[Priority(10)]
-public class GrantPersonalAttribute : Effect
+//Player only effect that does the steam tracking
+//Most of the internals are handled by the steam controller, this only
+//needs to worry about giving it the most up-to-date stats.
+
+[Group("Steamworks")]
+[Priority(1000)]
+public class SteamStatsTracking : Effect
 {
-    public int levelToGrantAt;
-    public EffectGroup possibleEffects;
-    [SerializeReference]
-    public Effect backup;
-
-    [SerializeField]
-    ItemSpawnInfo rarities;
-
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -23,30 +19,15 @@ public class GrantPersonalAttribute : Effect
 
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
 
-    public override string GetUISubtext() { 
-        return (levelToGrantAt - connectedTo.monster.level).ToString(); 
-    }
+    /*public override string GetUISubtext() { return ""; }*/
 
     /*public override float GetCooldownFillPercent() { return 0.0f; }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public GrantPersonalAttribute()
+    public SteamStatsTracking()
     {
         //Construct me!
-    }
-
-    public void GrantAttribute()
-    {
-        if (connectedTo.monster == Player.player)
-        {
-            UIController.singleton.OpenAttributePanel(possibleEffects.GetRandomEffectWithRarity(rarities), backup);
-        }
-        else //Monsters ALWAYS take this if they have it - more interesting
-        {
-            connectedTo.monster.AddEffectInstantiate(possibleEffects.GetRandomEffectWithRarity(rarities));
-        }
-        Disconnect();
     }
 
     //Called the moment an effect connects to a monster
@@ -62,17 +43,8 @@ public class GrantPersonalAttribute : Effect
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
 
-    //For testing - check every turn. Shouldn't be necessary for real builds.
-    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     //Called at the end of the global turn sequence
-    public override void OnTurnEndGlobal() 
-    {
-        if (connectedTo.monster.level >= levelToGrantAt)
-        {
-            GrantAttribute();
-        }
-    }
-    #endif
+    //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -90,10 +62,21 @@ public class GrantPersonalAttribute : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    //public override void OnDeath() {}
+    public override void OnDeath()
+    {
+        //Confirm actually dead
+        if (connectedTo.monster.baseStats[Resources.HEALTH] <= 0)
+        {
+            //Push stats on player death, so achievements pop instantly
+            SteamController.singleton.StoreStats();
+        }
+    }
 
     //Called when a monster is killed by this unit.
-    //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
+    public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
+    {
+        SteamController.singleton.AddStat("STAT_KILLS", 1);
+    }
 
     //Called often, whenever a monster needs up-to-date stats.
     //public override void RegenerateStats(ref Stats stats) {}
@@ -129,13 +112,7 @@ public class GrantPersonalAttribute : Effect
     //public override void OnGainXP(ref float XPAmount) {}
 
     //Called when this monster levels up! Level CANNOT be modified.
-    public override void OnLevelUp(ref int level)
-    {
-        if (level >= levelToGrantAt)
-        {
-            GrantAttribute();
-        }
-    }
+    //public override void OnLevelUp(ref int Level) {}
 
     //Called when this monster loses resources. (Different from damage, but can take health)
     //public override void OnLoseResources(ref Stats resources) {}
@@ -227,9 +204,9 @@ public class GrantPersonalAttribute : Effect
     {
         connectedTo = c;
 
-        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+        c.OnDeath.AddListener(1000, OnDeath);
 
-        c.OnLevelUp.AddListener(10, OnLevelUp);
+        c.OnKillMonster.AddListener(1000, OnKillMonster);
 
         OnConnection();
     }
@@ -240,9 +217,9 @@ public class GrantPersonalAttribute : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+        connectedTo.OnDeath.RemoveListener(OnDeath);
 
-        connectedTo.OnLevelUp.RemoveListener(OnLevelUp);
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
 
         ReadyToDelete = true;
     }

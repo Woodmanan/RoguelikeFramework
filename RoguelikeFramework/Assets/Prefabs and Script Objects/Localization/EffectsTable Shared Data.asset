@@ -219,6 +219,38 @@ MonoBehaviour:
     m_Key: NightmareVisDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 27913352855101440
+    m_Key: ChrysalisName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27913655516078080
+    m_Key: ChrysalisDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27924343965818880
+    m_Key: LastStandName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27924398491770880
+    m_Key: LastStandDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27932816757694464
+    m_Key: DamageOverTimeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27932963960987648
+    m_Key: DamageOverTimeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27938592754704384
+    m_Key: ArchmageName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27938633766608896
+    m_Key: ArchmageDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

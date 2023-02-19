@@ -7,6 +7,7 @@ using UnityEngine;
 public class GreySkin : Effect
 {
     public float percentOfLastDamage;
+    public float percentOfMaxHealth;
     public float overXTurns;
 
     float healthPerTurn;
@@ -99,7 +100,7 @@ public class GreySkin : Effect
     public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
     {
         turnsRemaining = overXTurns;
-        healthPerTurn = damage * (percentOfLastDamage / 100) / overXTurns;
+        healthPerTurn = (damage * (percentOfLastDamage / 100) + (connectedTo.monster.currentStats[Resources.MAX_HEALTH] * percentOfMaxHealth / 100)) / overXTurns;
     }
 
     //Called when a monster recieves a healing event request

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Linq;
 using System.ComponentModel;
 using System;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 public struct CheatInfo
@@ -224,15 +225,40 @@ public class CheatsPanel : RogueUIPanel
     }
 
     [Cheat]
+    public void ClearAchievement(string name)
+    {
+        SteamController.singleton.ClearAchievement(name);
+    }
+
+    [Cheat]
     public void GiveAchievement(string name)
     {
         SteamController.singleton.GiveAchievement(name);
     }
 
     [Cheat]
+    public void SetStat(string name, int value)
+    {
+        SteamController.singleton.SetStat(name, value);
+        SteamController.singleton.StoreStats();
+    }
+
+    [Cheat]
     public void PrintSteamDiagnostics()
     {
         SteamController.singleton.PrintDiagnostics();
+    }
+
+    [Cheat]
+    public void Restart()
+    {
+        SceneManager.LoadScene("CharacterSelect");
+    }
+
+    [Cheat]
+    public void Quit()
+    {
+        Application.Quit();
     }
     #endif
 }

@@ -104,24 +104,24 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 27932816757694464
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 27932963960987648
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
-        damagePerTick: 3
-        numTicks: 7
+        image: {fileID: 21300000, guid: 634b549d103aaa54684bbaf4c5a58416, type: 3}
+        damagePerTick: 2
+        numTicks: 10
         type: 128
         ticksAtStart: 1

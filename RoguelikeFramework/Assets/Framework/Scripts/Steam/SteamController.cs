@@ -109,6 +109,9 @@ public class SteamController : MonoBehaviour
             Debug.LogError("Could not establish connection on startup.");
             return;
         }
+
+        //Save steam stats to the cloud every 5 minutes
+        StartCoroutine(SendSteamStatsRolling(300f));
     }
 
     // Update is called once per frame
@@ -120,10 +123,24 @@ public class SteamController : MonoBehaviour
         }
     }
 
+    IEnumerator SendSteamStatsRolling(float delay)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            while (!Steamworks.SteamUserStats.StoreStats())
+            {
+                Debug.LogError("Failed to push steam stats. Retrying in one second...");
+                yield return new WaitForSeconds(1f);
+            }
+        }
+    }
+
     private void OnDestroy()
     {
         if (connected)
         {
+            Steamworks.SteamUserStats.StoreStats();
             Debug.Log("Shutting down steam connection");
             Steamworks.SteamClient.Shutdown();
         }
@@ -154,6 +171,31 @@ public class SteamController : MonoBehaviour
         {
             achievement.Clear();
         }
+    }
+
+    public void SetStat(string name, int value)
+    {
+        Steamworks.SteamUserStats.SetStat(name, value);
+    }
+
+    public void SetStat(string name, float value)
+    {
+        Steamworks.SteamUserStats.SetStat(name, value);
+    }
+
+    public void AddStat(string name, int amount = 1)
+    {
+        Steamworks.SteamUserStats.AddStat(name, amount);
+    }
+
+    public void AddStat(string name, float amount = 1f)
+    {
+        Steamworks.SteamUserStats.AddStat(name, amount);
+    }
+
+    public void StoreStats()
+    {
+        Steamworks.SteamUserStats.StoreStats();
     }
 
     public void PrintDiagnostics()

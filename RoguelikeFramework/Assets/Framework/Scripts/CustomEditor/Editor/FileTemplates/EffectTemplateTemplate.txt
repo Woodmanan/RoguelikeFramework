@@ -11,7 +11,7 @@ public class #SCRIPTNAME# : Effect
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
-    /*public override Spirte GetImage() { return image; }*/
+    /*public override Sprite GetImage() { return image; }*/
 
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
 
