@@ -15,7 +15,9 @@ public class HeatMageTempo : Effect
     public RandomNumber gainPerHit;
 
     public float fireDamageAfter;
-    public RandomNumber fireDamagePerHit;
+    public float fireDamageUntil;
+    public int fireDamageLow;
+    public int fireDamageHigh;
 
     [Range(0, 100)]
     public float fireDamageConversion;
@@ -296,7 +298,9 @@ public class HeatMageTempo : Effect
 
         if (connectedTo.monster.baseStats[Resources.HEAT] > fireDamageAfter)
         {
-            action.target.Damage(connectedTo.monster, fireDamagePerHit.Evaluate(), DamageType.FIRE, DamageSource.EFFECT);
+            float damageLerp = Mathf.InverseLerp(fireDamageAfter, fireDamageUntil, connectedTo.monster.baseStats[Resources.HEAT]);
+            float damage = Mathf.Lerp(fireDamageLow, fireDamageHigh, damageLerp);
+            action.target.Damage(connectedTo.monster, damage, DamageType.FIRE, DamageSource.EFFECT);
         }
     }
 

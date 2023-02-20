@@ -86,11 +86,10 @@ MonoBehaviour:
           rngType: 0
           min: 5
           max: 5
-        fireDamageAfter: 50
-        fireDamagePerHit:
-          rngType: 1
-          min: 3
-          max: 9
+        fireDamageAfter: 15
+        fireDamageUntil: 70
+        fireDamageLow: 2
+        fireDamageHigh: 8
         fireDamageConversion: 70
         fireDamageEfficiency: 70
         isOverheating: 0

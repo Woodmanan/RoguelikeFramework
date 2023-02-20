@@ -155,10 +155,11 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 25715251511762944
     m_Localized: Gain 5 heat per unarmed attack, and 1 heat per spell cast. When
-      above {fireDamageAfter} heat, begin applying fire damage to your attacks. Ignore
-      {fireDamageConversion}% of fire damage, converting it to heat with {fireDamageEfficiency}%
-      effeciency. When at max heat, begin burning for {burnPerTurn} true damage and
-      quickly lose heat. {active:Cooldown in {cooldown} turns.|}
+      above {fireDamageAfter} heat, begin {fireDamageLow}-{fireDamageHigh} fire damage
+      to your unarmed attacks, scaling with heat. Ignore {fireDamageConversion}%
+      of fire damage, converting it to heat with {fireDamageEfficiency}% effeciency.
+      When at max heat, lose these benefits and overheat instead, taking true damage
+      and losing heat. {active:Cooldown in {cooldown} turns.|}
     m_Metadata:
       m_Items:
       - id: 1
