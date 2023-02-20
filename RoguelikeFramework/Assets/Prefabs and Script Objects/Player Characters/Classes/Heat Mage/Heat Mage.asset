@@ -77,6 +77,7 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: 7d21b9525f1e92b4ea5e24dcd4513045, type: 3}
+        active: 0
         lossPerTurn:
           rngType: 1
           min: 3
@@ -92,5 +93,19 @@ MonoBehaviour:
           max: 9
         fireDamageConversion: 70
         fireDamageEfficiency: 70
-        burnPerTurn: 1.5
+        isOverheating: 0
+        overheatDescription:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 28244741391589376
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        overheatImage: {fileID: 21300000, guid: 863704b629e1db84fa738d20042f4f5f, type: 3}
+        burnPerTurn: 4
+        overheatMaxDuration: 10
+        overheatCurrentDuration: 0
+        cooldown: 0
         maxCooldown: 60

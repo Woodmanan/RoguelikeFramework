@@ -157,11 +157,11 @@ MonoBehaviour:
     m_Localized: Gain 5 heat per unarmed attack, and 1 heat per spell cast. When
       above {fireDamageAfter} heat, begin applying fire damage to your attacks. Ignore
       {fireDamageConversion}% of fire damage, converting it to heat with {fireDamageEfficiency}%
-      effeciency. When at max heat, begin burning for {burnPerTurn} true damage.
-      Cooldown in {cooldown} turns.
+      effeciency. When at max heat, begin burning for {burnPerTurn} true damage and
+      quickly lose heat. {active:Cooldown in {cooldown} turns.|}
     m_Metadata:
       m_Items:
-      - id: 0
+      - id: 1
   - m_Id: 25715220343889920
     m_Localized: Tempo
     m_Metadata:
@@ -367,9 +367,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 28244741391589376
+    m_Localized: You are overheating! Take {burnPerTurn} true damage per turn and
+      fully drain heat over {overheatCurrentDuration} {overheatCurrentDuration:turn|turns}.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f0000206b61522b63000020abac1735630000206bb4bf3c630000206bfae13c630000202b150a42630000202bec88a2630000206b5171586400
+    00000001:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f0000206b61522b63000020abac1735630000206bb4bf3c630000206bfae13c630000202b150a42630000202bec88a26300

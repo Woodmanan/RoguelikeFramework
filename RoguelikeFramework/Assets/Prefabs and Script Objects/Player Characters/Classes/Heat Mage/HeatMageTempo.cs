@@ -8,7 +8,8 @@ using System.Linq;
 [Priority(0)]
 public class HeatMageTempo : Effect
 {
-    bool active;
+    [HideInInspector]
+    public bool active;
 
     public RandomNumber lossPerTurn;
     public RandomNumber gainPerHit;
@@ -21,7 +22,15 @@ public class HeatMageTempo : Effect
     [Range(0, 100)]
     public float fireDamageEfficiency;
 
+    [Header("Overheat")]
+    [HideInInspector]
+    public bool isOverheating = false;
+    public LocalizedString overheatDescription;
+    public Sprite overheatImage;
     public float burnPerTurn;
+    public int overheatMaxDuration;
+    public int overheatCurrentDuration;
+
     [HideInInspector]
     public int cooldown = 0;
     public int maxCooldown;
@@ -34,11 +43,42 @@ public class HeatMageTempo : Effect
 
     /*public overrde string GetName() { return name.GetLocalizedString(this); }*/
 
+    public override string GetDescription()
+    {
+        if (isOverheating)
+        {
+            return overheatDescription.GetLocalizedString(this);
+        }
+        return base.GetDescription();
+    }
+
+    public override Sprite GetImage()
+    {
+        if (isOverheating)
+        {
+            return overheatImage;
+        }
+        return base.GetImage();
+    }
+
     /* public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
     public override string GetUISubtext()
     {
+        if (isOverheating)
+        {
+            return overheatCurrentDuration.ToString();
+        }
         return $"{cooldown}";
+    }
+
+    public override float GetUIFillPercent()
+    {
+        if (isOverheating)
+        {
+            return ((float)overheatCurrentDuration) / overheatMaxDuration;
+        }
+        return 0.0f;
     }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
@@ -72,23 +112,40 @@ public class HeatMageTempo : Effect
     //Called at the end of the global turn sequence
     public override void OnTurnEndGlobal()
     {
-        if (active)
+        if (!isOverheating)
         {
-            cooldown--;
-            if (cooldown <= 0)
+            if (active)
             {
+                cooldown--;
+                if (cooldown <= 0)
+                {
+                    active = false;
+                }
+            }
+            else
+            {
+                connectedTo.monster.AddBaseStat(Resources.HEAT, -lossPerTurn.Evaluate());
+            }
+
+            //Check for overheat condition
+            if (connectedTo.monster.currentStats[Resources.HEAT] == connectedTo.monster.currentStats[Resources.MAX_HEAT])
+            {
+                isOverheating = true;
+                overheatCurrentDuration = overheatMaxDuration;
                 active = false;
             }
         }
-        else
-        {
-            connectedTo.monster.AddBaseStat(Resources.HEAT, -lossPerTurn.Evaluate());
-        }
-
-        //Check for overheat condition
-        if (connectedTo.monster.currentStats[Resources.HEAT] == connectedTo.monster.currentStats[Resources.MAX_HEAT])
+        else if (isOverheating)
         {
             connectedTo.monster.Damage(connectedTo.monster, burnPerTurn, DamageType.TRUE & DamageType.FIRE, DamageSource.EFFECT);
+            connectedTo.monster.AddBaseStat(Resources.HEAT, -connectedTo.monster.currentStats[Resources.MAX_HEAT] / overheatMaxDuration);
+            overheatCurrentDuration--;
+            if (overheatCurrentDuration == 0)
+            {
+                isOverheating = false;
+                active = false;
+                cooldown = 0;
+            }
         }
     }
 
