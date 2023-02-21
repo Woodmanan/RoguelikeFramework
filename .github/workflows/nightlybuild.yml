@@ -17,9 +17,9 @@ jobs:
       numChanges: ${{ steps.check.numChanges }}
     steps:
     - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: Dev
+      uses: actions/checkout@v2
+      with:
+        ref: Dev
     - name: Check for any new commits today (Scheduled)
       id: check
       run: echo "numChanges=$(git log --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
