@@ -20,6 +20,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: Dev
+        fetch-depth: 13
     - name: Check for any new commits today
       id: check
       run: echo "numChanges=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
@@ -32,7 +33,7 @@ jobs:
 
   checkValid:
     needs: checkForNewContent
-    name: Checking number of changes (${{ needs.checkForNewContent.outputs.numChanges }})
+    name: Number of changes is (${{ needs.checkForNewContent.outputs.numChanges }})
     if: ${{ needs.checkForNewContent.outputs.numChanges > 0 }}
     runs-on: ubuntu-latest
     steps:
