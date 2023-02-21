@@ -23,6 +23,12 @@ jobs:
     - name: Check for any new commits today
       id: check
       run: echo "numChanges=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
+    - name: Confirm that above command is checking the right commits
+      run: echo "$(git log Dev --oneline --since '24 hours ago')"
+    - name: Get some other git info
+      run: echo "$(git status)"
+    - name: See branches
+      run: echo "$(git branch)"
 
   checkValid:
     needs: checkForNewContent
