@@ -14,7 +14,7 @@ jobs:
     name: Check for updates to repo 💾
     runs-on: ubuntu-latest
     outputs:
-      numChanges: ${{ steps.check.numChanges }}
+      numChanges: ${{ steps.check.outputs.numChanges }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -23,6 +23,8 @@ jobs:
     - name: Check for any new commits today (Scheduled)
       id: check
       run: echo "numChanges=$(git log --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
+    - name: Immediately print info
+      run: echo "${{ steps.check.outputs.numChanges }}"
 
   printString:
     needs: checkForNewContent
