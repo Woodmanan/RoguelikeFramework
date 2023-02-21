@@ -13,14 +13,17 @@ jobs:
   checkForNewContent:
     name: Check for updates to repo 💾
     runs-on: ubuntu-latest
+    outputs:
+      numChanges: ${{ steps.check.numChanges }}
     steps:
     - name: Check for any new commits today (Scheduled)
-      run: echo "NEW_COMMIT_COUNT=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> $GITHUB_ENV
+      id: check
+      run: echo "numChanges=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
 
   checkLicense:
     needs: checkForNewContent
-    name: Skipping if has any changes
-    if: ${{ env.NEW_COMMIT_COUNT > 0 }}
+    name: Checking number of changes (${{ needs.checkForNewContent.outputs.numChanges > 0 }})
+    if: ${{ needs.checkForNewContent.outputs.numChanges > 0 }}
     runs-on: ubuntu-latest
     steps:
     - name: Fail - No license ☠️
@@ -29,7 +32,7 @@ jobs:
 
   buildAll:
     needs: checkLicense
-    name: Build for ${{ matrix.targetPlatform }} 🏗
+    name: Nightly dev build for ${{ matrix.targetPlatform }} 🏗
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -88,7 +91,7 @@ jobs:
 
   deployAllToSteam:
     needs: buildAll
-    name: Deploy dev build v${{ needs.buildAll.outputs.buildVersion }} to Steam ✈️
+    name: Deploy nightly build v${{ needs.buildAll.outputs.buildVersion }} to Steam ✈️
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
