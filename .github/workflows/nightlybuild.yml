@@ -26,6 +26,7 @@ jobs:
 
   printString:
     needs: checkForNewContent
+    runs-on: ubuntu-latest
     steps:
     - name: Print info
       run: echo "Number of changes listed is ${{ needs.checkForNewContent.outputs.numChanges }}"
