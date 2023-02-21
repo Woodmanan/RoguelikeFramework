@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check for any new commits today (Scheduled)
-        run: echo "NEW_COMMIT_COUNT=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> $GITHUB_ENV
+      run: echo "NEW_COMMIT_COUNT=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> $GITHUB_ENV
 
   checkLicense:
     needs: checkForNewContent
@@ -24,8 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Fail - No license ☠️
-        if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
-        run: exit 1
+      if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
+      run: exit 1
 
   buildAll:
     needs: checkLicense
