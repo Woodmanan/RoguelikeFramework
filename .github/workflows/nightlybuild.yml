@@ -19,7 +19,7 @@ jobs:
 
   checkLicense:
     needs: checkForNewContent
-    name: Checking for valid run (${{ env.NEW_COMMIT_COUNT > 0 }} changes)
+    name: Skipping if has any changes
     if: ${{ env.NEW_COMMIT_COUNT > 0 }}
     runs-on: ubuntu-latest
     steps:
