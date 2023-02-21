@@ -24,9 +24,15 @@ jobs:
       id: check
       run: echo "numChanges=$(git log --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
 
+  printString:
+    needs: checkForNewContent
+    steps:
+    - name: Print info
+      run: echo "Number of changes listed is ${{ needs.checkForNewContent.outputs.numChanges }}"
+
   checkLicense:
     needs: checkForNewContent
-    name: Checking number of changes (${{ needs.checkForNewContent.outputs.numChanges > 0 }})
+    name: Checking number of changes (${{ needs.checkForNewContent.outputs.numChanges }})
     if: ${{ needs.checkForNewContent.outputs.numChanges > 0 }}
     runs-on: ubuntu-latest
     steps:
