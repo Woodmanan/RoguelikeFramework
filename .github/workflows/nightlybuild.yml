@@ -1,4 +1,4 @@
-name: Daily dev build 🛠
+name: Overnight dev build 🌙
 
 on: 
     workflow_dispatch: #Can manually trigger if needed
@@ -20,20 +20,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: Dev
-    - name: Check for any new commits today (Scheduled)
+    - name: Check for any new commits today
       id: check
-      run: echo "numChanges=$(git log --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
-    - name: Immediately print info
-      run: echo "${{ steps.check.outputs.numChanges }}"
+      run: echo "numChanges=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> "$GITHUB_OUTPUT"
 
-  printString:
-    needs: checkForNewContent
-    runs-on: ubuntu-latest
-    steps:
-    - name: Print info
-      run: echo "Number of changes listed is ${{ needs.checkForNewContent.outputs.numChanges }}"
-
-  checkLicense:
+  checkValid:
     needs: checkForNewContent
     name: Checking number of changes (${{ needs.checkForNewContent.outputs.numChanges }})
     if: ${{ needs.checkForNewContent.outputs.numChanges > 0 }}
@@ -44,8 +35,8 @@ jobs:
       run: exit 1
 
   buildAll:
-    needs: checkLicense
-    name: Nightly dev build for ${{ matrix.targetPlatform }} 🏗
+    needs: checkValid
+    name: Nightly dev build for ${{ matrix.targetPlatform }} 🌙
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -107,11 +98,6 @@ jobs:
     name: Deploy nightly build v${{ needs.buildAll.outputs.buildVersion }} to Steam ✈️
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: Dev
       - name: Download StandaloneWindows64 Artifact
         uses: actions/download-artifact@v2
         with:
@@ -135,7 +121,7 @@ jobs:
           ssfnFileName: ${{ secrets.STEAM_SSFN_FILE_NAME }}
           ssfnFileContents: ${{ secrets.STEAM_SSFN_FILE_CONTENTS }}
           appId: ${{ secrets.STEAM_APP_ID }}
-          buildDescription: v${{ needs.buildAll.outputs.buildVersion }} - Development Build
+          buildDescription: v${{ needs.buildAll.outputs.buildVersion }} - Nightly Development Build
           rootPath: build
           depot1Path: StandaloneWindows64
           depot2Path: StandaloneLinux64
