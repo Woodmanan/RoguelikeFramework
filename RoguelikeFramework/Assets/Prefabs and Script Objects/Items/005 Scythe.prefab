@@ -102,6 +102,8 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 30
   elevatesTo: 2
+  enchantment: 0
+  maxEnchantment: 8
   currentRarity: 0
   ID: 5
   stackable: 0
@@ -183,6 +185,9 @@ MonoBehaviour:
   addedStats:
     _keys: 
     _vals: []
+  statsPerEnchantment:
+    _keys: 
+    _vals: []
   addedEffects: []
   isEquipped: 0
   removable: 1
@@ -215,7 +220,5 @@ MonoBehaviour:
     accuracy: 0
     piercing: 0
     damage: []
-  enchantment: 0
-  maxEnchantment: 0
   source: 0
   item: {fileID: 0}

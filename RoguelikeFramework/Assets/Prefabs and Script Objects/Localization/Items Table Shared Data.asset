@@ -327,6 +327,22 @@ MonoBehaviour:
     m_Key: WarriorSpellbookName
     m_Metadata:
       m_Items: []
+  - m_Id: 18717291938783232
+    m_Key: RedCrystalPlateName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18717335244972032
+    m_Key: RedCrystalPlateDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18720335426428928
+    m_Key: RedCrystalBootsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18720376375418880
+    m_Key: RedCrystalBootsDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

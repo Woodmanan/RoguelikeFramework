@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8514963120815226497}
   - component: {fileID: 7423869216615676256}
   m_Layer: 0
-  m_Name: 031 Vamp Helm
+  m_Name: 032 RedCrystalPlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 6366903729153537497, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
-  m_Color: {r: 1, g: 0.3339622, b: 0.3339622, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bf11de7c65ffd92419d11fad318164f2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,23 +96,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 4
+  rarity: 1
   type: 4
   minDepth: 1
-  maxDepth: 30
-  elevatesTo: 4
+  maxDepth: 10
+  elevatesTo: 3
+  enchantment: 0
+  maxEnchantment: 8
   currentRarity: 0
-  ID: 31
+  ID: 32
   stackable: 0
-  color: {r: 1, g: 0.3339622, b: 0.3339622, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 0, y: 0}
   held: 0
-  friendlyName: Vamp Helm
+  friendlyName: RedCrystalPlate
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 665611896823808
+      m_KeyId: 18717291938783232
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -121,7 +123,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 665646059429888
+      m_KeyId: 18717335244972032
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -151,45 +153,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061029ab2cec2c74693f98a94e2c64cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primarySlot: 1
+  primarySlot: 4
   secondarySlots: 
   addedStats:
-    _keys: 08000000090000000a000000
+    _keys: 0100000008000000
     _vals:
-    - 2
-    - 2
-    - 2
-  addedEffects:
-  - id: 0
+    - 12
+    - 3
+  statsPerEnchantment:
+    _keys: 01000000
+    _vals:
+    - 3
+  addedEffects: []
   isEquipped: 0
   removable: 1
   blocksUnarmed: 1
   references:
     version: 1
-    00000000:
-      type: {class: DamageVamp, ns: , asm: RoguelikeFramework}
-      data:
-        ReadyToDelete: 0
-        credit: {fileID: 0}
-        name:
-          m_TableReference:
-            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
-          m_TableEntryReference:
-            m_KeyId: 10545186227298304
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        description:
-          m_TableReference:
-            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
-          m_TableEntryReference:
-            m_KeyId: 10545121681154048
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        image: {fileID: 0}
-        drainsOn: 0
-        drainsFrom: 0
-        efficiency: 100

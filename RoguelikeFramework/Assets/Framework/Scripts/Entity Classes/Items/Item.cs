@@ -13,6 +13,8 @@ public class Item : MonoBehaviour, IDescribable
     public int minDepth;
     public int maxDepth;
     public ItemRarity elevatesTo;
+    public int enchantment;
+    public int maxEnchantment;
 
     [HideInInspector] public ItemRarity currentRarity;
 
@@ -128,13 +130,9 @@ public class Item : MonoBehaviour, IDescribable
     public string GetName(bool shorten = false)
     {
         string name = "";
-        if (melee && melee.enchantment > 0)
+        if (enchantment > 0)
         {
-            name = $"+{melee.enchantment} ";
-        }
-        else if (ranged && ranged.enchantment > 0)
-        {
-            name = $"+{ranged.enchantment} ";
+            name = $"+{enchantment} ";
         }
 
         name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}>" + localName.GetLocalizedString(shorten);
@@ -265,13 +263,9 @@ public class Item : MonoBehaviour, IDescribable
             this.rarity++;
         }
 
-        if (melee != null || ranged != null)
+        if (CanAddEnchantment())
         {
-            Weapon weapon = (melee != null) ? (Weapon) melee : (Weapon) ranged;
-            if (weapon.CanAddEnchantment())
-            {
-                weapon.AddEnchantment(Mathf.RoundToInt(RogueRNG.BoundedParetoCut(1, numberToAdd + RogueRNG.Linear(0, numberToAdd), 1, 2)));
-            }
+            AddEnchantment(Mathf.RoundToInt(RogueRNG.BoundedParetoCut(1, numberToAdd + RogueRNG.Linear(0, numberToAdd), 1, 2)));
         }
 
         currentRarity = rarity;
@@ -329,5 +323,16 @@ public class Item : MonoBehaviour, IDescribable
         }
 
         return outColor;
+    }
+
+    public bool CanAddEnchantment()
+    {
+        return enchantment < maxEnchantment;
+    }
+
+
+    public void AddEnchantment(int amount)
+    {
+        enchantment = Mathf.Clamp(enchantment + amount, -maxEnchantment, maxEnchantment);
     }
 }

@@ -1,0 +1,127 @@
+name: Daily dev build 🛠
+
+on: 
+    workflow_dispatch: #Can manually trigger if needed
+    schedule:
+        - cron: '42 22 * * *' # runs daily at 10:42 PM UTC
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+
+  checkForNewContent:
+    name: Check for updates to repo 💾
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check for any new commits today (Scheduled)
+        run: echo "NEW_COMMIT_COUNT=$(git log Dev --oneline --since '24 hours ago' | wc -l)" >> $GITHUB_ENV
+
+  checkLicense:
+    needs: checkForNewContent
+    name: Checking for valid run (${{ env.NEW_COMMIT_COUNT > 0 }} changes)
+    if: ${{ env.NEW_COMMIT_COUNT > 0 }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fail - No license ☠️
+        if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
+        run: exit 1
+
+  buildAll:
+    needs: checkLicense
+    name: Build for ${{ matrix.targetPlatform }} 🏗
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - ./RoguelikeFramework/
+        targetPlatform:
+          - StandaloneWindows64
+          - StandaloneLinux64
+          - StandaloneOSX
+    outputs:
+      buildVersion: ${{ steps.build.outputs.buildVersion }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: Dev
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-build-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-build-
+            Library-
+      - uses: game-ci/unity-builder@v2
+        id: build
+        with:
+          versioning: Semantic
+          projectPath: ${{ matrix.projectPath }}
+          buildName: RoguelikeFramework
+          targetPlatform: ${{ matrix.targetPlatform }}
+          customParameters: -Development
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
+          retention-days: 1
+
+  deployAllToSteam:
+    needs: buildAll
+    name: Deploy dev build v${{ needs.buildAll.outputs.buildVersion }} to Steam ✈️
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: Dev
+      - name: Download StandaloneWindows64 Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-StandaloneWindows64
+          path: build/StandaloneWindows64
+      - name: Download StandaloneLinux64 Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
+      - name: Download StandaloneOSX Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-StandaloneOSX
+          path: build/StandaloneOSX
+      - uses: game-ci/steam-deploy@v2
+        with:
+          username: ${{ secrets.STEAM_USERNAME }}
+          password: ${{ secrets.STEAM_PASSWORD }}
+          configVdf: ${{ secrets.STEAM_CONFIG_VDF}}
+          ssfnFileName: ${{ secrets.STEAM_SSFN_FILE_NAME }}
+          ssfnFileContents: ${{ secrets.STEAM_SSFN_FILE_CONTENTS }}
+          appId: ${{ secrets.STEAM_APP_ID }}
+          buildDescription: v${{ needs.buildAll.outputs.buildVersion }} - Development Build
+          rootPath: build
+          depot1Path: StandaloneWindows64
+          depot2Path: StandaloneLinux64
+          depot3Path: StandaloneOSX
+          releaseBranch: beta

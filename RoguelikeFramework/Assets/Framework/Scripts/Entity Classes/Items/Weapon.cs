@@ -7,8 +7,6 @@ public class Weapon : MonoBehaviour
 {
     public WeaponBlock primary;
     public WeaponBlock secondary;
-    public int enchantment;
-    public int maxEnchantment;
 
     [HideInInspector] public DamageSource source;
     public Connections connections;
@@ -22,8 +20,6 @@ public class Weapon : MonoBehaviour
         connections = item.connections;
         
         source = (item.type == ItemType.MELEE_WEAPON) ? DamageSource.MELEEATTACK : DamageSource.RANGEDATTACK;
-
-        enchantment = Mathf.Clamp(enchantment, -1 * maxEnchantment, maxEnchantment);
     }
 
     public void AddEffect(params Effect[] effects)
@@ -55,7 +51,7 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, primary, enchantment: enchantment);
+            Combat.Hit(attacker, defender, source, primary, enchantment: GetEnchantment());
         }
 
         defender.connections.OnAfterPrimaryAttackTarget
@@ -87,7 +83,7 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, secondary, enchantment: enchantment);
+            Combat.Hit(attacker, defender, source, secondary, enchantment: GetEnchantment());
         }
 
         defender.connections.OnAfterSecondaryAttackTarget
@@ -101,14 +97,8 @@ public class Weapon : MonoBehaviour
         return result;
     }
 
-    public bool CanAddEnchantment()
+    public int GetEnchantment()
     {
-        return enchantment < maxEnchantment;
-    }
-
-
-    public void AddEnchantment(int amount)
-    {
-        enchantment = Mathf.Clamp(enchantment + amount, -maxEnchantment, maxEnchantment);
+        return (item != null) ? item.enchantment : 0;
     }
 }

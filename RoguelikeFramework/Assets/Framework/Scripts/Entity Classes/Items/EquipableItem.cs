@@ -8,6 +8,7 @@ public class EquipableItem : MonoBehaviour
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
     public Stats addedStats;
+    public Stats statsPerEnchantment;
 
     [SerializeReference] public List<Effect> addedEffects;
 
@@ -18,7 +19,7 @@ public class EquipableItem : MonoBehaviour
 
     Monster equippedTo;
     int equippedIndex; //Primary index
-    Item itemData;
+    Item item;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class EquipableItem : MonoBehaviour
         Debug.Assert(!GetComponent<Item>().stackable, "Equipable item should never be stackable!", this);
         #endif
 
-        itemData = GetComponent<Item>();
+        item = GetComponent<Item>();
     }
 
     // Update is called once per frame
@@ -42,7 +43,7 @@ public class EquipableItem : MonoBehaviour
     {
         if (equippedTo)
         {
-            equippedTo.equipment.Unequip(itemData);
+            equippedTo.equipment.Unequip(item);
         }
     }
 
@@ -50,7 +51,7 @@ public class EquipableItem : MonoBehaviour
     {
         isEquipped = true;
         equippedTo = m;
-        m.currentStats += addedStats; //Immediate stat benefit
+        m.currentStats += GetStats(); //Immediate stat benefit
         m.connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
@@ -58,6 +59,12 @@ public class EquipableItem : MonoBehaviour
         foreach (Effect e in addedEffects)
         {
             clonedEffects.Add(e.Instantiate());
+        }
+
+        //Attach connections to item
+        foreach (Effect effect in clonedEffects)
+        {
+            effect.connectedTo.item = item;
         }
 
         m.AddEffect(clonedEffects.ToArray()); //Immediate status effect add
@@ -81,6 +88,15 @@ public class EquipableItem : MonoBehaviour
 
     public void RegenerateStats(ref Stats block)
     {
-        block += addedStats;
+        block += GetStats();
+    }
+
+    public Stats GetStats()
+    {
+        if (item && item.enchantment > 0)
+        {
+            return addedStats + (statsPerEnchantment * item.enchantment);
+        }
+        return addedStats;
     }
 }

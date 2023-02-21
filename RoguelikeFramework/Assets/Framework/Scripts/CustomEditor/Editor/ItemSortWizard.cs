@@ -49,6 +49,7 @@ public class ItemSortWizard
 
         for (int i = 0; i < items.Count; i++)
         {
+            EditorUtility.DisplayProgressBar($"Rebuilding data for {items.Count} items", $"({i.ToString("00")}/{items.Count}) Rebuilding {items[i].friendlyName}", ((float)i) / items.Count);
             Undo.RecordObject(items[i], "Set ID");
             items[i].ID = i;
 
@@ -56,6 +57,8 @@ public class ItemSortWizard
 
             AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(items[i]), $"{i.ToString().PadLeft(3, '0')} {items[i].friendlyName}");
         }
+
+        EditorUtility.ClearProgressBar();
 
         AssetDatabase.SaveAssets();
 
@@ -67,6 +70,8 @@ public class ItemSortWizard
         {
             Debug.LogError("You can't be looking at the folder when this happens! I don't know why!");
         }
+
+        Debug.Log("Done!");
     }
 
     static string GetPathToFolder(string folder)

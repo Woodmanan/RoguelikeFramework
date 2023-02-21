@@ -101,6 +101,8 @@ MonoBehaviour:
   minDepth: 1
   maxDepth: 10
   elevatesTo: 2
+  enchantment: 0
+  maxEnchantment: 8
   currentRarity: 0
   ID: 18
   stackable: 0
@@ -159,6 +161,9 @@ MonoBehaviour:
     - -1
     - 2
     - 1
+  statsPerEnchantment:
+    _keys: 
+    _vals: []
   addedEffects: []
   isEquipped: 0
   removable: 1

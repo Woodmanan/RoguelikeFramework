@@ -357,5 +357,22 @@ MonoBehaviour:
       and useful fighting techniques found in the tower.
     m_Metadata:
       m_Items: []
+  - m_Id: 18717291938783232
+    m_Localized: Red Crystal Plate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18717335244972032
+    m_Localized: They're a little brittle, but boy do these crystals make you feel
+      alive!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18720335426428928
+    m_Localized: Red Crystal Boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18720376375418880
+    m_Localized: Shockingly heavy. Shockingly red.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
