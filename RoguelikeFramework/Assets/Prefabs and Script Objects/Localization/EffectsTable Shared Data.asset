@@ -279,6 +279,14 @@ MonoBehaviour:
     m_Key: HeatMageOverheatDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 29328153971990528
+    m_Key: AddSurgeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328332196356096
+    m_Key: AddSurgeDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

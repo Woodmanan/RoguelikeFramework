@@ -37,6 +37,9 @@ MonoBehaviour:
   - rarity: 0
     effect:
       id: 7
+  - rarity: 2
+    effect:
+      id: 8
   references:
     version: 1
     00000000:
@@ -124,7 +127,7 @@ MonoBehaviour:
         levelToGrantAt: 10
         possibleEffects: {fileID: 11400000}
         backup:
-          id: 8
+          id: 9
         rarities:
           rarities:
           - rarity: 2
@@ -271,6 +274,33 @@ MonoBehaviour:
         currentDodges: 0
         damagePerStack: 3
     00000008:
+      type: {class: AddGeneric, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 29328153971990528
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 29328332196356096
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: b751d2fb79ee64f4f999d5957283d702, type: 3}
+        abilitiesToAdd:
+        - {fileID: 11400000, guid: 752227e84f291be49a54c5cfc17ece7e, type: 2}
+        effectsToAdd: []
+    00000009:
       type: {class: NoPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0

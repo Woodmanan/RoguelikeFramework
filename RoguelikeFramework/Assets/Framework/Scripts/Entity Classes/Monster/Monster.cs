@@ -133,12 +133,12 @@ public class Monster : MonoBehaviour, IDescribable
 
     public string GetName(bool shorten = false)
     {
-        return localName.GetLocalizedString(this);
+        return localName.GetLocalizedString(this, currentStats.dictionary);
     }
 
     public string GetDescription()
     {
-        return localDescription.GetLocalizedString(this);
+        return localDescription.GetLocalizedString(this, currentStats.dictionary);
     }
 
     public Sprite GetImage()

@@ -215,9 +215,20 @@ MonoBehaviour:
     m_Localized: Teleport all monsters around you a medium distance away.
     m_Metadata:
       m_Items: []
+  - m_Id: 21181711893864448
+    m_Localized: Surge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21181750942834688
+    m_Localized: Deals 1d3 + {1.POWER} magic damage. Upon killing an enemy, gain
+      .2 bonus damage permanently. If an enemy is killed with this ability, it instantly
+      resets.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b4a515f4200
+        m_Entries: 00202b4a515f42000020abb4b0404b00

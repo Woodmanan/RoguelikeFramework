@@ -82,12 +82,12 @@ public class Ability : ScriptableObject, IDescribable
 
     public virtual string GetName(bool shorten = false)
     {
-        return locName.GetLocalizedString(this);
+        return locName.GetLocalizedString(this, currentStats.dictionary);
     }
 
     public virtual string GetDescription()
     {
-        return locDescription.GetLocalizedString(this);
+        return locDescription.GetLocalizedString(this, currentStats.dictionary);
     }
 
     public virtual Sprite GetImage()
@@ -193,10 +193,10 @@ public class Ability : ScriptableObject, IDescribable
 
     public void Cast(Monster caster)
     {
+        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - currentStats[COOLDOWN_DECREASE]);
+
         //TODO: Call the OnCast modifier!
         OnCast(caster);
-
-        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - currentStats[COOLDOWN_DECREASE]);
     }
 
     public virtual void OnCast(Monster caster)

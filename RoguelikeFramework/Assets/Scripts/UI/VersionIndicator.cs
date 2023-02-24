@@ -11,9 +11,9 @@ public class VersionIndicator : MonoBehaviour
     void Start()
     {
         #if UNITY_EDITOR
-        text.text = $"Editor : {LevelLoader.singleton.seed}";
+        text.text = $"Editor Build\nSeed {LevelLoader.singleton.seed}";
         #elif DEVELOPMENT_BUILD
-        text.text = $"{Application.version} : {LevelLoader.singleton.seed}";
+        text.text = $"Development Build v{Application.version}\nSeed {LevelLoader.singleton.seed}";
         #else
         gameObject.SetActive(false);
         #endif

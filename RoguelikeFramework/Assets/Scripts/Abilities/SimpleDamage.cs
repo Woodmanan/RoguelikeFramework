@@ -27,7 +27,7 @@ public class SimpleDamage : Ability
         AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         foreach (Monster target in targeting.affected)
         {
-            target.Damage(caster, damage.damage.evaluate(), damage.type, DamageSource.ABILITY);
+            target.Damage(caster, damage.damage.evaluate() + currentStats[AbilityResources.POWER], damage.type, DamageSource.ABILITY);
         }
     }
 }

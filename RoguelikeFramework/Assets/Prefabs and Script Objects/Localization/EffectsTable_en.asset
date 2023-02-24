@@ -374,6 +374,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 29328153971990528
+    m_Localized: Energized
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328332196356096
+    m_Localized: Your body holds a charge, which can be increased by passing it back
+      and forth through monsters. This manifests as Surge, a weak ability with a
+      infinite scaling on kills.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
