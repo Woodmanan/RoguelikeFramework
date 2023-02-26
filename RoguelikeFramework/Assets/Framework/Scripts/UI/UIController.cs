@@ -160,7 +160,7 @@ public class UIController : MonoBehaviour
     #endif
     }
     public void PassInput(PlayerAction action)
-    {
+    {  
         if (action == PlayerAction.ESCAPE_SCREEN)
         {
             RogueUIPanel.ExitTopLevel();

@@ -70,19 +70,19 @@ public class BraveryStance : Effect
     //Called when a monster is killed by this unit.
     public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
     {
-        Debug.Log($"You feel braver!");
+        //RogueLog.singleton.Log($"You feel braver!");
         bravery++;
         if (bravery == 1)
         {
-            Debug.Log("Console: You begin to muster your courage.");
+            RogueLog.singleton.Log("You begin to muster your courage.");
         }
         else if (bravery == maxBravery/2)
         {
-            Debug.Log("Console: You're feeling even braver now. You roar!");
+            RogueLog.singleton.Log("You're feeling even braver now. You roar!");
         }
         else if (bravery == maxBravery)
         {
-            Debug.Log("Console: You feel as brave as possible!");
+            RogueLog.singleton.Log("You feel as brave as possible!");
         }
 
         if (bravery > maxBravery)
@@ -116,9 +116,9 @@ public class BraveryStance : Effect
 
         float percentage = (currentHealth * 100) / maxHealth;
 
-        if (percentage < percentageToDrop)
+        if (percentage < percentageToDrop && bravery > 0)
         {
-            Debug.Log("Console: Your health has fallen too low. You feel less brave.");
+            RogueLog.singleton.Log("You feel scared.");
             bravery = 0;
         }
     }

@@ -33,7 +33,7 @@ public class AbilityAction : GameAction
 
         if (toCast.currentCooldown > 0)
         {
-            Debug.Log($"You cannot cast {toCast.friendlyName}, it still has {toCast.currentCooldown} turns left.");
+            RogueLog.singleton.Log($"You cannot cast {toCast.GetName()}, it still has {toCast.currentCooldown} turns of cooldown.");
             caller.RemoveConnection(toCast.connections);
             successful = false;
             yield break;
@@ -41,7 +41,7 @@ public class AbilityAction : GameAction
 
         if (!toCast.castable)
         {
-            Debug.Log($"Console: You cannot cast {toCast.friendlyName}.");
+            RogueLog.singleton.Log($"You cannot cast {toCast.GetName()}.");
             caller.RemoveConnection(toCast.connections);
             successful = false;
             yield break;
@@ -88,7 +88,7 @@ public class AbilityAction : GameAction
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
-            Debug.Log($"Log: {caller.GetFormattedName()} cast {toCast.friendlyName}!");
+            RogueLog.singleton.LogAboveMonster($"{caller.GetFormattedName()} cast {toCast.GetName()}!", caller);
             toCast.Cast(caller);
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);

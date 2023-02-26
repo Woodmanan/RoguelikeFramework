@@ -192,7 +192,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 3865522631476802256, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
         range: 3
 --- !u!114 &5952500659652189400
 MonoBehaviour:

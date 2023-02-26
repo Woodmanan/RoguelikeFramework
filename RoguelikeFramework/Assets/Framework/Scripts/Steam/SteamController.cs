@@ -13,7 +13,7 @@ public class SteamController : MonoBehaviour
         {
             if (Singleton == null)
             {
-                SteamController extantController = GameObject.Find("Steam Controller")?.GetComponent<SteamController>();
+                SteamController extantController = FindObjectOfType<SteamController>();
                 if (extantController)
                 {
                     Singleton = extantController;
@@ -89,12 +89,6 @@ public class SteamController : MonoBehaviour
         {
             Destroy(this.gameObject);
             return;
-        }
-
-        if (this.name != "Steam Controller")
-        {
-            Debug.LogError("Sorry, you have to name it 'Steam Controller'");
-            this.name = "Steam Controller";
         }
 
         #if UNITY_EDITOR

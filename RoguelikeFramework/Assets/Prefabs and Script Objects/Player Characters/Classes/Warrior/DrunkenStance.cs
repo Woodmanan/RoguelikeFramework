@@ -65,7 +65,7 @@ public class DrunkenStance : Effect
             if (currentDuration == 0)
             {
                 currentDrinks = 0;
-                Debug.Log("Console: You straighten up as you recover from your stupor.");
+                RogueLog.singleton.Log("You straighten up.");
             }
         }
     }
@@ -156,17 +156,17 @@ public class DrunkenStance : Effect
         {
             if (currentDrinks == 0)
             {
-                Debug.Log($"That tasted great! You start to stumble a bit.");
+                RogueLog.singleton.Log($"That tasted great! You start to stumble a bit.");
             }
             else
             {
                 if (currentDrinks >= maxDrinkStacks - 1)
                 {
-                    Debug.Log($"That tasted fantastic! You're stumbling as much as you can without falling over now.");
+                    RogueLog.singleton.Log($"That tasted fantastic! You're stumbling as much as possible.");
                 }
                 else
                 {
-                    Debug.Log($"That tasted even better! You begin to stumble even more.");
+                    RogueLog.singleton.Log($"That tasted even better! You begin to stumble even more.");
                 }
             }
             currentDrinks++;
@@ -263,7 +263,7 @@ public class DrunkenStance : Effect
             float dodgeChance = baseDodgePercent + (currentDrinks * dodgePerDrinkStack);
             if (RogueRNG.Linear(0f, 100f) < dodgeChance)
             {
-                Debug.Log("Console: You stumble, dodging the attack!");
+                RogueLog.singleton.Log("You stumble, dodging the attack!");
                 result = AttackResult.MISSED;
             }
         }

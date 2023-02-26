@@ -51,7 +51,14 @@ public class MoveAction : GameAction
         }
         else if (tile.BlocksMovement())
         {
-            Debug.Log("Console Message: You don't can't do that.");
+            if (caller == Player.player)
+            {
+                RogueLog.singleton.LogAboveMonster("You don't can't do that.", Player.player);
+            }
+            else
+            {
+                Debug.LogError("Monster tried to move through a tile");
+            }
             yield break;
         }
         

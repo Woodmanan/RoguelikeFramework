@@ -129,7 +129,7 @@ public class AttackAction : GameAction
         }
         else
         {
-            Debug.Log($"Console: The {attacker.GetLocalizedName()} misses!");
+            RogueLog.singleton.LogAboveMonster($"The {attacker.GetLocalizedName()} misses!", attacker);
         }
 
         defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);

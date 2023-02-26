@@ -226,6 +226,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 18674982106898432
+    m_Localized: Spit Poison
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18675039438839808
+    m_Localized: Spit a stream of poison that deals damage over time.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

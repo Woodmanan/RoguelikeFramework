@@ -22,7 +22,7 @@ public class EquipableItem : MonoBehaviour
     Item item;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Variable compile for expensive assertion
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -49,6 +49,7 @@ public class EquipableItem : MonoBehaviour
 
     public void OnEquip(Monster m)
     {
+        item.Setup();
         isEquipped = true;
         equippedTo = m;
         m.currentStats += GetStats(); //Immediate stat benefit
@@ -59,12 +60,6 @@ public class EquipableItem : MonoBehaviour
         foreach (Effect e in addedEffects)
         {
             clonedEffects.Add(e.Instantiate());
-        }
-
-        //Attach connections to item
-        foreach (Effect effect in clonedEffects)
-        {
-            effect.connectedTo.item = item;
         }
 
         m.AddEffect(clonedEffects.ToArray()); //Immediate status effect add

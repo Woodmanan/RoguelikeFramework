@@ -170,8 +170,7 @@ public class Equipment : MonoBehaviour
 
                 if (!succeeded)
                 {
-                    //TODO: Console message me!
-                    Debug.Log($"You must have your {t} slot avaible to equip a {equip.GetComponent<Item>().GetName()}");
+                    RogueLog.singleton.Log($"You must have your {t} slot avaible to equip a {equip.GetComponent<Item>().GetName()}");
                     return false;
                 }
             }
@@ -321,7 +320,7 @@ public class Equipment : MonoBehaviour
         if (!main.type.Contains(equip.primarySlot))
         {
             //TODO: Console error!
-            Debug.Log("<color=red>Item equipped to wrong type of primary slot!");
+            RogueLog.singleton.Log("<color=red>Item equipped to wrong type of primary slot!");
             //Debug.LogError("Item equipped to wrong type of primary slot!", equip);
             return;
         }
