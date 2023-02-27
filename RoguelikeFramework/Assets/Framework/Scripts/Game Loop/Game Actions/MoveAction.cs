@@ -57,7 +57,7 @@ public class MoveAction : GameAction
             }
             else
             {
-                Debug.LogError("Monster tried to move through a tile");
+                Debug.Log("Monster tried to move through a tile! Fix this!!!");
             }
             yield break;
         }

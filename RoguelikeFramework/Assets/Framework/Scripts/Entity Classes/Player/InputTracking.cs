@@ -93,6 +93,27 @@ public class InputTracking : MonoBehaviour
         return false;
     }
 
+    public static int NumOfUnmatchedActions(params PlayerAction[] matchedActions)
+    {
+        int count = 0;
+        foreach (PlayerAction action in actions)
+        { 
+            bool matched = false;
+            foreach (PlayerAction match in matchedActions)
+            {
+                if (action == match)
+                {
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (!matched) count++;
+        }
+
+        return count;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

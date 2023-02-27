@@ -25,6 +25,8 @@ MonoBehaviour:
   - {fileID: 8514963120815226497, guid: 6b53e68d4eb20a44cab6d6ace5ca0281, type: 3}
   - {fileID: 8514963120815226497, guid: d909a9a300992514ab9844c16d1b1f9f, type: 3}
   - {fileID: 8514963120815226497, guid: f573ee2b152ab0643b106e37bebd99f8, type: 3}
+  - {fileID: 8514963120815226497, guid: eea0bebe57f4c944c8c78dfc63992d8a, type: 3}
+  - {fileID: 8514963120815226497, guid: 3c39be2cf5e375e49a0077b14a04f76d, type: 3}
   elevationOptions:
   - id: 0
   - id: 1

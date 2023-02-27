@@ -95,7 +95,7 @@ public class AutoExploreAction : GameAction
                 }
                 
                 //Check for player escape
-                if (InputTracking.ContainsEscape())
+                if (InputTracking.NumOfUnmatchedActions(PlayerAction.NONE, PlayerAction.AUTO_EXPLORE) > 0)
                 {
                     InputTracking.Clear();
                     yield break;

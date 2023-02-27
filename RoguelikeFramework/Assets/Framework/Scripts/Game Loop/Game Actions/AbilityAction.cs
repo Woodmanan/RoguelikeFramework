@@ -88,7 +88,10 @@ public class AbilityAction : GameAction
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
-            RogueLog.singleton.LogAboveMonster($"{caller.GetFormattedName()} cast {toCast.GetName()}!", caller);
+            if (!toCast.locName.IsEmpty)
+            {
+                RogueLog.singleton.LogAboveMonster($"{caller.GetFormattedName()} cast {toCast.GetName()}!", caller);
+            }
             toCast.Cast(caller);
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);

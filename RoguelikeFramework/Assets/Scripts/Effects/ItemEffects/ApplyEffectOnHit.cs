@@ -167,7 +167,17 @@ public class ApplyEffectOnHit : Effect
     {
         if (result == AttackResult.HIT)
         {
-            action.target.AddEffectInstantiate(primaryAdd.ToArray());
+            AddEffect(action.target, primaryAdd);
+        }
+    }
+
+    public void AddEffect(Monster target, List<Effect> effects)
+    {
+        foreach (Effect effect in effects)
+        {
+            Effect inst = effect.Instantiate();
+            inst.credit = connectedTo.monster;
+            target.AddEffect(inst);
         }
     }
 
@@ -182,7 +192,7 @@ public class ApplyEffectOnHit : Effect
     {
         if (result == AttackResult.HIT)
         {
-            action.target.AddEffectInstantiate(secondaryAdd.ToArray());
+            AddEffect(action.target, secondaryAdd);
         }
     }
 
@@ -200,7 +210,7 @@ public class ApplyEffectOnHit : Effect
     {
         if (result == AttackResult.HIT)
         {
-            action.target.AddEffectInstantiate(unarmedAdd.ToArray());
+            AddEffect(action.target, unarmedAdd);
         }
     }
 
