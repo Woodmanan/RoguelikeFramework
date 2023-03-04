@@ -48,6 +48,10 @@ public class FloatingController : MonoBehaviour
         }
         camera = Camera.main;
         rectTransform = GetComponent<RectTransform>();
+
+        #if !UNITY_EDITOR
+        gameObject.SetActive(true);
+        #endif
     }
 
     // Update is called once per frame
