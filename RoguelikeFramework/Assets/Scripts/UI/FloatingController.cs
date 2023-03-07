@@ -67,6 +67,10 @@ public class FloatingController : MonoBehaviour
 
     public void AddBasicMessage(string text, Vector2 anchor)
     {
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
         FloatingMessage message = Instantiate(BasicMessagePrefab, transform).GetComponent<FloatingMessage>();
         message.controller = this;
         messages.Add(message);
@@ -76,6 +80,10 @@ public class FloatingController : MonoBehaviour
 
     public void AddWorldMessage(string text, Vector2 anchor)
     {
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
         FloatingMessage message = Instantiate(BasicMessagePrefab, transform).GetComponent<FloatingMessage>();
         message.controller = this;
         messages.Add(message);

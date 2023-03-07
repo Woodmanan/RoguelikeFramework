@@ -343,6 +343,22 @@ MonoBehaviour:
     m_Key: RedCrystalBootsDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 23700369086029824
+    m_Key: ManaPotionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23700429123297280
+    m_Key: ManaPotionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23701775977226240
+    m_Key: ManaRegenPotionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23701805911973888
+    m_Key: ManaRegenPotionDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

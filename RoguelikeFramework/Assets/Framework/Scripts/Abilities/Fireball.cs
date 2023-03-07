@@ -13,7 +13,7 @@ public class Fireball : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         AnimationController.AddAnimation(new ProjectileBresenhamAnim(caster.location, targeting.points[0], 30, sprites));
         AnimationController.AddAnimation(new ExplosionAnimation(targeting.points[0], targeting.radius, targeting, sprites));
@@ -22,5 +22,7 @@ public class Fireball : Ability
         {
             m.Damage(caster, currentStats[POWER], DamageType.FIRE, DamageSource.ABILITY);
         }
+
+        yield break;
     }
 }

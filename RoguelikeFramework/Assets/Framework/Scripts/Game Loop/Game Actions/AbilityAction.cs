@@ -92,7 +92,13 @@ public class AbilityAction : GameAction
             {
                 RogueLog.singleton.LogAboveMonster($"{caller.GetFormattedName()} cast {toCast.GetName()}!", caller);
             }
-            toCast.Cast(caller);
+            
+            
+            IEnumerator castRoutine = toCast.Cast(caller);
+            while (castRoutine.MoveNext())
+            {
+                yield return castRoutine.Current;
+            }
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);
 

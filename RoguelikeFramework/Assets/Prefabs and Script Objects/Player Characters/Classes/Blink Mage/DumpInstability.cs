@@ -27,7 +27,7 @@ public class DumpInstability : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         foreach (Monster target in targeting.affected)
         {
@@ -37,6 +37,8 @@ public class DumpInstability : Ability
         Clear(caster);
         if (cachedInstability == null) cachedInstability = caster.GetEffect<Instability>();
         cachedInstability?.ClearStacks();
+
+        yield break;
     }
 
     public void Clear(Monster monster)

@@ -26,7 +26,7 @@ public class HeatBurst : Ability
         
     }*/
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         List<Monster> byDist = targeting.affected.OrderByDescending(x => x.location.GameDistance(caster.location)).ToList();
         foreach (Monster m in targeting.affected)
@@ -63,6 +63,8 @@ public class HeatBurst : Ability
             {
                 m.Damage(caster, dist * wallDamage.damage.evaluate(), damage.type, DamageSource.ABILITY);
             }
+
+            yield break;
         }
     }
 }

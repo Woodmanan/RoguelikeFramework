@@ -199,6 +199,30 @@ MonoBehaviour:
     m_Key: SurgeDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 25275438589485056
+    m_Key: WightRitualName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276443037212672
+    m_Key: WightRitualDescription0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276511098183680
+    m_Key: WightRitualDescription1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276546963677184
+    m_Key: WightRitualDescription2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276858554327040
+    m_Key: WightRitualDescription3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276900463812608
+    m_Key: WightRitualDescription4
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

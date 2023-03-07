@@ -26,7 +26,7 @@ public class DragonsBreath : Ability
         
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         caster.AddBaseStat(Resources.HEAT, heatToAdd);
@@ -34,5 +34,6 @@ public class DragonsBreath : Ability
         {
             m.Damage(caster, damage.Evaluate(), DamageType.FIRE, DamageSource.ABILITY);
         }
+        yield break;
     }
 }

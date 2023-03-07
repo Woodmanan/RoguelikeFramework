@@ -287,6 +287,30 @@ MonoBehaviour:
     m_Key: AddSurgeDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 33376439255113728
+    m_Key: WightEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33380265815121920
+    m_Key: WightEffectDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33572815964413952
+    m_Key: WightAttributeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33572891881316352
+    m_Key: WightAttributeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33580976205144064
+    m_Key: ManaRegenName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33581070954471424
+    m_Key: ResourceOverTimeDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

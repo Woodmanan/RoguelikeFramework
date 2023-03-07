@@ -234,9 +234,58 @@ MonoBehaviour:
     m_Localized: Spit a stream of poison that deals damage over time.
     m_Metadata:
       m_Items: []
+  - m_Id: 25275438589485056
+    m_Localized: Yon Ritual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276443037212672
+    m_Localized: Perform the Yon ritual, removing part of your body and replacing
+      it with a solid mana construct. The first iteration of this ritual is experimentation
+      with external enhancements, giving you thin exoskeleton that grants you defensive
+      stats with your current mana. Costs {1.baseCost} base mana, as well as {1.costPerTurn}
+      mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276511098183680
+    m_Localized: This iteration of the ritual begin the internal enhancements, which
+      will make you frail as your body rejects the changes. The first change is to
+      replace your muscles with a flexible mana-driven manifold, which will further
+      increase the stats you gain from mana. Costs {1.baseCost} base mana, as well
+      as {1.costPerTurn} mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276546963677184
+    m_Localized: Your current mana supply isn't strong enough to supply a fully constructed
+      body. Concentrated cores of mana will serve as nexus points for your wider
+      and stronger mana veins. Your mana regeneration will vastly increase, at the
+      cost of an even frailer form.  Costs {1.baseCost} base mana, as well as {1.costPerTurn}
+      mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276858554327040
+    m_Localized: You'll need to replace your remaining organs with crystalized stores
+      of mana. Your maximum health will be improved with the removal of your dying
+      flesh, and your maximum mana will increase as well. Performing the ritual will
+      cost {1.baseCost} base mana, as well as {1.costPerTurn} mana per turn over
+      {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276900463812608
+    m_Localized: Fully encode your brain into a solid matrix of mana, removing the
+      last of your biological weakness. Your completed body will gain maximum health
+      and health regen based on your current mana. Additionally, all your Yon attributes
+      will be stronger. Costs {1.baseCost} base mana, as well as {1.costPerTurn}
+      mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b4a515f42000020abb4b0404b00
+        m_Entries: 00202b4a515f42000020abb4b0404b0000206b80cacc590000202b59dacc59000020ebb2e2cc590000202b3f2bcd590000202b0135cd5900

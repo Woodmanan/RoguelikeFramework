@@ -104,7 +104,10 @@ public class PlayerPassive : Effect
     //public override void OnActivateItem(ref Item item, ref bool canContinue) {}
 
     //Called when a spell is cast. Modify spell, or set continue to false in order to cancel the action!
-    //public override void OnCastAbility(ref AbilityAction action, ref bool canContinue) {}
+    public override void OnCastAbility(ref AbilityAction action, ref bool canContinue)
+    {
+        currentCombatTurns = TurnsTillSafety;
+    }
 
     //Called when this monster gains resources. (Different from healing, but can give health)
     //public override void OnGainResources(ref Stats resources) {}

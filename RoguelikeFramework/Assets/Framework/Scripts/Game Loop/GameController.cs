@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour
                 IEnumerator turn = player.LocalTurn();
                 while (player.energy > 0 && turn.MoveNext())
                 {
-                    if (turn.Current != GameAction.StateCheck)
+                    if (!GameAction.HasSpecialInstruction(turn))
                     {
                         yield return turn.Current;
                     }
@@ -184,7 +184,7 @@ public class GameController : MonoBehaviour
                     IEnumerator turn = m.LocalTurn();
                     while (m.energy > 0 && turn.MoveNext())
                     {
-                        if (turn.Current != GameAction.StateCheck)
+                        if (!GameAction.HasSpecialInstruction(turn))
                         {
                             watch.Stop();
                             yield return turn.Current;

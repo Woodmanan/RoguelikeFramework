@@ -22,7 +22,7 @@ public class SpawnConstruct : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         Vector2Int start = targeting.origin - Vector2Int.one * targeting.offset;
         List<Vector2Int> validLocations = new List<Vector2Int>();
@@ -46,6 +46,8 @@ public class SpawnConstruct : Ability
         {
             SpawnAt(validLocations[c], caster);
         }
+
+        yield break;
     }
 
     public void SpawnAt(Vector2Int location, Monster caster)

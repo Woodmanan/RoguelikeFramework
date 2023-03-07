@@ -24,7 +24,7 @@ public class GiveClass : Ability
         
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         if (caster == Player.player)
         {
@@ -34,5 +34,6 @@ public class GiveClass : Ability
         {
             classToGive.Apply(caster, giveItems:false);
         }
+        yield break;
     }
 }

@@ -26,7 +26,7 @@ public class Blink : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         Vector2Int goal = targeting.points[0];
         RogueTile goalTile = Map.current.GetTile(goal);
@@ -56,5 +56,6 @@ public class Blink : Ability
         }
 
         caster.AddEffect(punishmentEffect.Instantiate());
+        yield break;
     }
 }

@@ -1,17 +1,16 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[Group("Personal Attributes")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class Archmage : Effect
+public class ResourceOverTime : Effect
 {
-    public float percentHealthCut;
-    public float percentManaIncrease;
-    public float percentManaToPower;
-    public float percentManaToRange;
-
+    public Resources resource;
+    public float baseAmount;
+    public float amountPerTurn;
+    public int numTurns;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -26,14 +25,21 @@ public class Archmage : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public Archmage()
+    public ResourceOverTime()
     {
         //Construct me!
     }
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        connectedTo.monster.AddBaseStat(resource, baseAmount);
+        if (numTurns <= 0)
+        {
+            Disconnect();
+        }
+    }
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
@@ -45,7 +51,15 @@ public class Archmage : Effect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() {}
+    public override void OnTurnEndGlobal()
+    {
+        connectedTo.monster.AddBaseStat(resource, amountPerTurn);
+        numTurns--;
+        if (numTurns <= 0)
+        {
+            Disconnect();
+        }
+    }
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -69,11 +83,7 @@ public class Archmage : Effect
     //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
 
     //Called often, whenever a monster needs up-to-date stats.
-    public override void RegenerateStats(ref Stats stats)
-    {
-        stats[Resources.MAX_HEALTH] *= (percentHealthCut / 100);
-        stats[Resources.MAX_MANA] *= (1f + (percentManaIncrease / 100));
-    }
+    //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
     //public override void OnEnergyGained(ref int energy) {}
@@ -112,11 +122,7 @@ public class Archmage : Effect
     //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
-    public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability)
-    {
-        abilityStats[AbilityResources.POWER] += caster.baseStats[Resources.MANA] * percentManaToPower / 100;
-        abilityStats[AbilityResources.RANGE_INCREASE] += caster.baseStats[Resources.MANA] * percentManaToRange / 100;
-    }
+    //public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability) {}
 
     //Called by spells, in order to determine whether they are allowed to be cast.
     //public override void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
@@ -198,27 +204,117 @@ public class Archmage : Effect
 
 
     //BEGIN CONNECTION
+    //TEMPORARY CONNECTION - THIS WILL BE AUTO-REMOVED ONCE EFFECTS ARE REBUILT.
     public override void Connect(Connections c)
     {
         connectedTo = c;
-
-        c.RegenerateStats.AddListener(10, RegenerateStats);
-
-        c.OnRegenerateAbilityStats.AddListener(10, OnRegenerateAbilityStats);
-
+        connectedTo.OnTurnStartGlobal.AddListener(100, OnTurnStartGlobal);
+        connectedTo.OnTurnEndGlobal.AddListener(100, OnTurnEndGlobal);
+        connectedTo.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
+        connectedTo.OnTurnEndLocal.AddListener(100, OnTurnEndLocal);
+        connectedTo.OnMoveInitiated.AddListener(100, OnMoveInitiated);
+        connectedTo.OnMove.AddListener(100, OnMove);
+        connectedTo.OnFullyHealed.AddListener(100, OnFullyHealed);
+        connectedTo.OnDeath.AddListener(100, OnDeath);
+        connectedTo.OnKillMonster.AddListener(100, OnKillMonster);
+        connectedTo.RegenerateStats.AddListener(100, RegenerateStats);
+        connectedTo.OnEnergyGained.AddListener(100, OnEnergyGained);
+        connectedTo.OnAttacked.AddListener(100, OnAttacked);
+        connectedTo.OnDealDamage.AddListener(100, OnDealDamage);
+        connectedTo.OnTakeDamage.AddListener(100, OnTakeDamage);
+        connectedTo.OnHealing.AddListener(100, OnHealing);
+        connectedTo.OnApplyStatusEffects.AddListener(100, OnApplyStatusEffects);
+        connectedTo.OnActivateItem.AddListener(100, OnActivateItem);
+        connectedTo.OnCastAbility.AddListener(100, OnCastAbility);
+        connectedTo.OnGainResources.AddListener(100, OnGainResources);
+        connectedTo.OnGainXP.AddListener(100, OnGainXP);
+        connectedTo.OnLevelUp.AddListener(100, OnLevelUp);
+        connectedTo.OnLoseResources.AddListener(100, OnLoseResources);
+        connectedTo.OnRegenerateAbilityStats.AddListener(100, OnRegenerateAbilityStats);
+        connectedTo.OnCheckAvailability.AddListener(100, OnCheckAvailability);
+        connectedTo.OnTargetsSelected.AddListener(100, OnTargetsSelected);
+        connectedTo.OnPreCast.AddListener(100, OnPreCast);
+        connectedTo.OnPostCast.AddListener(100, OnPostCast);
+        connectedTo.OnTargetedByAbility.AddListener(100, OnTargetedByAbility);
+        connectedTo.OnHitByAbility.AddListener(100, OnHitByAbility);
+        connectedTo.OnStartAttack.AddListener(100, OnStartAttack);
+        connectedTo.OnGenerateArmedAttacks.AddListener(100, OnGenerateArmedAttacks);
+        connectedTo.OnBeginPrimaryAttack.AddListener(100, OnBeginPrimaryAttack);
+        connectedTo.OnPrimaryAttackResult.AddListener(100, OnPrimaryAttackResult);
+        connectedTo.OnEndPrimaryAttack.AddListener(100, OnEndPrimaryAttack);
+        connectedTo.OnBeginSecondaryAttack.AddListener(100, OnBeginSecondaryAttack);
+        connectedTo.OnSecondaryAttackResult.AddListener(100, OnSecondaryAttackResult);
+        connectedTo.OnEndSecondaryAttack.AddListener(100, OnEndSecondaryAttack);
+        connectedTo.OnGenerateUnarmedAttacks.AddListener(100, OnGenerateUnarmedAttacks);
+        connectedTo.OnBeginUnarmedAttack.AddListener(100, OnBeginUnarmedAttack);
+        connectedTo.OnUnarmedAttackResult.AddListener(100, OnUnarmedAttackResult);
+        connectedTo.OnEndUnarmedAttack.AddListener(100, OnEndUnarmedAttack);
+        connectedTo.OnBeforePrimaryAttackTarget.AddListener(100, OnBeforePrimaryAttackTarget);
+        connectedTo.OnAfterPrimaryAttackTarget.AddListener(100, OnAfterPrimaryAttackTarget);
+        connectedTo.OnBeforeSecondaryAttackTarget.AddListener(100, OnBeforeSecondaryAttackTarget);
+        connectedTo.OnAfterSecondaryAttackTarget.AddListener(100, OnAfterSecondaryAttackTarget);
+        connectedTo.OnBeforeUnarmedAttackTarget.AddListener(100, OnBeforeUnarmedAttackTarget);
+        connectedTo.OnAfterUnarmedAttackTarget.AddListener(100, OnAfterUnarmedAttackTarget);
+        connectedTo.OnGenerateLOSPreCollection.AddListener(100, OnGenerateLOSPreCollection);
+        connectedTo.OnGenerateLOSPostCollection.AddListener(100, OnGenerateLOSPostCollection);
         OnConnection();
     }
     //END CONNECTION
 
     //BEGIN DISCONNECTION
+    //TEMPORARY DISCONNECTION - THIS WILL BE AUTO-REMOVED ONCE EFFECTS ARE REBUILT.
     public override void Disconnect()
     {
         OnDisconnection();
-
+        connectedTo.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+        connectedTo.OnTurnEndLocal.RemoveListener(OnTurnEndLocal);
+        connectedTo.OnMoveInitiated.RemoveListener(OnMoveInitiated);
+        connectedTo.OnMove.RemoveListener(OnMove);
+        connectedTo.OnFullyHealed.RemoveListener(OnFullyHealed);
+        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
-
+        connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
+        connectedTo.OnAttacked.RemoveListener(OnAttacked);
+        connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
+        connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
+        connectedTo.OnHealing.RemoveListener(OnHealing);
+        connectedTo.OnApplyStatusEffects.RemoveListener(OnApplyStatusEffects);
+        connectedTo.OnActivateItem.RemoveListener(OnActivateItem);
+        connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
+        connectedTo.OnGainResources.RemoveListener(OnGainResources);
+        connectedTo.OnGainXP.RemoveListener(OnGainXP);
+        connectedTo.OnLevelUp.RemoveListener(OnLevelUp);
+        connectedTo.OnLoseResources.RemoveListener(OnLoseResources);
         connectedTo.OnRegenerateAbilityStats.RemoveListener(OnRegenerateAbilityStats);
-
+        connectedTo.OnCheckAvailability.RemoveListener(OnCheckAvailability);
+        connectedTo.OnTargetsSelected.RemoveListener(OnTargetsSelected);
+        connectedTo.OnPreCast.RemoveListener(OnPreCast);
+        connectedTo.OnPostCast.RemoveListener(OnPostCast);
+        connectedTo.OnTargetedByAbility.RemoveListener(OnTargetedByAbility);
+        connectedTo.OnHitByAbility.RemoveListener(OnHitByAbility);
+        connectedTo.OnStartAttack.RemoveListener(OnStartAttack);
+        connectedTo.OnGenerateArmedAttacks.RemoveListener(OnGenerateArmedAttacks);
+        connectedTo.OnBeginPrimaryAttack.RemoveListener(OnBeginPrimaryAttack);
+        connectedTo.OnPrimaryAttackResult.RemoveListener(OnPrimaryAttackResult);
+        connectedTo.OnEndPrimaryAttack.RemoveListener(OnEndPrimaryAttack);
+        connectedTo.OnBeginSecondaryAttack.RemoveListener(OnBeginSecondaryAttack);
+        connectedTo.OnSecondaryAttackResult.RemoveListener(OnSecondaryAttackResult);
+        connectedTo.OnEndSecondaryAttack.RemoveListener(OnEndSecondaryAttack);
+        connectedTo.OnGenerateUnarmedAttacks.RemoveListener(OnGenerateUnarmedAttacks);
+        connectedTo.OnBeginUnarmedAttack.RemoveListener(OnBeginUnarmedAttack);
+        connectedTo.OnUnarmedAttackResult.RemoveListener(OnUnarmedAttackResult);
+        connectedTo.OnEndUnarmedAttack.RemoveListener(OnEndUnarmedAttack);
+        connectedTo.OnBeforePrimaryAttackTarget.RemoveListener(OnBeforePrimaryAttackTarget);
+        connectedTo.OnAfterPrimaryAttackTarget.RemoveListener(OnAfterPrimaryAttackTarget);
+        connectedTo.OnBeforeSecondaryAttackTarget.RemoveListener(OnBeforeSecondaryAttackTarget);
+        connectedTo.OnAfterSecondaryAttackTarget.RemoveListener(OnAfterSecondaryAttackTarget);
+        connectedTo.OnBeforeUnarmedAttackTarget.RemoveListener(OnBeforeUnarmedAttackTarget);
+        connectedTo.OnAfterUnarmedAttackTarget.RemoveListener(OnAfterUnarmedAttackTarget);
+        connectedTo.OnGenerateLOSPreCollection.RemoveListener(OnGenerateLOSPreCollection);
+        connectedTo.OnGenerateLOSPostCollection.RemoveListener(OnGenerateLOSPostCollection);
         ReadyToDelete = true;
     }
     //END DISCONNECTION

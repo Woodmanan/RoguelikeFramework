@@ -41,7 +41,7 @@ public class ApplyStance : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         Effect casterCurrentStance = null;
         if (currentStances.TryGetValue(caster, out casterCurrentStance))
@@ -53,5 +53,7 @@ public class ApplyStance : Ability
         lastGivenStance = stance.Instantiate();
         caster.AddEffect(lastGivenStance);
         currentStances.Add(caster, lastGivenStance);
+
+        yield break;
     }
 }

@@ -12,12 +12,17 @@ public class GameAction
     public static YieldInstruction StateCheck = new WaitForSeconds(1.0f);
     public static YieldInstruction Abort = new WaitForSeconds(2.0f);
     public static YieldInstruction AbortAll = new WaitForSeconds(3.0f);
+    public static YieldInstruction StateCheckAllowExit = new WaitForSeconds(4.0f); //Asks players if they'd like to stop
+    public static YieldInstruction StateCheckNoExit = new WaitForSeconds(5.0f); //Willing to stop for a turn, but NOT willing to stop for visible enemies.
 
     //----------Shared variables per instance---------------------
     public Monster caller;
     public IEnumerator action;
     public bool finished;
     public bool successful = true;
+    public bool stopsOnVisible = false;
+    public bool checksOnVisible = false;
+    public bool hasPreventedStop = false;
 
     //Empty contructor, because the flow works better if you make an object
     //and then just let the monster itself figure out how to use it
@@ -62,6 +67,8 @@ public class GameAction
             }
             else
             {
+                stopsOnVisible = (runState.Current != GameAction.StateCheckNoExit);
+                checksOnVisible = (runState.Current == GameAction.StateCheckAllowExit);
                 yield return runState.Current;
             }
         }
@@ -79,5 +86,19 @@ public class GameAction
     public virtual void OnSetup()
     {
 
+    }
+
+    public static bool IsSpecialInstruction(YieldInstruction instruction)
+    {
+        return instruction != GameAction.StateCheck &&
+               instruction != GameAction.StateCheckAllowExit &&
+               instruction != GameAction.StateCheckNoExit;
+    }
+
+    public static bool HasSpecialInstruction(IEnumerator enumerator)
+    {
+        return enumerator.Current == GameAction.StateCheck ||
+               enumerator.Current == GameAction.StateCheckAllowExit ||
+               enumerator.Current == GameAction.StateCheckNoExit;
     }
 }

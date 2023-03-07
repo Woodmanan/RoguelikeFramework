@@ -20,7 +20,7 @@ public class TeleportOther : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         
         List<Vector2Int> validLocations = new List<Vector2Int>();
@@ -49,6 +49,6 @@ public class TeleportOther : Ability
             targeting.affected[c].SetPositionNoGraphicsUpdate(validLocations[c]);
         }
 
-        Debug.Log("Poof!");
+        yield break;
     }
 }

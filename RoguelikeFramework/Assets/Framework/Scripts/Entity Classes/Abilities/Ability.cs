@@ -191,17 +191,22 @@ public class Ability : ScriptableObject, IDescribable
 
     
 
-    public void Cast(Monster caster)
+    public IEnumerator Cast(Monster caster)
     {
         baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - currentStats[COOLDOWN_DECREASE]);
 
-        //TODO: Call the OnCast modifier!
-        OnCast(caster);
+        IEnumerator castingRoutine = OnCast(caster);
+
+        while (castingRoutine.MoveNext())
+        {
+            yield return castingRoutine.Current;
+        }
     }
 
-    public virtual void OnCast(Monster caster)
+    public virtual IEnumerator OnCast(Monster caster)
     {
         Debug.Log("Ability did not override basic call", this);
+        yield break;
     }
 
     // Update is called once per frame

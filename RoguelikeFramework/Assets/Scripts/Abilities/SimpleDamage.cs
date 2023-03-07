@@ -21,7 +21,7 @@ public class SimpleDamage : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         //Anim before damage so death animations line up
         AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
@@ -29,5 +29,6 @@ public class SimpleDamage : Ability
         {
             target.Damage(caster, damage.damage.evaluate() + currentStats[AbilityResources.POWER], damage.type, DamageSource.ABILITY);
         }
+        yield break;
     }
 }

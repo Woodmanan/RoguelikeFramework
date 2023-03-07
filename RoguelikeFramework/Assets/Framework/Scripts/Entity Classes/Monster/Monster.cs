@@ -501,7 +501,26 @@ public class Monster : MonoBehaviour, IDescribable
     //Takes the local turn
     public IEnumerator LocalTurn()
     {
-        if (view.visibleMonsters.Any(x => x.IsEnemy(this))) currentAction = null;
+        if (view.visibleMonsters.Any(x => x.IsEnemy(this)))
+        {
+            if (currentAction != null && currentAction.checksOnVisible && !currentAction.hasPreventedStop)
+            {
+                if (this == Player.player)
+                {
+                    UIController.singleton.OpenConfirmation("You see an enemy. Would you like to stop?", x => currentAction.stopsOnVisible = x);
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    currentAction.hasPreventedStop = !currentAction.stopsOnVisible;
+                }
+                else
+                {
+                    currentAction.stopsOnVisible = true;
+                }
+            }
+            if (currentAction != null && currentAction.stopsOnVisible && !currentAction.hasPreventedStop)
+            {
+                currentAction = null;
+            }
+        }
         while (energy > 0)
         {
             if (currentAction == null)

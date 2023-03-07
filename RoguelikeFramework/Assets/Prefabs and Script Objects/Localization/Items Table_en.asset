@@ -283,7 +283,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12598878658560
-    m_Localized: It tastes like blue! You might have ADHD now.
+    m_Localized: It tastes like yellow! You might have ADHD now.
     m_Metadata:
       m_Items: []
   - m_Id: 12671297511424
@@ -372,6 +372,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 18720376375418880
     m_Localized: Shockingly heavy. Shockingly red.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23701775977226240
+    m_Localized: Potion of Mana Regeneration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23700369086029824
+    m_Localized: Potion of Mana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23700429123297280
+    m_Localized: Tastes like blue!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23701805911973888
+    m_Localized: Tastes like purple!
     m_Metadata:
       m_Items: []
   references:

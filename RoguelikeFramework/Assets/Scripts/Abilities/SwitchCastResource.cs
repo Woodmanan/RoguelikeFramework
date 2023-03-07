@@ -111,22 +111,31 @@ public class SwitchCastResource : Ability
         above = above.Instantiate();
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
+        IEnumerator subroutine;
         if (isBelow)
         {
             //Below!
             below.targeting = targeting;
-            below.Cast(caster);
             currentCooldown = below.currentCooldown;
             below.currentCooldown = 0;
+            subroutine = below.Cast(caster);
+            while (subroutine.MoveNext())
+            {
+                yield return subroutine.Current;
+            }
         }
         else
         {
             above.targeting = targeting;
-            above.Cast(caster);
             currentCooldown = above.currentCooldown;
             above.currentCooldown = 0;
+            subroutine = above.Cast(caster);
+            while (subroutine.MoveNext())
+            {
+                yield return subroutine.Current;
+            }
         }
     }
 

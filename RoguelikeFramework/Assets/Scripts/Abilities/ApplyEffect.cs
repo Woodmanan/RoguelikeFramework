@@ -19,7 +19,7 @@ public class ApplyEffect : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
         foreach (Monster target in targeting.affected)
         {
@@ -30,5 +30,6 @@ public class ApplyEffect : Ability
                 target.AddEffect(toAdd);
             }
         }
+        yield break;
     }
 }
