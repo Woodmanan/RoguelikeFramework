@@ -163,7 +163,7 @@ public class HorseSystem : DungeonSystem
 
                 ReplaceTile(tilePrefab, tile);
 
-                currentHorses.Add(map.GetTile(tile.location));
+                //currentHorses.Add(map.GetTile(tile.location));
 
                 MonsterSpawner.singleton.SpawnMonsterAt(map, tile.location);
             }
@@ -188,7 +188,12 @@ public class HorseSystem : DungeonSystem
         {
             if (Pathfinding.FindPath(horse.location, goal.location).Count() == 0)
             {
-                movedAny = true;
+                if (!movedAny)
+                {
+                    AnimationController.AddAnimation(new BlockAnimation());
+                    movedAny = true;
+                }
+
                 if (horse.location.y != goal.location.y)
                 {
                     MoveHorse(horse, Vector2Int.up);
@@ -292,12 +297,24 @@ public class HorseSystem : DungeonSystem
 
         Vector3 posHold = target.transform.position;
         target.transform.position = horse.transform.position;
-        horse.transform.position = posHold;
 
         if (horse.currentlyStanding)
         {
-            //horse.currentlyStanding.location = horse.location;
-            horse.currentlyStanding.SetPositionSnap(horse.location);
+            horse.currentlyStanding.location = horse.location;
+        }
+
+        if (target.isVisible || !horse.isHidden)
+        {
+            AnimationController.AddAnimation(new HorseAnimation(horse, target.location, horse.location, false));
+        }
+        else
+        {
+            horse.transform.position = posHold;
+            if (horse.currentlyStanding)
+            {
+                //horse.currentlyStanding.location = horse.location;
+                horse.currentlyStanding.SetPositionSnap(horse.location);
+            }
         }
     }
 }

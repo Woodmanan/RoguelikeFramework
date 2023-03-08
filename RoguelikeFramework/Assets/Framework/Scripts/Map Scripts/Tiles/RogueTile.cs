@@ -250,6 +250,38 @@ public class RogueTile : MonoBehaviour, IDescribable
         return 0f;
     }
 
+    //Moves this tile, it's items, and it's monster to the new position. Convenience function for animating moving tiles
+    public void AnimUpdatePosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+        AnimUpdateItemPosition(newPosition);
+        AnimUpdateMonsterPosition(newPosition);
+    }
+
+    //Moves just the contents of this cell to the shown location
+    public void AnimUpdateItemPosition(Vector3 newPosition)
+    {
+        if (inventory)
+        {
+            Vector3 inventoryPosition = newPosition;
+            inventoryPosition.z = Item.itemZValue;
+            foreach (Item i in inventory.AllHeld())
+            {
+                i.transform.position = inventoryPosition;
+            }
+        }
+    }
+
+    public void AnimUpdateMonsterPosition(Vector3 newPosition)
+    {
+        if (currentlyStanding)
+        {
+            Vector3 monsterPosition = newPosition;
+            monsterPosition.z = Monster.monsterZPosition;
+            currentlyStanding.transform.position = monsterPosition;
+        }
+    }
+
     //Editor only functions - For convenience
     #if UNITY_EDITOR
     private void OnValidate()

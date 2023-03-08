@@ -74,7 +74,7 @@ public class Item : MonoBehaviour, IDescribable
     [HideInInspector] public MeleeWeapon melee;
     [HideInInspector] public RangedWeapon ranged;
 
-    private static readonly float itemZValue = -7.0f;
+    public static readonly float itemZValue = -7.0f;
 
     private bool setup = false;
 

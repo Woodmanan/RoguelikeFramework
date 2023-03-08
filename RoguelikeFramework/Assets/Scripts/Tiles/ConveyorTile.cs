@@ -8,10 +8,12 @@ public class ConveyorTile : RogueTile
     public float leniency = .8f;
     public float penalty = -.8f;
 
-    bool willMove;
-    bool hasChecked = false;
+    bool willMoveMonsters;
+    bool willMoveItems;
+    bool hasCheckedMonsters = false;
+    bool hasCheckedItems = false;
     public Monster heldMonster;
-    ItemStack[] heldItems;
+    public ItemStack[] items;
 
     //The EXTRA cost to move from this tile to a tile in direction.
     //For most tiles, this is 0. If you're extra special fast, it can be negative.
@@ -41,8 +43,10 @@ public class ConveyorTile : RogueTile
     //Undo caching - things have likely moved.
     public void ClearMovementCache()
     {
-        willMove = false;
-        hasChecked = false;
+        willMoveMonsters = false;
+        willMoveItems = true;
+        hasCheckedMonsters = false;
+        hasCheckedItems = false;
     }
 
     public void CheckMovement()
@@ -52,24 +56,29 @@ public class ConveyorTile : RogueTile
             heldMonster = currentlyStanding;
             this.currentlyStanding = null;
             heldMonster.currentTile = null;
-            if (heldMonster == Player.player)
-            {
-                Debug.Log("Player is on a tile!");
-            }
+        }
+    }
+
+    public void CheckItems()
+    {
+        if (inventory && WillMoveItems())
+        {
+            items = inventory.items;
+            inventory.ClearItems();
         }
     }
 
     //Semi-recursive check - runs down the line, looking for open conveyor. If open, returns true up the stack and caches for later checks.
     public bool WillMove()
     {
-        if (!hasChecked)
+        if (!hasCheckedMonsters)
         {
-            hasChecked = true;
+            hasCheckedMonsters = true;
 
             //Early out - we are non-blocking.
             if (!currentlyStanding)
             {
-                willMove = true;
+                willMoveMonsters = true;
                 return true;
             }
 
@@ -79,20 +88,57 @@ public class ConveyorTile : RogueTile
                 ConveyorTile nextConveyor = next as ConveyorTile;
                 if (nextConveyor)
                 {
-                    willMove = nextConveyor.WillMove();
+                    willMoveMonsters = nextConveyor.WillMove();
                 }
                 else
                 {
-                    willMove = false;
+                    willMoveMonsters = false;
                 }
             }
             else
             {
-                willMove = true;
+                willMoveMonsters = true;
             }
         }
 
-        return willMove;
+        return willMoveMonsters;
+    }
+
+    public bool WillMoveItems()
+    {
+        if (!hasCheckedItems)
+        {
+            hasCheckedItems = true;
+
+            //Early out - we are non-blocking.
+            if (!inventory)
+            {
+                willMoveItems = false;
+                return false;
+            }
+
+            int numItems = inventory.Count;
+
+            RogueTile next = Map.current.GetTile(location + movesTo);
+            if (next.BlocksMovement() || next.inventory == null || next.inventory.available < numItems)
+            {
+                ConveyorTile nextConveyor = next as ConveyorTile;
+                if (nextConveyor)
+                {
+                    willMoveItems = nextConveyor.WillMoveItems();
+                }
+                else
+                {
+                    willMoveItems = false;
+                }
+            }
+            else
+            {
+                willMoveItems = true;
+            }
+        }
+
+        return willMoveItems;
     }
 
     public void PassToMovement()
@@ -105,7 +151,7 @@ public class ConveyorTile : RogueTile
             tile = this;
         }
 
-        if (heldMonster)
+        if (willMoveMonsters)
         {
             heldMonster.SetPosition(tile.location);
             heldMonster.UpdateLOS();
@@ -115,6 +161,5 @@ public class ConveyorTile : RogueTile
             }
             heldMonster = null;
         }
-
     }
 }

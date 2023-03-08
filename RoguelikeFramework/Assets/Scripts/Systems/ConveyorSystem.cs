@@ -50,6 +50,7 @@ public class ConveyorSystem : DungeonSystem
         for (int i = 0; i < held; i++)
         {
             tiles[i].CheckMovement();
+            //tiles[i].CheckItems();
         }
 
         //Step 3 - tiles pass to whomever they point to.

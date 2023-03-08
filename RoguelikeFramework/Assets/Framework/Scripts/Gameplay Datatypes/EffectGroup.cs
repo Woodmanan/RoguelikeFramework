@@ -20,6 +20,9 @@ public class EffectGroup : ScriptableObject
     [SerializeField]
     List<EffectRarityPairing> effects;
 
+    public int favorLastX;
+    public float favorChance;
+
     public Effect GetRandomEffect()
     {
         if (effects.Count == 0)
@@ -32,6 +35,12 @@ public class EffectGroup : ScriptableObject
 
     public Effect GetRandomEffectWithRarity(ItemSpawnInfo rarities)
     {
+        if (favorLastX > 0 && Random.value < (favorChance/ 100))
+        {
+            int start = effects.Count - favorLastX;
+            return effects[RogueRNG.Linear(start, effects.Count)].effect;
+        }
+
         ItemRarity toGet = rarities.GetRarity();
         List<EffectRarityPairing> options = effects.Where(x => x.rarity == toGet).ToList();
         while (options.Count == 0)

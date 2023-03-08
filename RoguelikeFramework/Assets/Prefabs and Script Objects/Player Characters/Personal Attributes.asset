@@ -43,6 +43,8 @@ MonoBehaviour:
   - rarity: 2
     effect:
       id: 9
+  favorLastX: 3
+  favorChance: 40
   references:
     version: 1
     00000000:

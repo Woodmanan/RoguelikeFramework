@@ -33,7 +33,8 @@ public class Inventory : MonoBehaviour
 {
     //Regular variables
     public int capacity;
-    int available;
+    [HideInInspector]
+    public int available;
 
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
@@ -416,5 +417,11 @@ public class Inventory : MonoBehaviour
 
         onFloor.Add(stack);
         RemoveAt(index);
+    }
+
+    public void ClearItems()
+    {
+        Items = new ItemStack[capacity];
+        available = capacity;
     }
 }
