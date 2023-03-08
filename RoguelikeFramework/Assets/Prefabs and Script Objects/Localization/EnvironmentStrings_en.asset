@@ -93,5 +93,14 @@ MonoBehaviour:
     m_Localized: A crystal clear window. Look, a bird!
     m_Metadata:
       m_Items: []
+  - m_Id: 28009385794674688
+    m_Localized: Bar Top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28009475712163840
+    m_Localized: You could totally climb over this, but unfortunately you were raised
+      better than that.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

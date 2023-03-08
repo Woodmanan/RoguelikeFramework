@@ -12,6 +12,8 @@ public class ClockConnectMachine : Machine
     public const int rightIndex = 6;
     bool clockwise = true;
 
+    public bool layEmptyHallways = false;
+
     // Activate is called to start the machine
     public override IEnumerator Activate()
     {
@@ -32,7 +34,14 @@ public class ClockConnectMachine : Machine
 
         for (int i = 0; i < hull.Count; i++)
         {
-            ConnectConveyors(hull[i], hull[(i + 1) % hull.Count]);
+            if (layEmptyHallways)
+            {
+                ConnectStandard(hull[i], hull[(i + 1) % hull.Count]);
+            }
+            else
+            {
+                ConnectConveyors(hull[i], hull[(i + 1) % hull.Count]);
+            }
             yield return null;
         }
 

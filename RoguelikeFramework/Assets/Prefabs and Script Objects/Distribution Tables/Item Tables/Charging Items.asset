@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f07974e789258e4e9b1ebe8da34daea, type: 3}
-  m_Name: Clockwork Items
+  m_Name: Charging Items
   m_EditorClassIdentifier: 
   items:
   - {fileID: 8514963120815226497, guid: b3a5bb0c1cdfb5145bb521a7a94ef593, type: 3}

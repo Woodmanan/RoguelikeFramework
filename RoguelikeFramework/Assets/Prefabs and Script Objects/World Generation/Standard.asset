@@ -30,14 +30,14 @@ MonoBehaviour:
       min: 1
       max: 1
     branches:
-    - {fileID: 11400000, guid: b44cc16e24c570840b21f20789651410, type: 2}
+    - {fileID: 11400000, guid: a9a98a26f92ef644ab3a6e1392857256, type: 2}
     - {fileID: 11400000, guid: c3e825b3f361c5f4dba376382f9a8d55, type: 2}
     connectionType: 0
     exitTargets: []
   - name: Floors 4-6
     enabled: 1
     entryTargets:
-    - branchName: Clockwork
+    - branchName: Charging
       floors:
         rngType: 0
         min: 2

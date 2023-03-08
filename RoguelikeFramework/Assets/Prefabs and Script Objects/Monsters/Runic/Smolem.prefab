@@ -56,11 +56,14 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
+  resistances: 0
+  weaknesses: 0
+  immunities: 0
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
     m_TableEntryReference:
-      m_KeyId: 1222260760576
+      m_KeyId: 33908224997138432
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -69,7 +72,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
     m_TableEntryReference:
-      m_KeyId: 1267076898816
+      m_KeyId: 33908265895796736
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

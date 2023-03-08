@@ -213,5 +213,23 @@ MonoBehaviour:
       life and death, they are the first filter for candidates climbing the tower.
     m_Metadata:
       m_Items: []
+  - m_Id: 33907982545395712
+    m_Localized: Runic Golem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908040414208000
+    m_Localized: A massive golem, covered in glowing runes. With its slow speed,
+      it should be easy to avoid.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908224997138432
+    m_Localized: Smolem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908265895796736
+    m_Localized: A smol golem. It just happens to look like a bird, for unexplained
+      reasons.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

@@ -195,6 +195,22 @@ MonoBehaviour:
     m_Key: CustodianDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 33907982545395712
+    m_Key: RunicGolemName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908040414208000
+    m_Key: RunicGolemDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908224997138432
+    m_Key: SmolemName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908265895796736
+    m_Key: SmolemDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

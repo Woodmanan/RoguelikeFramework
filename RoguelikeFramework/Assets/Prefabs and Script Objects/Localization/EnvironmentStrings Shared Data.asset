@@ -87,6 +87,14 @@ MonoBehaviour:
     m_Key: WindowDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 28009385794674688
+    m_Key: BarTopName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28009475712163840
+    m_Key: BarTopDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

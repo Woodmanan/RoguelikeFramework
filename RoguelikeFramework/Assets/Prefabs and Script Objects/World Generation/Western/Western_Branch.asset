@@ -82,6 +82,8 @@ MonoBehaviour:
         - {fileID: 11400000, guid: c322571bbefb3cb459b3fe8d17eb911f, type: 2}
         - {fileID: 11400000, guid: 8be15f01f277bcf4db59b94dd851e4e0, type: 2}
         - {fileID: 11400000, guid: 3aa1bab6d823a5a4383a16575694b2c6, type: 2}
+        - {fileID: 11400000, guid: 98fbc4e1943ca3946af05573909112ac, type: 2}
+        - {fileID: 11400000, guid: 7cf154d4458859f4c83b6b301df0fb2d, type: 2}
         gap:
           rngType: 1
           min: 3

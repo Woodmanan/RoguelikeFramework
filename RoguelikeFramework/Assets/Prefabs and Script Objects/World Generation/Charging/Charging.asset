@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
-  m_Name: Clockwork_Branch
+  m_Name: Charging
   m_EditorClassIdentifier: 
   requirements: []
-  antiRequirements:
-  - Charging
-  branchName: Clockwork
-  branchDepth: 7
+  antiRequirements: []
+  branchName: Charging
+  branchDepth: 1
   numberOfLevels: 3
   ConnectionsPerFloor:
     rngType: 0
@@ -32,29 +31,8 @@ MonoBehaviour:
   - id: 0
   - id: 1
   - id: 2
-  overrides:
-  - name: Add Secret
-    level: 2
-    type: 0
-    machines:
-    - id: 3
-    deleteIndex: 0
-    resize: {x: 0, y: 0}
-  - name: Set Size
-    level: 1
-    type: 2
-    machines:
-    - id: 3
-    deleteIndex: 0
-    resize: {x: 50, y: 50}
-  - name: Set Size
-    level: 2
-    type: 2
-    machines:
-    - id: 3
-    deleteIndex: 0
-    resize: {x: 60, y: 60}
-  tiles: {fileID: 11400000, guid: 5f89280c4465fd74aa7a038922f300ff, type: 2}
+  overrides: []
+  tiles: {fileID: 11400000, guid: 65fd93735bd72cb4b930a699bce7c33c, type: 2}
   entryTile: {fileID: 3072715883528071421, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   exitTile: {fileID: 21300000, guid: c117c353396e74c4b949b88fe8c7eaff, type: 3}
   tables:
@@ -63,7 +41,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ba99da266c2c3c4e84f949d2b24a125, type: 2}
   - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
   - {fileID: 11400000, guid: 6c13e4696f6648e448a08aee431b4f87, type: 2}
-  - {fileID: 11400000, guid: bc039baf73aab4e4fb02387d4b3a95e9, type: 2}
   numItemsPerLevel:
     rngType: 1
     min: 5
@@ -118,7 +95,7 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        layEmptyHallways: 0
+        layEmptyHallways: 1
     00000002:
       type: {class: SystemMachine, ns: , asm: RoguelikeFramework}
       data:
@@ -130,21 +107,6 @@ MonoBehaviour:
         canShareSpace: 1
         canExpand: 1
         systems:
-        - id: 4
-        - id: 5
+        - id: 3
     00000003:
-      type: {class: ClockSecretMachine, ns: , asm: RoguelikeFramework}
-      data:
-        priority: -1
-        global: 1
-        size: {x: 0, y: 0}
-        start: {x: 0, y: 0}
-        end: {x: 0, y: 0}
-        canShareSpace: 1
-        canExpand: 1
-        secretRoom: {fileID: 11400000, guid: d24df9f0a9a41274aa67e3e977493a8f, type: 2}
-        attempts: 100
-    00000004:
-      type: {class: ConveyorSystem, ns: , asm: RoguelikeFramework}
-    00000005:
       type: {class: PowerSystem, ns: , asm: RoguelikeFramework}
