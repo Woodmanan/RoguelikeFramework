@@ -109,7 +109,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: cff551f641427b944b18be85748d7362, type: 3}
         drainsOn: -1
         drainsFrom: 16
         efficiency: 30

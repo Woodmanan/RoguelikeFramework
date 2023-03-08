@@ -212,7 +212,7 @@ public class ItemInspectionPanel : RogueUIPanel
             equipEffectsPanel.gameObject.SetActive(true);
         }
 
-        while (effectsPanel.childCount < effects.Count)
+        while (equipEffectsPanel.childCount < effects.Count)
         {
             GameObject spawned = Instantiate(efffectDisplayPrefab);
             spawned.transform.parent = equipEffectsPanel;
