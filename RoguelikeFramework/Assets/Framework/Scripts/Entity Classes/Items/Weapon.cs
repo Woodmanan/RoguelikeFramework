@@ -14,9 +14,10 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Item item;
 
     // Start is called before the first frame update
-    public virtual void Start()
+    public virtual void Awake()
     {
         item = GetComponent<Item>();
+        item.Setup();
         connections = item.connections;
         
         source = (item.type == ItemType.MELEE_WEAPON) ? DamageSource.MELEEATTACK : DamageSource.RANGEDATTACK;

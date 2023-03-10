@@ -72,7 +72,14 @@ public class MonsterAI : ActionController
 
 
             //4 - Wait
-            choices.Enqueue(4, 1f - .1f);
+            if (monster.energyPerStep == 0)
+            {
+                choices.Enqueue(4, 1f - 1.1f);
+            }
+            else
+            {
+                choices.Enqueue(4, 1f - .1f);
+            }
 
             //5 - Heal up
             choices.Enqueue(5, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
@@ -115,6 +122,7 @@ public class MonsterAI : ActionController
             //1 - Fight
             //2 - Spell
             //3 - Some offered action
+            //4 - Wait
 
             float flee = fleeQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
             float approach = fightQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
@@ -128,6 +136,11 @@ public class MonsterAI : ActionController
             choices.Enqueue(1, 1f - approach);
             choices.Enqueue(2, 1f - spellValue);
             choices.Enqueue(3, 1f - interactableCost);
+
+            if (monster.energyPerStep == 0)
+            {
+                choices.Enqueue(4, 1f - 1.1f);
+            }
 
             int finalChoice = choices.Dequeue();
             switch (finalChoice)
@@ -162,6 +175,9 @@ public class MonsterAI : ActionController
                     break;
                 case 3:
                     nextAction = tile.GetAction();
+                    break;
+                case 4:
+                    nextAction = new WaitAction();
                     break;
                 default:
                     Debug.LogError($"Can't make choice {finalChoice}, so waiting instead");

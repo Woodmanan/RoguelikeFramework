@@ -211,6 +211,22 @@ MonoBehaviour:
     m_Key: SmolemDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 34603670006603776
+    m_Key: GrenadierName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34603716508852224
+    m_Key: GrenadierDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34604980776935424
+    m_Key: WestBarrelName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34605021482655744
+    m_Key: WestBarrelDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

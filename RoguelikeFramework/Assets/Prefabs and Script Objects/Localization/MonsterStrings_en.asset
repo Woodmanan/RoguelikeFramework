@@ -231,5 +231,30 @@ MonoBehaviour:
       reasons.
     m_Metadata:
       m_Items: []
+  - m_Id: 5916374181339136
+    m_Localized: Sniper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916408478162944
+    m_Localized: Longest gun in the West.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34603670006603776
+    m_Localized: Grenadier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34603716508852224
+    m_Localized: A bandit with a particularly explosive personality.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34604980776935424
+    m_Localized: Barrel O' Dynamite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34605021482655744
+    m_Localized: You're absolutely confident that this would explode if you shot
+      it. It just looks like it explodes. Who leaves this on a train?
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

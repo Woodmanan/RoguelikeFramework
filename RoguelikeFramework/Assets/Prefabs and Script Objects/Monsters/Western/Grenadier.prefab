@@ -62,7 +62,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
     m_TableEntryReference:
-      m_KeyId: 2637749302583296
+      m_KeyId: 34603670006603776
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
     m_TableEntryReference:
-      m_KeyId: 2638195727523840
+      m_KeyId: 34603716508852224
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 10
+  available: 0
   baseItems:
   - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
 --- !u!114 &4402800733788238311

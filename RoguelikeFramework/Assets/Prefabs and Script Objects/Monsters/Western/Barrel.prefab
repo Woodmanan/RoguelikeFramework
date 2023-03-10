@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4402800733788238308}
   - component: {fileID: 4402800733788238309}
   m_Layer: 0
-  m_Name: Sniper
+  m_Name: Grenadier 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 6
+    - 1
   currentStats:
     _keys: 
     _vals: []
@@ -62,7 +62,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
     m_TableEntryReference:
-      m_KeyId: 5916374181339136
+      m_KeyId: 34604980776935424
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -71,22 +71,23 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:5873f9f72e5da164293d3497af0bb6bf
     m_TableEntryReference:
-      m_KeyId: 5916408478162944
+      m_KeyId: 34605021482655744
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  friendlyName: WestDesperado
+  friendlyName: WestBarrel
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
   minDepth: 7
   maxDepth: 9
-  baseEffects: []
+  baseEffects:
+  - id: 0
   energy: 0
   location: {x: 15, y: 44}
   visionRadius: 8
-  energyPerStep: 100
+  energyPerStep: 0
   effects: []
   inventory: {fileID: 0}
   equipment: {fileID: 0}
@@ -96,10 +97,35 @@ MonoBehaviour:
   FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
-  XPFromKill: 2
+  XPFromKill: 1
   level: 0
   references:
     version: 1
+    00000000:
+      type: {class: CastAbilityOnDeath, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        toCast: {fileID: 11400000, guid: d7016986f5102174683d25e12a749046, type: 2}
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -140,8 +166,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bdaf73f9880bd1488fc826cbd6b8976, type: 3}
-  m_Color: {r: 0.60754716, g: 1, b: 0.89235425, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 46f5d5e065706fa4bad4c8e77da4a44f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -166,7 +192,7 @@ MonoBehaviour:
   capacity: 10
   available: 0
   baseItems:
-  - {fileID: 9015174743555470457, guid: 125ecd5646fc4a5468120dc3faadbb7b, type: 3}
+  - {fileID: 5723771033562300096, guid: 0bd2ea389f9c9f2408b9375f53f932ff, type: 3}
 --- !u!114 &4402800733788238311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +244,7 @@ MonoBehaviour:
   monster: {fileID: 0}
   equipmentSlots:
   - slotName: Primary
-    type: 02000000
+    type: 0200000003000000
     equipped:
       id: 0
       type: 0
