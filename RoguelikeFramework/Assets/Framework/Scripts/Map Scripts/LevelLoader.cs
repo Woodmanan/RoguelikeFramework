@@ -76,6 +76,7 @@ public class LevelLoader : MonoBehaviour
 
         #if !UNITY_EDITOR
         startAt = "";
+        randomSeed = true;
         #else
         JITLoading = true;
         preloadUpTo = 0;
