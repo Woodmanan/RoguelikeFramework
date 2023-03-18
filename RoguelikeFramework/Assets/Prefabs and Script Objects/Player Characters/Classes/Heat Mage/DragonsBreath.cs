@@ -28,7 +28,7 @@ public class DragonsBreath : Ability
 
     public override IEnumerator OnCast(Monster caster)
     {
-        AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
+        AnimationController.AddAnimationSolo(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         caster.AddBaseStat(Resources.HEAT, heatToAdd);
         foreach (Monster m in targeting.affected)
         {

@@ -11,7 +11,7 @@ public class HorseAnimation : RogueAnimation
 
     Monster standing;
 
-    public HorseAnimation(RogueTile tile, Vector2Int oldLocation, Vector2Int newLocation, bool isBlocking = false) : base(movementDuration, isBlocking)
+    public HorseAnimation(RogueTile tile, Vector2Int oldLocation, Vector2Int newLocation) : base(movementDuration)
     {
         this.tile = tile;
         this.startLocation = new Vector3(oldLocation.x, oldLocation.y, tile.transform.position.z);

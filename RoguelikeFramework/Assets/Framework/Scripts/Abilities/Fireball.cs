@@ -15,8 +15,8 @@ public class Fireball : Ability
 
     public override IEnumerator OnCast(Monster caster)
     {
-        AnimationController.AddAnimation(new ProjectileBresenhamAnim(caster.location, targeting.points[0], 30, sprites));
-        AnimationController.AddAnimation(new ExplosionAnimation(targeting.points[0], targeting.radius, targeting, sprites));
+        AnimationController.AddAnimationSolo(new ProjectileBresenhamAnim(caster.location, targeting.points[0], 30, sprites));
+        AnimationController.AddAnimationSolo(new ExplosionAnimation(targeting.points[0], targeting.radius, targeting, sprites));
 
         foreach (Monster m in targeting.affected)
         {

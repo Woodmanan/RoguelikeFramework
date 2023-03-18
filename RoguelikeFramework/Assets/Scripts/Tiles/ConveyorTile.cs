@@ -157,7 +157,7 @@ public class ConveyorTile : RogueTile
             heldMonster.UpdateLOS();
             if (tile != this && (isVisible || tile.isVisible))
             {
-                AnimationController.AddAnimation(new SlideAnimation(heldMonster, location, tile.location, false));
+                AnimationController.AddAnimationForObject(new SlideAnimation(heldMonster, location, tile.location), heldMonster);
             }
             heldMonster = null;
         }

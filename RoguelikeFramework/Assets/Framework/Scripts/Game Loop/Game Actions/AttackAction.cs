@@ -71,7 +71,7 @@ public class AttackAction : GameAction
 
             if (animates)
             {
-                AnimationController.AddAnimation(new AttackAnimation(caller, target));
+                AnimationController.AddAnimationForObject(new AttackAnimation(caller, target), caller);
             }
 
             foreach (Weapon w in primaryWeapons)

@@ -38,7 +38,7 @@ public class ConveyorSystem : DungeonSystem
     public override void OnGlobalTurnEnd(int turn)
     {
         //Force all other anims to finish before conveyor anim
-        AnimationController.AddAnimation(new BlockAnimation());
+        AnimationController.BeginSoloGroup();
 
         //Step 1 - Clear cached data for movement
         for (int i = 0; i < held; i++)
@@ -58,5 +58,8 @@ public class ConveyorSystem : DungeonSystem
         {
             tiles[i].PassToMovement();
         }
+
+        //Tie all of these anims together in solo group
+        AnimationController.EndSoloGroup();
     }
 }

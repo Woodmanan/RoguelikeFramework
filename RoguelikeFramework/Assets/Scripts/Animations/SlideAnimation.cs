@@ -10,7 +10,7 @@ public class SlideAnimation : RogueAnimation
     Vector3 midPoint;
     Monster monster;
 
-    public SlideAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation, bool isBlocking = false) : base(movementDuration, isBlocking)
+    public SlideAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation) : base(movementDuration)
     {
         this.monster = monster;
         startLocation = new Vector3(oldLocation.x, oldLocation.y, Monster.monsterZPosition);

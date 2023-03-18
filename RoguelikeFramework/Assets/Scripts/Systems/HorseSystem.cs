@@ -190,7 +190,7 @@ public class HorseSystem : DungeonSystem
             {
                 if (!movedAny)
                 {
-                    AnimationController.AddAnimation(new BlockAnimation());
+                    AnimationController.PushNewAnimGroup();
                     movedAny = true;
                 }
 
@@ -305,7 +305,7 @@ public class HorseSystem : DungeonSystem
 
         if (target.isVisible || !horse.isHidden)
         {
-            AnimationController.AddAnimation(new HorseAnimation(horse, target.location, horse.location, false));
+            AnimationController.AddAnimationForObject(new HorseAnimation(horse, target.location, horse.location), horse);
         }
         else
         {

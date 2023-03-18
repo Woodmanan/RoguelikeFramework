@@ -12,7 +12,7 @@ public class ExplosionAnimation : RogueAnimation
     Targeting targeting;
     
 
-    public ExplosionAnimation(Vector2Int center, int radius, Targeting targeting = null, params Sprite[] sprites) : base(animationDuration * (radius + 1), true)
+    public ExplosionAnimation(Vector2Int center, int radius, Targeting targeting = null, params Sprite[] sprites) : base(animationDuration * (radius + 1))
     {
         this.center = center;
         this.radius = radius;
@@ -89,7 +89,7 @@ public class TeleportAnimation : RogueAnimation
     List<Vector2Int> locations;
 
 
-    public TeleportAnimation(List<Monster> targets, List<Vector2Int> locations, Vector2Int center, int radius, params Sprite[] sprites) : base(animationDuration, true)
+    public TeleportAnimation(List<Monster> targets, List<Vector2Int> locations, Vector2Int center, int radius, params Sprite[] sprites) : base(animationDuration)
     {
         this.center = center;
         this.radius = radius;

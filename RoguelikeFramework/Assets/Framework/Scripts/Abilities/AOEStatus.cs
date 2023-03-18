@@ -23,7 +23,7 @@ public class AOEStatus : Ability
 
     public override IEnumerator OnCast(Monster caster)
     {
-        AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
+        AnimationController.AddAnimationSolo(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         foreach (Monster m in targeting.affected)
         {
             foreach (Effect e in toApply)

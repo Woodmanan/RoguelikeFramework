@@ -41,7 +41,7 @@ public class TeleportOther : Ability
         int count = Mathf.Min(validLocations.Count, targeting.affected.Count);
 
         //Prep anim for movement
-        AnimationController.AddAnimation(new TeleportAnimation(targeting.affected.Take(count).ToList(), validLocations.Take(count).ToList(), caster.location, targeting.radius, sprites));
+        AnimationController.AddAnimationSolo(new TeleportAnimation(targeting.affected.Take(count).ToList(), validLocations.Take(count).ToList(), caster.location, targeting.radius, sprites));
 
         //Move as many targets as we can
         for (int c = 0; c < count; c++)
