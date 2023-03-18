@@ -14,6 +14,9 @@ public class UIToCollider : MonoBehaviour
     public Vector2 targetPoint;
     public bool IsWorldSpace;
 
+    [Range(0, 1)]
+    public float lerpAmount = 1;
+
     GameObject pair;
 
     BoxCollider2D boxCollider;
@@ -23,6 +26,8 @@ public class UIToCollider : MonoBehaviour
     bool setup = false;
 
     Camera camera;
+
+    CanvasScaler scaler;
 
     Vector2 cachedSize = Vector2.zero;
     Vector3 cachedPos = Vector2.zero;
@@ -39,7 +44,7 @@ public class UIToCollider : MonoBehaviour
     {
         if (!setup)
         {
-            setup = true;
+            
             rectTransform = transform as RectTransform;
 
             if (parent == null)
@@ -57,6 +62,7 @@ public class UIToCollider : MonoBehaviour
             boxCollider = pair.GetComponent<BoxCollider2D>();
             target = pair.GetComponent<TargetJoint2D>();
             rigid = pair.GetComponent<Rigidbody2D>();
+            scaler = GetComponentInParent<CanvasScaler>();
 
             camera = Camera.main;
 
@@ -70,6 +76,10 @@ public class UIToCollider : MonoBehaviour
                     rigid.constraints = rigid.constraints | RigidbodyConstraints2D.FreezePosition;
                 }    
             }
+
+            UpdateCollider();
+
+            setup = true;
         }
     }
 
@@ -97,14 +107,18 @@ public class UIToCollider : MonoBehaviour
     public void UpdateCollider()
     {
         Vector2 updatedSize = cachedSize / Screen.width;
-        boxCollider.size = 2 * updatedSize * camera.orthographicSize * camera.aspect;
+        //Using scaler transform - x,y,z should all be equal here since rect width and height control the actual scale
+        boxCollider.size = 2 * updatedSize * camera.orthographicSize * camera.aspect * scaler.transform.localScale.x;
 
-        //Update Position
-        Vector2 pos = ScreenToWorld(rectTransform.position);
+        if (!tracks || !setup)
+        {
+            //Update Position
+            Vector2 pos = ScreenToWorld(rectTransform.position);
 
-        //TODO: Incorporate pivot into this calculation
+            //TODO: Incorporate pivot into this calculation
 
-        pair.transform.position = pos;
+            pair.transform.position = pos;
+        }
     }
 
     public bool SizeChanged()
@@ -154,7 +168,15 @@ public class UIToCollider : MonoBehaviour
         if (tracks)
         {
             Vector2 screen = (Vector2)WorldToScreen(pair.transform.position);
-            rectTransform.position = screen;
+            if (Vector2.Distance(rectTransform.position, screen) < 1)
+            {
+                rectTransform.position = screen;
+            }
+            else
+            {
+                rectTransform.position = Vector2.Lerp(rectTransform.position, screen, lerpAmount);
+            }
+            
         }
     }
 }
