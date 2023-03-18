@@ -213,3 +213,20 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ProjectileAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        sprite: {fileID: 21300000, guid: ab074f5a538416c4aa21af01f9062726, type: 3}
+        speed: 20

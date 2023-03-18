@@ -17,53 +17,6 @@ using UnityEngine;
  * from running.
  */
 
-public class RogueAnimation
-{
-    public float MaxDuration = 0;
-    public float currentDuration = 0;
-
-    public bool isFinished
-    {
-        get { return currentDuration >= MaxDuration; }
-    }
-
-    public RogueAnimation(float MaxDuration)
-    {
-        this.MaxDuration = MaxDuration;
-        currentDuration = 0;
-    }
-
-    public void Step(float delta)
-    {
-        if (currentDuration == 0)
-        {
-            OnStart();
-        }
-
-        currentDuration += delta;
-        OnStep(delta);
-        if (currentDuration >= MaxDuration)
-        {
-            OnEnd();
-        }
-    }
-
-    public virtual void OnStart()
-    {
-
-    }
-
-    public virtual void OnStep(float delta)
-    {
-
-    }
-
-    public virtual void OnEnd()
-    {
-
-    }
-}
-
 public class AnimGroup
 {
     public List<RogueAnimation> animations = new List<RogueAnimation>();

@@ -217,3 +217,22 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ConeAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        durationPerTile: 0.02
+        sprites:
+        - {fileID: 21300000, guid: 5790454f5f50d434b99c8bafb64eea98, type: 3}
+        - {fileID: 21300000, guid: 88663c9f20846854b8bffa0f01c377fc, type: 3}

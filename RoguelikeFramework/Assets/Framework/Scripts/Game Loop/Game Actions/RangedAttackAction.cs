@@ -57,6 +57,9 @@ public class RangedAttackAction : AttackAction
                 if (canFire)
                 {
                     numShots++;
+
+                    GenerateAnimations(weapon);
+
                     foreach (Monster m in weapon.targeting.affected)
                     {
                         target = m;
@@ -92,6 +95,9 @@ public class RangedAttackAction : AttackAction
                 if (canFire)
                 {
                     numShots++;
+
+                    GenerateAnimations(weapon);
+
                     foreach (Monster m in weapon.targeting.affected)
                     {
                         target = m;
@@ -126,5 +132,31 @@ public class RangedAttackAction : AttackAction
     public override void OnSetup()
     {
 
+    }
+
+    public void GenerateAnimations(RangedWeapon weapon)
+    {
+        if (weapon.animations.Count > 0)
+        {
+            bool needsSolo = weapon.animations.Count >1;
+            foreach (TargetingAnimation anim in weapon.animations)
+            {
+                if (needsSolo) AnimationController.BeginSoloGroup();
+                for (int i = 0; i < weapon.targeting.points.Count; i++)
+                {
+                    TargetingAnimation copy = anim.Instantiate();
+                    copy.GenerateFromTargeting(weapon.targeting, i, caller);
+                    if (needsSolo)
+                    {
+                        AnimationController.AddAnimation(copy);
+                    }
+                    else
+                    {
+                        AnimationController.AddAnimationForObject(copy, caller);
+                    }
+                }
+                if (needsSolo) AnimationController.EndSoloGroup();
+            }
+        }
     }
 }

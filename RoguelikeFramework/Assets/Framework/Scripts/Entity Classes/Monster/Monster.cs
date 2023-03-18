@@ -279,7 +279,7 @@ public class Monster : MonoBehaviour, IDescribable
             while (dropAll.action.MoveNext()) { }
         }
 
-        AnimationController.AddAnimation(new DeathAnimation(this));
+        AnimationController.AddAnimationForObject(new DeathAnimation(this), this);
     }
 
     public void KillMonster(Monster target, DamageType type, DamageSource source)

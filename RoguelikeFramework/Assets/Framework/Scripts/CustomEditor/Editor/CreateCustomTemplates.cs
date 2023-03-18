@@ -30,6 +30,12 @@ public class CreateCustomTemplates
         ProjectWindowUtil.CreateScriptAssetFromTemplateFile(GetPathTo("AbilityTemplate.cs.txt"), "NewAbility.cs");
     }
 
+    [MenuItem(itemName: "Assets/Create/Script Templates/New Animation Script", isValidateFunction: false, priority = 54)]
+    public static void CreateAnimationFromTemplate()
+    {
+        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(GetPathTo("AnimationTemplate.txt"), "NewAnimation.cs");
+    }
+
     static string GetPathTo(string filename)
     {
         string path = "Assets";

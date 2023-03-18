@@ -20,8 +20,8 @@ MonoBehaviour:
   - toSpawn: {fileID: 4402800733788238304, guid: 565eb0533f288a8488292c12daee14b8, type: 3}
     weight: 2
   - toSpawn: {fileID: 4402800733788238304, guid: 2d788ed78ab6e3342bf1547301c237d1, type: 3}
-    weight: 4
-  - toSpawn: {fileID: 4402800733788238304, guid: 66b3807b24bcfc742847f61f2d1d6be9, type: 3}
     weight: 1
+  - toSpawn: {fileID: 4402800733788238304, guid: 66b3807b24bcfc742847f61f2d1d6be9, type: 3}
+    weight: 2
   uniques: []
   chanceForUnique: 0

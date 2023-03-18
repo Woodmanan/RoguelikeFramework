@@ -7,5 +7,5 @@ public class RangedWeapon : Weapon
 {
     public Targeting targeting;
     [SerializeReference]
-    public List<RogueAnimation> animations;
+    public List<TargetingAnimation> animations;
 }
