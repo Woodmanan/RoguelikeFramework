@@ -92,6 +92,8 @@ public class AbilityAction : GameAction
             {
                 RogueLog.singleton.LogAboveMonster($"{caller.GetFormattedName()} cast {toCast.GetName()}!", caller);
             }
+
+            GenerateAnimations(toCast);
             
             
             IEnumerator castRoutine = toCast.Cast(caller);
@@ -135,6 +137,19 @@ public class AbilityAction : GameAction
             if (caller.abilities.HasAbility(abilityIndex))
             {
                 toCast = caller.abilities[abilityIndex];
+            }
+        }
+    }
+
+    public void GenerateAnimations(Ability toCast)
+    {
+        if (toCast.animations.Count > 0)
+        {
+            foreach (TargetingAnimation anim in toCast.animations)
+            {
+                TargetingAnimation copy = anim.Instantiate();
+                copy.GenerateFromTargeting(toCast.targeting, 0, caller);
+                AnimationController.AddAnimationSolo(copy);
             }
         }
     }

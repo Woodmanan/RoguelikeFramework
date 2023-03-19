@@ -20,7 +20,12 @@ public class VortexCold : Effect
 
     /*public override Spirte GetImage() { return image; }*/
 
-    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }
+    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; } */
+
+    public override string GetUISubtext()
+    {
+        return duration.ToString();
+    }
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing

@@ -50,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 01000000
     _vals:
@@ -85,33 +87,45 @@ MonoBehaviour:
   types: 0
   effects: []
   effectsToApply:
-  - id: 0
+  - id: 1
   references:
     version: 1
     00000000:
+      type: {class: ParticleAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        system: {fileID: 1415860604114284681, guid: 42228d4bfd0dd204ea835da150271297, type: 3}
+    00000001:
       type: {class: VortexHot, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 38076481509466112
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 38076538354868224
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: 7bd26538edb3547449c8feb1b7e42032, type: 3}
         duration: 10
         damagePerTurn: 5
         percentManaTransfer: 40

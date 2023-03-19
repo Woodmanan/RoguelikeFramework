@@ -192,10 +192,11 @@ public class Copycat : Effect
         }
     }
 
+    //TODO: Fix the NoCopy attribute once tags are working
     //Called when this monster is selected to be hit by a cast. (Right before hit)
     public override void OnTargetedByAbility(ref AbilityAction action)
     {
-        if (granted == null && action.caller != connectedTo.monster)
+        if (granted == null && action.caller != connectedTo.monster && (action.toCast.types & AbilityTypes.NoCopy) == 0)
         {
             granted = action.toCast.Instantiate();
             granted.currentCooldown = 0;

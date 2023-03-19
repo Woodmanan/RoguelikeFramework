@@ -87,6 +87,7 @@ public class SwitchCastResource : Ability
             baseStats = below.baseStats;
             currentStats = below.currentStats;
             costs = below.costs;
+            animations = below.animations;
             isBelow = true;
         }
         else
@@ -96,6 +97,7 @@ public class SwitchCastResource : Ability
             baseStats = above.baseStats;
             currentStats = above.currentStats;
             costs = above.costs;
+            animations = above.animations;
             isBelow = false;
         }
 

@@ -50,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 01000000
     _vals:
@@ -84,17 +86,29 @@ MonoBehaviour:
   castable: 1
   types: 0
   effects:
-  - id: 0
+  - id: 1
   damage:
     damage:
       rolls: 3
       dice: 5
     type: 8
-  sprites:
-  - {fileID: 21300000, guid: c68dff137c1584b459dfc8ab0c9d2919, type: 3}
+  sprites: []
   references:
     version: 1
     00000000:
+      type: {class: ProjectileAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        sprite: {fileID: 21300000, guid: 68e447d19439b8b488c45a5c48a95c3c, type: 3}
+        speed: 20
+    00000001:
       type: {class: AddStatForHeat, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0

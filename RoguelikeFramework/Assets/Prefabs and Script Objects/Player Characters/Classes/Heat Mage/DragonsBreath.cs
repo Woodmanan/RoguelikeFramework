@@ -7,7 +7,6 @@ public class DragonsBreath : Ability
 {
     public RandomNumber damage;
     public float heatToAdd;
-    public Sprite[] sprites;
 
     //Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
     public override bool OnCheckActivationSoft(Monster caster)
@@ -28,7 +27,6 @@ public class DragonsBreath : Ability
 
     public override IEnumerator OnCast(Monster caster)
     {
-        AnimationController.AddAnimationSolo(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         caster.AddBaseStat(Resources.HEAT, heatToAdd);
         foreach (Monster m in targeting.affected)
         {

@@ -24,7 +24,6 @@ public class SimpleDamage : Ability
     public override IEnumerator OnCast(Monster caster)
     {
         //Anim before damage so death animations line up
-        AnimationController.AddAnimationSolo(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         foreach (Monster target in targeting.affected)
         {
             target.Damage(caster, damage.damage.evaluate() + currentStats[AbilityResources.POWER], damage.type, DamageSource.ABILITY);

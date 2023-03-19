@@ -50,6 +50,7 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations: []
   baseStats:
     _keys: 01000000
     _vals:
@@ -95,22 +96,22 @@ MonoBehaviour:
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 38071093166809088
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 38071228923846656
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: c68dff137c1584b459dfc8ab0c9d2919, type: 3}
         duration: 25
-        toCastOnDeath: {fileID: 11400000, guid: d7016986f5102174683d25e12a749046, type: 2}
+        toCastOnDeath: {fileID: 11400000, guid: 127d389bb37bc7d408c843d540a6f13a, type: 2}

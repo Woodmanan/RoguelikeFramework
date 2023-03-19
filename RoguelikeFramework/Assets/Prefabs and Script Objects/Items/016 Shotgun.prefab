@@ -236,3 +236,4 @@ MonoBehaviour:
         sprites:
         - {fileID: 21300000, guid: 5790454f5f50d434b99c8bafb64eea98, type: 3}
         - {fileID: 21300000, guid: 88663c9f20846854b8bffa0f01c377fc, type: 3}
+        spreadSpritesEvenly: 0

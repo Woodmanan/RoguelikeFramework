@@ -311,6 +311,38 @@ MonoBehaviour:
     m_Key: ResourceOverTimeDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 38071093166809088
+    m_Key: InfusionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38071228923846656
+    m_Key: InfusionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075188934025216
+    m_Key: IceArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075240142282752
+    m_Key: IceArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075713813422080
+    m_Key: VortexColdName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075884571926528
+    m_Key: VortexColdDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38076481509466112
+    m_Key: VortexHotName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38076538354868224
+    m_Key: FireVortexDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

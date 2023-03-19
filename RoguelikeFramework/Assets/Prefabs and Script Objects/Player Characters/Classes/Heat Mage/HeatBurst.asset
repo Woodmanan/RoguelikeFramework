@@ -50,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 01000000
     _vals:
@@ -97,3 +99,15 @@ MonoBehaviour:
   pushRange: 2
   references:
     version: 1
+    00000000:
+      type: {class: ParticleAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        system: {fileID: 8613042747582623932, guid: 0fd105568f9e7624fafed94877627367, type: 3}

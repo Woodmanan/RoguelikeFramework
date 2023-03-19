@@ -50,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 01000000
     _vals:
@@ -84,12 +86,24 @@ MonoBehaviour:
   castable: 1
   types: 0
   effects:
-  - id: 0
-  effectsToApply:
   - id: 1
+  effectsToApply:
+  - id: 2
   references:
     version: 1
     00000000:
+      type: {class: ParticleAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        system: {fileID: 7739103800678421189, guid: 42dd0b5e1b2239144aaa554e8e51c0ee, type: 3}
+    00000001:
       type: {class: HeatToCast, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -115,30 +129,30 @@ MonoBehaviour:
         image: {fileID: 0}
         minimumNeeded: 0
         maximumAllowed: 0
-    00000001:
+    00000002:
       type: {class: IceArmor, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 38075188934025216
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
         description:
           m_TableReference:
-            m_TableCollectionName: 
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
           m_TableEntryReference:
-            m_KeyId: 0
+            m_KeyId: 38075240142282752
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: 5aad0fd2783bc8b48b4ad50e37002fdc, type: 3}
         toAdd:
           _keys: 08000000
           _vals:

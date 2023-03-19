@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Group("Area")]
-public class ConeAnimation : TargetingAnimation
+public class ExplosionTargetingAnimation : TargetingAnimation
 {
     public float durationPerTile = .02f;
     Targeting targeting;
@@ -13,9 +13,9 @@ public class ConeAnimation : TargetingAnimation
 
     Vector2Int center;
 
-    public ConeAnimation() : base()
+    public ExplosionTargetingAnimation() : base()
     {
-        
+
     }
 
     public override void OnVariablesGenerated(Targeting targeting)
@@ -24,16 +24,16 @@ public class ConeAnimation : TargetingAnimation
         grid = (new GameObject("ExplosionGrid")).AddComponent<SpriteGrid>();
         grid.Build(radius * 2 + 1, radius * 2 + 1, sprites.Length, Mathf.RoundToInt(sprites[0].rect.width));
         grid.AddSprites(sprites);
-        grid.SetCenter(origin);
+        grid.SetCenter(destination);
 
-        center = new Vector2Int(Mathf.RoundToInt(origin.x), Mathf.RoundToInt(origin.y));
+        center = new Vector2Int(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y));
 
         MaxDuration = durationPerTile * (radius + 1);
     }
 
     public override void OnStart()
     {
-        
+
     }
 
     public override void OnStep(float delta)
@@ -43,14 +43,14 @@ public class ConeAnimation : TargetingAnimation
         //Calculate the current step
         int step = (int)((currentDuration / MaxDuration) * (radius + 1));
         int spriteNum = (int)((currentDuration / MaxDuration) * (sprites.Length));
-        if (step > radius)
-        {
-            step = radius;
-        }
-
         if (!spreadSpritesEvenly)
         {
             spriteNum = step;
+        }
+
+        if (step > radius)
+        {
+            step = radius;
         }
 
         //Determine which sprites need to be shown

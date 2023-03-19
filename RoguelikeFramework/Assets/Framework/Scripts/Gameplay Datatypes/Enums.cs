@@ -197,7 +197,8 @@ public enum AbilityTypes
 {
     Conjuration = 1 << 0,
     Elemental   = 1 << 1,
-    Healing     = 1 << 2
+    Healing     = 1 << 2,
+    NoCopy      = 1 << 3
 }
 
 [System.Flags]
