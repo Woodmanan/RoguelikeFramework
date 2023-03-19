@@ -50,7 +50,7 @@ public class FloatingController : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
 
         #if !UNITY_EDITOR
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
         #endif
     }
 
