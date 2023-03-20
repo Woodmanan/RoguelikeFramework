@@ -103,6 +103,8 @@ MonoBehaviour:
         owner: {fileID: 0}
         targets: []
         system: {fileID: 7739103800678421189, guid: 42dd0b5e1b2239144aaa554e8e51c0ee, type: 3}
+        useTextureForShape: 1
+        textureBlendsColor: 1
     00000001:
       type: {class: HeatToCast, ns: , asm: RoguelikeFramework}
       data:

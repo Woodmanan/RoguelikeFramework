@@ -102,6 +102,8 @@ MonoBehaviour:
         owner: {fileID: 0}
         targets: []
         system: {fileID: 1415860604114284681, guid: 42228d4bfd0dd204ea835da150271297, type: 3}
+        useTextureForShape: 0
+        textureBlendsColor: 0
     00000001:
       type: {class: VortexHot, ns: , asm: RoguelikeFramework}
       data:

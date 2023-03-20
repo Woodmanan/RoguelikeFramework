@@ -47,7 +47,8 @@ public class Blink : Ability
 
         if (goalTile.currentlyStanding == null)
         {
-            caster.SetPositionSnap(goal);
+            caster.SetPosition(goal);
+            AnimationController.AddAnimation(new SnapAnimation(caster, goal));
             caster.UpdateLOS();
         }
         else

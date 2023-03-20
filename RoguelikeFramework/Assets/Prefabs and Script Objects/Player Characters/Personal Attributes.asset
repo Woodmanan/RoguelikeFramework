@@ -44,7 +44,7 @@ MonoBehaviour:
     effect:
       id: 9
   favorLastX: 3
-  favorChance: 40
+  favorChance: 20
   references:
     version: 1
     00000000:

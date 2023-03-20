@@ -104,7 +104,7 @@ MonoBehaviour:
         radius: 0
         owner: {fileID: 0}
         targets: []
-        durationPerTile: 0.04
+        durationPerTile: 0.05
         sprites:
         - {fileID: 21300000, guid: c7ab7bf606a70d747b129f5e9a02392c, type: 3}
         - {fileID: 21300000, guid: 8fd93ed947a8119469d6186175995a52, type: 3}

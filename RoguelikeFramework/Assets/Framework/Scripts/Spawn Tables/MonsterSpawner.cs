@@ -177,7 +177,7 @@ public class MonsterSpawner : MonoBehaviour
         Monster toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
         if (toSpawn)
         {
-            SpawnMonsterInstantiate(toSpawn, location, map);
+            SpawnMonster(toSpawn, location, map);
         }
         else
         {

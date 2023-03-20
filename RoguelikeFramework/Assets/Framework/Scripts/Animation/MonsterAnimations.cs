@@ -39,6 +39,25 @@ public class MoveAnimation : RogueAnimation
     }
 }
 
+public class SnapAnimation : RogueAnimation
+{
+    public const float duration = 0.025f;
+
+    Monster monster;
+    Vector2Int location;
+
+    public SnapAnimation(Monster monster, Vector2Int location) : base(duration)
+    {
+        this.monster = monster;
+        this.location = location;
+    }
+
+    public override void OnEnd()
+    {
+        monster.transform.position = new Vector3(location.x, location.y, Monster.monsterZPosition);
+    }
+}
+
 public class AttackAnimation : RogueAnimation
 {
     public const float attackDuration = .3f;

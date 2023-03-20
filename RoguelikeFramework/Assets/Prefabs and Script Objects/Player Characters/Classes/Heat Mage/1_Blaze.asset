@@ -40,7 +40,7 @@ MonoBehaviour:
     range: 1
     radius: 0
     degree: 0
-    options: 67
+    options: 323
     targetPriority: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}

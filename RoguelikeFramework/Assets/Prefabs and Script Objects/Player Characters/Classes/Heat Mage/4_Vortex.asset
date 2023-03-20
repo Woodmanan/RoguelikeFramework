@@ -40,7 +40,7 @@ MonoBehaviour:
     range: 0
     radius: 0
     degree: 0
-    options: 3
+    options: 259
     targetPriority: 0
     origin: {x: 0, y: 0}
     target: {x: 0, y: 0}
@@ -50,6 +50,7 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations: []
   baseStats:
     _keys: 
     _vals: []

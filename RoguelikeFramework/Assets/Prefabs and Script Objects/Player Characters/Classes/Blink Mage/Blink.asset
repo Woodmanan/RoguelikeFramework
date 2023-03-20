@@ -50,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 
     _vals: []
@@ -88,11 +90,25 @@ MonoBehaviour:
     min: 20
     max: 40
   punishmentEffect:
-    id: 0
+    id: 1
   landingZoneOnly: 1
   references:
     version: 1
     00000000:
+      type: {class: ParticleAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        system: {fileID: 3658241342985214916, guid: 76e037c090cdb08428891f7859ef265f, type: 3}
+        useTextureForShape: 0
+        textureBlendsColor: 0
+    00000001:
       type: {class: Instability, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0

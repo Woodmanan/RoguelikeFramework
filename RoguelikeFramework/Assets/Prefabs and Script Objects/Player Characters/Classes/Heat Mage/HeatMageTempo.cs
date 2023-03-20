@@ -106,7 +106,10 @@ public class HeatMageTempo : Effect
     /*public override void OnDisconnection() {} */
 
     //Called when an effect "Clashes" with an effect of the same type
-    /* public override void OnStack(Effect other, ref bool addThisEffect) {} */
+    public override void OnStack(Effect other, ref bool addThisEffect)
+    {
+        addThisEffect = false;
+    }
 
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}

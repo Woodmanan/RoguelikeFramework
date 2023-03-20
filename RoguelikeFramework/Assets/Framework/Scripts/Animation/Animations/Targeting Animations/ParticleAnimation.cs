@@ -8,6 +8,9 @@ public class ParticleAnimation : TargetingAnimation
 
     ParticleSystem instance;
 
+    public bool useTextureForShape;
+    public bool textureBlendsColor;
+
     public ParticleAnimation() : base()
     {
         
@@ -23,6 +26,14 @@ public class ParticleAnimation : TargetingAnimation
         instance = GameObject.Instantiate(system).GetComponent<ParticleSystem>();
         instance.transform.position = destination;
         MaxDuration = instance.main.duration;
+
+        if (useTextureForShape)
+        {
+            ParticleSystem.ShapeModule shape = instance.shape;
+            shape.texture = owner.renderer.sprite.texture;
+            shape.textureColorAffectsParticles = textureBlendsColor;
+        }
+
         instance.Play();
     }
 

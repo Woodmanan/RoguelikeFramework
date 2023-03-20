@@ -104,10 +104,7 @@ MonoBehaviour:
         radius: 0
         owner: {fileID: 0}
         targets: []
-        durationPerTile: 0.02
+        durationPerTile: 0.03
         sprites:
-        - {fileID: 21300000, guid: c7ab7bf606a70d747b129f5e9a02392c, type: 3}
-        - {fileID: 21300000, guid: 8fd93ed947a8119469d6186175995a52, type: 3}
-        - {fileID: 21300000, guid: c68dff137c1584b459dfc8ab0c9d2919, type: 3}
-        - {fileID: 21300000, guid: 66984625370c2b84c9f3a24f58691b54, type: 3}
+        - {fileID: 21300000, guid: c44ca16ec062c104d8a3112e9589250b, type: 3}
         spreadSpritesEvenly: 1

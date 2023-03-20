@@ -47,6 +47,11 @@ public class TargetingPanel : RogueUIPanel
         returnCall = endResult;
         Vector2Int startLocation = Player.player.location;
 
+        if (lastTarget == Player.player && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
+        {
+            lastTarget = null;
+        }
+
         //Perform setup and correctness check for last time
         if (lastTarget != null)
         {
@@ -76,6 +81,7 @@ public class TargetingPanel : RogueUIPanel
                 if (target != null && Mathf.Max(Mathf.Abs(target.location.x - startLocation.x), Mathf.Abs(target.location.y - startLocation.y)) <= t.range)
                 {
                     startLocation = target.location;
+                    lastTarget = target;
                 }
             }
             else
@@ -87,13 +93,20 @@ public class TargetingPanel : RogueUIPanel
                 if (target != null && Mathf.Max(Mathf.Abs(target.location.x - startLocation.x), Mathf.Abs(target.location.y - startLocation.y)) <= t.range)
                 {
                     startLocation = target.location;
+                    lastTarget = target;
                 }
             }
         }
 
+        if (lastTarget == null && t.options.HasFlag(TargetTags.EXITS_IF_NO_GOOD_TARGETS))
+        {
+            RogueLog.singleton.Log("No targets in range!");
+            return false;
+        }
+
 
         //current = t.Initialize();
-        if (current.BeginTargetting(Player.player.location, LOS.lastCall))
+            if (current.BeginTargetting(Player.player.location, LOS.lastCall))
         {
             if (grid != null)
             {

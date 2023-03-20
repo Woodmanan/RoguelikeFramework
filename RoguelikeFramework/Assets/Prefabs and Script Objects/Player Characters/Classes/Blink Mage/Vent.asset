@@ -50,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 
     _vals: []
@@ -90,3 +92,19 @@ MonoBehaviour:
     max: 30
   references:
     version: 1
+    00000000:
+      type: {class: ExplosionTargetingAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        durationPerTile: 0.08
+        sprites:
+        - {fileID: 21300000, guid: cede5f5deea5bfc45a3b0c1bea1e7d15, type: 3}
+        - {fileID: 21300000, guid: a4a112a7849d14d4f85bfcf338b204bc, type: 3}
+        spreadSpritesEvenly: 1

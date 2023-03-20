@@ -220,7 +220,8 @@ public enum TargetTags
     RECOMMENDS_SELF_TARGET  = (1 << 4),
     RECOMMNEDS_ALLY_TARGET  = (1 << 5),
     RETARGETS_SAME_MONSTER  = (1 << 6),
-    REQUIRES_WALKABLE_POINT = (1 << 7)
+    REQUIRES_WALKABLE_POINT = (1 << 7),
+    EXITS_IF_NO_GOOD_TARGETS= (1 << 8)
 }
 
 public enum TargetPriority
