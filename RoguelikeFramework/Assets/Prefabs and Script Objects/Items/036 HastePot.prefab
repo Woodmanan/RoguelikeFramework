@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 041 HeatMageSpellbook
+  m_Name: 036 HastePot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 21300000, guid: b73ccca0d1c60c94f985f7fff667cb2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbfbbb9ae15595a479c3244392c06e08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,24 +97,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 1
-  type: 32
+  type: 8
   minDepth: 0
   maxDepth: 30
   elevatesTo: 1
   enchantment: 0
   maxEnchantment: 0
   currentRarity: 0
-  ID: 41
-  stackable: 0
+  ID: 36
+  stackable: 1
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: HeatMageSpellbook
+  friendlyName: HastePot
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 15154323254878208
+      m_KeyId: 12498731261952
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 15154337406459904
+      m_KeyId: 12598878658560
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -153,9 +153,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0439e34c3cae514598d4471fb48773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateType: 2
-  abilityOnActivation: {fileID: 11400000, guid: b02d0999b8d675946b3fcbb4b111f5e7, type: 2}
-  activationEffects: []
+  activateType: 4
+  abilityOnActivation: {fileID: 0}
+  activationEffects:
+  - id: 0
   ConsumedOnUse: 1
   references:
     version: 1
+    00000000:
+      type: {class: Haste, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 11588000751616
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 10985740640256
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: 5342c072d1757e94e8b8cd6750890d8f, type: 3}
+        energyPerTurn: 50
+        duration: 20

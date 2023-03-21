@@ -283,6 +283,59 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 30635189871517696
+    m_Localized: Perfect Timing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30635220343136256
+    m_Localized: Apply to a target. At some point in the next 10 turns, the effect
+      will activate for 1 turn. Killing the target while the effect is active will
+      refund 5 turns of cooldown to all your abilities.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30637063152541696
+    m_Localized: Time Dilation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30637147164450816
+    m_Localized: Dilates time for both you and an opponent. You will both be heavily
+      slowed, but they will be slowed roughly 3x as much as you are. Lasts for 20
+      realtime turns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30776115830923264
+    m_Localized: Physical Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30777095167352832
+    m_Localized: Wraps the caster's body in a 20 health shield that blocks physical
+      attacks. Disintegrates in 20 turns, or upon running out of health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779465267879936
+    m_Localized: Blood Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779516631326720
+    m_Localized: Permanently sacrifice your max health to generate an extremely powerful
+      shield that does not decay.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779781698756608
+    m_Localized: Magical Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779905288118272
+    m_Localized: Wraps the caster's body in a 20 health shield that blocks magical
+      attacks. Disintegrates in 20 turns, or upon running out of health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30780379231887360
+    m_Localized: Summon a powerful, semi-permanent shield that blocks all forms of
+      damage. This shield will not decay, and instead will regenerate health up to
+      a maximum limit. The shield will permanently disappear if it runs out of health.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

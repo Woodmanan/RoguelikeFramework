@@ -26,11 +26,14 @@ public class TargetingAnimation : RogueAnimation
 
     public void GenerateFromTargeting(Targeting targeting, int point, Monster owner)
     {
-        origin = targeting.origin;
-        destination = targeting.points[point];
-        radius = targeting.radius;
+        if (targeting != null)
+        {
+            origin = targeting.origin;
+            destination = targeting.points[point];
+            radius = targeting.radius;
+            this.targets = targeting.affected;
+        }
         this.owner = owner;
-        this.targets = targeting.affected;
         OnVariablesGenerated(targeting);
     }
 

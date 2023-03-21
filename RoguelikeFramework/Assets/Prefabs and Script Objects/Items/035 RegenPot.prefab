@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 034 RegenPot
+  m_Name: 035 RegenPot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   enchantment: 0
   maxEnchantment: 0
   currentRarity: 0
-  ID: 34
+  ID: 35
   stackable: 1
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}

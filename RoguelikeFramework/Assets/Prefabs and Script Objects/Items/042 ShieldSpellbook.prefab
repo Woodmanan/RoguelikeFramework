@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 036 HealthPot
+  m_Name: 042 ShieldSpellbook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 21300000, guid: 1250d04abd74c084eac5333e8142bb3c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4c1a1f09e2c3ae4389c3ddbbf7d1b51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,25 +96,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 1
-  type: 8
+  rarity: 0
+  type: 32
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 1
+  elevatesTo: 0
   enchantment: 0
   maxEnchantment: 0
   currentRarity: 0
-  ID: 36
-  stackable: 1
+  ID: 42
+  stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: HealthPot
+  friendlyName: ShieldSpellbook
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 12671297511424
+      m_KeyId: 29022856279695360
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 12716524691456
+      m_KeyId: 29023023284297728
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -153,37 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0439e34c3cae514598d4471fb48773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateType: 4
-  abilityOnActivation: {fileID: 0}
-  activationEffects:
-  - id: 0
+  activateType: 2
+  abilityOnActivation: {fileID: 11400000, guid: 9b67a3db62c60824383184d4c44c749c, type: 2}
+  activationEffects: []
   ConsumedOnUse: 1
   references:
     version: 1
-    00000000:
-      type: {class: Healing, ns: , asm: RoguelikeFramework}
-      data:
-        ReadyToDelete: 0
-        credit: {fileID: 0}
-        name:
-          m_TableReference:
-            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
-          m_TableEntryReference:
-            m_KeyId: 7134149025792
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        description:
-          m_TableReference:
-            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
-          m_TableEntryReference:
-            m_KeyId: 4691566731264
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        image: {fileID: 21300000, guid: 1250d04abd74c084eac5333e8142bb3c, type: 3}
-        instantHealth: 30
-        healingPerTurn: 0
-        numTurns: 0

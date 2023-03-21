@@ -208,6 +208,8 @@ public class PlayerPassive : Effect
 
         c.OnTakeDamage.AddListener(10, OnTakeDamage);
 
+        c.OnCastAbility.AddListener(10, OnCastAbility);
+
         OnConnection();
     }
     //END CONNECTION
@@ -222,6 +224,8 @@ public class PlayerPassive : Effect
         connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
 
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
+
+        connectedTo.OnCastAbility.RemoveListener(OnCastAbility);
 
         ReadyToDelete = true;
     }

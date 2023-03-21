@@ -390,5 +390,32 @@ MonoBehaviour:
     m_Localized: Tastes like purple!
     m_Metadata:
       m_Items: []
+  - m_Id: 28882488666038272
+    m_Localized: The Inner Workings of Clocks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28882533880635392
+    m_Localized: Ostensibly a book about the design and construction of clocks. Actually
+      an introductory treatise on temporal magic. And how to make clocks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022408822956032
+    m_Localized: The More Uncommon Powers of Blood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022622510161920
+    m_Localized: A book focused on ways to harness to defensive powers of blood.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022856279695360
+    m_Localized: Defensive Arts Through Magic Lattices
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29023023284297728
+    m_Localized: The author is obessessed with shields. The last pages seem to detail
+      an experiment about shielding one's brain from one's skull, before cutting
+      short.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

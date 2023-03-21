@@ -359,6 +359,30 @@ MonoBehaviour:
     m_Key: ManaRegenPotionDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 28882488666038272
+    m_Key: ClockSpellbookName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28882533880635392
+    m_Key: ClockSpellbookDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022408822956032
+    m_Key: BloodSpellbookName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022622510161920
+    m_Key: BloodSpellbookDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022856279695360
+    m_Key: ShieldSpellbookName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29023023284297728
+    m_Key: ShieldSpellbookDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

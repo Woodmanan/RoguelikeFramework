@@ -19,13 +19,13 @@ MonoBehaviour:
   - {fileID: 6687509776577718200, guid: 8c88d3f1369ab3143b2a115fb85761d1, type: 3}
   - {fileID: 5723771033562300096, guid: dc78f63ed61209646bd533839ce3afc8, type: 3}
   - {fileID: 9015174743555470457, guid: 090082ea08984384daace3ff8a0a7b8d, type: 3}
-  - {fileID: 6687509776577718200, guid: 5704634c2e36dd34d9ee9f971d6b4be7, type: 3}
+  - {fileID: 6687509776577718200, guid: c6e510b1d9360874b97bd4aebd87d9e1, type: 3}
   abilities:
   - {fileID: 11400000, guid: 4478e6e4cca6a6c40a83c5bf099b659d, type: 2}
   - {fileID: 11400000, guid: 10e6c7c7e4ac05d42a474d574b9f2583, type: 2}
-  - {fileID: 11400000, guid: d7016986f5102174683d25e12a749046, type: 2}
-  - {fileID: 11400000, guid: fac75eedbe877524ea5cf0371b6b92f0, type: 2}
-  - {fileID: 11400000, guid: 7d2a9e76526beb8479176173993bebca, type: 2}
+  - {fileID: 11400000, guid: e969e21d22a9fb74684d428ceb0a0b20, type: 2}
+  - {fileID: 11400000, guid: cd2d3247a89ce944f903799a2cf0bfff, type: 2}
+  - {fileID: 11400000, guid: 24d6102c6326d604e9d90e46279aca54, type: 2}
   effects:
   - id: 0
   - id: 1

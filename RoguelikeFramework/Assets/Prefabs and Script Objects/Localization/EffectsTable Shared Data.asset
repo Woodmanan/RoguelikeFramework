@@ -343,6 +343,42 @@ MonoBehaviour:
     m_Key: FireVortexDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 38764226217189376
+    m_Key: PerfectTimingEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38764284148916224
+    m_Key: PerfectTimingEffectDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38765884544327680
+    m_Key: DilateEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38765945588228096
+    m_Key: DilateEffectDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38906359116931072
+    m_Key: ShieldName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38906474334461952
+    m_Key: ShieldDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908091838439424
+    m_Key: BloodShieldEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908568655306752
+    m_Key: GreaterShieldEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908706132008960
+    m_Key: GreaterShieldAbilityName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

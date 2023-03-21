@@ -34,7 +34,7 @@ public class EffectUIPanel : MonoBehaviour
 
             for (int i = 0; i < Player.player.effects.Count; i++)
             {
-                if (Player.player.effects[i].ShouldDisplay())
+                if (!Player.player.effects[i].ReadyToDelete && Player.player.effects[i].ShouldDisplay())
                 {
                     widgets[numActive].ShowEffect(Player.player.effects[i]);
                     numActive++;

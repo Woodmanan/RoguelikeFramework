@@ -223,6 +223,50 @@ MonoBehaviour:
     m_Key: WightRitualDescription4
     m_Metadata:
       m_Items: []
+  - m_Id: 30635189871517696
+    m_Key: PerfectTImingName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30635220343136256
+    m_Key: PerfectTimingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30637063152541696
+    m_Key: Dilationname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30637147164450816
+    m_Key: DilationDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30776115830923264
+    m_Key: PhysicalShieldAbilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30777095167352832
+    m_Key: PhysicalShieldAbilityDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779465267879936
+    m_Key: BloodShieldAbilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779516631326720
+    m_Key: BloodShieldAbilityDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779781698756608
+    m_Key: MagicalShieldAbilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779905288118272
+    m_Key: Magical Shield Ability Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30780379231887360
+    m_Key: GreaterShieldAbilityDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

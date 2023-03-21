@@ -7,6 +7,9 @@ public class ApplyEffect : Ability
 {
     [SerializeReference]
     public List<Effect> effectsToApply;
+
+    [SerializeReference]
+    public List<Effect> effectsToApplyToCaster;
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
     public override bool OnCheckActivationSoft(Monster caster)
     {
@@ -29,6 +32,13 @@ public class ApplyEffect : Ability
                 toAdd.credit = caster;
                 target.AddEffect(toAdd);
             }
+        }
+
+        foreach (Effect e in effectsToApplyToCaster)
+        {
+            Effect toAdd = e.Instantiate();
+            toAdd.credit = caster;
+            caster.AddEffect(toAdd);
         }
         yield break;
     }
