@@ -72,6 +72,7 @@ public class Ability : ScriptableObject, IDescribable
     [SerializeReference] List<Effect> effects;
     List<Effect> attachedEffects = new List<Effect>();
     public Connections connections = null;
+    [HideInInspector] public Monster credit;
 
     public Ability Instantiate()
     {
@@ -194,6 +195,11 @@ public class Ability : ScriptableObject, IDescribable
     public IEnumerator Cast(Monster caster)
     {
         baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - currentStats[COOLDOWN_DECREASE]);
+
+        if (credit == null)
+        {
+            credit = caster;
+        }
 
         IEnumerator castingRoutine = OnCast(caster);
 

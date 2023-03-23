@@ -64,6 +64,7 @@ public class CastAbilityOnDeath: Effect
         Ability instCast = toCast.Instantiate();
         instCast.Setup();
         instCast.RegenerateStats(connectedTo.monster);
+        instCast.credit = credit;
         AbilityAction cast = new AbilityAction(instCast);
         cast.Setup(connectedTo.monster);
         while (cast.action.MoveNext()) { }
@@ -127,7 +128,10 @@ public class CastAbilityOnDeath: Effect
     //public override void OnPostCast(ref Ability ability) {}
 
     //Called when this monster is selected to be hit by a cast. (Right before hit)
-    //public override void OnTargetedByAbility(ref AbilityAction action) {}
+    public override void OnTargetedByAbility(ref AbilityAction action)
+    {
+        credit = action.toCast.credit;
+    }
 
     //Called after an ability is cast on this monster. (Right after hit)
     //public override void OnHitByAbility(ref AbilityAction action) {}
@@ -169,19 +173,28 @@ public class CastAbilityOnDeath: Effect
     //public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
     //Called before this monster is hit by a primary attack from another monster.
-    //public override void OnBeforePrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnBeforePrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        credit = action.caller;
+    }
 
     //Called after this monster is hit by a primary attack from another monster. (Can't modify anymore)
     //public override void OnAfterPrimaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called before this monster is hit by a secondary attack from another monster.
-    //public override void OnBeforeSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnBeforeSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        credit = action.caller;
+    }
 
     //Called after this monster is hit by a secondary attack from another monster. (Can't modify anymore)
     //public override void OnAfterSecondaryAttackTarget(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called before this monster is hit by an unarmed attack from another monster.
-    //public override void OnBeforeUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+    public override void OnBeforeUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result)
+    {
+        credit = action.caller;
+    }
 
     //Called after this monster is hit by an unarmed attack from another monster. (Can't modify anymore)
     //public override void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
@@ -200,6 +213,14 @@ public class CastAbilityOnDeath: Effect
 
         c.OnDeath.AddListener(10, OnDeath);
 
+        c.OnTargetedByAbility.AddListener(10, OnTargetedByAbility);
+
+        c.OnBeforePrimaryAttackTarget.AddListener(10, OnBeforePrimaryAttackTarget);
+
+        c.OnBeforeSecondaryAttackTarget.AddListener(10, OnBeforeSecondaryAttackTarget);
+
+        c.OnBeforeUnarmedAttackTarget.AddListener(10, OnBeforeUnarmedAttackTarget);
+
         OnConnection();
     }
     //END CONNECTION
@@ -210,6 +231,14 @@ public class CastAbilityOnDeath: Effect
         OnDisconnection();
 
         connectedTo.OnDeath.RemoveListener(OnDeath);
+
+        connectedTo.OnTargetedByAbility.RemoveListener(OnTargetedByAbility);
+
+        connectedTo.OnBeforePrimaryAttackTarget.RemoveListener(OnBeforePrimaryAttackTarget);
+
+        connectedTo.OnBeforeSecondaryAttackTarget.RemoveListener(OnBeforeSecondaryAttackTarget);
+
+        connectedTo.OnBeforeUnarmedAttackTarget.RemoveListener(OnBeforeUnarmedAttackTarget);
 
         ReadyToDelete = true;
     }

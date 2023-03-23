@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4402800733788238308}
   - component: {fileID: 4402800733788238309}
   m_Layer: 0
-  m_Name: Grenadier 1
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
-  XPFromKill: 1
+  XPFromKill: 0
   level: 0
   references:
     version: 1

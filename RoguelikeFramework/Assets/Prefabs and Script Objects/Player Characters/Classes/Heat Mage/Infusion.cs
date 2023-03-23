@@ -82,6 +82,7 @@ public class Infusion : Effect
         Ability instCast = toCastOnDeath.Instantiate();
         instCast.Setup();
         instCast.RegenerateStats(connectedTo.monster);
+        instCast.credit = credit;
         AbilityAction cast = new AbilityAction(instCast);
         cast.Setup(connectedTo.monster);
         while (cast.action.MoveNext()) { }
