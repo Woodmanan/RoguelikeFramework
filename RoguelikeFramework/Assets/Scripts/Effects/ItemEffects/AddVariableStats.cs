@@ -77,7 +77,7 @@ public class AddVariableStats : Effect
         float lerpAmount = Mathf.InverseLerp(lowerPercent / 100, higherPercent / 100, connectedTo.monster.currentStats[amount] / connectedTo.monster.currentStats[fromMax]);
         lerpAmount = Mathf.Clamp(lerpAmount, 0, 1);
 
-        stats = stats + lowerStats * (1 - lerpAmount) + higherStats * (lerpAmount);
+        stats = stats & lowerStats * (1 - lerpAmount) & higherStats * (lerpAmount);
     }
 
     //Called wenever a monster gains energy

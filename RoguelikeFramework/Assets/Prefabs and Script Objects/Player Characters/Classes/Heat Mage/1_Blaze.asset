@@ -87,6 +87,7 @@ MonoBehaviour:
   types: 0
   effects:
   - id: 1
+  credit: {fileID: 0}
   damage:
     damage:
       rolls: 3

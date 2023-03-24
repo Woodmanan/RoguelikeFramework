@@ -90,7 +90,7 @@ public class BrandProtection : Effect
     {
         if (numKills > 0)
         {
-            stats += statsPerKill * Mathf.CeilToInt(numKills);
+            stats &= statsPerKill * Mathf.CeilToInt(numKills);
         }
     }
 

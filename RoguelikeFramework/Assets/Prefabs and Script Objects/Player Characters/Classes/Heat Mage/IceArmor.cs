@@ -83,7 +83,7 @@ public class IceArmor : Effect
     //Called often, whenever a monster needs up-to-date stats.
     public override void RegenerateStats(ref Stats stats)
     {
-        stats += toAdd;
+        stats &= toAdd;
     }
 
     //Called wenever a monster gains energy

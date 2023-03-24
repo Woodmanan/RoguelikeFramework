@@ -94,7 +94,10 @@ public class HeatMageTempo : Effect
     public void AddHeat(float amount)
     {
         connectedTo.monster.AddBaseStat(Resources.HEAT, amount);
-        cooldown = maxCooldown;
+        if (connectedTo.monster.view.visibleMonsters.Any(x => x.IsEnemy(connectedTo.monster)))
+        {
+            cooldown = maxCooldown;
+        }
         active = true;
     }
 
@@ -219,10 +222,7 @@ public class HeatMageTempo : Effect
     //Called when a spell is cast. Modify spell, or set continue to false in order to cancel the action!
     public override void OnCastAbility(ref AbilityAction action, ref bool canContinue)
     {
-        if (connectedTo.monster.view.visibleMonsters.Any(x => x.IsEnemy(connectedTo.monster)))
-        {
-            AddHeat(1);
-        }
+        AddHeat(1);
     }
 
     //Called when this monster gains resources. (Different from healing, but can give health)

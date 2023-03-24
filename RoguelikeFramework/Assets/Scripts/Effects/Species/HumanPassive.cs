@@ -62,7 +62,7 @@ public class HumanPassive : Effect
     //Called often, whenever a monster needs up-to-date stats.
     public override void RegenerateStats(ref Stats stats)
     {
-        stats += (statsPerLevel * Mathf.Min(connectedTo.monster.level, UpToLevel));
+        stats &= (statsPerLevel * Mathf.Min(connectedTo.monster.level, UpToLevel));
     }
 
     //Called wenever a monster gains energy

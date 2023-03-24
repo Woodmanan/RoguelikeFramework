@@ -99,7 +99,7 @@ public class Wight : Effect
     //Called often, whenever a monster needs up-to-date stats.
     public override void RegenerateStats(ref Stats stats)
     {
-        stats = (stats + attributes[level-1].baseStats) + attributes[level-1].statsPerMana * connectedTo.monster.baseStats[MANA];
+        stats = (stats & attributes[level-1].baseStats) & attributes[level-1].statsPerMana * connectedTo.monster.baseStats[MANA];
     }
 
     //Called wenever a monster gains energy

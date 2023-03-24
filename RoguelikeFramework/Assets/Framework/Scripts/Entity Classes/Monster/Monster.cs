@@ -444,7 +444,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void AddBaseStats(Stats s)
     {
-        baseStats += s;
+        baseStats &= s;
         ResetStatsToMax();
     }
 
@@ -704,13 +704,13 @@ public class Monster : MonoBehaviour, IDescribable
     public void GainResources(Stats resources)
     {
         connections.OnGainResources.BlendInvoke(other?.OnGainResources, ref resources);
-        this.baseStats += resources;
+        this.baseStats &= resources;
     }
 
     public void LoseResources(Stats resources)
     {
         connections.OnLoseResources.BlendInvoke(other?.OnLoseResources, ref resources);
-        this.baseStats -= resources;
+        this.baseStats ^= resources;
     }
 
 

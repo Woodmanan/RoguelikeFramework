@@ -52,7 +52,7 @@ public class EquipableItem : MonoBehaviour
         item.Setup();
         isEquipped = true;
         equippedTo = m;
-        m.currentStats += GetStats(); //Immediate stat benefit
+        m.currentStats &= GetStats(); //Immediate stat benefit
         m.connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
@@ -69,7 +69,7 @@ public class EquipableItem : MonoBehaviour
 
     public void OnUnequip()
     {
-        equippedTo.currentStats -= addedStats;
+        equippedTo.currentStats ^= addedStats;
 
         //Disconnect all old effects
         foreach (Effect e in clonedEffects)
@@ -83,7 +83,7 @@ public class EquipableItem : MonoBehaviour
 
     public void RegenerateStats(ref Stats block)
     {
-        block += GetStats();
+        block &= GetStats();
     }
 
     public Stats GetStats()

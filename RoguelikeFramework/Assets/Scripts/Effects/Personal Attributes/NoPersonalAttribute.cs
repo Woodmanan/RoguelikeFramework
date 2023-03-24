@@ -32,7 +32,7 @@ public class NoPersonalAttribute : Effect
     //Use this to apply effects or stats immediately, before the next frame
     public override void OnConnection()
     {
-        connectedTo.monster.baseStats += toGive;
+        connectedTo.monster.baseStats &= toGive;
         Disconnect();
     }
 

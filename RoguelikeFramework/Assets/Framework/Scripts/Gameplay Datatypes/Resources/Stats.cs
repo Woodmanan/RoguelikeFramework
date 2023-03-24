@@ -71,7 +71,7 @@ public class Stats : ISerializationCallbackReceiver
         return copy;
     }
 
-    public static Stats operator +(Stats first, Stats second)
+    public static Stats operator &(Stats first, Stats second)
     {
         foreach (Resources r in second.dictionary.Keys)
         {
@@ -80,13 +80,33 @@ public class Stats : ISerializationCallbackReceiver
         return first;
     }
 
-    public static Stats operator -(Stats first, Stats second)
+    public static Stats operator +(Stats first, Stats second)
+    {
+        Stats result = first.Copy();
+        foreach (Resources r in second.dictionary.Keys)
+        {
+            result[r] += second[r];
+        }
+        return result;
+    }
+
+    public static Stats operator ^(Stats first, Stats second)
     {
         foreach (Resources r in second.dictionary.Keys)
         {
             first[r] -= second[r];
         }
         return first;
+    }
+
+    public static Stats operator -(Stats first, Stats second)
+    {
+        Stats result = first.Copy();
+        foreach (Resources r in second.dictionary.Keys)
+        {
+            result[r] -= second[r];
+        }
+        return result;
     }
 
     public static Stats operator /(Stats first, float value)

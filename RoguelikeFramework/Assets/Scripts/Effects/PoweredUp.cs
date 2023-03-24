@@ -146,7 +146,7 @@ public class PoweredUp : Effect
     {
         if (isPowered)
         {
-            stats += addedStats;
+            stats &= addedStats;
         }
     }
 
