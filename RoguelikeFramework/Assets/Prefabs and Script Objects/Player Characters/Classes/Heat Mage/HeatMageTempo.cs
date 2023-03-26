@@ -141,7 +141,7 @@ public class HeatMageTempo : Effect
                 isOverheating = true;
                 overheatCurrentDuration = overheatMaxDuration;
                 active = false;
-                RogueLog.singleton.Log("You begin overheating!.");
+                RogueLog.singleton.Log("You begin overheating!", priority: LogPriority.HIGH, display: LogDisplay.DANGER);
             }
         }
         else if (isOverheating)

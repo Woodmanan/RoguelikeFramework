@@ -8,7 +8,9 @@ public class UIToCollider : MonoBehaviour
 {
     public static Transform parent;
 
-    public RectTransform rectTransform;
+    RectTransform rectTransform;
+    public RectTransform sizeTransform;
+    public Vector2 sizePadding;
 
     public bool tracks;
     public Vector2 targetPoint;
@@ -46,6 +48,10 @@ public class UIToCollider : MonoBehaviour
         {
             
             rectTransform = transform as RectTransform;
+            if (sizeTransform == null)
+            {
+                sizeTransform = rectTransform;
+            }
 
             if (parent == null)
             {
@@ -86,6 +92,10 @@ public class UIToCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
         CheckColliderMatch();
         UpdateTarget();
     }
@@ -106,7 +116,7 @@ public class UIToCollider : MonoBehaviour
 
     public void UpdateCollider()
     {
-        Vector2 updatedSize = cachedSize / Screen.width;
+        Vector2 updatedSize = (cachedSize + sizePadding)/ Screen.width;
         //Using scaler transform - x,y,z should all be equal here since rect width and height control the actual scale
         boxCollider.size = 2 * updatedSize * camera.orthographicSize * camera.aspect * scaler.transform.localScale.x;
 
@@ -123,10 +133,10 @@ public class UIToCollider : MonoBehaviour
 
     public bool SizeChanged()
     {
-        bool hasChanged = (cachedSize != rectTransform.rect.size || rectTransform.position != cachedPos || camera.aspect != cachedCamAspect || camera.orthographicSize != cachedCamSize);
+        bool hasChanged = (cachedSize != sizeTransform.rect.size || rectTransform.position != cachedPos || camera.aspect != cachedCamAspect || camera.orthographicSize != cachedCamSize);
         if (hasChanged)
         {
-            cachedSize = rectTransform.rect.size;
+            cachedSize = sizeTransform.rect.size;
             cachedCamAspect = camera.aspect;
             cachedCamSize = camera.orthographicSize;
             cachedPos = rectTransform.position;
@@ -178,5 +188,11 @@ public class UIToCollider : MonoBehaviour
             }
             
         }
+    }
+
+    //Clean up created game objects
+    public void OnDestroy()
+    {
+        Destroy(pair);
     }
 }

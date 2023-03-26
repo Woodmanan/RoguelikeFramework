@@ -260,17 +260,5 @@ public class CheatsPanel : RogueUIPanel
     {
         Application.Quit();
     }
-
-    [Cheat]
-    public void EnableMessages()
-    {
-        FloatingController.singleton.gameObject.SetActive(true);
-    }
-
-    [Cheat]
-    public void DisableMessages()
-    {
-        FloatingController.singleton.gameObject.SetActive(false);
-    }
     #endif
 }
