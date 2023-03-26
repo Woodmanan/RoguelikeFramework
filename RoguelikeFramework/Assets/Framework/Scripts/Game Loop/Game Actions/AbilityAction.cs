@@ -90,7 +90,7 @@ public class AbilityAction : GameAction
 
             if (!toCast.locName.IsEmpty)
             {
-                RogueLog.singleton.LogAboveMonster($"{caller.GetFormattedName()} cast {toCast.GetName()}!", caller);
+                RogueLog.singleton.Log($"The {caller.GetFormattedName()} casts {toCast.GetName()}!", priority: LogPriority.HIGH);
             }
 
             GenerateAnimations(toCast);

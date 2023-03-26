@@ -52,7 +52,12 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.LOW);
             Combat.Hit(attacker, defender, source, primary, enchantment: GetEnchantment());
+        }
+        else
+        {
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.LOW);
         }
 
         defender.connections.OnAfterPrimaryAttackTarget
@@ -84,7 +89,12 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.LOW);
             Combat.Hit(attacker, defender, source, secondary, enchantment: GetEnchantment());
+        }
+        else
+        {
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.LOW);
         }
 
         defender.connections.OnAfterSecondaryAttackTarget

@@ -232,7 +232,12 @@ public class Item : MonoBehaviour, IDescribable
     //Returns the name without modifiers. As of right now, just returns the straight name.
     public string GetNameClean()
     {
-        return localName.GetLocalizedString();
+        string name = "";
+        if (enchantment > 0)
+        {
+            name = $"+{enchantment} ";
+        }
+        return name + localName.GetLocalizedString();
     }
 
     public string GetPlural()

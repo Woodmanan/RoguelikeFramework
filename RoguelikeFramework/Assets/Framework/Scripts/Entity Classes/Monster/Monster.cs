@@ -228,7 +228,7 @@ public class Monster : MonoBehaviour, IDescribable
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            Debug.Log($"{dealer.GetFormattedName()} deals {damage} {type} damage with {source}");
+            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deal {damage} {type} damage with {source}");
         }
         
 
@@ -260,7 +260,7 @@ public class Monster : MonoBehaviour, IDescribable
     protected virtual void Die()
     {
         dead = true;
-        Debug.Log("Monster is dead!");
+        RogueLog.singleton.Log($"The {GetName()} dies!", this.gameObject, priority: LogPriority.HIGH);
 
         foreach (Effect effect in effects)
         {

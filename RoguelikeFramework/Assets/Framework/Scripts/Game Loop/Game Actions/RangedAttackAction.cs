@@ -43,6 +43,8 @@ public class RangedAttackAction : AttackAction
             int numShots = 0;
             bool canFire = false; //Assume we CANNOT fire by default.
 
+            RogueLog.singleton.Log($"{caller.GetName()} shoots!", priority: LogPriority.HIGH);
+
             foreach (Weapon w in primaryWeapons)
             {
                 RangedWeapon weapon = (RangedWeapon)w;

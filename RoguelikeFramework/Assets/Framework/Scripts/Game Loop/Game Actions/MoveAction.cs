@@ -53,7 +53,7 @@ public class MoveAction : GameAction
         {
             if (caller == Player.player)
             {
-                RogueLog.singleton.LogAboveMonster("You don't can't do that.", Player.player);
+                RogueLog.singleton.Log("You don't can't do that.");
             }
             else
             {

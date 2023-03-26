@@ -241,3 +241,20 @@ public enum ItemRarity
     LEGENDARY,
     UNIQUE
 }
+
+public enum LogPriority
+{
+    NONE,
+    EVERYTHING,
+    LOW,
+    HIGH
+}
+
+public enum LogDisplay
+{
+    NONE,
+    FLAVOR,
+    STANDARD,
+    ABILITY,
+    DANGER
+}

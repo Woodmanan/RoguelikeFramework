@@ -73,7 +73,6 @@ public class Instability : Effect
     {
         numStacks++;
         this.currentDuration = maxDuration;
-        Debug.Log("Adding new stack for instability! " + numStacks);
     }
 
     //Called at the start of the global turn sequence
@@ -85,11 +84,10 @@ public class Instability : Effect
         if (currentDuration > 0)
         {
             currentDuration--;
-            Debug.Log("Tick! New count is " + currentDuration);
             if (currentDuration <= 0)
             {
                 numStacks = 0;
-                Debug.Log("All stacks fell off.");
+                RogueLog.singleton.Log("You feel more stable.");
             }
         }
     }

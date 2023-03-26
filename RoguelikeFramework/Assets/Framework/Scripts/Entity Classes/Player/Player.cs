@@ -78,7 +78,7 @@ public class Player : Monster
 
     public override void OnLevelUp()
     {
-        Debug.Log("Log: YOU LEVEL UP!");
+        RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.HIGH);
     }
 
     protected override void Die()

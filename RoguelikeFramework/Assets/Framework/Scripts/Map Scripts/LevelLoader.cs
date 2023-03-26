@@ -35,7 +35,7 @@ public class LevelLoader : MonoBehaviour
     [HideInInspector] public int current;
     public float msPerFrame;
     public bool randomSeed;
-    public int seed;
+    public uint seed;
     private bool setup = false;
 
     public static List<Map> maps;
@@ -97,12 +97,12 @@ public class LevelLoader : MonoBehaviour
         
         if (randomSeed)
         {
-            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            seed = (uint)UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         }
 
         UnityEngine.Debug.Log($"Creating game with seed {seed}");
 
-        UnityEngine.Random.InitState(seed);
+        UnityEngine.Random.InitState((int)seed);
 
         
         if (generators.Count > 0)

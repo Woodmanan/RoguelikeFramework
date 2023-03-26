@@ -38,7 +38,7 @@ public class ActivateAction : GameAction
 
         if (!keepActivating)
         {
-            Debug.Log("Console: You cannot activate this item right now (caused by connected effect).");
+            RogueLog.singleton.Log("You cannot activate this item right now (prevented by effect).", priority: LogPriority.HIGH);
             yield break;
         }
 
@@ -57,7 +57,7 @@ public class ActivateAction : GameAction
             }
             else
             {
-                Debug.Log("Console: You cannot activate this item right now.");
+                RogueLog.singleton.Log("You cannot activate this item right now.", priority: LogPriority.HIGH);
                 this.successful = false;
             }
         }
@@ -69,6 +69,7 @@ public class ActivateAction : GameAction
 
         if (this.successful)
         {
+            RogueLog.singleton.Log($"You use the {item.GetComponent<Item>().GetName()}!", priority: LogPriority.HIGH);
             //Remove the item!
             if (item.ConsumedOnUse)
             {

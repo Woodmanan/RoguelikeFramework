@@ -23,7 +23,7 @@ public class AutoExploreAction : GameAction
         {
             if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
             {
-                RogueLog.singleton.LogAboveMonster("You cannot auto-explore while enemies are in sight.", Player.player);
+                RogueLog.singleton.Log("You cannot auto-explore while enemies are in sight.");
                 Debug.Log("Quitting in outer loop");
                 yield break;
             }
@@ -52,7 +52,7 @@ public class AutoExploreAction : GameAction
 
             if (goals.Count == 0)
             {
-                Debug.Log("Log: There's nothing else to explore!");
+                RogueLog.singleton.Log("There's nothing else to explore!", null, LogPriority.HIGH, LogDisplay.STANDARD);
 
                 yield break;
             }
@@ -61,7 +61,7 @@ public class AutoExploreAction : GameAction
 
             if (path.Count() == 0)
             {
-                Debug.Log("Log: Can't reach anymore unexplored spaces from here!");
+                RogueLog.singleton.Log("Can't reach anymore unexplored spaces from here!");
                 yield break;
             }
 
@@ -104,7 +104,7 @@ public class AutoExploreAction : GameAction
                 //Copied to try and get ahead of the wait check.
                 if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
                 {
-                    Debug.Log($"Log: You see a " + caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller))[0].GetLocalizedName() + " and stop.");
+                    RogueLog.singleton.Log($"You see a " + caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller))[0].GetLocalizedName() + " and stop.", priority: LogPriority.HIGH);
                     yield break;
                 }
 

@@ -46,6 +46,8 @@ public class AttackAction : GameAction
         unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed);
         unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].equipable.blocksUnarmed));
 
+        RogueLog.singleton.Log($"{caller.GetName()} attacks {target.GetName()}!", priority: LogPriority.HIGH);
+
         //Do we have any weapons equipped?
         if (slots.Count > 0 || unarmedSlots.Count > 0)
         {
@@ -125,11 +127,12 @@ public class AttackAction : GameAction
 
         if (result == AttackResult.HIT)
         {
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with an unarmed attack!", priority: LogPriority.LOW);
             Combat.Hit(attacker, defender, DamageSource.UNARMEDATTACK, slot.unarmedAttack);
         }
         else
         {
-            RogueLog.singleton.LogAboveMonster($"The {attacker.GetLocalizedName()} misses!", attacker);
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses an unarmed attack!", priority: LogPriority.LOW);
         }
 
         defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);

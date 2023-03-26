@@ -36,10 +36,9 @@ public class RemoveAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        Debug.Log("I used the action to unequip!");
         if (slotsToRemove.Count == 0)
         {
-            Debug.Log("You can't remove nothing!");
+            RogueLog.singleton.Log("You can't remove nothing!", priority: LogPriority.HIGH);
             yield break;
         }
 
