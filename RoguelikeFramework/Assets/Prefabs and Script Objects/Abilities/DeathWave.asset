@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c6c7585bb1c6344be94810522d6eed, type: 3}
   m_Name: DeathWave
   m_EditorClassIdentifier: 
-  displayName: Death Wave (DEV)
+  friendlyName: 
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   image: {fileID: 4054509398141438352, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   baseTargeting:
@@ -32,6 +50,8 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations:
+  - id: 0
   baseStats:
     _keys: 05000000
     _vals:
@@ -84,9 +104,25 @@ MonoBehaviour:
   castable: 1
   types: 1
   effects: []
+  credit: {fileID: 0}
   sprites:
   - {fileID: -6569304708771454169, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   - {fileID: 5647580403619596446, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   - {fileID: 3482512805507413357, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   references:
     version: 1
+    00000000:
+      type: {class: TrailProjectileAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        projectilePrefab: {fileID: 1383086326101249832, guid: 586bc3d191845544caf80a03aad45e5b, type: 3}
+        speed: 12
+        UVSquareSize: 0.2
+        dist: 2

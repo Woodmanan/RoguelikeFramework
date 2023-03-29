@@ -10,7 +10,8 @@ public class DiageticLogDisplay : MonoBehaviour
 
     public GameObject basicMessage;
 
-    public List<RectTransform> spawnAreas;
+    public RectTransform spawnAreas;
+    int currentArea = -1;
 
     public float defaultShowTime;
 
@@ -54,19 +55,8 @@ public class DiageticLogDisplay : MonoBehaviour
 
     private Vector2 GetSpawnPoint()
     {
-        float[] areas = spawnAreas.Select(x => x.rect.width * x.rect.height).ToArray();
-        float area = areas.Sum();
-        float choice = Random.Range(0, area);
-        for (int i = 0; i < areas.Count(); i++)
-        {
-            if (choice < areas[i])
-            {
-                return GetRandomPointInRect(spawnAreas[i]);
-            }
-            choice -= areas[i];
-        }
-
-        return new Vector2(Screen.width, Screen.height) / 2;
+        currentArea = (currentArea + 1) % spawnAreas.childCount;
+        return GetRandomPointInRect(spawnAreas.GetChild(currentArea) as RectTransform);
     }
 
     private Vector2 GetRandomPointInRect(RectTransform rect)

@@ -97,7 +97,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: ProjectileAnimation, ns: , asm: RoguelikeFramework}
+      type: {class: TrailProjectileAnimation, ns: , asm: RoguelikeFramework}
       data:
         MaxDuration: 0
         currentDuration: 0
@@ -107,8 +107,10 @@ MonoBehaviour:
         radius: 0
         owner: {fileID: 0}
         targets: []
-        sprite: {fileID: 21300000, guid: 68e447d19439b8b488c45a5c48a95c3c, type: 3}
+        projectilePrefab: {fileID: 1383086326101249832, guid: 586bc3d191845544caf80a03aad45e5b, type: 3}
         speed: 20
+        UVSquareSize: 0.2
+        dist: 2
     00000001:
       type: {class: AddStatForHeat, ns: , asm: RoguelikeFramework}
       data:
