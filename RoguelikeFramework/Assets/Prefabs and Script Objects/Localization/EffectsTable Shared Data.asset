@@ -379,6 +379,14 @@ MonoBehaviour:
     m_Key: GreaterShieldAbilityName
     m_Metadata:
       m_Items: []
+  - m_Id: 42802517585371136
+    m_Key: ElfPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42802560488906752
+    m_Key: ElfPassiveDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

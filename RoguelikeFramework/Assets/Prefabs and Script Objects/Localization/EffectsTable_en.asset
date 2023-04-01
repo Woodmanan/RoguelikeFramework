@@ -505,6 +505,16 @@ MonoBehaviour:
     m_Localized: Greater Shield
     m_Metadata:
       m_Items: []
+  - m_Id: 42802517585371136
+    m_Localized: Elven Grace (Elf Passive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42802560488906752
+    m_Localized: As you level up, your body undergoes the transformations that take
+      from a mortal creature to a high elf. Until level 7, lose max health but gain
+      max mana and EV per level.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

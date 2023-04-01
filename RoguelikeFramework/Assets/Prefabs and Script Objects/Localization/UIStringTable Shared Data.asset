@@ -95,6 +95,38 @@ MonoBehaviour:
     m_Key: ActivateButtonDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 38032437844582400
+    m_Key: HealthName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38032488239144960
+    m_Key: HealthDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035171515768832
+    m_Key: ManaName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035200892674048
+    m_Key: ManaDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035290751442944
+    m_Key: HeatName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035318014418944
+    m_Key: HeatDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035368597725184
+    m_Key: ExperienceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035415536181248
+    m_Key: ExperienceDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

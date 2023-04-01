@@ -248,17 +248,5 @@ public class CheatsPanel : RogueUIPanel
     {
         SteamController.singleton.PrintDiagnostics();
     }
-
-    [Cheat]
-    public void Restart()
-    {
-        SceneManager.LoadScene("CharacterSelect");
-    }
-
-    [Cheat]
-    public void Quit()
-    {
-        Application.Quit();
-    }
     #endif
 }

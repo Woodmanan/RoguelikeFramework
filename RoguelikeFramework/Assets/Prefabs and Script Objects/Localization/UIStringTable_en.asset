@@ -108,9 +108,46 @@ MonoBehaviour:
       will disappear after use.
     m_Metadata:
       m_Items: []
+  - m_Id: 38032437844582400
+    m_Localized: Health ({current}/{max})
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38032488239144960
+    m_Localized: Your hit points. Running out of these is how you die.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035171515768832
+    m_Localized: Mana ({current}/{max})
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38035290751442944
+    m_Localized: Heat ({current}/{max})
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38035368597725184
+    m_Localized: Experience ({current}/{max})
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38035415536181248
+    m_Localized: You gain experience from killing monsters that are your level or
+      higher. Fill this bar to level up!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035318014418944
+    m_Localized: The latent heat of your body. Be careful of overheating!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38035200892674048
+    m_Localized: Your primary resource for casting spells.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0020ab3e0300000000202b723f000000
+        m_Entries: 0020ab3e0300000000202b723f0000000020abfb4c1e870000202b77c920870000202b3ae520870000202b5af7208700

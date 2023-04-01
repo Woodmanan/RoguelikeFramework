@@ -12,7 +12,7 @@ public class StatsPanel : MonoBehaviour
         statBars = new List<StatBar>();
         for (int i = 0; i < transform.childCount; i++)
         {
-            StatBar bar = transform.GetChild(i).GetComponent<StatBar>();
+            StatBar bar = transform.GetChild(i).GetComponentInChildren<StatBar>();
             if (bar)
             {
                 statBars.Add(bar);
