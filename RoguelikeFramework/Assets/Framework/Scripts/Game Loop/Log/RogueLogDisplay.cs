@@ -52,14 +52,14 @@ public class RogueLogDisplay : MonoBehaviour
         while (displayedMessages.Count < RogueLog.singleton.storedMessageCount)
         {
             GameObject newMessage = Instantiate(messageObject, contentBox);
-            newMessage.gameObject.SetActive(true);
+            newMessage.transform.parent.gameObject.SetActive(true);
             displayedMessages.Add(newMessage.GetComponentInChildren<TextMeshProUGUI>());
         }
 
         //Turn off (but don't reclaim) any extra messages.
         for (int i = RogueLog.singleton.storedMessageCount; i < displayedMessages.Count; i++)
         {
-            displayedMessages[i].gameObject.SetActive(false);
+            displayedMessages[i].transform.parent.gameObject.SetActive(false);
         }
 
         RefreshMessageContent();
@@ -82,13 +82,13 @@ public class RogueLogDisplay : MonoBehaviour
                     displayedMessages[index].text += $" x99+";
                 }
             }
-            displayedMessages[index].gameObject.SetActive(true);
+            displayedMessages[index].transform.parent.gameObject.SetActive(true);
             index++;
         }
 
         for (int i = index; i < displayedMessages.Count; i++)
         {
-            displayedMessages[i].gameObject.SetActive(false);
+            displayedMessages[i].transform.parent.gameObject.SetActive(false);
         }
 
         //Reset view on update!

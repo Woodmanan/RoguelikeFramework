@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private ConfirmationPanel confirm;
     [SerializeField] private ClassPanel classPanel;
     [SerializeField] private PersonalAttributePanel attributePanel;
+    [SerializeField] private PausePanel pausePanel;
     [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
     {
@@ -159,6 +160,12 @@ public class UIController : MonoBehaviour
         Debug.Log("Console: If it's a new exploit, you'll get your name in the credits! (And have helped make the game better)");
     #endif
     }
+
+    public void OpenPause()
+    {
+        pausePanel.Activate();
+    }
+
     public void PassInput(PlayerAction action)
     {  
         if (action == PlayerAction.ESCAPE_SCREEN)

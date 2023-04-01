@@ -336,7 +336,7 @@ public class InputTracking : MonoBehaviour
     //Currently Q for convention; Apply is the backend stuff, these will probably just be quaffables
     private bool Apply()
     {
-        return Input.GetKeyDown(KeyCode.Q); //It's Q, for 'Qiswhatyouhittoapply'
+        return Input.GetKeyDown(KeyCode.A);
     }
 
     private bool CastSpell()

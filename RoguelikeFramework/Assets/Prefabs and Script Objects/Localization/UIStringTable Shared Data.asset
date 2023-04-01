@@ -71,6 +71,30 @@ MonoBehaviour:
     m_Key: ExamineButtonDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 37980767592849408
+    m_Key: InventoryButtonName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980843371339776
+    m_Key: InventoryButtonDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980907070234624
+    m_Key: EquipButtonName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980936933679104
+    m_Key: EquipButtonDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980983091994624
+    m_Key: ActivateButtonName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37981028201734144
+    m_Key: ActivateButtonDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

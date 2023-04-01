@@ -83,6 +83,31 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
+  - m_Id: 37980767592849408
+    m_Localized: Open Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980843371339776
+    m_Localized: Opens a page to view your items.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980907070234624
+    m_Localized: Open Equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980936933679104
+    m_Localized: Shows you what limbs you have, as well as what they're holding.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37980983091994624
+    m_Localized: Activate an Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37981028201734144
+    m_Localized: Chooses an item to activate. Consumable items like scrolls and potions
+      will disappear after use.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
