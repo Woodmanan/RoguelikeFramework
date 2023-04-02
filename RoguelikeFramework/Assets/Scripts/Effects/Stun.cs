@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[Group("Steamworks")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class UnlockAchOnDeath : Effect
+public class Stun : Effect
 {
-    public string achievementName;
+    public int numTurns;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
-    /*public override Spirte GetImage() { return image; }*/
+    /*public override Sprite GetImage() { return image; }*/
 
-    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }
+    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
+
+    /*public override string GetUISubtext() { return ""; }*/
+
+    /*public override float GetUIFillPercent() { return 0.0f; }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public UnlockAchOnDeath()
+    public Stun()
     {
         //Construct me!
     }
 
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        RogueLog.singleton.Log($"{connectedTo.monster.GetName(false)} is stunned!");
+    }
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
@@ -37,7 +44,7 @@ public class UnlockAchOnDeath : Effect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() {}
+    //public override void OnTurnEndGlobal() { }
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -55,10 +62,7 @@ public class UnlockAchOnDeath : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
-    {
-        SteamController.singleton?.GiveAchievement(achievementName);
-    }
+    //public override void OnDeath() {}
 
     //Called when a monster is killed by this unit.
     //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
@@ -67,7 +71,15 @@ public class UnlockAchOnDeath : Effect
     //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
-    //public override void OnEnergyGained(ref int energy) {}
+    public override void OnEnergyGained(ref int energy)
+    {
+        energy = 0;
+        numTurns--;
+        if (numTurns <= 0)
+        {
+            Disconnect();
+        }
+    }
 
     //Called when a monster gets attacked (REWORKING SOON!)
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
@@ -189,7 +201,7 @@ public class UnlockAchOnDeath : Effect
     {
         connectedTo = c;
 
-        c.OnDeath.AddListener(10, OnDeath);
+        c.OnEnergyGained.AddListener(10, OnEnergyGained);
 
         OnConnection();
     }
@@ -200,7 +212,7 @@ public class UnlockAchOnDeath : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnEnergyGained.RemoveListener(OnEnergyGained);
 
         ReadyToDelete = true;
     }

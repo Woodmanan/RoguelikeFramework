@@ -336,6 +336,31 @@ MonoBehaviour:
       a maximum limit. The shield will permanently disappear if it runs out of health.
     m_Metadata:
       m_Items: []
+  - m_Id: 35052571088068608
+    m_Localized: Crushing Blow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052609935712256
+    m_Localized: Empowers your next attack with a stun effect.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052495162777600
+    m_Localized: Roar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052524204138496
+    m_Localized: Roar, applying a slow effect to all creatures in range.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052850231582720
+    m_Localized: Chain Bind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052872725635072
+    m_Localized: Binds all units nearby with chains. Chained units are unable to
+      move further than 3 steps from this unit, by any means.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

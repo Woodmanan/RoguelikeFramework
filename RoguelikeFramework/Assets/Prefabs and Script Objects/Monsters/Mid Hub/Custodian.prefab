@@ -53,9 +53,9 @@ MonoBehaviour:
     _vals:
     - 100
     - 25
-    - 10
+    - 7
     - 5
-    - 10
+    - 13
   currentStats:
     _keys: 
     _vals: []
@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 12
+  available: 0
   baseItems:
   - {fileID: 5723771033562300096, guid: 79bb7aed26e1c3e4687d66795f5268f4, type: 3}
 --- !u!114 &4402800733788238308
@@ -272,7 +273,7 @@ MonoBehaviour:
   monster: {fileID: 0}
   equipmentSlots:
   - slotName: Primary Hand
-    type: 01000000
+    type: 02000000
     equipped:
       id: 0
       type: 0
@@ -307,4 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAbilities: 10
-  baseAbilities: []
+  baseAbilities:
+  - {fileID: 11400000, guid: e549a977a91104548ac3482f2ea256ad, type: 2}
+  - {fileID: 11400000, guid: 1d27af83f260cf343acd792a72e47250, type: 2}
+  - {fileID: 11400000, guid: 7aa50e2f3d49bba46a91cf6468e2b7e7, type: 2}

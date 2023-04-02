@@ -3,24 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[Group("Steamworks")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class UnlockAchOnDeath : Effect
+public class ChainBind : Effect
 {
-    public string achievementName;
+    public int maxDistance;
+
+    public int numberOfPulls;
+
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
-    /*public override Spirte GetImage() { return image; }*/
+    /*public override Sprite GetImage() { return image; }*/
 
-    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }
+    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
+
+    public override string GetUISubtext()
+    {
+        if (numberOfPulls >= 0)
+        {
+            return numberOfPulls.ToString();
+        }
+        return "";
+    }
+
+    /*public override float GetUIFillPercent() { return 0.0f; }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public UnlockAchOnDeath()
+    public ChainBind()
     {
         //Construct me!
+    }
+
+    public void Yank()
+    {
+        if (credit == null)
+        {
+            Disconnect();
+            return;
+        }
+        if (GameplayExtensions.ChebyshevDistance(connectedTo.monster.location, credit.location) > maxDistance)
+        {
+            while (GameplayExtensions.ChebyshevDistance(connectedTo.monster.location, credit.location) > maxDistance)
+            {
+                Vector2Int offset = (GameplayExtensions.ChebyshevNormalize(credit.location - connectedTo.monster.location));
+
+                Vector2Int newLocation = connectedTo.monster.location + offset;
+
+                RogueTile tile = Map.current.GetTile(newLocation);
+
+                if (tile == null || tile.currentlyStanding != null || tile.BlocksMovement())
+                {
+                    break;
+                }
+
+                connectedTo.monster.SetPositionNoGraphicsUpdate(newLocation);
+
+                //TODO: Pull back animation
+                AnimationController.AddAnimationForObject(new SnapAnimation(connectedTo.monster, connectedTo.monster.location), connectedTo.monster);
+            }
+
+            RogueLog.singleton.Log($"The {connectedTo.monster.name} is yanked in!", priority: LogPriority.HIGH, display: LogDisplay.STANDARD);
+            numberOfPulls--;
+            if (numberOfPulls == 0)
+            {
+                Disconnect();
+            }
+        }
     }
 
     //Called the moment an effect connects to a monster
@@ -31,13 +82,27 @@ public class UnlockAchOnDeath : Effect
     /*public override void OnDisconnection() {} */
 
     //Called when an effect "Clashes" with an effect of the same type
-    /*public override void OnStack(Effect other, ref bool addThisEffect) {} */
+    public override void OnStack(Effect other, ref bool addThisEffect)
+    {
+        if (addThisEffect)
+        {
+            ChainBind otherBind = other as ChainBind;
+            if (otherBind != null)
+            {
+                otherBind.numberOfPulls = numberOfPulls;
+                addThisEffect = false;
+            }
+        }
+    }
 
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() {}
+    public override void OnTurnEndGlobal()
+    {
+        Yank();
+    }
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -49,16 +114,16 @@ public class UnlockAchOnDeath : Effect
     //public override void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
 
     //Called whenever a monster sucessfully takes a step.
-    //public override void OnMove() {}
+    public override void OnMove()
+    {
+        Yank();
+    }
 
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
-    {
-        SteamController.singleton?.GiveAchievement(achievementName);
-    }
+    //public override void OnDeath() {}
 
     //Called when a monster is killed by this unit.
     //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
@@ -189,7 +254,9 @@ public class UnlockAchOnDeath : Effect
     {
         connectedTo = c;
 
-        c.OnDeath.AddListener(10, OnDeath);
+        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+
+        c.OnMove.AddListener(10, OnMove);
 
         OnConnection();
     }
@@ -200,7 +267,9 @@ public class UnlockAchOnDeath : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+
+        connectedTo.OnMove.RemoveListener(OnMove);
 
         ReadyToDelete = true;
     }

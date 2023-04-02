@@ -387,6 +387,38 @@ MonoBehaviour:
     m_Key: ElfPassiveDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 43181369482485760
+    m_Key: Chain Bound Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43181418299990016
+    m_Key: Chain Bound Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183021157457920
+    m_Key: Apply Crushing Blow Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183091579822080
+    m_Key: Apply Crushing Blow Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183248316768256
+    m_Key: Stun Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183303044046848
+    m_Key: Stun Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183840586047488
+    m_Key: Slow Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183888287866880
+    m_Key: Slow Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

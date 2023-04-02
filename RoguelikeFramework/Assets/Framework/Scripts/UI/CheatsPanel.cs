@@ -221,32 +221,32 @@ public class CheatsPanel : RogueUIPanel
     [Cheat]
     public void ClearAllAchievements()
     {
-        SteamController.singleton.ClearAllAchievements();
+        SteamController.singleton?.ClearAllAchievements();
     }
 
     [Cheat]
     public void ClearAchievement(string name)
     {
-        SteamController.singleton.ClearAchievement(name);
+        SteamController.singleton?.ClearAchievement(name);
     }
 
     [Cheat]
     public void GiveAchievement(string name)
     {
-        SteamController.singleton.GiveAchievement(name);
+        SteamController.singleton?.GiveAchievement(name);
     }
 
     [Cheat]
     public void SetStat(string name, int value)
     {
-        SteamController.singleton.SetStat(name, value);
-        SteamController.singleton.StoreStats();
+        SteamController.singleton?.SetStat(name, value);
+        SteamController.singleton?.StoreStats();
     }
 
     [Cheat]
     public void PrintSteamDiagnostics()
     {
-        SteamController.singleton.PrintDiagnostics();
+        SteamController.singleton?.PrintDiagnostics();
     }
     #endif
 }

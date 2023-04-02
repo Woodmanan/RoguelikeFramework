@@ -267,6 +267,30 @@ MonoBehaviour:
     m_Key: GreaterShieldAbilityDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 35052495162777600
+    m_Key: RoarName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052524204138496
+    m_Key: Roar Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052571088068608
+    m_Key: Crushing Blow Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052609935712256
+    m_Key: Crushing Blow Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052850231582720
+    m_Key: Chain Bind Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052872725635072
+    m_Key: Chain Bind Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -32,7 +32,13 @@ public class SteamController : MonoBehaviour
                 Debug.LogError("Could not establish steam connection through singleton call.");
             }
 
-            return Singleton;
+            if (Singleton.connected)
+            {
+                return Singleton;
+            }
+
+            //Force outside systems to handle state where controller didn't connect / doesn't exist
+            return null;
         }
 
         set
@@ -51,6 +57,13 @@ public class SteamController : MonoBehaviour
 
     public bool EstablishConnection()
     {
+        #if UNITY_EDITOR
+        if (DevSkipConnection)
+        {
+            return true;
+        }
+        #endif
+
         if (!connected)
         {
             try
@@ -90,13 +103,6 @@ public class SteamController : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-
-        #if UNITY_EDITOR
-        if (DevSkipConnection)
-        {
-            connected = true;
-        }
-        #endif
 
         if (!EstablishConnection())
         {

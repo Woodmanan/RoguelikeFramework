@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790ac8e317757bb42b12a74c4fc81479, type: 3}
+  m_Name: CustodianRoar
+  m_EditorClassIdentifier: 
+  friendlyName: CustodianRoar
+  locName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 35052495162777600
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 35052524204138496
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  image: {fileID: 21300000, guid: 5e229eab9da39864d9aeb420de5db5c8, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  baseTargeting:
+    numPoints: 1
+    targetingType: 5
+    areaType: 5
+    range: 0
+    radius: 3
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  animations:
+  - id: 0
+  baseStats:
+    _keys: 01000000
+    _vals:
+    - 20
+  currentStats:
+    _keys: 
+    _vals: []
+  castQuery:
+    outOf: 1
+    terms:
+    - subject: 0
+      subjectMod: 0
+      subjectCount: 0
+      property: 0
+      resource: 0
+      equality: 0
+      value: 0.85
+      valueMod: 0
+      weight: 1
+  targeting:
+    numPoints: 1
+    targetingType: 0
+    areaType: 0
+    range: 0
+    radius: 0
+    degree: 0
+    options: 3
+    targetPriority: 0
+    origin: {x: 0, y: 0}
+    target: {x: 0, y: 0}
+    points: []
+    isValid: 0
+    isFinished: 0
+    length: 0
+    offset: 0
+    affected: []
+  costs:
+    _keys: 02000000
+    _vals:
+    - 7
+  castable: 1
+  types: 0
+  effects: []
+  credit: {fileID: 0}
+  effectsToApply:
+  - id: 1
+  effectsToApplyToCaster: []
+  references:
+    version: 1
+    00000000:
+      type: {class: ExplosionTargetingAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        durationPerTile: 0.07
+        sprites:
+        - {fileID: 21300000, guid: f880ace9256a72946b85439f34ab283b, type: 3}
+        - {fileID: 21300000, guid: 03f74e2c928d86c41946d0e4d868c527, type: 3}
+        - {fileID: 21300000, guid: f880ace9256a72946b85439f34ab283b, type: 3}
+        - {fileID: 21300000, guid: 03f74e2c928d86c41946d0e4d868c527, type: 3}
+        spreadSpritesEvenly: 1
+    00000001:
+      type: {class: EnergyCut, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 43183840586047488
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 43183888287866880
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: ed5069fc0c0bd4347b88c21257801e3c, type: 3}
+        percentLeft: 50
+        maxDuration: 5
+        duration: 0

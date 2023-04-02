@@ -3,24 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[Group("Steamworks")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class UnlockAchOnDeath : Effect
+public class ApplyEffectOnAttack : Effect
 {
-    public string achievementName;
+
+    [SerializeReference]
+    public List<Effect> applyToEnemy;
+
+    [SerializeReference]
+    public List<Effect> applyToConnected;
+
+    public DamageSource SourcesToApplyTo;
+
+    public int numAttacks;
+
+    bool active = false;
+
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
 
-    /*public override Spirte GetImage() { return image; }*/
+    /*public override Sprite GetImage() { return image; }*/
 
-    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }
+    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
+
+    /*public override string GetUISubtext() { return ""; }*/
+
+    /*public override float GetUIFillPercent() { return 0.0f; }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public UnlockAchOnDeath()
+    public ApplyEffectOnAttack()
     {
         //Construct me!
+    }
+
+    public void ApplyEffectsTo(Monster monster)
+    {
+        if (active) return;
+        foreach (Effect e in applyToEnemy)
+        {
+            Effect toAdd = e.Instantiate();
+            toAdd.credit = connectedTo.monster;
+            monster.AddEffect(toAdd);
+        }
+
+
+        foreach (Effect e in applyToConnected)
+        {
+            Effect toAdd = e.Instantiate();
+            toAdd.credit = connectedTo.monster;
+            connectedTo.monster.AddEffect(toAdd);
+        }
+
+        active = true;
+
+        numAttacks--;
+        if (numAttacks == 0)
+        {
+            Disconnect();
+        }
     }
 
     //Called the moment an effect connects to a monster
@@ -37,7 +80,10 @@ public class UnlockAchOnDeath : Effect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() {}
+    public override void OnTurnEndGlobal()
+    {
+        active = false;
+    }
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -55,10 +101,7 @@ public class UnlockAchOnDeath : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
-    {
-        SteamController.singleton?.GiveAchievement(achievementName);
-    }
+    //public override void OnDeath() {}
 
     //Called when a monster is killed by this unit.
     //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
@@ -133,7 +176,13 @@ public class UnlockAchOnDeath : Effect
     //public override void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
 
     //Called once a primary attack has generated a result. (Before result is used)
-    //public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        if ((weapon.source & SourcesToApplyTo) > 0)
+        {
+            ApplyEffectsTo(action.target);
+        }
+    }
 
     //Called after an attack has completely finished - results are final
     //public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
@@ -142,7 +191,13 @@ public class UnlockAchOnDeath : Effect
     //public override void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
 
     //Called once a primary attack has generated a result. (Before result is used)
-    //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
+    public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
+    {
+        if ((weapon.source & SourcesToApplyTo) > 0)
+        {
+            ApplyEffectsTo(action.target);
+        }
+    }
 
     //Called after a seconary attack has completely finished - results are final
     //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
@@ -154,7 +209,13 @@ public class UnlockAchOnDeath : Effect
     //public override void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}
 
     //Called when an unarmed attack has a determined a result, before that result is used.
-    //public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
+    public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result)
+    {
+        if ((DamageSource.UNARMEDATTACK & SourcesToApplyTo) > 0)
+        {
+            ApplyEffectsTo(action.target);
+        }
+    }
 
     //Called when an unarmed attack has a determined a result, after that result is used.
     //public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
@@ -189,7 +250,13 @@ public class UnlockAchOnDeath : Effect
     {
         connectedTo = c;
 
-        c.OnDeath.AddListener(10, OnDeath);
+        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+
+        c.OnPrimaryAttackResult.AddListener(10, OnPrimaryAttackResult);
+
+        c.OnSecondaryAttackResult.AddListener(10, OnSecondaryAttackResult);
+
+        c.OnUnarmedAttackResult.AddListener(10, OnUnarmedAttackResult);
 
         OnConnection();
     }
@@ -200,7 +267,13 @@ public class UnlockAchOnDeath : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+
+        connectedTo.OnPrimaryAttackResult.RemoveListener(OnPrimaryAttackResult);
+
+        connectedTo.OnSecondaryAttackResult.RemoveListener(OnSecondaryAttackResult);
+
+        connectedTo.OnUnarmedAttackResult.RemoveListener(OnUnarmedAttackResult);
 
         ReadyToDelete = true;
     }

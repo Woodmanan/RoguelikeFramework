@@ -68,14 +68,14 @@ public class SteamStatsTracking : Effect
         if (connectedTo.monster.baseStats[Resources.HEALTH] <= 0)
         {
             //Push stats on player death, so achievements pop instantly
-            SteamController.singleton.StoreStats();
+            SteamController.singleton?.StoreStats();
         }
     }
 
     //Called when a monster is killed by this unit.
     public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
     {
-        SteamController.singleton.AddStat("STAT_KILLS", 1);
+        SteamController.singleton?.AddStat("STAT_KILLS", 1);
     }
 
     //Called often, whenever a monster needs up-to-date stats.
