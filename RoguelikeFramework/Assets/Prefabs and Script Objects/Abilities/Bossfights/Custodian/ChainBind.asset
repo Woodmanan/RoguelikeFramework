@@ -38,7 +38,7 @@ MonoBehaviour:
     targetingType: 5
     areaType: 5
     range: 0
-    radius: 4
+    radius: 6
     degree: 0
     options: 3
     targetPriority: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 40
+    - 5
   currentStats:
     _keys: 
     _vals: []
@@ -91,7 +91,7 @@ MonoBehaviour:
   costs:
     _keys: 02000000
     _vals:
-    - 5
+    - 2
   castable: 1
   types: 0
   effects: []
@@ -138,5 +138,5 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: 812219fb850fad04fb425b67d19f8cca, type: 3}
-        maxDistance: 3
+        maxDistance: 5
         numberOfPulls: 4

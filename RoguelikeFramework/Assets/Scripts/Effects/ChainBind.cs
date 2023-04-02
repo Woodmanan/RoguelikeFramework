@@ -90,6 +90,7 @@ public class ChainBind : Effect
             if (otherBind != null)
             {
                 otherBind.numberOfPulls = numberOfPulls;
+                otherBind.maxDistance = Mathf.Max(1, otherBind.maxDistance - 1);
                 addThisEffect = false;
             }
         }
