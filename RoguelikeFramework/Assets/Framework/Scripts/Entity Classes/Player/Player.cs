@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using static Resources;
+using UnityEngine.Localization;
 
 public class Player : Monster
 {
@@ -31,6 +32,8 @@ public class Player : Monster
             _player = value;
         }
     }
+
+    public LocalizedString speciesName;
 
     // Start is called before the first frame update
     public override void Start()

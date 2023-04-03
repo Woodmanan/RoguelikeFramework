@@ -10,6 +10,7 @@ public class DungeonGenerator
 {
     public string name;
     public int depth;
+    public int level;
     [HideInInspector] public int seed;
     public Vector2Int bounds;
     public Branch branch;
@@ -51,6 +52,7 @@ public class DungeonGenerator
 
         gameMap.depth = depth;
         gameMap.index = index;
+        gameMap.level = level;
         gameMap.branch = branch;
 
         mapInstance.name = name;

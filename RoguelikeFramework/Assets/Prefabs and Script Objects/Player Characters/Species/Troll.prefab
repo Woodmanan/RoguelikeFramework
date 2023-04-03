@@ -104,28 +104,15 @@ MonoBehaviour:
   willSwap: 0
   XPFromKill: 0
   level: 1
-  personalAttribute:
-    ReadyToDelete: 0
-    credit: {fileID: 0}
-    name:
-      m_TableReference:
-        m_TableCollectionName: 
-      m_TableEntryReference:
-        m_KeyId: 0
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-    description:
-      m_TableReference:
-        m_TableCollectionName: 
-      m_TableEntryReference:
-        m_KeyId: 0
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-    image: {fileID: 0}
+  speciesName:
+    m_TableReference:
+      m_TableCollectionName: GUID:654ed0b70d7dec342a577180ebc0d4c4
+    m_TableEntryReference:
+      m_KeyId: 250482466816
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   references:
     version: 1
     00000000:
@@ -232,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 52
+  available: 0
   baseItems: []
 --- !u!114 &4311608207694994521
 MonoBehaviour:

@@ -4163,12 +4163,13 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 9
+  startAt: 5
   playerPassives:
   - id: 0
   - id: 1
   - id: 2
   - id: 3
+  - id: 4
   references:
     version: 1
     00000000:
@@ -4258,7 +4259,7 @@ MonoBehaviour:
         levelToGrantAt: 5
         possibleEffects: {fileID: 11400000, guid: 0a826d7b02e700043b65ec4633f0534e, type: 2}
         backup:
-          id: 4
+          id: 5
         rarities:
           rarities:
           - rarity: 0
@@ -4299,6 +4300,30 @@ MonoBehaviour:
           m_LocalVariables: []
         image: {fileID: 0}
     00000004:
+      type: {class: SteamRichPresence, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+    00000005:
       type: {class: NoPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0

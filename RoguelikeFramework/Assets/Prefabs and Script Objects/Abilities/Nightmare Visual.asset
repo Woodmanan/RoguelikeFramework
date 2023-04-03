@@ -50,8 +50,9 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations: []
   baseStats:
-    _keys: 00000000
+    _keys: 01000000
     _vals:
     - 8
   currentStats:
@@ -93,8 +94,10 @@ MonoBehaviour:
   castable: 1
   types: 0
   effects: []
+  credit: {fileID: 0}
   effectsToApply:
   - id: 0
+  effectsToApplyToCaster: []
   references:
     version: 1
     00000000:

@@ -198,6 +198,21 @@ public class SteamController : MonoBehaviour
         Steamworks.SteamUserStats.StoreStats();
     }
 
+    public void SetRichPresence(string key, string value)
+    {
+        SteamFriends.SetRichPresence(key, value);
+    }
+
+    //Use this primarily! Checks first to spamming the steam server with calls.
+    public void UpdateRichPresence(string key, string value)
+    {
+        string oldValue = SteamFriends.GetRichPresence(key);
+        if (oldValue == null || !oldValue.Equals(value))
+        {
+            SetRichPresence(key, value);
+        }
+    }
+
     public void PrintDiagnostics()
     {
         Debug.Log($"Steam is connected, controller report: {connected}");

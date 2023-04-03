@@ -28,6 +28,7 @@ public class World
             {
                 DungeonGenerator generator = new DungeonGenerator();
                 generator.name = $"{branch.branchName}:{level}";
+                generator.level = level + 1;
                 generator.depth = branch.branchDepth + level; //Depth increases level - fix this later if not intended
                 generator.bounds = branch.size;
 

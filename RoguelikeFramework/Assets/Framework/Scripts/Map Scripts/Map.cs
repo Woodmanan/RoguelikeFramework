@@ -20,6 +20,7 @@ public class Map : MonoBehaviour
 
     public int depth;
     public int index;
+    public int level;
 
 
     public RogueTile[,] tiles;

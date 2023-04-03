@@ -47,6 +47,11 @@ MonoBehaviour:
       Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 654ed0b70d7dec342a577180ebc0d4c4
+    m_Address: Assets/Prefabs and Script Objects/Localization/PlayerTable Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: be0a14ddb09ed2944af4cb4acda145c2, type: 2}
   m_SchemaSet:
