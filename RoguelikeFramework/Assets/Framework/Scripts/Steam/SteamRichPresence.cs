@@ -55,12 +55,15 @@ public class SteamRichPresence : Effect
         Player player = Player.player as Player;
 
         //Set up variables
-        SteamController.singleton.UpdateRichPresence("characterLevel", Player.player.level.ToString());
-        SteamController.singleton.UpdateRichPresence("species", player.speciesName.GetLocalizedString());
-        SteamController.singleton.UpdateRichPresence("map", branchName);
-        SteamController.singleton.UpdateRichPresence("dungeonLevel", level);
+        if (SteamController.singleton)
+        {
+            SteamController.singleton.UpdateRichPresence("characterLevel", Player.player.level.ToString());
+            SteamController.singleton.UpdateRichPresence("species", player.speciesName.GetLocalizedString());
+            SteamController.singleton.UpdateRichPresence("map", branchName);
+            SteamController.singleton.UpdateRichPresence("dungeonLevel", level);
 
-        SteamController.singleton.UpdateRichPresence("steam_display", "#StatusDungeon");
+            SteamController.singleton.UpdateRichPresence("steam_display", "#StatusDungeon");
+        }
     }
 
     //Called at the start of a monster's turn

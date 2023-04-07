@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class RangedAttackAction : AttackAction
 {
 
@@ -43,8 +43,6 @@ public class RangedAttackAction : AttackAction
             int numShots = 0;
             bool canFire = false; //Assume we CANNOT fire by default.
 
-            RogueLog.singleton.Log($"{caller.GetName()} shoots!", priority: LogPriority.HIGH);
-
             foreach (Weapon w in primaryWeapons)
             {
                 RangedWeapon weapon = (RangedWeapon)w;
@@ -62,11 +60,15 @@ public class RangedAttackAction : AttackAction
 
                     GenerateAnimations(weapon);
 
+                    string logString = LogFormatting.GetFormattedString("RangedAttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defenders = weapon.targeting.affected.Select(x => x.GetName()) });
+                    RogueLog.singleton.Log(logString, priority: LogPriority.HIGH);
+
                     foreach (Monster m in weapon.targeting.affected)
                     {
                         target = m;
                         w.PrimaryAttack(caller, m, this);
                     }
+
                 }
                 else
                 {

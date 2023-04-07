@@ -90,7 +90,8 @@ public class AbilityAction : GameAction
 
             if (!toCast.locName.IsEmpty)
             {
-                RogueLog.singleton.Log($"The {caller.GetFormattedName()} casts {toCast.GetName()}!", priority: LogPriority.HIGH, display: LogDisplay.ABILITY);
+                string logString = LogFormatting.GetFormattedString("CastFullString", new { caster = caller.GetName(), singular = caller.singular, spell = toCast.GetName() });
+                RogueLog.singleton.Log(logString, priority: LogPriority.HIGH, display: LogDisplay.ABILITY);
             }
 
             GenerateAnimations(toCast);

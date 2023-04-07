@@ -21,9 +21,14 @@ public class Monster : MonoBehaviour, IDescribable
     public DamageType immunities;
 
     //TODO: Abstract these out to another class!!!
+    [Header("Logging controls")]
     public LocalizedString localName;
     public LocalizedString localDescription;
     public string friendlyName;
+    [Tooltip("Controls what kind of verbs are used. 'You cast' (true) vs 'It casts' (false)")]
+    public bool singular;
+    [Tooltip("Is this a generic insance of a monster? 'The goblin' (true) vs 'Grim Timothy' (false)")]
+    public bool named;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
     public Faction faction = Faction.STANDARD;
@@ -133,7 +138,14 @@ public class Monster : MonoBehaviour, IDescribable
 
     public string GetName(bool shorten = false)
     {
-        return localName.GetLocalizedString(this, currentStats.dictionary);
+        if (shorten)
+        {
+            return localName.GetLocalizedString(this, currentStats.dictionary);
+        }
+        else
+        {
+            return LogFormatting.FormatNameForMonster(this);
+        }    
     }
 
     public string GetDescription()
@@ -260,7 +272,7 @@ public class Monster : MonoBehaviour, IDescribable
     protected virtual void Die()
     {
         dead = true;
-        RogueLog.singleton.Log($"The {GetName()} dies!", this.gameObject, priority: LogPriority.HIGH);
+        RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.HIGH);
 
         foreach (Effect effect in effects)
         {

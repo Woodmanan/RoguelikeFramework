@@ -75,7 +75,7 @@ public class RogueLog : MonoBehaviour
     public void Log(string message, GameObject source = null, LogPriority priority = LogPriority.LOW, LogDisplay display = LogDisplay.NONE, object context = null)
     {
         RogueLogMessage LogMessage = new RogueLogMessage();
-        LogMessage.message = message;
+        LogMessage.message = message.Capitalize();
         LogMessage.source = source;
         LogMessage.priority = priority;
         LogMessage.display = display;
@@ -83,7 +83,12 @@ public class RogueLog : MonoBehaviour
         LogMessage.count = 1;
         Log(LogMessage);
     }
-    
+
+    public void LogTemplate(string key, object args, GameObject source = null, LogPriority priority = LogPriority.LOW, LogDisplay display = LogDisplay.NONE, object context = null)
+    {
+        Log(LogFormatting.GetFormattedString(key, args), source, priority, display, context);
+    }
+
     public void Log(RogueLogMessage message)
     {
         if (message.priority != LogPriority.NONE)

@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 468980539392
-    m_Localized: Clockwork Hound
+    m_Localized: clockwork hound
     m_Metadata:
       m_Items: []
   - m_Id: 496830717952
@@ -28,7 +28,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1222260760576
-    m_Localized: Clockwork Bear
+    m_Localized: clockwork bear
     m_Metadata:
       m_Items: []
   - m_Id: 1267076898816
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1616378535936
-    m_Localized: Clockwork Keeper
+    m_Localized: clockwork keeper
     m_Metadata:
       m_Items: []
   - m_Id: 1634627952640
@@ -46,7 +46,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1715624157184
-    m_Localized: Clockwork Dragon
+    m_Localized: clockwork dragon
     m_Metadata:
       m_Items: []
   - m_Id: 1720606990336
@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4473416785920
-    m_Localized: Dream Caller
+    m_Localized: dream caller
     m_Metadata:
       m_Items: []
   - m_Id: 4716610920448
@@ -64,7 +64,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5173018304512
-    m_Localized: Greater Husk
+    m_Localized: greater husk
     m_Metadata:
       m_Items: []
   - m_Id: 5324176826368
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5627546640384
-    m_Localized: Husk Node
+    m_Localized: husk node
     m_Metadata:
       m_Items: []
   - m_Id: 5694307377152
@@ -83,7 +83,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6234701504512
-    m_Localized: Husk
+    m_Localized: lesser husk
     m_Metadata:
       m_Items: []
   - m_Id: 6280994037760
@@ -93,7 +93,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6525488406528
-    m_Localized: Nightmare
+    m_Localized: nightmare
     m_Metadata:
       m_Items: []
   - m_Id: 6592391749632
@@ -104,7 +104,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 11914657341440
-    m_Localized: You
+    m_Localized: you
     m_Metadata:
       m_Items: []
   - m_Id: 11979270594560
@@ -112,7 +112,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2637749302583296
-    m_Localized: Desperado
+    m_Localized: desperado
     m_Metadata:
       m_Items: []
   - m_Id: 2638195727523840
@@ -121,7 +121,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4768710009757696
-    m_Localized: Black Hole
+    m_Localized: black hole
     m_Metadata:
       m_Items: []
   - m_Id: 4768776544002048
@@ -129,7 +129,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4768904969396224
-    m_Localized: White Hole
+    m_Localized: white hole
     m_Metadata:
       m_Items: []
   - m_Id: 4768988608012288
@@ -142,7 +142,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5916982623854592
-    m_Localized: Shotgunner
+    m_Localized: shotgunner
     m_Metadata:
       m_Items: []
   - m_Id: 5917053113327616
@@ -150,7 +150,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22994904169521152
-    m_Localized: Drone
+    m_Localized: drone
     m_Metadata:
       m_Items: []
   - m_Id: 22994942425767936
@@ -159,7 +159,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22995177071910912
-    m_Localized: Mage Killer
+    m_Localized: mage killer
     m_Metadata:
       m_Items: []
   - m_Id: 22995227206426624
@@ -168,7 +168,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22995593956368384
-    m_Localized: Spitter
+    m_Localized: spitter
     m_Metadata:
       m_Items: []
   - m_Id: 22995628295135232
@@ -177,7 +177,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22996061919059968
-    m_Localized: Defender
+    m_Localized: defender
     m_Metadata:
       m_Items: []
   - m_Id: 22996091144970240
@@ -186,7 +186,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22996376718352384
-    m_Localized: Royal Ant
+    m_Localized: royal ant
     m_Metadata:
       m_Items: []
   - m_Id: 22996408448262144
@@ -195,7 +195,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22996559267045376
-    m_Localized: Queen Ant
+    m_Localized: queen ant
     m_Metadata:
       m_Items: []
   - m_Id: 22996586525827072
@@ -205,7 +205,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 23538955327315968
-    m_Localized: The Custodian
+    m_Localized: Custodian
     m_Metadata:
       m_Items: []
   - m_Id: 23538982233776128
@@ -214,7 +214,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 33907982545395712
-    m_Localized: Runic Golem
+    m_Localized: runic golem
     m_Metadata:
       m_Items: []
   - m_Id: 33908040414208000
@@ -223,7 +223,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 33908224997138432
-    m_Localized: Smolem
+    m_Localized: smolem
     m_Metadata:
       m_Items: []
   - m_Id: 33908265895796736
@@ -232,7 +232,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5916374181339136
-    m_Localized: Sniper
+    m_Localized: sniper
     m_Metadata:
       m_Items: []
   - m_Id: 5916408478162944
@@ -240,7 +240,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 34603670006603776
-    m_Localized: Grenadier
+    m_Localized: grenadier
     m_Metadata:
       m_Items: []
   - m_Id: 34603716508852224
@@ -248,7 +248,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 34604980776935424
-    m_Localized: Barrel O' Dynamite
+    m_Localized: barrel o' dynamite
     m_Metadata:
       m_Items: []
   - m_Id: 34605021482655744

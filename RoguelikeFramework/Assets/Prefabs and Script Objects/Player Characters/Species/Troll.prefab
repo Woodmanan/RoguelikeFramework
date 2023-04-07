@@ -82,6 +82,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   friendlyName: PlayerTroll
+  singular: 1
+  named: 1
   nameRequiresPluralVerbs: 1
   faction: 2
   ID: 0

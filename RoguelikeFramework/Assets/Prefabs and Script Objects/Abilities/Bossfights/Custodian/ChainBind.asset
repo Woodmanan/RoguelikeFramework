@@ -140,3 +140,8 @@ MonoBehaviour:
         image: {fileID: 21300000, guid: 812219fb850fad04fb425b67d19f8cca, type: 3}
         maxDistance: 5
         numberOfPulls: 4
+        damageOnPull:
+          damage:
+            rolls: 1
+            dice: 5
+          type: 1

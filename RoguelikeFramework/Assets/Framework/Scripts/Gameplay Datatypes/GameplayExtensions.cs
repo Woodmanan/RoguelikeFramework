@@ -73,4 +73,14 @@ public static class GameplayExtensions
         return (bottom, top);
     }
 
+    //TODO: Upgrade C# versions and use a span here!! This is disgusting, creates 3 allocations for no reason.
+    public static string Capitalize(this string inString)
+    {
+        if (inString != null)
+        {
+            return inString[0].ToString().ToUpper() + inString.Substring(1);
+        }
+        return "";
+    }
+
 }

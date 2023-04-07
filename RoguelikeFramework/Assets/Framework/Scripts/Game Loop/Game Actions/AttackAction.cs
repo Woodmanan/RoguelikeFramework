@@ -46,7 +46,8 @@ public class AttackAction : GameAction
         unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed);
         unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].equipable.blocksUnarmed));
 
-        RogueLog.singleton.Log($"{caller.GetName()} attacks {target.GetName()}!", priority: LogPriority.HIGH);
+        string logString = LogFormatting.GetFormattedString("AttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defender = target.GetName() });
+        RogueLog.singleton.Log(logString, priority: LogPriority.HIGH);
 
         //Do we have any weapons equipped?
         if (slots.Count > 0 || unarmedSlots.Count > 0)

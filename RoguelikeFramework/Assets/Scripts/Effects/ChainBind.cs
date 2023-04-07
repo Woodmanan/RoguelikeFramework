@@ -11,6 +11,8 @@ public class ChainBind : Effect
 
     public int numberOfPulls;
 
+    public DamagePairing damageOnPull;
+
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -65,7 +67,11 @@ public class ChainBind : Effect
                 AnimationController.AddAnimationForObject(new SnapAnimation(connectedTo.monster, connectedTo.monster.location), connectedTo.monster);
             }
 
-            RogueLog.singleton.Log($"The {connectedTo.monster.name} is yanked in!", priority: LogPriority.HIGH, display: LogDisplay.STANDARD);
+            RogueLog.singleton.LogTemplate("PulledInFullString", new { target = connectedTo.monster.GetName(), singular = connectedTo.monster.singular }, null, LogPriority.HIGH, LogDisplay.STANDARD);
+
+
+            connectedTo.monster.Damage(credit, damageOnPull.damage.evaluate(), damageOnPull.type, DamageSource.EFFECT);
+
             numberOfPulls--;
             if (numberOfPulls == 0)
             {

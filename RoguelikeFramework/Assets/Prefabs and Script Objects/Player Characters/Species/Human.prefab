@@ -53,8 +53,8 @@ MonoBehaviour:
   baseStats:
     _keys: 010000000300000007000000
     _vals:
-    - 100
-    - 15
+    - 130
+    - 8
     - 15
   currentStats:
     _keys: 
@@ -81,6 +81,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   friendlyName: PlayerHuman
+  singular: 1
+  named: 1
   nameRequiresPluralVerbs: 1
   faction: 2
   ID: 0
