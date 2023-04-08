@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 436977999872
-    m_Key: GenericNameFormat
+    m_Key: GenericNameDefinite
     m_Metadata:
       m_Items: []
   - m_Id: 1673567870976
@@ -41,6 +41,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 40191505670144
     m_Key: PulledInFullString
+    m_Metadata:
+      m_Items: []
+  - m_Id: 394031094505472
+    m_Key: Summon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 394230198116352
+    m_Key: GenericNameIndefinite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 440597863931904
+    m_Key: Execution
     m_Metadata:
       m_Items: []
   m_Metadata:

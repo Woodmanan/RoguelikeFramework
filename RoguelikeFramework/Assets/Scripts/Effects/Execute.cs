@@ -5,21 +5,10 @@ using UnityEngine.Localization;
 
 //[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class ApplyEffectOnAttack : Effect
+public class Execute : Effect
 {
-
-    [SerializeReference]
-    public List<Effect> applyToEnemy;
-
-    [SerializeReference]
-    public List<Effect> applyToConnected;
-
-    public DamageSource SourcesToApplyTo;
-
-    public int numAttacks;
-
-    bool active = false;
-
+    [Range(0, 100)]
+    public float percentHealthThreshold;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -28,54 +17,27 @@ public class ApplyEffectOnAttack : Effect
 
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
 
-    public override string GetUISubtext()
-    {
-        if (numAttacks > 0)
-        {
-            return numAttacks.ToString();
-        }
-        return "";
-    }
+    /*public override string GetUISubtext() { return ""; }*/
 
     /*public override float GetUIFillPercent() { return 0.0f; }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public ApplyEffectOnAttack()
+    public Execute()
     {
         //Construct me!
     }
 
-    public void ApplyEffectsTo(Monster monster)
-    {
-        if (active) return;
-        foreach (Effect e in applyToEnemy)
-        {
-            Effect toAdd = e.Instantiate();
-            toAdd.credit = connectedTo.monster;
-            monster.AddEffect(toAdd);
-        }
-
-
-        foreach (Effect e in applyToConnected)
-        {
-            Effect toAdd = e.Instantiate();
-            toAdd.credit = connectedTo.monster;
-            connectedTo.monster.AddEffect(toAdd);
-        }
-
-        active = true;
-
-        numAttacks--;
-        if (numAttacks == 0)
-        {
-            Disconnect();
-        }
-    }
-
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        if (connectedTo.monster.baseStats[Resources.HEALTH]/connectedTo.monster.currentStats[Resources.MAX_HEALTH] <= (percentHealthThreshold / 100))
+        {
+            RogueLog.singleton.LogTemplate("Execution", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular }, priority: LogPriority.HIGH);
+            connectedTo.monster.Damage(credit, 9999, DamageType.TRUE, DamageSource.EFFECT);
+        }
+    }
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
@@ -87,10 +49,7 @@ public class ApplyEffectOnAttack : Effect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    public override void OnTurnEndGlobal()
-    {
-        active = false;
-    }
+    //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -183,13 +142,7 @@ public class ApplyEffectOnAttack : Effect
     //public override void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
 
     //Called once a primary attack has generated a result. (Before result is used)
-    public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
-    {
-        if ((weapon.source & SourcesToApplyTo) > 0)
-        {
-            ApplyEffectsTo(action.target);
-        }
-    }
+    //public override void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after an attack has completely finished - results are final
     //public override void OnEndPrimaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
@@ -198,13 +151,7 @@ public class ApplyEffectOnAttack : Effect
     //public override void OnBeginSecondaryAttack(ref Weapon weapon, ref AttackAction action) {}
 
     //Called once a primary attack has generated a result. (Before result is used)
-    public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result)
-    {
-        if ((weapon.source & SourcesToApplyTo) > 0)
-        {
-            ApplyEffectsTo(action.target);
-        }
-    }
+    //public override void OnSecondaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called after a seconary attack has completely finished - results are final
     //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
@@ -216,13 +163,7 @@ public class ApplyEffectOnAttack : Effect
     //public override void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}
 
     //Called when an unarmed attack has a determined a result, before that result is used.
-    public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result)
-    {
-        if ((DamageSource.UNARMEDATTACK & SourcesToApplyTo) > 0)
-        {
-            ApplyEffectsTo(action.target);
-        }
-    }
+    //public override void OnUnarmedAttackResult(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
     //Called when an unarmed attack has a determined a result, after that result is used.
     //public override void OnEndUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
@@ -257,14 +198,6 @@ public class ApplyEffectOnAttack : Effect
     {
         connectedTo = c;
 
-        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
-
-        c.OnPrimaryAttackResult.AddListener(10, OnPrimaryAttackResult);
-
-        c.OnSecondaryAttackResult.AddListener(10, OnSecondaryAttackResult);
-
-        c.OnUnarmedAttackResult.AddListener(10, OnUnarmedAttackResult);
-
         OnConnection();
     }
     //END CONNECTION
@@ -273,14 +206,6 @@ public class ApplyEffectOnAttack : Effect
     public override void Disconnect()
     {
         OnDisconnection();
-
-        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
-
-        connectedTo.OnPrimaryAttackResult.RemoveListener(OnPrimaryAttackResult);
-
-        connectedTo.OnSecondaryAttackResult.RemoveListener(OnSecondaryAttackResult);
-
-        connectedTo.OnUnarmedAttackResult.RemoveListener(OnUnarmedAttackResult);
 
         ReadyToDelete = true;
     }

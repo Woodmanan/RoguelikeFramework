@@ -417,5 +417,23 @@ MonoBehaviour:
       short.
     m_Metadata:
       m_Items: []
+  - m_Id: 35476717081141248
+    m_Localized: Infernal Bindings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35476800883335168
+    m_Localized: An extremely old mixed magic and martial arts book. It claims that
+      skilled practicioners will never lose their targets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35477172553195520
+    m_Localized: Advanced Weapon Techniques
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35477433120137216
+    m_Localized: The book is focused on various martial techniques, all designed
+      to work in hand with wielded weapons.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

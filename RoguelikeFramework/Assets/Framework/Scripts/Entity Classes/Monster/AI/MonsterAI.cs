@@ -303,7 +303,12 @@ public class MonsterAI : ActionController
 
     public void SetToFollow(Monster target)
     {
+        SetToFollow(target, intelligence);
+    }
+
+    public void SetToFollow(Monster target, int numTries)
+    {
         lastEnemy = target;
-        currentTries = intelligence;
+        currentTries = numTries;
     }
 }

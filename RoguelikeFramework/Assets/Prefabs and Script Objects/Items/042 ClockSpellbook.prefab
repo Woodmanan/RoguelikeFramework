@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 042 ShieldSpellbook
+  m_Name: 042 ClockSpellbook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 21300000, guid: c4c1a1f09e2c3ae4389c3ddbbf7d1b51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c500b24169e051246b6463bb6c8216bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109,12 +109,12 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: ShieldSpellbook
+  friendlyName: ClockSpellbook
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 29022856279695360
+      m_KeyId: 28882488666038272
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 29023023284297728
+      m_KeyId: 28882533880635392
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateType: 2
-  abilityOnActivation: {fileID: 11400000, guid: 9b67a3db62c60824383184d4c44c749c, type: 2}
+  abilityOnActivation: {fileID: 11400000, guid: 869cd7f8a81d0db4d860e9a6e84019b7, type: 2}
   activationEffects: []
   ConsumedOnUse: 1
   references:

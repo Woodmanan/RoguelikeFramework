@@ -419,6 +419,22 @@ MonoBehaviour:
     m_Key: Slow Description
     m_Metadata:
       m_Items: []
+  - m_Id: 45353502337867776
+    m_Key: Apply Execute Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45353596600655872
+    m_Key: Apply Execute Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45353833792741376
+    m_Key: Apply Poison Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45353900339568640
+    m_Key: Apply Poison Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

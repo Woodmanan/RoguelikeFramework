@@ -361,6 +361,31 @@ MonoBehaviour:
       move further than 3 steps from this unit, by any means.
     m_Metadata:
       m_Items: []
+  - m_Id: 37200013967433728
+    m_Localized: Leash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37200074004701184
+    m_Localized: Pull a single target in to range 2, and bind it for up to 2 pulls.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203291639848960
+    m_Localized: Poisoned Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203371147075584
+    m_Localized: Coat your weapon (or ammunition) in poison. Your next 5 armed strikes
+      will apply a poison that deals 3 damage for 3 turns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214861870702592
+    m_Localized: Executing Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214938836180992
+    m_Localized: Empowers your next attack to execute enemies below 20% health.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

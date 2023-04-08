@@ -55,6 +55,12 @@ public class ExamineController : MonoBehaviour
                 {
                     shortHoverTitle.text = desc.GetName(true);
                     shortHoverDesc.text = desc.GetDescription();
+
+                    Monster monster = target.GetComponent<Monster>();
+                    if (monster)
+                    {
+                        shortHoverTitle.text += $" ({monster.baseStats[Resources.HEALTH]}/{monster.currentStats[Resources.MAX_HEALTH]})";
+                    }
                 }
             }
             else

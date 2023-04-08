@@ -55,9 +55,24 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 394031094505472
+    m_Localized: '{monster} {singular:summon|summons} {target}.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 394230198116352
+    m_Localized: a {0}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 440597863931904
+    m_Localized: '{monster} {singular:are|is} executed!'
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d240000
+        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d24000000206b835e6601000020ebde8c66010000202bafb8900100

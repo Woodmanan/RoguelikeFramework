@@ -78,6 +78,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   friendlyName: AntRoyal
+  singular: 0
+  named: 0
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
@@ -126,12 +128,13 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
-        summonEvery: 15
+        summonEvery: 5
         numToSpawn:
           rngType: 0
           min: 1
           max: 1
         maxSpawn: 3
+        lifetimeSummon: 6
 --- !u!212 &4402800733788238310
 SpriteRenderer:
   m_ObjectHideFlags: 0

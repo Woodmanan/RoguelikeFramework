@@ -6,7 +6,7 @@ using UnityEngine.Localization.Settings;
 
 public class LogFormatting : MonoBehaviour
 { 
-    public static string FormatNameForMonster(Monster monster)
+    public static string FormatNameForMonster(Monster monster, bool definite = true)
     {
         if (monster)
         {
@@ -16,7 +16,7 @@ public class LogFormatting : MonoBehaviour
             }
             else
             {
-                return LocalizationSettings.StringDatabase.GetLocalizedString("GenericNameFormat", arguments: monster.localName.GetLocalizedString());
+                return LocalizationSettings.StringDatabase.GetLocalizedString((definite ? "GenericNameDefinite" : "GenericNameIndefinite"), arguments: monster.localName.GetLocalizedString());
             }
         }
         return "";

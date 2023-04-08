@@ -383,6 +383,22 @@ MonoBehaviour:
     m_Key: ShieldSpellbookDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 35476717081141248
+    m_Key: ChainSpellbook Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35476800883335168
+    m_Key: ChainSpellbook Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35477172553195520
+    m_Key: WeaponMasterSpellbook Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35477433120137216
+    m_Key: WeaponMasterSpellbook Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

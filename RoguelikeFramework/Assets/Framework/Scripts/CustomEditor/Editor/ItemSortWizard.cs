@@ -50,12 +50,13 @@ public class ItemSortWizard
         for (int i = 0; i < items.Count; i++)
         {
             EditorUtility.DisplayProgressBar($"Rebuilding data for {items.Count} items", $"({i.ToString("00")}/{items.Count}) Rebuilding {items[i].friendlyName}", ((float)i) / items.Count);
+
+            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(items[i]), $"{i.ToString().PadLeft(3, '0')} {items[i].friendlyName}");
+
             Undo.RecordObject(items[i], "Set ID");
             items[i].ID = i;
 
             EditorUtility.SetDirty(items[i]);
-
-            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(items[i]), $"{i.ToString().PadLeft(3, '0')} {items[i].friendlyName}");
         }
 
         EditorUtility.ClearProgressBar();

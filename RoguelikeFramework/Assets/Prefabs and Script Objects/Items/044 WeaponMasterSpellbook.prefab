@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 045 BlinkSpellbook
+  m_Name: 044 WeaponMasterSpellbook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 21300000, guid: 2d034fe4c72174545bce02c85251f5ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4c1a1f09e2c3ae4389c3ddbbf7d1b51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,25 +96,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ce513ce41ec854b8468d6e711882a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 2
+  rarity: 0
   type: 32
   minDepth: 0
   maxDepth: 30
-  elevatesTo: 2
+  elevatesTo: 0
   enchantment: 0
   maxEnchantment: 0
   currentRarity: 0
-  ID: 45
+  ID: 44
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: BlinkSpellbook
+  friendlyName: WeaponMasterSpellbook
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 15154172402540544
+      m_KeyId: 35477172553195520
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 15154220691562496
+      m_KeyId: 35477433120137216
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateType: 2
-  abilityOnActivation: {fileID: 11400000, guid: 1479ba1fa6b6a9940b7fc3342e25238f, type: 2}
+  abilityOnActivation: {fileID: 11400000, guid: 7399f6e117077fa41ac2329c7715f3fb, type: 2}
   activationEffects: []
   ConsumedOnUse: 1
   references:

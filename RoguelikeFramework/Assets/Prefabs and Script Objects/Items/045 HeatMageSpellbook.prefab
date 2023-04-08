@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6687509776577718200}
   - component: {fileID: 9125798170073048328}
   m_Layer: 0
-  m_Name: 043 WarriorSpellbook
+  m_Name: 045 HeatMageSpellbook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -900
-  m_Sprite: {fileID: 21300000, guid: 0d6098c289f3a14419d6c1f0c25fb953, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b73ccca0d1c60c94f985f7fff667cb2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,17 +104,17 @@ MonoBehaviour:
   enchantment: 0
   maxEnchantment: 0
   currentRarity: 0
-  ID: 43
+  ID: 45
   stackable: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  friendlyName: WarriorSpellbook
+  friendlyName: HeatMageSpellbook
   localName:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 15158481018101760
+      m_KeyId: 15154323254878208
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:8b1b859889db9e742b537669627078d7
     m_TableEntryReference:
-      m_KeyId: 15154441265815552
+      m_KeyId: 15154337406459904
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateType: 2
-  abilityOnActivation: {fileID: 11400000, guid: 362b08bef5efe9a4a8d673b14c45970a, type: 2}
+  abilityOnActivation: {fileID: 11400000, guid: b02d0999b8d675946b3fcbb4b111f5e7, type: 2}
   activationEffects: []
   ConsumedOnUse: 1
   references:

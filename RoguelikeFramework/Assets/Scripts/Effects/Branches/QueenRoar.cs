@@ -28,11 +28,11 @@ public class QueenRoar : Effect
         if (connectedTo.monster.baseStats[Resources.HEALTH] <= healthToCall)
         {
             //TODO: Make this a different message depending on how many ants are alive still.
-            Debug.Log("Console: The queen roars. The hive responds. Oh, shit.");
+            RogueLog.singleton.Log("The queen roars! The hive responds. Oh, shit.", priority: LogPriority.HIGH, display: LogDisplay.ABILITY);
             foreach (Monster m in Map.current.monsters)
             {
                 MonsterAI ai = m.controller as MonsterAI;
-                ai?.SetToFollow(target);
+                ai?.SetToFollow(target, 8);
             }
             Disconnect();
         }

@@ -291,6 +291,30 @@ MonoBehaviour:
     m_Key: Chain Bind Description
     m_Metadata:
       m_Items: []
+  - m_Id: 37200013967433728
+    m_Key: Leash Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37200074004701184
+    m_Key: Leash Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203291639848960
+    m_Key: Poisoned Strike Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203371147075584
+    m_Key: Poisoned Strike Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214861870702592
+    m_Key: Executing Strike Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214938836180992
+    m_Key: Executing Strike Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

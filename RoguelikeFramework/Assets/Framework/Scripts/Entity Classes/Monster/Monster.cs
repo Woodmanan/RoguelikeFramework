@@ -136,7 +136,13 @@ public class Monster : MonoBehaviour, IDescribable
         UpdateLOS(map);
     }
 
-    public string GetName(bool shorten = false)
+    //Dummy function since compiler complains due to interface
+    public string GetName(bool shorten)
+    {
+        return GetName(shorten, true);
+    }
+
+    public string GetName(bool shorten = false, bool definite = true)
     {
         if (shorten)
         {
@@ -144,7 +150,7 @@ public class Monster : MonoBehaviour, IDescribable
         }
         else
         {
-            return LogFormatting.FormatNameForMonster(this);
+            return LogFormatting.FormatNameForMonster(this, definite);
         }    
     }
 
@@ -181,7 +187,7 @@ public class Monster : MonoBehaviour, IDescribable
 
         if (shouldLog && healthReturned > 0)
         {
-            Debug.Log($"Log: {GetFormattedName()} heals for {healthReturned}");
+            RogueLog.singleton.Log($"{GetName()} heals for {healthReturned}");
         }
     }
 
@@ -228,10 +234,12 @@ public class Monster : MonoBehaviour, IDescribable
 
         damage *= damageMod;
 
+        #if UNITY_EDITOR
         if (dealer == null)
         {
-            Debug.LogError("Dealer was null!");
+            Debug.LogError("Dealer was null! Fix me you fool!!!");
         }
+        #endif
         dealer?.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
 
         connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
@@ -240,7 +248,7 @@ public class Monster : MonoBehaviour, IDescribable
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deal {damage} {type} damage with {source}");
+            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deals {Mathf.CeilToInt(damage)} {type} damage with {source}");
         }
         
 
@@ -543,7 +551,7 @@ public class Monster : MonoBehaviour, IDescribable
                     yield return actionDecision.Current;
                 }
 
-                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 //Expensive and unnessecary check, done in Editor only
                 if (currentAction == null && this != Player.player)
                 {
@@ -551,7 +559,7 @@ public class Monster : MonoBehaviour, IDescribable
                     Debug.LogError("This error will NOT be caught in build, so please fix it now!!!!");
                     this.energy -= 10; //Breaks the game state, but prevents our coroutine from running forever
                 }
-                #endif
+#endif
 
                 if (currentAction == null)
                 {

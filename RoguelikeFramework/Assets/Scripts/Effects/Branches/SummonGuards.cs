@@ -13,6 +13,8 @@ public class SummonGuards : Effect
     public RandomNumber numToSpawn;
     public int maxSpawn;
 
+    public int lifetimeSummon;
+
     List<Monster> currentlySummoned;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
@@ -61,10 +63,14 @@ public class SummonGuards : Effect
                 numToSummon = Mathf.Min(numToSummon, allowedToSpawn);
             }
 
+            numToSummon = Mathf.Min(numToSummon, lifetimeSummon);
+
             for (int i = 0; i < numToSummon; i++)
             {
                 Summon();
             }
+
+            lifetimeSummon -= numToSummon;
         }
     }
 
@@ -81,6 +87,11 @@ public class SummonGuards : Effect
             if (tile.IsOpen() && tile.currentlyStanding == null)
             {
                 MonsterSpawner.singleton.SpawnMonsterAt(Map.current, pos);
+                if (connectedTo.monster.renderer.enabled)
+                {
+                    RogueLog.singleton.LogTemplate("Summon", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular, target = tile.currentlyStanding.GetName(definite: false) },
+                                                    priority: LogPriority.HIGH);
+                }
                 currentlySummoned.Add(tile.currentlyStanding);
                 return;
             }
