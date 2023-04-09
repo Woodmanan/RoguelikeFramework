@@ -212,7 +212,7 @@ public class LevelLoader : MonoBehaviour
         }
         for (int i = 0; i < generators.Count; i++)
         {
-            if (generators[i].name.Equals(levelName))
+            if (generators[i].name.Equals(levelName, System.StringComparison.OrdinalIgnoreCase))
             {
                 return i;
             }
@@ -248,7 +248,7 @@ public class LevelLoader : MonoBehaviour
     {
         for (int i = 0; i < generators.Count; i++)
         {
-            if (generators[i].name.Equals(name))
+            if (generators[i].name.Equals(name, System.StringComparison.OrdinalIgnoreCase))
             {
                 return i;
             }

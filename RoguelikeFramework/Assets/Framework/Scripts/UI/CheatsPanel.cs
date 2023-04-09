@@ -17,6 +17,8 @@ public struct CheatInfo
     public ParameterInfo[] parameters;
     public string command;
     public string name;
+
+    public List<string> autocompleteOptions;
 }
 #endif
 
@@ -32,6 +34,8 @@ public class CheatsPanel : RogueUIPanel
 
     public List<CheatInfo> cachedCheats;
 
+    public List<CheatInfo> active;
+
     public TextMeshProUGUI suggestionsBox;
 
     //bool inFocus; - Tells you if this is the window that is currently focused. Not too much otherwise.
@@ -46,13 +50,71 @@ public class CheatsPanel : RogueUIPanel
     // Update is called once per frame
     void Update()
     {
+        int totalActive = 0;
         suggestionsBox.text = "";
+
+        bool finishedCommand = false;
         foreach (CheatInfo cheat in cachedCheats)
         {
             int length = Mathf.Min(input.text.Length, cheat.name.Length);
             if (input.text.Substring(0, length).Equals(cheat.name.Substring(0, length), System.StringComparison.OrdinalIgnoreCase))
             {
                 suggestionsBox.text += "\n" + cheat.command;
+                active[totalActive] = cheat;
+                totalActive++;
+            }
+        }
+
+        //Just the one option! Switch to using autocomplete options now.
+        if (totalActive == 1 && active[0].autocompleteOptions != null)
+        {
+            finishedCommand = (active[0].name.Length <= input.text.Length);
+            suggestionsBox.text = "";
+            foreach (string s in active[0].autocompleteOptions)
+            {
+                string newInput = active[0].name + " " + s;
+                int length = Mathf.Min(input.text.Length, newInput.Length);
+                if (input.text.Substring(0, length).Equals(newInput.Substring(0, length), System.StringComparison.OrdinalIgnoreCase))
+                {
+                    suggestionsBox.text += "\n" + newInput;
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab) && totalActive > 0)
+        {
+            if (!finishedCommand || (active[totalActive-1].parameters == null))
+            {
+                input.text = active[totalActive - 1].name;
+                if (active[totalActive - 1].parameters.Length > 0)
+                {
+                    input.text += " ";
+                }
+                input.MoveToEndOfLine(false, false);
+            }
+            else
+            {
+                List<string> options = suggestionsBox.text.Split('\n').ToList();
+                options.RemoveAt(0);
+                if (options.Count > 0)
+                {
+                    string final = options[0];
+                    foreach (string nextOption in options)
+                    {
+                        int length = Mathf.Min(final.Length, nextOption.Length);
+                        if (length == 0) return;
+                        for (int i = 0; i < length; i++)
+                        {
+                            if (nextOption[i] != final[i])
+                            {
+                                final = final.Substring(0, i);
+                                continue;
+                            }
+                        }
+                    }
+                    input.text = final;
+                    input.MoveToEndOfLine(false, false);
+                }
             }
         }
     }
@@ -107,7 +169,11 @@ public class CheatsPanel : RogueUIPanel
 
     public void CacheCheats()
     {
-        if (cachedCheats == null) cachedCheats = new List<CheatInfo>();
+        if (cachedCheats == null)
+        {
+            cachedCheats = new List<CheatInfo>();
+            active = new List<CheatInfo>();
+        }
 
         if (cachedCheats.Count == 0)
         {
@@ -115,7 +181,8 @@ public class CheatsPanel : RogueUIPanel
             MethodInfo[] methods = typeof(CheatsPanel).GetMethods();
             foreach (MethodInfo method in methods)
             {
-                if (method.GetCustomAttribute<CheatAttribute>() != null)
+                CheatAttribute cheatAttribute = method.GetCustomAttribute<CheatAttribute>();
+                if (cheatAttribute != null)
                 {
                     CheatInfo newCheat = new CheatInfo();
                     Debug.Log("Found cheat named " + method.Name);
@@ -128,7 +195,16 @@ public class CheatsPanel : RogueUIPanel
                         commandString = commandString + $" [{param.ParameterType.Name}]";
                     }
                     newCheat.command = commandString;
+
+                    //Find autocomplete?
+                    if (cheatAttribute.hasAutoComplete)
+                    {
+                        //Do the thing!
+                        newCheat.autocompleteOptions = (List<string>) typeof(CheatsPanel).GetMethod(method.Name + "_AutoComplete").Invoke(this, new object[0]);
+                    }
+
                     cachedCheats.Add(newCheat);
+                    active.Add(newCheat);
                 }
             }
         }
@@ -247,6 +323,59 @@ public class CheatsPanel : RogueUIPanel
     public void PrintSteamDiagnostics()
     {
         SteamController.singleton?.PrintDiagnostics();
+    }
+
+    [Cheat]
+    public void ForceLoadAllLevels()
+    {
+        for (int i = 0; i < LevelLoader.singleton.generators.Count; i++)
+        {
+            LevelLoader.singleton.FastLoadLevel(i);
+        }
+    }
+
+    [Cheat(true)]
+    public void MoveToLevel(string levelName)
+    {
+        int index = LevelLoader.singleton.GetIndexOf(levelName);
+        if (index > 0)
+        {
+            LOS.lastCall.Deprint(Map.current);
+            GameController.singleton.LoadMap(index);
+            Player.player.transform.parent = Map.current.monsterContainer;
+            Player.player.SetPositionSnap(Map.current.GetRandomWalkableTile());
+            
+            LOS.lastCall = null;
+            CameraTracking.singleton.JumpToPlayer();
+            LOS.GeneratePlayerLOS(Map.current, Player.player.location, Player.player.visionRadius);
+        }
+        else
+        {
+            RogueLog.singleton.Log($"Could not move to level {levelName}, as it does not exist.", priority: LogPriority.HIGH, display: LogDisplay.ABILITY);
+        }    
+    }
+
+    public List<string> MoveToLevel_AutoComplete()
+    {
+        List<string> options = new List<string>();
+        foreach (DungeonGenerator generator in LevelLoader.singleton.generators)
+        {
+            options.Add(generator.name);
+        }
+
+        return options;
+    }
+
+    [Cheat]
+    public void SetFriendly()
+    {
+        Player.player.faction = (Faction) (-1);
+    }
+
+    [Cheat]
+    public void SetUnfriendly()
+    {
+        Player.player.faction = Faction.PLAYER;
     }
     #endif
 }

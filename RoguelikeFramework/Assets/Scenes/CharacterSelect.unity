@@ -997,6 +997,7 @@ GameObject:
   - component: {fileID: 188479613}
   - component: {fileID: 188479612}
   - component: {fileID: 188479611}
+  - component: {fileID: 188479614}
   m_Layer: 5
   m_Name: Debug
   m_TagString: Untagged
@@ -1130,6 +1131,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188479609}
   m_CullTransparentMesh: 0
+--- !u!114 &188479614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188479609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ed16991b8bcd64894f810ab94bcab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &279354283
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,7 +4176,7 @@ MonoBehaviour:
   chosenGenerator: {fileID: 11400000, guid: 9ac22fa5b7e487848bdbe53c0a638295, type: 2}
   generationOptions: []
   loadingScreen: {fileID: 568328078}
-  startAt: 0
+  startAt: 7
   playerPassives:
   - id: 0
   - id: 1
@@ -4966,6 +4979,7 @@ GameObject:
   - component: {fileID: 1689040914}
   - component: {fileID: 1689040916}
   - component: {fileID: 1689040915}
+  - component: {fileID: 1689040917}
   m_Layer: 5
   m_Name: Text (TMP) (3)
   m_TagString: Untagged
@@ -5089,6 +5103,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689040913}
   m_CullTransparentMesh: 0
+--- !u!114 &1689040917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689040913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ed16991b8bcd64894f810ab94bcab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1728864016
 GameObject:
   m_ObjectHideFlags: 0
