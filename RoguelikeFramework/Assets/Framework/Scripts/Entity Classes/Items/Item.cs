@@ -270,7 +270,7 @@ public class Item : MonoBehaviour, IDescribable
 
         if (CanAddEnchantment())
         {
-            AddEnchantment(Mathf.RoundToInt(RogueRNG.BoundedParetoCut(1, numberToAdd + RogueRNG.Linear(0, numberToAdd), 1, 2)));
+            AddEnchantment(Mathf.RoundToInt(RogueRNG.Binomial(2 * ((int)rarity) + RogueRNG.Linear(0, numberToAdd), 0.5f)));
         }
 
         currentRarity = rarity;

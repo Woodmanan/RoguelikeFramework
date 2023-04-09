@@ -43,8 +43,8 @@ MonoBehaviour:
   - rarity: 2
     effect:
       id: 9
-  favorLastX: 3
-  favorChance: 20
+  favorLastX: 0
+  favorChance: 0
   references:
     version: 1
     00000000:
@@ -277,7 +277,7 @@ MonoBehaviour:
         image: {fileID: 21300000, guid: b745c58d6a27e1042875ed55919a01e3, type: 3}
         maxDodges: 5
         currentDodges: 0
-        damagePerStack: 3
+        damagePerStack: 6
     00000008:
       type: {class: AddGeneric, ns: , asm: RoguelikeFramework}
       data:

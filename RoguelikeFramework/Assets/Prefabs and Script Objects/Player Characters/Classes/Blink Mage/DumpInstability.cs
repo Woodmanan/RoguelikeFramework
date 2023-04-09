@@ -31,7 +31,7 @@ public class DumpInstability : Ability
     {
         foreach (Monster target in targeting.affected)
         {
-            target.Damage(caster, damage.Evaluate(), DamageType.MAGICAL, DamageSource.ABILITY, "{name} is rended by horrific energies!");
+            target.Damage(caster, damage.Evaluate(), DamageType.MAGICAL, DamageSource.ABILITY);
             Clear(target);
         }
         Clear(caster);

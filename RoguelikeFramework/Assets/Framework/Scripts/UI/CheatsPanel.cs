@@ -176,7 +176,7 @@ public class CheatsPanel : RogueUIPanel
     [Cheat]
     public void KillPlayer()
     {
-        Player.player.Damage(Player.player, int.MaxValue, DamageType.NONE, DamageSource.EFFECT, "You cheat die");
+        Player.player.Damage(Player.player, 9999, DamageType.TRUE, DamageSource.EFFECT);
     }
 
     [Cheat]
@@ -213,7 +213,7 @@ public class CheatsPanel : RogueUIPanel
         {
             if (monster != Player.player)
             {
-                monster.Damage(Player.player, 1000, DamageType.NONE, DamageSource.MONSTER, "{name} dies to a cheat.");
+                monster.Damage(Player.player, 9999, DamageType.TRUE, DamageSource.MONSTER);
             }
         }
     }

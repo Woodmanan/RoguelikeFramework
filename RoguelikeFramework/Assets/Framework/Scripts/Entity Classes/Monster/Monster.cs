@@ -212,7 +212,7 @@ public class Monster : MonoBehaviour, IDescribable
         return true;
     }
 
-    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
+    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source)
     {
         float damageMod = 1f;
         if ((resistances & type) > 0)
@@ -310,7 +310,10 @@ public class Monster : MonoBehaviour, IDescribable
 
     public virtual void GainXP(Monster source, float amount)
     {
-        Debug.Log($"{DebugName()} has gained {amount} XP!");
+        RogueLog.singleton.LogTemplate("XP",
+            new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
+            priority: LogPriority.LOW
+            );
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);
         baseStats[XP] += amount;
         if (baseStats[XP] >= currentStats[NEXT_LEVEL_XP])

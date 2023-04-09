@@ -30,6 +30,11 @@ public class SteamController : MonoBehaviour
             if (!Singleton.EstablishConnection())
             {
                 Debug.LogError("Could not establish steam connection through singleton call.");
+                if (Steamworks.SteamClient.RestartAppIfNecessary(2191640))
+                {
+                    Debug.LogError("Relaunching through steam, closing this app.");
+                    Application.Quit();
+                }
             }
 
             if (Singleton.connected)
@@ -79,6 +84,7 @@ public class SteamController : MonoBehaviour
                 //     Don't have permission to play app?
                 //
                 Debug.LogError("Uh oh something went wrong. No steam for u cuz " + e.Message);
+
                 return false;
             }
 
@@ -107,6 +113,11 @@ public class SteamController : MonoBehaviour
         if (!EstablishConnection())
         {
             Debug.LogError("Could not establish connection on startup.");
+            if (Steamworks.SteamClient.RestartAppIfNecessary(2191640))
+            {
+                Debug.LogError("Relaunching through steam, closing this app.");
+                Application.Quit();
+            }
             return;
         }
 
@@ -128,10 +139,13 @@ public class SteamController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            while (!Steamworks.SteamUserStats.StoreStats())
+            if (connected)
             {
-                Debug.LogError("Failed to push steam stats. Retrying in one second...");
-                yield return new WaitForSeconds(1f);
+                while (!Steamworks.SteamUserStats.StoreStats())
+                {
+                    Debug.LogError("Failed to push steam stats. Retrying in one second...");
+                    yield return new WaitForSeconds(1f);
+                }
             }
         }
     }

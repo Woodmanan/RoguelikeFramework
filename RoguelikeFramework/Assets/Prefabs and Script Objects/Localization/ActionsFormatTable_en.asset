@@ -70,6 +70,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 725745364836352
+    m_Localized: '{monster} {singular:gain|gains} {amount} XP!'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

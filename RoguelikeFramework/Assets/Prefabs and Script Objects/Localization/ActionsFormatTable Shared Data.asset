@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: Execution
     m_Metadata:
       m_Items: []
+  - m_Id: 725745364836352
+    m_Key: XP
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
