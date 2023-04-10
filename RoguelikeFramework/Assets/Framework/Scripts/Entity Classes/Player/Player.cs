@@ -58,11 +58,16 @@ public class Player : Monster
 
     public override void GainXP(Monster source, float amount)
     {
+        if (amount == 0)
+        {
+            RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.LOW);
+        }
+
         while (amount > 0)
         {
             if (source.level < level)
             {
-                Debug.Log("Console: That felt unrewarding.");
+                RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.LOW);
                 return;
             }
 
@@ -73,6 +78,11 @@ public class Player : Monster
                 LevelUp();
                 continue;
             }
+
+            RogueLog.singleton.LogTemplate("XP",
+            new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
+            priority: LogPriority.LOW
+            );
 
             baseStats[XP] += amount;
             amount = 0;

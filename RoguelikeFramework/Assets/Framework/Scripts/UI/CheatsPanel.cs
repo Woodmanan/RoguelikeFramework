@@ -338,7 +338,7 @@ public class CheatsPanel : RogueUIPanel
     public void MoveToLevel(string levelName)
     {
         int index = LevelLoader.singleton.GetIndexOf(levelName);
-        if (index > 0)
+        if (index >= 0)
         {
             LOS.lastCall.Deprint(Map.current);
             GameController.singleton.LoadMap(index);

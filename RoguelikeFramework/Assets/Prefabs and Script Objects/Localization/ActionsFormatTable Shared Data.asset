@@ -59,6 +59,10 @@ MonoBehaviour:
     m_Key: XP
     m_Metadata:
       m_Items: []
+  - m_Id: 1168351936847872
+    m_Key: NoXP
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
