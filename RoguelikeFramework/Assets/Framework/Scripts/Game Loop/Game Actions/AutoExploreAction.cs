@@ -24,7 +24,6 @@ public class AutoExploreAction : GameAction
             if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
             {
                 RogueLog.singleton.Log("You cannot auto-explore while enemies are in sight.");
-                Debug.Log("Quitting in outer loop");
                 yield break;
             }
 

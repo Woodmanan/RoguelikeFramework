@@ -70,6 +70,7 @@ public class ActivateAction : GameAction
         if (this.successful)
         {
             RogueLog.singleton.Log($"You use the {item.GetComponent<Item>().GetName()}!", priority: LogPriority.HIGH);
+            caller.energy -= 100;
             //Remove the item!
             if (item.ConsumedOnUse)
             {

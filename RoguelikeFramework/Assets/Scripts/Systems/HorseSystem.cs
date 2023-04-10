@@ -119,8 +119,6 @@ public class HorseSystem : DungeonSystem
                 leftGoals.RemoveAt(index);
             }
 
-            goal.color = Color.yellow;
-
             List<RogueTile> openSpots = new List<RogueTile>();
 
             if (!right)
@@ -262,7 +260,6 @@ public class HorseSystem : DungeonSystem
     {
         if (currentDuration == 0)
         {
-            Debug.Log($"We have {currentHorses.Count} horses being driven.");
             UpdateHorses();
         }
         else

@@ -39,7 +39,6 @@ public class DiageticLogDisplay : MonoBehaviour
         GameObject newMessage = Instantiate(basicMessage, transform);
         newMessage.GetComponentInChildren<TextMeshProUGUI>().text = message.message;
         Vector2 spawn = GetSpawnPoint();
-        Debug.Log($"Spawn point is {spawn}");
         newMessage.GetComponent<RectTransform>().position = spawn ;
         newMessage.GetComponent<UIToCollider>().targetPoint = spawn;
         StartCoroutine(ShowMessageForXSeconds(newMessage, defaultShowTime));
@@ -67,8 +66,6 @@ public class DiageticLogDisplay : MonoBehaviour
         Vector2 pos = new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
 
         Vector2 start = new Vector2(Screen.width, Screen.height) * pos;
-        Debug.Log(start);
-
 
         return start;// + offset;
     }

@@ -313,7 +313,10 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < Map.current.monsters.Count; i++)
         {
             Monster m = Map.current.monsters[i];
-            m.OnTurnEndGlobalCall();
+            if (!m.IsDead())
+            {
+                m.OnTurnEndGlobalCall();
+            }
         }
 
 

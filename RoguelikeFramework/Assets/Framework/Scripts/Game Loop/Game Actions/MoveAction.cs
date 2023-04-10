@@ -34,7 +34,18 @@ public class MoveAction : GameAction
             yield break;
         }
 
+        
+        if (!Map.current.ValidLocation(intendedLocation))
+        {
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.Log("Monster tried to move to null tile!");
+            caller.energy--;
+            #endif
+            yield break;
+        }
+
         RogueTile tile = Map.current.GetTile(intendedLocation);
+
         if (tile.IsInteractable())
         {
             InteractableTile interact = tile as InteractableTile;
