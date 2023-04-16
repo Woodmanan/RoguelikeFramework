@@ -185,7 +185,6 @@ public class CheatsPanel : RogueUIPanel
                 if (cheatAttribute != null)
                 {
                     CheatInfo newCheat = new CheatInfo();
-                    Debug.Log("Found cheat named " + method.Name);
                     newCheat.method = method;
                     newCheat.name = method.Name;
                     newCheat.parameters = method.GetParameters();
@@ -377,5 +376,67 @@ public class CheatsPanel : RogueUIPanel
     {
         Player.player.faction = Faction.PLAYER;
     }
+
+    [Cheat]
+    public void LimitFrameRate(int framesPerSecond)
+    {
+        Application.targetFrameRate = framesPerSecond;
+    }
+
+    [Cheat]
+    public void UnlockFrameRate()
+    {
+        Application.targetFrameRate = -1;
+    }
+
+    [Cheat(true)]
+    public void AddActionBinding(PlayerAction action, char key)
+    {
+        PlayerPrefs.SetString($"InputOverride:{action}", key.ToString());
+        InputTracking.GenerateActionsDictionary();
+    }
+
+    public List<string> AddActionBinding_AutoComplete()
+    {
+        List<string> options = new List<string>();
+        foreach (PlayerAction action in Enum.GetValues(typeof(PlayerAction)))
+        {
+            options.Add(action.ToString());
+        }
+
+        return options;
+    }
+
+    [Cheat]
+    public void SetViBindings()
+    {
+        AddActionBinding(PlayerAction.MOVE_LEFT, 'h');
+        AddActionBinding(PlayerAction.MOVE_RIGHT, 'l');
+        AddActionBinding(PlayerAction.MOVE_UP, 'k');
+        AddActionBinding(PlayerAction.MOVE_DOWN, 'j');
+        AddActionBinding(PlayerAction.MOVE_UP_LEFT, 'y');
+        AddActionBinding(PlayerAction.MOVE_UP_RIGHT, 'u');
+        AddActionBinding(PlayerAction.MOVE_DOWN_LEFT, 'b');
+        AddActionBinding(PlayerAction.MOVE_DOWN_RIGHT, 'n');
+        AddActionBinding(PlayerAction.DROP_ITEMS, 'd');
+        AddActionBinding(PlayerAction.APPLY, 'a');
+    }
+
+    [Cheat]
+    public void ClearKeyBindings()
+    {
+        foreach (PlayerAction action in Enum.GetValues(typeof(PlayerAction)))
+        {
+            PlayerPrefs.DeleteKey($"InputOverride:{action}");
+        }
+        InputTracking.GenerateActionsDictionary();
+    }
+
+    [Cheat]
+    public void SetInputDelay(float delay)
+    {
+        InputTracking.maxCombineDelay = delay;
+    }
+
     #endif
 }
