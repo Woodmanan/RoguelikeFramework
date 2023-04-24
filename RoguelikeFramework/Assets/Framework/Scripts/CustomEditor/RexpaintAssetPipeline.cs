@@ -64,6 +64,8 @@ public class RexpaintAssetPipeline
         //info.WorkingDirectory = GetPathToFolder("Rex Files");
         info.WorkingDirectory = path.Remove(path.Length - name.Length);
         Process.Start(info);
+
+        EditorPrefs.SetBool("HasRexpaintChanges", true);
     }
 
 
