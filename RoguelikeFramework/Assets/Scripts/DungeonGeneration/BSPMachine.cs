@@ -119,7 +119,7 @@ public class BSPMachine : Machine
         for (int i = 0; i < roomsToAdd.Count; i++)
         {
             Room r = roomsToAdd[i];
-            if (r.size.x < rect.size.x && r.size.y < rect.size.y)
+            if (r.GetSize().x < rect.size.x && r.GetSize().y < rect.size.y)
             {
                 toAdd = r;
                 roomsToAdd.RemoveAt(i);
@@ -137,24 +137,24 @@ public class BSPMachine : Machine
                 if (Random.value > .5f)
                 {
                     //We're the left
-                    (firstTemp, firstRemainder) = BreakRectOnX(rect, toAdd.size.x);
+                    (firstTemp, firstRemainder) = BreakRectOnX(rect, toAdd.GetSize().x);
                 }
                 else
                 {
                     //We're the right
-                    (firstRemainder, firstTemp) = BreakRectOnX(rect, Mathf.RoundToInt(rect.size.x - toAdd.size.x - 1));
+                    (firstRemainder, firstTemp) = BreakRectOnX(rect, Mathf.RoundToInt(rect.size.x - toAdd.GetSize().x - 1));
                 }
 
                 //Split remainder vertically
                 if (Random.value > .5f)
                 {
                     //We're lower
-                    (roomRect, secondRemainder) = BreakRectOnY(firstTemp, toAdd.size.y);
+                    (roomRect, secondRemainder) = BreakRectOnY(firstTemp, toAdd.GetSize().y);
                 }
                 else
                 {
                     //We're upper
-                    (secondRemainder, roomRect) = BreakRectOnY(firstTemp, Mathf.RoundToInt(firstTemp.size.y - toAdd.size.y - 1));
+                    (secondRemainder, roomRect) = BreakRectOnY(firstTemp, Mathf.RoundToInt(firstTemp.size.y - toAdd.GetSize().y - 1));
                 }
 
                 toAdd.SetPosition(new Vector2Int((int)roomRect.position.x, (int)roomRect.position.y));
@@ -168,24 +168,24 @@ public class BSPMachine : Machine
                 if (Random.value > .5f)
                 {
                     //We're the bottom
-                    (firstTemp, firstRemainder) = BreakRectOnY(rect, toAdd.size.y);
+                    (firstTemp, firstRemainder) = BreakRectOnY(rect, toAdd.GetSize().y);
                 }
                 else
                 {
                     //We're the top
-                    (firstRemainder, firstTemp) = BreakRectOnY(rect, Mathf.RoundToInt(rect.size.y - toAdd.size.y - 1));
+                    (firstRemainder, firstTemp) = BreakRectOnY(rect, Mathf.RoundToInt(rect.size.y - toAdd.GetSize().y - 1));
                 }
 
                 //Now split horizontally
                 if (Random.value > .5f)
                 {
                     //We're lower
-                    (roomRect, secondRemainder) = BreakRectOnX(firstTemp, toAdd.size.x);
+                    (roomRect, secondRemainder) = BreakRectOnX(firstTemp, toAdd.GetSize().x);
                 }
                 else
                 {
                     //We're upper
-                    (secondRemainder, roomRect) = BreakRectOnX(firstTemp, Mathf.RoundToInt(firstTemp.size.x - toAdd.size.x - 1));
+                    (secondRemainder, roomRect) = BreakRectOnX(firstTemp, Mathf.RoundToInt(firstTemp.size.x - toAdd.GetSize().x - 1));
                 }
 
                 toAdd.SetPosition(new Vector2Int((int)roomRect.position.x, (int)roomRect.position.y));

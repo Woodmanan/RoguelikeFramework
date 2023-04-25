@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Room", menuName = "Dungeon Generator/New Room", order = 2)]
 public class Room : ScriptableObject
 {
+
     public Vector2Int size;
     public bool acceptsStairs = true;
     public bool forciblyWritesWalls = false;
@@ -30,9 +31,10 @@ public class Room : ScriptableObject
     public void Write(DungeonGenerator generator)
     {
         layout = layout.Replace("\n", "");
-        for (int i = 0; i < size.x; i++)
+        Vector2 orientedSize = GetSize();
+        for (int i = 0; i < orientedSize.x; i++)
         {
-            for (int j = 0; j < size.y; j++)
+            for (int j = 0; j < orientedSize.y; j++)
             {
                 int valToWrite = GetValueAt(i, j);
                 if (forciblyWritesWalls || valToWrite != 0)
@@ -87,8 +89,8 @@ public class Room : ScriptableObject
     public void SetPosition(Vector2Int start)
     {
         this.start = start;
-        this.end = start + size;
-        this.center = start + (size/2);
+        this.end = start + GetSize();
+        this.center = start + (GetSize()/2);
         this.outermostPoint = center;
     }
 
@@ -163,5 +165,10 @@ public class Room : ScriptableObject
         }
 
         return true;
+    }
+
+    public virtual Vector2Int GetSize()
+    {
+        return size;
     }
 }

@@ -41,11 +41,11 @@ public class TrainMachine : Machine
             Room roomToAdd = GetRoomWithinHeight(currentY);
             yield return null;
             if (roomToAdd == null) break;
-            Vector2Int startPos = new Vector2Int((generator.bounds.x - roomToAdd.size.x) / 2, currentY);
+            Vector2Int startPos = new Vector2Int((generator.bounds.x - roomToAdd.GetSize().x) / 2, currentY);
             roomToAdd.SetPosition(startPos);
             roomToAdd.Write(generator);
             yield return null;
-            currentY += roomToAdd.size.y;
+            currentY += roomToAdd.GetSize().y;
             addedRooms.Add(roomToAdd);
         }
 
@@ -93,7 +93,7 @@ public class TrainMachine : Machine
         {
             roomToAdd = mustAdd[0];
             mustAdd.RemoveAt(0);
-            if (roomToAdd.size.y < available)
+            if (roomToAdd.GetSize().y < available)
             {
                 roomToAdd = Room.Instantiate(roomToAdd);
                 break;
@@ -103,7 +103,7 @@ public class TrainMachine : Machine
 
         if (!roomToAdd)
         {
-            List<Room> options = roomOptions.Where(x => x.size.y < available).ToList();
+            List<Room> options = roomOptions.Where(x => x.GetSize().y < available).ToList();
             if (options.Count == 0) return null;
             roomToAdd = Room.Instantiate(options[RogueRNG.Linear(0, options.Count)]);
         }

@@ -34,7 +34,7 @@ public class SimpleRoomMachine : Machine
             while (failureCount < attemptsPerRoom)
             {
                 //Set it's position randomly, keeping it in bounds.
-                Vector2Int placeBounds = this.size - current.size;
+                Vector2Int placeBounds = this.size - current.GetSize();
                 Vector2Int newStart = new Vector2Int(Random.Range(1, placeBounds.x - 1), Random.Range(1, placeBounds.y - 1));
                 newStart += this.start;
                 current.SetPosition(newStart);

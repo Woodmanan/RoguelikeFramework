@@ -258,3 +258,12 @@ public enum LogDisplay
     ABILITY,
     DANGER
 }
+
+[System.Flags]
+public enum OrientOption
+{
+    NONE,
+    FLIP_X  = (1 << 0),
+    FLIP_Y  = (1 << 1),
+    ROT_90  = (1 << 2)
+}

@@ -22,4 +22,5 @@ MonoBehaviour:
   center: {x: 0, y: 0}
   outermostPoint: {x: 0, y: 0}
   RexFile: {fileID: 9027929339269108002, guid: ad742ec6594fcfb4fa615bc1f5f5e741, type: 3}
+  orientOptions: 3
   conversions: []

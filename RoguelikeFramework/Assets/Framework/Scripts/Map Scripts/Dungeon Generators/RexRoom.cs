@@ -41,6 +41,10 @@ public class RexRoom : Room
     public TextAsset RexFile;
     public SadRex.Image image;
 
+    public OrientOption orientOptions = OrientOption.FLIP_X | OrientOption.FLIP_Y | OrientOption.ROT_90;
+
+    OrientOption appliedOrientation;
+
     public List<Replacement> conversions;
 
     public Dictionary<Char, Replacement> conversionDict;
@@ -54,10 +58,15 @@ public class RexRoom : Room
         {
             conversionDict.Add(r.glyph, r);
         }
+
+        appliedOrientation = orientOptions & (OrientOption) RogueRNG.Linear(int.MinValue, int.MaxValue);
     }
 
     public override int GetValueAt(int x, int y)
     {
+        //Reorient for possible flips
+        Reorient(ref x, ref y);
+
         char c = (char)image.Layers[0][x, y].Character;
         if (conversionDict.ContainsKey(c))
         {
@@ -114,12 +123,13 @@ public class RexRoom : Room
                     switch (r.option)
                     { 
                         case ReplacementOption.TILE:
+                            Vector2Int orientedPosition = OrientedPosition(i, j);
                             RogueTile tile = Instantiate(r.replacement).GetComponent<RogueTile>();
-                            RogueTile toReplace = map.GetTile(start + new Vector2Int(i, j));
+                            RogueTile toReplace = map.GetTile(start + orientedPosition);
                             tile.gameObject.name = toReplace.gameObject.name;
                             tile.location = toReplace.location;
                             Transform parent = toReplace.transform.parent;
-                            map.tiles[start.x + i, start.y + j] = tile;
+                            map.tiles[start.x + orientedPosition.x, start.y + orientedPosition.y] = tile;
                             Destroy(toReplace.gameObject);
                             tile.transform.parent = parent;
                             tile.transform.position = new Vector3(tile.location.x, tile.location.y, 0);
@@ -176,7 +186,7 @@ public class RexRoom : Room
                                     continue;
                                 }
                                 Item item = r.replacement.GetComponent<Item>().Instantiate();
-                                Vector2Int pos = start + new Vector2Int(i, j);
+                                Vector2Int pos = start + OrientedPosition(i, j);
 
                                 //Place it in the world
                                 item.transform.parent = map.itemContainer;
@@ -202,7 +212,7 @@ public class RexRoom : Room
                                 }
 
                                 //Place item into world.
-                                Vector2Int pos = start + new Vector2Int(i, j);
+                                Vector2Int pos = start + OrientedPosition(i, j);
                                 item.transform.parent = map.itemContainer;
                                 map.GetTile(pos).inventory.Add(item);
                                 yield return null;
@@ -254,7 +264,7 @@ public class RexRoom : Room
                                     continue;
                                 }
                                 Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
-                                Vector2Int pos = start + new Vector2Int(i, j);
+                                Vector2Int pos = start + OrientedPosition(i, j);
 
                                 //Place it in the world
                                 monster.transform.parent = map.monsterContainer;
@@ -281,7 +291,7 @@ public class RexRoom : Room
                                 Monster monster = pool.RandomMonsterByDepth(map.depth);
 
                                 //Place item into world.
-                                Vector2Int pos = start + new Vector2Int(i, j);
+                                Vector2Int pos = start + OrientedPosition(i, j);
 
                                 map.monsters.Add(monster);
                                 monster.location = pos;
@@ -303,5 +313,59 @@ public class RexRoom : Room
                 yield return null;
             }
         }
+    }
+
+    public Vector2Int OrientedPosition(int x, int y)
+    {
+        if ((appliedOrientation & OrientOption.FLIP_X) > 0)
+        {
+            x = (size.x - 1) - x;
+        }
+
+        if ((appliedOrientation & OrientOption.FLIP_Y) > 0)
+        {
+            y = (size.y - 1) - y;
+        }
+
+        //Inputs will be asking in switched form - convert back to regular transform
+        if ((appliedOrientation & OrientOption.ROT_90) > 0)
+        {
+            int hold = x;
+            x = (size.x - 1) - y;
+            y = hold;
+        }
+
+        return new Vector2Int(x, y);
+    }
+
+    public void Reorient(ref int x, ref int y)
+    {
+        //Inputs will be asking in switched form - convert back to regular transform
+        if ((appliedOrientation & OrientOption.ROT_90) > 0)
+        {
+            int hold = x;
+            x = (size.x - 1) - y;
+            y = hold;
+        }
+
+        if ((appliedOrientation & OrientOption.FLIP_X) > 0)
+        {
+            x = (size.x - 1) - x;
+        }
+
+        if ((appliedOrientation & OrientOption.FLIP_Y) > 0)
+        {
+            y = (size.y - 1) - y;
+        }
+    }
+
+
+    public override Vector2Int GetSize()
+    {
+        if ((appliedOrientation & OrientOption.ROT_90) > 0)
+        {
+            return new Vector2Int(size.y, size.x);
+        }
+        return size;
     }
 }

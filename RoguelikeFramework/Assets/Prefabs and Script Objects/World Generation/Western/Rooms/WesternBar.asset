@@ -22,6 +22,7 @@ MonoBehaviour:
   center: {x: 0, y: 0}
   outermostPoint: {x: 0, y: 0}
   RexFile: {fileID: 9027929339269108002, guid: fa506b155c9bd7244b5e796de50b8ea7, type: 3}
+  orientOptions: 3
   conversions:
   - glyph: 81
     option: 2
