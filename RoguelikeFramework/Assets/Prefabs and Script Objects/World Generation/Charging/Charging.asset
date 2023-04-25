@@ -84,6 +84,9 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
         - {fileID: 11400000, guid: 972fe2d7f02a39f48940c9e5a7a3b1ea, type: 2}
         - {fileID: 11400000, guid: bb7aa3f79d6ebed4c9a3aea8c02f4381, type: 2}
+        - {fileID: 11400000, guid: 5b861a6eddedd5747ad291bd2adaf626, type: 2}
+        - {fileID: 11400000, guid: 7675718665b6338438241a1ff9ca50a2, type: 2}
+        - {fileID: 11400000, guid: 44366af7597fffe4bac41a38daee112a, type: 2}
         placedRooms: []
     00000001:
       type: {class: ClockConnectMachine, ns: , asm: RoguelikeFramework}

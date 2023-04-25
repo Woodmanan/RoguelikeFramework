@@ -80,6 +80,11 @@ public class RexRoomEditor : Editor
     public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
     {
 #if UNITY_EDITOR
+        if (!EditorPrefs.GetBool("RexPreviewEnabled", false))
+        {
+            return null;
+        }
+
         RexRoom room = AssetDatabase.LoadAssetAtPath<RexRoom>(assetPath);
         if (!room || !room.RexFile) return null;
 
@@ -104,7 +109,6 @@ public class RexRoomEditor : Editor
             rexPNG = AssetDatabase.LoadAssetAtPath<Texture2D>(assetName);
             if (rexPNG == null)
             {
-                UnityEngine.Debug.LogError($"Couldn't load up PNG at path {assetName}, even after a refresh!");
                 return null;
             }
         }

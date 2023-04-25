@@ -18,14 +18,29 @@ public class RexpaintWizard
             int count = EditorPrefs.GetInt("RexpaintRefresh", 0);
             if (count == 0 || EditorPrefs.GetBool("HasRexpaintChanges", false))
             {
-                RebuildRexRoomPreview();
+                if (EditorPrefs.GetBool("RexPreviewEnabled", false))
+                {
+                    RebuildRexRoomPreview();
+                }
             }
 
             EditorPrefs.SetInt("RexpaintRefresh", (count + 1) % RefreshEveryX);
         }
     }
 
-    [MenuItem("Tools/Dangerous/Refresh Rexroom Cache")]
+    [MenuItem("Tools/Rexpaint/Enable and Refresh Preview")]
+    static void EnableAndRebuildPreview()
+    {
+        EditorPrefs.SetBool("RexPreviewEnabled", true);
+        RebuildRexRoomPreview();
+    }
+
+    [MenuItem("Tools/Rexpaint/Disable Preview")]
+    static void DisablePreview()
+    {
+        EditorPrefs.SetBool("RexPreviewEnabled", false);
+    }
+
 
     static void RebuildRexRoomPreview()
     {

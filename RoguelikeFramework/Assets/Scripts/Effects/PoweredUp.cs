@@ -75,6 +75,11 @@ public class PoweredUp : Effect
     //Called at the start of a monster's turn
     public override void OnTurnStartLocal()
     {
+        CheckForPowered();
+    }
+
+    public void CheckForPowered()
+    {
         if (system == null || connectedFloor != Map.current.index)
         {
             system = null;
@@ -130,6 +135,8 @@ public class PoweredUp : Effect
         {
             connectedTo.monster.energy += energyRefundPerStep;
         }
+        connectedTo.monster.UpdateLOS();
+        CheckForPowered();
     }
 
     //Called whenever a monster returns to full health
