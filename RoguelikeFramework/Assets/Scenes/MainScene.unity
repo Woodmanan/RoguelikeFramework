@@ -3075,7 +3075,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612139595}
   m_HandleRect: {fileID: 1612139594}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16888,6 +16888,8 @@ MonoBehaviour:
   resource: 9
   valueText: {fileID: 59377992}
   percentText: {fileID: 1483945594}
+  baseAmount: 2
+  raisedExponent: 10
   canBeNegative: 0
 --- !u!114 &1095204722
 MonoBehaviour:
@@ -17222,7 +17224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 23.933903
+  m_AspectRatio: 21.965366
 --- !u!1 &1116750417
 GameObject:
   m_ObjectHideFlags: 0
@@ -19528,15 +19530,15 @@ MonoBehaviour:
   spawnInfo:
     rarities:
     - rarity: 0
-      weight: 256
+      weight: 192
     - rarity: 1
       weight: 96
     - rarity: 2
-      weight: 20
+      weight: 48
     - rarity: 3
-      weight: 4
+      weight: 12
     - rarity: 4
-      weight: 1
+      weight: 3
     types:
     - type: 1
       weight: 6
@@ -19545,7 +19547,7 @@ MonoBehaviour:
     - type: 4
       weight: 6
     - type: 8
-      weight: 6
+      weight: 8
     - type: 32
       weight: 1
   maxDepth: 32
@@ -21885,6 +21887,8 @@ MonoBehaviour:
   resource: 10
   valueText: {fileID: 952666248}
   percentText: {fileID: 1167302484}
+  baseAmount: 2
+  raisedExponent: 14
   canBeNegative: 1
 --- !u!114 &1414794345
 MonoBehaviour:
@@ -28167,7 +28171,7 @@ MonoBehaviour:
   generators: []
   current: 0
   msPerFrame: 0
-  randomSeed: 0
+  randomSeed: 1
   seed: 198138357
   preloadUpTo: 3
   JITLoading: 0
@@ -28358,6 +28362,8 @@ MonoBehaviour:
   resource: 8
   valueText: {fileID: 435689582}
   percentText: {fileID: 2094347855}
+  baseAmount: 2
+  raisedExponent: 14
   canBeNegative: 1
 --- !u!114 &1964759057
 MonoBehaviour:

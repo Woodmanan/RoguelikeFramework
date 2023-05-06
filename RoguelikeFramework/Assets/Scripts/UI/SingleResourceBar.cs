@@ -18,6 +18,9 @@ public class SingleResourceBar : MonoBehaviour
     public TextMeshProUGUI valueText;
     public TextMeshProUGUI percentText;
 
+    public int baseAmount;
+    public int raisedExponent;
+
     public bool canBeNegative;
 
     // Start is called before the first frame update
@@ -42,7 +45,7 @@ public class SingleResourceBar : MonoBehaviour
         {
             float amount = player.currentStats[resource];
 
-            float goalFillAmount = (1 - 1 / Mathf.Pow(2, amount / 10));
+            float goalFillAmount = (1 - 1 / Mathf.Pow(baseAmount, amount / raisedExponent));
             if (amount < 0 && !canBeNegative)
             {
                 goalFillAmount = 0;

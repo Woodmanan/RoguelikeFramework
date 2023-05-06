@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using System;
 
 public class InventoryScreen : RogueUIPanel
 {
@@ -23,7 +24,11 @@ public class InventoryScreen : RogueUIPanel
 
     private int queuedEquipmentIndex;
 
-
+    //Generic rework
+    private Predicate<ItemStack> filterFunction;
+    private Action<List<int>> AcceptAction;
+    private int maxToSelect;
+    private int currentlySelected = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -39,8 +44,17 @@ public class InventoryScreen : RogueUIPanel
 
     public void Setup(Inventory inventoryToExamine, ItemAction action)
     {
+        Setup(inventoryToExamine, action, (x) => true, null, inventoryToExamine.capacity);
+    }
+
+    public void Setup(Inventory inventoryToExamine, ItemAction action, Predicate<ItemStack> filter, Action<List<int>> AcceptAction, int maxSelect)
+    {
         examinedInventory = inventoryToExamine;
         queuedAction = action;
+        filterFunction = filter;
+        maxToSelect = maxSelect;
+        currentlySelected = 0;
+        this.AcceptAction = AcceptAction;
     }
 
     public void Setup(Inventory inventoryToExamine, ItemAction action, int equipIndex)
@@ -61,6 +75,7 @@ public class InventoryScreen : RogueUIPanel
         //Clear out empty items
         List<ItemStack> available = examinedInventory.items.ToList().FindAll(x => x != null);
         List<ItemStack> toDisplay = new List<ItemStack>();
+        
 
         //Set up items to show, based on parameters
         switch (queuedAction)
@@ -92,6 +107,11 @@ public class InventoryScreen : RogueUIPanel
             case ItemAction.APPLY:
                 title.text = "Apply which item?";
                 toDisplay = available.FindAll(x => x.held[0].CanActivate);
+                break;
+            case ItemAction.SELECT:
+                title.text = "Choose an item";
+                selected = new bool[examinedInventory.capacity];
+                toDisplay = available.FindAll(filterFunction);
                 break;
             default:
                 Debug.LogError($"Inventory screen is not set up to handle {queuedAction} types. Yell at Woody about this.");
@@ -167,10 +187,66 @@ public class InventoryScreen : RogueUIPanel
                     }
                 }
                 break;
+            case ItemAction.SELECT:
+                if (action == PlayerAction.ACCEPT)
+                {
+                    List<int> indices = new List<int>();
+                    for (int i = 0; i < selected.Length; i++)
+                    {
+                        if (selected[i]) { indices.Add(i); }
+                    }
+                    
+                    if (AcceptAction != null)
+                    {
+                        AcceptAction.Invoke(indices);
+                    }
+                    ExitAllWindows();
+                }
+                else
+                {
+                    //Flip bits for selected items
+                    foreach (char c in inputString.Where(c => char.IsLetter(c)))
+                    {
+                        //Attempt to flip the bit
+                        int index = Conversions.NumberingToInt(c);
+                        if (!selected[index] && currentlySelected == maxToSelect)
+                        {
+                            continue;
+                        }
 
+                        selected[index] = !selected[index];
+                        if (selected[index])
+                        {
+                            currentlySelected++;
+                        }
+                        else
+                        {
+                            currentlySelected--;
+                        }
+
+                        //If there's only 1 option and you selected it, skip.
+                        if (currentlySelected == maxToSelect && maxToSelect <= 1)
+                        {
+                            HandleInput(PlayerAction.ACCEPT, "");
+                            return;
+                        }
+
+                        for (int i = 0; i < displayed.Count; i++)
+                        {
+                            ItemPanel current = displayed[i];
+                            if (current.index == index)
+                            {
+                                current.Select();
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
 
             case ItemAction.PICK_UP:
             case ItemAction.DROP:
+            
                 if (action == PlayerAction.ACCEPT)
                 {
                     //Splitting this up because of the new action system.
@@ -240,6 +316,7 @@ public class InventoryScreen : RogueUIPanel
         {
             case ItemAction.DROP:
             case ItemAction.PICK_UP:
+            case ItemAction.SELECT:
                 selected[index] = !selected[index];
                 for (int i = 0; i < displayed.Count; i++)
                 {
@@ -283,4 +360,6 @@ public class InventoryScreen : RogueUIPanel
     {
 
     }
+
+    bool DefaultFilter(Item x) { return true; }
 }

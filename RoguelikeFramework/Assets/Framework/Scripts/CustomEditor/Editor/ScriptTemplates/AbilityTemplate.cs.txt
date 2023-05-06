@@ -22,8 +22,8 @@ public class #SCRIPTNAME# : Ability
         
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
-        
+        yield break;
     }
 }

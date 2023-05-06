@@ -30,7 +30,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 10e6c7c7e4ac05d42a474d574b9f2583, type: 2}
   - {fileID: 11400000, guid: e549a977a91104548ac3482f2ea256ad, type: 2}
   - {fileID: 11400000, guid: b8ea2e383f98df940bd199f81eb6ba69, type: 2}
-  - {fileID: 11400000, guid: b22fa2c5bc8248e4eb58589679fa48c8, type: 2}
+  - {fileID: 11400000, guid: 2c828a2840dce994ba14f65796575763, type: 2}
   effects:
   - id: 0
   - id: 1

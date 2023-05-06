@@ -15,6 +15,7 @@ public class Item : MonoBehaviour, IDescribable
     public ItemRarity elevatesTo;
     public int enchantment;
     public int maxEnchantment;
+    public int maxElevationEffects = 1;
 
     [HideInInspector] public ItemRarity currentRarity;
 
@@ -249,18 +250,25 @@ public class Item : MonoBehaviour, IDescribable
     public void ElevateRarityTo(ItemRarity rarity, List<Effect> elevationOptions = null)
     {
         int numberToAdd = rarity - this.rarity;
+        int numElevations = (maxElevationEffects >= 0) ? Mathf.Min(maxElevationEffects, numberToAdd) : numberToAdd;
+
+        //Clip item enchantments to rare or above
+        if (rarity <= ItemRarity.UNCOMMON)
+        {
+            numElevations = 0;
+        }
 
         if (elevationOptions != null)
         {
             optionalEffects.AddRange(elevationOptions);
         }
 
-        if (optionalEffects.Count < numberToAdd)
+        if (optionalEffects.Count < numElevations)
         {
             Debug.LogWarning($"{friendlyName} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
         }
 
-        for (int i = 0; i < System.Math.Min(numberToAdd, optionalEffects.Count); i++)
+        for (int i = 0; i < System.Math.Min(numElevations, optionalEffects.Count); i++)
         {
             int index = UnityEngine.Random.Range(0, optionalEffects.Count);
             AddEffect(optionalEffects[index].Instantiate());
@@ -270,7 +278,7 @@ public class Item : MonoBehaviour, IDescribable
 
         if (CanAddEnchantment())
         {
-            AddEnchantment(Mathf.RoundToInt(RogueRNG.Binomial(2 * ((int)rarity) + RogueRNG.Linear(0, numberToAdd), 0.5f)));
+            AddEnchantment(Mathf.RoundToInt(RogueRNG.Binomial((int) rarity + 2 * numberToAdd, 0.5f)));
         }
 
         currentRarity = rarity;

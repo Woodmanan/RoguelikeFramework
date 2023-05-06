@@ -200,11 +200,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10858146029568
-    m_Key: SteelArmorName
+    m_Key: SteelScaleArmorName
     m_Metadata:
       m_Items: []
   - m_Id: 10890962264064
-    m_Key: SteelArmorDescription
+    m_Key: SteelScaleArmorDescription
     m_Metadata:
       m_Items: []
   - m_Id: 10942799667200
@@ -397,6 +397,94 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 35477433120137216
     m_Key: WeaponMasterSpellbook Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43525885297106944
+    m_Key: ChainMailName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43525913524772864
+    m_Key: ChainMailDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43526620806062080
+    m_Key: MagicStudArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43526653752320000
+    m_Key: MagicStudArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43531202357567488
+    m_Key: SteelPlateArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43531242325090304
+    m_Key: SteelPlateArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43532847850135552
+    m_Key: AntimagicBootsName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43532871422124032
+    m_Key: AntimagicBootsDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534179357106176
+    m_Key: AntimagicHelmName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534195270295552
+    m_Key: AntimagicHelmDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534921438535680
+    m_Key: RedCrystalHelmName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534941411811328
+    m_Key: RedCrystalHelmDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45587214811541504
+    m_Key: EnchantScrollName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45587243789987840
+    m_Key: EnchantScrollDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602574218571776
+    m_Key: EnchantArmorScrollName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602593629810688
+    m_Key: EnchantArmorScrollDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602670884696064
+    m_Key: EnchantWeaponScrollName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602689943613440
+    m_Key: EnchantWeaponScrollDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602845996888064
+    m_Key: GreaterEnchantArmorScrollName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602861972992000
+    m_Key: GreaterEnchantArmorScrollDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45603027610251264
+    m_Key: GreaterEnchantWeaponScrollName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45603041849913344
+    m_Key: GreaterEnchantWeaponScrollDescription
     m_Metadata:
       m_Items: []
   m_Metadata:

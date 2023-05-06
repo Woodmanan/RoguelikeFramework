@@ -110,7 +110,8 @@ public enum ItemAction
     APPLY,
     ACTIVATE,
     EQUIP,
-    UNEQUIP
+    UNEQUIP,
+    SELECT
 }
 
 public enum EquipSlotType

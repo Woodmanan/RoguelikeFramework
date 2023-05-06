@@ -104,6 +104,7 @@ MonoBehaviour:
   elevatesTo: 0
   enchantment: 0
   maxEnchantment: 4
+  maxElevationEffects: 1
   currentRarity: 0
   ID: 14
   stackable: 0

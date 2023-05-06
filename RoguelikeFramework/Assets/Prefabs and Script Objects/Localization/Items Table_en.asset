@@ -220,7 +220,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10858146029568
-    m_Localized: Steel Armor
+    m_Localized: Scale Armor
     m_Metadata:
       m_Items: []
   - m_Id: 10890962264064
@@ -323,7 +323,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 769712689504256
-    m_Localized: Magicite Armor
+    m_Localized: Magicite Scale Armor
     m_Metadata:
       m_Items: []
   - m_Id: 769798098116608
@@ -433,6 +433,96 @@ MonoBehaviour:
   - m_Id: 35477433120137216
     m_Localized: The book is focused on various martial techniques, all designed
       to work in hand with wielded weapons.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43525885297106944
+    m_Localized: Chain Mail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43526620806062080
+    m_Localized: Antimagic Studded Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43526653752320000
+    m_Localized: This leather armor has bits of magicite studded around it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43525913524772864
+    m_Localized: Interlocking metal rings make this armor both flexible and tough.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43531202357567488
+    m_Localized: Plate Mail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43531242325090304
+    m_Localized: Large plates of metal interlock to create this armor. Its heavy,
+      but you won't find a better defense.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43532847850135552
+    m_Localized: Antimagic boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43532871422124032
+    m_Localized: Magicite soles help cut off your connection from latent magic in
+      the ground.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534179357106176
+    m_Localized: Antimagic Helm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534195270295552
+    m_Localized: It's like a tinfoil hat that really works!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534921438535680
+    m_Localized: Red Crystal Helm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43534941411811328
+    m_Localized: This strange helm seems to improve your vitality.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45587214811541504
+    m_Localized: Scroll of Enchantment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45587243789987840
+    m_Localized: Allows you to improve that stats of any enchantable item by 1.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602574218571776
+    m_Localized: Scroll of Enchant Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602593629810688
+    m_Localized: Allows you to improve that stats of any enchantable armor by 2-4.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602689943613440
+    m_Localized: Allows you to improve that stats of any enchantable weapon by 2-4.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602670884696064
+    m_Localized: Scroll of Enchant Weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45603027610251264
+    m_Localized: Greater Scroll of Enchant Weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602845996888064
+    m_Localized: Greater Scroll of Enchant Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45603041849913344
+    m_Localized: Allows you to improve that stats of any enchantable weapon by 5-10.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45602861972992000
+    m_Localized: Allows you to improve that stats of any enchantable armor by 5-10.
     m_Metadata:
       m_Items: []
   references:

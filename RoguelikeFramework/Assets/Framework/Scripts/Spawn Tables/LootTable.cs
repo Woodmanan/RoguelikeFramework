@@ -49,10 +49,8 @@ public class LootTable : ScriptableObject
         i.Setup();
         
 
-        if (i.rarity < rarity)
-        {
-            i.ElevateRarityTo(rarity, elevationOptions);
-        }
+        i.ElevateRarityTo(rarity, elevationOptions);
+        
 
         return i;
     }

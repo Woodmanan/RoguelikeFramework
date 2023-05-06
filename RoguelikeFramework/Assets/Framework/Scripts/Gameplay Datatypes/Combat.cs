@@ -41,12 +41,12 @@ public class Combat
 
     public static float GetArmorDamageShave(float inArmor)
     {
-        return 1.0f / Mathf.Pow(2, inArmor / 10);
+        return 1.0f / Mathf.Pow(2, inArmor / 14);
     }
 
     public static float GetMagicDamageShave(float inMagicResist)
     {
-        return 1.0f / Mathf.Pow(2, inMagicResist / 10);
+        return 1.0f / Mathf.Pow(2, inMagicResist / 14);
     }
 
     public static float GetEvasionDodgeBar(float inEvasion)

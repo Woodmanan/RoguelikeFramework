@@ -12,13 +12,15 @@ public class OrderedEvent
     public List<ActionRef> delegates = new List<ActionRef>();
     public List<int> runData = new List<int>();
     int eventRunIndex = -1;
+    const int maxDepth = 1;
 
     public void AddEventFrame()
     {
         eventRunIndex++;
-        if (eventRunIndex >= 32)
+        if (eventRunIndex > maxDepth)
         {
-            UnityEngine.Debug.LogError("Events cannot go more than 16 self calls deep!");
+            //We've gone more than our safetly limit - don't try to set the bits anymore
+            return;
         }
         for (int i = 0; i < runData.Count; i++)
         {
@@ -33,7 +35,7 @@ public class OrderedEvent
 
     public bool HasRun(int index)
     {
-        return (runData[index] & (1 << eventRunIndex)) > 0;
+        return (eventRunIndex > maxDepth) || (runData[index] & (1 << eventRunIndex)) > 0;
     }
 
     public void ClearEventFrame()
@@ -190,13 +192,15 @@ public class OrderedEvent<T1>
     public List<ActionRef<T1>> delegates = new List<ActionRef<T1>>();
     public List<int> runData = new List<int>();
     int eventRunIndex = -1;
+    const int maxDepth = 1;
 
     public void AddEventFrame()
     {
         eventRunIndex++;
-        if (eventRunIndex >= 32)
+        if (eventRunIndex > maxDepth)
         {
-            UnityEngine.Debug.LogError("Events cannot go more than 16 self calls deep!");
+            //We've gone more than our safetly limit - don't try to set the bits anymore
+            return;
         }
         for (int i = 0; i < runData.Count; i++)
         {
@@ -211,7 +215,7 @@ public class OrderedEvent<T1>
 
     public bool HasRun(int index)
     {
-        return (runData[index] & (1 << eventRunIndex)) > 0;
+        return (eventRunIndex > maxDepth) || (runData[index] & (1 << eventRunIndex)) > 0;
     }
 
     public void ClearEventFrame()
@@ -368,13 +372,15 @@ public class OrderedEvent<T1, T2>
     public List<ActionRef<T1, T2>> delegates = new List<ActionRef<T1, T2>>();
     public List<int> runData = new List<int>();
     int eventRunIndex = -1;
+    const int maxDepth = 1;
 
     public void AddEventFrame()
     {
         eventRunIndex++;
-        if (eventRunIndex >= 32)
+        if (eventRunIndex > maxDepth)
         {
-            UnityEngine.Debug.LogError("Events cannot go more than 16 self calls deep!");
+            //We've gone more than our safetly limit - don't try to set the bits anymore
+            return;
         }
         for (int i = 0; i < runData.Count; i++)
         {
@@ -389,7 +395,7 @@ public class OrderedEvent<T1, T2>
 
     public bool HasRun(int index)
     {
-        return (runData[index] & (1 << eventRunIndex)) > 0;
+        return (eventRunIndex > maxDepth) || (runData[index] & (1 << eventRunIndex)) > 0;
     }
 
     public void ClearEventFrame()
@@ -546,13 +552,15 @@ public class OrderedEvent<T1, T2, T3>
     public List<ActionRef<T1, T2, T3>> delegates = new List<ActionRef<T1, T2, T3>>();
     public List<int> runData = new List<int>();
     int eventRunIndex = -1;
+    const int maxDepth = 1;
 
     public void AddEventFrame()
     {
         eventRunIndex++;
-        if (eventRunIndex >= 32)
+        if (eventRunIndex > maxDepth)
         {
-            UnityEngine.Debug.LogError("Events cannot go more than 16 self calls deep!");
+            //We've gone more than our safetly limit - don't try to set the bits anymore
+            return;
         }
         for (int i = 0; i < runData.Count; i++)
         {
@@ -567,7 +575,7 @@ public class OrderedEvent<T1, T2, T3>
 
     public bool HasRun(int index)
     {
-        return (runData[index] & (1 << eventRunIndex)) > 0;
+        return (eventRunIndex > maxDepth) || (runData[index] & (1 << eventRunIndex)) > 0;
     }
 
     public void ClearEventFrame()

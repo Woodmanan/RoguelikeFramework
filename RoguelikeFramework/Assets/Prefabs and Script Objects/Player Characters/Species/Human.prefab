@@ -144,7 +144,7 @@ MonoBehaviour:
           _keys: 0100000003000000
           _vals:
           - 3
-          - 1
+          - 0.5
         UpToLevel: 30
 --- !u!114 &4311608207694994516
 MonoBehaviour:

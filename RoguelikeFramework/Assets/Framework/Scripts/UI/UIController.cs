@@ -117,6 +117,12 @@ public class UIController : MonoBehaviour
         inventory.Activate();
     }
 
+    public void OpenInventorySelect(Predicate<ItemStack> filter, Action<List<int>> OnFound, int numItems = 52)
+    {
+        inventory.Setup(Player.player.inventory, ItemAction.SELECT, filter, OnFound, numItems);
+        inventory.Activate();
+    }
+
     public void OpenAbilities()
     {
         abilities.Setup(Player.player.abilities);

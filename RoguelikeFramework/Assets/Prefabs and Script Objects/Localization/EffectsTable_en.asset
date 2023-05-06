@@ -263,7 +263,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 26418745768091648
-    m_Localized: Gain 3 health and 1 mana per level, up to level 30.
+    m_Localized: Gain 3 health and 1/2 mana per level, up to level 30.
     m_Metadata:
       m_Items: []
   - m_Id: 26586050867175424

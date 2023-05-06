@@ -50,6 +50,7 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations: []
   baseStats:
     _keys: 01000000
     _vals:
@@ -93,8 +94,10 @@ MonoBehaviour:
   castable: 1
   types: 1
   effects: []
+  credit: {fileID: 0}
   effectsToApply:
   - id: 0
+  effectsToApplyToCaster: []
   references:
     version: 1
     00000000:
@@ -122,5 +125,5 @@ MonoBehaviour:
           m_LocalVariables: []
         image: {fileID: 0}
         numTurnsUntilSummon: 5
-        numHusksToSummon: 4
+        numHusksToSummon: 8
         huskPrefab: {fileID: 4402800733788238304, guid: 80608225228ed7d4fa9672ddccf72b7c, type: 3}
