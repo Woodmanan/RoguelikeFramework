@@ -41,6 +41,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ba99da266c2c3c4e84f949d2b24a125, type: 2}
   - {fileID: 11400000, guid: 96d3d44421c9cfd46b6ebf353428bc06, type: 2}
   - {fileID: 11400000, guid: 6c13e4696f6648e448a08aee431b4f87, type: 2}
+  - {fileID: 11400000, guid: bc039baf73aab4e4fb02387d4b3a95e9, type: 2}
   numItemsPerLevel:
     rngType: 1
     min: 5

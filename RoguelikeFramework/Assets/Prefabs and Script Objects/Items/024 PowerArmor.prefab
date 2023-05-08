@@ -102,7 +102,7 @@ MonoBehaviour:
   maxDepth: 10
   elevatesTo: 0
   enchantment: 0
-  maxEnchantment: 8
+  maxEnchantment: 4
   maxElevationEffects: 1
   currentRarity: 0
   ID: 24
@@ -157,9 +157,11 @@ MonoBehaviour:
   primarySlot: 4
   secondarySlots: 
   addedStats:
-    _keys: 08000000
+    _keys: 08000000090000000a000000
     _vals:
     - 3
+    - -3
+    - 2
   statsPerEnchantment:
     _keys: 
     _vals: []
@@ -196,10 +198,9 @@ MonoBehaviour:
         image: {fileID: 21300000, guid: 8a69e9cf917e3724188cf5abf43473b8, type: 3}
         range: 5
         addedStats:
-          _keys: 0800000009000000
+          _keys: 09000000
           _vals:
-          - 5
-          - 5
+          - 10
         addedEnergy: 0
         energyRefundPerStep: 0
         addedDamage: 0

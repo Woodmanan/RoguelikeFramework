@@ -102,7 +102,7 @@ MonoBehaviour:
   maxDepth: 10
   elevatesTo: 0
   enchantment: 0
-  maxEnchantment: 2
+  maxEnchantment: 3
   maxElevationEffects: 1
   currentRarity: 0
   ID: 25

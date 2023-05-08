@@ -103,7 +103,7 @@ MonoBehaviour:
   maxDepth: 15
   elevatesTo: 0
   enchantment: 0
-  maxEnchantment: 0
+  maxEnchantment: 4
   maxElevationEffects: 1
   currentRarity: 0
   ID: 15
@@ -184,7 +184,7 @@ MonoBehaviour:
   primary:
     chanceToHit: 50
     accuracy: 0
-    piercing: 7
+    piercing: 5
     damage:
     - damage:
         rolls: 3

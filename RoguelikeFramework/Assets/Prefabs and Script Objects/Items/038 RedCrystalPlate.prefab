@@ -166,7 +166,7 @@ MonoBehaviour:
     _keys: 0100000008000000
     _vals:
     - 2
-    - -0.5
+    - 0.5
   addedEffects: []
   isEquipped: 0
   removable: 1

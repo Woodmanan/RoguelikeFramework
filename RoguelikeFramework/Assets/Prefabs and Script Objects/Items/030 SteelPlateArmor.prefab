@@ -160,15 +160,15 @@ MonoBehaviour:
     _keys: 0300000008000000090000000a000000
     _vals:
     - -6
-    - 4
-    - -2
+    - 5
+    - -6
     - 4
   statsPerEnchantment:
     _keys: 08000000090000000a000000
     _vals:
     - 1.5
-    - 0.5
     - -1
+    - 0.5
   addedEffects: []
   isEquipped: 0
   removable: 1
