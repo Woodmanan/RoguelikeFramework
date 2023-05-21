@@ -107,6 +107,10 @@ MonoBehaviour:
   currentRarity: 0
   ID: 58
   stackable: 0
+  tags:
+    _keys:
+    - name: Item.Consumable.Spellbook
+    _vals: 01000000
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0

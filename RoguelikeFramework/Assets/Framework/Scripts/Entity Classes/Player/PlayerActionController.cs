@@ -11,7 +11,7 @@ public class PlayerActionController : ActionController
     {
         if (InputTracking.HasNextAction())
         {
-            Player.player.view.CollectEntities(Map.current);
+            Player.player.view.CollectEntities(Map.current, Player.player);
             (PlayerAction action, string inputString) = InputTracking.PopNextPair();
             switch (action)
             {

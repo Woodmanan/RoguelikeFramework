@@ -40,7 +40,7 @@ public class BriarStance : Effect
     //Called at the end of the global turn sequence
     public override void OnTurnEndGlobal()
     {
-        if (connectedTo.monster.view.visibleMonsters.Any(x => x.IsEnemy(connectedTo.monster)))
+        if (connectedTo.monster.view.visibleEnemies.Count > 0)
         {
             connectedTo.monster.Heal(combatHealthPerTurn, false);
         }
@@ -91,8 +91,7 @@ public class BriarStance : Effect
         {
             float damagePassed = damage * (percentDamageReturned / 100);
 
-            List<Monster> options = connectedTo.monster.view.visibleMonsters
-                                        .Where(x => x.IsEnemy(connectedTo.monster))
+            List<Monster> options = connectedTo.monster.view.visibleEnemies
                                         .OrderBy(x => x.currentStats[Resources.HEALTH])
                                         .ToList();
 

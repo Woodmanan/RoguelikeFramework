@@ -36,9 +36,9 @@ public class MonsterAI : ActionController
             nextAction = new WaitAction();
             yield break;
         }
-        monster.view.CollectEntities(Map.current);
+        monster.view.CollectEntities(Map.current, monster);
 
-        List<Monster> enemies = monster.view.visibleMonsters.Where(x => (x.faction & monster.faction) == 0).ToList();
+        List<Monster> enemies = monster.view.visibleEnemies;
 
         choices.Clear();
 
@@ -124,8 +124,8 @@ public class MonsterAI : ActionController
             //3 - Some offered action
             //4 - Wait
 
-            float flee = fleeQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
-            float approach = fightQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
+            float flee = fleeQuery.Evaluate(monster, null, null);
+            float approach = fightQuery.Evaluate(monster, null, null);
 
             (int spellIndex, float spellValue) = (-1, -1);
             if (monster.abilities) (spellIndex, spellValue) = monster.abilities.GetBestAbility();
@@ -190,7 +190,7 @@ public class MonsterAI : ActionController
     public (InteractableTile, float) GetInteraction(bool isInCombat, float distanceCutoff)
     {
         List<InteractableTile> tiles = Map.current.interactables.FindAll(x => x.FilterByCombat(isInCombat) && Vector2Int.Distance(monster.location, x.location) <= distanceCutoff);
-        List<(InteractableTile, float)> pairs = tiles.Select(x => (x, x.useQuery.Evaluate(monster, monster.view.visibleMonsters, null, null)))
+        List<(InteractableTile, float)> pairs = tiles.Select(x => (x, x.useQuery.Evaluate(monster, null, null)))
                                                      .OrderBy(x => Vector2Int.Distance(monster.location, x.Item1.location))
                                                      .OrderByDescending(x => x.Item2)
                                                      .ToList();
@@ -208,11 +208,11 @@ public class MonsterAI : ActionController
             List<Monster> targets;
             if ((targeting.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
-                targets = monster.view.visibleMonsters.FindAll(x => !x.IsEnemy(monster) && x != monster);
+                targets = monster.view.visibleFriends;
             }
             else
             {
-                targets = monster.view.visibleMonsters.FindAll(x => x.IsEnemy(monster));
+                targets = monster.view.visibleEnemies;
             }
 
             //TODO: Make this use a new vector distance function, instead of just copying the targeting code.

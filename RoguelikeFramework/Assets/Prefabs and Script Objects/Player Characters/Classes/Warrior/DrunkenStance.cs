@@ -152,7 +152,7 @@ public class DrunkenStance : Effect
     //Called when this monster attempts to activate an item.
     public override void OnActivateItem(ref Item item, ref bool canContinue)
     {
-        if (item.friendlyName.ToLower().Contains("pot")) //TODO: FIX ME WHEN TAGS ARE DONE
+        if (item.tags.HasTag("Item.Consumable.Potion")) 
         {
             if (currentDrinks == 0)
             {

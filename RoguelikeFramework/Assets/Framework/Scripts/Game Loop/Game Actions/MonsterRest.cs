@@ -23,7 +23,7 @@ public class MonsterRest : GameAction
         while (true)
         {
 
-            if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
+            if (caller.view.visibleEnemies.Count > 0)
             {
                 Debug.Log($"{caller.GetFormattedName()} stops resting.");
                 yield break;

@@ -106,7 +106,11 @@ MonoBehaviour:
   maxElevationEffects: 1
   currentRarity: 0
   ID: 49
-  stackable: 0
+  stackable: 1
+  tags:
+    _keys:
+    - name: Item.Consumable.Scroll
+    _vals: 01000000
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0

@@ -17,7 +17,7 @@ public class FleeAction : GameAction
     {
         while (true)
         {
-            List<Monster> enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
+            List<Monster> enemies = caller.view.visibleEnemies;
             if (enemies.Count == 0)
             {
                 Debug.Log("Monster is fleeing without seeing anyone. Resting instead.");
@@ -40,7 +40,7 @@ public class FleeAction : GameAction
                 {
                     Debug.Log($"{caller.GetLocalizedName()} has been cornered - stopping flee mode.");
 
-                    enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
+                    enemies = caller.view.visibleEnemies;
                     if (enemies.Count == 0)
                     {
                         yield break;

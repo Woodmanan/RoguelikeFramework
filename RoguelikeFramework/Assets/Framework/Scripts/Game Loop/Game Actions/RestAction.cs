@@ -23,7 +23,7 @@ public class RestAction : GameAction
         while (true)
         {
 
-            if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
+            if (caller.view.visibleEnemies.Count > 0)
             {
                 Debug.Log("Log: You cannot rest while enemies are in sight.");
                 yield break;

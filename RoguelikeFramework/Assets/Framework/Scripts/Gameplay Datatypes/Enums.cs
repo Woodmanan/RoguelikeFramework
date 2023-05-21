@@ -144,7 +144,8 @@ public enum TargetType
     SINGLE_SQAURE_LINES, //Any square, reachable by Brensham lines
     SMITE, //Any square in LOS
     SMITE_TARGET,
-    FULL_LOS, //All valid targets in LOS
+    FULL_LOS, //All valid targets in LOS,
+    ALL_MONSTERS //All monsters in LOS as center points
 }
 
 public enum AreaType
@@ -222,7 +223,8 @@ public enum TargetTags
     RECOMMNEDS_ALLY_TARGET  = (1 << 5),
     RETARGETS_SAME_MONSTER  = (1 << 6),
     REQUIRES_WALKABLE_POINT = (1 << 7),
-    EXITS_IF_NO_GOOD_TARGETS= (1 << 8)
+    EXITS_IF_NO_GOOD_TARGETS= (1 << 8),
+    RECOMMENDS_ENEMY_TARGET = (1 << 9)
 }
 
 public enum TargetPriority

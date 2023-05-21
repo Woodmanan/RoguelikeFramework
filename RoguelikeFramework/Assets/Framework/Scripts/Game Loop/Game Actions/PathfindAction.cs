@@ -54,7 +54,7 @@ public class PathfindAction : GameAction
 
             caller.UpdateLOS();
 
-            if (!firstTurn && caller.view.visibleMonsters.FindAll(x => (x.faction & caller.faction) == 0).Count > 0)
+            if (!firstTurn && caller.view.visibleEnemies.Count > 0)
             {
                 yield break;
             }

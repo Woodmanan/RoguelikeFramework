@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [Group("Branch/Nightmare")]
 [Priority(10)]
@@ -59,7 +60,7 @@ public class NightmareVisualConnection : Effect
     //Called at the start of a monster's turn
     public override void OnTurnStartLocal()
     {
-        if (credit != null && connectedTo.monster.view.visibleMonsters.Contains(credit))
+        if (credit != null && connectedTo.monster.view.GetVisibleMonsters(connectedTo.monster).Contains(credit))
         {
             numTurnsUntilAdd--;
             if (numTurnsUntilAdd <= 0)

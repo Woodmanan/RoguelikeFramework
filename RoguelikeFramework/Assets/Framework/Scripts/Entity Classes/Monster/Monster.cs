@@ -36,7 +36,7 @@ public class Monster : MonoBehaviour, IDescribable
     public int minDepth;
     public int maxDepth;
     //public RogueTag rogueTag;
-    public RogueTagContainer tags;
+    public RogueTagContainer tags = new RogueTagContainer();
 
     [SerializeReference]
     public List<Effect> baseEffects;
@@ -408,7 +408,7 @@ public class Monster : MonoBehaviour, IDescribable
     {
         this.view = LOS.LosAt(map, location, visionRadius);
         UpdateLOSPreCollection();
-        view.CollectEntities(map);
+        view.CollectEntities(map, this);
         UpdateLOSPostCollection();
     }
 
@@ -526,7 +526,7 @@ public class Monster : MonoBehaviour, IDescribable
     //Takes the local turn
     public IEnumerator LocalTurn()
     {
-        if (view.visibleMonsters.Any(x => x.IsEnemy(this)))
+        if (view.visibleEnemies.Count > 0)
         {
             if (currentAction != null && currentAction.checksOnVisible && !currentAction.hasPreventedStop)
             {

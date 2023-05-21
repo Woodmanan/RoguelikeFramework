@@ -40,7 +40,6 @@ public class Player : Monster
     {
         base.Start();
         Setup();
-        Debug.LogError($"Player has player tag? {tags.HasTag("Player")}");
         player = this;
     }
 
@@ -48,7 +47,7 @@ public class Player : Monster
     public override void UpdateLOS()
     {
         view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
-        view.CollectEntities(Map.current);
+        view.CollectEntities(Map.current, this);
         UpdateLOSPostCollection();
     }
 

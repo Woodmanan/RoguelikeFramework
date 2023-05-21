@@ -94,7 +94,7 @@ public class HeatMageTempo : Effect
     public void AddHeat(float amount)
     {
         connectedTo.monster.AddBaseStat(Resources.HEAT, amount);
-        if (connectedTo.monster.view.visibleMonsters.Any(x => x.IsEnemy(connectedTo.monster)))
+        if (connectedTo.monster.view.visibleEnemies.Count > 0)
         {
             cooldown = maxCooldown;
         }

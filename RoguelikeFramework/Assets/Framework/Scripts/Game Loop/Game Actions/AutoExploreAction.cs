@@ -21,7 +21,7 @@ public class AutoExploreAction : GameAction
 
         while (true)
         {
-            if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
+            if (caller.view.visibleEnemies.Count > 0)
             {
                 RogueLog.singleton.Log("You cannot auto-explore while enemies are in sight.");
                 yield break;
@@ -101,9 +101,9 @@ public class AutoExploreAction : GameAction
                 }
 
                 //Copied to try and get ahead of the wait check.
-                if (caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller)).Count > 0)
+                if (caller.view.visibleEnemies.Count > 0)
                 {
-                    RogueLog.singleton.Log($"You see a " + caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller))[0].GetLocalizedName() + " and stop.", priority: LogPriority.HIGH);
+                    RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.HIGH);
                     yield break;
                 }
 

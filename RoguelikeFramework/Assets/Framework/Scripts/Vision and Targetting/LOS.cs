@@ -28,7 +28,9 @@ public class LOSData
     public bool[,] definedArea;
     public bool[,] precalculatedSight;
 
-    public List<Monster> visibleMonsters;
+    //public List<Monster> visibleMonsters;
+    public List<Monster> visibleEnemies;
+    public List<Monster> visibleFriends;
     public List<Item> visibleItems;
 
     private Vector2Int startsAt;
@@ -43,8 +45,27 @@ public class LOSData
         startsAt = origin - Vector2Int.one * radius; //Inclusive
         endsAt = origin + Vector2Int.one * (radius + 1); //Exclusive
 
-        visibleMonsters = new List<Monster>();
+        visibleFriends = new List<Monster>();
+        visibleEnemies = new List<Monster>();
         visibleItems = new List<Item>();
+    }
+
+    public IEnumerable<Monster> GetVisibleMonsters(Monster viewer = null)
+    {
+        foreach (Monster monster in visibleEnemies)
+        {
+            yield return monster;
+        }
+
+        foreach (Monster monster in visibleFriends)
+        {
+            yield return monster;
+        }
+
+        if (viewer)
+        {
+            yield return viewer;
+        }
     }
 
     public void setAt(int row, int col, Direction dir, bool val)
@@ -119,9 +140,10 @@ public class LOSData
         return (x >= startsAt.x && x < endsAt.x && y >= startsAt.y && y < endsAt.y);
     }
 
-    public void CollectEntities(Map map)
+    public void CollectEntities(Map map, Monster viewer)
     {
-        visibleMonsters.Clear();
+        visibleEnemies.Clear();
+        visibleFriends.Clear();
         visibleItems.Clear();
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < (radius * 2 + 1); i++)
@@ -136,7 +158,17 @@ public class LOSData
                         RogueTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
                         if (tile.currentlyStanding)
                         {
-                            visibleMonsters.Add(tile.currentlyStanding);
+                            if (viewer != null && tile.currentlyStanding.IsEnemy(viewer))
+                            {
+                                visibleEnemies.Add(tile.currentlyStanding);
+                            }
+                            else
+                            {
+                                if (tile.currentlyStanding != viewer)
+                                {
+                                    visibleFriends.Add(tile.currentlyStanding);
+                                }
+                            }
                         }
                         visibleItems.AddRange(tile.inventory.AllHeld());
                     }
@@ -253,8 +285,6 @@ public class LOS : MonoBehaviour
             Scan(firstRow, toReturn);
         }
 
-        toReturn.CollectEntities(map);
-
         return toReturn;
     }
 
@@ -337,6 +367,7 @@ public class LOS : MonoBehaviour
         lastCall = LosAt(map, location, radius);
         Player.player.view = lastCall;
         Player.player.UpdateLOSPreCollection();
+        Player.player.view.CollectEntities(map, Player.player);
         lastCall.Imprint(Map.current);
         return lastCall;
     }

@@ -86,14 +86,14 @@ public class Query
     public int outOf = 1;
     public List<QueryTerm> terms;
     
-    public float Evaluate(Monster owner, List<Monster> inSight, Ability ability, ItemStack item)
+    public float Evaluate(Monster owner, Ability ability, ItemStack item)
     {
         if (outOf == 0) return 0.0f;
 
         float value = 0;
         foreach (QueryTerm term in terms)
         {
-            value += term.Evaluate(owner, inSight, ability, item);
+            value += term.Evaluate(owner, ability, item);
         }
         value = value / outOf;
 
@@ -117,13 +117,13 @@ public class QueryTerm
 
     public int weight = 1;
 
-    public float Evaluate(Monster owner, List<Monster> inSight, Ability ability, ItemStack item)
+    public float Evaluate(Monster owner, Ability ability, ItemStack item)
     {
-        return (weight * PerformEvaluation(owner, inSight, ability, item));
+        return (weight * PerformEvaluation(owner, owner.view, ability, item));
     }
 
     //Actual Evaluation funciton! Returns a number between 1 and 0.
-    private float PerformEvaluation(Monster owner, List<Monster> inSight, Ability ability, ItemStack item)
+    private float PerformEvaluation(Monster owner, LOSData view, Ability ability, ItemStack item)
     {
         switch (subject)
         {
@@ -133,11 +133,11 @@ public class QueryTerm
             case QuerySubject.MONSTER:
                 return EvaluateSingleMonster(owner, owner);
             case QuerySubject.ENEMIES:
-                return EvaluateManyMonsters(owner, inSight.Where(x => (owner.faction & x.faction) == 0).ToList());
+                return EvaluateManyMonsters(owner, view.visibleEnemies);
             case QuerySubject.ALLIES_INCLUSIVE:
-                return EvaluateManyMonsters(owner, inSight.Where(x => (owner.faction & x.faction) != 0).ToList());
+                return EvaluateManyMonsters(owner, view.visibleFriends.Concat(new[] { owner }).ToList());
             case QuerySubject.ALLIES_EXCLUSIVE:
-                return EvaluateManyMonsters(owner, inSight.Where(x => (owner.faction & x.faction) != 0 && owner != x).ToList()); //Should probably just remove the monster? This is cleaner, though. Hm.
+                return EvaluateManyMonsters(owner, view.visibleFriends); 
             case QuerySubject.ABILITY:
                 if (ability == null)
                 {

@@ -22,6 +22,7 @@ public class Item : MonoBehaviour, IDescribable
     [Header("Basic item variables")]
     public int ID;
     public bool stackable;
+    public RogueTagContainer tags = new RogueTagContainer();
     
 
     [SerializeField] Color color;

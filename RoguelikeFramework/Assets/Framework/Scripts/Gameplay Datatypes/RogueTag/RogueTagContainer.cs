@@ -12,6 +12,14 @@ public class RogueTagContainer : ISerializationCallbackReceiver
 
     Dictionary<RogueTag, int> counts = new Dictionary<RogueTag, int>();
 
+    RogueTagContainer()
+    {
+        _keys = new List<RogueTag>();
+        _vals = new List<int>();
+
+        counts = new Dictionary<RogueTag, int>();
+    }
+
     RogueTagContainer(params string[] tags)
     {
         foreach (string tag in tags)
@@ -30,6 +38,9 @@ public class RogueTagContainer : ISerializationCallbackReceiver
 
     public void OnBeforeSerialize()
     {
+        if (_keys == null) _keys = new List<RogueTag>();
+        if (_vals == null) _vals = new List<int>();
+        if (counts == null) counts = new Dictionary<RogueTag, int>();
         _keys.Clear();
         _vals.Clear();
 

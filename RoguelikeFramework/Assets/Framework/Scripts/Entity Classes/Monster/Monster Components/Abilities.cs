@@ -108,7 +108,7 @@ public class Abilities : MonoBehaviour
         float bestValue = -1;
 
         //Construct allies, sort by distance.
-        List<Monster> allies = connectedTo.view.visibleMonsters.FindAll(x => x != connectedTo && !x.IsEnemy(connectedTo));
+        List<Monster> allies = connectedTo.view.visibleFriends;
         List<int> allyDistances = allies.Select(x =>
         {
             return Mathf.Max(Mathf.Abs(x.location.x - connectedTo.location.x),
@@ -116,7 +116,7 @@ public class Abilities : MonoBehaviour
         }).ToList();
 
 
-        List<Monster> enemies = connectedTo.view.visibleMonsters.FindAll(x=> x.IsEnemy(connectedTo));
+        List<Monster> enemies = connectedTo.view.visibleEnemies;
         List<int> enemyDistances = enemies.Select(x =>
         {
             return Mathf.Max(Mathf.Abs(x.location.x - connectedTo.location.x),
@@ -153,7 +153,7 @@ public class Abilities : MonoBehaviour
                     }
                 }
 
-                float newVal = abilities[i].castQuery.Evaluate(connectedTo, connectedTo.view.visibleMonsters, abilities[i], null);
+                float newVal = abilities[i].castQuery.Evaluate(connectedTo, abilities[i], null);
                 if (newVal > bestValue)
                 {
                     bestValue = newVal;

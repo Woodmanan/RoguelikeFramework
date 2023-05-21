@@ -56,7 +56,7 @@ public class TargetingPanel : RogueUIPanel
         if (lastTarget != null)
         {
             int dist = Mathf.Max(Mathf.Abs(lastTarget.location.x - startLocation.x), Mathf.Abs(lastTarget.location.y - startLocation.y));
-            if (dist > t.range || !Player.player.view.visibleMonsters.Contains(lastTarget))
+            if (dist > t.range || !Player.player.view.GetVisibleMonsters(Player.player).Contains(lastTarget))
             {
                 lastTarget = null;
             }
@@ -69,12 +69,9 @@ public class TargetingPanel : RogueUIPanel
         //If this is now true, attempt to determine the best spot
         if (lastTarget == null && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
         {
-            List<Monster> targets = Player.player.view.visibleMonsters;
-            targets.Remove(Player.player);
-
             if ((t.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
-                Monster target = targets.Where(x => !x.IsEnemy(Player.player))
+                Monster target = Player.player.view.visibleFriends
                                  .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
                                  .FirstOrDefault();
 
@@ -86,7 +83,7 @@ public class TargetingPanel : RogueUIPanel
             }
             else
             {
-                Monster target = targets.Where(x => x.IsEnemy(Player.player))
+                Monster target = Player.player.view.visibleEnemies
                                  .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
                                  .FirstOrDefault();
 

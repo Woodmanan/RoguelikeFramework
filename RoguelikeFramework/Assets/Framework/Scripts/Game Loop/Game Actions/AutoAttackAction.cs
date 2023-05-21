@@ -37,7 +37,7 @@ public class AutoAttackAction : GameAction
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()
     {
-        List<Monster> enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
+        List<Monster> enemies = caller.view.visibleEnemies;
         if (enemies.Count > 0)
         {
             target = enemies.OrderBy(x => x.DistanceFrom(caller)).First();

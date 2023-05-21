@@ -71,14 +71,7 @@ public class TurtleStance : Effect
     public override void OnTurnStartLocal()
     {
         bool hasSpeed = (numMonstersInSight < 2);
-        numMonstersInSight = 0;
-        foreach (Monster m in connectedTo.monster.view.visibleMonsters)
-        {
-            if (m.IsEnemy(connectedTo.monster))
-            {
-                numMonstersInSight++;
-            }
-        }
+        numMonstersInSight = connectedTo.monster.view.visibleEnemies.Count;
 
         if (hasSpeed && (numMonstersInSight > 1))
         {

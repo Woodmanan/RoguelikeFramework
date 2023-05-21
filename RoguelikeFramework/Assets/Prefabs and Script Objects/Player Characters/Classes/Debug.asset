@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 6687509776577718200, guid: b3e7383757eb7b446bef8253bee84eb5, type: 3}
   - {fileID: 6687509776577718200, guid: b3e7383757eb7b446bef8253bee84eb5, type: 3}
   abilities:
-  - {fileID: 11400000, guid: 4478e6e4cca6a6c40a83c5bf099b659d, type: 2}
+  - {fileID: 11400000, guid: 1ce434c8e73081e4fa0273dd1f3f4379, type: 2}
   - {fileID: 11400000, guid: 10e6c7c7e4ac05d42a474d574b9f2583, type: 2}
   - {fileID: 11400000, guid: e549a977a91104548ac3482f2ea256ad, type: 2}
   - {fileID: 11400000, guid: b8ea2e383f98df940bd199f81eb6ba69, type: 2}
