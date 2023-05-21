@@ -88,6 +88,10 @@ MonoBehaviour:
   ID: 0
   minDepth: 0
   maxDepth: 0
+  tags:
+    _keys:
+    - name: Player
+    _vals: 01000000
   baseEffects:
   - id: 0
   energy: 0

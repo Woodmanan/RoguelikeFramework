@@ -35,6 +35,8 @@ public class Monster : MonoBehaviour, IDescribable
     public int ID;
     public int minDepth;
     public int maxDepth;
+    //public RogueTag rogueTag;
+    public RogueTagContainer tags;
 
     [SerializeReference]
     public List<Effect> baseEffects;

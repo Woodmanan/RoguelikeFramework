@@ -40,6 +40,7 @@ public class Player : Monster
     {
         base.Start();
         Setup();
+        Debug.LogError($"Player has player tag? {tags.HasTag("Player")}");
         player = this;
     }
 

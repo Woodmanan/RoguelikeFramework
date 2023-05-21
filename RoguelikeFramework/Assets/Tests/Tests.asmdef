@@ -5,7 +5,8 @@
         "UnityEditor.TestRunner",
         "RogueRNG",
         "PathfindingRef",
-        "Quadtree"
+        "Quadtree",
+        "RogueTag"
     ],
     "includePlatforms": [
         "Editor"
