@@ -63,6 +63,14 @@ MonoBehaviour:
     m_Key: NoXP
     m_Metadata:
       m_Items: []
+  - m_Id: 18150832451821568
+    m_Key: UndeadName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18175663561973760
+    m_Key: Resurrection
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

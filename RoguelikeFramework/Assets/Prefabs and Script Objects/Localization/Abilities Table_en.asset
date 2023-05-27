@@ -386,6 +386,16 @@ MonoBehaviour:
     m_Localized: Empowers your next attack to execute enemies below 20% health.
     m_Metadata:
       m_Items: []
+  - m_Id: 54918133725208576
+    m_Localized: Dark Aura
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54918168303050752
+    m_Localized: Projects necrotic energy around the caster and their minions. Targets
+      hit will be filled with necrotic energy, and if killed within 3 turns will
+      rise as a lesser undead.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

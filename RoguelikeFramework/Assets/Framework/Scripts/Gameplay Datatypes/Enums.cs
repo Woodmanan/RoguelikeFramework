@@ -80,7 +80,8 @@ public enum DamageType
     ICE         = (1 << 4),
     ELECTRICAL  = (1 << 5),
     BLEED       = (1 << 6),
-    POISON      = (1 << 7)
+    POISON      = (1 << 7),
+    NECROTIC    = (1 << 8)
 }
 
 [Flags]

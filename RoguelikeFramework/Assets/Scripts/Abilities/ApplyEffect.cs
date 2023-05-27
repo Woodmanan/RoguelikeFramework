@@ -10,6 +10,10 @@ public class ApplyEffect : Ability
 
     [SerializeReference]
     public List<Effect> effectsToApplyToCaster;
+
+    [SerializeField]
+    DamagePairing damage;
+
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
     public override bool OnCheckActivationSoft(Monster caster)
     {
@@ -31,6 +35,11 @@ public class ApplyEffect : Ability
                 Effect toAdd = e.Instantiate();
                 toAdd.credit = caster;
                 target.AddEffect(toAdd);
+            }
+
+            if (damage.damage.dice > 0 && damage.damage.rolls > 0)
+            {
+                target.Damage(caster, damage.damage.evaluate(), damage.type, DamageSource.ABILITY);
             }
         }
 

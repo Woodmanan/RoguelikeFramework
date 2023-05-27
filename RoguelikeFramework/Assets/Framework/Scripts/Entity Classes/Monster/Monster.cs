@@ -261,8 +261,9 @@ public class Monster : MonoBehaviour, IDescribable
             connections.OnDeath.BlendInvoke(other?.OnDeath);
             if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
             {
-                Die();
                 dealer?.KillMonster(this, type, source);
+                Die();
+                
             }
             else
             {
@@ -281,8 +282,16 @@ public class Monster : MonoBehaviour, IDescribable
 
     protected virtual void Die()
     {
-        dead = true;
         RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.HIGH);
+
+        connections.OnPostDeath.BlendInvoke(other?.OnPostDeath);
+        if (baseStats[HEALTH] > 0)
+        {
+            dead = false;
+            return;
+        }
+
+        dead = true;
 
         foreach (Effect effect in effects)
         {

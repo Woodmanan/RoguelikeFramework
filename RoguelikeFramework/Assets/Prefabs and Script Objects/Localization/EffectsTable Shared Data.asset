@@ -435,6 +435,14 @@ MonoBehaviour:
     m_Key: Apply Poison Description
     m_Metadata:
       m_Items: []
+  - m_Id: 63079669840945152
+    m_Key: Necrotize Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63079715290423296
+    m_Key: Necrotize Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

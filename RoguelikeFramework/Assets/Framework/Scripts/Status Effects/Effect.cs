@@ -26,6 +26,8 @@ public class Effect : IDescribable
     [SerializeField] protected LocalizedString description;
     [SerializeField] protected Sprite image;
 
+    [SerializeField] protected RogueTagContainer tags;
+
     public Effect Instantiate()
     {
         return (Effect) this.MemberwiseClone();
@@ -90,6 +92,7 @@ public class Effect : IDescribable
         c.OnMoveInitiated.AddListener(100, OnMoveInitiated);
         c.OnMove.AddListener(100, OnMove);
         c.OnFullyHealed.AddListener(100, OnFullyHealed);
+        c.OnPostDeath.AddListener(100, OnPostDeath);
         c.OnDeath.AddListener(100, OnDeath);
         c.OnKillMonster.AddListener(100, OnKillMonster);
         c.RegenerateStats.AddListener(100, RegenerateStats);
@@ -153,6 +156,7 @@ public class Effect : IDescribable
         connectedTo.OnMoveInitiated.RemoveListener(OnMoveInitiated);
         connectedTo.OnMove.RemoveListener(OnMove);
         connectedTo.OnFullyHealed.RemoveListener(OnFullyHealed);
+        connectedTo.OnPostDeath.RemoveListener(OnPostDeath);
         connectedTo.OnDeath.RemoveListener(OnDeath);
         connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
         connectedTo.RegenerateStats.RemoveListener(RegenerateStats);
@@ -215,6 +219,7 @@ public class Effect : IDescribable
     public virtual void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
+    public virtual void OnPostDeath() {}
     public virtual void OnDeath() {}
     public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void RegenerateStats(ref Stats stats) {}

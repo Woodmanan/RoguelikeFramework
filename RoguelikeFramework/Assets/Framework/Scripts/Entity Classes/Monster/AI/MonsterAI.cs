@@ -23,6 +23,7 @@ public class MonsterAI : ActionController
     float loseDistance = 20;
 
     public Monster lastEnemy;
+    public Monster leader;
     PriorityQueue<int> choices = new PriorityQueue<int>(20);
 
     //The main loop for monster AI! This assumes 
@@ -64,12 +65,22 @@ public class MonsterAI : ActionController
                 choices.Enqueue(2, 1f - .8f);
             }
 
-            //Wait for 120 turns on avg, then go explore
-            if (willExplore && UnityEngine.Random.Range(0, 120) == 0)
+            if (leader == null)
             {
-                choices.Enqueue(3, 1f - .7f);
+                //Wait for 120 turns on avg, then go explore
+                if (willExplore && UnityEngine.Random.Range(0, 120) == 0)
+                {
+                    choices.Enqueue(3, 1f - .7f);
+                }
             }
-
+            else
+            {
+                //6 - Follow the leader
+                if (monster.location.GameDistance(leader.location) > 4)
+                {
+                    choices.Enqueue(6, 1f - 0.9f);
+                }
+            }
 
             //4 - Wait
             if (monster.energyPerStep == 0)
@@ -83,6 +94,7 @@ public class MonsterAI : ActionController
 
             //5 - Heal up
             choices.Enqueue(5, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
+            
 
             int finalChoice = choices.Dequeue();
 
@@ -104,6 +116,14 @@ public class MonsterAI : ActionController
                     break;
                 case 5:
                     nextAction = new MonsterRest();
+                    break;
+                case 6: //Follow the leader!
+                    Vector2Int followPosition = Map.current.GetRandomWalkableTileInSight(leader, 2);
+                    if (followPosition == new Vector2Int(-1, -1))
+                    {
+                        followPosition = Map.current.GetRandomWalkableTileInSight(leader, leader.visionRadius);
+                    }
+                    nextAction = new PathfindAction(followPosition);
                     break;
                 default:
                     Debug.LogError($"Monster does not have non-combat action set for choice {finalChoice}", monster);
@@ -310,5 +330,11 @@ public class MonsterAI : ActionController
     {
         lastEnemy = target;
         currentTries = numTries;
+    }
+
+    public void Clear()
+    {
+        lastEnemy = null;
+        leader = null;
     }
 }

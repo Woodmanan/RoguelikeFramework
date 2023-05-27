@@ -301,6 +301,32 @@ public class Map : MonoBehaviour
         }
     }
 
+    public Vector2Int GetRandomWalkableTileAround(Vector2Int point, int radius)
+    {
+        while (true)
+        {
+            Vector2Int spot = point + new Vector2Int(Random.Range(-radius, radius), Random.Range(-radius, radius));
+            if (ValidLocation(spot) && MovementCostAt(spot) > 0 && GetTile(spot).currentlyStanding == null)
+            {
+                return spot;
+            }
+        }
+    }
+
+    public Vector2Int GetRandomWalkableTileInSight(Monster viewer, int range = 100)
+    {
+        foreach (Vector2Int position in viewer.view.GetVisibleTiles(this).Where(x => x.GameDistance(viewer.location) <= range).OrderBy(x => Random.value))
+        {
+            RogueTile tile = GetTile(position);
+            if (tile.movementCost > 0 && tile.currentlyStanding == null)
+            {
+                return position;
+            }
+        }
+
+        return new Vector2Int(-1, -1);
+    }
+
     public void SwapMonsters(RogueTile first, RogueTile second)
     {
         Monster secondMonster = second.currentlyStanding;

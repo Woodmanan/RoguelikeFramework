@@ -26,6 +26,8 @@ public class Effect : IDescribable
     [SerializeField] protected LocalizedString description;
     [SerializeField] protected Sprite image;
 
+    [SerializeField] protected RogueTagContainer tags;
+
     public Effect Instantiate()
     {
         return (Effect) this.MemberwiseClone();

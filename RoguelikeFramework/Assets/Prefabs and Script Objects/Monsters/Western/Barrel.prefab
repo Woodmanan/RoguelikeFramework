@@ -77,11 +77,17 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   friendlyName: WestBarrel
+  singular: 0
+  named: 0
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
   minDepth: 7
   maxDepth: 9
+  tags:
+    _keys:
+    - name: Monster.Construct
+    _vals: 01000000
   baseEffects:
   - id: 0
   energy: 0
@@ -125,6 +131,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         toCast: {fileID: 11400000, guid: d7016986f5102174683d25e12a749046, type: 2}
 --- !u!212 &4402800733788238310
 SpriteRenderer:
@@ -228,6 +237,7 @@ MonoBehaviour:
   minRange: 0
   intelligence: 2
   lastEnemy: {fileID: 0}
+  leader: {fileID: 0}
 --- !u!114 &4402800733788238308
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -45,6 +45,10 @@ MonoBehaviour:
     types: []
     description: Called whenever a monster returns to full health
     priority: 6
+  - name: OnPostDeath
+    types: []
+    description: Called after this monster has registered it's death.
+    priority: 7
   - name: OnDeath
     types: []
     description: Called when the connected monster dies
@@ -58,7 +62,7 @@ MonoBehaviour:
     - type: DamageSource
       name: source
     description: Called when a monster is killed by this unit.
-    priority: 7
+    priority: 8
   - name: RegenerateStats
     types:
     - type: Stats

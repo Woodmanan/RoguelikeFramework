@@ -315,6 +315,14 @@ MonoBehaviour:
     m_Key: Executing Strike Description
     m_Metadata:
       m_Items: []
+  - m_Id: 54918133725208576
+    m_Key: Dark Aura Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54918168303050752
+    m_Key: Dark Aura Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

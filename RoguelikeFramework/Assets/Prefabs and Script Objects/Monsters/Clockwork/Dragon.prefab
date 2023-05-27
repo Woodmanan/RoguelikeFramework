@@ -80,11 +80,17 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   friendlyName: ClockDragon
+  singular: 0
+  named: 0
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
   minDepth: 1
   maxDepth: 3
+  tags:
+    _keys:
+    - name: Monster.Construct
+    _vals: 01000000
   baseEffects:
   - id: 0
   energy: 0
@@ -128,6 +134,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         range: 5
         addedStats:
           _keys: 0800000009000000
@@ -224,6 +233,7 @@ MonoBehaviour:
   minRange: 0
   intelligence: 2
   lastEnemy: {fileID: 0}
+  leader: {fileID: 0}
 --- !u!114 &4402800733788238308
 MonoBehaviour:
   m_ObjectHideFlags: 0

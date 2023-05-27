@@ -96,9 +96,10 @@ public class Player : Monster
 
     protected override void Die()
     {
-        Remove();
+        base.Die();
         if (baseStats[HEALTH] <= 0)
         {
+            Remove();
             Debug.Log("Game over!");
             SceneManager.LoadScene("CharacterSelect");
         }

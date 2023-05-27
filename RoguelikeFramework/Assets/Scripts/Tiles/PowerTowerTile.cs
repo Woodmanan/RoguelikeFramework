@@ -37,6 +37,11 @@ public class PowerTowerTile : InteractableTile
     public override GameAction GetAction()
     {
         Vector2Int newLoc = location + new Vector2Int(Random.Range(-3, 3), Random.Range(-3, 3));
+        if (!powered)
+        {
+            newLoc = location;
+        }
+
         while (!Map.current.ValidLocation(newLoc))
         {
             newLoc = location + new Vector2Int(Random.Range(-3, 3), Random.Range(-3, 3));
