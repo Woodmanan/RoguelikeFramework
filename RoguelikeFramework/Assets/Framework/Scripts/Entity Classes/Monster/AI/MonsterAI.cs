@@ -76,9 +76,9 @@ public class MonsterAI : ActionController
             else
             {
                 //6 - Follow the leader
-                if (monster.location.GameDistance(leader.location) > 4)
+                if (monster.location.GameDistance(leader.location) > 4 || UnityEngine.Random.Range(0, 30) == 0)
                 {
-                    choices.Enqueue(6, 1f - 0.9f);
+                    choices.Enqueue(6, 1f - 0.95f);
                 }
             }
 
@@ -221,9 +221,9 @@ public class MonsterAI : ActionController
         return pairs[0];
     }
 
-    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
     {
-        if (targeting.BeginTargetting(monster.location, monster.view) && targeting.range > 0)
+        if (targeting.BeginTargetting(monster.location, monster.view, TargetCheck) && targeting.range > 0)
         {
             List<Monster> targets;
             if ((targeting.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)

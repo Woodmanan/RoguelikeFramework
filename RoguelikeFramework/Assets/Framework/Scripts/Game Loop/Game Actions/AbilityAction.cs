@@ -65,7 +65,7 @@ public class AbilityAction : GameAction
 
         bool canFire = false;
 
-        IEnumerator target = caller.controller.DetermineTarget(toCast.targeting, (b) => canFire = b);
+        IEnumerator target = caller.controller.DetermineTarget(toCast.targeting, (b) => canFire = b, toCast.IsValidTarget);
         while (target.MoveNext())
         {
             yield return target.Current;

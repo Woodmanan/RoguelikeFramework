@@ -396,6 +396,26 @@ MonoBehaviour:
       rise as a lesser undead.
     m_Metadata:
       m_Items: []
+  - m_Id: 55258441226854400
+    m_Localized: Boom!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55258501691940864
+    m_Localized: The zombie doesn't explode...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55258679257800704
+    m_Localized: Corpse Explosion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55258709716836352
+    m_Localized: The caster detonates a zombie, using its bones as shrapnel. The
+      explosion requires that zombie is below a 4d15 true health threshold - otherwise,
+      the explosion doesn't happen and the zombie only takes 2d10 rebound damage.
+      If sucessful, the zombie is executed and all creatures nearby take 3d15 physical
+      damage.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

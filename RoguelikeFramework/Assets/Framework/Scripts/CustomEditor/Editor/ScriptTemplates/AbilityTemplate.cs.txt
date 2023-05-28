@@ -17,6 +17,8 @@ public class #SCRIPTNAME# : Ability
         return true;
     }
 
+    /*public override bool IsValidTarget(Monster target) { return true; }*/
+
     public override void OnRegenerateStats(Monster caster)
     {
         

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using System.Linq;
 
 public class PlayerActionController : ActionController
@@ -222,9 +223,9 @@ public class PlayerActionController : ActionController
         }
     }
 
-    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
     {
-        if (targetingPanel.Setup(targeting, setValidityTo))
+        if (targetingPanel.Setup(targeting, setValidityTo, TargetCheck))
         {
             targetingPanel.Activate();
             yield return new WaitUntil(() => !UIController.WindowsOpen);

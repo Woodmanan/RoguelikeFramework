@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ActionController : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class ActionController : MonoBehaviour
         yield break;
     }
 
-    public virtual IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    public virtual IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
     {
         Debug.Log("Action controllers need to override this method!");
         setValidityTo.Invoke(false);

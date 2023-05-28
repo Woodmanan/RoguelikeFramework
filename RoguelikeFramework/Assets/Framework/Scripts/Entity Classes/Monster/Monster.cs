@@ -316,7 +316,10 @@ public class Monster : MonoBehaviour, IDescribable
     public void KillMonster(Monster target, DamageType type, DamageSource source)
     {
         connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
-        GainXP(target, target.XPFromKill);
+        if (target.IsEnemy(this))
+        {
+            GainXP(target, target.XPFromKill);
+        }
     }
 
     public virtual void GainXP(Monster source, float amount)

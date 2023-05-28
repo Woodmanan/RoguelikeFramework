@@ -81,11 +81,16 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   friendlyName: ClockKeeper
+  singular: 0
+  named: 0
   nameRequiresPluralVerbs: 0
   faction: 1
   ID: 0
   minDepth: 1
   maxDepth: 3
+  tags:
+    _keys: []
+    _vals: 
   baseEffects: []
   energy: 0
   location: {x: 15, y: 44}
@@ -180,16 +185,17 @@ MonoBehaviour:
       property: 0
       resource: 0
       equality: 0
-      value: 1
+      value: 0.8
       valueMod: 0
       weight: 1
   isInBattle: 0
   willExplore: 1
-  interactionRange: 20
+  interactionRange: 6
   ranged: 0
   minRange: 0
   intelligence: 2
   lastEnemy: {fileID: 0}
+  leader: {fileID: 0}
 --- !u!114 &4402800733788238308
 MonoBehaviour:
   m_ObjectHideFlags: 0

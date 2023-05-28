@@ -70,6 +70,7 @@ MonoBehaviour:
     m_LocalVariables: []
   movementCost: -1
   blocksVision: 1
+  blocksProjectiles: 0
   color: {r: 1, g: 0.9921569, b: 0, a: 1}
   minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
@@ -83,7 +84,7 @@ MonoBehaviour:
       property: 1
       resource: 0
       equality: 3
-      value: 1
+      value: 0.8
       valueMod: 0
       weight: 1
     - subject: 1
@@ -91,9 +92,9 @@ MonoBehaviour:
       subjectCount: 2
       property: 0
       resource: 0
-      equality: 1
-      value: 50
-      valueMod: 1
+      equality: 3
+      value: 7
+      valueMod: 0
       weight: 1
   allowOutOfCombat: 1
   allowInCombat: 1
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 52
   available: 0
+  baseItems: []
 --- !u!114 &419063275136374686
 MonoBehaviour:
   m_ObjectHideFlags: 0

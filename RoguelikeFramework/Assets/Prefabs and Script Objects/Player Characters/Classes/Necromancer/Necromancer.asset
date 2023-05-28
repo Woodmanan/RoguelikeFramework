@@ -15,6 +15,7 @@ MonoBehaviour:
   items: []
   abilities:
   - {fileID: 11400000, guid: 7ff6c3aac6181724f9578198f42b0df9, type: 2}
+  - {fileID: 11400000, guid: bcc58840e67f6a54bb83a1f4529c6f6c, type: 2}
   effects: []
   references:
     version: 1

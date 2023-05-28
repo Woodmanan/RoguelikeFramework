@@ -138,6 +138,11 @@ public class Ability : ScriptableObject, IDescribable
 
     public virtual void OnSetup() { }
 
+    public virtual bool IsValidTarget(Monster caster)
+    {
+        return true;
+    }
+
     public bool CheckAvailable(Monster caster)
     {
         bool canCast = true;

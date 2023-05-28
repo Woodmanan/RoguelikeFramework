@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class TargetingPanel : RogueUIPanel
 {
@@ -34,7 +35,7 @@ public class TargetingPanel : RogueUIPanel
 
     }
 
-    public bool Setup(Targeting t, BoolDelegate endResult)
+    public bool Setup(Targeting t, BoolDelegate endResult, Func<Monster, bool> TargetCheck = null)
     {
         //Establish grid if it doesn't exist
         if (!grid)
@@ -103,7 +104,7 @@ public class TargetingPanel : RogueUIPanel
 
 
         //current = t.Initialize();
-            if (current.BeginTargetting(Player.player.location, LOS.lastCall))
+            if (current.BeginTargetting(Player.player.location, LOS.lastCall, TargetCheck))
         {
             if (grid != null)
             {

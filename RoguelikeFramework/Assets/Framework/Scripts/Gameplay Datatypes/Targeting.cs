@@ -39,7 +39,8 @@ public class Targeting
     public TargetTags options = TargetTags.POINTS_SHARE_OVERLAP | TargetTags.POINTS_REQUIRE_LOS;
 
     public TargetPriority targetPriority;
-    
+
+    Func<Monster, bool> validityCheck;
 
     public Targeting ShallowCopy()
     {
@@ -110,7 +111,7 @@ public class Targeting
         return false;
     }
 
-    public bool BeginTargetting(Vector2Int startPosition, LOSData los)
+    public bool BeginTargetting(Vector2Int startPosition, LOSData los, Func<Monster, bool> targetCheckFunc = null)
     {
         origin = startPosition;
         target = startPosition;
@@ -119,7 +120,14 @@ public class Targeting
         points.Clear();
         isFinished = false;
 
-        
+        if (targetCheckFunc == null)
+        {
+            validityCheck = (x) => true;
+        }
+        else
+        {
+            validityCheck = targetCheckFunc;
+        }
 
         int maxEffectSize = range + radius;
 
@@ -161,7 +169,7 @@ public class Targeting
         if (targetingType == TargetType.SINGLE_TARGET_LINES || targetingType == TargetType.SMITE_TARGET)
         {
             Monster atTarget = Map.current.GetTile(target).currentlyStanding;
-            valid = valid && (atTarget != null);
+            valid = valid && (atTarget != null) && (validityCheck(atTarget));
         }
 
         if ((options & TargetTags.REQUIRES_WALKABLE_POINT) > 0)
@@ -506,7 +514,6 @@ public class Targeting
                     }
                 }
                 break;
-                
         }
     }
 }

@@ -226,7 +226,7 @@ MonoBehaviour:
       weight: 1
   isInBattle: 0
   willExplore: 1
-  interactionRange: 20
+  interactionRange: 0
   ranged: 0
   minRange: 0
   intelligence: 2

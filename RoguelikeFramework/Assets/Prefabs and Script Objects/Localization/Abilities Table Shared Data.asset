@@ -323,6 +323,22 @@ MonoBehaviour:
     m_Key: Dark Aura Description
     m_Metadata:
       m_Items: []
+  - m_Id: 55258441226854400
+    m_Key: Corspe Explosion Success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55258501691940864
+    m_Key: Corpse Explosion Failure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55258679257800704
+    m_Key: Corpse Explosion Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55258709716836352
+    m_Key: Corpse Explosion Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
