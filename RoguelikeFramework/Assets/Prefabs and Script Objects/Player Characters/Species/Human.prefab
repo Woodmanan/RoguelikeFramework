@@ -144,6 +144,10 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: acc893d7053461c47adba17e2422fa9e, type: 3}
+        tags:
+          _keys:
+          - name: Effect.Passive.Species
+          _vals: 01000000
         statsPerLevel:
           _keys: 0100000003000000
           _vals:

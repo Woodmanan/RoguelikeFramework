@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using System.Linq;
 
 
 
@@ -275,11 +276,45 @@ public class GameController : MonoBehaviour
         nextLevel = newLevel;
     }
 
+    void RemoveMonstersFromLevel(List<Monster> monsters)
+    {
+        foreach (Monster m in monsters)
+        {
+            Map.current.monsters.Remove(m);
+        }
+    }
+
+    List<Monster> CollectMonstersForTransition(Monster m, int friendlyDistance, int enemyDistance)
+    {
+        List<Monster> monsters = new List<Monster>();
+        monsters.AddRange(m.view.visibleFriends.Where(x => x.location.GameDistance(m.location) <= friendlyDistance));
+        monsters.AddRange(m.view.visibleEnemies.Where(x => x.location.GameDistance(m.location) <= enemyDistance));
+        return monsters.Where(x => !x.tags.HasTag("Monster.CannotLeaveLevel")).ToList();
+    }
+
     //TODO: Determine how monsters get placed if they don't have space to be placed
-    public void MoveMonsters(Monster m, Stair stair, Map map)
+    public void MoveMonsters(Monster m, Stair stair, List<Monster> monstersToMove, Map map)
     {
         m.transform.parent = map.monsterContainer;
+        Vector2Int center = stair.GetMatchingLocation();
         m.SetPositionSnap(stair.GetMatchingLocation());
+
+        IEnumerator<Vector2Int> tiles = map.GetWalkableTilesByRange(stair.GetMatchingLocation(), 1, 16);
+
+        foreach (Monster monster in monstersToMove.OrderBy(x => Random.value))
+        {
+            monster.transform.parent = map.monsterContainer;
+            map.monsters.Add(monster);
+            if (tiles.MoveNext())
+            {
+                monster.SetPositionSnap(tiles.Current);
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("No space around stair - Monster dumped into the ether!", monster);
+                monster.SetPositionSnap(map.GetRandomWalkableTile());
+            }
+        }
     }
 
     private void MoveLevel()
@@ -289,8 +324,10 @@ public class GameController : MonoBehaviour
         if (stair)
         {
             SystemExitLevel();
+            List<Monster> toMove = CollectMonstersForTransition(Player.player, 5, 1);
+            RemoveMonstersFromLevel(toMove);
             LoadMap(nextLevel);
-            MoveMonsters(player, stair, Map.current);
+            MoveMonsters(player, stair, toMove, Map.current);
             SystemEnterLevel();
         }
         else

@@ -30,5 +30,9 @@ MonoBehaviour:
     m_Localized: Troll
     m_Metadata:
       m_Items: []
+  - m_Id: 20261221775908864
+    m_Localized: Lich
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

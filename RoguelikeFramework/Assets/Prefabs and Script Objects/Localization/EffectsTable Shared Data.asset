@@ -443,6 +443,30 @@ MonoBehaviour:
     m_Key: Necrotize Description
     m_Metadata:
       m_Items: []
+  - m_Id: 63883870183563264
+    m_Key: Bone Armor Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63883933223952384
+    m_Key: Bone Armor Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63885327297355776
+    m_Key: Greater Necrotize Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63885384134369280
+    m_Key: Greater Necrotize Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63886112571727872
+    m_Key: Greater Undead Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63886149968142336
+    m_Key: Greater Undead Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

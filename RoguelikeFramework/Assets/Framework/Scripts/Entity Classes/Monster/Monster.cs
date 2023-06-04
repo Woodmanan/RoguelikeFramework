@@ -449,6 +449,7 @@ public class Monster : MonoBehaviour, IDescribable
     {
         UpdateLOS();
         CallRegenerateStats();
+        ResetStatsToMax();
         abilities?.CheckAvailability();
         connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
         willSwap = false;
@@ -876,5 +877,21 @@ public class Monster : MonoBehaviour, IDescribable
 
 
         return strength;
+    }
+
+    public void RemoveEffectsByTag(string tag)
+    {
+        RemoveEffectsByTag(new RogueTag(tag));
+    }
+
+    public void RemoveEffectsByTag(RogueTag tag)
+    {
+        for (int i = effects.Count - 1; i >= 0; i--)
+        {
+            if (effects[i].tags.HasTag(tag))
+            {
+                effects[i].Disconnect();
+            }
+        }
     }
 }

@@ -327,6 +327,35 @@ public class Map : MonoBehaviour
         return new Vector2Int(-1, -1);
     }
 
+    public IEnumerator<Vector2Int> GetWalkableTilesByRange(Vector2Int point, int lower, int higher)
+    {
+        for (int i = lower; i <= higher; i++)
+        {
+            foreach (Vector2Int tile in GetTilesInSquareRange(point, i).OrderBy(x => Random.value))
+            {
+                yield return tile;
+            }
+        }
+    }
+
+    public List<Vector2Int> GetTilesInSquareRange(Vector2Int point, int range)
+    {
+        List<Vector2Int> points = new List<Vector2Int>();
+        for (int i = -range; i <= range; i++)
+        {
+            points.Add(point + new Vector2Int(i, range));
+            points.Add(point + new Vector2Int(i, -range));
+        }
+
+        for (int i = -range + 1; i <= range - 1; i++)
+        {
+            points.Add(point + new Vector2Int(range, i));
+            points.Add(point + new Vector2Int(-range, i));
+        }
+
+        return points.Where(x => ValidLocation(x) && GetTile(x).currentlyStanding == null && MovementCostAt(x) > 0).ToList();
+    }
+
     public void SwapMonsters(RogueTile first, RogueTile second)
     {
         Monster secondMonster = second.currentlyStanding;

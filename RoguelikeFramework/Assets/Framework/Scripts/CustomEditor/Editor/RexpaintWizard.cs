@@ -14,18 +14,18 @@ public class RexpaintWizard
         if (!SessionState.GetBool("FirstInitDone", false))
         {
             SessionState.SetBool("FirstInitDone", true);
-
-            int count = EditorPrefs.GetInt("RexpaintRefresh", 0);
-            if (count == 0 || EditorPrefs.GetBool("HasRexpaintChanges", false))
-            {
-                if (EditorPrefs.GetBool("RexPreviewEnabled", false))
-                {
-                    RebuildRexRoomPreview();
-                }
-            }
-
-            EditorPrefs.SetInt("RexpaintRefresh", (count + 1) % RefreshEveryX);
         }
+
+        int count = EditorPrefs.GetInt("RexpaintRefresh", 0);
+        if (count == 0 || EditorPrefs.GetBool("HasRexpaintChanges", false))
+        {
+            if (EditorPrefs.GetBool("RexPreviewEnabled", false))
+            {
+                RebuildRexRoomPreview();
+            }
+        }
+
+        EditorPrefs.SetInt("RexpaintRefresh", (count + 1) % RefreshEveryX);
     }
 
     [MenuItem("Tools/Rexpaint/Enable and Refresh Preview")]
@@ -60,6 +60,8 @@ public class RexpaintWizard
         Process.Start(info);
 
         AssetDatabase.Refresh();
+
+        EditorPrefs.SetBool("HasRexpaintChanges", false);
     }
 
     static string GetPathTo(string filename, string path = "Assets")

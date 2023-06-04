@@ -339,6 +339,30 @@ MonoBehaviour:
     m_Key: Corpse Explosion Description
     m_Metadata:
       m_Items: []
+  - m_Id: 55755955789045760
+    m_Key: Bone Armor Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756000642932736
+    m_Key: Bone Armor Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756058864066560
+    m_Key: Drain Life Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756097615241216
+    m_Key: Drain Life Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756154976542720
+    m_Key: Death Mark Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756202657390592
+    m_Key: Death Mark Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

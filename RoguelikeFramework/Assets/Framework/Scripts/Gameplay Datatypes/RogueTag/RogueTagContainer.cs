@@ -134,6 +134,11 @@ public class RogueTagContainer : ISerializationCallbackReceiver
         int outValue;
         return counts.TryGetValue(tag, out outValue) && outValue > 0;
     }
+
+    public bool MatchAnyTags(string tag, TagMatch matchType)
+    {
+        return MatchAnyTags(new RogueTag(tag), matchType);
+    }
     
     public bool MatchAnyTags(RogueTag tag, TagMatch matchType)
     {
@@ -169,5 +174,15 @@ public class RogueTagContainer : ISerializationCallbackReceiver
             if (!other.MatchAnyTags(tag, matchType)) return false;
         }
         return true;
+    }
+
+    public bool IsEmpty
+    {
+        get { return counts.Count == 0; }
+    }
+
+    public int Count
+    {
+        get { return counts.Count; }
     }
 }

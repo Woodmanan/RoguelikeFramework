@@ -416,9 +416,39 @@ MonoBehaviour:
       damage.
     m_Metadata:
       m_Items: []
+  - m_Id: 55756097615241216
+    m_Localized: Deal {percentHealthDamage}% of a living target's current health
+      as true damage. Heal the undead adjacent to the target for the same amount
+      (divided among them).
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 55756058864066560
+    m_Localized: Drain Life
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55755955789045760
+    m_Localized: Bone Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756000642932736
+    m_Localized: Converts a target undead's bones to armor, giving it a massive increase
+      in AC and MR. As a result, the undead will perform actions at 75% speed until
+      the duration ends.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756154976542720
+    m_Localized: Death Mark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756202657390592
+    m_Localized: Mark a living unit for death. If killed within 8 turns, it will
+      resurrect as a Greater Undead.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202b4a515f42000020abb4b0404b0000206b80cacc590000202b59dacc59000020ebb2e2cc590000202b3f2bcd590000202b0135cd5900
+        m_Entries: 00202b4a515f42000020abb4b0404b0000206b80cacc590000202b59dacc59000020ebb2e2cc590000202b3f2bcd590000202b0135cd590000206b18e015c600

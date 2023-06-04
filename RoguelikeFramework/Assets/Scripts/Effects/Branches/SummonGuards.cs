@@ -92,6 +92,7 @@ public class SummonGuards : Effect
                     RogueLog.singleton.LogTemplate("Summon", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular, target = tile.currentlyStanding.GetName(definite: false) },
                                                     priority: LogPriority.HIGH);
                 }
+                tile.currentlyStanding.faction = connectedTo.monster.faction;
                 currentlySummoned.Add(tile.currentlyStanding);
                 return;
             }

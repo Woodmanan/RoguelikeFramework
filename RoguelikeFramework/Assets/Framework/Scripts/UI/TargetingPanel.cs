@@ -44,11 +44,14 @@ public class TargetingPanel : RogueUIPanel
             grid.transform.parent = transform;
         }
 
+        Func<Monster, bool> isValidTarget = TargetCheck != null ? TargetCheck : (x) => true;
+
         current = t;
         returnCall = endResult;
         Vector2Int startLocation = Player.player.location;
 
-        if (lastTarget == Player.player && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
+        if ((lastTarget == Player.player && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET)) ||
+            (lastTarget != null && !isValidTarget(lastTarget)))
         {
             lastTarget = null;
         }
@@ -68,11 +71,20 @@ public class TargetingPanel : RogueUIPanel
         }
 
         //If this is now true, attempt to determine the best spot
-        if (lastTarget == null && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
+        if (lastTarget == null)
         {
+
             if ((t.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
+                List<Monster> player = new List<Monster>();
+                if (t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
+                {
+                    player.Add(Player.player);
+                }
+
                 Monster target = Player.player.view.visibleFriends
+                                 .Concat(player)
+                                 .Where(isValidTarget)
                                  .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
                                  .FirstOrDefault();
 
@@ -85,6 +97,7 @@ public class TargetingPanel : RogueUIPanel
             else
             {
                 Monster target = Player.player.view.visibleEnemies
+                                 .Where(isValidTarget)
                                  .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
                                  .FirstOrDefault();
 

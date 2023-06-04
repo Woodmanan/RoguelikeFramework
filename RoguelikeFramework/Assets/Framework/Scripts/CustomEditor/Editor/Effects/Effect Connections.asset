@@ -47,7 +47,7 @@ MonoBehaviour:
     priority: 6
   - name: OnPostDeath
     types: []
-    description: Called after this monster has registered it's death.
+    description: Called after this monster has registered its death.
     priority: 7
   - name: OnDeath
     types: []

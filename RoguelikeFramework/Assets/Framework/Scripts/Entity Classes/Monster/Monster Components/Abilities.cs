@@ -93,6 +93,11 @@ public class Abilities : MonoBehaviour
         }
     }
 
+    public void RemoveAllAbilities()
+    {
+        abilities.Clear();
+    }
+
     public void OnTurnEndGlobal()
     {
         foreach (Ability a in abilities)

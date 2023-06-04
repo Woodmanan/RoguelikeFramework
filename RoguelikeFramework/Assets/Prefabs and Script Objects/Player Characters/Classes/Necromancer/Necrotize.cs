@@ -21,7 +21,10 @@ public class Necrotize : Effect
 
     /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
 
-    /*public override string GetUISubtext() { return ""; }*/
+    public override string GetUISubtext()
+    {
+        return duration.ToString();
+    }
 
     /*public override float GetUIFillPercent() { return 0.0f; }*/
 
@@ -92,8 +95,14 @@ public class Necrotize : Effect
             RogueLog.singleton.LogTemplate("Resurrection", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular }, connectedTo.monster.gameObject, LogPriority.HIGH);
             connectedTo.monster.faction = credit.faction;
             connectedTo.monster.tags.AddTag("Monster.Undead.Lesser");
+            connectedTo.monster.tags.AddTag("Monster.CannotLeaveLevel");
+            connectedTo.monster.abilities.RemoveAllAbilities();
+
             connectedTo.monster.baseStats[HEALTH] = connectedTo.monster.currentStats[MAX_HEALTH];
-            connectedTo.monster.immunities |= DamageType.NECROTIC;
+            connectedTo.monster.immunities |= DamageType.NECROTIC | DamageType.POISON;
+
+            connectedTo.monster.RemoveEffectsByTag("Effect.Passive.Species");
+
             MonsterAI AI = connectedTo.monster.GetComponent<MonsterAI>();
             if (AI)
             {

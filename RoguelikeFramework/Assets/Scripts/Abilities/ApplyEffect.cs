@@ -14,6 +14,9 @@ public class ApplyEffect : Ability
     [SerializeField]
     DamagePairing damage;
 
+    [SerializeField]
+    RogueTagContainer RequireTags;
+
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
     public override bool OnCheckActivationSoft(Monster caster)
     {
@@ -24,6 +27,15 @@ public class ApplyEffect : Ability
     public override bool OnCheckActivationHard(Monster caster)
     {
         return true;
+    }
+
+    public override bool IsValidTarget(Monster target)
+    {
+        if (RequireTags.IsEmpty)
+        {
+            return true;
+        }
+        return RequireTags.MatchAnyTags(target.tags, TagMatch.Parental);
     }
 
     public override IEnumerator OnCast(Monster caster)

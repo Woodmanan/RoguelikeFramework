@@ -107,6 +107,9 @@ MonoBehaviour:
   currentRarity: 0
   ID: 33
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 0, y: 0}
   held: 0
@@ -159,11 +162,11 @@ MonoBehaviour:
   addedStats:
     _keys: 03000000090000000a000000
     _vals:
-    - -6
-    - 4
-    - -2
+    - 6
+    - 2
+    - 2
   statsPerEnchantment:
-    _keys: 030000000a000000
+    _keys: 0300000009000000
     _vals:
     - 1
     - 0.5

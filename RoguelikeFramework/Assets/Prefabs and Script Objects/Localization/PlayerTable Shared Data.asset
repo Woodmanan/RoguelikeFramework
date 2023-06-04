@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: Troll
     m_Metadata:
       m_Items: []
+  - m_Id: 20261221775908864
+    m_Key: Lich
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

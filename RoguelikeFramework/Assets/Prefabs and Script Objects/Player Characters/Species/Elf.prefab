@@ -89,6 +89,9 @@ MonoBehaviour:
   ID: 0
   minDepth: 0
   maxDepth: 0
+  tags:
+    _keys: []
+    _vals: 
   baseEffects:
   - id: 0
   energy: 0
@@ -141,6 +144,10 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: ce3a1625944a2734a8dcea4f828ca029, type: 3}
+        tags:
+          _keys:
+          - name: Effect.Passive.Species
+          _vals: 01000000
         statsPerLevel:
           _keys: 010000000300000009000000
           _vals:
