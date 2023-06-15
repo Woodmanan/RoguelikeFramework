@@ -114,6 +114,7 @@ public class MoveAction : GameAction
                 {
                     //Don't swap with someone who's doing stuff.
                     caller.energy -= caller.energyPerStep * tile.movementCost;
+                    caller.willSwap = true;
                 }
 
                 yield break;

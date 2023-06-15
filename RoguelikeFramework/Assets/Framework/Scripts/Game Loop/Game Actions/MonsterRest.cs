@@ -38,11 +38,18 @@ public class MonsterRest : GameAction
                 yield return act.action.Current;
             }
 
-            caller.Heal(1, true);
-
-            if (caller.baseStats[HEALTH] == caller.currentStats[MAX_HEALTH])
+            if (!caller.tags.MatchAnyTags("Monster.Undead", TagMatch.Familial))
             {
-                Debug.Log($"Log: {caller.GetFormattedName()} stops resting.");
+                caller.Heal(1, true);
+
+                if (caller.baseStats[HEALTH] == caller.currentStats[MAX_HEALTH])
+                {
+                    Debug.Log($"Log: {caller.GetFormattedName()} stops resting.");
+                    yield break;
+                }
+            }
+            else
+            {
                 yield break;
             }
         }

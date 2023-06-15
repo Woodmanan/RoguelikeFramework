@@ -71,6 +71,14 @@ MonoBehaviour:
     m_Key: Resurrection
     m_Metadata:
       m_Items: []
+  - m_Id: 24989510339862528
+    m_Key: DeathPrevented
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24990439394975744
+    m_Key: LichRessurect
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

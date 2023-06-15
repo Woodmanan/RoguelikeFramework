@@ -395,6 +395,14 @@ public class Equipment : MonoBehaviour
 
     public bool UnequipSlot(int SlotIndex)
     {
+        #if UNITY_EDITOR || GFXDEVICE_WAITFOREVENT_MESSAGEPUMP
+        if (equipmentSlots.Count <= SlotIndex)
+        {
+            Debug.LogError($"Tried to unequip slot {SlotIndex}, but monster only had {equipmentSlots.Count} slots.");
+            return false;
+        }
+        #endif
+
         if (equipmentSlots[SlotIndex].active)
         {
             ItemStack i = equipmentSlots[SlotIndex].equipped;

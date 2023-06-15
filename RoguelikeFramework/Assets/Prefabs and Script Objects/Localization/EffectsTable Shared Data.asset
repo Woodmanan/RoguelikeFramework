@@ -467,6 +467,14 @@ MonoBehaviour:
     m_Key: Greater Undead Description
     m_Metadata:
       m_Items: []
+  - m_Id: 69896636237291520
+    m_Key: LichPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69896672643850240
+    m_Key: LichPassiveDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

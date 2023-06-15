@@ -89,9 +89,20 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 24989510339862528
+    m_Localized: '{monster} cannot die!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 24990439394975744
+    m_Localized: Your phylactery shatters, and you reform! Your phylactery will return
+      in {level} levels.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d24000000206b835e6601000020ebde8c66010000202bafb89001000020abc20f9402000020ab00167c400000202b72ab924000
+        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d24000000206b835e6601000020ebde8c66010000202bafb89001000020abc20f9402000020ab00167c400000202b72ab9240000020ebc6d3c758000020eb16acc85800

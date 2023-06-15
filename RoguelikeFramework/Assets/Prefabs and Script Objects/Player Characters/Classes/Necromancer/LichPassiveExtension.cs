@@ -2,23 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
-using static Resources;
+
+/*
+ * Subclass that's used for the lich passive - this communicates with the 
+ * lead class to manage the resurrection passive
+ */
 
 [Group("Species")]
-[Priority(300)]
-public class LichPassive : Effect
+[Priority(299)]
+public class LichPassiveExtension : Effect
 {
-    public float manaPerSelfRevive;
-    public float manaPerMinionRevive;
-
-    public int reviveLevelCooldown;
-    public int reviveLevelMaxCooldown;
-
-    [SerializeReference]
-    Effect passiveExtension;
-
-    Dictionary<Monster, LichPassiveExtension> contained;
-
+    [HideInInspector]
+    public LichPassive ownerPassive;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -33,54 +28,14 @@ public class LichPassive : Effect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public LichPassive()
+    public LichPassiveExtension()
     {
         //Construct me!
     }
 
-    public void HandleConnectedDeath(Monster connected)
-    {
-        //Handle invalid connection that has persisted
-        if (!connectedTo.monster.view.visibleFriends.Contains(connected))
-        {
-            contained[connected].Disconnect();
-            contained.Remove(connected);
-            return;
-        }
-
-        if (connected.baseStats[HEALTH] <= 0 && connectedTo.monster.baseStats[MANA] > manaPerMinionRevive)
-        {
-            connectedTo.monster.AddBaseStat(MANA, -manaPerMinionRevive);
-            connected.AddBaseStat(HEALTH, -connected.baseStats[HEALTH] + 1);
-            RogueLog.singleton.LogTemplate("DeathPrevented", new { monster = connected.GetName() }, connectedTo.monster.gameObject, LogPriority.LOW, LogDisplay.STANDARD);
-        }
-        else
-        {
-            contained[connected].Disconnect();
-            contained.Remove(connected);
-        }
-    }
-
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    public override void OnConnection()
-    {
-        contained = new Dictionary<Monster, LichPassiveExtension>();
-    }
-
-    public void UpdateContained()
-    {
-        foreach (Monster monster in connectedTo.monster.view.visibleFriends)
-        {
-            if (!contained.ContainsKey(monster) && monster.tags.MatchAnyTags("Monster.Undead", TagMatch.Familial))
-            {
-                LichPassiveExtension extension = passiveExtension.Instantiate() as LichPassiveExtension;
-                extension.ownerPassive = this;
-                monster.AddEffect(extension);
-                contained.Add(monster, extension);
-            }
-        }
-    }
+    /*public override void OnConnection() {}*/
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
@@ -95,16 +50,10 @@ public class LichPassive : Effect
     //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
-    public override void OnTurnStartLocal()
-    {
-        UpdateContained();
-    }
+    //public override void OnTurnStartLocal() {}
 
     //Called at the end of a monster's turn
-    public override void OnTurnEndLocal()
-    {
-        UpdateContained();
-    }
+    //public override void OnTurnEndLocal() {}
 
     //Called whenever a monster wants to take a step.
     //public override void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
@@ -121,19 +70,7 @@ public class LichPassive : Effect
     //Called when the connected monster dies
     public override void OnDeath()
     {
-        if (connectedTo.monster.baseStats[HEALTH] <= 0 && connectedTo.monster.baseStats[MANA] > manaPerSelfRevive)
-        {
-            connectedTo.monster.AddBaseStat(MANA, -manaPerSelfRevive);
-            connectedTo.monster.AddBaseStat(HEALTH, -connectedTo.monster.baseStats[HEALTH] + 1);
-            RogueLog.singleton.LogTemplate("DeathPrevented", new { monster = connectedTo.monster.GetName() }, connectedTo.monster.gameObject, LogPriority.HIGH, LogDisplay.STANDARD);
-        }
-        else if (reviveLevelCooldown == 0)
-        {
-            reviveLevelCooldown = reviveLevelMaxCooldown;
-            connectedTo.monster.SetPositionSnap(Map.current.GetRandomWalkableTile());
-            connectedTo.monster.AddBaseStat(HEALTH, -connectedTo.monster.baseStats[HEALTH] + connectedTo.monster.currentStats[MAX_HEALTH]);
-            RogueLog.singleton.LogTemplate("LichRessurect", new { level = reviveLevelMaxCooldown }, connectedTo.monster.gameObject, LogPriority.HIGH, LogDisplay.STANDARD);
-        }
+        ownerPassive.HandleConnectedDeath(connectedTo.monster);
     }
 
     //Called when a monster is killed by this unit.
@@ -173,10 +110,7 @@ public class LichPassive : Effect
     //public override void OnGainXP(ref float XPAmount) {}
 
     //Called when this monster levels up! Level CANNOT be modified.
-    public override void OnLevelUp(ref int Level)
-    {
-        reviveLevelCooldown = Mathf.Max(reviveLevelCooldown - 1, 0);
-    }
+    //public override void OnLevelUp(ref int Level) {}
 
     //Called when this monster loses resources. (Different from damage, but can take health)
     //public override void OnLoseResources(ref Stats resources) {}
