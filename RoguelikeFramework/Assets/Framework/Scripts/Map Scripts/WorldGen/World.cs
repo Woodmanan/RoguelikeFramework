@@ -18,6 +18,13 @@ public class World
     public List<Branch> branches = new List<Branch>();
     public List<LevelConnection> connections = new List<LevelConnection>();
     public List<DungeonSystem> systems = new List<DungeonSystem>();
+    
+    [SerializeReference]
+    public List<Effect> playerPassives;
+
+    [SerializeReference]
+    public List<Effect> monsterPassives;
+
 
     public void PrepareLevelsForLoad(LevelLoader loader)
     {

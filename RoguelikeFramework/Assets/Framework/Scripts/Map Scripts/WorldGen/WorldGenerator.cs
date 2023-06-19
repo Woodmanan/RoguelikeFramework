@@ -43,6 +43,14 @@ public class WorldGenerator : ScriptableObject
     World world;
     public HashSet<string> generationOptions;
 
+    [Header("Player Passives")]
+    [SerializeReference]
+    public List<Effect> playerPassives;
+
+    [Header("Monster Passives")]
+    [SerializeReference]
+    List<Effect> monsterPassives;
+
     public World Generate()
     {
         world = new World();
@@ -205,6 +213,10 @@ public class WorldGenerator : ScriptableObject
         {
             system.Setup(world);
         }
+
+        //Move passives over
+        world.playerPassives = playerPassives;
+        world.monsterPassives = monsterPassives;
 
         return world;
     }

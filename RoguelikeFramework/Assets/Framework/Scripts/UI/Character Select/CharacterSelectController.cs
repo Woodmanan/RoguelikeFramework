@@ -30,9 +30,6 @@ public class CharacterSelectController : MonoBehaviour
     public LoadingScreen loadingScreen;
     public string startAt;
 
-    [SerializeReference]
-    public List<Effect> playerPassives;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +65,11 @@ public class CharacterSelectController : MonoBehaviour
         chosenSpecies = species;
     }
 
+    public void SetChosenGenerator(WorldGenerator generator)
+    {
+        chosenGenerator = generator;
+    }
+
     IEnumerator LaunchGameRoutine()
     {
         yield return SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
@@ -77,7 +79,7 @@ public class CharacterSelectController : MonoBehaviour
 
         Player.player = Instantiate(chosenSpecies);
         chosenClass.Apply(Player.player);
-        Player.player.AddEffectInstantiate(playerPassives.ToArray());
+        Player.player.AddEffectInstantiate(chosenGenerator.playerPassives.ToArray());
         Player castPlayer = Player.player as Player;
         SceneManager.MoveGameObjectToScene(Player.player.gameObject, SceneManager.GetSceneByName("MainScene"));
 

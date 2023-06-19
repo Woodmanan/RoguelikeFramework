@@ -26,7 +26,7 @@ public class Effect : IDescribable
     [SerializeField] protected LocalizedString description;
     [SerializeField] protected Sprite image;
 
-    [SerializeField] protected RogueTagContainer tags;
+    [SerializeField] public RogueTagContainer tags;
 
     public Effect Instantiate()
     {

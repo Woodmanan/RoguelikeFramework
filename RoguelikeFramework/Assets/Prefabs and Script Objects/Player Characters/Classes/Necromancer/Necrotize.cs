@@ -102,6 +102,7 @@ public class Necrotize : Effect
             connectedTo.monster.immunities |= DamageType.NECROTIC | DamageType.POISON;
 
             connectedTo.monster.RemoveEffectsByTag("Effect.Passive.Species");
+            connectedTo.monster.RemoveEffectsByTag("Effect.Passive.MonsterDefault");
 
             MonsterAI AI = connectedTo.monster.GetComponent<MonsterAI>();
             if (AI)
@@ -245,6 +246,8 @@ public class Necrotize : Effect
     {
         connectedTo = c;
 
+        c.OnTurnEndGlobal.AddListener(500, OnTurnEndGlobal);
+
         c.OnPostDeath.AddListener(500, OnPostDeath);
 
         OnConnection();
@@ -255,6 +258,8 @@ public class Necrotize : Effect
     public override void Disconnect()
     {
         OnDisconnection();
+
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
         connectedTo.OnPostDeath.RemoveListener(OnPostDeath);
 

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
+using static Resources;
 
 [Group("Steamworks")]
-[Priority(10)]
+[Priority(1000)]
 public class UnlockAchOnDeath : Effect
 {
     public string achievementName;
@@ -55,9 +56,12 @@ public class UnlockAchOnDeath : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnPostDeath()
     {
-        SteamController.singleton?.GiveAchievement(achievementName);
+        if (connectedTo.monster.baseStats[HEALTH] <= 0)
+        {
+            SteamController.singleton?.GiveAchievement(achievementName);
+        }
     }
 
     //Called when a monster is killed by this unit.
@@ -189,7 +193,7 @@ public class UnlockAchOnDeath : Effect
     {
         connectedTo = c;
 
-        c.OnDeath.AddListener(10, OnDeath);
+        c.OnPostDeath.AddListener(1000, OnPostDeath);
 
         OnConnection();
     }
@@ -200,7 +204,7 @@ public class UnlockAchOnDeath : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnPostDeath.RemoveListener(OnPostDeath);
 
         ReadyToDelete = true;
     }

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static Resources;
 
 [CreateAssetMenu(fileName = "New DrainLife", menuName = "Abilities/Classes/Necromancer/DrainLife", order = 1)]
 public class DrainLife : Ability
 {
     public float percentHealthDamage;
+    public float minimumAmount;
+
     public RogueTagContainer excludeTags;
 
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
@@ -36,7 +39,7 @@ public class DrainLife : Ability
         Vector2Int mainTargetPoint = targeting.points[0];
         Monster mainTarget = Map.current.GetTile(mainTargetPoint).currentlyStanding;
 
-        float health = mainTarget.baseStats[Resources.HEALTH] * percentHealthDamage / 100;
+        float health = Mathf.Max(mainTarget.baseStats[HEALTH] * percentHealthDamage / 100, Mathf.Min(mainTarget.currentStats[MAX_HEALTH], minimumAmount));
         mainTarget.Damage(caster, health, DamageType.TRUE, DamageSource.ABILITY);
 
         List<Monster> healTargets = targeting.affected;

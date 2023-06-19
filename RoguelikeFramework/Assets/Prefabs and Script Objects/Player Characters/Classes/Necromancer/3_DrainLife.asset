@@ -88,6 +88,7 @@ MonoBehaviour:
   effects: []
   credit: {fileID: 0}
   percentHealthDamage: 35
+  minimumAmount: 10
   excludeTags:
     _keys:
     - name: Monster.Construct

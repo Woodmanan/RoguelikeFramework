@@ -29,8 +29,11 @@ public class MonsterSpawner : MonoBehaviour
         set { Singleton = value; }
     }
 
+    World world;
+
     public void SetMonsterPools(World world)
     {
+        this.world = world;
         foreach (Branch branch in world.branches)
         {
             branch.monsterTables = branch.monsterTables.Select(x => Instantiate(x)).ToList();
@@ -127,23 +130,23 @@ public class MonsterSpawner : MonoBehaviour
                 }
             }
 
-            m.monsters.Add(monster);
-            monster.location = pos;
-            monster.transform.parent = m.monsterContainer;
-            monster.level = m.depth;
-            monster.Setup();
+            SpawnMonster(monster, pos, m, postSetup: false);
         }
     }
 
-    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map)
+    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map, bool postSetup = true)
     {
         map.monsters.Add(monster);
         monster.location = location;
         monster.transform.parent = map.monsterContainer;
         monster.level = map.depth;
         monster.Setup();
-        monster.PostSetup(Map.current);
         monster.currentTile = map.GetTile(location);
+        monster.AddEffectInstantiate(world.monsterPassives.ToArray());
+        if (postSetup)
+        {
+            monster.PostSetup(Map.current);
+        }
         return monster;
     }
 
