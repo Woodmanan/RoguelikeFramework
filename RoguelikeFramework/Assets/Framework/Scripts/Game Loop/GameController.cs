@@ -94,6 +94,11 @@ public class GameController : MonoBehaviour
 
         world = LevelLoader.singleton.world;
 
+        //Clean up some potentially old values
+        {
+            AutoPickupAction.SeenItems.Clear();
+        }
+
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0].toLocation;

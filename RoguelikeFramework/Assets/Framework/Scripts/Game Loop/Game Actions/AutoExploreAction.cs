@@ -27,13 +27,30 @@ public class AutoExploreAction : GameAction
                 yield break;
             }
 
-            //TODO: Rest action first!
-            GameAction restAct = new RestAction();
-            restAct.Setup(caller);
-            while (restAct.action.MoveNext())
-            {
-                yield return restAct.action.Current;
+            { //Check for auto actions before true exploration starts
+
+                //Rest action first!
+                GameAction restAct = new RestAction();
+                restAct.Setup(caller);
+                while (restAct.action.MoveNext())
+                {
+                    yield return restAct.action.Current;
+                }
+
+                //Check for any items about
+                Item priorityItem = GetNextPriorityItem();
+                if (priorityItem != null)
+                {
+                    GameAction autoPickupAction = new AutoPickupAction(priorityItem);
+                    autoPickupAction.Setup(caller);
+                    while (autoPickupAction.action.MoveNext())
+                    {
+                        yield return autoPickupAction.action.Current;
+                    }
+                }
+
             }
+            
 
             //Build up the points we need!
             List<Vector2Int> goals = new List<Vector2Int>();
@@ -107,13 +124,18 @@ public class AutoExploreAction : GameAction
                     yield break;
                 }
 
-                /* Old item-finding code - needs to be rewritten!
-                if (player.NewItemInSight)
+                //Check for any items about
+                Item priorityItem = GetNextPriorityItem();
+                if (priorityItem != null)
                 {
-                    LogManager.S.Log("You stop for it.");
-                    Player.player.UpdateLOS();
-                    yield break;
-                }*/
+                    GameAction autoPickupAction = new AutoPickupAction(priorityItem);
+                    autoPickupAction.Setup(caller);
+                    while (autoPickupAction.action.MoveNext())
+                    {
+                        yield return autoPickupAction.action.Current;
+                    }
+                    break;
+                }
 
                 //Uncomment for timed steps
                 //yield return new WaitForSeconds(.05f);
@@ -122,6 +144,21 @@ public class AutoExploreAction : GameAction
             }
         }
     }
+
+    private Item GetNextPriorityItem()
+    {
+        foreach (Item item in caller.view.visibleItems)
+        {
+            if (AutoPickupAction.IsPriorityPickup(item) || !AutoPickupAction.SeenItems.Contains(item))
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    
 
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.

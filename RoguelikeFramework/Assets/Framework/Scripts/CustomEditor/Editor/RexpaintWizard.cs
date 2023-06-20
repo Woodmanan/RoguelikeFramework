@@ -8,7 +8,7 @@ using System.Diagnostics;
 [InitializeOnLoad]
 public class RexpaintWizard
 {
-    const int RefreshEveryX = 10;
+    const int RefreshEveryX = 40;
     static RexpaintWizard()
     {
         if (!SessionState.GetBool("FirstInitDone", false))

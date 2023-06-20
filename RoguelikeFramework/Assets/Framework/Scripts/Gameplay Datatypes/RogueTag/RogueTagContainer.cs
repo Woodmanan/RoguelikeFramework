@@ -135,12 +135,12 @@ public class RogueTagContainer : ISerializationCallbackReceiver
         return counts.TryGetValue(tag, out outValue) && outValue > 0;
     }
 
-    public bool MatchAnyTags(string tag, TagMatch matchType)
+    public bool MatchAnyTags(string tag, TagMatch matchType = TagMatch.Parental)
     {
         return MatchAnyTags(new RogueTag(tag), matchType);
     }
     
-    public bool MatchAnyTags(RogueTag tag, TagMatch matchType)
+    public bool MatchAnyTags(RogueTag tag, TagMatch matchType = TagMatch.Parental)
     {
         foreach (RogueTag key in counts.Keys)
         {

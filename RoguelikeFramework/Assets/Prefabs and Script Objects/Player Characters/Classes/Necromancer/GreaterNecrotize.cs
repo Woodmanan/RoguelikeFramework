@@ -106,6 +106,7 @@ public class GreaterNecrotize : Effect
             effect.credit = credit;
             connectedTo.monster.RemoveEffectsByTag("Effect.Passive.Species");
             connectedTo.monster.RemoveEffectsByTag("Effect.Passive.MonsterDefault");
+            connectedTo.monster.RemoveEffectsByTag("Effect.Passive.PlayerDefault");
             connectedTo.monster.AddEffect(effect);
 
             MonsterAI AI = connectedTo.monster.GetComponent<MonsterAI>();

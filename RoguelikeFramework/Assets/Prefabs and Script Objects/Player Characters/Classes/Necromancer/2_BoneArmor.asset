@@ -54,7 +54,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 8
+    - 5
   currentStats:
     _keys: 
     _vals: []
@@ -81,7 +81,7 @@ MonoBehaviour:
   costs:
     _keys: 02000000
     _vals:
-    - 5
+    - 3
   castable: 1
   types: 0
   effects: []

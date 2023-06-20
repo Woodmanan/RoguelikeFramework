@@ -92,8 +92,11 @@ MonoBehaviour:
   damage:
     damage:
       rolls: 3
-      dice: 10
+      dice: 5
     type: 258
+  RequireTags:
+    _keys: []
+    _vals: 
   references:
     version: 1
     00000000:

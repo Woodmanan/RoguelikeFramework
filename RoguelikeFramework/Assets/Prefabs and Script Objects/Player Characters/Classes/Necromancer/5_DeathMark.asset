@@ -54,7 +54,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 30
+    - 10
   currentStats:
     _keys: 
     _vals: []
@@ -167,11 +167,11 @@ MonoBehaviour:
           _vals: 
         numberOfKills: 0
         maxNumberOfKills: 80
-        manaPerKill: 1
+        manaPerKill: 3
         lowerManaPercent: 40
         upperManaPercent: 200
-        lowerHealthPercent: 40
-        upperHealthPercent: 120
+        lowerHealthPercent: 80
+        upperHealthPercent: 160
     00000002:
       type: {class: LichPassive, ns: , asm: RoguelikeFramework}
       data:

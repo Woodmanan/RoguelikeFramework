@@ -14,7 +14,10 @@ public class CorpseExplosion : Ability
     DamagePairing nonExecuteDamage;
 
     [SerializeField]
-    DamagePairing explosionDamage;
+    DamagePairing lesserExplosionDamage;
+
+    [SerializeField]
+    DamagePairing GreaterExplosionDamage;
 
     [SerializeField]
     LocalizedString explosionString;
@@ -56,6 +59,11 @@ public class CorpseExplosion : Ability
 
             if (mainTarget.baseStats[HEALTH] <= 0)
             {
+                DamagePairing explosionDamage = lesserExplosionDamage;
+                if (mainTarget.tags.HasTag("Monster.Undead.Greater"))
+                {
+                    explosionDamage = GreaterExplosionDamage;
+                }
                 RogueLog.singleton.Log(explosionString.GetLocalizedString(), null, LogPriority.HIGH);
                 targeting.affected.Remove(mainTarget);
                 foreach (Monster target in targeting.affected)

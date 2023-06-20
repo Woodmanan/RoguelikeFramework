@@ -44,10 +44,16 @@ public class PickupAction : GameAction
             yield break;
         }
 
+        //Setup names
+        Inventory tileInventory = Map.current.GetTile(caller.location).inventory;
+        List<string> itemNames = indices.Select(x => tileInventory[x].GetName(true)).ToList();
+
         foreach (int index in indices)
         {
             caller.inventory.PickUp(index);
         }
+
+        RogueLog.singleton.LogTemplate("ItemPickup", new { monster = caller.GetName(), singular = caller.singular, items = itemNames }, null, LogPriority.HIGH);
 
         caller.energy -= 100;
 

@@ -100,9 +100,20 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - id: 0
+  - m_Id: 26895216294961152
+    m_Localized: You see {items:{}|, |, and | and } here.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26898170834001920
+    m_Localized: '{monster} {singular:pick up|picks up} {items:{}|, |, and | and
+      }.'
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d24000000206b835e6601000020ebde8c66010000202bafb89001000020abc20f9402000020ab00167c400000202b72ab9240000020ebc6d3c758000020eb16acc85800
+        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d24000000206b835e6601000020ebde8c66010000202bafb89001000020abc20f9402000020ab00167c400000202b72ab9240000020ebc6d3c758000020eb16acc8580000206b850e8d5f000020ab6dbe8f5f00

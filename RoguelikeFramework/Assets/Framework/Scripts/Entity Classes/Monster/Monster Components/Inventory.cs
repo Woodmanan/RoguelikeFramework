@@ -15,12 +15,19 @@ public class ItemStack
     [HideInInspector] public int lastUpdated; //Used to find what items should float to the top
 
     
-
-    public string GetName()
+    //TODO: Articles for special weapons (a +5 sword vs the +5 sword of rebirth)
+    public string GetName(bool withArticles = false)
     {
         if (count == 1)
         {
-            return held[0].GetName();
+            if (withArticles)
+            {
+                return "a " + held[0].GetName();
+            }
+            else
+            {
+                return held[0].GetName();
+            }
         }
         else
         {

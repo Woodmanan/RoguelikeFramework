@@ -163,6 +163,8 @@ public class Item : MonoBehaviour, IDescribable
             name += " <color=#74AE93> [Equipped]";
         }
 
+        name += "</color>";
+
         return name;
     }
 

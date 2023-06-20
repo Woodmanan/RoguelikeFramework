@@ -89,11 +89,10 @@ public class MonsterAI : ActionController
             }
             else
             {
-                choices.Enqueue(4, 1f - .1f);
+                //Monster with lower health want to rest more - shouldn't be wandering around
+                float restVal = Mathf.Min(.9f, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
+                choices.Enqueue(4, restVal);
             }
-
-            //5 - Heal up
-            choices.Enqueue(5, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
             
 
             int finalChoice = choices.Dequeue();
@@ -113,9 +112,6 @@ public class MonsterAI : ActionController
                     break;
                 case 4:
                     nextAction = new WaitAction();
-                    break;
-                case 5:
-                    nextAction = new MonsterRest();
                     break;
                 case 6: //Follow the leader!
                     Vector2Int followPosition = Map.current.GetRandomWalkableTileInSight(leader, 2);

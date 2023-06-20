@@ -55,7 +55,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 5
+    - 3
   currentStats:
     _keys: 
     _vals: []

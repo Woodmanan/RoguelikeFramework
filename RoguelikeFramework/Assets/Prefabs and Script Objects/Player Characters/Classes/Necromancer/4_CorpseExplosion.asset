@@ -55,7 +55,7 @@ MonoBehaviour:
   baseStats:
     _keys: 01000000
     _vals:
-    - 10
+    - 5
   currentStats:
     _keys: 
     _vals: []
@@ -97,10 +97,15 @@ MonoBehaviour:
       rolls: 2
       dice: 10
     type: 4
-  explosionDamage:
+  lesserExplosionDamage:
     damage:
-      rolls: 3
-      dice: 15
+      rolls: 4
+      dice: 10
+    type: 1
+  GreaterExplosionDamage:
+    damage:
+      rolls: 10
+      dice: 10
     type: 1
   explosionString:
     m_TableReference:

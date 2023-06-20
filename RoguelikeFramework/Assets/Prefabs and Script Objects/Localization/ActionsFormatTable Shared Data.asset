@@ -79,6 +79,14 @@ MonoBehaviour:
     m_Key: LichRessurect
     m_Metadata:
       m_Items: []
+  - m_Id: 26895216294961152
+    m_Key: ItemsSeen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26898170834001920
+    m_Key: ItemPickup
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
