@@ -10,15 +10,17 @@ public class MoveAction : GameAction
     public bool useStair;
     public bool animates;
     public bool didMove = false;
+    public bool picksUpItems;
 
     //Constuctor for the action
-    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true)
+    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true, bool picksUpItems = false)
     {
         //Construct me! Assigns caller by default in the base class
         intendedLocation = location;
         this.costs = costs;
         this.useStair = useStair;
-        this.animates = true;
+        this.animates = animates;
+        this.picksUpItems = picksUpItems;
     }
 
     //The main function! This EXACT coroutine will be executed, even across frames.
@@ -160,6 +162,17 @@ public class MoveAction : GameAction
                 yield return act.action.Current;
             }
             yield return GameAction.AbortAll;
+        }
+        
+        //Logging items found (player only)
+        if (picksUpItems)
+        {
+            AutoPickupAction action = new AutoPickupAction();
+            action.Setup(caller);
+            while (action.action.MoveNext())
+            {
+                yield return action.action.Current;
+            }
         }
     }
 

@@ -18,28 +18,28 @@ public class PlayerActionController : ActionController
             {
                 //Handle Movement code
                 case PlayerAction.MOVE_UP:
-                    nextAction = new MoveAction(monster.location + Vector2Int.up);
+                    nextAction = new MoveAction(monster.location + Vector2Int.up, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN:
-                    nextAction = new MoveAction(monster.location + Vector2Int.down);
+                    nextAction = new MoveAction(monster.location + Vector2Int.down, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_LEFT:
-                    nextAction = new MoveAction(monster.location + Vector2Int.left);
+                    nextAction = new MoveAction(monster.location + Vector2Int.left, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_RIGHT:
-                    nextAction = new MoveAction(monster.location + Vector2Int.right);
+                    nextAction = new MoveAction(monster.location + Vector2Int.right, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_UP_LEFT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, 1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, 1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_UP_RIGHT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(1, 1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(1, 1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN_LEFT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, -1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, -1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN_RIGHT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(1, -1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(1, -1), picksUpItems: true);
                     break;
                 case PlayerAction.WAIT:
                     nextAction = new WaitAction();
