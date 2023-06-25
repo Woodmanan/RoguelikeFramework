@@ -189,5 +189,8 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: bbfbbb9ae15595a479c3244392c06e08, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         energyPerTurn: 50
         duration: 20

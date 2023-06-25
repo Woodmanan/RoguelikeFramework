@@ -107,6 +107,9 @@ MonoBehaviour:
   currentRarity: 0
   ID: 19
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 0, y: 0}
   held: 0

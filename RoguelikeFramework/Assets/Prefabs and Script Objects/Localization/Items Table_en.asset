@@ -525,5 +525,13 @@ MonoBehaviour:
     m_Localized: Allows you to improve that stats of any enchantable armor by 5-10.
     m_Metadata:
       m_Items: []
+  - m_Id: 63742764951216128
+    m_Localized: Necronomicon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63742826393575424
+    m_Localized: The dark magics of raising the undead.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

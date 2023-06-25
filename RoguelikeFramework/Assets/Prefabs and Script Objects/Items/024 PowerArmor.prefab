@@ -107,6 +107,9 @@ MonoBehaviour:
   currentRarity: 0
   ID: 24
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 0.83433616, g: 0.9622642, b: 0.41213953, a: 1}
   location: {x: 0, y: 0}
   held: 0
@@ -196,6 +199,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: 8a69e9cf917e3724188cf5abf43473b8, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         range: 5
         addedStats:
           _keys: 09000000

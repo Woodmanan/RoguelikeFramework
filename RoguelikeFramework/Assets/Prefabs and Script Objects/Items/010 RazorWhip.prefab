@@ -108,6 +108,9 @@ MonoBehaviour:
   currentRarity: 0
   ID: 10
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 0.96451586, g: 1, b: 0.2584905, a: 1}
   location: {x: 45, y: 91}
   held: 0
@@ -168,6 +171,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         percentDamage: 70
 --- !u!114 &8340609320983818534
 MonoBehaviour:
@@ -220,6 +226,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 3865522631476802256, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         range: 4
 --- !u!114 &5952500659652189400
 MonoBehaviour:

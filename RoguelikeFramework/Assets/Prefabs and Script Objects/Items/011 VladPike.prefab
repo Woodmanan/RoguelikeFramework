@@ -108,6 +108,9 @@ MonoBehaviour:
   currentRarity: 0
   ID: 11
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 0.831, g: 0.48862797, b: 0.48862797, a: 1}
   location: {x: 45, y: 91}
   held: 0
@@ -169,6 +172,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         drainsOn: -1
         drainsFrom: -1
         efficiency: 100
@@ -196,6 +202,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         numSquaresBehind: 1
         percentDamage: 50
 --- !u!114 &8340609320983818534

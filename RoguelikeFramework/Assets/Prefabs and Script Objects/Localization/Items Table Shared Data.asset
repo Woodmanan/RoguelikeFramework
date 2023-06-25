@@ -487,6 +487,14 @@ MonoBehaviour:
     m_Key: GreaterEnchantWeaponScrollDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 63742764951216128
+    m_Key: NecroSpellbookName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63742826393575424
+    m_Key: NecroSpellbookDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

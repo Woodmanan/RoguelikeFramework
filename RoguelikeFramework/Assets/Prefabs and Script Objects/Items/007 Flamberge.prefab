@@ -108,6 +108,9 @@ MonoBehaviour:
   currentRarity: 0
   ID: 7
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 1, g: 1, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
@@ -168,6 +171,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         primaryAdd:
         - id: 1
         secondaryAdd: []
@@ -196,6 +202,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         damagePerTick: 2
         numTicks: 5
         type: 64

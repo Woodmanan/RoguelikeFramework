@@ -189,6 +189,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: 1250d04abd74c084eac5333e8142bb3c, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         instantHealth: 30
         healingPerTurn: 0
         numTurns: 0

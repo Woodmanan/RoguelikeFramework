@@ -106,7 +106,6 @@ public class GreaterNecrotize : Effect
             effect.credit = credit;
             connectedTo.monster.RemoveEffectsByTag("Effect.Passive.Species");
             connectedTo.monster.RemoveEffectsByTag("Effect.Passive.MonsterDefault");
-            connectedTo.monster.RemoveEffectsByTag("Effect.Passive.PlayerDefault");
             connectedTo.monster.AddEffect(effect);
 
             MonsterAI AI = connectedTo.monster.GetComponent<MonsterAI>();
@@ -124,6 +123,13 @@ public class GreaterNecrotize : Effect
                 SteamController.singleton?.GiveAchievement("ACH_SPECIES_LICH");
                 player.GetComponent<SpriteRenderer>().sprite = PlayerLichImage;
                 player.speciesName = LichName;
+
+                PlayerPassive passive = player.GetEffect<PlayerPassive>();
+                if (passive != null)
+                {
+                    passive.statsPer100TurnsCombat[MANA] = 0;
+                    passive.statsPer100TurnsCombat[HEALTH] = 0;
+                }
 
                 player.AddEffectInstantiate(LichPassive);
 
