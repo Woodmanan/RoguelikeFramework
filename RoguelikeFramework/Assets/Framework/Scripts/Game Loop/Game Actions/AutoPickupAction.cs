@@ -108,10 +108,10 @@ public class AutoPickupAction : GameAction
                     {
                         SeenItems.Add(stack.held[0]);
                     }
-                }
-
-                yield return AbortAll;
+                }   
             }
+
+            yield return AbortAll;
         }
     }
 

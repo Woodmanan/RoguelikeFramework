@@ -137,6 +137,12 @@ public class AutoExploreAction : GameAction
                     break;
                 }
 
+                //Check if the goal tile is visible - if so, we could quit now!
+                if (Map.current.GetTile(path.destination).isVisible)
+                {
+                    break;
+                }
+
                 //Uncomment for timed steps
                 //yield return new WaitForSeconds(.05f);
 
