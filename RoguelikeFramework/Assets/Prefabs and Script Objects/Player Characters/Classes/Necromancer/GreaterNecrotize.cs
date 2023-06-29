@@ -96,6 +96,7 @@ public class GreaterNecrotize : Effect
         {
             RogueLog.singleton.LogTemplate("Resurrection", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular }, connectedTo.monster.gameObject, LogPriority.HIGH);
             connectedTo.monster.faction = credit.faction;
+            connectedTo.monster.credit = credit;
             connectedTo.monster.tags.AddTag("Monster.Undead.Greater");
 
             connectedTo.monster.baseStats[HEALTH] = connectedTo.monster.currentStats[MAX_HEALTH];

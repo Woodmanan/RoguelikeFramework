@@ -242,7 +242,8 @@ public class GameController : MonoBehaviour
                 if (monster.IsDead())
                 {
                     Map.current.monsters.RemoveAt(i);
-                    Destroy(monster.gameObject);
+                    monster.gameObject.SetActive(false);
+                    //Destroy(monster.gameObject);
                 }
             }
 

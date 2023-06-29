@@ -94,6 +94,7 @@ public class Necrotize : Effect
         {
             RogueLog.singleton.LogTemplate("Resurrection", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular }, connectedTo.monster.gameObject, LogPriority.HIGH);
             connectedTo.monster.faction = credit.faction;
+            connectedTo.monster.credit = credit;
             connectedTo.monster.tags.AddTag("Monster.Undead.Lesser");
             connectedTo.monster.tags.AddTag("Monster.CannotLeaveLevel");
             connectedTo.monster.abilities.RemoveAllAbilities();

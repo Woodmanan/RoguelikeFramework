@@ -37,6 +37,8 @@ public class Monster : MonoBehaviour, IDescribable
     public int maxDepth;
     //public RogueTag rogueTag;
     public RogueTagContainer tags = new RogueTagContainer();
+    [HideInInspector]
+    public Monster credit;
 
     [SerializeReference]
     public List<Effect> baseEffects;
@@ -315,10 +317,17 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void KillMonster(Monster target, DamageType type, DamageSource source)
     {
-        connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
-        if (target.IsEnemy(this))
+        if (!dead)
         {
-            GainXP(target, target.XPFromKill);
+            connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
+            if (target.IsEnemy(this))
+            {
+                GainXP(target, target.XPFromKill);
+            }
+        }
+        if (credit)
+        {
+            credit.KillMonster(target, type, source);
         }
     }
 

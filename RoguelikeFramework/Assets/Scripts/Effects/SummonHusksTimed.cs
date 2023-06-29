@@ -99,7 +99,8 @@ public class SummonHusksTimed : Effect
     public void SpawnAt(Vector2Int location, Monster caster, Monster target)
     {
 
-        Monster spawned = MonsterSpawner.singleton.SpawnMonsterInstantiate(huskPrefab, location, Map.current);
+        Monster spawned = MonsterSpawner.singleton.SpawnMonsterInstantiate(huskPrefab, location, Map.current, credit);
+        spawned.GetComponent<MonsterAI>().leader = credit;
         if (caster)
         {
             spawned.faction = caster.faction;

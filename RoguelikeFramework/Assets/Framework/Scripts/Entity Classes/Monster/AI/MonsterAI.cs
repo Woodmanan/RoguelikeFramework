@@ -43,6 +43,12 @@ public class MonsterAI : ActionController
 
         choices.Clear();
 
+        //Backup leader - if yours dies, go up the credit chain
+        while (leader != null && leader.IsDead())
+        {
+            leader = leader.credit;
+        }
+
         if (lastEnemy && (monster.location.GameDistance(lastEnemy.location) > loseDistance || currentTries == 0))
         {
             lastEnemy = null;

@@ -86,7 +86,7 @@ public class SummonGuards : Effect
             RogueTile tile = Map.current.GetTile(pos);
             if (tile.IsOpen() && tile.currentlyStanding == null)
             {
-                MonsterSpawner.singleton.SpawnMonsterAt(Map.current, pos);
+                MonsterSpawner.singleton.SpawnMonsterAt(Map.current, pos, credit);
                 if (connectedTo.monster.renderer.enabled)
                 {
                     RogueLog.singleton.LogTemplate("Summon", new { monster = connectedTo.monster.GetName(), singular = connectedTo.monster.singular, target = tile.currentlyStanding.GetName(definite: false) },

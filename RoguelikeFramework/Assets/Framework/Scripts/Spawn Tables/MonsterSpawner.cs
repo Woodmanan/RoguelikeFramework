@@ -134,12 +134,13 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map, bool postSetup = true)
+    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map, bool postSetup = true, Monster creditedTo = null)
     {
         map.monsters.Add(monster);
         monster.location = location;
         monster.transform.parent = map.monsterContainer;
         monster.level = map.depth;
+        monster.credit = creditedTo;
         monster.Setup();
         monster.currentTile = map.GetTile(location);
         monster.AddEffectInstantiate(world.monsterPassives.ToArray());
@@ -150,9 +151,9 @@ public class MonsterSpawner : MonoBehaviour
         return monster;
     }
 
-    public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map)
+    public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map, Monster creditedTo = null)
     {
-        return SpawnMonster(monster.Instantiate(), location, map);
+        return SpawnMonster(monster.Instantiate(), location, map, creditedTo);
     }
 
     public Monster GetMonsterFromBranchAndDepth(Branch branch, int depth)
@@ -174,13 +175,13 @@ public class MonsterSpawner : MonoBehaviour
         return options[Random.Range(0, options.Count)].RandomMonsterByDepth(depth);
     }
 
-    public void SpawnMonsterAt(Map map, Vector2Int location)
+    public void SpawnMonsterAt(Map map, Vector2Int location, Monster creditedTo = null)
     {
         Branch branch = map.branch;
         Monster toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
         if (toSpawn)
         {
-            SpawnMonster(toSpawn, location, map);
+            SpawnMonster(toSpawn, location, map, creditedTo);
         }
         else
         {
