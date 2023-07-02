@@ -41,7 +41,7 @@ public class ChainBind : Effect
 
     public void Yank()
     {
-        if (credit == null)
+        if (credit == null || credit.IsDead())
         {
             Disconnect();
             return;

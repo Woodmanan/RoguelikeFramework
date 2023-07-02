@@ -55,7 +55,13 @@ public class NightmareVisualConnection : Effect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() { }
+    public override void OnTurnEndGlobal()
+    {
+        if (credit == null || credit.IsDead() || !connectedTo.monster.view.GetVisibleMonsters(connectedTo.monster).Contains(credit))
+        {
+            Disconnect();
+        }
+    }
 
     //Called at the start of a monster's turn
     public override void OnTurnStartLocal()
@@ -232,6 +238,8 @@ public class NightmareVisualConnection : Effect
 
         c.OnTurnStartLocal.AddListener(10, OnTurnStartLocal);
 
+        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+
         OnConnection();
     }
     //END CONNECTION
@@ -242,6 +250,8 @@ public class NightmareVisualConnection : Effect
         OnDisconnection();
 
         connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
+
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
         ReadyToDelete = true;
     }

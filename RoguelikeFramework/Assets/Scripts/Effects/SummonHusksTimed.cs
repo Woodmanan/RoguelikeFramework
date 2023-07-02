@@ -27,7 +27,7 @@ public class SummonHusksTimed : Effect
 
     public void CallSummon()
     {
-        if (credit == null)
+        if (credit == null || credit.IsDead())
         {
             numHusksToSummon /= 2;
         }

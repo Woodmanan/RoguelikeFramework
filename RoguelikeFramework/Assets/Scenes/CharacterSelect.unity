@@ -3645,7 +3645,7 @@ MonoBehaviour:
   m_text: 'The standard tower.
 
 
-    Only floors 1-12 right now, but soon it may
+    Only floors 1-19 right now, but soon it may
     grow large enough to contain the hubris of man.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

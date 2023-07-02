@@ -109,6 +109,26 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7f7f1598081f82b43bbd87df47b16f4a, type: 2}
     connectionType: 0
     exitTargets: []
+  - name: Mid Game Options (13-19)
+    enabled: 1
+    entryTargets:
+    - branchName: Middle_Hub
+      floors:
+        rngType: 0
+        min: 2
+        max: 2
+      weight: 0
+      pickIfExists: 0
+    requirements: []
+    antiRequirements: []
+    numberOfBranches:
+      rngType: 0
+      min: 1
+      max: 1
+    branches:
+    - {fileID: 11400000, guid: 243aac2ac66289940aba546036d9dc36, type: 2}
+    connectionType: 0
+    exitTargets: []
   dungeonSystems: []
   playerPassives:
   - id: 0
