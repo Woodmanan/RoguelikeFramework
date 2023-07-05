@@ -20,6 +20,14 @@ public struct Target
 }
 
 [System.Serializable]
+public struct WorldMachine
+{
+    public List<string> requirements;
+    public List<string> antiRequirements;
+    [SerializeReference] public List<Machine> machines;
+}
+
+[System.Serializable]
 public struct BranchChoice
 {
     public string name;
@@ -40,6 +48,9 @@ public class WorldGenerator : ScriptableObject
     
     [SerializeReference] public List<DungeonSystem> dungeonSystems = new List<DungeonSystem>();
 
+    [Header("Postprocess Machines")]
+    public List<WorldMachine> machines;
+
     World world;
     public HashSet<string> generationOptions;
 
@@ -54,6 +65,7 @@ public class WorldGenerator : ScriptableObject
     public World Generate()
     {
         world = new World();
+        World.current = world;
         generationOptions = new HashSet<string>();
         generationOptions.Add("Start");
 
@@ -217,6 +229,39 @@ public class WorldGenerator : ScriptableObject
         //Move passives over
         world.playerPassives = playerPassives;
         world.monsterPassives = monsterPassives;
+
+        foreach (WorldMachine worldMachine in machines)
+        {
+            bool valid = true;
+            foreach (string req in worldMachine.requirements)
+            {
+                valid = valid && generationOptions.Contains(req);
+            }
+
+            foreach (string areq in worldMachine.antiRequirements)
+            {
+                valid = valid && !generationOptions.Contains(areq);
+            }
+
+            if (valid)
+            {
+                List<Machine> machinesToRun = worldMachine.machines.Select(x => x.Instantiate()).ToList();
+                foreach (Machine machine in machinesToRun)
+                {
+                    int breakout = 100000;
+                    IEnumerator enumerator = machine.Activate();
+                    while (enumerator.MoveNext())
+                    {
+                        breakout--;
+                        if (breakout == 0)
+                        {
+                            Debug.LogError("Machine got stuck! (100000 yield steps without finishing)");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         return world;
     }

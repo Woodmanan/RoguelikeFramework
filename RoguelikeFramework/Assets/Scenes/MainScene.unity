@@ -3075,7 +3075,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612139595}
   m_HandleRect: {fileID: 1612139594}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17224,7 +17224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 21.965366
+  m_AspectRatio: 25.356018
 --- !u!1 &1116750417
 GameObject:
   m_ObjectHideFlags: 0
@@ -28171,14 +28171,12 @@ MonoBehaviour:
   generators: []
   current: 0
   msPerFrame: 0
-  randomSeed: 1
-  seed: 198138357
+  randomSeed: 0
+  seed: 1505274597
   preloadUpTo: 3
   JITLoading: 0
   LoadAllLevelsAtStart: 0
   startAt: 0
-  references:
-    version: 1
 --- !u!4 &1953941108
 Transform:
   m_ObjectHideFlags: 0

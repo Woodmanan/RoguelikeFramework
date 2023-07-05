@@ -210,7 +210,7 @@ public class GameController : MonoBehaviour
 
                         //Stall check!
                         stallCount++;
-                        if (stallCount > 10-0)
+                        if (stallCount > 1000)
                         {
                             UnityEngine.Debug.LogError($"Main loop stalled during the turn of {m.friendlyName}, recovering...", m);
                             m.energy = 0;

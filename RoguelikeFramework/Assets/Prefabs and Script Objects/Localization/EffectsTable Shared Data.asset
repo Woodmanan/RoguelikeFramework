@@ -475,6 +475,14 @@ MonoBehaviour:
     m_Key: LichPassiveDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 77321306452467712
+    m_Key: Jungle Knowledge Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77321358415699968
+    m_Key: Jungle Knowledge Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

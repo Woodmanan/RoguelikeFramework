@@ -130,17 +130,33 @@ MonoBehaviour:
     connectionType: 0
     exitTargets: []
   dungeonSystems: []
+  machines:
+  - requirements:
+    - Jungle
+    antiRequirements: []
+    machines:
+    - id: 0
   playerPassives:
-  - id: 0
   - id: 1
   - id: 2
   - id: 3
   - id: 4
-  monsterPassives:
   - id: 5
+  monsterPassives:
+  - id: 6
   references:
     version: 1
     00000000:
+      type: {class: JunglePathMachine, ns: , asm: RoguelikeFramework}
+      data:
+        priority: 0
+        global: 0
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 0
+        canExpand: 0
+    00000001:
       type: {class: PlayerPassive, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -179,7 +195,7 @@ MonoBehaviour:
           - 50
           - 40
         TurnsTillSafety: 15
-    00000001:
+    00000002:
       type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -207,7 +223,7 @@ MonoBehaviour:
           _keys: []
           _vals: 
         achievementName: ACH_PLAYER_DEATH
-    00000002:
+    00000003:
       type: {class: GrantPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -237,7 +253,7 @@ MonoBehaviour:
         levelToGrantAt: 5
         possibleEffects: {fileID: 11400000, guid: 0a826d7b02e700043b65ec4633f0534e, type: 2}
         backup:
-          id: 6
+          id: 7
         rarities:
           rarities:
           - rarity: 0
@@ -253,7 +269,7 @@ MonoBehaviour:
           - rarity: 5
             weight: 2
           types: []
-    00000003:
+    00000004:
       type: {class: SteamStatsTracking, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -280,7 +296,7 @@ MonoBehaviour:
         tags:
           _keys: []
           _vals: 
-    00000004:
+    00000005:
       type: {class: SteamRichPresence, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -307,7 +323,7 @@ MonoBehaviour:
         tags:
           _keys: []
           _vals: 
-    00000005:
+    00000006:
       type: {class: PlayerPassive, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -344,7 +360,7 @@ MonoBehaviour:
           _keys: 
           _vals: []
         TurnsTillSafety: 15
-    00000006:
+    00000007:
       type: {class: NoPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0

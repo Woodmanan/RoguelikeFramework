@@ -533,5 +533,14 @@ MonoBehaviour:
     m_Localized: The dark magics of raising the undead.
     m_Metadata:
       m_Items: []
+  - m_Id: 67442106526539776
+    m_Localized: Golden leaf, covered with pictograms and aged beyond comprehension.
+      What does it mean?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67442031230394368
+    m_Localized: Golden Codex
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

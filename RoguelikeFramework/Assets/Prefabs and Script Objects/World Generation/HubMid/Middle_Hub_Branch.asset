@@ -72,7 +72,8 @@ MonoBehaviour:
     rngType: 0
     min: 3
     max: 3
-  branchSystems: []
+  branchSystems:
+  - id: 3
   references:
     version: 1
     00000000:
@@ -108,3 +109,7 @@ MonoBehaviour:
         canShareSpace: 1
         canExpand: 1
         floorLayout: {fileID: 11400000, guid: 4b61f697ecd119749aa946688036b96f, type: 2}
+    00000003:
+      type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
+      data:
+        AchievementName: ACH_ENTER_MIDDLE_HUB

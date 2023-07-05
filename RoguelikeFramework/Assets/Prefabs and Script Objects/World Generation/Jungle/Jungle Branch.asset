@@ -59,7 +59,8 @@ MonoBehaviour:
     rngType: 0
     min: 0
     max: 0
-  branchSystems: []
+  branchSystems:
+  - id: 1
   references:
     version: 1
     00000000:
@@ -74,3 +75,7 @@ MonoBehaviour:
         canExpand: 1
         percentStart: 38
         numRounds: 5
+    00000001:
+      type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
+      data:
+        AchievementName: ACH_ENTER_JUNGLE

@@ -15,6 +15,8 @@ using System.Linq;
 
 public class World
 {
+    public static World current;
+
     public List<Branch> branches = new List<Branch>();
     public List<LevelConnection> connections = new List<LevelConnection>();
     public List<DungeonSystem> systems = new List<DungeonSystem>();
@@ -24,6 +26,8 @@ public class World
 
     [SerializeReference]
     public List<Effect> monsterPassives;
+
+    Dictionary<string, object> blackboard = new Dictionary<string, object>();
 
 
     public void PrepareLevelsForLoad(LevelLoader loader)
@@ -92,5 +96,29 @@ public class World
             comp = two.deleteIndex.CompareTo(one.deleteIndex);
         }
         return comp;
+    }
+
+    public void BlackboardWrite<T>(string name, T value)
+    {
+        blackboard.Add(name, value as object);
+    }
+
+    public T BlackboardRead<T>(string name)
+    {
+        object read;
+        if (blackboard.TryGetValue(name, out read))
+        {
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (read.GetType() != typeof(T))
+            {
+                Debug.LogError($"Key of name '{name}' did not have the requested type of {typeof(T).Name}");
+            }
+            #endif
+        }
+        else
+        {
+            Debug.LogError($"Key of name '{name}' did not exist in blackboard!");
+        }
+        return (T) read;
     }
 }

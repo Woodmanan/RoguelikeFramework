@@ -236,9 +236,9 @@ public class NightmareVisualConnection : Effect
     {
         connectedTo = c;
 
-        c.OnTurnStartLocal.AddListener(10, OnTurnStartLocal);
-
         c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+
+        c.OnTurnStartLocal.AddListener(10, OnTurnStartLocal);
 
         OnConnection();
     }
@@ -249,9 +249,9 @@ public class NightmareVisualConnection : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
-
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
+
+        connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
 
         ReadyToDelete = true;
     }
