@@ -17,6 +17,16 @@ public static class RogueRNG
         return Random.Range(min, max);
     }
 
+    public static Vector2Int Linear(Vector2Int min, Vector2Int max)
+    {
+        return new Vector2Int(Linear(min.x, max.x), Linear(min.y, max.y));
+    }
+
+    public static Vector2Int Linear(Vector2Int max)
+    {
+        return Linear(Vector2Int.zero, max);
+    }
+
     //Simple exponential, with mean that matches given mean!
     //WILL NOT RETURN INFINITY I PROMISE
     public static float Exponential(float mean)
@@ -55,7 +65,7 @@ public static class RogueRNG
         //Convert mean to 0-1 space
         float movedMean = (mean - min) / (max - min);
 
-        //Convert 0-1 space to 0-(very large number) space (approximating infitity)
+        //Convert 0-1 space to 0-(very large number) space (approximating infinity)
         float bigMean = movedMean * precisionBound;
         //Generate a random number from 0-(float.MaxValue)
         float bigVal = Exponential(bigMean);

@@ -75,7 +75,7 @@ public class ForestMachine : Machine
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                if (flood[i, j] == max_ind)
+                if (flood[i, j] == max_ind && generator.map[i,j] == 0)
                 {
                     generator.map[i, j] = 1;
                 }

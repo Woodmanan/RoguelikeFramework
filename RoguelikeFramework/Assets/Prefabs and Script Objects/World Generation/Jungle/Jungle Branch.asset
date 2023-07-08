@@ -29,6 +29,7 @@ MonoBehaviour:
   size: {x: 35, y: 75}
   machines:
   - id: 0
+  - id: 1
   overrides: []
   tiles: {fileID: 11400000, guid: 962aa0b2c005baa4192c0a2691aa4176, type: 2}
   entryTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
@@ -60,11 +61,23 @@ MonoBehaviour:
     min: 0
     max: 0
   branchSystems:
-  - id: 1
+  - id: 2
   references:
     version: 1
     00000000:
       type: {class: ForestMachine, ns: , asm: RoguelikeFramework}
+      data:
+        priority: 1
+        global: 1
+        size: {x: 0, y: 0}
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}
+        canShareSpace: 1
+        canExpand: 1
+        percentStart: 0
+        numRounds: 5
+    00000001:
+      type: {class: JungleMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -73,9 +86,15 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        percentStart: 38
-        numRounds: 5
-    00000001:
+        minDistance: 10
+        chanceForBrokenStatue: 0
+        chanceForDuplicateC1: 50
+        chanceForDuplicateC2: 50
+        bombSize:
+          rngType: 2
+          min: 0
+          max: 1
+    00000002:
       type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
       data:
         AchievementName: ACH_ENTER_JUNGLE
