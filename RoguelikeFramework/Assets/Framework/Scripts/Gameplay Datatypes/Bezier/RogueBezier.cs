@@ -27,7 +27,7 @@ public struct RogueBezier
         return Vector2Int.RoundToInt(Evaluate(alpha));
     }
 
-    public IEnumerator<Vector2Int> SampleCurve(float step = -1f)
+    public IEnumerator<Vector2Int> SampleCurve(float step = -1f, float max = 1f)
     {
         if (step <= 0)
         {
@@ -50,7 +50,7 @@ public struct RogueBezier
         }
 
         float total = 0.0f;
-        while (total < 1.0f)
+        while (total < max)
         {
             total = Mathf.Clamp(total + step, 0, 1);
             

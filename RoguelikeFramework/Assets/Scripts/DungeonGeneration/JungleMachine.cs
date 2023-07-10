@@ -11,6 +11,10 @@ public class JungleMachine : Machine
     public float chanceForBrokenStatue;
 
     [Range(0, 100)]
+    [Tooltip("The chance for a duplicate branch point")]
+    public float chanceForDuplicateB1;
+
+    [Range(0, 100)]
     [Tooltip("The chance for a duplicate control point 1")]
     public float chanceForDuplicateC1;
 
@@ -18,13 +22,17 @@ public class JungleMachine : Machine
     [Tooltip("The chance for a duplicate control point 2")]
     public float chanceForDuplicateC2;
 
-    public RandomNumber bombSize;
+    public float bombSizeMean;
     
     Vector2Int[] points;
 
     RogueBezier[] curves;
 
     Vector2Int branchPoint;
+
+    Vector2Int branchEnd;
+
+    RogueBezier branchCurve;
 
     const int numberOfStatues = 3;
 
@@ -44,6 +52,11 @@ public class JungleMachine : Machine
         //Generate the branch point (root of bezier tree)
         branchPoint = RogueRNG.Linear(new Vector2Int(5, 4), new Vector2Int(generator.bounds.x - 5, 8));
 
+        int boundY = generator.bounds.y;
+        branchEnd = RogueRNG.Linear(new Vector2Int(5, boundY - 8), new Vector2Int(generator.bounds.x - 5, boundY - 4));
+
+        branchCurve = new RogueBezier(branchPoint, RogueRNG.Linear(generator.bounds), RogueRNG.Linear(generator.bounds), branchEnd);
+
         //Geneate (potentially overlapping) bezier points
         for (int i = 0; i < numberOfStatues; i++)
         {
@@ -51,7 +64,21 @@ public class JungleMachine : Machine
             yield return null;
         }
 
-        //Contour Bomb
+        //Contour bomb main path
+        {
+            IEnumerator<Vector2Int> samples = branchCurve.SampleCurve();
+            while (samples.MoveNext())
+            {
+                Vector2Int location = samples.Current;
+                float size = Mathf.Max(1, RogueRNG.Exponential(bombSizeMean));
+                yield return null;
+
+                BombArea(location, size);
+                yield return null;
+            }
+        }
+
+        //Contour bomb side paths
         for (int i = 0; i < numberOfStatues; i++)
         {
             RogueBezier curve = curves[i];
@@ -59,7 +86,7 @@ public class JungleMachine : Machine
             while (samples.MoveNext())
             {
                 Vector2Int location = samples.Current;
-                float size = bombSize.EvaluateFloat();
+                float size = Mathf.Max(1, RogueRNG.Exponential(bombSizeMean));
                 yield return null;
 
                 BombArea(location, size);
@@ -68,6 +95,11 @@ public class JungleMachine : Machine
         }
 
         //Place stairs and statues
+        generator.desiredInStairs.Add(branchPoint + Vector2Int.left);
+        generator.desiredInStairs.Add(branchPoint);
+        generator.desiredInStairs.Add(branchPoint + Vector2Int.right);
+
+        generator.desiredOutStairs.AddRange(points);
 
         //Check if we should break a statue
 
@@ -81,7 +113,7 @@ public class JungleMachine : Machine
         {
             valid = true;
 
-            position = RogueRNG.Linear(new Vector2Int(0, generator.bounds.y / 2), generator.bounds);
+            position = RogueRNG.LinearOnBorder(new Vector2Int(0, generator.bounds.y / 2), generator.bounds, 5);
             for (int i = 0; i < pointNumber; i++)
             {
                 if (Vector2Int.Distance(points[i], position) < minDistance)
@@ -97,11 +129,17 @@ public class JungleMachine : Machine
 
     public RogueBezier GenerateCurve(int curveNumber)
     {
-        Vector2Int start = branchPoint;
         Vector2Int end = points[curveNumber];
+        Vector2Int start, C1, C2;
 
-        Vector2Int C1;
-        Vector2Int C2;
+        if (curveNumber != 0 && RogueRNG.Linear(0, 100f) < chanceForDuplicateB1)
+        {
+            start = curves[curveNumber - 1].a;
+        }
+        else
+        {
+            start = branchCurve.EvaluateClamped(RogueRNG.Linear(0.0f, 1.0f));
+        }
 
         if (curveNumber != 0 && RogueRNG.Linear(0, 100f) < chanceForDuplicateC1)
         {

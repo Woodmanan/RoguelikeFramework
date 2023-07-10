@@ -18,9 +18,9 @@ MonoBehaviour:
   branchDepth: 13
   numberOfLevels: 7
   ConnectionsPerFloor:
-    rngType: 1
-    min: 1
-    max: 1
+    rngType: 0
+    min: 3
+    max: 3
   OneWayConnectionsPerFloor:
     rngType: 0
     min: 0
@@ -74,8 +74,8 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        percentStart: 0
-        numRounds: 5
+        percentStart: 45
+        numRounds: 1
     00000001:
       type: {class: JungleMachine, ns: , asm: RoguelikeFramework}
       data:
@@ -88,12 +88,10 @@ MonoBehaviour:
         canExpand: 1
         minDistance: 10
         chanceForBrokenStatue: 0
-        chanceForDuplicateC1: 50
-        chanceForDuplicateC2: 50
-        bombSize:
-          rngType: 2
-          min: 0
-          max: 1
+        chanceForDuplicateB1: 0
+        chanceForDuplicateC1: 0
+        chanceForDuplicateC2: 0
+        bombSizeMean: 1
     00000002:
       type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
       data:

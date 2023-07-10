@@ -27,6 +27,28 @@ public static class RogueRNG
         return Linear(Vector2Int.zero, max);
     }
 
+    public static Vector2Int LinearOnBorder(Vector2Int max, int offset = 0)
+    {
+        return LinearOnBorder(Vector2Int.zero, max, offset);
+    }
+
+    public static Vector2Int LinearOnBorder(Vector2Int min, Vector2Int max, int offset = 0)
+    {
+        switch (Linear(0, 4))
+        {
+            case 0: //Left
+                return new Vector2Int(min.x + offset, Linear(min.y + offset, max.y - offset));
+            case 1: //Bottom
+                return new Vector2Int(Linear(min.x + offset, max.x - offset), min.y + offset);
+            case 2: //Right
+                return new Vector2Int(max.x - offset, Linear(min.y + offset, max.y - offset));
+            case 3: //Top
+                return new Vector2Int(Linear(min.x + offset, max.x - offset), max.y - offset);
+            default:
+                return Vector2Int.zero;
+        }
+    }
+
     //Simple exponential, with mean that matches given mean!
     //WILL NOT RETURN INFINITY I PROMISE
     public static float Exponential(float mean)

@@ -107,13 +107,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8490977320960
-    m_Localized: Razor Whip
+    m_Localized: Sword Whip
     m_Metadata:
       m_Items: []
   - m_Id: 8520584912896
-    m_Localized: Atom-thin blades, carried along by a superconducting coil. Generating
-      enegy by robbing heat from the user's hand, the blade whips into action at
-      the slightest gesture. An elegant weapon from a more civilized age.
+    m_Localized: Atom-thin blades, carried along by a superconducting coil. By robbing
+      heat from the user's hand, the blade whips into action at the slightest gesture.
+      An elegant weapon from a more civilized age.
     m_Metadata:
       m_Items: []
   - m_Id: 8571797364736
