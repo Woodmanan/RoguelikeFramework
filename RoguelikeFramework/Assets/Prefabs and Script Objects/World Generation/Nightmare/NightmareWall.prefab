@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f5e985f3fad0d0a4786736e93c409f2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6db06622f421b6c4fb076bae56d37c21, type: 3}
-  m_Color: {r: 0.9811321, g: 0.5127803, b: 0.910679, a: 1}
+  m_Color: {r: 1, g: 0.40943396, b: 0.90699077, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   movementCost: -2
   blocksVision: 1
   blocksProjectiles: 1
-  color: {r: 0.9811321, g: 0.5127803, b: 0.910679, a: 1}
+  color: {r: 1, g: 0.40943396, b: 0.90699077, a: 1}
   minGreyAlpha: 0
   currentlyStanding: {fileID: 0}
   inventory: {fileID: 0}
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 52
+  available: 0
   baseItems: []
 --- !u!114 &-4125795896994960125
 MonoBehaviour:
