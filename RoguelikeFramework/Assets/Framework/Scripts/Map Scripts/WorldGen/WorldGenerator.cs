@@ -318,5 +318,9 @@ public class WorldGenerator : ScriptableObject
         }
 
         world.branches.Add(branchToConnect);
+        foreach (DungeonSystem system in branchToConnect.branchSystems)
+        {
+            system.Setup(world, branchToConnect, null);
+        }
     }
 }

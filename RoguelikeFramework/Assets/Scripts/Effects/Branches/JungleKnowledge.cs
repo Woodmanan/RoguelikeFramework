@@ -18,12 +18,12 @@ public class JungleKnowledge : Effect
         if (path.Count == 0)
         {
             int[] goldenPath = World.current.BlackboardRead<int[]>(pathName);
-            path = Enumerable.Range(0, 7)
+            path = Enumerable.Range(0, 6)
                              .Select(x => World.current.BlackboardRead<TotemType[]>($"Jungle:{x} Totems")[goldenPath[x]])
                              .Select(x => x.ToString())
                              .ToList();
         }
-        return description.GetLocalizedString(this); 
+        return description.GetLocalizedString(this);
     }
 
     /*public override Sprite GetImage() { return image; }*/

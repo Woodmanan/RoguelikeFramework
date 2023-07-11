@@ -235,6 +235,7 @@ public class JungleMachine : Machine
 
         for (int i = 0; i < numberOfStatues; i++)
         {
+            World.current.BlackboardWrite<Vector2Int>($"{generator.name}:{i}", points[i]);
             TotemType totem = (brokenIndex == i) ? TotemType.Broken : totems[i];
             JungleStatueTile tile = m.GetTile(statues[i]) as JungleStatueTile;
             tile.SetSpriteForTotem(totem);

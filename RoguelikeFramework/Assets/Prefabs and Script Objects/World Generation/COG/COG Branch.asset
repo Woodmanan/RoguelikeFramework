@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e134239b05751644813f8001fdc8f92, type: 3}
-  m_Name: Jungle Branch
+  m_Name: COG Branch
   m_EditorClassIdentifier: 
   requirements: []
   antiRequirements: []
-  branchName: Jungle
+  branchName: COG
   branchDepth: 13
-  numberOfLevels: 7
+  numberOfLevels: 1
   ConnectionsPerFloor:
     rngType: 0
     min: 3
@@ -26,14 +26,13 @@ MonoBehaviour:
     min: 0
     max: 0
   oneWay: 0
-  size: {x: 35, y: 75}
+  size: {x: 11, y: 11}
   machines:
   - id: 0
-  - id: 1
   overrides: []
-  tiles: {fileID: 11400000, guid: 962aa0b2c005baa4192c0a2691aa4176, type: 2}
-  entryTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
-  exitTile: {fileID: 21300000, guid: 9a1528531e9b6c14d8c5dd7bedbf4778, type: 3}
+  tiles: {fileID: 11400000, guid: ce6eab85309f8544184d2e2cf14d0644, type: 2}
+  entryTile: {fileID: 21300000, guid: 69e3e26604e0ee841a715dbc722da017, type: 3}
+  exitTile: {fileID: 21300000, guid: 121ab91d6b505144a85eeae9b6df9da6, type: 3}
   tables:
   - {fileID: 11400000, guid: 18c8dfd7158c105408f1e972ee925bea, type: 2}
   - {fileID: 11400000, guid: 70c0c964595c88c49a0ba00da8174ae5, type: 2}
@@ -61,24 +60,11 @@ MonoBehaviour:
     min: 0
     max: 0
   branchSystems:
-  - id: 2
-  - id: 3
+  - id: 1
   references:
     version: 1
     00000000:
-      type: {class: ForestMachine, ns: , asm: RoguelikeFramework}
-      data:
-        priority: 1
-        global: 1
-        size: {x: 0, y: 0}
-        start: {x: 0, y: 0}
-        end: {x: 0, y: 0}
-        canShareSpace: 1
-        canExpand: 1
-        percentStart: 45
-        numRounds: 1
-    00000001:
-      type: {class: JungleMachine, ns: , asm: RoguelikeFramework}
+      type: {class: PrefabFloorMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -87,16 +73,8 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 1
         canExpand: 1
-        minDistance: 10
-        chanceForBrokenStatue: 33
-        chanceForDuplicateB1: 0
-        chanceForDuplicateC1: 0
-        chanceForDuplicateC2: 0
-        bombSizeMean: 1
-        statueIndex: 3
-    00000002:
+        floorLayout: {fileID: 11400000, guid: 74b6b2eeb2666544da1ca1155e603ed5, type: 2}
+    00000001:
       type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
       data:
         AchievementName: ACH_ENTER_JUNGLE
-    00000003:
-      type: {class: JungleSecretSystem, ns: , asm: RoguelikeFramework}

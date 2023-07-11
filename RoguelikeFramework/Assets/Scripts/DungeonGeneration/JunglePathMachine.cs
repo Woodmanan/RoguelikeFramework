@@ -24,7 +24,7 @@ public class JunglePathMachine : Machine
     public override IEnumerator Activate()
     {
         List<TotemType[]> totems = new List<TotemType[]>();
-        int[] goldenPath = Enumerable.Range(0, 7).Select(x => RogueRNG.Linear(0, 3)).ToArray();
+        int[] goldenPath = Enumerable.Range(0, 6).Select(x => RogueRNG.Linear(0, 3)).ToArray();
 
         List<TotemType> value = Enum.GetValues(typeof(TotemType))
                                      .Cast<TotemType>()
@@ -38,10 +38,9 @@ public class JunglePathMachine : Machine
         for (int i = 0; i < 7; i++)
         {
             World.current.BlackboardWrite<TotemType[]>($"Jungle:{i} Totems", totems[i]);
-            Debug.Log($"Floor {i}: {totems[i][0]}, {totems[i][1]}, and {totems[i][2]}. Need to take {totems[i][goldenPath[i]]}.");
         }
 
-        World.current.BlackboardWrite<int[]>($"COG Path", goldenPath);
+        World.current.BlackboardWrite<int[]>("COG Path", goldenPath);
 
 
         yield break;

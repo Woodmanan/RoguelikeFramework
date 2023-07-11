@@ -140,13 +140,14 @@ public class DungeonGenerator
                 UnityEngine.Random.state = state;
             }
 
+            //Post activation for stairs - attach the actual stair objects
+            stairs.SetupStairTiles(gameMap);
+
+            //After stairs, so that machines can talk about stair positions
             foreach (Machine m in machines)
             {
                 m.PostActivation(gameMap);
             }            
-
-            //Post activation for stairs - attach the actual stair objects
-            stairs.SetupStairTiles(gameMap);
 
             //Post activation for rooms - fill in final tile replacements
             foreach (Room r in rooms)
@@ -168,7 +169,7 @@ public class DungeonGenerator
 
             gameMap.Setup();
 
-            //TODO: Load monsters in
+            //Load monsters in
             IEnumerator monsterSpawn = MonsterSpawner.singleton.SpawnForFloor(index, gameMap, numMonsters.Evaluate());
             while (monsterSpawn.MoveNext())
             {
@@ -178,8 +179,6 @@ public class DungeonGenerator
                 oldState = UnityEngine.Random.state;
                 UnityEngine.Random.state = state;
             }
-            
-
             
             //Start loading items in
             IEnumerator itemSpawn = ItemSpawner.singleton.SpawnForFloor(index, gameMap, numItems.Evaluate());
