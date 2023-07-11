@@ -23,8 +23,12 @@ public class JungleMachine : Machine
     public float chanceForDuplicateC2;
 
     public float bombSizeMean;
+
+    public int statueIndex;
     
     Vector2Int[] points;
+
+    Vector2Int[] statues;
 
     RogueBezier[] curves;
 
@@ -42,6 +46,7 @@ public class JungleMachine : Machine
         //Generate some connection points
         points = new Vector2Int[numberOfStatues];
         curves = new RogueBezier[numberOfStatues];
+        statues = new Vector2Int[numberOfStatues];
 
         for (int i = 0; i < numberOfStatues; i++)
         {
@@ -94,14 +99,23 @@ public class JungleMachine : Machine
             }    
         }
 
-        //Place stairs and statues
+        //Place stairs
         generator.desiredInStairs.Add(branchPoint + Vector2Int.left);
         generator.desiredInStairs.Add(branchPoint);
         generator.desiredInStairs.Add(branchPoint + Vector2Int.right);
 
         generator.desiredOutStairs.AddRange(points);
 
-        //Check if we should break a statue
+        //Place statues, check first if we should break one
+        
+
+        TotemType[] totems = World.current.BlackboardRead<TotemType[]>($"{generator.name} Totems");
+
+        for (int i = 0; i < numberOfStatues; i++)
+        {
+            PlaceStair(i);
+            yield return null;
+        }
 
     }
 
@@ -186,4 +200,44 @@ public class JungleMachine : Machine
         //generator.map[location.x, location.y] = 1;
     }
 
+    void PlaceStair(int index)
+    {
+        Vector2Int location = points[index];
+        List<Vector2Int> offsets = new List<Vector2Int> { Vector2Int.left, Vector2Int.down, Vector2Int.right, Vector2Int.up };
+        offsets.Sort((x, y) => RogueRNG.Linear(-1, 2));
+
+        foreach (Vector2Int offset in offsets)
+        {
+            Vector2Int newLoc = location + offset;
+            if (generator.map[newLoc.x, newLoc.y] == 0)
+            {
+                generator.map[newLoc.x, newLoc.y] = statueIndex;
+                statues[index] = newLoc;
+                return;
+            }
+        }
+
+        //Surrounded by open spaces - pick any!
+        location += offsets[0];
+        generator.map[location.x, location.y] = statueIndex;
+        statues[index] = location;
+    }
+
+    public override void PostActivation(Map m)
+    {
+        int brokenIndex = -1;
+        if (RogueRNG.Linear(0, 100f) < chanceForBrokenStatue)
+        {
+            brokenIndex = RogueRNG.Linear(numberOfStatues);
+        }
+
+        TotemType[] totems = World.current.BlackboardRead<TotemType[]>($"{generator.name} Totems");
+
+        for (int i = 0; i < numberOfStatues; i++)
+        {
+            TotemType totem = (brokenIndex == i) ? TotemType.Broken : totems[i];
+            JungleStatueTile tile = m.GetTile(statues[i]) as JungleStatueTile;
+            tile.SetSpriteForTotem(totem);
+        }
+    }
 }

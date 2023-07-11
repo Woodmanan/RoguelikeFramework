@@ -95,6 +95,14 @@ MonoBehaviour:
     m_Key: BarTopDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 73535540362420224
+    m_Key: Jungle Statue Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73535715646578688
+    m_Key: Jungle Statue Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

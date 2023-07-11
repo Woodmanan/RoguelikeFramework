@@ -4,8 +4,9 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-enum TotemTypes
+public enum TotemType
 {
+    Broken,
     Serpent,
     Jaguar,
     Eagle,
@@ -22,10 +23,13 @@ public class JunglePathMachine : Machine
 
     public override IEnumerator Activate()
     {
-        List<TotemTypes[]> totems = new List<TotemTypes[]>();
+        List<TotemType[]> totems = new List<TotemType[]>();
         int[] goldenPath = Enumerable.Range(0, 7).Select(x => RogueRNG.Linear(0, 3)).ToArray();
 
-        List<TotemTypes> value = Enum.GetValues(typeof(TotemTypes)).Cast<TotemTypes>().ToList();
+        List<TotemType> value = Enum.GetValues(typeof(TotemType))
+                                     .Cast<TotemType>()
+                                     .Where(x => x != TotemType.Broken)
+                                     .ToList();
         for (int i = 0; i < 7; i++)
         {
             totems.Add(value.OrderBy(x => UnityEngine.Random.value).Take(3).ToArray());
@@ -33,7 +37,7 @@ public class JunglePathMachine : Machine
 
         for (int i = 0; i < 7; i++)
         {
-            World.current.BlackboardWrite<TotemTypes[]>($"Jungle:{i} Totems", totems[i]);
+            World.current.BlackboardWrite<TotemType[]>($"Jungle:{i} Totems", totems[i]);
             Debug.Log($"Floor {i}: {totems[i][0]}, {totems[i][1]}, and {totems[i][2]}. Need to take {totems[i][goldenPath[i]]}.");
         }
 

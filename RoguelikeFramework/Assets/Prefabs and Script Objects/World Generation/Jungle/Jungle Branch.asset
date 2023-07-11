@@ -87,11 +87,12 @@ MonoBehaviour:
         canShareSpace: 1
         canExpand: 1
         minDistance: 10
-        chanceForBrokenStatue: 0
+        chanceForBrokenStatue: 33
         chanceForDuplicateB1: 0
         chanceForDuplicateC1: 0
         chanceForDuplicateC2: 0
         bombSizeMean: 1
+        statueIndex: 3
     00000002:
       type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
       data:

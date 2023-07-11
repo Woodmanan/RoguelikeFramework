@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: c1c18723c3f7f844cb3462d5787b8ff5, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 12510552064
     m_Localized: Floor Tile
@@ -102,5 +103,18 @@ MonoBehaviour:
       better than that.
     m_Metadata:
       m_Items: []
+  - m_Id: 73535540362420224
+    m_Localized: '{totem} statue'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 73535715646578688
+    m_Localized: An ancient statue.
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0020ab312f400501

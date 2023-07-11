@@ -17,6 +17,11 @@ public static class RogueRNG
         return Random.Range(min, max);
     }
 
+    public static int Linear(int max)
+    {
+        return Linear(0, max);
+    }
+
     public static Vector2Int Linear(Vector2Int min, Vector2Int max)
     {
         return new Vector2Int(Linear(min.x, max.x), Linear(min.y, max.y));

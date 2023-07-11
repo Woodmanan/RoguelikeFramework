@@ -19,7 +19,7 @@ public class JungleKnowledge : Effect
         {
             int[] goldenPath = World.current.BlackboardRead<int[]>(pathName);
             path = Enumerable.Range(0, 7)
-                             .Select(x => World.current.BlackboardRead<TotemTypes[]>($"Jungle:{x} Totems")[goldenPath[x]])
+                             .Select(x => World.current.BlackboardRead<TotemType[]>($"Jungle:{x} Totems")[goldenPath[x]])
                              .Select(x => x.ToString())
                              .ToList();
         }
