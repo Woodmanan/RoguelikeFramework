@@ -30,6 +30,7 @@ public class AttackAction : GameAction
         AttackAction reference = this;
         bool canContinue = true;
         caller.connections.OnStartAttack.Invoke(ref reference, ref canContinue);
+        target.connections.OnStartAttackTarget.Invoke(ref reference, ref canContinue);
         if (canContinue == false)
         {
             yield break;

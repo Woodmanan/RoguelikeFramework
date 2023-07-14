@@ -24,7 +24,7 @@ public class JunglePathMachine : Machine
     public override IEnumerator Activate()
     {
         List<TotemType[]> totems = new List<TotemType[]>();
-        int[] goldenPath = Enumerable.Range(0, 6).Select(x => RogueRNG.Linear(0, 3)).ToArray();
+        int[] goldenPath = new int[6];
 
         List<TotemType> value = Enum.GetValues(typeof(TotemType))
                                      .Cast<TotemType>()
@@ -33,6 +33,29 @@ public class JunglePathMachine : Machine
         for (int i = 0; i < 7; i++)
         {
             totems.Add(value.OrderBy(x => UnityEngine.Random.value).Take(3).ToArray());
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            int index = -1;
+            bool valid = false;
+            while (!valid)
+            {
+                valid = true;
+                index = RogueRNG.Linear(0, 3);
+
+                if (i > 0 && (totems[i-1][goldenPath[i-1]] == totems[i][index]))
+                {
+                    valid = false;
+                }
+
+                if (i > 1 && (totems[i - 2][goldenPath[i - 2]] == totems[i][index]))
+                {
+                    valid = false;
+                }
+
+                goldenPath[i] = index;
+            }
         }
 
         for (int i = 0; i < 7; i++)

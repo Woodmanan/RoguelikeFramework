@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-//[Group("Sample Group/Sample Subgroup")]
+[Group("Generic Effects")]
 [Priority(10)]
 public class ApplyEffectOnAttack : Effect
 {

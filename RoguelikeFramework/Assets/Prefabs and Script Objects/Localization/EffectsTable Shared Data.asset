@@ -483,6 +483,14 @@ MonoBehaviour:
     m_Key: Jungle Knowledge Description
     m_Metadata:
       m_Items: []
+  - m_Id: 80278023817601024
+    m_Key: Flaming Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80278327153860608
+    m_Key: Flaming Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

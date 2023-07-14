@@ -77,7 +77,7 @@ public class PoweredUpLightning : MonoBehaviour
 
         for (int i = 0; i < numPoints; i++)
         {
-            float t = ((float)i) / numPoints;
+            float t = ((float)i) / (numPoints - 1);
 
             positions[i] = Vector3.Lerp(start, end, t) + Random.Range(minOffset, maxOffset) * sideways;
             keys[i] = new Keyframe(Random.Range(minWidth, maxWidth), t);

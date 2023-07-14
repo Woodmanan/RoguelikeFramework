@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditor.Compilation;
 using System.IO;
 using System;
 using System.Reflection;
@@ -39,7 +40,7 @@ public class EffectFileWizard
 
         Debug.Log("Base assets updated - triggering rebuild before classes are overwritten");
 
-        AssetDatabase.Refresh();
+        CompilationPipeline.RequestScriptCompilation();
 
         List<Type> types = GetAllEffectTypes();
         for (int i = 0; i < types.Count; i++)
@@ -55,7 +56,7 @@ public class EffectFileWizard
 
         //Reload the asset database, triggering a recompile and yelling at us if this didn't work right.
         Debug.Log("Finished all writes, reloading assets and recompiling.");
-        AssetDatabase.Refresh();
+        CompilationPipeline.RequestScriptCompilation();
     }
 
     static void RebuildClassConnections(Type type, EffectConnections declarations)
@@ -446,7 +447,7 @@ public class EffectFileWizard
     public static List<Type> GetAllEffectTypes()
     {
         Type baseType = typeof(Effect);
-        Assembly assembly = baseType.Assembly;
+        System.Reflection.Assembly assembly = baseType.Assembly;
 
         return assembly.GetTypes().Where(t => t.IsSubclassOf(baseType)).ToList();
     }

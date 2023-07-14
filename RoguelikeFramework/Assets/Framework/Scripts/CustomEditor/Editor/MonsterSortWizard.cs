@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 public class MonsterSortWizard
 {
@@ -16,7 +17,7 @@ public class MonsterSortWizard
 
         var info = new DirectoryInfo(path);
 
-        foreach (FileInfo f in info.GetFiles("*.prefab"))
+        foreach (FileInfo f in info.GetFiles("*.prefab", SearchOption.AllDirectories))
         {
             Debug.Log($"File {f.Name} being searched!");
             string filePath = f.FullName;
@@ -47,12 +48,21 @@ public class MonsterSortWizard
 
         for (int i = 0; i < monsters.Count; i++)
         {
+            EditorUtility.DisplayProgressBar($"Rebuilding data for {monsters.Count} prefabs", $"({i.ToString("00")}/{monsters.Count}) Rebuilding {monsters[i].friendlyName}", ((float)i) / monsters.Count);
+
+            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(monsters[i]), $"{i.ToString().PadLeft(3, '0')} {monsters[i].friendlyName}");
+            Undo.RecordObject(monsters[i], "Set ID");
             monsters[i].ID = i;
             EditorUtility.SetDirty(monsters[i]);
-            AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(monsters[i]), $"{i.ToString().PadLeft(3, '0')} {monsters[i].friendlyName}");
             //items[i].gameObject.name = $"{i.ToString().PadLeft(0, '0')} {items[i].name}";
             //Debug.Log($"{i}{(i >= 10 ? "" : " ")}: {items[i].name}");
         }
+
+        EditorUtility.ClearProgressBar();
+
+        AssetDatabase.SaveAssets();
+
+        EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
 
         AssetDatabase.Refresh();
     }

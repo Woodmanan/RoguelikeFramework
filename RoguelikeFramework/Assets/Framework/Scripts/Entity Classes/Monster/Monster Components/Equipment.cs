@@ -16,6 +16,11 @@ public class EquipmentSlot
     [HideInInspector] public int position;
     public bool CanAttackUnarmed;
     public WeaponBlock unarmedAttack;
+
+    public EquipmentSlot Instantiate()
+    {
+        return (EquipmentSlot) this.MemberwiseClone();
+    }
 }
 
 public class Equipment : MonoBehaviour

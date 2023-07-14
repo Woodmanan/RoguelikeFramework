@@ -209,6 +209,7 @@ MonoBehaviour:
         numTicks: 5
         type: 64
         ticksAtStart: 0
+        combinesWithSimilar: 0
 --- !u!114 &8340609320983818534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +257,10 @@ MonoBehaviour:
         rolls: 5
         dice: 5
       type: 1
+    tags:
+      _keys:
+      - name: Weapon.Cutting
+      _vals: 01000000
   secondary:
     chanceToHit: 50
     accuracy: 0
@@ -265,5 +270,8 @@ MonoBehaviour:
         rolls: 1
         dice: 3
       type: 1
+    tags:
+      _keys: []
+      _vals: 
   source: 0
   item: {fileID: 0}

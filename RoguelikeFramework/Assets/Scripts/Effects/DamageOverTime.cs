@@ -13,6 +13,8 @@ public class DamageOverTime : Effect
     public DamageType type;
 
     public bool ticksAtStart = false;
+    public bool combinesWithSimilar;
+
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 

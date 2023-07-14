@@ -222,10 +222,17 @@ MonoBehaviour:
         rolls: 2
         dice: 5
       type: 1
+    tags:
+      _keys:
+      - name: Weapon.Cutting
+      _vals: 01000000
   secondary:
     chanceToHit: 0
     accuracy: 0
     piercing: 0
     damage: []
+    tags:
+      _keys: []
+      _vals: 
   source: 0
   item: {fileID: 0}

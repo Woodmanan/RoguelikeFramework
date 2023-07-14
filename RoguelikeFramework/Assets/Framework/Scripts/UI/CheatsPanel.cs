@@ -30,6 +30,8 @@ public class CheatsPanel : RogueUIPanel
 
     [SerializeField] TMP_InputField input;
 
+    string lastSubmission = "";
+
     string lastInput;
 
     public List<CheatInfo> cachedCheats;
@@ -108,7 +110,7 @@ public class CheatsPanel : RogueUIPanel
                             if (nextOption[i] != final[i])
                             {
                                 final = final.Substring(0, i);
-                                continue;
+                                break;
                             }
                         }
                     }
@@ -130,6 +132,12 @@ public class CheatsPanel : RogueUIPanel
             case PlayerAction.DEV_CHEAT:
                 lastInput = input.text.Remove(input.text.Length - 1);
                 ExitAllWindows();
+                break;
+            case PlayerAction.MOVE_UP:
+                if (!inputString.Any(x => "wk".Contains(x)))
+                {
+                    input.text = lastSubmission;
+                }
                 break;
         }
     }
@@ -221,6 +229,7 @@ public class CheatsPanel : RogueUIPanel
             {
                 cheatSplit.RemoveAt(0);
                 ProcessCheat(cheat, cheatSplit);
+                lastSubmission = submission;
                 return;
             }
         }
@@ -230,10 +239,21 @@ public class CheatsPanel : RogueUIPanel
 
     public void ProcessCheat(CheatInfo cheat, List<string> parameters)
     {
-        if (cheat.parameters.Length != parameters.Count)
+        /*if (cheat.parameters.Length > parameters.Count)
         {
             Debug.Log($"Incorrect number of parameters for {cheat.name}");
             return;
+        }*/
+
+        while (parameters.Count < cheat.parameters.Length)
+        {
+            Type t = cheat.parameters[parameters.Count].ParameterType;
+            parameters.Add(GetDefaultOperator(t));
+        }
+
+        while (parameters.Count > cheat.parameters.Length)
+        {
+            parameters.RemoveAt(parameters.Count - 1);
         }
 
         List<object> methodParams = new List<object>();
@@ -245,6 +265,16 @@ public class CheatsPanel : RogueUIPanel
         }
 
         cheat.method.Invoke(this, methodParams.ToArray());
+    }
+
+    public string GetDefaultOperator(Type t)
+    {
+        if (t.IsValueType)
+        {
+            return Activator.CreateInstance(t).ToString();
+        }
+
+        return "";
     }
 
     //CHEATS!
@@ -388,6 +418,47 @@ public class CheatsPanel : RogueUIPanel
     {
         Application.targetFrameRate = -1;
     }
+
+
+    [Cheat(true)]
+    public void SpawnItem(string name, string idString, ItemRarity rarity)
+    {
+        int id = -1;
+        if (!int.TryParse(name.Substring(0, Mathf.Min(name.Length, 3)), out id))
+        {
+            if (!int.TryParse(idString.Substring(0, Mathf.Min(idString.Length, 3)), out id))
+            {
+                Debug.LogError("Neither input was an ID!");
+                return;
+            }
+        }
+        Debug.Log($"Generating item with id {id} and rarity {rarity}");
+        Item toSpawn = ItemSpawner.singleton.GetItemByID(id);
+        ItemSpawner.singleton.SpawnItem(toSpawn, Player.player.location, Map.current, rarity);
+    }
+
+    public List<string> SpawnItem_AutoComplete()
+    {
+        List<string> options = new List<string>();
+        HashSet<int> items = new HashSet<int>();
+        foreach (Branch branch in World.current.branches)
+        {
+            foreach (Item item in branch.lootPool.tree.GetItemsIn(branch.lootPool.tree.rect))
+            {
+                if (!items.Contains(item.ID))
+                {
+                    items.Add(item.ID);
+                    options.Add($"{item.friendlyName} {item.ID.ToString("000")}");
+                    options.Add($"{item.ID.ToString("000")} {item.friendlyName}");
+                    //options.Add(item.gameObject.name.Substring(0, item.gameObject.name.Length - 7));
+                }
+            }
+        }
+
+        return options;
+    }
+
+
 
     [Cheat(true)]
     public void AddActionBinding(PlayerAction action, char key)

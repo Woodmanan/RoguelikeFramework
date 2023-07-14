@@ -97,6 +97,7 @@ public class GameController : MonoBehaviour
         //Clean up some potentially old values
         {
             AutoPickupAction.SeenItems.Clear();
+            MonsterTable.UsedUniqueIDs?.Clear();
         }
 
         //Set starting position

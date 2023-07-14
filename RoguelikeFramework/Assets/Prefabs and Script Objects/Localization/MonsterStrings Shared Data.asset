@@ -227,6 +227,38 @@ MonoBehaviour:
     m_Key: WestBarrelDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 80186964026531840
+    m_Key: Spider Monkey Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80186991172067328
+    m_Key: Spider Monkey Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80202501460795392
+    m_Key: Poison Sloth Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80202541411540992
+    m_Key: Poison Sloth Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80239546367418368
+    m_Key: Chupacabra Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80239583059189760
+    m_Key: Chupacabra Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80256104301010944
+    m_Key: Hydranha Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80256145581350912
+    m_Key: Hydranha Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

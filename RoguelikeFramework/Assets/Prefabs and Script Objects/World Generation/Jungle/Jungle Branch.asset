@@ -52,9 +52,9 @@ MonoBehaviour:
   monsterTables:
   - {fileID: 11400000, guid: 002bd60d04069d141843d6c36e744fae, type: 2}
   numMonstersPerLevel:
-    rngType: 0
-    min: 0
-    max: 0
+    rngType: 1
+    min: 10
+    max: 25
   chanceForOutOfDepth: 0
   depthIncrease:
     rngType: 0

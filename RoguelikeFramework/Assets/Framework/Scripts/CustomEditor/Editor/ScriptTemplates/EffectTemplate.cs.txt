@@ -130,6 +130,9 @@ public class #SCRIPTNAME# : Effect
     //Called when this monster starts an attack action
     //public override void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
 
+    //Called when this monster is the primary target of an attack action.
+    //public override void OnStartAttackTarget(ref AttackAction action, ref bool canContinue) {}
+
     //Called when an attack has collected the weapons that it will use.
     //public override void OnGenerateArmedAttacks(ref AttackAction attack, ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
 
@@ -224,6 +227,7 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnTargetedByAbility.AddListener(100, OnTargetedByAbility);
         connectedTo.OnHitByAbility.AddListener(100, OnHitByAbility);
         connectedTo.OnStartAttack.AddListener(100, OnStartAttack);
+        connectedTo.OnStartAttackTarget.AddListener(100, OnStartAttackTarget);
         connectedTo.OnGenerateArmedAttacks.AddListener(100, OnGenerateArmedAttacks);
         connectedTo.OnBeginPrimaryAttack.AddListener(100, OnBeginPrimaryAttack);
         connectedTo.OnPrimaryAttackResult.AddListener(100, OnPrimaryAttackResult);
@@ -283,6 +287,7 @@ public class #SCRIPTNAME# : Effect
         connectedTo.OnTargetedByAbility.RemoveListener(OnTargetedByAbility);
         connectedTo.OnHitByAbility.RemoveListener(OnHitByAbility);
         connectedTo.OnStartAttack.RemoveListener(OnStartAttack);
+        connectedTo.OnStartAttackTarget.RemoveListener(OnStartAttackTarget);
         connectedTo.OnGenerateArmedAttacks.RemoveListener(OnGenerateArmedAttacks);
         connectedTo.OnBeginPrimaryAttack.RemoveListener(OnBeginPrimaryAttack);
         connectedTo.OnPrimaryAttackResult.RemoveListener(OnPrimaryAttackResult);

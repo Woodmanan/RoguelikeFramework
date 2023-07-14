@@ -111,7 +111,6 @@ public class LevelLoader : MonoBehaviour
         }
         generators.Clear();
 
-        worldGen = Instantiate(worldGen);
         world = worldGen.Generate();
         world.PrepareLevelsForLoad(this);
 

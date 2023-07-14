@@ -222,6 +222,14 @@ MonoBehaviour:
       name: canContinue
     description: Called when this monster starts an attack action
     priority: 35
+  - name: OnStartAttackTarget
+    types:
+    - type: AttackAction
+      name: action
+    - type: bool
+      name: canContinue
+    description: Called when this monster is the primary target of an attack action.
+    priority: 35
   - name: OnGenerateArmedAttacks
     types:
     - type: AttackAction

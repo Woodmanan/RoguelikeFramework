@@ -193,6 +193,10 @@ MonoBehaviour:
         rolls: 1
         dice: 4
       type: 1
+    tags:
+      _keys:
+      - name: Weapon.Cutting
+      _vals: 01000000
   secondary:
     chanceToHit: 50
     accuracy: 0
@@ -202,5 +206,8 @@ MonoBehaviour:
         rolls: 1
         dice: 3
       type: 3
+    tags:
+      _keys: []
+      _vals: 
   source: 0
   item: {fileID: 0}

@@ -629,13 +629,24 @@ MonoBehaviour:
       - id: 0
   - m_Id: 77321358415699968
     m_Localized: 'The codex has been burned into your brain. When you close your
-      eyes, you can see the pictorgrams: {path:{}|, |, and | and }. You wonder what
-      they mean.'
+      eyes, you can see the pictorgrams: a {path.0}-headed chimera with the body
+      of a {path.1} battles a giant {path.2}. When it dies, its corpse transforms
+      into {path.3}s, {path.4}s, and {path.5}s, and they flow into the jungle. You
+      wonder what it means.'
     m_Metadata:
       m_Items:
       - id: 0
   - m_Id: 77321306452467712
     m_Localized: Hidden Knowledge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80278023817601024
+    m_Localized: Flaming
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80278327153860608
+    m_Localized: This sword ripples with fire. Each hit will add a significant amount
+      of fire damage on top of the regular attack.
     m_Metadata:
       m_Items: []
   references:

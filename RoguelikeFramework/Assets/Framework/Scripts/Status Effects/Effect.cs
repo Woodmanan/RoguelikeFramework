@@ -116,6 +116,7 @@ public class Effect : IDescribable
         c.OnTargetedByAbility.AddListener(100, OnTargetedByAbility);
         c.OnHitByAbility.AddListener(100, OnHitByAbility);
         c.OnStartAttack.AddListener(100, OnStartAttack);
+        c.OnStartAttackTarget.AddListener(100, OnStartAttackTarget);
         c.OnGenerateArmedAttacks.AddListener(100, OnGenerateArmedAttacks);
         c.OnBeginPrimaryAttack.AddListener(100, OnBeginPrimaryAttack);
         c.OnPrimaryAttackResult.AddListener(100, OnPrimaryAttackResult);
@@ -180,6 +181,7 @@ public class Effect : IDescribable
         connectedTo.OnTargetedByAbility.RemoveListener(OnTargetedByAbility);
         connectedTo.OnHitByAbility.RemoveListener(OnHitByAbility);
         connectedTo.OnStartAttack.RemoveListener(OnStartAttack);
+        connectedTo.OnStartAttackTarget.RemoveListener(OnStartAttackTarget);
         connectedTo.OnGenerateArmedAttacks.RemoveListener(OnGenerateArmedAttacks);
         connectedTo.OnBeginPrimaryAttack.RemoveListener(OnBeginPrimaryAttack);
         connectedTo.OnPrimaryAttackResult.RemoveListener(OnPrimaryAttackResult);
@@ -243,6 +245,7 @@ public class Effect : IDescribable
     public virtual void OnTargetedByAbility(ref AbilityAction action) {}
     public virtual void OnHitByAbility(ref AbilityAction action) {}
     public virtual void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
+    public virtual void OnStartAttackTarget(ref AttackAction action, ref bool canContinue) {}
     public virtual void OnGenerateArmedAttacks(ref AttackAction attack, ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
     public virtual void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
     public virtual void OnPrimaryAttackResult(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}

@@ -15,7 +15,7 @@ MonoBehaviour:
   requirements: []
   antiRequirements: []
   branchName: COG
-  branchDepth: 13
+  branchDepth: 20
   numberOfLevels: 1
   ConnectionsPerFloor:
     rngType: 0
@@ -48,8 +48,7 @@ MonoBehaviour:
     rarities: []
     types: []
   usesCustomSpawnInfo: 0
-  monsterTables:
-  - {fileID: 11400000, guid: 002bd60d04069d141843d6c36e744fae, type: 2}
+  monsterTables: []
   numMonstersPerLevel:
     rngType: 0
     min: 0
@@ -77,4 +76,4 @@ MonoBehaviour:
     00000001:
       type: {class: GrantAchievementSystem, ns: , asm: RoguelikeFramework}
       data:
-        AchievementName: ACH_ENTER_JUNGLE
+        AchievementName: ACH_ENTER_COG

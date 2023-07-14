@@ -30,6 +30,7 @@ MonoBehaviour:
   - id: 0
   - id: 1
   - id: 2
+  - id: 3
   references:
     version: 1
     00000000:
@@ -56,8 +57,11 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: e91932175b8efd64ab707d454953a33d, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         primaryAdd:
-        - id: 3
+        - id: 4
         secondaryAdd: []
         unarmedAdd: []
     00000001:
@@ -84,8 +88,11 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         toAttach:
-          id: 4
+          id: 5
     00000002:
       type: {class: DamageVamp, ns: , asm: RoguelikeFramework}
       data:
@@ -110,10 +117,55 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: cff551f641427b944b18be85748d7362, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         drainsOn: -1
         drainsFrom: 16
         efficiency: 30
     00000003:
+      type: {class: ElementalBrand, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 80278023817601024
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: GUID:5ab25f9d37eb27a4fa6b82a9c471e1aa
+          m_TableEntryReference:
+            m_KeyId: 80278327153860608
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: c44ca16ec062c104d8a3112e9589250b, type: 3}
+        tags:
+          _keys: []
+          _vals: 
+        primaryDamage:
+          damage:
+            rolls: 2
+            dice: 5
+          type: 8
+        secondaryDamage:
+          damage:
+            rolls: 1
+            dice: 5
+          type: 8
+        perEnchant:
+          damage:
+            rolls: 1
+            dice: 2
+          type: 0
+    00000004:
       type: {class: DamageOverTime, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -137,11 +189,15 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         damagePerTick: 4
         numTicks: 4
         type: 64
         ticksAtStart: 0
-    00000004:
+        combinesWithSimilar: 0
+    00000005:
       type: {class: BrandProtection, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -165,6 +221,9 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         image: {fileID: 21300000, guid: d088e0defe1f8934aaee7844e39683d9, type: 3}
+        tags:
+          _keys: []
+          _vals: 
         statsPerKill:
           _keys: 08000000
           _vals:

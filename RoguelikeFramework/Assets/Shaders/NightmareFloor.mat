@@ -69,7 +69,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Intensity: 1
-    - _Lerp: 0.03
+    - _Lerp: 0.06
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
