@@ -150,7 +150,7 @@ public class Monster : MonoBehaviour, IDescribable
     {
         if (shorten)
         {
-            return localName.GetLocalizedString(this, currentStats.dictionary);
+            return GetLocalizedName();
         }
         else
         {
@@ -158,9 +158,18 @@ public class Monster : MonoBehaviour, IDescribable
         }    
     }
 
+    public string GetLocalizedName()
+    {
+        Dictionary<string, object> args = new Dictionary<string, object>();
+        connections.OnGenerateLocalizedString.Invoke(ref args);
+        return localName.GetLocalizedString(this, currentStats.dictionary, args);
+    }
+
     public string GetDescription()
     {
-        return localDescription.GetLocalizedString(this, currentStats.dictionary);
+        Dictionary<string, object> args = new Dictionary<string, object>();
+        connections.OnGenerateLocalizedString.Invoke(ref args);
+        return localDescription.GetLocalizedString(this, currentStats.dictionary, args);
     }
 
     public Sprite GetImage()
@@ -410,7 +419,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     public string GetFormattedName()
     {
-        string displayName = localName.GetLocalizedString();
+        string displayName = GetLocalizedName();
         return nameRequiresPluralVerbs ? "the " + displayName : displayName;
     }
 
@@ -441,11 +450,6 @@ public class Monster : MonoBehaviour, IDescribable
     public void UpdateLOSPostCollection()
     {
         connections.OnGenerateLOSPostCollection.BlendInvoke(other?.OnGenerateLOSPostCollection, ref view);
-    }
-
-    public string GetLocalizedName()
-    {
-        return localName.GetLocalizedString();
     }
 
     public string DebugName()

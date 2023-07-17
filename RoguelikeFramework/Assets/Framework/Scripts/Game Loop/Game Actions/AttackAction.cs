@@ -118,6 +118,8 @@ public class AttackAction : GameAction
 
     public void UnarmedAttack(Monster attacker, Monster defender, EquipmentSlot slot)
     {
+        if (attacker.IsDead() || defender.IsDead()) return;
+
         AttackAction action = this;
         attacker.connections.OnBeginUnarmedAttack.Invoke(ref slot, ref action);
 

@@ -55,11 +55,11 @@ MonoBehaviour:
     rngType: 1
     min: 10
     max: 25
-  chanceForOutOfDepth: 0
+  chanceForOutOfDepth: 1
   depthIncrease:
-    rngType: 0
-    min: 0
-    max: 0
+    rngType: 1
+    min: 2
+    max: 4
   branchSystems:
   - id: 2
   - id: 3

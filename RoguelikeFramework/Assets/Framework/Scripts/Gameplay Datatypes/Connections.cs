@@ -30,6 +30,7 @@ public class Connections
 
 
     //BEGIN AUTO EVENTS
+    public OrderedEvent<Dictionary<string, object>> OnGenerateLocalizedString = new OrderedEvent<Dictionary<string, object>>();
     public OrderedEvent OnTurnStartGlobal = new OrderedEvent();
     public OrderedEvent OnTurnEndGlobal = new OrderedEvent();
     public OrderedEvent OnTurnStartLocal = new OrderedEvent();

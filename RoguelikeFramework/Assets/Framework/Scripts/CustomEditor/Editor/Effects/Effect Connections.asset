@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: Effect Connections
   m_EditorClassIdentifier: 
   connections:
+  - name: OnGenerateLocalizedString
+    types:
+    - type: Dictionary<string, object>
+      name: arguments
+    description: Called when a connected entity wants to localize - use this to insert
+      information it might want.
+    priority: 0
   - name: OnTurnStartGlobal
     types: []
     description: Called at the start of the global turn sequence

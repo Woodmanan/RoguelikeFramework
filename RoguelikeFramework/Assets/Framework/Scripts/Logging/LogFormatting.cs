@@ -12,11 +12,11 @@ public class LogFormatting : MonoBehaviour
         {
             if (monster.named)
             {
-                return monster.localName.GetLocalizedString();
+                return monster.GetLocalizedName();
             }
             else
             {
-                return LocalizationSettings.StringDatabase.GetLocalizedString((definite ? "GenericNameDefinite" : "GenericNameIndefinite"), arguments: monster.localName.GetLocalizedString());
+                return LocalizationSettings.StringDatabase.GetLocalizedString((definite ? "GenericNameDefinite" : "GenericNameIndefinite"), arguments: monster.GetLocalizedName());
             }
         }
         return "";

@@ -85,6 +85,7 @@ public class Effect : IDescribable
 
         //BEGIN AUTO CONNECT
 
+        c.OnGenerateLocalizedString.AddListener(100, OnGenerateLocalizedString);
         c.OnTurnStartGlobal.AddListener(100, OnTurnStartGlobal);
         c.OnTurnEndGlobal.AddListener(100, OnTurnEndGlobal);
         c.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
@@ -150,6 +151,7 @@ public class Effect : IDescribable
 
         //BEGIN AUTO DISCONNECT
 
+        connectedTo.OnGenerateLocalizedString.RemoveListener(OnGenerateLocalizedString);
         connectedTo.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);
@@ -214,6 +216,7 @@ public class Effect : IDescribable
 
     //AUTO DECLARATIONS
 
+    public virtual void OnGenerateLocalizedString(ref Dictionary<string, object> arguments) {}
     public virtual void OnTurnStartGlobal() {}
     public virtual void OnTurnEndGlobal() {}
     public virtual void OnTurnStartLocal() {}

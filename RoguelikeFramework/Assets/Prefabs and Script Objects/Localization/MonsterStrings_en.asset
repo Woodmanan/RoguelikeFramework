@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 5873f9f72e5da164293d3497af0bb6bf, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 468980539392
     m_Localized: clockwork hound
@@ -256,5 +257,47 @@ MonoBehaviour:
       it. It just looks like it explodes. Who leaves this on a train?
     m_Metadata:
       m_Items: []
+  - m_Id: 80256104301010944
+    m_Localized: '{2.hydraHeads:choose(0|1):Headless||{}-Headed} Hydranha'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 80239546367418368
+    m_Localized: Chupacabra
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80202501460795392
+    m_Localized: Poison Dart Sloth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80186964026531840
+    m_Localized: Spider Monkey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80202541411540992
+    m_Localized: This slowly moving creature is colored in prismatic fur. It glistens
+      with powerful poisons that coat its skin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80239583059189760
+    m_Localized: Hollow teeth and a strong hunger for blood make this animal reminiscent
+      of a fuzzy vampire.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80186991172067328
+    m_Localized: Four sets of hands and a prehensile tail make this horror an exceptionally
+      agile and unsettling massuese.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80256145581350912
+    m_Localized: This creature looks like a {2.hydraHeads:cond:>1?swarm of piranhas|lonely
+      piranha} attached to a massive snake body.
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0020eb6b80201d0100206b088a201d01

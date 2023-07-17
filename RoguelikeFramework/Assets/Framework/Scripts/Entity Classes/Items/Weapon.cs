@@ -36,6 +36,8 @@ public class Weapon : MonoBehaviour
 
     public AttackResult PrimaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
+        if (attacker.IsDead() || defender.IsDead()) return AttackResult.MISSED;
+
         attacker.AddConnection(connections);
         Weapon weapon = this;
 
@@ -73,6 +75,8 @@ public class Weapon : MonoBehaviour
 
     public AttackResult SecondaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
+        if (attacker.IsDead() || defender.IsDead()) return AttackResult.MISSED;
+
         attacker.AddConnection(connections);
         Weapon weapon = this;
 

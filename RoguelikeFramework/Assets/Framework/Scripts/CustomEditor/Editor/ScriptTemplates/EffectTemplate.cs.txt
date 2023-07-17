@@ -37,6 +37,9 @@ public class #SCRIPTNAME# : Effect
     //Called when an effect "Clashes" with an effect of the same type
     /*public override void OnStack(Effect other, ref bool addThisEffect) {} */
 
+    //Called when a connected entity wants to localize - use this to insert information it might want.
+    //public override void OnGenerateLocalizedString(ref Dictionary<string, object> arguments) {}
+
     //Called at the start of the global turn sequence
     //public override void OnTurnStartGlobal() {}
 
@@ -196,6 +199,7 @@ public class #SCRIPTNAME# : Effect
     public override void Connect(Connections c)
     {
         connectedTo = c;
+        connectedTo.OnGenerateLocalizedString.AddListener(100, OnGenerateLocalizedString);
         connectedTo.OnTurnStartGlobal.AddListener(100, OnTurnStartGlobal);
         connectedTo.OnTurnEndGlobal.AddListener(100, OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.AddListener(100, OnTurnStartLocal);
@@ -256,6 +260,7 @@ public class #SCRIPTNAME# : Effect
     public override void Disconnect()
     {
         OnDisconnection();
+        connectedTo.OnGenerateLocalizedString.RemoveListener(OnGenerateLocalizedString);
         connectedTo.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
         connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
         connectedTo.OnTurnStartLocal.RemoveListener(OnTurnStartLocal);

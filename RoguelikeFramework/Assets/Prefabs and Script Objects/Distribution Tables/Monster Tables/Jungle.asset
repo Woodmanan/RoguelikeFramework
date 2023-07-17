@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - toSpawn: {fileID: 4402800733788238304, guid: 932b36ac5a0e72f479f1cc0c9f23f826, type: 3}
-    weight: 4
+    weight: 6
   - toSpawn: {fileID: 4402800733788238304, guid: fae4a648f0996204ea3068f70bacb093, type: 3}
     weight: 1
   - toSpawn: {fileID: 4402800733788238304, guid: c81446e72c4511547987a88d43d84c59, type: 3}
     weight: 4
   - toSpawn: {fileID: 4402800733788238304, guid: d410bec62b4e17240b84620ff5d2a630, type: 3}
-    weight: 10
+    weight: 1
   uniques: []
   chanceForUnique: 0

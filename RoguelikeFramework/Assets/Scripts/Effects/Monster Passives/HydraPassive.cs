@@ -29,6 +29,11 @@ public class HydraPassive : Effect
 
     Monster killCredit;
 
+    public override void OnGenerateLocalizedString(ref Dictionary<string, object> arguments)
+    {
+        arguments.Add("hydraHeads", currentNumber);
+    }
+
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -86,7 +91,7 @@ public class HydraPassive : Effect
     public void UpdateSprite()
     {
         if (sprites.Count == 0) return;
-        connectedTo.monster.GetComponent<SpriteRenderer>().sprite = sprites[Mathf.Clamp(currentNumber, 0, sprites.Count - 1)];
+        connectedTo.monster.GetComponent<SpriteRenderer>().sprite = sprites[Mathf.Clamp(currentNumber - 1, 0, sprites.Count - 1)];
     }
 
     //Called the moment an effect connects to a monster
@@ -101,10 +106,10 @@ public class HydraPassive : Effect
 
     public void CheckHit(WeaponBlock block)
     {
-        if (block.tags.HasTag("Weapon.Cutting"))
+        if (block.tags.HasTag("Weapon.Cutting") && currentNumber > 0)
         {
             RemoveHeads(1);
-            if (!dealtFireDamage)
+            if (!dealtFireDamage && !connectedTo.monster.IsDead())
             {
                 AddHeads(2);
             }
@@ -310,6 +315,8 @@ public class HydraPassive : Effect
     {
         connectedTo = c;
 
+        c.OnGenerateLocalizedString.AddListener(300, OnGenerateLocalizedString);
+
         c.OnTakeDamage.AddListener(300, OnTakeDamage);
 
         c.OnBeforePrimaryAttackTarget.AddListener(300, OnBeforePrimaryAttackTarget);
@@ -330,6 +337,8 @@ public class HydraPassive : Effect
     public override void Disconnect()
     {
         OnDisconnection();
+
+        connectedTo.OnGenerateLocalizedString.RemoveListener(OnGenerateLocalizedString);
 
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
 

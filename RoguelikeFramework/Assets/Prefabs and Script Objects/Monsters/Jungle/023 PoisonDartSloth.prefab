@@ -83,7 +83,7 @@ MonoBehaviour:
   faction: 1
   ID: 23
   minDepth: 13
-  maxDepth: 20
+  maxDepth: 17
   tags:
     _keys: []
     _vals: 
@@ -211,7 +211,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 29ee3b8ea07f18241a2e46c06f5024a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3aa03a12b949f5a4d85e618ccfef5b74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -295,6 +295,9 @@ MonoBehaviour:
           rolls: 2
           dice: 5
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:
