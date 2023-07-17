@@ -31,13 +31,13 @@ jobs:
       buildVersion: ${{ steps.build.outputs.buildVersion }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: lfs-cache
         with:
           path: .git/lfs
@@ -49,14 +49,14 @@ jobs:
           git add .
           git reset --hard
       - name: Restore Library cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
           key: Library-build-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-build-
             Library-
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v3
         id: build
         with:
           versioning: Semantic
@@ -65,7 +65,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           customParameters: -Development
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
@@ -77,25 +77,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Download StandaloneWindows64 Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
       - name: Download StandaloneLinux64 Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-StandaloneLinux64
           path: build/StandaloneLinux64
       - name: Download StandaloneOSX Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-StandaloneOSX
           path: build/StandaloneOSX
-      - uses: game-ci/steam-deploy@v2
+      - uses: game-ci/steam-deploy@v3
         with:
           username: ${{ secrets.STEAM_USERNAME }}
           password: ${{ secrets.STEAM_PASSWORD }}
