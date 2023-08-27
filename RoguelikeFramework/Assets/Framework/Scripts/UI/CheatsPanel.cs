@@ -509,5 +509,22 @@ public class CheatsPanel : RogueUIPanel
         InputTracking.maxCombineDelay = delay;
     }
 
-    #endif
+    [Cheat(true)]
+    public void AddDamage(DamageType type, float amount)
+    {
+        Player.player.Damage(Player.player, amount, type, DamageSource.ABILITY);
+    }
+
+    public List<string> AddDamage_AutoComplete()
+    {
+        List<string> options = new List<string>();
+        foreach (String name in Enum.GetNames(typeof(DamageType)))
+        {
+            options.Add(name);
+        }
+
+        return options;
+    }
+
+#endif
 }

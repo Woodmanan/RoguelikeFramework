@@ -92,6 +92,7 @@ MonoBehaviour:
     _keys:
     - name: Player
     _vals: 01000000
+  credit: {fileID: 0}
   baseEffects:
   - id: 0
   energy: 0
@@ -265,6 +266,9 @@ MonoBehaviour:
       accuracy: 0
       piercing: 0
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Primary Hand
     type: 0200000003000000
     equipped:
@@ -286,7 +290,10 @@ MonoBehaviour:
       - damage:
           rolls: 2
           dice: 2
-        type: 1
+        type: 129
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Secondary Hand
     type: 03000000
     equipped:
@@ -309,6 +316,9 @@ MonoBehaviour:
           rolls: 1
           dice: 2
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Body
     type: 04000000
     equipped:
@@ -327,6 +337,9 @@ MonoBehaviour:
       accuracy: 0
       piercing: 0
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Feet
     type: 06000000
     equipped:
@@ -345,6 +358,9 @@ MonoBehaviour:
       accuracy: 0
       piercing: 0
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4311608207694994520
 MonoBehaviour:

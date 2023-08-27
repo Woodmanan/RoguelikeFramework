@@ -18,8 +18,8 @@ using UnityEngine.Localization;
 [System.Serializable]
 public class Effect : IDescribable
 {
-    [HideInInspector] public Connections connectedTo;
-    [HideInInspector] public bool ReadyToDelete = false;
+    [NonSerialized] public Connections connectedTo;
+    [NonSerialized] public bool ReadyToDelete = false;
     [HideInInspector] public Monster credit;
 
     [SerializeField] protected LocalizedString name;
@@ -28,7 +28,7 @@ public class Effect : IDescribable
 
     [SerializeField] public RogueTagContainer tags;
 
-    public Effect Instantiate()
+    public virtual Effect Instantiate()
     {
         return (Effect) this.MemberwiseClone();
     }

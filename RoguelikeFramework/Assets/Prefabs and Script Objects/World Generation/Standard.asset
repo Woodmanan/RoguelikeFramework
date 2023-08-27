@@ -182,8 +182,10 @@ MonoBehaviour:
   - id: 3
   - id: 4
   - id: 5
-  monsterPassives:
   - id: 6
+  monsterPassives:
+  - id: 7
+  - id: 8
   references:
     version: 1
     00000000:
@@ -293,7 +295,7 @@ MonoBehaviour:
         levelToGrantAt: 5
         possibleEffects: {fileID: 11400000, guid: 0a826d7b02e700043b65ec4633f0534e, type: 2}
         backup:
-          id: 7
+          id: 9
         rarities:
           rarities:
           - rarity: 0
@@ -364,6 +366,35 @@ MonoBehaviour:
           _keys: []
           _vals: 
     00000006:
+      type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        key:
+          name: _CorePipEffect
+    00000007:
       type: {class: PlayerPassive, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0
@@ -400,7 +431,36 @@ MonoBehaviour:
           _keys: 
           _vals: []
         TurnsTillSafety: 15
-    00000007:
+    00000008:
+      type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
+      data:
+        ReadyToDelete: 0
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        key:
+          name: _CorePipEffect
+    00000009:
       type: {class: NoPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
         ReadyToDelete: 0

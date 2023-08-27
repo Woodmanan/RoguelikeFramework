@@ -247,12 +247,12 @@ public class Monster : MonoBehaviour, IDescribable
 
         damage *= damageMod;
 
-        #if UNITY_EDITOR
+        /*#if UNITY_EDITOR
         if (dealer == null)
         {
             Debug.LogError("Dealer was null! Fix me you fool!!!");
         }
-        #endif
+        #endif*/
         dealer?.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
 
         connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);

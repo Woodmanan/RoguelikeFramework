@@ -1,0 +1,259 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6ddcc365e5237f428d7a700ec0b82a0, type: 3}
+  m_Name: Standard Effects
+  m_EditorClassIdentifier: 
+  effects:
+  - name: _CorePipEffect
+    effect:
+      id: 0
+  - name: Fire
+    effect:
+      id: 1
+  - name: Ice
+    effect:
+      id: 2
+  - name: Poison
+    effect:
+      id: 3
+  - name: Stun
+    effect:
+      id: 4
+  references:
+    version: 1
+    00000000:
+      type: {class: ApplyPipFromDamage, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        pairs:
+        - type: 128
+          effect:
+            id: 5
+        - type: 16
+          effect:
+            id: 6
+        - type: 8
+          effect:
+            id: 7
+    00000001:
+      type: {class: Fire, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        stackCount: 1
+    00000002:
+      type: {class: Ice, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        stackCount: 1
+    00000003:
+      type: {class: Poison, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 21300000, guid: bfa018377e398f247b976e8758c4b28d, type: 3}
+        tags:
+          _keys: []
+          _vals: 
+        stackCount: 1
+    00000004:
+      type: {class: Stun, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        stackCount: 1
+    00000005:
+      type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        key:
+          name: Poison
+    00000006:
+      type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        key:
+          name: Ice
+    00000007:
+      type: {class: Fire, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        stackCount: 1
