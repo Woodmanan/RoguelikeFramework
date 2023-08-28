@@ -58,6 +58,7 @@ MonoBehaviour:
   currentStats:
     _keys: 
     _vals: []
+  EnergyCost: 50
   castQuery:
     outOf: 1
     terms: []
@@ -102,7 +103,6 @@ MonoBehaviour:
     00000000:
       type: {class: Necrotize, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:

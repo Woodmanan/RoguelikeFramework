@@ -111,7 +111,6 @@ MonoBehaviour:
     00000000:
       type: {class: CastAbilityOnDeath, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -253,51 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanUnequip: 1
   monster: {fileID: 0}
-  equipmentSlots:
-  - slotName: Primary
-    type: 0200000003000000
-    equipped:
-      id: 0
-      type: 0
-      count: 0
-      held: []
-      position: 0
-      lastUpdated: 0
-    active: 0
-    removable: 1
-    position: 0
-    CanAttackUnarmed: 1
-    unarmedAttack:
-      chanceToHit: 100
-      accuracy: 0
-      piercing: 0
-      damage:
-      - damage:
-          rolls: 1
-          dice: 5
-        type: 1
-  - slotName: Secondary
-    type: 03000000
-    equipped:
-      id: 0
-      type: 0
-      count: 0
-      held: []
-      position: 0
-      lastUpdated: 0
-    active: 0
-    removable: 1
-    position: 0
-    CanAttackUnarmed: 1
-    unarmedAttack:
-      chanceToHit: 100
-      accuracy: 0
-      piercing: 0
-      damage:
-      - damage:
-          rolls: 1
-          dice: 5
-        type: 1
+  equipmentSlots: []
   WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:

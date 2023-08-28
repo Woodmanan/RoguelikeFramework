@@ -150,7 +150,6 @@ MonoBehaviour:
     00000000:
       type: {class: AxePassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -205,7 +204,6 @@ MonoBehaviour:
     00000000:
       type: {class: WhipPassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -246,6 +244,7 @@ MonoBehaviour:
     chanceToHit: 100
     accuracy: 10
     piercing: 0
+    energyCost: 100
     damage:
     - damage:
         rolls: 5
@@ -259,6 +258,7 @@ MonoBehaviour:
     chanceToHit: 50
     accuracy: 0
     piercing: 0
+    energyCost: 100
     damage:
     - damage:
         rolls: 1

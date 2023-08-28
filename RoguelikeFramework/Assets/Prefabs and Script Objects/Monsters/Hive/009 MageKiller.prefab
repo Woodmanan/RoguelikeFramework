@@ -50,7 +50,7 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000003000000060000000a000000
     _vals:
-    - 20
+    - 80
     - 1
     - 4
     - 20
@@ -112,7 +112,6 @@ MonoBehaviour:
     00000000:
       type: {class: ManaBurn, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -258,11 +257,15 @@ MonoBehaviour:
       chanceToHit: 100
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
-          rolls: 2
-          dice: 5
+          rolls: 3
+          dice: 10
         type: 2
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:

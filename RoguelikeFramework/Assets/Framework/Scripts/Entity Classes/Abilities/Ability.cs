@@ -47,6 +47,8 @@ public class Ability : ScriptableObject, IDescribable
     public AbilityStats baseStats;
     [HideInInspector] public AbilityStats currentStats;
 
+    public float EnergyCost = 100;
+
     public Query castQuery;
 
     [HideInInspector] public Targeting targeting;

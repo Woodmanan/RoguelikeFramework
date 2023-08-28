@@ -21,6 +21,9 @@ public class RangedAttackAction : AttackAction
         //Do we have any weapons equipped?
         if (slots.Count > 0)
         {
+            //Begin tracking energy cost
+            float energyCost = 0;
+
             //Begin attack
             foreach (EquipmentSlot s in slots)
             {
@@ -67,6 +70,7 @@ public class RangedAttackAction : AttackAction
                     {
                         target = m;
                         w.PrimaryAttack(caller, m, this);
+                        energyCost = Mathf.Max(energyCost, w.primary.energyCost);
                     }
 
                 }
@@ -106,6 +110,7 @@ public class RangedAttackAction : AttackAction
                     {
                         target = m;
                         w.SecondaryAttack(caller, m, this);
+                        energyCost = Mathf.Max(energyCost, w.secondary.energyCost);
                     }
                 }
                 else
@@ -122,7 +127,7 @@ public class RangedAttackAction : AttackAction
                 yield break;
             }
 
-            caller.energy -= 100;
+            caller.energy -= energyCost;
         }
         else
         {

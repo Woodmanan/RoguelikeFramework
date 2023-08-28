@@ -50,8 +50,8 @@ MonoBehaviour:
   baseStats:
     _keys: 010000000300000006000000
     _vals:
-    - 20
-    - 10
+    - 80
+    - 1
     - 4
   currentStats:
     _keys: 
@@ -226,11 +226,15 @@ MonoBehaviour:
       chanceToHit: 100
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
-          rolls: 2
-          dice: 5
+          rolls: 3
+          dice: 10
         type: 129
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:

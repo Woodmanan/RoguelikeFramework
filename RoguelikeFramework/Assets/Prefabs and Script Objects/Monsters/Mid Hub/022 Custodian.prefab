@@ -115,7 +115,6 @@ MonoBehaviour:
     00000000:
       type: {class: BossLock, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -142,7 +141,6 @@ MonoBehaviour:
     00000001:
       type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -302,11 +300,15 @@ MonoBehaviour:
       chanceToHit: 100
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 2
           dice: 5
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:

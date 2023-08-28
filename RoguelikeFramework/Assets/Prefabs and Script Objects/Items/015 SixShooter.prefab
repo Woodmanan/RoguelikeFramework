@@ -188,20 +188,28 @@ MonoBehaviour:
     chanceToHit: 50
     accuracy: 0
     piercing: 5
+    energyCost: 100
     damage:
     - damage:
         rolls: 3
         dice: 3
       type: 1
+    tags:
+      _keys: []
+      _vals: 
   secondary:
     chanceToHit: 50
     accuracy: 0
     piercing: 7
+    energyCost: 100
     damage:
     - damage:
         rolls: 1
         dice: 6
       type: 1
+    tags:
+      _keys: []
+      _vals: 
   source: 34
   item: {fileID: 0}
   targeting:

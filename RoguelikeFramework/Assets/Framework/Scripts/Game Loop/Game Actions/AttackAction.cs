@@ -53,6 +53,9 @@ public class AttackAction : GameAction
         //Do we have any weapons equipped?
         if (slots.Count > 0 || unarmedSlots.Count > 0)
         {
+            //Begin tracking energy cost
+            float energyCost = 0;
+
             //Begin attack
             foreach (EquipmentSlot s in slots)
             {
@@ -81,11 +84,13 @@ public class AttackAction : GameAction
             foreach (Weapon w in primaryWeapons)
             {
                 w.PrimaryAttack(caller, target, this);
+                energyCost = Mathf.Max(energyCost, w.primary.energyCost);
             }
 
             foreach (Weapon w in secondaryWeapons)
             {
                 w.SecondaryAttack(caller, target, this);
+                energyCost = Mathf.Max(energyCost, w.secondary.energyCost);
             }
 
             caller.connections.OnGenerateUnarmedAttacks.Invoke(ref action, ref unarmedSlots);
@@ -93,9 +98,10 @@ public class AttackAction : GameAction
             foreach (EquipmentSlot slot in unarmedSlots)
             {
                 UnarmedAttack(caller, target, slot);
+                energyCost = Mathf.Max(energyCost, slot.unarmedAttack.energyCost);
             }
 
-            caller.energy -= 100;
+            caller.energy -= energyCost;
 
             
         }

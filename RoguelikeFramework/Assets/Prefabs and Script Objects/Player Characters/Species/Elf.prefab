@@ -92,6 +92,7 @@ MonoBehaviour:
   tags:
     _keys: []
     _vals: 
+  credit: {fileID: 0}
   baseEffects:
   - id: 0
   energy: 0
@@ -123,7 +124,6 @@ MonoBehaviour:
     00000000:
       type: {class: HumanPassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -265,7 +265,11 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Primary Hand
     type: 0200000003000000
     equipped:
@@ -283,11 +287,15 @@ MonoBehaviour:
       chanceToHit: 100
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 2
           dice: 2
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Secondary Hand
     type: 03000000
     equipped:
@@ -305,11 +313,15 @@ MonoBehaviour:
       chanceToHit: 50
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 1
           dice: 2
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Body
     type: 04000000
     equipped:
@@ -327,7 +339,11 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Feet
     type: 06000000
     equipped:
@@ -345,7 +361,11 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4311608207694994520
 MonoBehaviour:

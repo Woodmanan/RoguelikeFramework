@@ -188,10 +188,11 @@ MonoBehaviour:
     chanceToHit: 100
     accuracy: 5
     piercing: 5
+    energyCost: 100
     damage:
     - damage:
-        rolls: 1
-        dice: 4
+        rolls: 5
+        dice: 5
       type: 1
     tags:
       _keys:
@@ -201,6 +202,7 @@ MonoBehaviour:
     chanceToHit: 50
     accuracy: 0
     piercing: 0
+    energyCost: 100
     damage:
     - damage:
         rolls: 1

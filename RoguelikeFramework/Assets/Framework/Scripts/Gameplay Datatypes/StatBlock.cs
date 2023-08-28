@@ -34,6 +34,7 @@ public class WeaponBlock
     public float chanceToHit;
     public int accuracy;
     public int piercing;
+    public float energyCost = 100f;
     public List<DamagePairing> damage;
     public RogueTagContainer tags;
 }

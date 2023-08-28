@@ -150,7 +150,6 @@ MonoBehaviour:
     00000000:
       type: {class: ScythePassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -217,9 +216,10 @@ MonoBehaviour:
     chanceToHit: 100
     accuracy: 0
     piercing: 3
+    energyCost: 100
     damage:
     - damage:
-        rolls: 2
+        rolls: 5
         dice: 5
       type: 1
     tags:
@@ -230,6 +230,7 @@ MonoBehaviour:
     chanceToHit: 0
     accuracy: 0
     piercing: 0
+    energyCost: 100
     damage: []
     tags:
       _keys: []

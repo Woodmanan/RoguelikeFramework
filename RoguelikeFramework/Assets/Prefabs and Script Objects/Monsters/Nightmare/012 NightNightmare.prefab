@@ -314,11 +314,15 @@ MonoBehaviour:
       chanceToHit: 50
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 3
           dice: 5
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Tentacle
     type: 02000000
     equipped:
@@ -336,11 +340,15 @@ MonoBehaviour:
       chanceToHit: 50
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage:
       - damage:
           rolls: 3
           dice: 5
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Tentacle
     type: 02000000
     equipped:
@@ -358,11 +366,15 @@ MonoBehaviour:
       chanceToHit: 50
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage:
       - damage:
           rolls: 3
           dice: 5
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   WillEquipInventory: 1
 --- !u!114 &4402800733788238309
 MonoBehaviour:

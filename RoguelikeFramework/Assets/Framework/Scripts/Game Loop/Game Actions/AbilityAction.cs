@@ -110,7 +110,7 @@ public class AbilityAction : GameAction
                 toCast.targeting.affected[i].connections.OnHitByAbility.Invoke(ref action);
             }
 
-            caller.energy -= 100;
+            caller.energy -= toCast.EnergyCost;
         }
         else
         {

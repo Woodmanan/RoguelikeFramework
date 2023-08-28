@@ -50,7 +50,7 @@ MonoBehaviour:
   baseStats:
     _keys: 0100000006000000
     _vals:
-    - 70
+    - 16
     - 1
   currentStats:
     _keys: 
@@ -110,7 +110,6 @@ MonoBehaviour:
     00000000:
       type: {class: HydraPassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -152,6 +151,7 @@ MonoBehaviour:
             chanceToHit: 75
             accuracy: 0
             piercing: 5
+            energyCost: 100
             damage:
             - damage:
                 rolls: 1

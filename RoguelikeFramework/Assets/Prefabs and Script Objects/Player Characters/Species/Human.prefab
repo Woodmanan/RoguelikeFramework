@@ -124,7 +124,6 @@ MonoBehaviour:
     00000000:
       type: {class: HumanPassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -265,6 +264,7 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage: []
       tags:
         _keys: []
@@ -286,6 +286,7 @@ MonoBehaviour:
       chanceToHit: 100
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 2
@@ -311,6 +312,7 @@ MonoBehaviour:
       chanceToHit: 50
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 1
@@ -336,6 +338,7 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage: []
       tags:
         _keys: []
@@ -357,6 +360,7 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 0
       damage: []
       tags:
         _keys: []
