@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fba90e59da1b9488dbaf1eb1ec8911, type: 3}
+  m_Name: TestGod
+  m_EditorClassIdentifier: 
+  localName:
+    m_TableReference:
+      m_TableCollectionName: GUID:999deef778c7e2541a99b8b0c8daef13
+    m_TableEntryReference:
+      m_KeyId: 11793014784
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  title: 
+  maxFavor: 200
+  favorToSponsor: 60
+  favorToGold:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.051678054
+      outSlope: 0.051678054
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10737624
+    - serializedVersion: 3
+      time: 200
+      value: 30
+      inSlope: 0.15
+      outSlope: 0.15
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scoring:
+  - id: 0
+  boons:
+  - favorNeeded: 0
+    requiresSponsor: 1
+    givenEffects:
+    - id: 1
+    givenAbilities: []
+  references:
+    version: 1
+    00000000:
+      type: {class: ScoreDamage, ns: , asm: RoguelikeFramework}
+      data:
+        weight: 0.5
+        connectedTo: {fileID: 0}
+        minThreshhold: 5
+        type: 8
+        source: -1
+        scalingType: 2
+    00000001:
+      type: {class: PerfectTiming, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        maxDuration: 0
+        currentDuration: 0
+        activeWindowMaxDuration: 0
+        isActive: 0
+        activeWindowDuration: 0
+        cooldownReductionOnKill: 0
+        animOnActive:
+          id: 2
+    00000002:
+      type: {class: ConeAnimation, ns: , asm: RoguelikeFramework}
+      data:
+        MaxDuration: 0
+        currentDuration: 0
+        animationDuration: 0.15
+        origin: {x: 0, y: 0}
+        destination: {x: 0, y: 0}
+        radius: 0
+        owner: {fileID: 0}
+        targets: []
+        durationPerTile: 0.02
+        sprites: []
+        spreadSpritesEvenly: 1
