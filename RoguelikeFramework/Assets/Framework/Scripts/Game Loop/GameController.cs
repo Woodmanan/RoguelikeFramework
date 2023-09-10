@@ -117,8 +117,9 @@ public class GameController : MonoBehaviour
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();
 
+        //Notify systems that level 1 has loaded
+        SystemEnterLevel();
 
-        //Space for any init setup that needs to be done
         StartCoroutine(GameLoop());
     }
 

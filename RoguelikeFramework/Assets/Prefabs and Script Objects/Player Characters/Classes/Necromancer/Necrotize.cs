@@ -88,7 +88,7 @@ public class Necrotize : Effect
     //public override void OnFullyHealed() {}
 
     //Called after this monster has registered it's death.
-    public override void OnPostDeath()
+    public override void OnPostDeath(ref Monster killer)
     {
         if (!connectedTo.monster.tags.MatchAnyTags(new RogueTag("Monster.Undead"), TagMatch.Parental))
         {

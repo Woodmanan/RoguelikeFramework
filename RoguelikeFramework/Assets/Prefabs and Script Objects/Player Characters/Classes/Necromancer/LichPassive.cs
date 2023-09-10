@@ -119,7 +119,7 @@ public class LichPassive : Effect
     //public override void OnPostDeath() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         if (connectedTo.monster.baseStats[HEALTH] <= 0 && connectedTo.monster.baseStats[MANA] > manaPerSelfRevive)
         {

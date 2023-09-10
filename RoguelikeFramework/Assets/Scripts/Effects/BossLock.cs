@@ -104,7 +104,7 @@ public class BossLock : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         Unlock();
     }

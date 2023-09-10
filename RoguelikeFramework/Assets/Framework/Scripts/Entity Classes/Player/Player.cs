@@ -94,9 +94,9 @@ public class Player : Monster
         RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.HIGH, display: LogDisplay.STANDARD);
     }
 
-    protected override void Die()
+    protected override void Die(Monster killer)
     {
-        base.Die();
+        base.Die(killer);
         if (baseStats[HEALTH] <= 0)
         {
             Remove();

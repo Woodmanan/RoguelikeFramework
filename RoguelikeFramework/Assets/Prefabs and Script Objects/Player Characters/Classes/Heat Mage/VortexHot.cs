@@ -71,7 +71,7 @@ public class VortexHot : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         float manaToGive = connectedTo.monster.baseStats[Resources.MANA] * percentManaTransfer * 0.01f;
         credit.AddBaseStat(Resources.MANA, manaToGive);

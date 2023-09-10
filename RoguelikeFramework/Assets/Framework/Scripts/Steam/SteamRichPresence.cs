@@ -82,7 +82,7 @@ public class SteamRichPresence : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         SteamController.singleton?.UpdateRichPresence("steam_display", "#Status_CharacterSelect");
     }

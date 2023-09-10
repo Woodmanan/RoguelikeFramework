@@ -56,7 +56,7 @@ public class UnlockAchOnDeath : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnPostDeath()
+    public override void OnPostDeath(ref Monster killer)
     {
         if (connectedTo.monster.baseStats[HEALTH] <= 0)
         {

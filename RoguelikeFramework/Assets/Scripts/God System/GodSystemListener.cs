@@ -1,44 +1,98 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
+using static Resources;
 
-[Group("Dev Effects")]
+//[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class DevInvincible : Effect
+public class GodSystemListener : Effect 
 {
-    public Stats statsPerTurn;
-    /* The default priority of all functions in this class - the order in which they'll be called
-     * relative to other status effects
-     * 
-     * To override for individual functions, use the [Priority(int)] attribute 
-     */
-    //public override int priority { get { return 10; } }
+    List<GodDefinition> watching;
+    GodDefinition sponsor;
+    List<GodScoringOperator> operators;
+    /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
+
+    /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
+
+    /*public override Sprite GetImage() { return image; }*/
+
+    /*public override bool ShouldDisplay() { return !name.IsEmpty && !description.IsEmpty; }*/
+
+    /*public override string GetUISubtext() { return ""; }*/
+
+    /*public override float GetUIFillPercent() { return 0.0f; }*/
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public DevInvincible()
+    public GodSystemListener()
     {
         //Construct me!
     }
 
+    public void AttachGod(GodDefinition god)
+    {
+        foreach (GodScoringOperator scoring in god.scoring)
+        {
+            scoring.connectedMonster = connectedTo.monster;
+        }
+        operators.AddRange(god.scoring);
+        watching.Add(god);
+    }
+
+    public void DetachGod(GodDefinition god)
+    {
+        foreach (GodScoringOperator scoring in god.scoring)
+        {
+            scoring.connectedMonster = null;
+            operators.Remove(scoring);
+        }
+        watching.Remove(god);
+    }
+
+    public bool HasSponsor()
+    {
+        return sponsor != null;
+    }
+
+    public GodDefinition GetSponsor()
+    {
+        return sponsor;
+    }
+
+    public List<GodDefinition> GetWatching()
+    {
+        return watching;
+    }
+
     //Called the moment an effect connects to a monster
     //Use this to apply effects or stats immediately, before the next frame
-    /*public override void OnConnection() {}*/
+    public override void OnConnection()
+    {
+        watching = new List<GodDefinition>();
+        operators = new List<GodScoringOperator>();
+    }
 
     //Called when an effect gets disconnected from a monster
     /*public override void OnDisconnection() {} */
 
     //Called when an effect "Clashes" with an effect of the same type
-    /* public override void OnStack(Effect other, ref bool addThisEffect) {} */
+    /*public override void OnStack(Effect other, ref bool addThisEffect) {} */
+
+    //Called when a connected entity wants to localize - use this to insert information it might want.
+    //public override void OnGenerateLocalizedString(ref Dictionary<string, object> arguments) {}
 
     //Called at the start of the global turn sequence
-    public override void OnTurnStartGlobal()
-    {
-        connectedTo.monster.AddBaseStats(statsPerTurn);
-    }
+    //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    //public override void OnTurnEndGlobal() {}
+    public override void OnTurnEndGlobal()
+    {
+        foreach (GodScoringOperator scoring in operators)
+        {
+            scoring.OnTurnEnd();
+        }
+    }
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -55,14 +109,31 @@ public class DevInvincible : Effect
     //Called whenever a monster returns to full health
     //public override void OnFullyHealed() {}
 
-    //Called when the connected monster dies
-    public override void OnDeath(ref Monster killer)
+    //Called after this monster has registered its death.
+    public override void OnPostDeath(ref Monster killer)
     {
-        connectedTo.monster.Heal(1000, false);
+        foreach (GodScoringOperator scoring in operators)
+        {
+            scoring.OnKilled(killer);
+        }
+
+        for (int i = watching.Count - 1; i >= 0; i--)
+        {
+            watching[i].EvaluateAllCandidates();
+        }
     }
 
+    //Called when the connected monster dies
+    //public override void OnDeath() {}
+
     //Called when a monster is killed by this unit.
-    //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
+    public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
+    {
+        foreach (GodScoringOperator scoring in operators)
+        {
+            scoring.OnKillMonster(monster);
+        }
+    }
 
     //Called often, whenever a monster needs up-to-date stats.
     //public override void RegenerateStats(ref Stats stats) {}
@@ -74,7 +145,13 @@ public class DevInvincible : Effect
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
+    public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
+    {
+        foreach (GodScoringOperator scoring in operators)
+        {
+            scoring.OnDealDamage(damage, damageType, source);
+        }
+    }
 
     //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
     //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
@@ -104,7 +181,7 @@ public class DevInvincible : Effect
     //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
-    //public override void OnRegenerateAbilityStats(ref Targeting targeting, ref AbilityBlock abilityBlock, ref Ability ability) {}
+    //public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability) {}
 
     //Called by spells, in order to determine whether they are allowed to be cast.
     //public override void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
@@ -127,8 +204,11 @@ public class DevInvincible : Effect
     //Called when this monster starts an attack action
     //public override void OnStartAttack(ref AttackAction action, ref bool canContinue) {}
 
+    //Called when this monster is the primary target of an attack action.
+    //public override void OnStartAttackTarget(ref AttackAction action, ref bool canContinue) {}
+
     //Called when an attack has collected the weapons that it will use.
-    //public override void OnGenerateArmedAttacks(ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
+    //public override void OnGenerateArmedAttacks(ref AttackAction attack, ref List<Weapon> primaryWeapons, ref List<Weapon> secondaryWeapons) {}
 
     //Called before a primary attack happens
     //public override void OnBeginPrimaryAttack(ref Weapon weapon, ref AttackAction action) {}
@@ -149,7 +229,7 @@ public class DevInvincible : Effect
     //public override void OnEndSecondaryAttack(ref Weapon weapon, ref AttackAction action, ref AttackResult result) {}
 
     //Called when an attack has collected the unarmed slots that it will use.
-    //public override void OnGenerateUnarmedAttacks(ref List<EquipmentSlot> slots) {}
+    //public override void OnGenerateUnarmedAttacks(ref AttackAction attack, ref List<EquipmentSlot> slots) {}
 
     //Called before an unarmed attack begins.
     //public override void OnBeginUnarmedAttack(ref EquipmentSlot slot, ref AttackAction action) {}
@@ -178,15 +258,25 @@ public class DevInvincible : Effect
     //Called after this monster is hit by an unarmed attack from another monster. (Can't modify anymore)
     //public override void OnAfterUnarmedAttackTarget(ref EquipmentSlot slot, ref AttackAction action, ref AttackResult result) {}
 
+    //Called after this monster generates LOS, but before visible entity collection.
+    //public override void OnGenerateLOSPreCollection(ref LOSData view) {}
+
+    //Called after this monster generates LOS and visible entities.
+    //public override void OnGenerateLOSPostCollection(ref LOSData view) {}
+
 
     //BEGIN CONNECTION
     public override void Connect(Connections c)
     {
         connectedTo = c;
 
-        c.OnTurnStartGlobal.AddListener(10, OnTurnStartGlobal);
+        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
 
-        c.OnDeath.AddListener(10, OnDeath);
+        c.OnPostDeath.AddListener(10, OnPostDeath);
+
+        c.OnKillMonster.AddListener(10, OnKillMonster);
+
+        c.OnDealDamage.AddListener(10, OnDealDamage);
 
         OnConnection();
     }
@@ -197,9 +287,13 @@ public class DevInvincible : Effect
     {
         OnDisconnection();
 
-        connectedTo.OnTurnStartGlobal.RemoveListener(OnTurnStartGlobal);
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
-        connectedTo.OnDeath.RemoveListener(OnDeath);
+        connectedTo.OnPostDeath.RemoveListener(OnPostDeath);
+
+        connectedTo.OnKillMonster.RemoveListener(OnKillMonster);
+
+        connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
 
         ReadyToDelete = true;
     }

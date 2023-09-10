@@ -73,6 +73,8 @@ public class CharacterSelectController : MonoBehaviour
     IEnumerator LaunchGameRoutine()
     {
         yield return SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+
         loadingScreen.StartLoading();
         Debug.Assert(LevelLoader.singleton.generators.Count == 0, "Level loader was not set up!");
         chosenGenerator = Instantiate(chosenGenerator);
@@ -81,7 +83,6 @@ public class CharacterSelectController : MonoBehaviour
         chosenClass.Apply(Player.player);
         Player.player.AddEffectInstantiate(chosenGenerator.playerPassives.ToArray());
         Player castPlayer = Player.player as Player;
-        SceneManager.MoveGameObjectToScene(Player.player.gameObject, SceneManager.GetSceneByName("MainScene"));
 
         foreach (string s in generationOptions)
         {

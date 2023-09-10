@@ -269,11 +269,11 @@ public class Monster : MonoBehaviour, IDescribable
         {
             //Mark as dead temporarily, to prevent infinite loop
             dead = true;
-            connections.OnDeath.BlendInvoke(other?.OnDeath);
+            connections.OnDeath.BlendInvoke(other?.OnDeath, ref dealer);
             if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
             {
                 dealer?.KillMonster(this, type, source);
-                Die();
+                Die(dealer);
                 
             }
             else
@@ -286,16 +286,17 @@ public class Monster : MonoBehaviour, IDescribable
     //Kills this monster, without damage
     public void DestroyMonster()
     {
-        connections.OnDeath.BlendInvoke(other?.OnDeath);
-        Die();
+        Monster killerStandin = null;
+        connections.OnDeath.BlendInvoke(other?.OnDeath, ref killerStandin);
+        Die(killerStandin);
     }
 
 
-    protected virtual void Die()
+    protected virtual void Die(Monster killer)
     {
         RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.HIGH);
 
-        connections.OnPostDeath.BlendInvoke(other?.OnPostDeath);
+        connections.OnPostDeath.BlendInvoke(other?.OnPostDeath, ref killer);
         if (baseStats[HEALTH] > 0)
         {
             dead = false;
@@ -834,6 +835,19 @@ public class Monster : MonoBehaviour, IDescribable
         {
             T cast = e as T;
             if (cast != null) return cast;
+        }
+
+        return null;
+    }
+
+    public Effect GetEffectByTag(RogueTag tag)
+    {
+        foreach (Effect e in effects)
+        {
+            if (e.tags.HasTag(tag))
+            {
+                return e;
+            }
         }
 
         return null;

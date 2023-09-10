@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fba90e59da1b9488dbaf1eb1ec8911, type: 3}
+  m_Name: Ares
+  m_EditorClassIdentifier: 
+  localName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  title: 
+  maxFavor: 200
+  favorToSponsor: 60
+  scoringVariance: 2
+  favorToGold:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.995
+      outSlope: 0.995
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 200
+      value: 200
+      inSlope: 0.995
+      outSlope: 0.995
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scoring:
+  - id: 0
+  - id: 1
+  - id: 2
+  boons: []
+  references:
+    version: 1
+    00000000:
+      type: {class: ScoreDamage, ns: , asm: RoguelikeFramework}
+      data:
+        weight: 0.0001
+        connectedGod: {fileID: 0}
+        connectedMonster: {fileID: 0}
+        minThreshhold: 0
+        type: -1
+        source: -1
+        scalingType: 3
+    00000001:
+      type: {class: ScoreKilledCurrentCandidate, ns: , asm: RoguelikeFramework}
+      data:
+        weight: 10
+        connectedGod: {fileID: 0}
+        connectedMonster: {fileID: 0}
+        killedWatching: []
+        killedSponsored: []
+        sponsorMultiplier: 5
+    00000002:
+      type: {class: ScoreKills, ns: , asm: RoguelikeFramework}
+      data:
+        weight: 0.2
+        connectedGod: {fileID: 0}
+        connectedMonster: {fileID: 0}

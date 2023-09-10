@@ -169,26 +169,37 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a225b20882df06d468fae74bdae83d3c, type: 2}
     connectionType: 0
     exitTargets: []
-  dungeonSystems: []
+  dungeonSystems:
+  - id: 0
   machines:
   - requirements:
     - Jungle
     antiRequirements: []
     machines:
-    - id: 0
+    - id: 1
   playerPassives:
-  - id: 1
   - id: 2
   - id: 3
   - id: 4
   - id: 5
   - id: 6
-  monsterPassives:
   - id: 7
+  monsterPassives:
   - id: 8
+  - id: 9
   references:
     version: 1
     00000000:
+      type: {class: GodSystem, ns: , asm: RoguelikeFramework}
+      data:
+        gods:
+        - {fileID: 11400000, guid: 5b746bb65fd32bb4b90a524d88de9ce0, type: 2}
+        candidates: []
+        numCandidates: 5
+        candidateFactory: {fileID: 11400000, guid: 84f3a8c148936884cbad74db1655a9f6, type: 2}
+        listenerEffect:
+          id: 10
+    00000001:
       type: {class: JunglePathMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
@@ -198,10 +209,9 @@ MonoBehaviour:
         end: {x: 0, y: 0}
         canShareSpace: 0
         canExpand: 0
-    00000001:
+    00000002:
       type: {class: PlayerPassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -237,10 +247,9 @@ MonoBehaviour:
           - 50
           - 40
         TurnsTillSafety: 15
-    00000002:
+    00000003:
       type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -265,10 +274,9 @@ MonoBehaviour:
           _keys: []
           _vals: 
         achievementName: ACH_PLAYER_DEATH
-    00000003:
+    00000004:
       type: {class: GrantPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -295,7 +303,7 @@ MonoBehaviour:
         levelToGrantAt: 5
         possibleEffects: {fileID: 11400000, guid: 0a826d7b02e700043b65ec4633f0534e, type: 2}
         backup:
-          id: 9
+          id: 11
         rarities:
           rarities:
           - rarity: 0
@@ -311,37 +319,9 @@ MonoBehaviour:
           - rarity: 5
             weight: 2
           types: []
-    00000004:
+    00000005:
       type: {class: SteamStatsTracking, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
-        credit: {fileID: 0}
-        name:
-          m_TableReference:
-            m_TableCollectionName: 
-          m_TableEntryReference:
-            m_KeyId: 0
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        description:
-          m_TableReference:
-            m_TableCollectionName: 
-          m_TableEntryReference:
-            m_KeyId: 0
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        image: {fileID: 0}
-        tags:
-          _keys: []
-          _vals: 
-    00000005:
-      type: {class: SteamRichPresence, ns: , asm: RoguelikeFramework}
-      data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -366,9 +346,34 @@ MonoBehaviour:
           _keys: []
           _vals: 
     00000006:
+      type: {class: SteamRichPresence, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+    00000007:
       type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -394,10 +399,9 @@ MonoBehaviour:
           _vals: 
         key:
           name: _CorePipEffect
-    00000007:
+    00000008:
       type: {class: PlayerPassive, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -431,10 +435,9 @@ MonoBehaviour:
           _keys: 
           _vals: []
         TurnsTillSafety: 15
-    00000008:
+    00000009:
       type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -460,10 +463,36 @@ MonoBehaviour:
           _vals: 
         key:
           name: _CorePipEffect
-    00000009:
+    0000000A:
+      type: {class: GodSystemListener, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys:
+          - name: GodSystem.Listener
+          _vals: 01000000
+    0000000B:
       type: {class: NoPersonalAttribute, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:

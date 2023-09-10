@@ -153,6 +153,24 @@ public static class RogueRNG
     {
         return (int)BoundedPareto((float)min, (float)max, xMin, a, cutoff);
     }
+
+    //Implementation following Box-Mueller transform suggested here: https://stackoverflow.com/questions/218060/random-gaussian-variables
+    //This *should* be doubles, but probably doesn't matter - I'm not too in love with crazy high numbers being necessary
+    public static float Normal(float mean, float stdDev)
+    {
+        float u0 = 1.0f - RogueRNG.Linear(0f, 1f);
+        float u1 = 1.0f - RogueRNG.Linear(0f, 1f);
+
+        float normalSample = Mathf.Sqrt(-2 * Mathf.Log(u0)) * Mathf.Sin(2 * Mathf.PI * u1);
+
+        return mean + stdDev * normalSample;
+    }
+
+    public static int NormalInt(float mean, float stdDev)
+    {
+        return Mathf.RoundToInt(Normal(mean, stdDev));
+    }
+
     #endregion
 
     #region Discrete

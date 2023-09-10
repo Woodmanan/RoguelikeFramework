@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2fba90e59da1b9488dbaf1eb1ec8911, type: 3}
-  m_Name: TestGod
+  m_Name: TestGod 1
   m_EditorClassIdentifier: 
   localName:
     m_TableReference:
@@ -24,7 +24,7 @@ MonoBehaviour:
   title: 
   maxFavor: 200
   favorToSponsor: 60
-  scoringVariance: 1
+  scoringVariance: 2
   favorToGold:
     serializedVersion: 2
     m_Curve:
@@ -66,13 +66,13 @@ MonoBehaviour:
         weight: 0.5
         connectedTo: {fileID: 0}
         minThreshhold: 5
-        type: 9
+        type: 8
         source: -1
         scalingType: 2
     00000001:
       type: {class: ScoreIsPlayer, ns: , asm: RoguelikeFramework}
       data:
-        weight: 5
+        weight: -5
         connectedTo: {fileID: 0}
     00000002:
       type: {class: PerfectTiming, ns: , asm: RoguelikeFramework}

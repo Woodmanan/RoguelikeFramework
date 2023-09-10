@@ -38,8 +38,8 @@ public class Connections
     public OrderedEvent<Vector2Int, bool> OnMoveInitiated = new OrderedEvent<Vector2Int, bool>();
     public OrderedEvent OnMove = new OrderedEvent();
     public OrderedEvent OnFullyHealed = new OrderedEvent();
-    public OrderedEvent OnPostDeath = new OrderedEvent();
-    public OrderedEvent OnDeath = new OrderedEvent();
+    public OrderedEvent<Monster> OnPostDeath = new OrderedEvent<Monster>();
+    public OrderedEvent<Monster> OnDeath = new OrderedEvent<Monster>();
     public OrderedEvent<Monster, DamageType, DamageSource> OnKillMonster = new OrderedEvent<Monster, DamageType, DamageSource>();
     public OrderedEvent<Stats> RegenerateStats = new OrderedEvent<Stats>();
     public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>();

@@ -68,7 +68,7 @@ public class LichPassiveExtension : Effect
     //public override void OnPostDeath() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         ownerPassive.HandleConnectedDeath(connectedTo.monster);
     }

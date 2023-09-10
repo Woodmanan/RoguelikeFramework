@@ -224,8 +224,8 @@ public class Effect : IDescribable
     public virtual void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
-    public virtual void OnPostDeath() {}
-    public virtual void OnDeath() {}
+    public virtual void OnPostDeath(ref Monster killer) {}
+    public virtual void OnDeath(ref Monster killer) {}
     public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void RegenerateStats(ref Stats stats) {}
     public virtual void OnEnergyGained(ref int energy) {}

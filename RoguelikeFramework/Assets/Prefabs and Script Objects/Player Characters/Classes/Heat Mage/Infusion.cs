@@ -71,7 +71,7 @@ public class Infusion : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         connectedTo.monster.UpdateLOS();
         if (connectedTo.monster == Player.player && toCastOnDeath.baseTargeting.targetingType != TargetType.SELF)

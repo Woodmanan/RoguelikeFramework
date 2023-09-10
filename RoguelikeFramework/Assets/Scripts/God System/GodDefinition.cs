@@ -22,6 +22,7 @@ public class GodDefinition : ScriptableObject
 
     public float maxFavor;
     public float favorToSponsor;
+    public float scoringVariance; //How fickle a god is
     public AnimationCurve favorToGold;
 
     [SerializeReference]
@@ -34,9 +35,13 @@ public class GodDefinition : ScriptableObject
     GodSystem system;
 
     int currentlyWatching = -1;
+    int currentlySponsoring = -1;
+
+    RogueTag listenerTag;
 
     public void Setup(GodSystem system)
     {
+        listenerTag = new RogueTag("GodSystem.Listener");
         this.system = system;
 
         foreach (GodScoringOperator scoringOperator in scoring)
@@ -45,22 +50,30 @@ public class GodDefinition : ScriptableObject
         }
 
         scores = new float[system.numCandidates];
+
+
     }
 
     public void AddScoreToCurrent(float amount)
     {
-
+        Debug.Log($"Added {amount} score!");
+        scores[currentlyWatching] += amount;
     }
 
     public void EvaluateAllCandidates()
     {
-        int maxIndex = 0;
+        int maxIndex = Mathf.Max(0, currentlyWatching);
         for (int i = 0; i < system.numCandidates; i++)
         {
-            if (currentlyWatching != i)
+            if (system[i].IsDead())
             {
-                scores[i] = StaticScore(system[i]);
+                scores[i] = float.NegativeInfinity;
             }
+            else if (currentlyWatching != i)
+            {
+                scores[i] = RogueRNG.Normal(StaticScore(system[i]), scoringVariance);
+            }
+
             if (scores[i] > scores[maxIndex])
             {
                 maxIndex = i;
@@ -82,6 +95,42 @@ public class GodDefinition : ScriptableObject
 
     public void WatchCandidate(int index)
     {
+        Debug.Log($"God {name} is now watching {index}:{system[index].friendlyName} with score {scores[index]}");
+
+        if (currentlyWatching == index) return;
+
+        UnattachListener(currentlyWatching);        
         currentlyWatching = index;
+        AttachListener(currentlyWatching);
+    }
+
+    public void UnattachListener(int index)
+    {
+        if (index >= 0 && index < system.numCandidates)
+        {
+            //Do the thing!
+            GodSystemListener listener = system[index].GetEffectByTag(listenerTag) as GodSystemListener;
+            listener?.DetachGod(this);
+        }
+    }
+
+    public void AttachListener(int index)
+    {
+        if (index >= 0 && index < system.numCandidates)
+        {
+            GodSystemListener listener = system[index].GetEffectByTag(listenerTag) as GodSystemListener;
+            listener?.AttachGod(this);
+        }
+    }
+
+    public Monster GetCurrentlySponsoring()
+    {
+        if (currentlySponsoring == -1) return null;
+        return system[currentlySponsoring];
+    }
+
+    public bool IsSponsoring(Monster monster)
+    {
+        return monster == GetCurrentlySponsoring();
     }
 }

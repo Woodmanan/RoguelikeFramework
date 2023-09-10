@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class EffectFileWizard
 {
 
-    [MenuItem("Tools/Dangerous/Rebuild Effects")]
+    [MenuItem("Tools/Dangerous/Rebuild Base and All Effects")]
 
     static void RebuildEffects()
     {
@@ -43,12 +43,42 @@ public class EffectFileWizard
         CompilationPipeline.RequestScriptCompilation();
 
         List<Type> types = GetAllEffectTypes();
+        string format = new string('0', types.Count.ToString().Length);
         for (int i = 0; i < types.Count; i++)
         {
             Type type = types[i];
-            EditorUtility.DisplayProgressBar($"Rebuilding {types.Count} effects", $"({i.ToString("00")}/{types.Count}) Rebuilding {type.Name}", ((float)i) / types.Count);
+            EditorUtility.DisplayProgressBar($"Rebuilding {types.Count} effects", $"({i.ToString(format)}/{types.Count}) Rebuilding {type.Name}", ((float)i) / types.Count);
             //Rebuild the class files for each type
             RebuildClassConnections(type, declarations);
+            EditorPrefs.DeleteKey($"Rebuild_{types[i].Name}");
+        }
+
+        EditorUtility.ClearProgressBar();
+
+
+        //Reload the asset database, triggering a recompile and yelling at us if this didn't work right.
+        Debug.Log("Finished all writes, reloading assets and recompiling.");
+        CompilationPipeline.RequestScriptCompilation();
+    }
+
+    [MenuItem("Tools/Dangerous/Rebuild Changed Effects")]
+    static void RebuildChangedEffects()
+    {
+        EffectConnections declarations = AssetDatabase.LoadAssetAtPath<EffectConnections>("Assets/Framework/Scripts/CustomEditor/Editor/Effects/Effect Connections.asset");
+
+        List<Type> types = GetAllEffectTypes()
+                           .Where(x => EditorPrefs.GetBool($"Rebuild_{x.Name}", false))
+                           .ToList();
+
+        string format = new string('0', types.Count.ToString().Length);
+
+        for (int i = 0; i < types.Count; i++)
+        {
+            Type type = types[i];
+            EditorUtility.DisplayProgressBar($"Rebuilding {types.Count} effects", $"({i.ToString(format)}/{types.Count}) Rebuilding {type.Name}", ((float)i) / types.Count);
+            //Rebuild the class files for each type
+            RebuildClassConnections(type, declarations);
+            EditorPrefs.DeleteKey($"Rebuild_{types[i].Name}");
         }
 
         EditorUtility.ClearProgressBar();

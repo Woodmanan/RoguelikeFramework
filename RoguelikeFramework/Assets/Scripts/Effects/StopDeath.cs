@@ -73,7 +73,7 @@ public class StopDeath : Effect
 
     //Called when the connected monster dies
     [Priority(250)]
-    public override void OnDeath()
+    public override void OnDeath(ref Monster killer)
     {
         connectedTo.monster.baseStats[HEALTH] = 1;
     }
