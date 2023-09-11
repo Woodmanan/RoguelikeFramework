@@ -54,7 +54,7 @@ MonoBehaviour:
         m_DefaultTableReference:
           m_TableCollectionName: ActionsFormatTable
         m_UseFallback: 1
-        m_MissingTranslationState: 1
+        m_MissingTranslationState: 2
         m_NoTranslationFoundMessage: No translation found for '{key}' in {table.TableCollectionName}
         m_SmartFormat:
           id: 6
@@ -73,9 +73,9 @@ MonoBehaviour:
         - id: 13
         - id: 14
         - id: 15
+        - id: 16
         m_Formatters:
         - id: 9
-        - id: 16
         - id: 17
         - id: 18
         - id: 19
@@ -83,6 +83,8 @@ MonoBehaviour:
         - id: 21
         - id: 22
         - id: 23
+        - id: 24
+        - id: 25
     00000007:
       type: {class: SmartSettings, ns: UnityEngine.Localization.SmartFormat.Core.Settings, asm: Unity.Localization}
       data:
@@ -122,10 +124,14 @@ MonoBehaviour:
     0000000D:
       type: {class: XmlSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
     0000000E:
-      type: {class: ReflectionSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
+      type: {class: EmptySource, ns: , asm: RoguelikeFramework}
+      data:
+        selector: format
     0000000F:
-      type: {class: DefaultSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
+      type: {class: ReflectionSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
     00000010:
+      type: {class: DefaultSource, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
+    00000011:
       type: {class: PluralLocalizationFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
@@ -133,14 +139,14 @@ MonoBehaviour:
         - p
         - 
         m_DefaultTwoLetterISOLanguageName: en
-    00000011:
+    00000012:
       type: {class: ConditionalFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
         - conditional
         - cond
         - 
-    00000012:
+    00000013:
       type: {class: TimeFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
@@ -149,7 +155,7 @@ MonoBehaviour:
         - t
         - 
         m_DefaultFormatOptions: 4646
-    00000013:
+    00000014:
       type: {class: XElementFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
@@ -157,14 +163,14 @@ MonoBehaviour:
         - xml
         - x
         - 
-    00000014:
+    00000015:
       type: {class: ChooseFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
         - choose
         - c
         m_SplitChar: 124
-    00000015:
+    00000016:
       type: {class: SubStringFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
@@ -172,15 +178,23 @@ MonoBehaviour:
         m_ParameterDelimiter: 44
         m_NullDisplayString: (null)
         m_OutOfRangeBehavior: 0
-    00000016:
+    00000017:
       type: {class: IsMatchFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
         - ismatch
-    00000017:
+    00000018:
       type: {class: DefaultFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: Unity.Localization}
       data:
         m_Names:
         - default
         - d
         - 
+    00000019:
+      type: {class: ChooseAnyFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions, asm: RoguelikeFramework}
+      data:
+        m_Names:
+        - chooseany
+        - ca
+        - any
+        m_SplitChar: 124

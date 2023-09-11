@@ -63,6 +63,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Preload
+  - m_GUID: 9666c3f08dfff0749842415a3af2aa48
+    m_Address: GodNamesTable_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: be0a14ddb09ed2944af4cb4acda145c2, type: 2}
   m_SchemaSet:

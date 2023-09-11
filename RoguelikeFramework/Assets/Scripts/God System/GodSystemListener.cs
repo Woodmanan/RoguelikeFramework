@@ -6,7 +6,7 @@ using static Resources;
 
 //[Group("Sample Group/Sample Subgroup")]
 [Priority(10)]
-public class GodSystemListener : Effect 
+public class GodSystemListener : Effect
 {
     List<GodDefinition> watching;
     GodDefinition sponsor;

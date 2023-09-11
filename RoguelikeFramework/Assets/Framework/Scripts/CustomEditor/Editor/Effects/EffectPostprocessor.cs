@@ -8,6 +8,8 @@ using System.Linq;
 
 public class EffectPostprocessor : AssetPostprocessor
 {
+	static List<string> names;
+
 	static void OnPostprocessAllAssets(
 		 string[] importedAssets,
 		 string[] deletedAssets,
@@ -24,15 +26,22 @@ public class EffectPostprocessor : AssetPostprocessor
 
 			if (extension.Equals("cs"))
             {
-				Type fileType = AppDomain.CurrentDomain.GetAssemblies()
-								.Reverse()
-								.Select(assembly => assembly.GetType(fileName))
-								.FirstOrDefault(t => t != null);
-				if (fileType != null && fileType.BaseType == typeof(Effect))
+				if (names == null)
+                {
+					Debug.Log("Reimported all effect names!");
+					Type effectType = typeof(Effect);
+
+					names = AppDomain.CurrentDomain.GetAssemblies()
+						.Select(x => x.GetTypes())
+						.SelectMany(x => x)
+						.Where(x => x.BaseType == effectType)
+						.Select(x => x.Name)
+						.ToList();
+                }
+
+				if (names.Contains(fileName))
                 {
 					Debug.Log($"Reimported an effect named {fileName}");
-					Debug.Log($"It has name {fileType.Name}");
-					Debug.Log($"It was in assembly {fileType.Assembly.FullName}");
 					EditorPrefs.SetBool($"Rebuild_{fileName}", true);
                 }
             }

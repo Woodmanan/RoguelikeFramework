@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GodNamesTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 00b060cc409090c46a3111c099806ff9, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 85436604416
+    m_Localized: '[{prefix:{prefix}|}{first} {last}{suffix:{suffix}|}]'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 302202429440
+    m_Localized: '{format:ca:Primevial|Ancient|Bloody|Brutal|Vicous|Vengeful|Enraged|Red|Martian|Laconic|Spartan}'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 770429362176
+    m_Localized: '{format:ca:Warrior|Horseman|Fighter|Soldier|Rage|Commander|General|Captain|Violence}'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 397169155317760
+    m_Localized: '{format:ca(10): on a Fiery Steed|, Master of the Battlefield}'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 400911929909248
+    m_Localized: 'The '
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 404479869132800
+    m_Localized: '[The Red God of War]'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00206be4130000000020ab5c4600000000202b61b300000000206b263969010000202b95a06c0100

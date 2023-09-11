@@ -16,9 +16,17 @@ public struct Boon
 [CreateAssetMenu(fileName = "New God Definition", menuName = "ScriptableObjects/Gods/New God", order = 0)]
 public class GodDefinition : ScriptableObject
 {
+    [Header("Naming info")]
     public LocalizedString localName;
+    public LocalizedString format;
+    public LocalizedString first;
+    public LocalizedString last;
+    public LocalizedString prefix;
+    public LocalizedString suffix;
+
     [HideInInspector]
     public string title;
+
 
     public float maxFavor;
     public float favorToSponsor;
@@ -51,7 +59,9 @@ public class GodDefinition : ScriptableObject
 
         scores = new float[system.numCandidates];
 
+        title = GenerateName();
 
+        Debug.Log($"{name} has chosen the title {}");
     }
 
     public void AddScoreToCurrent(float amount)
@@ -133,4 +143,14 @@ public class GodDefinition : ScriptableObject
     {
         return monster == GetCurrentlySponsoring();
     }
+
+    public string GenerateName()
+    {
+        return format.GetLocalizedString(new { first = first.IsEmpty ? "" : first.GetLocalizedString(), 
+                                                last = last.IsEmpty  ? "" : last.GetLocalizedString(), 
+                                                prefix = prefix.IsEmpty ? "" : prefix.GetLocalizedString(), 
+                                                suffix = suffix.IsEmpty ? "" : suffix.GetLocalizedString()
+        });
+    }
 }
+
