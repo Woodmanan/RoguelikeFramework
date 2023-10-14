@@ -322,7 +322,7 @@ public class Monster : MonoBehaviour, IDescribable
             while (dropAll.action.MoveNext()) { }
         }
 
-        AnimationController.AddAnimationForObject(new DeathAnimation(this), this);
+        AnimationController.AddAnimationForMonster(new DeathAnimation(this), this);
     }
 
     public void KillMonster(Monster target, DamageType type, DamageSource source)
@@ -424,7 +424,7 @@ public class Monster : MonoBehaviour, IDescribable
         return nameRequiresPluralVerbs ? "the " + displayName : displayName;
     }
 
-    public void AddEnergy(int energy)
+    public void AddEnergy(float energy)
     {
         connections.OnEnergyGained.BlendInvoke(other?.OnEnergyGained, ref energy);
         this.energy += energy;

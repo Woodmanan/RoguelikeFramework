@@ -60,7 +60,7 @@ public class SnapAnimation : RogueAnimation
 
 public class AttackAnimation : RogueAnimation
 {
-    public const float attackDuration = .3f;
+    public const float attackDuration = .15f;
 
     Monster monster;
     Vector3 start;

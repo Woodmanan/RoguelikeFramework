@@ -11,6 +11,7 @@ public class CandidateFactory : ScriptableObject
     {
         Monster baseMonster = template.Instantiate();
         baseMonster.friendlyName = $"Candidate #{RogueRNG.Linear(0, 100)}";
+        baseMonster.faction = Faction.NONE; //No faction for these guys
         return baseMonster;
     }
 }

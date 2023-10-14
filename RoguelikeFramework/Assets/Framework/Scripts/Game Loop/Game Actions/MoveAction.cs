@@ -108,8 +108,8 @@ public class MoveAction : GameAction
 
                     if (animates && caller.renderer.enabled)
                     {
-                        AnimationController.AddAnimationForObject(new MoveAnimation(caller, currentTile.location, otherTile.location), caller);
-                        AnimationController.AddAnimationForObject(new MoveAnimation(other, otherTile.location, currentTile.location), other);
+                        AnimationController.AddAnimationForMonster(new MoveAnimation(caller, currentTile.location, otherTile.location), caller);
+                        AnimationController.AddAnimationForMonster(new MoveAnimation(other, otherTile.location, currentTile.location), other);
                     }
                 }
                 else
@@ -143,7 +143,7 @@ public class MoveAction : GameAction
         //Add the movement anim
         if (animates && caller.renderer.enabled)
         {
-            AnimationController.AddAnimationForObject(new MoveAnimation(caller, oldLocation, intendedLocation), caller);
+            AnimationController.AddAnimationForMonster(new MoveAnimation(caller, oldLocation, intendedLocation), caller);
         }
         else
         {

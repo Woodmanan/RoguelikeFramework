@@ -42,7 +42,7 @@ public class Connections
     public OrderedEvent<Monster> OnDeath = new OrderedEvent<Monster>();
     public OrderedEvent<Monster, DamageType, DamageSource> OnKillMonster = new OrderedEvent<Monster, DamageType, DamageSource>();
     public OrderedEvent<Stats> RegenerateStats = new OrderedEvent<Stats>();
-    public OrderedEvent<int> OnEnergyGained = new OrderedEvent<int>();
+    public OrderedEvent<float> OnEnergyGained = new OrderedEvent<float>();
     public OrderedEvent<int, int> OnAttacked = new OrderedEvent<int, int>();
     public OrderedEvent<float, DamageType, DamageSource> OnDealDamage = new OrderedEvent<float, DamageType, DamageSource>();
     public OrderedEvent<float, DamageType, DamageSource> OnTakeDamage = new OrderedEvent<float, DamageType, DamageSource>();

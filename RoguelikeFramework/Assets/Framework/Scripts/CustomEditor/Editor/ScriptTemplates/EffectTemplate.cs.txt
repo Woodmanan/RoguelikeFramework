@@ -74,7 +74,7 @@ public class #SCRIPTNAME# : Effect
     //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
-    //public override void OnEnergyGained(ref int energy) {}
+    //public override void OnEnergyGained(ref float energy) {}
 
     //Called when a monster gets attacked (REWORKING SOON!)
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}

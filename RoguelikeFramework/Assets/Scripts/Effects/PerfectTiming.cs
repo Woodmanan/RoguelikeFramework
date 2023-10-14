@@ -84,7 +84,7 @@ public class PerfectTiming : Effect
                 toPlay.destination = connectedTo.monster.location;
                 toPlay.radius = 1;
                 toPlay.GenerateFromTargeting(null, 0, connectedTo.monster);
-                AnimationController.AddAnimationForObject(toPlay, connectedTo.monster);
+                AnimationController.AddAnimationForMonster(toPlay, connectedTo.monster);
             }
         }
 

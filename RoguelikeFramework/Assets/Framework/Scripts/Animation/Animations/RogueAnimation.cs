@@ -33,6 +33,11 @@ public class RogueAnimation
         }
     }
 
+    public void Flush()
+    {
+        Step(MaxDuration - currentDuration);
+    }
+
     public virtual void OnStart()
     {
 

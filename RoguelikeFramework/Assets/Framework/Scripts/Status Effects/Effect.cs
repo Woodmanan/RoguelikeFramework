@@ -228,7 +228,7 @@ public class Effect : IDescribable
     public virtual void OnDeath(ref Monster killer) {}
     public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
     public virtual void RegenerateStats(ref Stats stats) {}
-    public virtual void OnEnergyGained(ref int energy) {}
+    public virtual void OnEnergyGained(ref float energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
     public virtual void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
     public virtual void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}

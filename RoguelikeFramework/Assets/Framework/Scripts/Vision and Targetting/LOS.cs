@@ -158,13 +158,13 @@ public class LOSData
                         RogueTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
                         if (tile.currentlyStanding)
                         {
-                            if (viewer != null && tile.currentlyStanding.IsEnemy(viewer))
+                            if (viewer != null && tile.currentlyStanding != viewer)
                             {
-                                visibleEnemies.Add(tile.currentlyStanding);
-                            }
-                            else
-                            {
-                                if (tile.currentlyStanding != viewer)
+                                if (tile.currentlyStanding.IsEnemy(viewer))
+                                {
+                                    visibleEnemies.Add(tile.currentlyStanding);
+                                }
+                                else
                                 {
                                     visibleFriends.Add(tile.currentlyStanding);
                                 }

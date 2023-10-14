@@ -87,7 +87,7 @@ public class EnergyCut : Effect
     //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
-    public override void OnEnergyGained(ref int energy)
+    public override void OnEnergyGained(ref float energy)
     {
         energy = Mathf.RoundToInt(energy * percentLeft / 100);
     }

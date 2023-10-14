@@ -8519,7 +8519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnMSPerFrame: 10
   turn: 0
-  energyPerTurn: 100
+  energyPerTurn: 25
   player: {fileID: 0}
   nextLevel: -1
 --- !u!4 &509484615
@@ -13084,7 +13084,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4398936065524521707, guid: 39f5d6def9ee7314e9039e5216c36bdc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.00354
+      value: -5.009674
       objectReference: {fileID: 0}
     - target: {fileID: 4398936066133102746, guid: 39f5d6def9ee7314e9039e5216c36bdc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -17224,7 +17224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 21.823944
+  m_AspectRatio: 23.225657
 --- !u!1 &1116750417
 GameObject:
   m_ObjectHideFlags: 0
@@ -20326,7 +20326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicMessage: {fileID: 1586344470030680463, guid: 92ec2478508da70409a10951175d69cf, type: 3}
   spawnAreas: {fileID: 1834542468}
-  defaultShowTime: 2
+  defaultShowTime: 6
 --- !u!1 &1329360143
 GameObject:
   m_ObjectHideFlags: 0

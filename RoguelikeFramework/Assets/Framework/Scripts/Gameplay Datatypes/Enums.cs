@@ -65,6 +65,7 @@ public enum PlayerAction
 [Flags]
 public enum Faction
 {
+    NONE        = 0,
     STANDARD    = (1 << 0),
     PLAYER      = (1 << 1)
 }

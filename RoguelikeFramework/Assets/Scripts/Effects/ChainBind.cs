@@ -64,7 +64,7 @@ public class ChainBind : Effect
                 connectedTo.monster.SetPositionNoGraphicsUpdate(newLocation);
 
                 //TODO: Pull back animation
-                AnimationController.AddAnimationForObject(new SnapAnimation(connectedTo.monster, connectedTo.monster.location), connectedTo.monster);
+                AnimationController.AddAnimationForMonster(new SnapAnimation(connectedTo.monster, connectedTo.monster.location), connectedTo.monster);
             }
 
             RogueLog.singleton.LogTemplate("PulledInFullString", new { target = connectedTo.monster.GetName(), singular = connectedTo.monster.singular }, null, LogPriority.HIGH, LogDisplay.STANDARD);

@@ -83,7 +83,7 @@ public class Construct : Effect
 
     //Called wenever a monster gains energy
     [Priority(150)]
-    public override void OnEnergyGained(ref int energy)
+    public override void OnEnergyGained(ref float energy)
     {
         if (!canAct)
         {

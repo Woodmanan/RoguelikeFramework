@@ -161,7 +161,7 @@ public class RangedAttackAction : AttackAction
                     }
                     else
                     {
-                        AnimationController.AddAnimationForObject(copy, caller);
+                        AnimationController.AddAnimationForMonster(copy, caller);
                     }
                 }
                 if (needsSolo) AnimationController.EndSoloGroup();

@@ -65,7 +65,7 @@ public class FrostEffect : Effect
     //public override void RegenerateStats(ref StatBlock stats) {}
 
     //Called wenever a monster gains energy
-    public override void OnEnergyGained(ref int energy)
+    public override void OnEnergyGained(ref float energy)
     {
         energy = energy / 2;
     }

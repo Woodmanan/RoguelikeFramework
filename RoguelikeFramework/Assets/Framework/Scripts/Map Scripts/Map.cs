@@ -294,7 +294,7 @@ public class Map : MonoBehaviour
         while (true)
         {
             Vector2Int spot = new Vector2Int(Random.Range(1, width - 1), Random.Range(1, height - 1));
-            if (MovementCostAt(spot) > 0)
+            if (MovementCostAt(spot) > 0 && GetTile(spot).IsOpen())
             {
                 return spot;
             }

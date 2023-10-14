@@ -158,7 +158,7 @@ public class PoweredUp : Effect
     }
 
     //Called wenever a monster gains energy
-    public override void OnEnergyGained(ref int energy)
+    public override void OnEnergyGained(ref float energy)
     {
         if (isPowered)
         {

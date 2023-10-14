@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
     
     public int turn;
 
-    public int energyPerTurn;
+    public float energyPerTurn = 100f;
 
     public Monster player;
 
@@ -138,6 +138,7 @@ public class GameController : MonoBehaviour
     IEnumerator GameLoop()
     {
         Stopwatch watch = new Stopwatch();
+        Stopwatch monsterWatch = new Stopwatch();
         //Main loop
         while (true)
         {
@@ -166,16 +167,20 @@ public class GameController : MonoBehaviour
 
 
             watch.Restart();
+            monsterWatch.Start();
+            int splits = 1;
+            long current = monsterWatch.ElapsedMilliseconds;
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
                 //Local scope counter for stalling - prevent a monster from taking > 1000 sub-turns
                 int stallCount = 0;
-                
+
 
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
                 if (watch.ElapsedMilliseconds > turnMSPerFrame)
                 {
                     watch.Stop();
+                    splits++;
                     yield return null;
                     watch.Restart();
                 }
@@ -195,6 +200,7 @@ public class GameController : MonoBehaviour
                         if (!GameAction.HasSpecialInstruction(turn))
                         {
                             watch.Stop();
+                            splits++;
                             yield return turn.Current;
                             watch.Restart();
                         }
@@ -205,6 +211,7 @@ public class GameController : MonoBehaviour
                             if (watch.ElapsedMilliseconds > turnMSPerFrame)
                             {
                                 watch.Stop();
+                                splits++;
                                 yield return null;
                                 watch.Restart();
                             }
@@ -218,15 +225,18 @@ public class GameController : MonoBehaviour
                             m.energy = 0;
                             break;
                         }
-                        
+
                     }
 
                     //Turn is ended!
                     m.EndTurn();
                 }
             }
+
             watch.Stop();
-            
+            monsterWatch.Stop();
+            UnityEngine.Debug.Log($"Monster update time this turn: {monsterWatch.ElapsedMilliseconds - current} ms across {splits} frames");
+
             CallTurnEndGlobal();
 
             turn++;
@@ -234,6 +244,7 @@ public class GameController : MonoBehaviour
             //Wait for current frame to finish up
             while (AnimationController.Count > 0)
             {
+                UnityEngine.Debug.Log($"{turn}: Anim controller has {AnimationController.Count}");
                 yield return null;
             }
 

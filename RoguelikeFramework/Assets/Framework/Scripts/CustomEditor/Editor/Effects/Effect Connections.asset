@@ -82,7 +82,7 @@ MonoBehaviour:
     priority: 8
   - name: OnEnergyGained
     types:
-    - type: int
+    - type: float
       name: energy
     description: Called wenever a monster gains energy
     priority: 9

@@ -94,7 +94,7 @@ public class BoneArmor : Effect
     }
 
     //Called wenever a monster gains energy
-    public override void OnEnergyGained(ref int energy)
+    public override void OnEnergyGained(ref float energy)
     {
         energy = Mathf.RoundToInt(energy * percentEnergyLeft / 100);
     }

@@ -76,10 +76,13 @@ public class GodSystem : DungeonSystem
         //Move everyone up
         for (int i = 1; i < numCandidates; i++)
         {
-            Vector2Int location = m.GetRandomWalkableTile();
-            candidates[i].transform.parent = m.monsterContainer;
-            m.monsters.Add(candidates[i]);
-            candidates[i].SetPositionSnap(location);
+            if (!candidates[i].IsDead())
+            {
+                Vector2Int location = m.GetRandomWalkableTile();
+                candidates[i].transform.parent = m.monsterContainer;
+                m.monsters.Add(candidates[i]);
+                candidates[i].SetPositionSnap(location);
+            }
         }
 
         if (m.index > lowestVisitedLevel)

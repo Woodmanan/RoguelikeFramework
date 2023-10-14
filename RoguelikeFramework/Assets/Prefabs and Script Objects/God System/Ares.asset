@@ -94,11 +94,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  giveGoldEvery: 10
   scoring:
   - id: 0
   - id: 1
   - id: 2
-  boons: []
+  - id: 3
+  boons:
+  - favorNeeded: 5
+    requiresSponsor: 0
+    givenEffects:
+    - id: 4
+    givenAbilities: []
+    given: 0
   references:
     version: 1
     00000000:
@@ -126,3 +134,39 @@ MonoBehaviour:
         weight: 0.2
         connectedGod: {fileID: 0}
         connectedMonster: {fileID: 0}
+    00000003:
+      type: {class: ScoreIsPlayer, ns: , asm: RoguelikeFramework}
+      data:
+        weight: 60
+        connectedGod: {fileID: 0}
+        connectedMonster: {fileID: 0}
+    00000004:
+      type: {class: TrollPassive, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        baseRegenPerTurn: 60
+        extraRegenPerLevel: 0
+        stoppedBy: 0
+        numTurnsHaltOnWeakness: 0

@@ -55,6 +55,27 @@ public class AnimGroup
             }
         }
     }
+
+    public void Flush()
+    {
+        for (int i = 0; i < animations.Count; i++)
+        {
+            animations[i].Flush();
+        }
+
+        for (int i = animations.Count - 1; i >= 0; i--)
+        {
+            if (animations[i].isFinished)
+            {
+                animations.RemoveAt(i);
+            }
+        }
+
+        if (animations.Count != 0)
+        {
+            Debug.LogError("Flush did not clear out all anims!");
+        }
+    }
 }
 
 public class AnimationController : MonoBehaviour
@@ -105,6 +126,18 @@ public class AnimationController : MonoBehaviour
     public static void AddAnimation(RogueAnimation anim)
     {
         workingGroup.AddAnim(anim);
+    }
+
+    public static void AddAnimationForMonster(RogueAnimation anim, Monster monster, params Monster[] secondary)
+    {
+        if (monster.renderer.enabled && monster.currentTile != null && monster.currentTile.isVisible)
+        {
+            AddAnimationForObject(anim, monster);
+            foreach (Monster blocked in secondary)
+            {
+                workingGroup.blockedObjects.Add(blocked);
+            }
+        }
     }
 
     public static void AddAnimationForObject(RogueAnimation anim, Object pairedObject)
@@ -181,6 +214,15 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    public static void Flush()
+    {
+        while (hasAnimations)
+        {
+            activeGroup.Flush();
+            MoveToNextGroup();
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -192,7 +234,14 @@ public class AnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale = Mathf.Min(99, Mathf.Pow(2f, InputTracking.actions.Count));
+        Time.timeScale = Mathf.Min(16, 1.0f * Mathf.Pow(1.5f, animations.Count) * Mathf.Pow(2f, InputTracking.actions.Count));
+
+        if (Time.timeScale > 10)
+        {
+            Flush();
+            Time.timeScale = 10;
+        }
+
         StepAnimations();
     }
 }
