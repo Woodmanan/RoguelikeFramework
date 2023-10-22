@@ -57,13 +57,13 @@ MonoBehaviour:
           _keys: []
           _vals: 
         pairs:
-        - type: 128
+        - type: 256
           effect:
             id: 5
-        - type: 16
+        - type: 32
           effect:
             id: 6
-        - type: 8
+        - type: 16
           effect:
             id: 7
     00000001:
@@ -88,7 +88,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: af322039cd91a17488d5961b92a136ef, type: 3}
         tags:
           _keys: []
           _vals: 
@@ -115,7 +115,7 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
-        image: {fileID: 0}
+        image: {fileID: 21300000, guid: da4058c8e3ee7c94d957ee5aa3cded97, type: 3}
         tags:
           _keys: []
           _vals: 
@@ -231,7 +231,7 @@ MonoBehaviour:
         key:
           name: Ice
     00000007:
-      type: {class: Fire, ns: , asm: RoguelikeFramework}
+      type: {class: StandardEffect, ns: , asm: RoguelikeFramework}
       data:
         credit: {fileID: 0}
         name:
@@ -256,4 +256,5 @@ MonoBehaviour:
         tags:
           _keys: []
           _vals: 
-        stackCount: 1
+        key:
+          name: Fire

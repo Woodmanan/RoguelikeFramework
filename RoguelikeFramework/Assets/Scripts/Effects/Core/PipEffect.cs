@@ -9,6 +9,8 @@ using static Resources;
 public class PipEffect : Effect
 {
     public int stackCount;
+
+    MonsterUIController uiController;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -28,14 +30,20 @@ public class PipEffect : Effect
         //Construct me!
     }
 
+    public void SetUIController(MonsterUIController controller)
+    {
+        uiController = controller;
+    }
+
     public virtual void OnStacksGained(int delta)
     {
-
+        uiController?.UpdateEffect(this, delta);
     }
 
     public void TickDown()
     {
         stackCount--;
+        uiController?.UpdateEffect(this, -1);
         if (stackCount <= 0)
         {
             Disconnect();
@@ -46,15 +54,17 @@ public class PipEffect : Effect
     //Use this to apply effects or stats immediately, before the next frame
     public override void OnConnection()
     {
-        OnStacksGained(stackCount);
+        //Notify monster HUD that we're freshly connected.
+        uiController?.AddEffect(this);
 
-        //TODO: Notify monster HUD that we're freshly connected.
+        OnStacksGained(stackCount);
     }
 
     //Called when an effect gets disconnected from a monster
     public override void OnDisconnection()
     {
-        //TODO: Notify system that we're disconnected.
+        //Notify system that we're disconnected.
+        uiController?.RemoveEffect(this);
     }
 
     //Called when an effect "Clashes" with an effect of the same type

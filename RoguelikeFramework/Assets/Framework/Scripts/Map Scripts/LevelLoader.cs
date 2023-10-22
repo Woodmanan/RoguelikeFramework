@@ -114,16 +114,16 @@ public class LevelLoader : MonoBehaviour
         world = worldGen.Generate();
         world.PrepareLevelsForLoad(this);
 
+        //Pull in generator info to the spawning scripts
+        MonsterSpawner.singleton.SetMonsterPools(world);
+        ItemSpawner.singleton.SetItemPools(world);
+
         maps = new List<Map>(new Map[generators.Count]);
 
         for (int i = 0; i < generators.Count; i++)
         {
             generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue), world, transform);
         }
-
-        //Pull in generator info to the spawning scripts
-        MonsterSpawner.singleton.SetMonsterPools(world);
-        ItemSpawner.singleton.SetItemPools(world);
 
         #if !UNITY_EDITOR
         if (JITLoading)

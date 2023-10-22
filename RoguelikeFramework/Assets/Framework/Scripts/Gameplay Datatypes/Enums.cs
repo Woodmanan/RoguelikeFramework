@@ -77,12 +77,13 @@ public enum DamageType
     PHYSICAL    = (1 << 0),
     MAGICAL     = (1 << 1),
     TRUE        = (1 << 2),
-    FIRE        = (1 << 3),
-    ICE         = (1 << 4),
-    ELECTRICAL  = (1 << 5),
-    BLEED       = (1 << 6),
-    POISON      = (1 << 7),
-    NECROTIC    = (1 << 8)
+    CLASS       = (1 << 3),
+    FIRE        = (1 << 4),
+    ICE         = (1 << 5),
+    ELECTRICAL  = (1 << 6),
+    BLEED       = (1 << 7),
+    POISON      = (1 << 8),
+    NECROTIC    = (1 << 9)
 }
 
 [Flags]

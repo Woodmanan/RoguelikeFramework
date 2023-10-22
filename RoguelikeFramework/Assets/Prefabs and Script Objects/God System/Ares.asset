@@ -137,7 +137,7 @@ MonoBehaviour:
     00000003:
       type: {class: ScoreIsPlayer, ns: , asm: RoguelikeFramework}
       data:
-        weight: 60
+        weight: 3
         connectedGod: {fileID: 0}
         connectedMonster: {fileID: 0}
     00000004:

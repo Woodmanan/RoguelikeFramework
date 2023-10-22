@@ -39,7 +39,8 @@ public class GodSystem : DungeonSystem
         foreach (Monster monster in candidates)
         {
             monster.Setup();
-            monster?.AddEffectInstantiate(listenerEffect);
+            monster.AddEffectInstantiate(world.monsterPassives.ToArray());
+            monster.AddEffectInstantiate(listenerEffect);
         }
 
         //Setup

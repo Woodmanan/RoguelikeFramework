@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using static Resources;
+using static DamageType;
 
-[Group("Pip Effects")]
-[Priority(10)]
-public class Fire : PipEffect
+[Group("Core")]
+[Priority(-3000)]
+public class ConvertClassDamage : Effect
 {
+    public DamageType classDamage;
+    public float damageMultiplier;
+    public float damageAddition;
     /*public override string GetName(bool shorten = false) { return name.GetLocalizedString(this); }*/
 
     /*public override string GetDescription() { return description.GetLocalizedString(this); }*/
@@ -22,7 +26,7 @@ public class Fire : PipEffect
 
     //Constuctor for the object; use this in code if you're not using the asset version!
     //Generally nice to include, just for future feature proofing
-    public Fire()
+    public ConvertClassDamage()
     {
         //Construct me!
     }
@@ -44,10 +48,7 @@ public class Fire : PipEffect
     //public override void OnTurnStartGlobal() {}
 
     //Called at the end of the global turn sequence
-    public override void OnTurnEndGlobal()
-    {
-
-    }
+    //public override void OnTurnEndGlobal() {}
 
     //Called at the start of a monster's turn
     //public override void OnTurnStartLocal() {}
@@ -65,10 +66,10 @@ public class Fire : PipEffect
     //public override void OnFullyHealed() {}
 
     //Called after this monster has registered its death.
-    //public override void OnPostDeath() {}
+    //public override void OnPostDeath(ref Monster killer) {}
 
     //Called when the connected monster dies
-    //public override void OnDeath() {}
+    //public override void OnDeath(ref Monster killer) {}
 
     //Called when a monster is killed by this unit.
     //public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
@@ -77,25 +78,30 @@ public class Fire : PipEffect
     //public override void RegenerateStats(ref Stats stats) {}
 
     //Called wenever a monster gains energy
-    //public override void OnEnergyGained(ref int energy) {}
+    //public override void OnEnergyGained(ref float energy) {}
 
     //Called when a monster gets attacked (REWORKING SOON!)
     //public override void OnAttacked(ref int pierce, ref int accuracy) {}
 
     //Called by the dealer of damage, when applicable. Modifications here happen before damage is dealt.
-    //public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
-
-    //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
-    public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
+    public override void OnDealDamage(ref float damage, ref DamageType damageType, ref DamageSource source)
     {
-        if ((damageType & DamageType.FIRE) == 0 && stackCount > 0)
+        if ((damageType & CLASS) > 0)
         {
-            int storedCount = stackCount;
-            stackCount = 0;
-            connectedTo.monster.Damage(credit, storedCount, DamageType.NONE, DamageSource.EFFECT);
-            Disconnect();
+            damageType &= ~CLASS;
+            damageType |= classDamage;
+
+            damage *= damageMultiplier;
+            damage += damageAddition;
+            if (damage < 0)
+            {
+                damage = 0;
+            }
         }
     }
+
+    //Called when a monster takes damage from any source, good for making effects fire upon certain types of damage
+    //public override void OnTakeDamage(ref float damage, ref DamageType damageType, ref DamageSource source) {}
 
     //Called when a monster recieves a healing event request
     //public override void OnHealing(ref float healAmount) {}
@@ -211,7 +217,7 @@ public class Fire : PipEffect
     {
         connectedTo = c;
 
-        c.OnTakeDamage.AddListener(10, OnTakeDamage);
+        c.OnDealDamage.AddListener(-3000, OnDealDamage);
 
         OnConnection();
     }
@@ -222,7 +228,7 @@ public class Fire : PipEffect
     {
         OnDisconnection();
 
-        connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
+        connectedTo.OnDealDamage.RemoveListener(OnDealDamage);
 
         ReadyToDelete = true;
     }

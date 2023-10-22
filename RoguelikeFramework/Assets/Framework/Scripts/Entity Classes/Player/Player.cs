@@ -34,6 +34,7 @@ public class Player : Monster
     }
 
     public LocalizedString speciesName;
+    public Class chosenClass;
 
     // Start is called before the first frame update
     public override void Start()

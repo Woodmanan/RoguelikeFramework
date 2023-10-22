@@ -68,6 +68,7 @@ public class WorldGenerator : ScriptableObject
         World.current = world;
         generationOptions = new HashSet<string>();
         generationOptions.Add("Start");
+       
 
         foreach (BranchChoice current in choices)
         {
@@ -214,6 +215,10 @@ public class WorldGenerator : ScriptableObject
             }
         }
 
+        //Move passives over
+        world.playerPassives = playerPassives;
+        world.monsterPassives = monsterPassives;
+
         //Attach dungeon-wide systems
         foreach (DungeonSystem system in dungeonSystems)
         {
@@ -225,10 +230,6 @@ public class WorldGenerator : ScriptableObject
         {
             system.Setup(world);
         }
-
-        //Move passives over
-        world.playerPassives = playerPassives;
-        world.monsterPassives = monsterPassives;
 
         foreach (WorldMachine worldMachine in machines)
         {

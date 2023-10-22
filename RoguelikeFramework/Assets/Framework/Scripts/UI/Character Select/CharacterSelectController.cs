@@ -24,7 +24,7 @@ public class CharacterSelectController : MonoBehaviour
     private static CharacterSelectController Singleton;
 
     public Monster chosenSpecies;
-    public Class chosenClass;
+    public ClassGenerator classGenerator;
     public WorldGenerator chosenGenerator;
     public List<string> generationOptions;
     public LoadingScreen loadingScreen;
@@ -55,16 +55,6 @@ public class CharacterSelectController : MonoBehaviour
         
     }
 
-    public void SetChosenClass(Class classToChoose)
-    {
-        chosenClass = classToChoose;
-    }
-
-    public void SetChosenSpecies(Monster species)
-    {
-        chosenSpecies = species;
-    }
-
     public void SetChosenGenerator(WorldGenerator generator)
     {
         chosenGenerator = generator;
@@ -80,7 +70,18 @@ public class CharacterSelectController : MonoBehaviour
         chosenGenerator = Instantiate(chosenGenerator);
 
         Player.player = Instantiate(chosenSpecies);
+
+        if (classGenerator.IsChoicePendingUnlock())
+        {
+            //TODO: Yield wait for unlock screen!
+        }
+        Class chosenClass = classGenerator.GenerateClass();
         chosenClass.Apply(Player.player);
+        if (Player.player is Player player)
+        {
+            player.chosenClass = chosenClass;
+        }
+
         Player.player.AddEffectInstantiate(chosenGenerator.playerPassives.ToArray());
         Player castPlayer = Player.player as Player;
 

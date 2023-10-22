@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62bc60c6f5d4f6042a1c52f654e31bc4, type: 3}
+  m_Name: Mage
+  m_EditorClassIdentifier: 
+  friendlyName: MageJob
+  classDamage: 0
+  items:
+  - {fileID: 8514963120815226497, guid: 6b53e68d4eb20a44cab6d6ace5ca0281, type: 3}
+  - {fileID: 8514963120815226497, guid: adcafd5137423fc4dbc9e9faef9cffb1, type: 3}
+  abilities:
+  - {fileID: 11400000, guid: b6bc3982af24c6d4cb6fd9decc8ae4d3, type: 2}
+  effects: []
+  references:
+    version: 1

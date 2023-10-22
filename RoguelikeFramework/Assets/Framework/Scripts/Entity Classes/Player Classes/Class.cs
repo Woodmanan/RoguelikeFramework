@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Class", menuName = "New Class", order = 2)]
 public class Class : ScriptableObject
 {
+    public string friendlyName;
+
+    public DamageType classDamage;
+
     public List<Item> items;
 
     //Should be replaced by a book at some point!
@@ -55,5 +59,14 @@ public class Class : ScriptableObject
         }
 
         m.AddEffectInstantiate(effects.ToArray());
+    }
+
+    //Assumes both classes are instantiated!
+    public virtual void CombineWith(Class other)
+    {
+        other.items.AddRange(items);
+        other.abilities.AddRange(abilities);
+        other.effects.AddRange(effects);
+        other.classDamage |= classDamage;
     }
 }

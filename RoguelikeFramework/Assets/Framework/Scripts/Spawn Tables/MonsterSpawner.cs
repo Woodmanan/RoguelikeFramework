@@ -141,14 +141,20 @@ public class MonsterSpawner : MonoBehaviour
         monster.transform.parent = map.monsterContainer;
         monster.level = map.depth;
         monster.credit = creditedTo;
-        monster.Setup();
+        PerformSetupForSpawningMonster(monster);
         monster.currentTile = map.GetTile(location);
-        monster.AddEffectInstantiate(world.monsterPassives.ToArray());
         if (postSetup)
         {
             monster.PostSetup(Map.current);
         }
         return monster;
+    }
+
+    public void PerformSetupForSpawningMonster(Monster monster)
+    {
+        monster.Setup();
+        
+        monster.AddEffectInstantiate(world.monsterPassives.ToArray());
     }
 
     public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map, Monster creditedTo = null)

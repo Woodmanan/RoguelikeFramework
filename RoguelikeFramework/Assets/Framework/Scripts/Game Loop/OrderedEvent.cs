@@ -225,7 +225,6 @@ public class OrderedEvent<T1>
 
     public void AddListener(int priority, ActionRef<T1> listener)
     {
-
         int index = priorities.BinarySearch(priority, comp);
         if (index < 0) index = ~index;
         priorities.Insert(index, priority);
@@ -405,7 +404,6 @@ public class OrderedEvent<T1, T2>
 
     public void AddListener(int priority, ActionRef<T1, T2> listener)
     {
-
         int index = priorities.BinarySearch(priority, comp);
         if (index < 0) index = ~index;
         priorities.Insert(index, priority);

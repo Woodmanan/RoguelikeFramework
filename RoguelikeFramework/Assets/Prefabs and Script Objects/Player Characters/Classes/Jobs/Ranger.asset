@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62bc60c6f5d4f6042a1c52f654e31bc4, type: 3}
+  m_Name: Ranger
+  m_EditorClassIdentifier: 
+  friendlyName: RangerJob
+  classDamage: 0
+  items:
+  - {fileID: 9015174743555470457, guid: 8212d04b5d4bef743941dabbf09cb09b, type: 3}
+  - {fileID: 8514963120815226497, guid: adcafd5137423fc4dbc9e9faef9cffb1, type: 3}
+  - {fileID: 8514963120815226497, guid: 1563c7d8b7bd8a64dbec7ec88064ff28, type: 3}
+  abilities: []
+  effects: []
+  references:
+    version: 1
