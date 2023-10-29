@@ -18,3 +18,18 @@ public class GroupAttribute : System.Attribute
         get { return group; }
     }
 }
+
+public class ResourceGroup : System.Attribute
+{
+    private ResourceType resourceType;
+
+    public ResourceGroup(ResourceType resourceType)
+    {
+        this.resourceType = resourceType;
+    }
+
+    public ResourceType resourceTypeValue
+    {
+        get { return resourceType; }
+    }
+}

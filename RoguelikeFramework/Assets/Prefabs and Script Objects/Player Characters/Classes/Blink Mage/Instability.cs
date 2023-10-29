@@ -159,15 +159,15 @@ public class Instability : Effect
     //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
-    public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability)
+    public override void OnRegenerateAbilityStats(ref Monster caster, ref Stats abilityStats, ref Ability ability)
     {
         if (ability.friendlyName.Equals("Blink", System.StringComparison.OrdinalIgnoreCase))
         {
-            abilityStats[AbilityResources.RANGE_INCREASE] -= numStacks;
+            abilityStats[Resources.RANGE] -= numStacks;
         }
         else if (ability.friendlyName.Equals("Summon Black Hole", System.StringComparison.OrdinalIgnoreCase))
         {
-            abilityStats[AbilityResources.DURATION] += numStacks;
+            abilityStats[Resources.DURATION] += numStacks;
         }
     }
 

@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac120780b1ee804c879f55f6e1ea5b0, type: 3}
   m_Name: AOE Ice
   m_EditorClassIdentifier: 
-  displayName: Freeze All
+  friendlyName: 
+  locName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  locDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   image: {fileID: 890424726899589919, guid: 488385d6e187b9c48859995ffd74bdb1, type: 3}
   color: {r: 0.09803922, g: 0.6996779, b: 0.78431374, a: 1}
   baseTargeting:
@@ -32,12 +50,16 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations: []
   baseStats:
-    _keys: 
-    _vals: []
+    _keys: 0e0f
+    _vals:
+    - 5
+    - 10
   currentStats:
     _keys: 
     _vals: []
+  EnergyCost: 100
   castQuery:
     outOf: 5
     terms:
@@ -68,13 +90,14 @@ MonoBehaviour:
     offset: 0
     affected: []
   costs:
-    _keys: 00000000
+    _keys: 00
     _vals:
     - 2
   castable: 1
   types: 0
   effects:
   - id: 0
+  credit: {fileID: 0}
   toApply:
   - id: 1
   sprites:
@@ -85,7 +108,6 @@ MonoBehaviour:
     00000000:
       type: {class: FrostEffect, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -105,11 +127,14 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         numTurns: 0
     00000001:
       type: {class: FrostEffect, ns: , asm: RoguelikeFramework}
       data:
-        ReadyToDelete: 0
         credit: {fileID: 0}
         name:
           m_TableReference:
@@ -129,4 +154,8 @@ MonoBehaviour:
           m_FallbackState: 0
           m_WaitForCompletion: 0
           m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
         numTurns: 5

@@ -131,7 +131,7 @@ public class AbilityButton : MonoBehaviour, IDescribable
 
             if (ability.currentCooldown > 0)
             {
-                cooldownImage.fillAmount = (ability.currentCooldown / ability.currentStats[AbilityResources.MAX_COOLDOWN]);
+                cooldownImage.fillAmount = (ability.currentCooldown / ability.currentStats[Resources.MAX_COOLDOWN]);
                 cooldownText.enabled = true;
                 cooldownText.text = $"{ability.currentCooldown}";
             }

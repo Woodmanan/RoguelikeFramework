@@ -26,7 +26,7 @@ public class SimpleDamage : Ability
         //Anim before damage so death animations line up
         foreach (Monster target in targeting.affected)
         {
-            target.Damage(credit, damage.damage.evaluate() + currentStats[AbilityResources.POWER], damage.type, DamageSource.ABILITY);
+            target.Damage(credit, damage.damage.evaluate() + currentStats[Resources.POWER], damage.type, DamageSource.ABILITY);
         }
         yield break;
     }

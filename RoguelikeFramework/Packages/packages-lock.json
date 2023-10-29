@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.grownith.uncalc": {
+      "version": "https://github.com/grownith/UNCalc.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2296c9e1f6106fdfd47431cefb2994ca11629441"
+    },
     "com.unity.2d.animation": {
       "version": "4.2.6",
       "depth": 0,

@@ -176,7 +176,7 @@ MonoBehaviour:
     types:
     - type: Monster
       name: caster
-    - type: AbilityStats
+    - type: Stats
       name: abilityStats
     - type: Ability
       name: ability

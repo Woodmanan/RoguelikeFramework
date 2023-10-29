@@ -10,8 +10,8 @@ public class AddStatForHeat : Effect
     public float minHeat;
     public float maxHeat;
 
-    public AbilityStats lowStats;
-    public AbilityStats highStats;
+    public Stats lowStats;
+    public Stats highStats;
     /* The default priority of all functions in this class - the order in which they'll be called
      * relative to other status effects
      * 
@@ -107,12 +107,12 @@ public class AddStatForHeat : Effect
     //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
-    public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability)
+    public override void OnRegenerateAbilityStats(ref Monster caster, ref Stats abilityStats, ref Ability ability)
     {
         if (caster)
         {
             float lerpAmount = Mathf.Clamp01(Mathf.InverseLerp(minHeat, maxHeat, caster.currentStats[Resources.HEAT]));
-            abilityStats += AbilityStats.Lerp(lowStats, highStats, lerpAmount);
+            abilityStats += Stats.Lerp(lowStats, highStats, lerpAmount);
         }
     }
 

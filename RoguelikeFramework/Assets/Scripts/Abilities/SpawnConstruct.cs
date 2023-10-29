@@ -69,7 +69,7 @@ public class SpawnConstruct : Ability
             Debug.LogError("Wrong type of effect! Spawn Construct MUST use construct effect type.");
             return;
         }
-        construct.duration = Mathf.RoundToInt(currentStats[AbilityResources.DURATION]);
+        construct.duration = Mathf.RoundToInt(currentStats[Resources.DURATION]);
         spawned.AddEffect(construct);
     }
 }

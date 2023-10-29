@@ -87,8 +87,8 @@ public class ClickButton : MonoBehaviour
 
     public void SetCooldown(Ability ability)
     {
-        float cooldown = ability.currentStats[AbilityResources.COOLDOWN];
-        float max = ability.currentStats[AbilityResources.MAX_COOLDOWN] - ability.currentStats[AbilityResources.COOLDOWN_DECREASE];
+        float cooldown = ability.currentStats[Resources.CURRENT_COOLDOWN];
+        float max = ability.currentStats[Resources.COOLDOWN];
 
         SetCooldown(cooldown, Mathf.Max(0, max));
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using static AbilityResources;
+using static Resources;
 using UnityEngine.Localization;
 
 /*********** The Ability Class **************
@@ -44,14 +44,18 @@ public class Ability : ScriptableObject, IDescribable
     public Targeting baseTargeting;
     [SerializeReference]
     public List<TargetingAnimation> animations;
-    public AbilityStats baseStats;
-    [HideInInspector] public AbilityStats currentStats;
+
+    [ResourceGroup(ResourceType.Ability)]
+
+    public Stats baseStats;
+    [HideInInspector] public Stats currentStats;
 
     public float EnergyCost = 100;
 
     public Query castQuery;
 
     [HideInInspector] public Targeting targeting;
+    [ResourceGroup(ResourceType.Monster)]
     public Stats costs;
 
     protected bool dirty = true;
@@ -60,11 +64,11 @@ public class Ability : ScriptableObject, IDescribable
     {
         get
         {
-            return Mathf.RoundToInt(baseStats[COOLDOWN]);
+            return Mathf.RoundToInt(baseStats[CURRENT_COOLDOWN]);
         }
         set
         {
-            baseStats[COOLDOWN] = value;
+            baseStats[CURRENT_COOLDOWN] = value;
         }
     }
 
@@ -129,8 +133,8 @@ public class Ability : ScriptableObject, IDescribable
         OnRegenerateStats(m);
 
         connections.OnRegenerateAbilityStats.BlendInvoke(m?.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
-        targeting.range += Mathf.RoundToInt(currentStats[RANGE_INCREASE]);
-        targeting.radius += Mathf.RoundToInt(currentStats[RADIUS_INCREASE]);
+        targeting.range += Mathf.RoundToInt(currentStats[RANGE]);
+        targeting.radius += Mathf.RoundToInt(currentStats[RADIUS]);
     }
 
     public virtual void OnRegenerateStats(Monster caster)
@@ -201,8 +205,6 @@ public class Ability : ScriptableObject, IDescribable
 
     public IEnumerator Cast(Monster caster)
     {
-        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - currentStats[COOLDOWN_DECREASE]);
-
         if (credit == null)
         {
             credit = caster;

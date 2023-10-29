@@ -168,8 +168,18 @@ public enum UIState
     PICKUP_MANY
 }
 
-public enum Resources
+[Flags]
+public enum ResourceType : byte
 {
+    NONE = 0,
+    Monster = (1 << 0),
+    Ability = (1 << 1),
+    Item    = (1 << 2)
+}
+
+public enum Resources : byte
+{
+    [ResourceGroup(ResourceType.Monster)]
     HEALTH,
     MAX_HEALTH,
     MANA,
@@ -182,16 +192,13 @@ public enum Resources
     EV,
     MR,
     HEAT,
-    MAX_HEAT
-}
-
-public enum AbilityResources
-{
+    MAX_HEAT,
+    [ResourceGroup(ResourceType.Ability)]
+    CURRENT_COOLDOWN,
     COOLDOWN,
     MAX_COOLDOWN,
-    RANGE_INCREASE,
-    RADIUS_INCREASE,
-    COOLDOWN_DECREASE,
+    RANGE,
+    RADIUS,
     POWER,
     DURATION
 }

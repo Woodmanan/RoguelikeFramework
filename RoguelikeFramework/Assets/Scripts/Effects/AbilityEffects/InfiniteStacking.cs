@@ -109,9 +109,9 @@ public class InfiniteStacking : Effect
     //public override void OnLoseResources(ref Stats resources) {}
 
     //Called when new status effects are added. All status effects coming through are bunched together as a list.
-    public override void OnRegenerateAbilityStats(ref Monster caster, ref AbilityStats abilityStats, ref Ability ability)
+    public override void OnRegenerateAbilityStats(ref Monster caster, ref Stats abilityStats, ref Ability ability)
     {
-        abilityStats[AbilityResources.POWER] += (numKills * percentConversion / 100);
+        abilityStats[Resources.POWER] += (numKills * percentConversion / 100);
     }
 
     //Called by spells, in order to determine whether they are allowed to be cast.

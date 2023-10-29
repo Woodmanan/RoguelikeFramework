@@ -9,9 +9,13 @@ using System.Linq;
 public class StatBlockPropertyDrawer : PropertyDrawer
 {
     private readonly PropertyDrawerLayoutHelper layoutHelper = new PropertyDrawerLayoutHelper();
+    private static Dictionary<ResourceType, Resources[]> cachedResourceTypes;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        object[] attributes = fieldInfo.GetCustomAttributes(typeof(ResourceGroup), false);
+        ResourceType resourceType = (attributes.Count() > 0) ? ((ResourceGroup)attributes[0]).resourceTypeValue : ResourceType.NONE;
+
         SerializedProperty keys = property.FindPropertyRelative("_keys");
         SerializedProperty vals = property.FindPropertyRelative("_vals");
 
@@ -79,13 +83,13 @@ public class StatBlockPropertyDrawer : PropertyDrawer
         buttonRectTwo.x += buttonRectOne.width;
         buttonRectTwo.width -= buttonRectOne.width;
 
-        System.Array values = System.Enum.GetValues(typeof(Resources));
+        Resources[] values = GetValuesForType(resourceType);
         //Check if we can cancel early
         if (keys.arraySize != values.Length)
         {
             {//Create the custom "Add" button with dropdown
-                List<string> names = System.Enum.GetNames(typeof(Resources)).ToList();
-                List<int> pairs = System.Enum.GetValues(typeof(Resources)).Cast<int>().ToList();
+                List<string> names = values.Select(x => x.ToString()).ToList();
+                List<byte> pairs = values.Cast<byte>().ToList();
 
                 for (int i = pairs.Count - 1; i >= 0; i--)
                 {
@@ -183,5 +187,47 @@ public class StatBlockPropertyDrawer : PropertyDrawer
         {
             return EditorGUIUtility.singleLineHeight;
         }
+    }
+
+    public Resources[] GetValuesForType(ResourceType types)
+    {
+        if (cachedResourceTypes == null)
+        {
+            cachedResourceTypes = new Dictionary<ResourceType, Resources[]>();
+        }
+
+        if (cachedResourceTypes.ContainsKey(types))
+        {
+            return cachedResourceTypes[types];
+        }
+
+        //Find 
+        var type = typeof(Resources);
+
+        Resources[] values = System.Enum.GetValues(typeof(Resources)).Cast<Resources>().ToArray();
+        bool[] addFlag = new bool[values.Length];
+        bool adding = false;
+        for (int i = 0; i < values.Length; i++)
+        {
+            var memInfo = type.GetMember(values[i].ToString());
+
+            var attributes = memInfo[0].GetCustomAttributes(typeof(ResourceGroup), false);
+            ResourceGroup groupValue = (attributes.Length > 0) ? (ResourceGroup)attributes[0] : null;
+
+            if (groupValue != null)
+            {
+                adding = (groupValue.resourceTypeValue & types) > 0;
+            }
+
+            addFlag[i] = adding;
+        }
+
+
+        Resources[] toAdd = values.Zip(addFlag, (resource, add) => (resource, add))
+                                  .Where(x => x.add)
+                                  .Select(x => x.resource)
+                                  .ToArray();
+        cachedResourceTypes[types] = toAdd;
+        return toAdd;
     }
 }

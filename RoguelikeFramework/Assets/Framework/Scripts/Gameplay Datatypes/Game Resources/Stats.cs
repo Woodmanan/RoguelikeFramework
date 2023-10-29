@@ -133,6 +133,11 @@ public class Stats : ISerializationCallbackReceiver
         return result;
     }
 
+    public static Stats operator *(float value, Stats stats)
+    {
+        return stats * value;
+    }
+
     public new string ToString()
     {
         string toReturn = "";
@@ -144,5 +149,16 @@ public class Stats : ISerializationCallbackReceiver
         }
 
         return toReturn;
+    }
+
+    public static Stats Lerp(Stats a, Stats b, float t)
+    {
+        return (1f - t) * a + t * b;
+    }
+
+    public static Stats LerpClamped(Stats a, Stats b, float t)
+    {
+        t = Mathf.Clamp01(t);
+        return Lerp(a, b, t);
     }
 }

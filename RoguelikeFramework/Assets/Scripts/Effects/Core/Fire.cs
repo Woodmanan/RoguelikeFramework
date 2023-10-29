@@ -211,6 +211,8 @@ public class Fire : PipEffect
     {
         connectedTo = c;
 
+        c.OnTurnEndGlobal.AddListener(10, OnTurnEndGlobal);
+
         c.OnTakeDamage.AddListener(10, OnTakeDamage);
 
         OnConnection();
@@ -221,6 +223,8 @@ public class Fire : PipEffect
     public override void Disconnect()
     {
         OnDisconnection();
+
+        connectedTo.OnTurnEndGlobal.RemoveListener(OnTurnEndGlobal);
 
         connectedTo.OnTakeDamage.RemoveListener(OnTakeDamage);
 

@@ -54,7 +54,7 @@ public class Connections
     public OrderedEvent<float> OnGainXP = new OrderedEvent<float>();
     public OrderedEvent<int> OnLevelUp = new OrderedEvent<int>();
     public OrderedEvent<Stats> OnLoseResources = new OrderedEvent<Stats>();
-    public OrderedEvent<Monster, AbilityStats, Ability> OnRegenerateAbilityStats = new OrderedEvent<Monster, AbilityStats, Ability>();
+    public OrderedEvent<Monster, Stats, Ability> OnRegenerateAbilityStats = new OrderedEvent<Monster, Stats, Ability>();
     public OrderedEvent<Ability, bool> OnCheckAvailability = new OrderedEvent<Ability, bool>();
     public OrderedEvent<Targeting, Ability> OnTargetsSelected = new OrderedEvent<Targeting, Ability>();
     public OrderedEvent<Ability> OnPreCast = new OrderedEvent<Ability>();

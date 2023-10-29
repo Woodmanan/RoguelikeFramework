@@ -12,6 +12,7 @@ using static Resources;
 public class Monster : MonoBehaviour, IDescribable
 {
     [Header("Setup Variables")]
+    [ResourceGroup(ResourceType.Monster)]
     public Stats baseStats;
 
     public Stats currentStats;
