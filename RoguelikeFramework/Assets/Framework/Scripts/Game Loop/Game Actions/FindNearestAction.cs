@@ -28,11 +28,11 @@ public class FindNearestAction : GameAction
             yield break;
         }
 
-        Path path = Pathfinding.CreateDjikstraPath(caller.location, goals);
+        Path path = Pathfinding.CreateDjikstraWithAstar(caller.location, goals);
 
         if (path.Cost() < 0)
         {
-            Debug.LogWarning("Monster cannot find path to location! Aborting");
+            Debug.LogWarning("Monster cannot find path to location from here! Aborting.");
             yield break;
         }
 
@@ -43,7 +43,7 @@ public class FindNearestAction : GameAction
 
             caller.UpdateLOS();
 
-            if (caller.view.visibleMonsters.FindAll(x => (x.faction & caller.faction) == 0).Count > 0)
+            if (caller.view.visibleEnemies.Count > 0)
             {
                 Debug.Log($"Monster came into sight, so don't auto move!");
                 yield break;

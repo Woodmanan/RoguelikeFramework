@@ -17,7 +17,7 @@ public class FleeAction : GameAction
     {
         while (true)
         {
-            List<Monster> enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
+            List<Monster> enemies = caller.view.visibleEnemies;
             if (enemies.Count == 0)
             {
                 Debug.Log("Monster is fleeing without seeing anyone. Resting instead.");
@@ -38,9 +38,9 @@ public class FleeAction : GameAction
                 Vector2Int next = nextSpot(caller.location, fleeMap);
                 if (next == caller.location)
                 {
-                    Debug.Log($"{caller.displayName} has been cornered - stopping flee mode.");
+                    Debug.Log($"{caller.GetLocalizedName()} has been cornered - stopping flee mode.");
 
-                    enemies = caller.view.visibleMonsters.FindAll(x => x.IsEnemy(caller));
+                    enemies = caller.view.visibleEnemies;
                     if (enemies.Count == 0)
                     {
                         yield break;

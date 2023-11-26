@@ -47,7 +47,7 @@ public class ItemSpawnInfo
         return ItemRarity.COMMON;
     }
 
-    public ItemType GetType()
+    public ItemType GetItemType()
     {
         if (chanceSum == 0)
         {
@@ -77,11 +77,12 @@ public class LootPool
         tree = new Quadtree<Item>(new Rect(Vector2.zero, new Vector2Int(maxRarity + 1, maxDepth + 1)));
     }
 
-    public void AddItemsFromTable(LootTable table)
+    public void AddItemsFromTable(LootTable table, Transform holder)
     {
         foreach (Item i in table.items)
         {
-            Item working = i;
+            Item working = i.Instantiate();
+            working.gameObject.SetActive(false);
             working.optionalEffects.AddRange(table.elevationOptions); //Tie our table options to the item - now we don't need the table.
             int minRarity = (int)i.rarity;
             int maxRarity = (int)i.elevatesTo + 1;
@@ -90,6 +91,7 @@ public class LootPool
             int maxDepth = i.maxDepth + 1;
             Rect itemRect = new Rect(minRarity, minDepth, maxRarity - minRarity, maxDepth - minDepth); //Build a spatial rect from our rarity and depth data
             tree.Insert(working, itemRect);
+            working.transform.parent = holder;
         }
     }
 
@@ -97,7 +99,7 @@ public class LootPool
     {
         Item toSpawn = null;
         ItemRarity rarity = info.GetRarity();
-        ItemType type = info.GetType();
+        ItemType type = info.GetItemType();
         for (int i = 0; i < 20; i++)
         {
             Vector2 searchPoint = new Vector2((int)rarity, depth);
@@ -106,7 +108,7 @@ public class LootPool
 
             if (found.Count == 0)
             {
-                //Debug.LogWarning($"Attempt {i}: Could not spawn any item of rarity {rarity} at depth {depth}. {(i < 19 ? " Retrying at lower rarity..." : "")}");
+                Debug.LogWarning($"Attempt {i}: Could not spawn any item of rarity {rarity} at depth {depth}. {(i < 19 ? " Retrying at lower rarity..." : "")}");
                 if (rarity != ItemRarity.COMMON)
                 {
                     rarity--;
@@ -122,8 +124,8 @@ public class LootPool
                 found = found.Where(x => x.type == type).ToList();
                 if (found.Count == 0)
                 {
-                    //Debug.LogWarning($"Attempt {i}: Found 0 items of type {type} at depth {depth} and rarity {rarity}. {(i < 19 ? " Retrying with new data..." : "")}");
-                    type = info.GetType();
+                    Debug.LogWarning($"Attempt {i}: Found 0 items of type {type} at depth {depth} and rarity {rarity}. {(i < 19 ? " Retrying with new data..." : "")}");
+                    type = info.GetItemType();
                     rarity = info.GetRarity();
                 }
                 else
@@ -142,6 +144,10 @@ public class LootPool
         }
 
         toSpawn = toSpawn.Instantiate();
+
+        //Get internals ready before we begin attaching other effects
+        //Can't happen in Instantiate(), since not all copies should have base effects applied.
+        toSpawn.Setup();
 
         if (toSpawn.rarity < rarity)
         {

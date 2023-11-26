@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using System.Linq;
 
 
 
@@ -36,14 +37,14 @@ public class GameController : MonoBehaviour
     
     public int turn;
 
-    public int energyPerTurn;
+    public float energyPerTurn = 100f;
 
     public Monster player;
 
     World world;
 
     [HideInInspector] public int nextLevel = -1;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +94,12 @@ public class GameController : MonoBehaviour
 
         world = LevelLoader.singleton.world;
 
+        //Clean up some potentially old values
+        {
+            AutoPickupAction.SeenItems.Clear();
+            MonsterTable.UsedUniqueIDs?.Clear();
+        }
+
         //Set starting position
         Player.player.transform.parent = Map.current.monsterContainer;
         Player.player.location = Map.current.entrances[0].toLocation;
@@ -110,8 +117,9 @@ public class GameController : MonoBehaviour
         //Move our camera onto the player for the first frame
         CameraTracking.singleton.JumpToPlayer();
 
+        //Notify systems that level 1 has loaded
+        SystemEnterLevel();
 
-        //Space for any init setup that needs to be done
         StartCoroutine(GameLoop());
     }
 
@@ -130,10 +138,10 @@ public class GameController : MonoBehaviour
     IEnumerator GameLoop()
     {
         Stopwatch watch = new Stopwatch();
+        Stopwatch monsterWatch = new Stopwatch();
         //Main loop
         while (true)
         {
-            
             CallTurnStartGlobal();
 
             //Player turn sequence
@@ -147,7 +155,7 @@ public class GameController : MonoBehaviour
                 IEnumerator turn = player.LocalTurn();
                 while (player.energy > 0 && turn.MoveNext())
                 {
-                    if (turn.Current != GameAction.StateCheck)
+                    if (!GameAction.HasSpecialInstruction(turn))
                     {
                         yield return turn.Current;
                     }
@@ -159,12 +167,20 @@ public class GameController : MonoBehaviour
 
 
             watch.Restart();
+            monsterWatch.Start();
+            int splits = 1;
+            long current = monsterWatch.ElapsedMilliseconds;
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
+                //Local scope counter for stalling - prevent a monster from taking > 1000 sub-turns
+                int stallCount = 0;
+
+
                 //Taken too much time? Quit then! (Done before monster update to handle edge case on last call)
                 if (watch.ElapsedMilliseconds > turnMSPerFrame)
                 {
                     watch.Stop();
+                    splits++;
                     yield return null;
                     watch.Restart();
                 }
@@ -181,9 +197,10 @@ public class GameController : MonoBehaviour
                     IEnumerator turn = m.LocalTurn();
                     while (m.energy > 0 && turn.MoveNext())
                     {
-                        if (turn.Current != GameAction.StateCheck)
+                        if (!GameAction.HasSpecialInstruction(turn))
                         {
                             watch.Stop();
+                            splits++;
                             yield return turn.Current;
                             watch.Restart();
                         }
@@ -194,17 +211,30 @@ public class GameController : MonoBehaviour
                             if (watch.ElapsedMilliseconds > turnMSPerFrame)
                             {
                                 watch.Stop();
+                                splits++;
                                 yield return null;
                                 watch.Restart();
                             }
                         }
+
+                        //Stall check!
+                        stallCount++;
+                        if (stallCount > 1000)
+                        {
+                            UnityEngine.Debug.LogError($"Main loop stalled during the turn of {m.friendlyName}, recovering...", m);
+                            m.energy = 0;
+                            break;
+                        }
+
                     }
 
                     //Turn is ended!
                     m.EndTurn();
                 }
             }
+
             watch.Stop();
+            monsterWatch.Stop();
             
             CallTurnEndGlobal();
 
@@ -223,7 +253,8 @@ public class GameController : MonoBehaviour
                 if (monster.IsDead())
                 {
                     Map.current.monsters.RemoveAt(i);
-                    Destroy(monster.gameObject);
+                    monster.gameObject.SetActive(false);
+                    //Destroy(monster.gameObject);
                 }
             }
 
@@ -262,11 +293,45 @@ public class GameController : MonoBehaviour
         nextLevel = newLevel;
     }
 
+    void RemoveMonstersFromLevel(List<Monster> monsters)
+    {
+        foreach (Monster m in monsters)
+        {
+            Map.current.monsters.Remove(m);
+        }
+    }
+
+    List<Monster> CollectMonstersForTransition(Monster m, int friendlyDistance, int enemyDistance)
+    {
+        List<Monster> monsters = new List<Monster>();
+        monsters.AddRange(m.view.visibleFriends.Where(x => x.location.GameDistance(m.location) <= friendlyDistance));
+        monsters.AddRange(m.view.visibleEnemies.Where(x => x.location.GameDistance(m.location) <= enemyDistance));
+        return monsters.Where(x => !x.tags.HasTag("Monster.CannotLeaveLevel")).ToList();
+    }
+
     //TODO: Determine how monsters get placed if they don't have space to be placed
-    public void MoveMonsters(Monster m, Stair stair, Map map)
+    public void MoveMonsters(Monster m, Stair stair, List<Monster> monstersToMove, Map map)
     {
         m.transform.parent = map.monsterContainer;
+        Vector2Int center = stair.GetMatchingLocation();
         m.SetPositionSnap(stair.GetMatchingLocation());
+
+        IEnumerator<Vector2Int> tiles = map.GetWalkableTilesByRange(stair.GetMatchingLocation(), 1, 16);
+
+        foreach (Monster monster in monstersToMove.OrderBy(x => Random.value))
+        {
+            monster.transform.parent = map.monsterContainer;
+            map.monsters.Add(monster);
+            if (tiles.MoveNext())
+            {
+                monster.SetPositionSnap(tiles.Current);
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning("No space around stair - Monster dumped into the ether!", monster);
+                monster.SetPositionSnap(map.GetRandomWalkableTile());
+            }
+        }
     }
 
     private void MoveLevel()
@@ -276,8 +341,10 @@ public class GameController : MonoBehaviour
         if (stair)
         {
             SystemExitLevel();
+            List<Monster> toMove = CollectMonstersForTransition(Player.player, 5, 1);
+            RemoveMonstersFromLevel(toMove);
             LoadMap(nextLevel);
-            MoveMonsters(player, stair, Map.current);
+            MoveMonsters(player, stair, toMove, Map.current);
             SystemEnterLevel();
         }
         else
@@ -297,9 +364,13 @@ public class GameController : MonoBehaviour
     public void CallTurnEndGlobal()
     {
         player.OnTurnEndGlobalCall();
-        foreach (Monster m in Map.current.monsters)
+        for (int i = 0; i < Map.current.monsters.Count; i++)
         {
-            m.OnTurnEndGlobalCall();
+            Monster m = Map.current.monsters[i];
+            if (!m.IsDead())
+            {
+                m.OnTurnEndGlobalCall();
+            }
         }
 
 

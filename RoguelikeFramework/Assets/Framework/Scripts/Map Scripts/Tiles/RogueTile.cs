@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Localization;
 #if  UNITY_EDITOR
 using UnityEditor;
 #endif
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Inventory))]
-public class RogueTile : MonoBehaviour
+public class RogueTile : MonoBehaviour, IDescribable
 {
     //Stuff that will change a lot, and should be visible
     [Header("Active gameplay elements")]
@@ -19,14 +20,16 @@ public class RogueTile : MonoBehaviour
     private bool setup = false;
 
     public Vector2Int location;
-    
+
     //Stuff that will not change a lot, and should not be (too) visible
-    [Header("Static elements")] 
-    public new string name;
-    public string description;
+    [Header("Static elements")]
+    public LocalizedString localName;
+    public LocalizedString localDescription;
     public float movementCost;
     public bool blocksVision;
+    public bool blocksProjectiles;
     public Color color = Color.white;
+    public float minGreyAlpha;
     public Monster currentlyStanding;
 
     //Floor visualization
@@ -69,7 +72,7 @@ public class RogueTile : MonoBehaviour
         inventory.Setup();
         //Starts as on, so that Unity 
         render = GetComponent<SpriteRenderer>();
-        render.enabled = false;
+        render.enabled = true;
 
         //Set up initial visibility
         itemVis = GetComponent<ItemVisiblity>();
@@ -87,6 +90,21 @@ public class RogueTile : MonoBehaviour
             movementCost = 1;
         }
         #endif
+    }
+
+    public string GetName(bool shorten = false)
+    {
+        return localName.GetLocalizedString(this);
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return render.sprite;
     }
 
     public virtual void PreSetup()
@@ -112,11 +130,16 @@ public class RogueTile : MonoBehaviour
         currentlyStanding = null;
     }
 
+    public bool IsOpen()
+    {
+        return !BlocksMovement() && currentlyStanding == null;
+    }
+
     public void SetMonster(Monster m)
     {
         if (currentlyStanding != m && currentlyStanding != null)
         {
-            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.displayName} is there.", this);
+            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.friendlyName} is there.", this);
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);
@@ -179,9 +202,8 @@ public class RogueTile : MonoBehaviour
             //TODO: Item coloring on tiles that are not visible anymore
             if (!isHidden)
             {
-                render.enabled = true;
                 float gray = color.grayscale / 2;
-                render.color = new Color(gray, gray, gray);
+                render.color = new Color(gray, gray, gray, Mathf.Max(minGreyAlpha, color.a));
             }
             else
             {
@@ -189,8 +211,7 @@ public class RogueTile : MonoBehaviour
                 {
                     Debug.LogError("Someone didn't do something right!", this);
                 }
-                render.enabled = false;
-                render.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                render.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
             }
         }
         
@@ -227,6 +248,38 @@ public class RogueTile : MonoBehaviour
     public virtual float CostToMoveIn(Vector2Int direction)
     {
         return 0f;
+    }
+
+    //Moves this tile, it's items, and it's monster to the new position. Convenience function for animating moving tiles
+    public void AnimUpdatePosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+        AnimUpdateItemPosition(newPosition);
+        AnimUpdateMonsterPosition(newPosition);
+    }
+
+    //Moves just the contents of this cell to the shown location
+    public void AnimUpdateItemPosition(Vector3 newPosition)
+    {
+        if (inventory)
+        {
+            Vector3 inventoryPosition = newPosition;
+            inventoryPosition.z = Item.itemZValue;
+            foreach (Item i in inventory.AllHeld())
+            {
+                i.transform.position = inventoryPosition;
+            }
+        }
+    }
+
+    public void AnimUpdateMonsterPosition(Vector3 newPosition)
+    {
+        if (currentlyStanding)
+        {
+            Vector3 monsterPosition = newPosition;
+            monsterPosition.z = Monster.monsterZPosition;
+            currentlyStanding.transform.position = monsterPosition;
+        }
     }
 
     //Editor only functions - For convenience

@@ -1,0 +1,279 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Abilities Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 999deef778c7e2541a99b8b0c8daef13, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 360645861376
+    m_Localized: Passively attack nearby enemies for 40% damage with every step.
+      Drinking potions causes you to become drunk (5 stacks max). Each stack of drunkenness
+      gives 10% dodge chance and +20% damage to the passive attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 453159624704
+    m_Localized: Gain 5 AC, and gain 1 AC per turn that you spend standing still
+      (max 10 total). Lose all extra AC on movement. Move 2X as slow while enemies
+      are in LOS.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 342660685824
+    m_Localized: Drunkard's Stance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 449976147968
+    m_Localized: Turtle's Stance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749722445815808
+    m_Localized: Infuse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749821905346560
+    m_Localized: Polar Vortex (Vortex)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750527559245824
+    m_Localized: Inferno (Vortex)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751126694600704
+    m_Localized: Dragon's Breath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749753156509696
+    m_Localized: Infuse an enemy with pure flame. They take fire damage as true instead,
+      and release an explosion upon death.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749879765770240
+    m_Localized: Surround a target with freezing winds. Deals cold damage, slows,
+      and burns away mana.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750565949710336
+    m_Localized: Surround a target with a blazing inferno. Deals high fire damage
+      per turn, and grants you a percentage of the targets mana if they are killed
+      while active.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751174643884032
+    m_Localized: Only castable at 75 heat or above. Emit a massive, highly damaging
+      wave of fire. Gain 5 heat per cast instead of 1.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757707087814656
+    m_Localized: Vent Instability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757747051143168
+    m_Localized: Fully expunge your instability in a violent explosion. Deals extremely
+      high damage, removes all instability, drains your mana to 0, and sets all abilities
+      on cooldown.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758077579075584
+    m_Localized: Summon White Hole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758104686862336
+    m_Localized: Summons a white hole, which lasts for 120 turns. The white hole
+      redirects all random teleports to land within its line of sight.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674372896825344
+    m_Localized: Generate an explosion in a wide area around you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674319083905024
+    m_Localized: Dynamite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674720415883264
+    m_Localized: Summon Husks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674753173397504
+    m_Localized: Summon husks from out of sight to come and attack the targeted monster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682151204233216
+    m_Localized: Establish a mental link to an enemy, and afflfict with horrific
+      visions. If the link is not broken in 7 turns, summon The Nightmare.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 18682100411211776
+    m_Localized: Summon Nightmare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687588049821696
+    m_Localized: Mass Teleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687648045146112
+    m_Localized: Teleport all monsters around you a medium distance away.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21181711893864448
+    m_Localized: Surge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21181750942834688
+    m_Localized: Deals 1d3 + {1.POWER} magic damage. Upon killing an enemy, gain
+      .2 bonus damage permanently. If an enemy is killed with this ability, it instantly
+      resets.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25275438589485056
+    m_Localized: Yon Ritual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276443037212672
+    m_Localized: Perform the Yon ritual, removing part of your body and replacing
+      it with a solid mana construct. The first iteration of this ritual is experimentation
+      with external enhancements, giving you thin exoskeleton that grants you defensive
+      stats with your current mana. Costs {1.baseCost} base mana, as well as {1.costPerTurn}
+      mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276511098183680
+    m_Localized: This iteration of the ritual begin the internal enhancements, which
+      will make you frail as your body rejects the changes. The first change is to
+      replace your muscles with a flexible mana-driven manifold, which will further
+      increase the stats you gain from mana. Costs {1.baseCost} base mana, as well
+      as {1.costPerTurn} mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276546963677184
+    m_Localized: Your current mana supply isn't strong enough to supply a fully constructed
+      body. Concentrated cores of mana will serve as nexus points for your wider
+      and stronger mana veins. Your mana regeneration will vastly increase, at the
+      cost of an even frailer form.  Costs {1.baseCost} base mana, as well as {1.costPerTurn}
+      mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276858554327040
+    m_Localized: You'll need to replace your remaining organs with crystalized stores
+      of mana. Your maximum health will be improved with the removal of your dying
+      flesh, and your maximum mana will increase as well. Performing the ritual will
+      cost {1.baseCost} base mana, as well as {1.costPerTurn} mana per turn over
+      {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25276900463812608
+    m_Localized: Fully encode your brain into a solid matrix of mana, removing the
+      last of your biological weakness. Your completed body will gain maximum health
+      and health regen based on your current mana. Additionally, all your Yon attributes
+      will be stronger. Costs {1.baseCost} base mana, as well as {1.costPerTurn}
+      mana per turn over {1.numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 30635189871517696
+    m_Localized: Perfect Timing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30635220343136256
+    m_Localized: Apply to a target. At some point in the next 10 turns, the effect
+      will activate for 1 turn. Killing the target while the effect is active will
+      refund 5 turns of cooldown to all your abilities.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30637063152541696
+    m_Localized: Time Dilation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30776115830923264
+    m_Localized: Physical Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30777095167352832
+    m_Localized: Wraps the caster's body in a 20 health shield that blocks physical
+      attacks. Disintegrates in 20 turns, or upon running out of health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779781698756608
+    m_Localized: Magical Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779905288118272
+    m_Localized: Wraps the caster's body in a 20 health shield that blocks magical
+      attacks. Disintegrates in 20 turns, or upon running out of health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30780379231887360
+    m_Localized: Summon a powerful, semi-permanent shield that blocks all forms of
+      damage. This shield will not decay, and instead will regenerate health up to
+      a maximum limit. The shield will permanently disappear if it runs out of health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052495162777600
+    m_Localized: Roar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052524204138496
+    m_Localized: Roar, applying a slow effect to all creatures in range.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37200013967433728
+    m_Localized: Leash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37200074004701184
+    m_Localized: Pull a single target in to range 2, and bind it for up to 2 pulls.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203291639848960
+    m_Localized: Poisoned Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203371147075584
+    m_Localized: Coat your weapon (or ammunition) in poison. Your next 5 armed strikes
+      will apply a poison that deals 3 damage for 3 turns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214861870702592
+    m_Localized: Executing Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214938836180992
+    m_Localized: Empowers your next attack to execute enemies below 20% health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756097615241216
+    m_Localized: Deal {percentHealthDamage}% of a living target's current health
+      as true damage. Heal the undead adjacent to the target for the same amount
+      (divided among them).
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 55756058864066560
+    m_Localized: Drain Life
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00202b4a515f42000020abb4b0404b0000206b80cacc590000202b59dacc59000020ebb2e2cc590000202b3f2bcd590000202b0135cd590000206b18e015c600

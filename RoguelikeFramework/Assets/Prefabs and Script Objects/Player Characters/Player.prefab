@@ -51,20 +51,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 010000000300000005000000
+    _keys: 0001
     _vals:
-    - 10000
     - 100
-    - 100
+    - 1000
   currentStats:
     _keys: 
     _vals: []
-  displayName: You
+  resistances: 0
+  weaknesses: 0
+  immunities: 0
+  localName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  friendlyName: Player
+  singular: 0
+  named: 0
   nameRequiresPluralVerbs: 1
   faction: 2
   ID: 0
   minDepth: 0
   maxDepth: 0
+  tags:
+    _keys: []
+    _vals: 
+  credit: {fileID: 0}
+  baseEffects: []
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
@@ -75,10 +102,23 @@ MonoBehaviour:
   abilities: {fileID: 0}
   controller: {fileID: 0}
   renderer: {fileID: 0}
+  FXObjects: []
   currentTile: {fileID: 0}
   willSwap: 0
   XPFromKill: 0
   level: 0
+  speciesName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  chosenClass: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &4311608207694994516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 52
   available: 0
+  baseItems: []
 --- !u!114 &4311608207694994521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +229,11 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage: []
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Primary Hand
     type: 0200000003000000
     equipped:
@@ -206,11 +251,15 @@ MonoBehaviour:
       chanceToHit: 100
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 2
           dice: 2
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Secondary Hand
     type: 03000000
     equipped:
@@ -228,11 +277,15 @@ MonoBehaviour:
       chanceToHit: 50
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage:
       - damage:
           rolls: 1
           dice: 2
         type: 1
+      tags:
+        _keys: []
+        _vals: 
   - slotName: Body
     type: 04000000
     equipped:
@@ -250,7 +303,12 @@ MonoBehaviour:
       chanceToHit: 0
       accuracy: 0
       piercing: 0
+      energyCost: 100
       damage: []
+      tags:
+        _keys: []
+        _vals: 
+  WillEquipInventory: 1
 --- !u!114 &4311608207694994520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c5d49c9825a8d4b8ba6052b0b01b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAbilities: 10
+  baseAbilities: []
 --- !u!114 &4311608207694994515
 MonoBehaviour:
   m_ObjectHideFlags: 0

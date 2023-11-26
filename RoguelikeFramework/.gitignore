@@ -61,4 +61,5 @@ crashlytics-build.properties
 
 # Ignore rexpaint install, but not images.
 [Aa]ssets/RexPaint/REXPaint-v1.60/*
-![Aa]ssets/RexPaint/REXPaint-v1.60/images
+![Aa]ssets/RexPaint/REXPaint-v1.60/images/
+[Aa]ssets/RexPaint/REXPaint-v1.60/images/*.png*

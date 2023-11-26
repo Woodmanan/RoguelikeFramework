@@ -30,41 +30,52 @@ public class ActivateAction : GameAction
             caller.energy -= 100;
             Debug.LogError("Someone activate an item with no activatable? Draining to prevent softlock.", caller);
             yield break;
-        } 
+        }
 
-        Ability abilityOnActivation = item.abilityOnActivation;
-        if (abilityOnActivation.CheckAvailable(caller))
+        bool keepActivating = true;
+        Item itemRef = stack.held[stack.count - 1];
+        caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
+
+        if (!keepActivating)
         {
-            bool keepActivating = true;
-            Item itemRef = stack.held[stack.count - 1];
-            caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
+            RogueLog.singleton.Log("You cannot activate this item right now (prevented by effect).", priority: LogPriority.HIGH);
+            yield break;
+        }
 
-            if (!keepActivating)
+        if ((item.activateType & ActivateType.Ability) > 0)
+        {
+            Ability abilityOnActivation = item.abilityOnActivation;
+            abilityOnActivation.RegenerateStats(caller);
+            if (abilityOnActivation.CheckAvailable(caller))
             {
-                Debug.Log("Console: You cannot activate this item right now (caused by connected effect).");
-                yield break;
-            }
-
-            AbilityAction castAction = new AbilityAction(abilityOnActivation);
-            castAction.Setup(caller);
-            while (castAction.action.MoveNext())
-            {
-                yield return castAction.action.Current;
-            }
-
-            if (castAction.successful)
-            {
-                //Remove the item!
-                if (item.ConsumedOnUse)
+                AbilityAction castAction = new AbilityAction(abilityOnActivation);
+                castAction.Setup(caller);
+                while (castAction.action.MoveNext())
                 {
-                    caller.inventory.RemoveLastItemFromStack(index);
+                    yield return castAction.action.Current;
                 }
             }
+            else
+            {
+                RogueLog.singleton.Log("You cannot activate this item right now.", priority: LogPriority.HIGH);
+                this.successful = false;
+            }
         }
-        else
+
+        if ((item.activateType & ActivateType.Effect) > 0)
         {
-            Debug.Log("Console: You cannot activate this item right now.");
-            this.successful = false;
+            caller.AddEffectInstantiate(item.activationEffects.ToArray());
+        }
+
+        if (this.successful)
+        {
+            RogueLog.singleton.Log($"You use the {item.GetComponent<Item>().GetName()}!", priority: LogPriority.HIGH);
+            caller.energy -= 100;
+            //Remove the item!
+            if (item.ConsumedOnUse)
+            {
+                caller.inventory.RemoveLastItemFromStack(index);
+            }
         }
     }
 

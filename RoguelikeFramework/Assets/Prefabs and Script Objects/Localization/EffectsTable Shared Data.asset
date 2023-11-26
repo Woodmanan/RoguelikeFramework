@@ -1,0 +1,427 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: EffectsTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: EffectsTable
+  m_TableCollectionNameGuidString: 5ab25f9d37eb27a4fa6b82a9c471e1aa
+  m_Entries:
+  - m_Id: 134442852352
+    m_Key: RegenName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4691566731264
+    m_Key: HealingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7134149025792
+    m_Key: HealName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9482179125248
+    m_Key: StopDeathName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9585128316928
+    m_Key: StopDeathDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10985740640256
+    m_Key: HasteDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11588000751616
+    m_Key: HasteName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11729252327424
+    m_Key: PoweredUpName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11801167863808
+    m_Key: PoweredUpDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9899796184686592
+    m_Key: BleedName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9899945791315968
+    m_Key: BleedDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9900407500300288
+    m_Key: ArmorProtectionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10542167880310784
+    m_Key: ArmorProtectionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10545121681154048
+    m_Key: VampAllDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10545186227298304
+    m_Key: VampAllName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10552238504878080
+    m_Key: WeaponVampName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655314553593856
+    m_Key: WhipName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655500688416768
+    m_Key: WhipDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11227532316631040
+    m_Key: CowardiceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11227933401145344
+    m_Key: CowardiceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11229331224256512
+    m_Key: CourageName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11229455887360000
+    m_Key: CourageDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11375975198613504
+    m_Key: MasochismName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11376159483748352
+    m_Key: MasochismDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11956501554913280
+    m_Key: OnHitSuffix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25713987025575936
+    m_Key: InstabilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25714029350297600
+    m_Key: InstabilityDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25715220343889920
+    m_Key: HeatMageTempoName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25715251511762944
+    m_Key: HeatMageTempoDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25719525838888960
+    m_Key: BraveryStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25719556734132224
+    m_Key: BraveryStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721049788915712
+    m_Key: CowardStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721101924114432
+    m_Key: CowardStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722757394931712
+    m_Key: DrunkenStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722797387620352
+    m_Key: DrunkenStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722857110315008
+    m_Key: TurtleStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722884796915712
+    m_Key: TurtleStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25723499606384640
+    m_Key: BriarStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25723543579467776
+    m_Key: BriarStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26038848566534144
+    m_Key: GreySkinName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26038924827369472
+    m_Key: GreySkinDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26232492334456832
+    m_Key: GrantAttributeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26232552963121152
+    m_Key: GrantAttributeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26416474627973120
+    m_Key: TrollPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26416516331937792
+    m_Key: TrollPassiveDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418645973016576
+    m_Key: HumanPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418745768091648
+    m_Key: Human Passive Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586050867175424
+    m_Key: CopycatName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586135680196608
+    m_Key: CopycatDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26810941981794304
+    m_Key: NightmareVisName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26811077919186944
+    m_Key: NightmareVisDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27913352855101440
+    m_Key: ChrysalisName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27913655516078080
+    m_Key: ChrysalisDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27924343965818880
+    m_Key: LastStandName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27924398491770880
+    m_Key: LastStandDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27932816757694464
+    m_Key: DamageOverTimeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27932963960987648
+    m_Key: DamageOverTimeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27938592754704384
+    m_Key: ArchmageName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27938633766608896
+    m_Key: ArchmageDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27983633053327360
+    m_Key: AmbidextrousName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27983680180527104
+    m_Key: AmbidextrousDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990080797483008
+    m_Key: HeroTrapName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990137307340800
+    m_Key: HeroTrapDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044662181404672
+    m_Key: PerfectReflexesName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044731655856128
+    m_Key: PerfectReflexesDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28244741391589376
+    m_Key: HeatMageOverheatDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328153971990528
+    m_Key: AddSurgeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328332196356096
+    m_Key: AddSurgeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33376439255113728
+    m_Key: WightEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33380265815121920
+    m_Key: WightEffectDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33572815964413952
+    m_Key: WightAttributeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33572891881316352
+    m_Key: WightAttributeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33580976205144064
+    m_Key: ManaRegenName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33581070954471424
+    m_Key: ResourceOverTimeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38071093166809088
+    m_Key: InfusionName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38071228923846656
+    m_Key: InfusionDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075188934025216
+    m_Key: IceArmorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075240142282752
+    m_Key: IceArmorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075713813422080
+    m_Key: VortexColdName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075884571926528
+    m_Key: VortexColdDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38076481509466112
+    m_Key: VortexHotName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38076538354868224
+    m_Key: FireVortexDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38764226217189376
+    m_Key: PerfectTimingEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38764284148916224
+    m_Key: PerfectTimingEffectDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38765884544327680
+    m_Key: DilateEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38765945588228096
+    m_Key: DilateEffectDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38906359116931072
+    m_Key: ShieldName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38906474334461952
+    m_Key: ShieldDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908091838439424
+    m_Key: BloodShieldEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908568655306752
+    m_Key: GreaterShieldEffectName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908706132008960
+    m_Key: GreaterShieldAbilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42802517585371136
+    m_Key: ElfPassiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42802560488906752
+    m_Key: ElfPassiveDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43181369482485760
+    m_Key: Chain Bound Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43181418299990016
+    m_Key: Chain Bound Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183021157457920
+    m_Key: Apply Crushing Blow Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183091579822080
+    m_Key: Apply Crushing Blow Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183248316768256
+    m_Key: Stun Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183303044046848
+    m_Key: Stun Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183840586047488
+    m_Key: Slow Name
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1670157949406

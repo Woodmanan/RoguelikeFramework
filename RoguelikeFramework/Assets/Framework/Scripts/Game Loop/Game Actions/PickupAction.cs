@@ -33,21 +33,27 @@ public class PickupAction : GameAction
     {
         if (caller.inventory == null)
         {
-            Debug.LogError($"{caller.displayName} cannot pickup without an inventory! Skipping turn to prevent deadlock.", caller);
+            Debug.LogError($"{caller.GetLocalizedName()} cannot pickup without an inventory! Skipping turn to prevent deadlock.", caller);
             caller.energy = 0;
             yield break;
         }
 
         if (indices.Count == 0)
         {
-            Debug.Log($"{caller.displayName} tried to pick up no items.");
+            Debug.Log($"{caller.GetLocalizedName()} tried to pick up no items.");
             yield break;
         }
+
+        //Setup names
+        Inventory tileInventory = Map.current.GetTile(caller.location).inventory;
+        List<string> itemNames = indices.Select(x => tileInventory[x].GetName(true)).ToList();
 
         foreach (int index in indices)
         {
             caller.inventory.PickUp(index);
         }
+
+        RogueLog.singleton.LogTemplate("ItemPickup", new { monster = caller.GetName(), singular = caller.singular, items = itemNames }, null, LogPriority.HIGH);
 
         caller.energy -= 100;
 

@@ -39,7 +39,8 @@ public class Targeting
     public TargetTags options = TargetTags.POINTS_SHARE_OVERLAP | TargetTags.POINTS_REQUIRE_LOS;
 
     public TargetPriority targetPriority;
-    
+
+    Func<Monster, bool> validityCheck;
 
     public Targeting ShallowCopy()
     {
@@ -102,7 +103,7 @@ public class Targeting
         }*/
 
         //I lied, this is a better check
-        if ((range == 0) && (targetingType != TargetType.FULL_LOS && targetingType != TargetType.SELF))
+        if ((range == 0) && (targetingType != TargetType.FULL_LOS && targetingType != TargetType.SELF && targetingType != TargetType.ALL_MONSTERS))
         {
             Debug.LogError("Targeting that really should have range > 0 doesn't. Is this a mistake?");
         }
@@ -110,7 +111,7 @@ public class Targeting
         return false;
     }
 
-    public bool BeginTargetting(Vector2Int startPosition, LOSData los)
+    public bool BeginTargetting(Vector2Int startPosition, LOSData los, Func<Monster, bool> targetCheckFunc = null)
     {
         origin = startPosition;
         target = startPosition;
@@ -119,9 +120,21 @@ public class Targeting
         points.Clear();
         isFinished = false;
 
-        
+        if (targetCheckFunc == null)
+        {
+            validityCheck = (x) => true;
+        }
+        else
+        {
+            validityCheck = targetCheckFunc;
+        }
 
         int maxEffectSize = range + radius;
+
+        if ((targetingType & TargetType.ALL_MONSTERS) > 0)
+        {
+            maxEffectSize = radius + los.radius; //Special case - we might use all visible targets as points
+        }
         offset = maxEffectSize;
         length = maxEffectSize * 2 + 1;
 
@@ -156,7 +169,12 @@ public class Targeting
         if (targetingType == TargetType.SINGLE_TARGET_LINES || targetingType == TargetType.SMITE_TARGET)
         {
             Monster atTarget = Map.current.GetTile(target).currentlyStanding;
-            valid = valid && (atTarget != null);
+            valid = valid && (atTarget != null) && (validityCheck(atTarget));
+        }
+
+        if ((options & TargetTags.REQUIRES_WALKABLE_POINT) > 0)
+        {
+            valid = valid && !Map.current.GetTile(target).BlocksMovement();
         }
 
         return valid;
@@ -379,6 +397,33 @@ public class Targeting
                     MarkArea(origin.x, origin.y, false);
                 }
                 break;
+            case TargetType.ALL_MONSTERS:
+                if ((options & TargetTags.RECOMMENDS_SELF_TARGET) > 0)
+                {
+                    BuildRange(origin);
+                }
+
+                if ((options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
+                {
+                    foreach (Monster target in currentLOS.visibleFriends)
+                    {
+                        BuildRange(target.location);
+                    }
+                }
+
+                if ((options & TargetTags.RECOMMENDS_ENEMY_TARGET) > 0)
+                {
+                    foreach (Monster target in currentLOS.visibleEnemies)
+                    {
+                        BuildRange(target.location);
+                    }
+                }
+
+                if (!options.HasFlag(TargetTags.INCLUDES_CASTER_SPACE))
+                {
+                    MarkArea(origin.x, origin.y, false);
+                }
+                break;
         }
     }
 
@@ -469,7 +514,6 @@ public class Targeting
                     }
                 }
                 break;
-                
         }
     }
 }

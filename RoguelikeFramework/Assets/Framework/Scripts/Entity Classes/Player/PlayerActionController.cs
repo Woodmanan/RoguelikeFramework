@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using System.Linq;
 
 public class PlayerActionController : ActionController
@@ -11,34 +12,34 @@ public class PlayerActionController : ActionController
     {
         if (InputTracking.HasNextAction())
         {
-            Player.player.view.CollectEntities(Map.current);
-            PlayerAction action = InputTracking.PopNextAction();
+            Player.player.view.CollectEntities(Map.current, Player.player);
+            (PlayerAction action, string inputString) = InputTracking.PopNextPair();
             switch (action)
             {
                 //Handle Movement code
                 case PlayerAction.MOVE_UP:
-                    nextAction = new MoveAction(monster.location + Vector2Int.up);
+                    nextAction = new MoveAction(monster.location + Vector2Int.up, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN:
-                    nextAction = new MoveAction(monster.location + Vector2Int.down);
+                    nextAction = new MoveAction(monster.location + Vector2Int.down, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_LEFT:
-                    nextAction = new MoveAction(monster.location + Vector2Int.left);
+                    nextAction = new MoveAction(monster.location + Vector2Int.left, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_RIGHT:
-                    nextAction = new MoveAction(monster.location + Vector2Int.right);
+                    nextAction = new MoveAction(monster.location + Vector2Int.right, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_UP_LEFT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, 1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, 1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_UP_RIGHT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(1, 1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(1, 1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN_LEFT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, -1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, -1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN_RIGHT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(1, -1));
+                    nextAction = new MoveAction(monster.location + new Vector2Int(1, -1), picksUpItems: true);
                     break;
                 case PlayerAction.WAIT:
                     nextAction = new WaitAction();
@@ -129,11 +130,29 @@ public class PlayerActionController : ActionController
                 //Handle potentially weird cases (Thanks, Nethack design philosophy!)
                 case PlayerAction.ESCAPE_SCREEN:
                     //TODO: Open up the pause menu screen here
-                    RogueUIPanel.ExitTopLevel(); //This really, really shouldn't do anything. Let it happen, though!
+                    if (!UIController.WindowsOpen)
+                    {
+                        UIController.singleton.OpenPause();
+                        yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    }
+                    //RogueUIPanel.ExitTopLevel(); //This really, really shouldn't do anything. Let it happen, though!
                     break;
                 case PlayerAction.ACCEPT:
                 case PlayerAction.NONE:
-                    Debug.Log("Player read an input set to do nothing", this);
+                    bool foundAction = false;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (inputString.Contains($"{(i + 1)%10}"))
+                        {
+                            nextAction = new AbilityAction(i);
+                            foundAction = true;
+                            break;
+                        }
+                    }
+                    if (!foundAction)
+                    {
+                        Debug.Log("Player read an input set to do nothing", this);
+                    }
                     break;
                 default:
                     Debug.LogError($"Player read an input that has no switch case: {action}");
@@ -204,9 +223,9 @@ public class PlayerActionController : ActionController
         }
     }
 
-    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
     {
-        if (targetingPanel.Setup(targeting, setValidityTo))
+        if (targetingPanel.Setup(targeting, setValidityTo, TargetCheck))
         {
             targetingPanel.Activate();
             yield return new WaitUntil(() => !UIController.WindowsOpen);

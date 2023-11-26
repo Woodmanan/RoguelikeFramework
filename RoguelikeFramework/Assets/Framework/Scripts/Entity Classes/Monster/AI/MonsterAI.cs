@@ -12,6 +12,7 @@ public class MonsterAI : ActionController
     public Query fightQuery;
     [HideInInspector] public bool isInBattle = false;
 
+    public bool willExplore = true;
     public float interactionRange;
     public bool ranged = false;
     public int minRange = 0;
@@ -22,6 +23,7 @@ public class MonsterAI : ActionController
     float loseDistance = 20;
 
     public Monster lastEnemy;
+    public Monster leader;
     PriorityQueue<int> choices = new PriorityQueue<int>(20);
 
     //The main loop for monster AI! This assumes 
@@ -35,11 +37,17 @@ public class MonsterAI : ActionController
             nextAction = new WaitAction();
             yield break;
         }
-        monster.view.CollectEntities(Map.current);
+        monster.view.CollectEntities(Map.current, monster);
 
-        List<Monster> enemies = monster.view.visibleMonsters.Where(x => (x.faction & monster.faction) == 0).ToList();
+        List<Monster> enemies = monster.view.visibleEnemies;
 
         choices.Clear();
+
+        //Backup leader - if yours dies, go up the credit chain
+        while (leader != null && leader.IsDead())
+        {
+            leader = leader.credit;
+        }
 
         if (lastEnemy && (monster.location.GameDistance(lastEnemy.location) > loseDistance || currentTries == 0))
         {
@@ -63,18 +71,35 @@ public class MonsterAI : ActionController
                 choices.Enqueue(2, 1f - .8f);
             }
 
-            //Wait for 60 turns on avg, then go explore
-            if (UnityEngine.Random.Range(0, 60) == 0)
+            if (leader == null)
             {
-                choices.Enqueue(3, 1f - .7f);
+                //Wait for 120 turns on avg, then go explore
+                if (willExplore && UnityEngine.Random.Range(0, 120) == 0)
+                {
+                    choices.Enqueue(3, 1f - .7f);
+                }
+            }
+            else
+            {
+                //6 - Follow the leader
+                if (monster.location.GameDistance(leader.location) > 4 || UnityEngine.Random.Range(0, 30) == 0)
+                {
+                    choices.Enqueue(6, 1f - 0.95f);
+                }
             }
 
-
             //4 - Wait
-            choices.Enqueue(4, 1f - .1f);
-
-            //5 - Heal up
-            choices.Enqueue(5, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
+            if (monster.energyPerStep == 0)
+            {
+                choices.Enqueue(4, 1f - 1.1f);
+            }
+            else
+            {
+                //Monster with lower health want to rest more - shouldn't be wandering around
+                float restVal = Mathf.Min(.9f, (monster.baseStats[HEALTH] / monster.currentStats[MAX_HEALTH]));
+                choices.Enqueue(4, restVal);
+            }
+            
 
             int finalChoice = choices.Dequeue();
 
@@ -94,8 +119,13 @@ public class MonsterAI : ActionController
                 case 4:
                     nextAction = new WaitAction();
                     break;
-                case 5:
-                    nextAction = new MonsterRest();
+                case 6: //Follow the leader!
+                    Vector2Int followPosition = Map.current.GetRandomWalkableTileInSight(leader, 2);
+                    if (followPosition == new Vector2Int(-1, -1))
+                    {
+                        followPosition = Map.current.GetRandomWalkableTileInSight(leader, leader.visionRadius);
+                    }
+                    nextAction = new PathfindAction(followPosition);
                     break;
                 default:
                     Debug.LogError($"Monster does not have non-combat action set for choice {finalChoice}", monster);
@@ -114,9 +144,10 @@ public class MonsterAI : ActionController
             //1 - Fight
             //2 - Spell
             //3 - Some offered action
+            //4 - Wait
 
-            float flee = fleeQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
-            float approach = fightQuery.Evaluate(monster, monster.view.visibleMonsters, null, null);
+            float flee = fleeQuery.Evaluate(monster, null, null);
+            float approach = fightQuery.Evaluate(monster, null, null);
 
             (int spellIndex, float spellValue) = (-1, -1);
             if (monster.abilities) (spellIndex, spellValue) = monster.abilities.GetBestAbility();
@@ -127,6 +158,11 @@ public class MonsterAI : ActionController
             choices.Enqueue(1, 1f - approach);
             choices.Enqueue(2, 1f - spellValue);
             choices.Enqueue(3, 1f - interactableCost);
+
+            if (monster.energyPerStep == 0)
+            {
+                choices.Enqueue(4, 1f - 1.1f);
+            }
 
             int finalChoice = choices.Dequeue();
             switch (finalChoice)
@@ -162,6 +198,9 @@ public class MonsterAI : ActionController
                 case 3:
                     nextAction = tile.GetAction();
                     break;
+                case 4:
+                    nextAction = new WaitAction();
+                    break;
                 default:
                     Debug.LogError($"Can't make choice {finalChoice}, so waiting instead");
                     nextAction = new WaitAction();
@@ -173,7 +212,7 @@ public class MonsterAI : ActionController
     public (InteractableTile, float) GetInteraction(bool isInCombat, float distanceCutoff)
     {
         List<InteractableTile> tiles = Map.current.interactables.FindAll(x => x.FilterByCombat(isInCombat) && Vector2Int.Distance(monster.location, x.location) <= distanceCutoff);
-        List<(InteractableTile, float)> pairs = tiles.Select(x => (x, x.useQuery.Evaluate(monster, monster.view.visibleMonsters, null, null)))
+        List<(InteractableTile, float)> pairs = tiles.Select(x => (x, x.useQuery.Evaluate(monster, null, null)))
                                                      .OrderBy(x => Vector2Int.Distance(monster.location, x.Item1.location))
                                                      .OrderByDescending(x => x.Item2)
                                                      .ToList();
@@ -184,18 +223,18 @@ public class MonsterAI : ActionController
         return pairs[0];
     }
 
-    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo)
+    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
     {
-        if (targeting.BeginTargetting(monster.location, monster.view) && targeting.range > 0)
+        if (targeting.BeginTargetting(monster.location, monster.view, TargetCheck) && targeting.range > 0)
         {
             List<Monster> targets;
             if ((targeting.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
-                targets = monster.view.visibleMonsters.FindAll(x => !x.IsEnemy(monster) && x != monster);
+                targets = monster.view.visibleFriends;
             }
             else
             {
-                targets = monster.view.visibleMonsters.FindAll(x => x.IsEnemy(monster));
+                targets = monster.view.visibleEnemies;
             }
 
             //TODO: Make this use a new vector distance function, instead of just copying the targeting code.
@@ -230,10 +269,20 @@ public class MonsterAI : ActionController
                     index = 0;
                 }
                 targeting.MoveTarget(targets[index].location);
-                if (!targeting.LockPoint())
+                if (targeting.IsValid())
                 {
-                    Debug.LogError("Something has gone very wrong. Monster was unable to target correctly.");
-                    yield return null; //Try to prevent a freeze from occuring, if the monster keeps trying and failing.
+                    if (!targeting.LockPoint())
+                    {
+                        Debug.LogError("Something has gone very wrong. Monster was unable to target correctly.");
+                        yield return null; //Try to prevent a freeze from occuring, if the monster keeps trying and failing.
+                    }
+                }
+                else
+                {
+                    Debug.Log("Monster could not shoot, and probably needs to pick something else to do!");
+                    //monster.renderer.color = Color.red;
+                    monster.energy -= 100;
+                    break;
                 }
             }
 
@@ -261,6 +310,7 @@ public class MonsterAI : ActionController
     public override void Setup()
     {
         GetComponent<Equipment>().OnEquipmentAdded += UpdateRanged;
+        UpdateRanged();
     }
 
     void UpdateRanged()
@@ -271,5 +321,22 @@ public class MonsterAI : ActionController
         {
             minRange = slots.Min(x => x.equipped.held[0].ranged.targeting.range);
         }
+    }
+
+    public void SetToFollow(Monster target)
+    {
+        SetToFollow(target, intelligence);
+    }
+
+    public void SetToFollow(Monster target, int numTries)
+    {
+        lastEnemy = target;
+        currentTries = numTries;
+    }
+
+    public void Clear()
+    {
+        lastEnemy = null;
+        leader = null;
     }
 }

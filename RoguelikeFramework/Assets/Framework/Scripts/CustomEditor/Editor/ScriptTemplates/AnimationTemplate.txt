@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : RogueAnimation
+{
+	public const float animationDuration = .15f;
+    public #SCRIPTNAME#() : base(animationDuration)
+    {
+        
+    }
+
+    public override void OnStart()
+    {
+        
+    }
+
+    public override void OnStep(float delta)
+    {
+        
+    }
+
+    public override void OnEnd()
+    {
+        
+    }
+}

@@ -54,7 +54,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: SimpleRoomMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SimpleRoomMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1
@@ -92,7 +92,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 8864d0ffd3be9a64db46913f564bf978, type: 2}
         placedRooms: []
     00000001:
-      type: {class: SimpleConnectionMachine, ns: , asm: Assembly-CSharp}
+      type: {class: SimpleConnectionMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 1
         global: 1

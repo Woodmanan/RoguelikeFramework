@@ -17,6 +17,43 @@ public static class RogueRNG
         return Random.Range(min, max);
     }
 
+    public static int Linear(int max)
+    {
+        return Linear(0, max);
+    }
+
+    public static Vector2Int Linear(Vector2Int min, Vector2Int max)
+    {
+        return new Vector2Int(Linear(min.x, max.x), Linear(min.y, max.y));
+    }
+
+    public static Vector2Int Linear(Vector2Int max)
+    {
+        return Linear(Vector2Int.zero, max);
+    }
+
+    public static Vector2Int LinearOnBorder(Vector2Int max, int offset = 0)
+    {
+        return LinearOnBorder(Vector2Int.zero, max, offset);
+    }
+
+    public static Vector2Int LinearOnBorder(Vector2Int min, Vector2Int max, int offset = 0)
+    {
+        switch (Linear(0, 4))
+        {
+            case 0: //Left
+                return new Vector2Int(min.x + offset, Linear(min.y + offset, max.y - offset));
+            case 1: //Bottom
+                return new Vector2Int(Linear(min.x + offset, max.x - offset), min.y + offset);
+            case 2: //Right
+                return new Vector2Int(max.x - offset, Linear(min.y + offset, max.y - offset));
+            case 3: //Top
+                return new Vector2Int(Linear(min.x + offset, max.x - offset), max.y - offset);
+            default:
+                return Vector2Int.zero;
+        }
+    }
+
     //Simple exponential, with mean that matches given mean!
     //WILL NOT RETURN INFINITY I PROMISE
     public static float Exponential(float mean)
@@ -55,7 +92,7 @@ public static class RogueRNG
         //Convert mean to 0-1 space
         float movedMean = (mean - min) / (max - min);
 
-        //Convert 0-1 space to 0-(very large number) space (approximating infitity)
+        //Convert 0-1 space to 0-(very large number) space (approximating infinity)
         float bigMean = movedMean * precisionBound;
         //Generate a random number from 0-(float.MaxValue)
         float bigVal = Exponential(bigMean);
@@ -116,6 +153,24 @@ public static class RogueRNG
     {
         return (int)BoundedPareto((float)min, (float)max, xMin, a, cutoff);
     }
+
+    //Implementation following Box-Mueller transform suggested here: https://stackoverflow.com/questions/218060/random-gaussian-variables
+    //This *should* be doubles, but probably doesn't matter - I'm not too in love with crazy high numbers being necessary
+    public static float Normal(float mean, float stdDev)
+    {
+        float u0 = 1.0f - RogueRNG.Linear(0f, 1f);
+        float u1 = 1.0f - RogueRNG.Linear(0f, 1f);
+
+        float normalSample = Mathf.Sqrt(-2 * Mathf.Log(u0)) * Mathf.Sin(2 * Mathf.PI * u1);
+
+        return mean + stdDev * normalSample;
+    }
+
+    public static int NormalInt(float mean, float stdDev)
+    {
+        return Mathf.RoundToInt(Normal(mean, stdDev));
+    }
+
     #endregion
 
     #region Discrete

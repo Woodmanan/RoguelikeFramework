@@ -5,6 +5,7 @@ using System.Linq;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    public float dontSpawnNearStairDist;
     private static MonsterSpawner Singleton;
     public static MonsterSpawner singleton
     {
@@ -28,8 +29,11 @@ public class MonsterSpawner : MonoBehaviour
         set { Singleton = value; }
     }
 
+    World world;
+
     public void SetMonsterPools(World world)
     {
+        this.world = world;
         foreach (Branch branch in world.branches)
         {
             branch.monsterTables = branch.monsterTables.Select(x => Instantiate(x)).ToList();
@@ -51,10 +55,11 @@ public class MonsterSpawner : MonoBehaviour
             starts.Add(connection.toLocation);
         }
 
+        /*
         foreach (LevelConnection connection in m.exits)
         {
             starts.Add(connection.fromLocation);
-        }
+        }*/
 
         //Create positions map
         float[,] positions = Pathfinding.CreateDijkstraMap(m, starts.ToList());
@@ -70,10 +75,13 @@ public class MonsterSpawner : MonoBehaviour
             {
                 if (positions[i, j] > 0)
                 {
+                    RogueTile tile = m.GetTile(i, j);
                     //Confirm that two monsters won't spawn on each other
-                    if (m.GetTile(i, j).currentlyStanding == null)
+                    if (!tile.IsInteractable() && m.GetTile(i, j).currentlyStanding == null)
                     {
-                        tickets[i, j] = Mathf.RoundToInt(Mathf.Log(positions[i, j], 2));
+                        float dist = Mathf.Max(positions[i, j] - dontSpawnNearStairDist, 1);
+                        dist = Mathf.Max(Mathf.Log(dist, 2), 0); //This number can't be negative, or monsters WILL spawn on each other.
+                        tickets[i, j] = Mathf.RoundToInt(dist);
                         ticketSum += tickets[i, j];
                     }
                     else
@@ -122,10 +130,36 @@ public class MonsterSpawner : MonoBehaviour
                 }
             }
 
-            m.monsters.Add(monster);
-            monster.location = pos;
-            monster.transform.parent = m.monsterContainer;
+            SpawnMonster(monster, pos, m, postSetup: false);
         }
+    }
+
+    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map, bool postSetup = true, Monster creditedTo = null)
+    {
+        map.monsters.Add(monster);
+        monster.location = location;
+        monster.transform.parent = map.monsterContainer;
+        monster.level = map.depth;
+        monster.credit = creditedTo;
+        PerformSetupForSpawningMonster(monster);
+        monster.currentTile = map.GetTile(location);
+        if (postSetup)
+        {
+            monster.PostSetup(Map.current);
+        }
+        return monster;
+    }
+
+    public void PerformSetupForSpawningMonster(Monster monster)
+    {
+        monster.Setup();
+        
+        monster.AddEffectInstantiate(world.monsterPassives.ToArray());
+    }
+
+    public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map, Monster creditedTo = null)
+    {
+        return SpawnMonster(monster.Instantiate(), location, map, creditedTo);
     }
 
     public Monster GetMonsterFromBranchAndDepth(Branch branch, int depth)
@@ -145,5 +179,19 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         return options[Random.Range(0, options.Count)].RandomMonsterByDepth(depth);
+    }
+
+    public void SpawnMonsterAt(Map map, Vector2Int location, Monster creditedTo = null)
+    {
+        Branch branch = map.branch;
+        Monster toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
+        if (toSpawn)
+        {
+            SpawnMonster(toSpawn, location, map, postSetup: true, creditedTo);
+        }
+        else
+        {
+            Debug.LogError("Couldn't spawn anything! Monster to spawn was null.");
+        }    
     }
 }

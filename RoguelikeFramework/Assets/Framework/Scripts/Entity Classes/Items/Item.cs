@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using System.Linq;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IDescribable
 {
     [Header("Generation attributes")]
     public ItemRarity rarity;
@@ -12,10 +13,16 @@ public class Item : MonoBehaviour
     public int minDepth;
     public int maxDepth;
     public ItemRarity elevatesTo;
+    public int enchantment;
+    public int maxEnchantment;
+    public int maxElevationEffects = 1;
+
+    [HideInInspector] public ItemRarity currentRarity;
 
     [Header("Basic item variables")]
     public int ID;
     public bool stackable;
+    public RogueTagContainer tags = new RogueTagContainer();
     
 
     [SerializeField] Color color;
@@ -23,18 +30,19 @@ public class Item : MonoBehaviour
     [HideInInspector] public Vector2Int location;
     public bool held;
     private Monster heldBy;
-    [SerializeField] new private string name;
-    [SerializeField] private string plural;
+    [SerializeField] public string friendlyName;
+    [SerializeField] public LocalizedString localName;
+    [SerializeField] public LocalizedString localDescription;
 
     [HideInInspector] public bool CanEquip;
     [HideInInspector] public bool CanActivate;
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
 
-    public Connections connections = new Connections();
-    [HideInInspector] List<Effect> attachedEffects = new List<Effect>();
+    public Connections connections;
+    [HideInInspector] public List<Effect> attachedEffects = new List<Effect>();
 
-    [SerializeReference] public List<Effect> effects;
+    [SerializeReference] public List<Effect> baseEffects;
 
 
     [SerializeReference] public List<Effect> optionalEffects;
@@ -63,12 +71,12 @@ public class Item : MonoBehaviour
         }
     }
 
-    public ActivatableItem activatable;
+    [HideInInspector] public ActivatableItem activatable;
     [HideInInspector] public EquipableItem equipable;
     [HideInInspector] public MeleeWeapon melee;
     [HideInInspector] public RangedWeapon ranged;
 
-    private static readonly float itemZValue = -7.0f;
+    public static readonly float itemZValue = -7.0f;
 
     private bool setup = false;
 
@@ -91,7 +99,6 @@ public class Item : MonoBehaviour
     public Item Instantiate()
     {
         Item i = Instantiate(gameObject).GetComponent<Item>();
-        i.Setup();
         return i;
     }
 
@@ -114,8 +121,68 @@ public class Item : MonoBehaviour
         CanMelee = (melee != null);
         CanRanged = (ranged != null);
 
-        AddEffect(effects.Select(x => x.Instantiate()).ToArray());
+        //Set up connections before attaching default effects
+        if (connections == null) connections = new Connections(this);
+
+        AddEffect(baseEffects.Select(x => x.Instantiate()).ToArray());
+        currentRarity = rarity;
         setup = true;
+    }
+
+    public string GetName(bool shorten = false)
+    {
+        string name = "";
+        if (enchantment > 0)
+        {
+            name = $"+{enchantment} ";
+        }
+
+        if (!localName.IsEmpty)
+        {
+            name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}>" + localName.GetLocalizedString(shorten);
+        }
+        else
+        {
+            name += $"<color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(currentRarity))}> MISSING NAME (ID {ID})";
+        }
+
+        foreach (Effect effect in attachedEffects)
+        {
+            if (effect.ShouldDisplay())
+            {
+                name += $" {{{effect.GetName(shorten)}}}";
+            }
+        }
+
+        if (equipable)
+        {
+            foreach (Effect effect in equipable.addedEffects)
+            {
+                if (effect.ShouldDisplay())
+                {
+                    name += $" {{{effect.GetName(shorten)}}}";
+                }
+            }
+        }
+
+        if (CanEquip && equipable.isEquipped)
+        {
+            name += " <color=#74AE93> [Equipped]";
+        }
+
+        name += "</color>";
+
+        return name;
+    }
+
+    public string GetDescription()
+    {
+        return localDescription.GetLocalizedString(this);
+    }
+
+    public Sprite GetImage()
+    {
+        return render.sprite;
     }
 
 
@@ -173,53 +240,69 @@ public class Item : MonoBehaviour
 
     }
 
-    public string GetName()
-    {
-        if (CanEquip && equipable.isEquipped)
-        {
-            return name + " [Equipped]";
-        }
-        return name;
-    }
-
     //Returns the name without modifiers. As of right now, just returns the straight name.
     public string GetNameClean()
     {
-        return name;
+        string name = "";
+        if (enchantment > 0)
+        {
+            name = $"+{enchantment} ";
+        }
+        if (localName.IsEmpty)
+        {
+            return name + $"Missing Name (ID {ID})";
+        }
+        else
+        {
+            return name + localName.GetLocalizedString();
+        }
     }
 
     public string GetPlural()
     {
-        return plural;
+        return localName.GetLocalizedString();
     }
 
     //TODO: Items should elevate stats as well
     public void ElevateRarityTo(ItemRarity rarity, List<Effect> elevationOptions = null)
     {
         int numberToAdd = rarity - this.rarity;
+        int numElevations = (maxElevationEffects >= 0) ? Mathf.Min(maxElevationEffects, numberToAdd) : numberToAdd;
+
+        //Clip item enchantments to rare or above
+        if (rarity <= ItemRarity.UNCOMMON)
+        {
+            numElevations = 0;
+        }
 
         if (elevationOptions != null)
         {
             optionalEffects.AddRange(elevationOptions);
         }
 
-        if (optionalEffects.Count < numberToAdd)
+        if (optionalEffects.Count < numElevations)
         {
-            Debug.LogWarning($"{name} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
+            Debug.LogWarning($"{friendlyName} does not have enough options to elevate fully to rarity {rarity}! Please add more options, or mark its achievable rarity correctly.");
         }
 
-        for (int i = 0; i < System.Math.Min(numberToAdd, optionalEffects.Count); i++)
+        for (int i = 0; i < System.Math.Min(numElevations, optionalEffects.Count); i++)
         {
             int index = UnityEngine.Random.Range(0, optionalEffects.Count);
             AddEffect(optionalEffects[index].Instantiate());
             optionalEffects.RemoveAt(index);
             this.rarity++;
         }
+
+        if (CanAddEnchantment())
+        {
+            AddEnchantment(Mathf.RoundToInt(RogueRNG.Binomial((int) rarity + 2 * numberToAdd, 0.5f)));
+        }
+
+        currentRarity = rarity;
     }
 
     public void AddEffect(params Effect[] effects)
     {
-        if (connections == null) connections = new Connections(this);
         foreach (Effect e in effects)
         {
             e.Connect(connections);
@@ -244,4 +327,42 @@ public class Item : MonoBehaviour
     }
     #endif
 
+    public static Color GetRarityColor(ItemRarity rarity)
+    {
+        Color outColor = Color.black;
+        switch (rarity)
+        {
+            case ItemRarity.COMMON:
+                ColorUtility.TryParseHtmlString("#ABB2BF", out outColor);
+                break;
+            case ItemRarity.UNCOMMON:
+                ColorUtility.TryParseHtmlString("#98C379", out outColor);
+                break;
+            case ItemRarity.RARE:
+                ColorUtility.TryParseHtmlString("#E06C75", out outColor);
+                break;
+            case ItemRarity.EPIC:
+                ColorUtility.TryParseHtmlString("#C678DD", out outColor);
+                break;
+            case ItemRarity.LEGENDARY:
+                ColorUtility.TryParseHtmlString("#E5C07B", out outColor);
+                break;
+            case ItemRarity.UNIQUE:
+                ColorUtility.TryParseHtmlString("#56B6C2", out outColor);
+                break;
+        }
+
+        return outColor;
+    }
+
+    public bool CanAddEnchantment()
+    {
+        return enchantment < maxEnchantment;
+    }
+
+
+    public void AddEnchantment(int amount)
+    {
+        enchantment = Mathf.Clamp(enchantment + amount, -maxEnchantment, maxEnchantment);
+    }
 }

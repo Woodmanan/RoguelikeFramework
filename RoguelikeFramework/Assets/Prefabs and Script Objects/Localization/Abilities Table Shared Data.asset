@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Abilities Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Abilities Table
+  m_TableCollectionNameGuidString: 999deef778c7e2541a99b8b0c8daef13
+  m_Entries:
+  - m_Id: 25275438589485056
+    m_Key: WightRitualName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276900463812608
+    m_Key: WightRitualDescription4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276858554327040
+    m_Key: WightRitualDescription3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276546963677184
+    m_Key: WightRitualDescription2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276511098183680
+    m_Key: WightRitualDescription1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25276443037212672
+    m_Key: WightRitualDescription0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758077579075584
+    m_Key: WhiteHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14758104686862336
+    m_Key: WhiteHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757707087814656
+    m_Key: VentName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14757747051143168
+    m_Key: VentDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 449976147968
+    m_Key: TurtleStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 453159624704
+    m_Key: TurtleStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687588049821696
+    m_Key: TeleportOtherName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18687648045146112
+    m_Key: TeleportOtherDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21181711893864448
+    m_Key: SurgeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21181750942834688
+    m_Key: SurgeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682100411211776
+    m_Key: SummonNightmareName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682151204233216
+    m_Key: SummonNightmareDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674720415883264
+    m_Key: SummonHusksName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674753173397504
+    m_Key: SummonHusksDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052495162777600
+    m_Key: RoarName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35052524204138496
+    m_Key: Roar Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749821905346560
+    m_Key: PolarVortexName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749879765770240
+    m_Key: PolarVortexDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203291639848960
+    m_Key: Poisoned Strike Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37203371147075584
+    m_Key: Poisoned Strike Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30776115830923264
+    m_Key: PhysicalShieldAbilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30777095167352832
+    m_Key: PhysicalShieldAbilityDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30635189871517696
+    m_Key: PerfectTImingName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30635220343136256
+    m_Key: PerfectTimingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674319083905024
+    m_Key: MonsterDynamiteName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18674372896825344
+    m_Key: MonsterDynamiteDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779781698756608
+    m_Key: MagicalShieldAbilityName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30779905288118272
+    m_Key: Magical Shield Ability Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37200013967433728
+    m_Key: Leash Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37200074004701184
+    m_Key: Leash Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749722445815808
+    m_Key: InfuseName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14749753156509696
+    m_Key: InfuseDesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750527559245824
+    m_Key: HeatVortexName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14750565949710336
+    m_Key: HeatVortexDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30780379231887360
+    m_Key: GreaterShieldAbilityDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214861870702592
+    m_Key: Executing Strike Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37214938836180992
+    m_Key: Executing Strike Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 342660685824
+    m_Key: DrunkenStanceName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 360645861376
+    m_Key: DrunkenStanceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756058864066560
+    m_Key: Drain Life Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55756097615241216
+    m_Key: Drain Life Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751126694600704
+    m_Key: DragonBreathName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14751174643884032
+    m_Key: DragonBreathDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30637063152541696
+    m_Key: Dilationname
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1672095913304

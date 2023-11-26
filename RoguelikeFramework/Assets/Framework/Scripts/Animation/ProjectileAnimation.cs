@@ -10,7 +10,7 @@ public class ProjectileFlyAnim : RogueAnimation
     Sprite[] sprites;
     SpriteRenderer projectile;
 
-    public ProjectileFlyAnim(Vector2 start, Vector2 end, float speed, params Sprite[] sprites) : base((start - end).magnitude / speed, true)
+    public ProjectileFlyAnim(Vector2 start, Vector2 end, float speed, params Sprite[] sprites) : base((start - end).magnitude / speed)
     {
         this.start = start;
         this.end = end;
@@ -51,7 +51,7 @@ public class ProjectileBresenhamAnim : RogueAnimation
     Sprite[] sprites;
     SpriteRenderer projectile;
 
-    public ProjectileBresenhamAnim(Vector2Int start, Vector2Int end, float speed, params Sprite[] sprites) : base(Bresenham.GetPointsOnLine(start.x, start.y, end.x, end.y).Count() / speed, true)
+    public ProjectileBresenhamAnim(Vector2Int start, Vector2Int end, float speed, params Sprite[] sprites) : base(Bresenham.GetPointsOnLine(start.x, start.y, end.x, end.y).Count() / speed)
     {
         this.start = start;
         this.end = end;

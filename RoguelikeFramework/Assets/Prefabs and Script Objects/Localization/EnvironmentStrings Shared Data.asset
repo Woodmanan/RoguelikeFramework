@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: EnvironmentStrings Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: EnvironmentStrings
+  m_TableCollectionNameGuidString: c1c18723c3f7f844cb3462d5787b8ff5
+  m_Entries:
+  - m_Id: 12510552064
+    m_Key: FloorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 120685846528
+    m_Key: FloorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192936927232
+    m_Key: "WallName\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 303410700288
+    m_Key: WallDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 381420560384
+    m_Key: DoorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 424357650432
+    m_Key: DoorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1363533619200
+    m_Key: StairName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1461122490368
+    m_Key: StairDesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73535540362420224
+    m_Key: Jungle Statue Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73535715646578688
+    m_Key: Jungle Statue Description
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1671561179780

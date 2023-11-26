@@ -52,7 +52,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: ForestMachine, ns: , asm: Assembly-CSharp}
+      type: {class: ForestMachine, ns: , asm: RoguelikeFramework}
       data:
         priority: 0
         global: 1

@@ -1,0 +1,455 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Items Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 8b1b859889db9e742b537669627078d7, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 7419953405952
+    m_Localized: Axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7454023737344
+    m_Localized: This is a killing axe, not a chopping axe. Just to be specific.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7571543941120
+    m_Localized: Flail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7617001807872
+    m_Localized: Made for crushing armor.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7669183143936
+    m_Localized: Katana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7708232114176
+    m_Localized: Whoosh, you're a Samurai now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7795075178496
+    m_Localized: Knife
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7838549139456
+    m_Localized: Pronounced "Kuh-knife"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7940198096896
+    m_Localized: Pike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7970061541376
+    m_Localized: A sharp end on a long pole. Stabs the enemy behind your target as
+      well.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8018363146240
+    m_Localized: Scythe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8056875245568
+    m_Localized: A farming tool turned deadly-weapon. Hits the enemies adjacent to
+      you and your target.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8098814091264
+    m_Localized: Whip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8120351842304
+    m_Localized: Not very useful in a gun fight. Or a knife fight. Or a whip fight.
+      But damn do you look cool.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8171639791616
+    m_Localized: Flamberge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8206653841408
+    m_Localized: Wicked curves designed to tear flesh and prevent sutures. Causes
+      a bleed effect on every hit, and deals more damage if you can figure out how
+      to pronounce it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8255311962112
+    m_Localized: Wakizashi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8322840256512
+    m_Localized: Historically used as a defensive pair to the katana. You're not
+      a samurai, so you'll probably just use it as a knife.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8377198436352
+    m_Localized: Laser Pike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8416406790144
+    m_Localized: A powerful beam weapon on the end of a stick. You're fairly certain
+      this isn't a melee weapon, but whoever constructed it really wants you to think
+      that it is. The emitted beam will pierce through 4 enemies behind your target.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8490977320960
+    m_Localized: Sword Whip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8520584912896
+    m_Localized: Atom-thin blades, carried along by a superconducting coil. By robbing
+      heat from the user's hand, the blade whips into action at the slightest gesture.
+      An elegant weapon from a more civilized age.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8571797364736
+    m_Localized: God Killer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8599282638848
+    m_Localized: A master blacksmith's failed expirement. It was designed to store
+      a near-infinite amount of power, but the blacksmith never fully explored it's
+      potential. Perhaps you'll have better luck.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9045099405312
+    m_Localized: Crossbow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9077676564480
+    m_Localized: A hand crossbow, useful for shooting arrows from your hand.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9128398282752
+    m_Localized: Six Shooter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9158052012032
+    m_Localized: The fastest way to be rootin, tootin, and dungeon lootin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9215170043904
+    m_Localized: Bow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9250058264576
+    m_Localized: A two-handed bow, useful for shooting arrows using both of your
+      hands.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9316420542464
+    m_Localized: Shotgun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9348750237696
+    m_Localized: A sawed-off shotgun. It kicks a little with every pull of the trigger.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9391909625856
+    m_Localized: Sniper Rifle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9434716692480
+    m_Localized: Elegant and precise. If you can see it, you can shoot it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9484633104384
+    m_Localized: Leather Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9523346530304
+    m_Localized: Light armor that fits tightly around your body. It doesn't offer
+      much in the way of protection, but doesn't get in your way either.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9576924569600
+    m_Localized: Leather Cap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9605961736192
+    m_Localized: A leather cap for protecting your head. You're not sure what this
+      could actually stop and you look silly in it, but you're also not dead yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9729161027584
+    m_Localized: Leather Sandals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9771951316992
+    m_Localized: These sandals protect your feet without weighing you down.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9814900989952
+    m_Localized: Steel boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9874246197248
+    m_Localized: These boots have steel toes and also steel rest-of-the-foot. They're
+      heavy, but feel safe.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10586216718336
+    m_Localized: Light Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10634220527616
+    m_Localized: A small shield for your arm. The painting on it seems to be a family
+      crest from a group you've never seen before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10693389574144
+    m_Localized: Steel Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10804131782656
+    m_Localized: And people called you thick-headed before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10858146029568
+    m_Localized: Scale Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10890962264064
+    m_Localized: The solution to thin-skin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10942799667200
+    m_Localized: Powered Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10973858488320
+    m_Localized: Electricity crackles around this armor. Smalls gears help move it
+      along, and whir excitedly when you get close to the power towers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11020859858944
+    m_Localized: Powered Stilts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11067437604864
+    m_Localized: Leather boots, loaded with springs and extensions. When sufficiently
+      powered, they let you run reallllllllly fast.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11120139034624
+    m_Localized: Fuzzy Boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11153064321024
+    m_Localized: The absolute fuzziness of these is really helping you to relax.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11216343785472
+    m_Localized: Fuzzy Robe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11260061016064
+    m_Localized: It gets easier to think about spellcasting when you don't have to
+      think about being fuzzy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11395616727040
+    m_Localized: Tower Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11433185107968
+    m_Localized: 'It''s almost as big as you are! '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11489636245504
+    m_Localized: It tastes like green!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11535182192640
+    m_Localized: Potion of Regeneration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12498731261952
+    m_Localized: Potion of Haste
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12598878658560
+    m_Localized: It tastes like yellow! You might have ADHD now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12671297511424
+    m_Localized: Potion of Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12716524691456
+    m_Localized: It tastes like red!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12761231777792
+    m_Localized: Deathless Brew
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12798087127040
+    m_Localized: It took an entire team of witches, doctors, and witch doctors 4
+      months to brew this. 4 months! And you're just going to drink it? You monster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 664712264753152
+    m_Localized: The spear of the tyrant Vlad. It seems to share his proclivity for
+      violence, and also functions as a very impractical silly straw.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 664682304839680
+    m_Localized: Vlad's Spear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 665611896823808
+    m_Localized: Vampiric Helm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 665646059429888
+    m_Localized: This helm comes equipped with bat ears and a set of (probably fake)
+      teeth. You have absolutely no desire to put it on and exsanguite the nearest
+      living creature.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769712689504256
+    m_Localized: Magicite Scale Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769798098116608
+    m_Localized: A thin suit of armor made entirely of magicite. You can feel as
+      slight tug in the air as it draws magic into itself.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154172402540544
+    m_Localized: Translocation Treatise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154220691562496
+    m_Localized: Everything you'd need to know to be everywhere at once.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154323254878208
+    m_Localized: On Thermodynamics, Magic, and Pugilism
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154337406459904
+    m_Localized: An inspired but somewhat rambling thesis, detailing a new way to
+      build internal heat, convert it to magic, and punch someone with it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15158481018101760
+    m_Localized: The Many Forms of Combat, Vol 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15154441265815552
+    m_Localized: A book written by a knight-errant, detailing some of the most common
+      and useful fighting techniques found in the tower.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18717291938783232
+    m_Localized: Red Crystal Plate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18717335244972032
+    m_Localized: They're a little brittle, but boy do these crystals make you feel
+      alive!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18720335426428928
+    m_Localized: Red Crystal Boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18720376375418880
+    m_Localized: Shockingly heavy. Shockingly red.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23701775977226240
+    m_Localized: Potion of Mana Regeneration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23700369086029824
+    m_Localized: Potion of Mana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23700429123297280
+    m_Localized: Tastes like blue!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23701805911973888
+    m_Localized: Tastes like purple!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28882488666038272
+    m_Localized: The Inner Workings of Clocks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28882533880635392
+    m_Localized: Ostensibly a book about the design and construction of clocks. Actually
+      an introductory treatise on temporal magic. And how to make clocks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022408822956032
+    m_Localized: The More Uncommon Powers of Blood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022622510161920
+    m_Localized: A book focused on ways to harness to defensive powers of blood.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29022856279695360
+    m_Localized: Defensive Arts Through Magic Lattices
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29023023284297728
+    m_Localized: The author is obessessed with shields. The last pages seem to detail
+      an experiment about shielding one's brain from one's skull, before cutting
+      short.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35476717081141248
+    m_Localized: Infernal Bindings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35476800883335168
+    m_Localized: An extremely old mixed magic and martial arts book. It claims that
+      skilled practicioners will never lose their targets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35477172553195520
+    m_Localized: Advanced Weapon Techniques
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35477433120137216
+    m_Localized: The book is focused on various martial techniques, all designed
+      to work in hand with wielded weapons.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43525885297106944
+    m_Localized: Chain Mail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43526620806062080
+    m_Localized: Antimagic Studded Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43526653752320000
+    m_Localized: This leather armor has bits of magicite studded around it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43525913524772864
+    m_Localized: Interlocking metal rings make this armor both flexible and tough.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1

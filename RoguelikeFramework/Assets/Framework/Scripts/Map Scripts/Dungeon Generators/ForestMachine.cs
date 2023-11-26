@@ -11,11 +11,18 @@ public class ForestMachine : Machine
     public override IEnumerator Activate()
     {
         bool[,] map = new bool[size.x, size.y];
-        for (int i = 0; i < map.GetLength(0); i++)
+        for (int i = 1; i < map.GetLength(0) - 1; i++)
         {
-            for (int j = 0; j < map.GetLength(1); j++)
+            for (int j = 1; j < map.GetLength(1) - 1; j++)
             {
-                map[i, j] = (Random.Range(0, 100) < percentStart);
+                if (generator.map[i, j] == 0)
+                {
+                    map[i, j] = (Random.Range(0, 100) < percentStart);
+                }
+                else
+                {
+                    map[i, j] = true;
+                }
             }
         }
 
@@ -75,7 +82,7 @@ public class ForestMachine : Machine
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                if (flood[i, j] == max_ind)
+                if (flood[i, j] == max_ind && generator.map[i,j] == 0)
                 {
                     generator.map[i, j] = 1;
                 }
@@ -83,8 +90,8 @@ public class ForestMachine : Machine
         }
         
         Room room = UnityEngine.ScriptableObject.CreateInstance<Room>();
-        room.start = Vector2Int.zero;
-        room.end = size;
+        room.size = size;
+        room.SetPosition(Vector2Int.zero);
 
         generator.rooms.Add(room);
     }

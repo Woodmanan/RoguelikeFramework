@@ -7,15 +7,17 @@ public class Weapon : MonoBehaviour
 {
     public WeaponBlock primary;
     public WeaponBlock secondary;
-    public DamageSource source;
+
+    [HideInInspector] public DamageSource source;
     public Connections connections;
 
     [HideInInspector] public Item item;
 
     // Start is called before the first frame update
-    public virtual void Start()
+    public virtual void Awake()
     {
         item = GetComponent<Item>();
+        item.Setup();
         connections = item.connections;
         
         source = (item.type == ItemType.MELEE_WEAPON) ? DamageSource.MELEEATTACK : DamageSource.RANGEDATTACK;
@@ -34,7 +36,9 @@ public class Weapon : MonoBehaviour
 
     public AttackResult PrimaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
-        attacker.other = connections;
+        if (attacker.IsDead() || defender.IsDead()) return AttackResult.MISSED;
+
+        attacker.AddConnection(connections);
         Weapon weapon = this;
 
         attacker.connections.OnBeginPrimaryAttack
@@ -50,7 +54,12 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, primary);
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.LOW);
+            Combat.Hit(attacker, defender, source, primary, enchantment: GetEnchantment());
+        }
+        else
+        {
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.LOW);
         }
 
         defender.connections.OnAfterPrimaryAttackTarget
@@ -59,14 +68,16 @@ public class Weapon : MonoBehaviour
         attacker.connections.OnEndPrimaryAttack
             .BlendInvoke(connections.OnEndPrimaryAttack, ref weapon, ref action, ref result);
 
-        attacker.other = null;
+        attacker.RemoveConnection(connections);
 
         return result;
     }
 
     public AttackResult SecondaryAttack(Monster attacker, Monster defender, AttackAction action)
     {
-        attacker.other = connections;
+        if (attacker.IsDead() || defender.IsDead()) return AttackResult.MISSED;
+
+        attacker.AddConnection(connections);
         Weapon weapon = this;
 
         attacker.connections.OnBeginSecondaryAttack
@@ -82,7 +93,12 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            Combat.Hit(attacker, defender, source, secondary);
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.LOW);
+            Combat.Hit(attacker, defender, source, secondary, enchantment: GetEnchantment());
+        }
+        else
+        {
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.LOW);
         }
 
         defender.connections.OnAfterSecondaryAttackTarget
@@ -91,8 +107,13 @@ public class Weapon : MonoBehaviour
         attacker.connections.OnEndSecondaryAttack
             .BlendInvoke(connections.OnEndSecondaryAttack, ref weapon, ref action, ref result);
 
-        attacker.other = null;
+        attacker.RemoveConnection(connections);
 
         return result;
+    }
+
+    public int GetEnchantment()
+    {
+        return (item != null) ? item.enchantment : 0;
     }
 }

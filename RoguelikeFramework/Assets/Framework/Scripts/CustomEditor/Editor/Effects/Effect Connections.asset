@@ -1,0 +1,430 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63431821c9f93a94aa797a79ad4c2f23, type: 3}
+  m_Name: Effect Connections
+  m_EditorClassIdentifier: 
+  connections:
+  - name: OnGenerateLocalizedString
+    types:
+    - type: Dictionary<string, object>
+      name: arguments
+    description: Called when a connected entity wants to localize - use this to insert
+      information it might want.
+    priority: 0
+  - name: OnTurnStartGlobal
+    types: []
+    description: Called at the start of the global turn sequence
+    priority: 1
+  - name: OnTurnEndGlobal
+    types: []
+    description: Called at the end of the global turn sequence
+    priority: 2
+  - name: OnTurnStartLocal
+    types: []
+    description: Called at the start of a monster's turn
+    priority: 3
+  - name: OnTurnEndLocal
+    types: []
+    description: Called at the end of a monster's turn
+    priority: 4
+  - name: OnMoveInitiated
+    types:
+    - type: Vector2Int
+      name: newLocation
+    - type: bool
+      name: canMove
+    description: Called whenever a monster wants to take a step.
+    priority: 5
+  - name: OnMove
+    types: []
+    description: Called whenever a monster sucessfully takes a step.
+    priority: 5
+  - name: OnFullyHealed
+    types: []
+    description: Called whenever a monster returns to full health
+    priority: 6
+  - name: OnPostDeath
+    types:
+    - type: Monster
+      name: killer
+    description: Called after this monster has registered its death.
+    priority: 7
+  - name: OnDeath
+    types:
+    - type: Monster
+      name: killer
+    description: Called when the connected monster dies
+    priority: 7
+  - name: OnKillMonster
+    types:
+    - type: Monster
+      name: monster
+    - type: DamageType
+      name: type
+    - type: DamageSource
+      name: source
+    description: Called when a monster is killed by this unit.
+    priority: 8
+  - name: RegenerateStats
+    types:
+    - type: Stats
+      name: stats
+    description: Called often, whenever a monster needs up-to-date stats.
+    priority: 8
+  - name: OnEnergyGained
+    types:
+    - type: float
+      name: energy
+    description: Called wenever a monster gains energy
+    priority: 9
+  - name: OnAttacked
+    types:
+    - type: int
+      name: pierce
+    - type: int
+      name: accuracy
+    description: Called when a monster gets attacked (REWORKING SOON!)
+    priority: 10
+  - name: OnDealDamage
+    types:
+    - type: float
+      name: damage
+    - type: DamageType
+      name: damageType
+    - type: DamageSource
+      name: source
+    description: Called by the dealer of damage, when applicable. Modifications here
+      happen before damage is dealt.
+    priority: 11
+  - name: OnTakeDamage
+    types:
+    - type: float
+      name: damage
+    - type: DamageType
+      name: damageType
+    - type: DamageSource
+      name: source
+    description: Called when a monster takes damage from any source, good for making
+      effects fire upon certain types of damage
+    priority: 12
+  - name: OnHealing
+    types:
+    - type: float
+      name: healAmount
+    description: Called when a monster recieves a healing event request
+    priority: 13
+  - name: OnApplyStatusEffects
+    types:
+    - type: Effect[]
+      name: effects
+    description: Called when new status effects are added. All status effects coming
+      through are bunched together as a list.
+    priority: 14
+  - name: OnActivateItem
+    types:
+    - type: Item
+      name: item
+    - type: bool
+      name: canContinue
+    description: Called when this monster attempts to activate an item.
+    priority: 14
+  - name: OnCastAbility
+    types:
+    - type: AbilityAction
+      name: action
+    - type: bool
+      name: canContinue
+    description: Called when a spell is cast. Modify spell, or set continue to false
+      in order to cancel the action!
+    priority: 15
+  - name: OnGainResources
+    types:
+    - type: Stats
+      name: resources
+    description: Called when this monster gains resources. (Different from healing,
+      but can give health)
+    priority: 16
+  - name: OnGainXP
+    types:
+    - type: float
+      name: XPAmount
+    description: Called when this monster gains XP from any source.
+    priority: 17
+  - name: OnLevelUp
+    types:
+    - type: int
+      name: Level
+    description: Called when this monster levels up! Level CANNOT be modified.
+    priority: 17
+  - name: OnLoseResources
+    types:
+    - type: Stats
+      name: resources
+    description: Called when this monster loses resources. (Different from damage,
+      but can take health)
+    priority: 17
+  - name: OnRegenerateAbilityStats
+    types:
+    - type: Monster
+      name: caster
+    - type: Stats
+      name: abilityStats
+    - type: Ability
+      name: ability
+    description: Called when new status effects are added. All status effects coming
+      through are bunched together as a list.
+    priority: 20
+  - name: OnCheckAvailability
+    types:
+    - type: Ability
+      name: abilityToCheck
+    - type: bool
+      name: available
+    description: Called by spells, in order to determine whether they are allowed
+      to be cast.
+    priority: 21
+  - name: OnTargetsSelected
+    types:
+    - type: Targeting
+      name: targeting
+    - type: Ability
+      name: ability
+    description: Called by spells once targets are selected.
+    priority: 22
+  - name: OnPreCast
+    types:
+    - type: Ability
+      name: ability
+    description: Called before spell is cast
+    priority: 23
+  - name: OnPostCast
+    types:
+    - type: Ability
+      name: ability
+    description: Called after a spell is cast.
+    priority: 24
+  - name: OnTargetedByAbility
+    types:
+    - type: AbilityAction
+      name: action
+    description: Called when this monster is selected to be hit by a cast. (Right
+      before hit)
+    priority: 25
+  - name: OnHitByAbility
+    types:
+    - type: AbilityAction
+      name: action
+    description: Called after an ability is cast on this monster. (Right after hit)
+    priority: 26
+  - name: OnStartAttack
+    types:
+    - type: AttackAction
+      name: action
+    - type: bool
+      name: canContinue
+    description: Called when this monster starts an attack action
+    priority: 35
+  - name: OnStartAttackTarget
+    types:
+    - type: AttackAction
+      name: action
+    - type: bool
+      name: canContinue
+    description: Called when this monster is the primary target of an attack action.
+    priority: 35
+  - name: OnGenerateArmedAttacks
+    types:
+    - type: AttackAction
+      name: attack
+    - type: List<Weapon>
+      name: primaryWeapons
+    - type: List<Weapon>
+      name: secondaryWeapons
+    description: Called when an attack has collected the weapons that it will use.
+    priority: 36
+  - name: OnBeginPrimaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    description: Called before a primary attack happens
+    priority: 37
+  - name: OnPrimaryAttackResult
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called once a primary attack has generated a result. (Before result
+      is used)
+    priority: 38
+  - name: OnEndPrimaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after an attack has completely finished - results are final
+    priority: 39
+  - name: OnBeginSecondaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    description: Called before a secondary attack happens
+    priority: 40
+  - name: OnSecondaryAttackResult
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called once a primary attack has generated a result. (Before result
+      is used)
+    priority: 41
+  - name: OnEndSecondaryAttack
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after a seconary attack has completely finished - results
+      are final
+    priority: 42
+  - name: OnGenerateUnarmedAttacks
+    types:
+    - type: AttackAction
+      name: attack
+    - type: List<EquipmentSlot>
+      name: slots
+    description: Called when an attack has collected the unarmed slots that it will
+      use.
+    priority: 43
+  - name: OnBeginUnarmedAttack
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    description: Called before an unarmed attack begins.
+    priority: 44
+  - name: OnUnarmedAttackResult
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called when an unarmed attack has a determined a result, before
+      that result is used.
+    priority: 45
+  - name: OnEndUnarmedAttack
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called when an unarmed attack has a determined a result, after that
+      result is used.
+    priority: 46
+  - name: OnBeforePrimaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called before this monster is hit by a primary attack from another
+      monster.
+    priority: 47
+  - name: OnAfterPrimaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after this monster is hit by a primary attack from another
+      monster. (Can't modify anymore)
+    priority: 48
+  - name: OnBeforeSecondaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called before this monster is hit by a secondary attack from another
+      monster.
+    priority: 49
+  - name: OnAfterSecondaryAttackTarget
+    types:
+    - type: Weapon
+      name: weapon
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after this monster is hit by a secondary attack from another
+      monster. (Can't modify anymore)
+    priority: 50
+  - name: OnBeforeUnarmedAttackTarget
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called before this monster is hit by an unarmed attack from another
+      monster.
+    priority: 51
+  - name: OnAfterUnarmedAttackTarget
+    types:
+    - type: EquipmentSlot
+      name: slot
+    - type: AttackAction
+      name: action
+    - type: AttackResult
+      name: result
+    description: Called after this monster is hit by an unarmed attack from another
+      monster. (Can't modify anymore)
+    priority: 52
+  - name: OnGenerateLOSPreCollection
+    types:
+    - type: LOSData
+      name: view
+    description: Called after this monster generates LOS, but before visible entity
+      collection.
+    priority: 53
+  - name: OnGenerateLOSPostCollection
+    types:
+    - type: LOSData
+      name: view
+    description: Called after this monster generates LOS and visible entities.
+    priority: 54

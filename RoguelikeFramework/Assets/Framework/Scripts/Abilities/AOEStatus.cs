@@ -21,9 +21,9 @@ public class AOEStatus : Ability
         return true;
     }
 
-    public override void OnCast(Monster caster)
+    public override IEnumerator OnCast(Monster caster)
     {
-        AnimationController.AddAnimation(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
+        AnimationController.AddAnimationSolo(new ExplosionAnimation(caster.location, targeting.radius, targeting, sprites));
         foreach (Monster m in targeting.affected)
         {
             foreach (Effect e in toApply)
@@ -33,5 +33,6 @@ public class AOEStatus : Ability
                 m.AddEffectInstantiate(inst);
             }
         }
+        yield break;
     }
 }

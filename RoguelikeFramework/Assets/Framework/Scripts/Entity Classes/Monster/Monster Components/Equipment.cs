@@ -16,6 +16,11 @@ public class EquipmentSlot
     [HideInInspector] public int position;
     public bool CanAttackUnarmed;
     public WeaponBlock unarmedAttack;
+
+    public EquipmentSlot Instantiate()
+    {
+        return (EquipmentSlot) this.MemberwiseClone();
+    }
 }
 
 public class Equipment : MonoBehaviour
@@ -25,6 +30,9 @@ public class Equipment : MonoBehaviour
     private Inventory inventory;
 
     public List<EquipmentSlot> equipmentSlots;
+
+    [Tooltip("Will this monster attempt to equip anything loaded into it's inventory?")]
+    public bool WillEquipInventory = true;
 
     public EquipmentSlot this[int index]
     {
@@ -45,6 +53,25 @@ public class Equipment : MonoBehaviour
         {
             equipmentSlots[i].position = i;
             equipmentSlots[i].equipped = null;
+        }
+
+        if (WillEquipInventory && inventory != null)
+        {
+            //Setup inventory to confirm we've loaded our items.
+            inventory.Setup();
+
+            foreach (int itemIndex in inventory.AllIndices())
+            {
+                EquipableItem equip = inventory[itemIndex].held[0].GetComponent<EquipableItem>();
+                if (equip)
+                {
+                    int equipSlot = CanSafelyEquip(equip);
+                    if (equipSlot >= 0)
+                    {
+                        Equip(itemIndex, equipSlot);
+                    }
+                }
+            }
         }
     }
 
@@ -148,8 +175,7 @@ public class Equipment : MonoBehaviour
 
                 if (!succeeded)
                 {
-                    //TODO: Console message me!
-                    Debug.Log($"You must have your {t} slot avaible to equip a {equip.GetComponent<Item>().GetName()}");
+                    RogueLog.singleton.Log($"You must have your {t} slot avaible to equip a {equip.GetComponent<Item>().GetName()}");
                     return false;
                 }
             }
@@ -299,7 +325,7 @@ public class Equipment : MonoBehaviour
         if (!main.type.Contains(equip.primarySlot))
         {
             //TODO: Console error!
-            Debug.Log("<color=red>Item equipped to wrong type of primary slot!");
+            RogueLog.singleton.Log("<color=red>Item equipped to wrong type of primary slot!");
             //Debug.LogError("Item equipped to wrong type of primary slot!", equip);
             return;
         }
@@ -374,6 +400,14 @@ public class Equipment : MonoBehaviour
 
     public bool UnequipSlot(int SlotIndex)
     {
+        #if UNITY_EDITOR || GFXDEVICE_WAITFOREVENT_MESSAGEPUMP
+        if (equipmentSlots.Count <= SlotIndex)
+        {
+            Debug.LogError($"Tried to unequip slot {SlotIndex}, but monster only had {equipmentSlots.Count} slots.");
+            return false;
+        }
+        #endif
+
         if (equipmentSlots[SlotIndex].active)
         {
             ItemStack i = equipmentSlots[SlotIndex].equipped;

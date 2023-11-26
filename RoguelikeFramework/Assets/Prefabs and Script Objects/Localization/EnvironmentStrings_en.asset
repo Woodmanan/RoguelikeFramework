@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: EnvironmentStrings_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: c1c18723c3f7f844cb3462d5787b8ff5, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 12510552064
+    m_Localized: Floor Tile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 120685846528
+    m_Localized: It's a floor! You can stand on it, among other things.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192936927232
+    m_Localized: Wall Tile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 303410700288
+    m_Localized: It's a wall! You'll generally have trouble moving through these.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 381420560384
+    m_Localized: Door (Interactable)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 424357650432
+    m_Localized: It's a door! You'll have trouble moving through these, until you
+      won't.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1363533619200
+    m_Localized: Stairs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1461122490368
+    m_Localized: A convenient path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73535540362420224
+    m_Localized: '{totem} statue'
+    m_Metadata:
+      m_Items:
+      - id: 1
+  - m_Id: 73535715646578688
+    m_Localized: An ancient statue.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0020ab312f400501
+    00000001:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0020ab312f400501

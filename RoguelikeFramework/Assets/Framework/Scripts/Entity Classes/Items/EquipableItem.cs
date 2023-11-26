@@ -7,27 +7,31 @@ public class EquipableItem : MonoBehaviour
     [Header("Equipable Attributes")]
     public EquipSlotType primarySlot;
     public List<EquipSlotType> secondarySlots;
+    [ResourceGroup(ResourceType.Monster)]
     public Stats addedStats;
+    [ResourceGroup(ResourceType.Monster)]
+    public Stats statsPerEnchantment;
 
     [SerializeReference] public List<Effect> addedEffects;
 
     private List<Effect> clonedEffects = new List<Effect>();
     public bool isEquipped = false;
     public bool removable = true;
+    public bool blocksUnarmed = true;
 
     Monster equippedTo;
     int equippedIndex; //Primary index
-    Item itemData;
+    Item item;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Variable compile for expensive assertion
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(!GetComponent<Item>().stackable, "Equipable item should never be stackable!", this);
         #endif
 
-        itemData = GetComponent<Item>();
+        item = GetComponent<Item>();
     }
 
     // Update is called once per frame
@@ -41,15 +45,16 @@ public class EquipableItem : MonoBehaviour
     {
         if (equippedTo)
         {
-            equippedTo.equipment.Unequip(itemData);
+            equippedTo.equipment.Unequip(item);
         }
     }
 
     public void OnEquip(Monster m)
     {
+        item.Setup();
         isEquipped = true;
         equippedTo = m;
-        m.currentStats += addedStats; //Immediate stat benefit
+        m.currentStats &= GetStats(); //Immediate stat benefit
         m.connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
@@ -59,14 +64,14 @@ public class EquipableItem : MonoBehaviour
             clonedEffects.Add(e.Instantiate());
         }
 
-        m.AddEffectInstantiate(clonedEffects.ToArray()); //Immediate status effect add
+        m.AddEffect(clonedEffects.ToArray()); //Immediate status effect add
     }
 
 
 
     public void OnUnequip()
     {
-        equippedTo.currentStats -= addedStats;
+        equippedTo.currentStats ^= addedStats;
 
         //Disconnect all old effects
         foreach (Effect e in clonedEffects)
@@ -80,6 +85,15 @@ public class EquipableItem : MonoBehaviour
 
     public void RegenerateStats(ref Stats block)
     {
-        block += addedStats;
+        block &= GetStats();
+    }
+
+    public Stats GetStats()
+    {
+        if (item && item.enchantment > 0)
+        {
+            return addedStats + (statsPerEnchantment * item.enchantment);
+        }
+        return addedStats;
     }
 }

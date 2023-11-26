@@ -4,6 +4,7 @@ using System.Xml;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 /* Map class that  is used as a handler and container for the game maps. Holds a the
  * structs and has functionality for getting and setting information about the world
@@ -19,6 +20,7 @@ public class Map : MonoBehaviour
 
     public int depth;
     public int index;
+    public int level;
 
 
     public RogueTile[,] tiles;
@@ -292,11 +294,66 @@ public class Map : MonoBehaviour
         while (true)
         {
             Vector2Int spot = new Vector2Int(Random.Range(1, width - 1), Random.Range(1, height - 1));
-            if (MovementCostAt(spot) > 0)
+            if (MovementCostAt(spot) > 0 && GetTile(spot).IsOpen())
             {
                 return spot;
             }
         }
+    }
+
+    public Vector2Int GetRandomWalkableTileAround(Vector2Int point, int radius)
+    {
+        while (true)
+        {
+            Vector2Int spot = point + new Vector2Int(Random.Range(-radius, radius), Random.Range(-radius, radius));
+            if (ValidLocation(spot) && MovementCostAt(spot) > 0 && GetTile(spot).currentlyStanding == null)
+            {
+                return spot;
+            }
+        }
+    }
+
+    public Vector2Int GetRandomWalkableTileInSight(Monster viewer, int range = 100)
+    {
+        foreach (Vector2Int position in viewer.view.GetVisibleTiles(this).Where(x => x.GameDistance(viewer.location) <= range).OrderBy(x => Random.value))
+        {
+            RogueTile tile = GetTile(position);
+            if (tile.movementCost > 0 && tile.currentlyStanding == null)
+            {
+                return position;
+            }
+        }
+
+        return new Vector2Int(-1, -1);
+    }
+
+    public IEnumerator<Vector2Int> GetWalkableTilesByRange(Vector2Int point, int lower, int higher)
+    {
+        for (int i = lower; i <= higher; i++)
+        {
+            foreach (Vector2Int tile in GetTilesInSquareRange(point, i).OrderBy(x => Random.value))
+            {
+                yield return tile;
+            }
+        }
+    }
+
+    public List<Vector2Int> GetTilesInSquareRange(Vector2Int point, int range)
+    {
+        List<Vector2Int> points = new List<Vector2Int>();
+        for (int i = -range; i <= range; i++)
+        {
+            points.Add(point + new Vector2Int(i, range));
+            points.Add(point + new Vector2Int(i, -range));
+        }
+
+        for (int i = -range + 1; i <= range - 1; i++)
+        {
+            points.Add(point + new Vector2Int(range, i));
+            points.Add(point + new Vector2Int(-range, i));
+        }
+
+        return points.Where(x => ValidLocation(x) && GetTile(x).currentlyStanding == null && MovementCostAt(x) > 0).ToList();
     }
 
     public void SwapMonsters(RogueTile first, RogueTile second)
@@ -326,6 +383,50 @@ public class Map : MonoBehaviour
         if (firstMonster)
         {
             firstMonster.SetPosition(second.location);
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetLocationsAround(Vector2Int point, int radius)
+    {
+        int minX = Mathf.Max(point.x - radius, 0);
+        int maxX = Mathf.Min(point.x + radius, width - 1);
+        int minY = Mathf.Max(point.y - radius, 0);
+        int maxY = Mathf.Min(point.y + radius, height - 1);
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                yield return new Vector2Int(x, y);
+            }
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetOpenLocationsAround(Vector2Int point, int radius)
+    {
+        return GetLocationsAround(point, radius).Where(x => GetTile(x).IsOpen());
+    }
+
+    public IEnumerable<RogueTile> GetNeighboringTiles(RogueTile tile)
+    {
+        return GetNeighboringTiles(tile.location);
+    }
+
+    public IEnumerable<RogueTile> GetNeighboringTiles(Vector2Int tile)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                //skip middle
+                if (i == 0 && j == 0) continue;
+                Vector2Int toCheck = tile + new Vector2Int(i, j);
+
+                if (ValidLocation(toCheck))
+                {
+                    yield return GetTile(toCheck);
+                }
+            }
         }
     }
 }

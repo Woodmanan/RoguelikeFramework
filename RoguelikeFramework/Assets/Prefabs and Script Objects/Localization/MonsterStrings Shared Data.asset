@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: MonsterStrings Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: MonsterStrings
+  m_TableCollectionNameGuidString: 5873f9f72e5da164293d3497af0bb6bf
+  m_Entries:
+  - m_Id: 468980539392
+    m_Key: ClockHoundName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 496830717952
+    m_Key: ClockHoundDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1222260760576
+    m_Key: ClockBearName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1267076898816
+    m_Key: ClockBearDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1616378535936
+    m_Key: ClockKeeperName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1634627952640
+    m_Key: ClockKeeperDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1715624157184
+    m_Key: ClockDragonName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1720606990336
+    m_Key: ClockDragonDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4473416785920
+    m_Key: DreamCallerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4716610920448
+    m_Key: DreamCallerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5173018304512
+    m_Key: GreaterHuskName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5324176826368
+    m_Key: GreaterHuskDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5627546640384
+    m_Key: HuskNodeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5694307377152
+    m_Key: HuskNodeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6234701504512
+    m_Key: HuskName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6280994037760
+    m_Key: HuskDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6525488406528
+    m_Key: NightmareName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6592391749632
+    m_Key: NightmareDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11914657341440
+    m_Key: PlayerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11979270594560
+    m_Key: HumanDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2637749302583296
+    m_Key: DesperadoName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2638195727523840
+    m_Key: DesperadoDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768710009757696
+    m_Key: BlackHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768776544002048
+    m_Key: BlackHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768904969396224
+    m_Key: WhiteHoleName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768988608012288
+    m_Key: WhiteHoleDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5159747383402496
+    m_Key: TrollDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916374181339136
+    m_Key: SniperName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916408478162944
+    m_Key: SniperDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5916982623854592
+    m_Key: ShotgunnerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5917053113327616
+    m_Key: ShotgunnerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22994904169521152
+    m_Key: AntDroneName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22994942425767936
+    m_Key: AntDroneDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995177071910912
+    m_Key: MageKillerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995227206426624
+    m_Key: MageKillerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995593956368384
+    m_Key: AntSpitterName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22995628295135232
+    m_Key: AntSpitterDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996061919059968
+    m_Key: AntDefenderName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996091144970240
+    m_Key: AntDefenderDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996376718352384
+    m_Key: AntRoyalName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996408448262144
+    m_Key: AntRoyalDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996559267045376
+    m_Key: AntQueenName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22996586525827072
+    m_Key: AntQueenDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23538955327315968
+    m_Key: CustodianName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23538982233776128
+    m_Key: CustodianDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33907982545395712
+    m_Key: RunicGolemName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908040414208000
+    m_Key: RunicGolemDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908224997138432
+    m_Key: SmolemName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33908265895796736
+    m_Key: SmolemDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34603670006603776
+    m_Key: GrenadierName
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1670154270332

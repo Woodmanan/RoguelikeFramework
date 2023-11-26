@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using static AbilityResources;
+using static Resources;
+using UnityEngine.Localization;
 
 /*********** The Ability Class **************
  * 
@@ -26,32 +27,48 @@ using static AbilityResources;
  * 5. Tie ins with all that goodness to the main system
  */
 
-
-public class Ability : ScriptableObject
+public class Ability : ScriptableObject, IDescribable
 {
-    public string displayName;
+    public string friendlyName;
+
+    [SerializeField]
+    public LocalizedString locName;
+
+    [SerializeField]
+    public LocalizedString locDescription;
+
     public Sprite image;
     public Color color;
 
     //Public Resources
     public Targeting baseTargeting;
-    public AbilityStats baseStats;
-    [HideInInspector] public AbilityStats currentStats;
+    [SerializeReference]
+    public List<TargetingAnimation> animations;
+
+    [ResourceGroup(ResourceType.Ability)]
+
+    public Stats baseStats;
+    [HideInInspector] public Stats currentStats;
+
+    public float EnergyCost = 100;
 
     public Query castQuery;
 
     [HideInInspector] public Targeting targeting;
+    [ResourceGroup(ResourceType.Monster)]
     public Stats costs;
+
+    protected bool dirty = true;
     
     [HideInInspector] public int currentCooldown
     {
         get
         {
-            return Mathf.RoundToInt(baseStats[COOLDOWN]);
+            return Mathf.RoundToInt(baseStats[CURRENT_COOLDOWN]);
         }
         set
         {
-            baseStats[COOLDOWN] = value;
+            baseStats[CURRENT_COOLDOWN] = value;
         }
     }
 
@@ -61,12 +78,35 @@ public class Ability : ScriptableObject
     [SerializeReference] List<Effect> effects;
     List<Effect> attachedEffects = new List<Effect>();
     public Connections connections = null;
+    [HideInInspector] public Monster credit;
 
     public Ability Instantiate()
     {
         Ability copy = Instantiate(this);
         copy.Setup();
         return copy;
+    }
+
+    public virtual string GetName(bool shorten = false)
+    {
+        if (locName.IsEmpty)
+        {
+            if (friendlyName.Length == 0)
+                return $"Missing Name ({name})";
+            else
+                return $"Missing Name ({friendlyName})";
+        }
+        return locName.GetLocalizedString(this, currentStats.dictionary);
+    }
+
+    public virtual string GetDescription()
+    {
+        return locDescription.GetLocalizedString(this, currentStats.dictionary);
+    }
+
+    public virtual Sprite GetImage()
+    {
+        return image;
     }
 
     public void AddEffect(params Effect[] effects)
@@ -84,6 +124,9 @@ public class Ability : ScriptableObject
         currentCooldown = 0;
         if (connections == null) connections = new Connections(this);
         AddEffect(effects.Select(x => x.Instantiate()).ToArray());
+        OnSetup();
+
+        //RegenerateStats(null);
     }
 
     //TODO: Set this up in a nice way
@@ -91,12 +134,26 @@ public class Ability : ScriptableObject
     {
         //I am losing my fucking mind
         targeting = baseTargeting.ShallowCopy();
-        currentStats = baseStats;
+        currentStats = baseStats.Copy();
         Ability ability = this;
 
-        connections.OnRegenerateAbilityStats.BlendInvoke(m.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
-        targeting.range += Mathf.RoundToInt(currentStats[RANGE_INCREASE]);
-        targeting.radius += Mathf.RoundToInt(currentStats[RADIUS_INCREASE]);
+        OnRegenerateStats(m);
+
+        connections.OnRegenerateAbilityStats.BlendInvoke(m?.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
+        targeting.range += Mathf.RoundToInt(currentStats[RANGE]);
+        targeting.radius += Mathf.RoundToInt(currentStats[RADIUS]);
+    }
+
+    public virtual void OnRegenerateStats(Monster caster)
+    {
+
+    }
+
+    public virtual void OnSetup() { }
+
+    public virtual bool IsValidTarget(Monster target)
+    {
+        return true;
     }
 
     public bool CheckAvailable(Monster caster)
@@ -126,7 +183,9 @@ public class Ability : ScriptableObject
         Ability casting = this;
 
         //Link in status effects for this system
+        connections.monster = caster;
         caster.connections.OnCheckAvailability.BlendInvoke(connections.OnCheckAvailability, ref casting, ref canCast);
+        connections.monster = null;
 
         if (canCast)
         {
@@ -151,17 +210,25 @@ public class Ability : ScriptableObject
 
     
 
-    public void Cast(Monster caster)
+    public IEnumerator Cast(Monster caster)
     {
-        //TODO: Call the OnCast modifier!
-        OnCast(caster);
+        if (credit == null)
+        {
+            credit = caster;
+        }
 
-        baseStats[COOLDOWN] = Mathf.Max(0, baseStats[MAX_COOLDOWN] - baseStats[COOLDOWN_DECREASE]);
+        IEnumerator castingRoutine = OnCast(caster);
+
+        while (castingRoutine.MoveNext())
+        {
+            yield return castingRoutine.Current;
+        }
     }
 
-    public virtual void OnCast(Monster caster)
+    public virtual IEnumerator OnCast(Monster caster)
     {
         Debug.Log("Ability did not override basic call", this);
+        yield break;
     }
 
     // Update is called once per frame
@@ -187,5 +254,20 @@ public class Ability : ScriptableObject
         {
             if (attachedEffects[i].ReadyToDelete) { attachedEffects.RemoveAt(i); }
         }
+    }
+
+    new public void SetDirty()
+    {
+        dirty = true;
+    }
+
+    public bool IsDirty()
+    {
+        return dirty;
+    }
+
+    public void ClearDirty()
+    {
+        dirty = false;
     }
 }

@@ -618,5 +618,13 @@ public static class Pathfinding
             }
         }
     }*/
-
+    public static Path CreateDjikstraWithAstar(Vector2Int start, List<Vector2Int> goals)
+    {
+        Path path = CreateDjikstraPath(start, goals);
+        if (path.Count() > 0)
+        {
+            path = FindPath(start, path.destination);
+        }
+        return path;
+    }
 }

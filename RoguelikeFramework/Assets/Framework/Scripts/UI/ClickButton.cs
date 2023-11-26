@@ -87,15 +87,15 @@ public class ClickButton : MonoBehaviour
 
     public void SetCooldown(Ability ability)
     {
-        float cooldown = ability.currentStats[AbilityResources.COOLDOWN];
-        float max = ability.currentStats[AbilityResources.MAX_COOLDOWN] - ability.currentStats[AbilityResources.COOLDOWN_DECREASE];
+        float cooldown = ability.currentStats[Resources.CURRENT_COOLDOWN];
+        float max = ability.currentStats[Resources.COOLDOWN];
 
         SetCooldown(cooldown, Mathf.Max(0, max));
     }
 
     public void SetCooldown(float cooldown, float max)
     {
-        if (cooldown == 0 || max == 0)
+        if (cooldown == 0)
         {
             Enable();
             cooldownText.text = "";
@@ -106,7 +106,14 @@ public class ClickButton : MonoBehaviour
             Disable();
             image.color = savedColor;
             cooldownText.text = $"{cooldown}";
-            cooldownImage.fillAmount = ((float) cooldown) / max;
+            if (max == 0)
+            {
+                cooldownImage.fillAmount = 1;
+            }
+            else
+            {
+                cooldownImage.fillAmount = ((float)cooldown) / max;
+            }
         }
     }
 

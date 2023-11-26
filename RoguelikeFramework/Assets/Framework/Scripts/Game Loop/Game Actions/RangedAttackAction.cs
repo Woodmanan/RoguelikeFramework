@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class RangedAttackAction : AttackAction
 {
 
@@ -21,6 +21,9 @@ public class RangedAttackAction : AttackAction
         //Do we have any weapons equipped?
         if (slots.Count > 0)
         {
+            //Begin tracking energy cost
+            float energyCost = 0;
+
             //Begin attack
             foreach (EquipmentSlot s in slots)
             {
@@ -37,7 +40,9 @@ public class RangedAttackAction : AttackAction
                 }
             }
 
-            caller.connections.OnGenerateArmedAttacks.Invoke(ref primaryWeapons, ref secondaryWeapons);
+            AttackAction action = this;
+
+            caller.connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
             int numShots = 0;
             bool canFire = false; //Assume we CANNOT fire by default.
 
@@ -55,11 +60,19 @@ public class RangedAttackAction : AttackAction
                 if (canFire)
                 {
                     numShots++;
+
+                    GenerateAnimations(weapon);
+
+                    string logString = LogFormatting.GetFormattedString("RangedAttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defenders = weapon.targeting.affected.Select(x => x.GetName()) });
+                    RogueLog.singleton.Log(logString, priority: LogPriority.HIGH);
+
                     foreach (Monster m in weapon.targeting.affected)
                     {
                         target = m;
                         w.PrimaryAttack(caller, m, this);
+                        energyCost = Mathf.Max(energyCost, w.primary.energyCost);
                     }
+
                 }
                 else
                 {
@@ -70,7 +83,8 @@ public class RangedAttackAction : AttackAction
                 }
             }
 
-            if (!canFire && numShots == 0)
+            //Cancel early - we failed to fire a primary weapon
+            if (!canFire && numShots == 0 && primaryWeapons.Count > 0)
             {
                 yield break;
             }
@@ -89,10 +103,14 @@ public class RangedAttackAction : AttackAction
                 if (canFire)
                 {
                     numShots++;
+
+                    GenerateAnimations(weapon);
+
                     foreach (Monster m in weapon.targeting.affected)
                     {
                         target = m;
                         w.SecondaryAttack(caller, m, this);
+                        energyCost = Mathf.Max(energyCost, w.secondary.energyCost);
                     }
                 }
                 else
@@ -109,7 +127,7 @@ public class RangedAttackAction : AttackAction
                 yield break;
             }
 
-            caller.energy -= 100;
+            caller.energy -= energyCost;
         }
         else
         {
@@ -123,5 +141,31 @@ public class RangedAttackAction : AttackAction
     public override void OnSetup()
     {
 
+    }
+
+    public void GenerateAnimations(RangedWeapon weapon)
+    {
+        if (weapon.animations.Count > 0)
+        {
+            bool needsSolo = weapon.animations.Count >1;
+            foreach (TargetingAnimation anim in weapon.animations)
+            {
+                if (needsSolo) AnimationController.BeginSoloGroup();
+                for (int i = 0; i < weapon.targeting.points.Count; i++)
+                {
+                    TargetingAnimation copy = anim.Instantiate();
+                    copy.GenerateFromTargeting(weapon.targeting, i, caller);
+                    if (needsSolo)
+                    {
+                        AnimationController.AddAnimation(copy);
+                    }
+                    else
+                    {
+                        AnimationController.AddAnimationForMonster(copy, caller);
+                    }
+                }
+                if (needsSolo) AnimationController.EndSoloGroup();
+            }
+        }
     }
 }

@@ -5,25 +5,44 @@ using System;
 using UnityEngine;
 using System.Text.RegularExpressions; //Oh god oh fuck (so true)
 using System.Linq;
-
+using UnityEngine.Localization;
 
 using static Resources;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDescribable
 {
     [Header("Setup Variables")]
+    [ResourceGroup(ResourceType.Monster)]
     public Stats baseStats;
+
     public Stats currentStats;
 
+    public DamageType resistances;
+    public DamageType weaknesses;
+    public DamageType immunities;
+
     //TODO: Abstract these out to another class!!!
-    public string displayName;
+    [Header("Logging controls")]
+    public LocalizedString localName;
+    public LocalizedString localDescription;
+    public string friendlyName;
+    [Tooltip("Controls what kind of verbs are used. 'You cast' (true) vs 'It casts' (false)")]
+    public bool singular;
+    [Tooltip("Is this a generic insance of a monster? 'The goblin' (true) vs 'Grim Timothy' (false)")]
+    public bool named;
     public bool nameRequiresPluralVerbs; //Useful for the player!
 
     public Faction faction = Faction.STANDARD;
     public int ID;
     public int minDepth;
     public int maxDepth;
+    //public RogueTag rogueTag;
+    public RogueTagContainer tags = new RogueTagContainer();
+    [HideInInspector]
+    public Monster credit;
 
+    [SerializeReference]
+    public List<Effect> baseEffects;
 
     [Header("Runtime Attributes")]
     public float energy;
@@ -37,7 +56,7 @@ public class Monster : MonoBehaviour
     public static readonly float monsterZPosition = -5f;
 
     [HideInInspector] public Connections connections;
-    [HideInInspector] public Connections other = null;
+    [HideInInspector] private Connections other = null;
 
     [HideInInspector] public LOSData view;
 
@@ -49,6 +68,7 @@ public class Monster : MonoBehaviour
     [HideInInspector] public ActionController controller;
 
     public SpriteRenderer renderer;
+    public List<GameObject> FXObjects;
 
     public GameAction currentAction;
     public RogueTile currentTile;
@@ -62,6 +82,8 @@ public class Monster : MonoBehaviour
     public int level;
 
     private bool spriteDir;
+
+    bool dead = false;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -94,13 +116,15 @@ public class Monster : MonoBehaviour
 
         spriteDir = GetComponent<SpriteRenderer>().flipX;
 
+        AddEffectInstantiate(baseEffects.ToArray());
+
         setup = true;
     }
 
     public Monster Instantiate()
     {
         Monster newMonster = Instantiate(gameObject).GetComponent<Monster>(); //Should be guaranteed to work, unless things are incredibly borked
-        newMonster.Setup();
+        //newMonster.Setup();
         return newMonster;
     }
 
@@ -115,6 +139,48 @@ public class Monster : MonoBehaviour
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
         SetPosition(map, location);
         UpdateLOS(map);
+    }
+
+    //Dummy function since compiler complains due to interface
+    public string GetName(bool shorten)
+    {
+        return GetName(shorten, true);
+    }
+
+    public string GetName(bool shorten = false, bool definite = true)
+    {
+        if (shorten)
+        {
+            return GetLocalizedName();
+        }
+        else
+        {
+            return LogFormatting.FormatNameForMonster(this, definite);
+        }    
+    }
+
+    public string GetLocalizedName()
+    {
+        if (localName.IsEmpty)
+        {
+            return $"Missing Name (ID {ID})";
+        }
+
+        Dictionary<string, object> args = new Dictionary<string, object>();
+        connections.OnGenerateLocalizedString.Invoke(ref args);
+        return localName.GetLocalizedString(this, currentStats.dictionary, args);
+    }
+
+    public string GetDescription()
+    {
+        Dictionary<string, object> args = new Dictionary<string, object>();
+        connections.OnGenerateLocalizedString.Invoke(ref args);
+        return localDescription.GetLocalizedString(this, currentStats.dictionary, args);
+    }
+
+    public Sprite GetImage()
+    {
+        return renderer.sprite;
     }
 
     public void Heal(float healthReturned, bool shouldLog = false)
@@ -140,7 +206,7 @@ public class Monster : MonoBehaviour
 
         if (shouldLog && healthReturned > 0)
         {
-            Debug.Log($"Log: {GetFormattedName()} heals for {healthReturned}");
+            RogueLog.singleton.Log($"{GetName()} heals for {healthReturned}");
         }
     }
 
@@ -165,53 +231,90 @@ public class Monster : MonoBehaviour
         return true;
     }
 
-
-    private void Damage(float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
+    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source)
     {
-        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
-        baseStats[HEALTH] -= damage;
-
-        //Loggingstuff
-        string toPrint = FormatStringForName(message).Replace("{damage}", $"{damage}");
-        //Debug.Log($"Console print: {toPrint}");
-
-        if (baseStats[HEALTH] <= 0)
+        float damageMod = 1f;
+        if ((resistances & type) > 0)
         {
-            connections.OnDeath.BlendInvoke(other?.OnDeath);
-            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
-            {
-                Die();
-            }
+            damageMod = damageMod / 2;
         }
-    }
+        if ((weaknesses & type) > 0)
+        {
+            damageMod = damageMod * 2;
+        }
+        if ((immunities & type) > 0)
+        {
+            damageMod = 0;
+        }
+        if ((type & DamageType.TRUE) > 0)
+        {
+            damageMod = Mathf.Max(damageMod, 1);
+        }
 
-    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source, string message = "{name} take%s{|s} {damage} damage")
-    {
+        damage *= damageMod;
+
+        /*#if UNITY_EDITOR
         if (dealer == null)
         {
-            Debug.LogError("Dealer was null!");
+            Debug.LogError("Dealer was null! Fix me you fool!!!");
         }
+        #endif*/
         dealer?.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
 
-        Damage(damage, type, source, message);
+        connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
+        baseStats[HEALTH] -= damage;
 
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            Debug.Log($"{dealer.GetFormattedName()} deals {damage} {type}damage");
+            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deals {Mathf.CeilToInt(damage)} {type} damage with {source}");
         }
         
 
-        if (baseStats[HEALTH] <= 0)
+        if (baseStats[HEALTH] <= 0 && !dead)
         {
-            dealer?.KillMonster(this, type, source);
+            //Mark as dead temporarily, to prevent infinite loop
+            dead = true;
+            connections.OnDeath.BlendInvoke(other?.OnDeath, ref dealer);
+            if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
+            {
+                dealer?.KillMonster(this, type, source);
+                Die(dealer);
+                
+            }
+            else
+            {
+                dead = false;
+            }
         }
     }
 
-
-    public virtual void Die()
+    //Kills this monster, without damage
+    public void DestroyMonster()
     {
-        Debug.Log("Monster is dead!");
+        Monster killerStandin = null;
+        connections.OnDeath.BlendInvoke(other?.OnDeath, ref killerStandin);
+        Die(killerStandin);
+    }
+
+
+    protected virtual void Die(Monster killer)
+    {
+        RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.HIGH);
+
+        connections.OnPostDeath.BlendInvoke(other?.OnPostDeath, ref killer);
+        if (baseStats[HEALTH] > 0)
+        {
+            dead = false;
+            return;
+        }
+
+        dead = true;
+
+        foreach (Effect effect in effects)
+        {
+            effect.Disconnect();
+        }
 
         //Clear tile, so other systems don't try to use a dead monster
         if (currentTile.currentlyStanding == this)
@@ -225,18 +328,31 @@ public class Monster : MonoBehaviour
             while (dropAll.action.MoveNext()) { }
         }
 
-        AnimationController.AddAnimation(new DeathAnimation(this));
+        AnimationController.AddAnimationForMonster(new DeathAnimation(this), this);
     }
 
     public void KillMonster(Monster target, DamageType type, DamageSource source)
     {
-        connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
-        GainXP(target, target.XPFromKill);
+        if (!dead)
+        {
+            connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
+            if (target.IsEnemy(this))
+            {
+                GainXP(target, target.XPFromKill);
+            }
+        }
+        if (credit)
+        {
+            credit.KillMonster(target, type, source);
+        }
     }
 
     public virtual void GainXP(Monster source, float amount)
     {
-        Debug.Log($"{DebugName()} has gained {amount} XP!");
+        RogueLog.singleton.LogTemplate("XP",
+            new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
+            priority: LogPriority.LOW
+            );
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);
         baseStats[XP] += amount;
         if (baseStats[XP] >= currentStats[NEXT_LEVEL_XP])
@@ -280,7 +396,7 @@ public class Monster : MonoBehaviour
     public bool IsDead()
     {
         //Oops, this must be <= 0, Sometimes people can overkill!
-        return baseStats[HEALTH] <= 0;
+        return dead || baseStats[HEALTH] <= 0;
     }
 
     private string FormatStringForName(string msg)
@@ -310,10 +426,11 @@ public class Monster : MonoBehaviour
 
     public string GetFormattedName()
     {
+        string displayName = GetLocalizedName();
         return nameRequiresPluralVerbs ? "the " + displayName : displayName;
     }
 
-    public void AddEnergy(int energy)
+    public void AddEnergy(float energy)
     {
         connections.OnEnergyGained.BlendInvoke(other?.OnEnergyGained, ref energy);
         this.energy += energy;
@@ -327,17 +444,32 @@ public class Monster : MonoBehaviour
     public virtual void UpdateLOS(Map map)
     {
         this.view = LOS.LosAt(map, location, visionRadius);
+        UpdateLOSPreCollection();
+        view.CollectEntities(map, this);
+        UpdateLOSPostCollection();
+    }
+
+    public void UpdateLOSPreCollection()
+    {
+        connections.OnGenerateLOSPreCollection.BlendInvoke(other?.OnGenerateLOSPreCollection, ref view);
+    }
+
+    public void UpdateLOSPostCollection()
+    {
+        connections.OnGenerateLOSPostCollection.BlendInvoke(other?.OnGenerateLOSPostCollection, ref view);
     }
 
     public string DebugName()
     {
-        return $"{this.name} ({this.location})";
+        return $"{this.friendlyName} ({this.location})";
     }
 
 
     public void StartTurn()
     {
+        UpdateLOS();
         CallRegenerateStats();
+        ResetStatsToMax();
         abilities?.CheckAvailability();
         connections.OnTurnStartLocal.BlendInvoke(other?.OnTurnStartLocal);
         willSwap = false;
@@ -362,12 +494,39 @@ public class Monster : MonoBehaviour
         connections.RegenerateStats.BlendInvoke(other?.RegenerateStats, ref currentStats);
     }
 
+    public void AddBaseStat(Resources r, float value)
+    {
+        baseStats[r] += value;
+        ResetStatsToMax();
+    }
+
+    public void AddBaseStats(Stats s)
+    {
+        baseStats &= s;
+        ResetStatsToMax();
+    }
+
+    public void ResetStatsToMax()
+    {
+        baseStats[HEALTH] = Mathf.Min(baseStats[HEALTH], currentStats[MAX_HEALTH]);
+        baseStats[MANA] = Mathf.Clamp(baseStats[MANA], 0, currentStats[MAX_MANA]);
+        baseStats[STAMINA] = Mathf.Min(baseStats[STAMINA], currentStats[MAX_STAMINA]);
+        baseStats[HEAT] = Mathf.Clamp(baseStats[HEAT], 0, currentStats[MAX_HEAT]);
+    }
+
     public void SetAction(GameAction act)
     {
         if (currentAction != null)
         {
-            Debug.LogError($"{this.displayName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Should this be allowed?", this);
+            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Try SetActionOverride isntead!", this);
         }
+        currentAction = act;
+        currentAction.Setup(this);
+    }
+
+    //Currently identical, but split up to cover edge cases that might arise
+    public void SetActionOverride(GameAction act)
+    {
         currentAction = act;
         currentAction.Setup(this);
     }
@@ -400,7 +559,26 @@ public class Monster : MonoBehaviour
     //Takes the local turn
     public IEnumerator LocalTurn()
     {
-        if (view.visibleMonsters.Any(x => x.IsEnemy(this))) currentAction = null;
+        if (view.visibleEnemies.Count > 0)
+        {
+            if (currentAction != null && currentAction.checksOnVisible && !currentAction.hasPreventedStop)
+            {
+                if (this == Player.player)
+                {
+                    UIController.singleton.OpenConfirmation("You see an enemy. Would you like to stop?", x => currentAction.stopsOnVisible = x);
+                    yield return new WaitUntil(() => !UIController.WindowsOpen);
+                    currentAction.hasPreventedStop = !currentAction.stopsOnVisible;
+                }
+                else
+                {
+                    currentAction.stopsOnVisible = true;
+                }
+            }
+            if (currentAction != null && currentAction.stopsOnVisible && !currentAction.hasPreventedStop)
+            {
+                currentAction = null;
+            }
+        }
         while (energy > 0)
         {
             if (currentAction == null)
@@ -411,7 +589,7 @@ public class Monster : MonoBehaviour
                     yield return actionDecision.Current;
                 }
 
-                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 //Expensive and unnessecary check, done in Editor only
                 if (currentAction == null && this != Player.player)
                 {
@@ -419,7 +597,7 @@ public class Monster : MonoBehaviour
                     Debug.LogError("This error will NOT be caught in build, so please fix it now!!!!");
                     this.energy -= 10; //Breaks the game state, but prevents our coroutine from running forever
                 }
-                #endif
+#endif
 
                 if (currentAction == null)
                 {
@@ -457,7 +635,7 @@ public class Monster : MonoBehaviour
         {
             Effect e = effectsToAdd[i];
             int index = DetermineBestIndex(e);
-            if (index > 0)
+            if (index >= 0)
             {
                 e.Connect(this.connections);
                 effects.Insert(index, e);
@@ -483,24 +661,24 @@ public class Monster : MonoBehaviour
         //Search backwards for matching candidate
         for (int i = index - 1; i >= 0; i++)
         {
-            Effect other = effects[i];
-            if (other.GetType() != effect.GetType())
+            Effect otherEffect = effects[i];
+            if (otherEffect.GetType() != effect.GetType())
             {
                 break;
             }
-            effect.OnStack(other, ref shouldContinue);
+            effect.OnStack(otherEffect, ref shouldContinue);
             if (!shouldContinue) return -1;
         }
 
         //Search forwards
         for (int i = index; i < effects.Count; i++)
         {
-            Effect other = effects[i];
-            if (other.GetType() != effect.GetType())
+            Effect otherEffect = effects[i];
+            if (otherEffect.GetType() != effect.GetType())
             {
                 break;
             }
-            effect.OnStack(other, ref shouldContinue);
+            effect.OnStack(otherEffect, ref shouldContinue);
             if (!shouldContinue) return -1;
         }
 
@@ -549,10 +727,23 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void SetPositionNoGraphicsUpdate(Vector2Int newPosition)
+    {
+        SetPositionNoGraphicsUpdate(Map.current, newPosition);
+    }
+
+    public void SetPositionNoGraphicsUpdate(Map map, Vector2Int newPosition)
+    {
+        bool rendering = renderer.enabled;
+        SetPosition(map, newPosition);
+        SetGraphics(rendering);
+    }
+
     public void SetPositionSnap(Map map, Vector2Int newPosition)
     {
         SetPosition(map, newPosition);
         transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
+        //UpdateLOS();
     }
 
     //Function to activate event call of Global turn start
@@ -571,13 +762,13 @@ public class Monster : MonoBehaviour
     public void GainResources(Stats resources)
     {
         connections.OnGainResources.BlendInvoke(other?.OnGainResources, ref resources);
-        this.baseStats += resources;
+        this.baseStats &= resources;
     }
 
     public void LoseResources(Stats resources)
     {
         connections.OnLoseResources.BlendInvoke(other?.OnLoseResources, ref resources);
-        this.baseStats -= resources;
+        this.baseStats ^= resources;
     }
 
 
@@ -613,5 +804,127 @@ public class Monster : MonoBehaviour
     public void SetGraphics(bool state)
     {
         renderer.enabled = state;
+        foreach (GameObject g in FXObjects)
+        {
+            g.SetActive(state);
+        }
+    }
+
+    public void UpdatePositionToLocation(Vector2Int location)
+    {
+        transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        SetGraphics(Map.current.GetTile(location).isVisible);
+    }
+
+    public void AddConnection(Connections toAdd)
+    {
+        if (other != null)
+        {
+            RemoveConnection(other);
+        }
+        toAdd.monster = this;
+        other = toAdd;
+    }
+
+    public void RemoveConnection(Connections toRemove)
+    {
+        if (toRemove != null)
+        {
+            toRemove.monster = null;
+            other = null;
+        }
+    }
+
+    public T GetEffect<T>() where T : Effect
+    {
+        foreach (Effect e in effects)
+        {
+            T cast = e as T;
+            if (cast != null) return cast;
+        }
+
+        return null;
+    }
+
+    public Effect GetEffectByTag(RogueTag tag)
+    {
+        foreach (Effect e in effects)
+        {
+            if (e.tags.HasTag(tag))
+            {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
+    public float GetEstimatedStrength()
+    {
+        float strength = 0;
+        //Benefit of all of these being ~equal value
+        strength += (currentStats[MAX_HEALTH] * (currentStats[AC] + currentStats[EV] + currentStats[MR])) / 10;
+
+        if (equipment)
+        {
+            foreach (EquipmentSlot slot in equipment.equipmentSlots)
+            {
+                if (slot.active)
+                {
+                    Item i = slot.equipped.held[0];
+                    if (i.melee || i.ranged)
+                    {
+                        Weapon weapon = (i.melee != null) ? i.melee as Weapon : i.ranged as Weapon;
+                        if (slot.type.Contains(EquipSlotType.PRIMARY_HAND))
+                        {
+                            foreach (DamagePairing pair in weapon.primary.damage)
+                            {
+                                strength += (pair.damage.dice * pair.damage.rolls / 2) * weapon.primary.accuracy * weapon.primary.accuracy;
+                            }
+                        }
+                        else
+                        {
+                            foreach (DamagePairing pair in weapon.secondary.damage)
+                            {
+                                strength += (pair.damage.dice * pair.damage.rolls / 2) * weapon.secondary.accuracy * weapon.secondary.piercing;
+                            }
+                        }
+                    }
+                }
+                else if (slot.CanAttackUnarmed)
+                {
+                    foreach (DamagePairing pair in slot.unarmedAttack.damage)
+                    {
+                        strength += (pair.damage.dice * pair.damage.rolls / 2) * slot.unarmedAttack.accuracy * slot.unarmedAttack.piercing;
+                    }
+                }
+            }
+        }
+
+        //Casting is a general indicator of strength
+        //More abilities is also more powerful
+        if (abilities)
+        {
+            strength += abilities.Count * currentStats[MAX_MANA] / 3;
+        }
+
+
+        return strength;
+    }
+
+    public void RemoveEffectsByTag(string tag)
+    {
+        RemoveEffectsByTag(new RogueTag(tag));
+    }
+
+    public void RemoveEffectsByTag(RogueTag tag)
+    {
+        for (int i = effects.Count - 1; i >= 0; i--)
+        {
+            if (effects[i].tags.HasTag(tag))
+            {
+                effects[i].Disconnect();
+            }
+        }
     }
 }

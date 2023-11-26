@@ -10,7 +10,7 @@ public class MoveAnimation : RogueAnimation
     Vector3 midPoint;
     Monster monster;
 
-    public MoveAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation, bool isBlocking = false) : base(movementDuration, isBlocking)
+    public MoveAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation) : base(movementDuration)
     {
         this.monster = monster;
         startLocation = new Vector3(oldLocation.x, oldLocation.y, Monster.monsterZPosition);
@@ -39,9 +39,28 @@ public class MoveAnimation : RogueAnimation
     }
 }
 
+public class SnapAnimation : RogueAnimation
+{
+    public const float duration = 0.025f;
+
+    Monster monster;
+    Vector2Int location;
+
+    public SnapAnimation(Monster monster, Vector2Int location) : base(duration)
+    {
+        this.monster = monster;
+        this.location = location;
+    }
+
+    public override void OnEnd()
+    {
+        monster.transform.position = new Vector3(location.x, location.y, Monster.monsterZPosition);
+    }
+}
+
 public class AttackAnimation : RogueAnimation
 {
-    public const float attackDuration = .3f;
+    public const float attackDuration = .15f;
 
     Monster monster;
     Vector3 start;
@@ -92,7 +111,7 @@ public class DeathAnimation : RogueAnimation
 
     Monster monster;
 
-    public DeathAnimation(Monster monster) : base(deathDuration, false)
+    public DeathAnimation(Monster monster) : base(deathDuration)
     {
         this.monster = monster;
     }

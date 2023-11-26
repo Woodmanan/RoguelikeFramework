@@ -10,6 +10,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private AbilitiesScreen abilities;
     [SerializeField] private ItemInspectionPanel inspection;
     [SerializeField] private ConfirmationPanel confirm;
+    [SerializeField] private ClassPanel classPanel;
+    [SerializeField] private PersonalAttributePanel attributePanel;
+    [SerializeField] private PausePanel pausePanel;
     [SerializeField] private CheatsPanel cheats;
     public static bool WindowsOpen
     {
@@ -46,9 +49,7 @@ public class UIController : MonoBehaviour
 
     public void HandleInput()
     {
-        Tuple<PlayerAction, string> pair = InputTracking.PopNextPair();
-        PlayerAction action = pair.Item1;
-        string inputString = pair.Item2;
+        (PlayerAction action, string inputString) = InputTracking.PopNextPair();
         switch (action)
         {
             case PlayerAction.ESCAPE_SCREEN: //Breaks free early, so panels themselves don't have to all try to handle this input.
@@ -59,7 +60,6 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
-
 
     public void OpenInventoryInspect()
     {
@@ -117,10 +117,28 @@ public class UIController : MonoBehaviour
         inventory.Activate();
     }
 
+    public void OpenInventorySelect(Predicate<ItemStack> filter, Action<List<int>> OnFound, int numItems = 52)
+    {
+        inventory.Setup(Player.player.inventory, ItemAction.SELECT, filter, OnFound, numItems);
+        inventory.Activate();
+    }
+
     public void OpenAbilities()
     {
         abilities.Setup(Player.player.abilities);
         abilities.Activate();
+    }
+
+    public void OpenClassPanel(Class classToGive)
+    {
+        classPanel.Setup(classToGive);
+        classPanel.Activate();
+    }
+
+    public void OpenAttributePanel(Effect attribute, Effect backup)
+    {
+        attributePanel.Setup(attribute, backup);
+        attributePanel.Activate();
     }
 
     public void OpenItemInspect(Inventory inventory, int index)
@@ -148,8 +166,14 @@ public class UIController : MonoBehaviour
         Debug.Log("Console: If it's a new exploit, you'll get your name in the credits! (And have helped make the game better)");
     #endif
     }
-    public void PassInput(PlayerAction action)
+
+    public void OpenPause()
     {
+        pausePanel.Activate();
+    }
+
+    public void PassInput(PlayerAction action)
+    {  
         if (action == PlayerAction.ESCAPE_SCREEN)
         {
             RogueUIPanel.ExitTopLevel();

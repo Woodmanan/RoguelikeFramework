@@ -11,6 +11,8 @@ public class Stair : RogueTile
     [SerializeField] Sprite downSprite;
     [SerializeField] Sprite upSpriteOneWay;
     [SerializeField] Sprite downSpriteOneWay;
+    [SerializeField] Sprite lockedSprite;
+    [HideInInspector] public bool locked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -106,5 +108,18 @@ public class Stair : RogueTile
         }
 
         this.connection = connection;
+    }
+
+    public void Lock()
+    {
+        SpriteRenderer render = GetComponent<SpriteRenderer>();
+        locked = true;
+        render.sprite = lockedSprite;
+    }
+
+    public void Unlock()
+    {
+        locked = false;
+        SetConnection(connection, from);
     }
 }

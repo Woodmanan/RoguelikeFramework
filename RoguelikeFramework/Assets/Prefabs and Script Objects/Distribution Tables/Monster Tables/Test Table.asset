@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Test Table
   m_EditorClassIdentifier: 
   monsters:
-  - {fileID: 8893793752867473429, guid: c66fad1e5816b5a469ea1bacef430064, type: 3}
-  - {fileID: 7022932251972435270, guid: 3e85cb7eb47e1294aa7a63dfabad85f1, type: 3}
-  loadouts: []
-  chanceForHigherLoadout: 0
+  - toSpawn: {fileID: 4402800733788238304, guid: e9278d2e2d5eff243805a22a1a9d6efe, type: 3}
+    weight: 1
+  - toSpawn: {fileID: 7022932251972435270, guid: 3e85cb7eb47e1294aa7a63dfabad85f1, type: 3}
+    weight: 1
   uniques: []
   chanceForUnique: 0

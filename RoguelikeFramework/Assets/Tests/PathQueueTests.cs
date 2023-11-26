@@ -145,6 +145,22 @@ namespace Tests
             }
         }
 
+        [Test]
+        public void PQ2MilSpeed()
+        {
+            int count = 2000000;
+            PriorityQueue<int> queue = new PriorityQueue<int>(count);
+            for (int i = 0; i < count; i++)
+            {
+                queue.Enqueue(i, Random.value);
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                queue.Dequeue();
+            }
+        }
+
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
         // `yield return null;` to skip a frame.
         [UnityTest]

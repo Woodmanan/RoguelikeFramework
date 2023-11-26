@@ -53,7 +53,7 @@ public class ItemSpawner : MonoBehaviour
             branch.lootPool = new LootPool(maxDepth, (int)ItemRarity.UNIQUE);
             foreach (LootTable table in branch.tables)
             {
-                branch.lootPool.AddItemsFromTable(Instantiate(table));
+                branch.lootPool.AddItemsFromTable(table, transform);
             }
         }
     }
@@ -67,6 +67,44 @@ public class ItemSpawner : MonoBehaviour
 
         //Use default set on the loot spawner
         return branch.lootPool.GenerateItem(depth, spawnInfo);
+    }
+
+    public Item GetItemByID(int id)
+    {
+        foreach (Branch branch in World.current.branches)
+        {
+            foreach (Item item in branch.lootPool.tree.GetItemsIn(branch.lootPool.tree.rect))
+            {
+                if (item.ID == id)
+                {
+                    return item.Instantiate();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void SpawnItem(Item item, Vector2Int location, Map map, ItemRarity rarity = ItemRarity.COMMON)
+    {
+        if (item == null)
+        {
+            Debug.LogError("Can't spawn null item!");
+            return;
+        }
+        item.Setup();
+        if (item.rarity < rarity)
+        {
+            item.ElevateRarityTo(rarity);
+        }
+        item.transform.parent = map.itemContainer;
+        item.gameObject.SetActive(true);
+        map.GetTile(location).inventory.Add(item);
+    }
+
+    public void SpawnItemInstantiate(Item item, Vector2Int location, Map map, ItemRarity rarity = ItemRarity.COMMON)
+    {
+        SpawnItem(item?.Instantiate(), location, map);
     }
 
     public IEnumerator SpawnForFloor(int floor, Map m, int numItems)
@@ -157,6 +195,7 @@ public class ItemSpawner : MonoBehaviour
             }
 
             item.transform.parent = m.itemContainer;
+            item.gameObject.SetActive(true);
             m.GetTile(pos).inventory.Add(item);
         }
     }

@@ -102,22 +102,45 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 30
   elevatesTo: 0
-  ID: 0
+  enchantment: 0
+  maxEnchantment: 0
+  maxElevationEffects: 1
+  currentRarity: 0
+  ID: 4
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 0.50377357, g: 0.941315, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0
-  name: Wooden Bow
-  plural: Wooden Bows
+  friendlyName: Wooden Bow
+  localName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   CanEquip: 0
-  CanApply: 0
-  CanTarget: 0
+  CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects: []
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
-  applyable: {fileID: 0}
-  targetable: {fileID: 0}
+  activatable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
@@ -140,9 +163,13 @@ MonoBehaviour:
   addedStats:
     _keys: 
     _vals: []
+  statsPerEnchantment:
+    _keys: 
+    _vals: []
   addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
 --- !u!114 &9015174743555470436
@@ -161,16 +188,24 @@ MonoBehaviour:
     chanceToHit: 100
     accuracy: 0
     piercing: 0
+    energyCost: 100
     damage:
     - damage:
         rolls: 5
         dice: 2
       type: 2
+    tags:
+      _keys: []
+      _vals: 
   secondary:
     chanceToHit: 0
     accuracy: 0
     piercing: 0
+    energyCost: 100
     damage: []
+    tags:
+      _keys: []
+      _vals: 
   source: 0
   item: {fileID: 0}
   targeting:
@@ -190,3 +225,6 @@ MonoBehaviour:
     length: 0
     offset: 0
     affected: []
+  animations: []
+  references:
+    version: 1

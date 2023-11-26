@@ -1,0 +1,560 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: EffectsTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 5ab25f9d37eb27a4fa6b82a9c471e1aa, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 134442852352
+    m_Localized: Regeneration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4691566731264
+    m_Localized: '{instant:cond:>0?Provides {instant}|No} Instant healing and {perTurn:cond:>0?{perTurn}
+      healing per turn for {numTurns} turns.|no regeneration}.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 7134149025792
+    m_Localized: Instant Healing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9482179125248
+    m_Localized: Undying
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9585128316928
+    m_Localized: Your health will be kept above {threshold} for {numTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 10985740640256
+    m_Localized: You perform {energyPerTurn}% more actions per turn for {duration}
+      turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11588000751616
+    m_Localized: Hasted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11729252327424
+    m_Localized: Powered Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11801167863808
+    m_Localized: When in range {range} of a power tower, gain the following:\n{energy:cond:>0?\tPerforms
+      {energy}% more movements per turn\n|}{damage:cond:>0?\t{damage} extra damage
+      per hit\n|}{stats:\tGain {statString}\n|}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 9899796184686592
+    m_Localized: Bleed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9899945791315968
+    m_Localized: Enemies hit by this will bleed for {damagePerTick} health per turn
+      for {numTicks} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 9900407500300288
+    m_Localized: Protection - Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10542167880310784
+    m_Localized: Every kill adds a stack, granting 1.4 temporary armor (up to {maxKills}).
+      Your stacks fall by 1 every three turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 10545186227298304
+    m_Localized: Omni-Vamp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10545121681154048
+    m_Localized: Heals for all damage dealt at {efficiency} efficiency.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 10552238504878080
+    m_Localized: Vamp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655314553593856
+    m_Localized: Whip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10655500688416768
+    m_Localized: When equipped, this item will consume your movements to hit enemies
+      directly ahead of you by up to {range} tiles, if any are available.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11227532316631040
+    m_Localized: Cowardice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11227933401145344
+    m_Localized: Gain stats when above {lowerPercent}% health, with maximum stats
+      granted at {higherPercent}% health.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11229331224256512
+    m_Localized: Courage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11229455887360000
+    m_Localized: Start to gain stats when below {higherPercent} health, maxing out
+      when below {lowerPercent}.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11375975198613504
+    m_Localized: Masochism - {grantedResource}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11376159483748352
+    m_Localized: '{triggersEvery:cond:>1?Every {triggersEvery} attacks, y|Y}ou absorb
+      {efficiency}% of the incoming attack damage and convert it into {grantedResource}.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 11956501554913280
+    m_Localized: ' (On Hit)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25714029350297600
+    m_Localized: Due to repeated translocations, your physical form is struggling
+      to stay intact. Reduce the range of translocations by {numStacks} for {currentDuration}
+      more turns, refreshing to {maxDuration} and becoming more severe with repeated
+      casts.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25713987025575936
+    m_Localized: Instability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25715251511762944
+    m_Localized: Gain 5 heat per unarmed attack, and 1 heat per spell cast. When
+      above {fireDamageAfter} heat, begin {fireDamageLow}-{fireDamageHigh} fire damage
+      to your unarmed attacks, scaling with heat. Ignore {fireDamageConversion}%
+      of fire damage, converting it to heat with {fireDamageEfficiency}% effeciency.
+      When at max heat, lose these benefits and overheat instead, taking true damage
+      and losing heat. {active:Cooldown in {cooldown} turns.|}
+    m_Metadata:
+      m_Items:
+      - id: 1
+  - m_Id: 25715220343889920
+    m_Localized: Tempo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25719556734132224
+    m_Localized: While above {percentageToDrop}% health, you begin accumulating stacks
+      of bravery. Each stack adds {armorPerStack} armor, {evasionPerStack} evasion,
+      and {damagePerStack} damage. You can have up to {maxBravery} stacks, with all
+      stacks disappearing when you fall below the threshold.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25719525838888960
+    m_Localized: Bravery (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721049788915712
+    m_Localized: Fear (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722757394931712
+    m_Localized: Stumble (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25722857110315008
+    m_Localized: Turtled (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25723543579467776
+    m_Localized: Thorny (Stance)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25721101924114432
+    m_Localized: Gain {percentDamageIncrease}% more damage in 1v1 fights. Lose {percentDamageDecreaseFear}%
+      damage in fights with more than 1 enemy next to you.  Gain {refundEnergyOnScared}%
+      speed when two or more enemies are visible.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25722797387620352
+    m_Localized: Gain up to {maxDrinkStacks} stacks of Stumble by drinking potions.
+      When moving, attack enemies around you for ({baseAttackDamagePercent} + {damagePerDrinkStack}
+      * stacks)% of your regular attack damage. Passively dodge incoming attacks
+      with ({baseDodgePercent} + {dodgePerDrinkStack} * stacks)% chance. Drinks decay
+      in {currentDuration} turns, reseting to {durationOnDrink} whenever a potion
+      is quaffed.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25722884796915712
+    m_Localized: Gain 5 passive AC, climbing to 10 as you wait in one spot. Move
+      at half speed while monsters are in LOS.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25723499606384640
+    m_Localized: Take an extra {percentExtraDamage}% damage. Convert {percentDamageReturned}%
+      damage taken to an attack that targets the lowest health enemy in LOS. Regenerate
+      {combatHealthPerTurn} health per turn, and heal for {healthPerKill} health
+      on a kill.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26038848566534144
+    m_Localized: Half Slime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26038924827369472
+    m_Localized: Given time, you can always stitch yourself back together. Heal for
+      {percentOfLastDamage}% percent of the last damage you took + {percentOfMaxHealth}%
+      of your max health the next {overXTurns} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26232492334456832
+    m_Localized: Hidden Potential
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26232552963121152
+    m_Localized: The tower never selects ordinary candidates - you just don't know
+      what's so special about yourself yet. When you reach level {levelToGrantAt},
+      gain a Personal Attribute or a boost to your stats.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26416516331937792
+    m_Localized: Passively heal by {baseRegenPerTurn} + level/10 health per turn.
+      Taking fire damage will end this healing for {numTurnsHaltOnWeakness} turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26416474627973120
+    m_Localized: Super Regenration (Troll passive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418645973016576
+    m_Localized: Flexibility (Human Passive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26418745768091648
+    m_Localized: Gain 3 health and 1/2 mana per level, up to level 30.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586050867175424
+    m_Localized: Copy Cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26586135680196608
+    m_Localized: You can perfectly mimic any ability that hits you. When mimicking
+      an ability in this way, you can cast it {numberOfCastsBase:once|{numberOfCastsBase}
+      times}. If you slay the monster whose ability you are mimicking, you gain an
+      additional {numberOfCastsKill} casts. Not using the ability for {dropTurnsLength}
+      turns will cause it to be dropped.{dropTurnsRemaining:cond:=0?| ({dropTurnsRemaining}/{dropTurnsLength})}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26810941981794304
+    m_Localized: Slipping Sanity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26811077919186944
+    m_Localized: Just being near this thing is driving you insane. If you can't break
+      line of sight within {numTurnsUntilAdd} {numTurnsUntilAdd:turn|turns}, the
+      Nightmare will be summmoned.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 27913352855101440
+    m_Localized: Chrysalis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27913655516078080
+    m_Localized: You're still growing, but when you hatch, the tower will shake.
+      When you reach level {levelToGrantAt}, gain a rare or better Personal Attribute
+      or a large boost to your stats.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 27924343965818880
+    m_Localized: Last Stand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27924398491770880
+    m_Localized: You go down swinging. You gain half of the benefit from maximum
+      health, including base health. When you run out of health, stay alive for {numberOfTurnsDown}
+      turns. If you can get a kill during this time, revive with {returnWithXPercentHealth}%
+      of your health. Failure to revive during this time will kill you regardless
+      of your remaining health or other effects.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 27932816757694464
+    m_Localized: '{type} damage over time'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 27932963960987648
+    m_Localized: Take {damagePerTick} {type} damage per turn for the next {numTicks}
+      turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 27938592754704384
+    m_Localized: Archmage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27938633766608896
+    m_Localized: Your max health drops to {percentHealthCut}%. Gain a {percentManaIncrease}%
+      increase in maximum mana. Turn {percentManaToPower}% of your current mana into
+      bonus power and {percentManaToRange}% of your current mana into bonus range
+      for your spells.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 27983633053327360
+    m_Localized: Ambidextrous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27983680180527104
+    m_Localized: All of your secondary hands are upgraded to match your primary hand.
+      This upgrade includes passive attributes, attacks, and other slot characteristic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990080797483008
+    m_Localized: Hero Trap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27990137307340800
+    m_Localized: You're the hero of this story. Deal a significant amout of true
+      damage per hit to enemies, increasing with both the total strength difference
+      and how close you are to death.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044662181404672
+    m_Localized: Perfect Reflexes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28044731655856128
+    m_Localized: You reflexively use the momemtum of your dodges to fuel your attacks.
+      Every sucessful dodge adds a stack, up to {maxDodges}. When attacking an enemy
+      unarmed, consume all current stacks to deal {damagePerStack} true damage per
+      stack.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 28244741391589376
+    m_Localized: You are overheating! Take {burnPerTurn} true damage per turn and
+      fully drain heat over {overheatCurrentDuration} {overheatCurrentDuration:turn|turns}.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 29328153971990528
+    m_Localized: Energized
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328332196356096
+    m_Localized: Your body holds a charge, which can be increased by passing it back
+      and forth through monsters. This manifests as Surge, a weak ability with a
+      infinite scaling on kills.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33376439255113728
+    m_Localized: Yon {level:cond:>=5?(Complete Transformation)|>=4?(Extensive Transformation)|>=2?(Partial
+      Transformation)|(Beginning Transformation)}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 33380265815121920
+    m_Localized: Gain stats per point of mana that you have. {level:cond:>=2?You
+      are more frail with your replacement parts|}{level:cond:>=5?, but you gain
+      maximum health and health regen per mana as well.|.} {level:cond:>=3? You also
+      have an increased mana capacity and mana regeneration.|}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 33572815964413952
+    m_Localized: Yon Delerium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33572891881316352
+    m_Localized: You're infected with the desire to become a Yon. You can undergo
+      a series of rituals to replace your body with magical constructs.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33580976205144064
+    m_Localized: Gain Mana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33581070954471424
+    m_Localized: '{baseAmount:cond:>0?Instantly gain {baseAmount} {resource}. |}{numTurns:cond:>0?Regenerate
+      {amountPerTurn} {resource} for {numTurns} turns.|}'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38071093166809088
+    m_Localized: Infused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38071228923846656
+    m_Localized: Taking lethal damage over the next {duration} turns will cause this
+      unit to violently explode.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38075188934025216
+    m_Localized: Frozen Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075240142282752
+    m_Localized: You are surrounded by an icy armor. It provides a significant amount
+      of AC, but moving will break the armor and end the effect.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075713813422080
+    m_Localized: Polar Burn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38075884571926528
+    m_Localized: This target is currently burning. Deals {damagePerTurn} damage plus
+      {manaBurnPerTurn} mana burn per turn, with {percentBurnToDamage}% of the mana
+      burn converting to damage as well. Also robs the target of {energyRobbedPerMove}%
+      of their speed.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38076481509466112
+    m_Localized: Fire Vortex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38076538354868224
+    m_Localized: This unit is in a firery conflagration. They take {damagePerTurn}
+      fire damage per turn, and if kill while this is active, they transfer {percentManaTransfer}%
+      of their mana to the original caster.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38764226217189376
+    m_Localized: Perfect Timing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38764284148916224
+    m_Localized: At some point during the next {currentDuration} turns, this effect
+      will become active for {activeWindowMaxDuration:p:1 turn|{} turns}. Killing
+      this unit during the active window refunds the caster {cooldownReductionOnKill:p:1
+      turn|{} turns} of cooldown on all of their abilities.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38765884544327680
+    m_Localized: Dilated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38765945588228096
+    m_Localized: This unit is out of sync with time. They are currently moving at
+      {percentLeft}% of normal time. Lasts for {duration} more realtime turns.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38906359116931072
+    m_Localized: '{blockedDamageTypes} Shield'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38906474334461952
+    m_Localized: A shield with {currentShieldAmount} health. It will block all attacks
+      of type {blockedDamageTypes}.{maxDuration:cond:>0? It will last for {currentDuration}
+      more turns.|}{regenPerTurn:cond:>0? It regenerates {} health per turn.|}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 38908091838439424
+    m_Localized: Blood Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908568655306752
+    m_Localized: Greater Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38908706132008960
+    m_Localized: Greater Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42802517585371136
+    m_Localized: Elven Grace (Elf Passive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42802560488906752
+    m_Localized: As you level up, your body undergoes the transformations that take
+      from a mortal creature to a high elf. Until level 7, lose max health but gain
+      max mana and EV per level.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43181369482485760
+    m_Localized: Chain Bound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43181418299990016
+    m_Localized: You are bound with chains, and unable to step more than {maxDistance}
+      steps away from the caster. This effect can only activate {numberOfPulls:1
+      more time|{} more times}.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 43183091579822080
+    m_Localized: Your next attack will crush the enemy, stunning them for two turns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183021157457920
+    m_Localized: Crushing Blow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183248316768256
+    m_Localized: Stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43183303044046848
+    m_Localized: This unit is stunned and unable to take a turn. Lasts for {numTurns:1
+      turn|{} turns}.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 43183840586047488
+    m_Localized: Slow
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f0000206b61522b63000020abac1735630000206bb4bf3c630000206bfae13c630000202b150a42630000202bec88a2630000206b51715864000020abd5b193760000206bc62c97760000206b5dce4d770000202bbc9441870000206bb6d04587000020ebee684687000020ab3ae9b7890000202b106cb989000020aba220398a0000202b763b398a000020ab6a4569990000202b3efc6a990000206b81846b99000020ab16db20a1000020ebce2121a10000206bb6aa1ae0000020eb6a1df8e2000020ab1b6bf7e2000020ab4a19f6e2000020eb47a752f8000020eba55db31201
+    00000001:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00202b574404000000202bb6b708000000206bacbb0a000000202bd1fd09000000e02fc0f22b23000020eb77bb76250000e06f151fdb250000e0ef888e6a280000e0afa0636a280000e02f7121e5270000e0eff5bee3270000202b01c65a5b000020ab8fe25b5b000020ebf2cc5f5b0000206bb734615b000020eb78bf625b000020ebd2d3625b0000206bf862635b000020abbb0b7425000020aba043825c000020eb305e325d0000202b80aed95d0000202b15f3735e0000206b8788405f0000206b61522b63000020abac1735630000206bb4bf3c630000206bfae13c630000202b150a42630000202bec88a26300

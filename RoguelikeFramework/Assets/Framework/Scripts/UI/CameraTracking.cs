@@ -91,7 +91,7 @@ public class CameraTracking : MonoBehaviour
                 dir = dir.normalized * speed * Time.deltaTime;
                 if (dist < dir.magnitude)
                 {
-                    target = Player.player.transform.position;
+                    target = Player.player.location;
                 }
                 else
                 {
@@ -100,10 +100,10 @@ public class CameraTracking : MonoBehaviour
                 break;
             case CameraTrackingMode.Lerp:
                 float lerpDist = (target - (Vector2) transform.position).magnitude;
-                target = Vector2.Lerp(transform.position, target, lerpAmount);
+                target = Vector2.Lerp(transform.position, target, lerpAmount * Time.deltaTime);
                 if (lerpDist < stopDist)
                 {
-                    if (stopSpeed < 0) stopSpeed = ((Vector2)Player.player.transform.position - target).magnitude * stopSpeedMultiplier;
+                    if (stopSpeed < 0) stopSpeed = ((Vector2)Player.player.location - target).magnitude * stopSpeedMultiplier;
                     target = Player.player.transform.position;
                     //Switch to constant speed for stop!
                     dir = target - (Vector2)transform.position;
@@ -111,7 +111,7 @@ public class CameraTracking : MonoBehaviour
                     dir = dir.normalized * stopSpeed * Time.deltaTime;
                     if (dist < dir.magnitude)
                     {
-                        target = Player.player.transform.position;
+                        target = Player.player.location;
                     }
                     else
                     {

@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using static Resources;
+using UnityEngine.Localization;
 
 public class Player : Monster
 {
@@ -32,6 +33,9 @@ public class Player : Monster
         }
     }
 
+    public LocalizedString speciesName;
+    public Class chosenClass;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -44,26 +48,61 @@ public class Player : Monster
     public override void UpdateLOS()
     {
         view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
-
+        view.CollectEntities(Map.current, this);
+        UpdateLOSPostCollection();
     }
 
     public override int XPTillNextLevel()
     {
-        baseStats[NEXT_LEVEL_XP] = level;
-        return level;
+        return 15;
+    }
+
+    public override void GainXP(Monster source, float amount)
+    {
+        if (amount == 0)
+        {
+            RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.LOW);
+        }
+
+        while (amount > 0)
+        {
+            if (source.level < level)
+            {
+                RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.LOW);
+                return;
+            }
+
+            if (amount >= (XPTillNextLevel() - baseStats[XP]))
+            {
+                amount -= (XPTillNextLevel() - (int) baseStats[XP]);
+                baseStats[XP] = 0;
+                LevelUp();
+                continue;
+            }
+
+            RogueLog.singleton.LogTemplate("XP",
+            new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
+            priority: LogPriority.LOW
+            );
+
+            baseStats[XP] += amount;
+            amount = 0;
+        }
     }
 
     public override void OnLevelUp()
     {
-        Debug.Log("Log: LEVEL UP!");
+        RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.HIGH, display: LogDisplay.STANDARD);
     }
 
-    public override void Die()
+    protected override void Die(Monster killer)
     {
-        Remove();
+        base.Die(killer);
         if (baseStats[HEALTH] <= 0)
         {
+            Remove();
             Debug.Log("Game over!");
+            SceneManager.LoadScene("CharacterSelect");
         }
     }
 }

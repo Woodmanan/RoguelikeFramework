@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ActionsFormatTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 100cc7f493821f94c89ef85f3449a69f, type: 2}
+  m_Metadata:
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 28977078272
+    m_Localized: '{singular:cast|casts}'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 436977999872
+    m_Localized: the {0}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 1673567870976
+    m_Localized: '{caster} {singular:cast|casts} {spell}!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 25273188425728
+    m_Localized: '{attacker} {singular:attack|attacks} {defender}.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 31341369040896
+    m_Localized: '{monster} {singular:die|dies}!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 32237633085440
+    m_Localized: '{attacker} {singular:shoot|shoots} at {defenders:{}|, |, and |
+      and }.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 40191505670144
+    m_Localized: '{target} {singular:are|is} pulled back in!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 394031094505472
+    m_Localized: '{monster} {singular:summon|summons} {target}.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 394230198116352
+    m_Localized: a {0}
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 440597863931904
+    m_Localized: '{monster} {singular:are|is} executed!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 725745364836352
+    m_Localized: '{monster} {singular:gain|gains} {amount} XP!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 1168351936847872
+    m_Localized: That felt unrewarding.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18150832451821568
+    m_Localized: '{singular:Zombie corpse of |}{name}{singular:| zombie}'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 18175663561973760
+    m_Localized: '{monster} {singular:come|comes} back to life!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 24989510339862528
+    m_Localized: '{monster} cannot die!'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 24990439394975744
+    m_Localized: Your phylactery shatters, and you reform! Your phylactery will return
+      in {level} levels.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26895216294961152
+    m_Localized: You see {items:{}|, |, and | and } here.
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 26898170834001920
+    m_Localized: '{monster} {singular:pick up|picks up} {items:{}|, |, and | and
+      }.'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00202bbf060000000020ebbd6500000000206ba88501000000206b5ffc16000000202b3b811c00000020abe8511d000000206bd08d24000000206b835e6601000020ebde8c66010000202bafb89001000020abc20f9402000020ab00167c400000202b72ab9240000020ebc6d3c758000020eb16acc8580000206b850e8d5f000020ab6dbe8f5f00

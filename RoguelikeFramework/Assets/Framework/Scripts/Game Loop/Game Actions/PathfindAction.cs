@@ -21,6 +21,7 @@ public class PathfindAction : GameAction
         if (path.Cost() < 0)
         {
             Debug.LogWarning("Monster cannot find path to location! Aborting");
+            caller.energy -= 100;
             yield return GameAction.Abort;
         }
 
@@ -53,7 +54,7 @@ public class PathfindAction : GameAction
 
             caller.UpdateLOS();
 
-            if (!firstTurn && caller.view.visibleMonsters.FindAll(x => (x.faction & caller.faction) == 0).Count > 0)
+            if (!firstTurn && caller.view.visibleEnemies.Count > 0)
             {
                 yield break;
             }

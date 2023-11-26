@@ -23,7 +23,7 @@ public class LootTable : ScriptableObject
     public Item RandomItemByRarity(ItemRarity rarity, bool takesLower = true)
     {
         List<Item> workingSet;
-        workingSet = items.FindAll(x => x.rarity == rarity);
+        workingSet = items.FindAll(x => x.rarity <= rarity && x.elevatesTo >= rarity);
 
         while (workingSet.Count == 0)
         {
@@ -45,12 +45,12 @@ public class LootTable : ScriptableObject
             }
         }
 
-        Item i =  workingSet[UnityEngine.Random.Range(0, workingSet.Count)].Instantiate();
+        Item i = workingSet[UnityEngine.Random.Range(0, workingSet.Count)].Instantiate();
+        i.Setup();
+        
 
-        if (i.rarity < rarity)
-        {
-            i.ElevateRarityTo(rarity, elevationOptions);
-        }
+        i.ElevateRarityTo(rarity, elevationOptions);
+        
 
         return i;
     }

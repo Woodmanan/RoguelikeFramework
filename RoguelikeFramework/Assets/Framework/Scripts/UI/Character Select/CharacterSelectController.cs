@@ -24,10 +24,11 @@ public class CharacterSelectController : MonoBehaviour
     private static CharacterSelectController Singleton;
 
     public Monster chosenSpecies;
-    public Class chosenClass;
+    public ClassGenerator classGenerator;
     public WorldGenerator chosenGenerator;
     public List<string> generationOptions;
     public LoadingScreen loadingScreen;
+    public string startAt;
 
     // Start is called before the first frame update
     void Start()
@@ -54,16 +55,35 @@ public class CharacterSelectController : MonoBehaviour
         
     }
 
+    public void SetChosenGenerator(WorldGenerator generator)
+    {
+        chosenGenerator = generator;
+    }
+
     IEnumerator LaunchGameRoutine()
     {
         yield return SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+
         loadingScreen.StartLoading();
         Debug.Assert(LevelLoader.singleton.generators.Count == 0, "Level loader was not set up!");
         chosenGenerator = Instantiate(chosenGenerator);
 
         Player.player = Instantiate(chosenSpecies);
+
+        if (classGenerator.IsChoicePendingUnlock())
+        {
+            //TODO: Yield wait for unlock screen!
+        }
+        Class chosenClass = classGenerator.GenerateClass();
         chosenClass.Apply(Player.player);
-        SceneManager.MoveGameObjectToScene(Player.player.gameObject, SceneManager.GetSceneByName("MainScene"));
+        if (Player.player is Player player)
+        {
+            player.chosenClass = chosenClass;
+        }
+
+        Player.player.AddEffectInstantiate(chosenGenerator.playerPassives.ToArray());
+        Player castPlayer = Player.player as Player;
 
         foreach (string s in generationOptions)
         {
@@ -71,6 +91,7 @@ public class CharacterSelectController : MonoBehaviour
         }
 
         LevelLoader.singleton.worldGen = chosenGenerator;
+        LevelLoader.singleton.startAt = startAt;
         LevelLoader.singleton.BeginGeneration();
 
         GameController.singleton.StartGame();

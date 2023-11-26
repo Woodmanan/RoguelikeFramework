@@ -65,16 +65,25 @@ public enum PlayerAction
 [Flags]
 public enum Faction
 {
+    NONE        = 0,
     STANDARD    = (1 << 0),
     PLAYER      = (1 << 1)
 }
 
+[Flags]
 public enum DamageType
 {
-    NONE,
-    BLUNT,
-    CUTTING,
-    PIERCING
+    NONE = 0,
+    PHYSICAL    = (1 << 0),
+    MAGICAL     = (1 << 1),
+    TRUE        = (1 << 2),
+    CLASS       = (1 << 3),
+    FIRE        = (1 << 4),
+    ICE         = (1 << 5),
+    ELECTRICAL  = (1 << 6),
+    BLEED       = (1 << 7),
+    POISON      = (1 << 8),
+    NECROTIC    = (1 << 9)
 }
 
 [Flags]
@@ -104,7 +113,8 @@ public enum ItemAction
     APPLY,
     ACTIVATE,
     EQUIP,
-    UNEQUIP
+    UNEQUIP,
+    SELECT
 }
 
 public enum EquipSlotType
@@ -114,7 +124,8 @@ public enum EquipSlotType
     PRIMARY_HAND,
     SECONDARY_HAND,
     BODY,
-    TAIL
+    TAIL,
+    FEET
 }
 
 //Order is very important here! Order written is order shown in inventory.
@@ -126,7 +137,7 @@ public enum ItemType
     ARMOR           = (1 << 2),
     CONSUMABLE      = (1 << 3),
     ACTIVATABLE     = (1 << 4),
-    MISC            = (1 << 5)
+    SPELLBOOK       = (1 << 5)
 }
 
 public enum TargetType
@@ -136,7 +147,8 @@ public enum TargetType
     SINGLE_SQAURE_LINES, //Any square, reachable by Brensham lines
     SMITE, //Any square in LOS
     SMITE_TARGET,
-    FULL_LOS, //All valid targets in LOS
+    FULL_LOS, //All valid targets in LOS,
+    ALL_MONSTERS //All monsters in LOS as center points
 }
 
 public enum AreaType
@@ -156,8 +168,18 @@ public enum UIState
     PICKUP_MANY
 }
 
-public enum Resources
+[Flags]
+public enum ResourceType : byte
 {
+    NONE = 0,
+    Monster = (1 << 0),
+    Ability = (1 << 1),
+    Item    = (1 << 2)
+}
+
+public enum Resources : byte
+{
+    [ResourceGroup(ResourceType.Monster)]
     HEALTH,
     MAX_HEALTH,
     MANA,
@@ -167,25 +189,37 @@ public enum Resources
     XP,
     NEXT_LEVEL_XP,
     AC,
-    EV
-}
-
-public enum AbilityResources
-{
+    EV,
+    MR,
+    HEAT,
+    MAX_HEAT,
+    [ResourceGroup(ResourceType.Ability)]
+    CURRENT_COOLDOWN,
     COOLDOWN,
     MAX_COOLDOWN,
-    RANGE_INCREASE,
-    RADIUS_INCREASE,
-    COOLDOWN_DECREASE,
-    POWER
+    RANGE,
+    RADIUS,
+    POWER,
+    DURATION
 }
 
+//TODO: Maybe this is a tag?
 [Flags]
 public enum AbilityTypes
 {
     Conjuration = 1 << 0,
     Elemental   = 1 << 1,
-    Healing     = 1 << 2
+    Healing     = 1 << 2,
+    NoCopy      = 1 << 3
+}
+
+[System.Flags]
+public enum CastBlocker
+{
+    RESOURCE = (1 << 0),
+    SOFTCHECK = (1 << 1),
+    HARDCHECK = (1 << 2),
+    EFFECT = (1 << 3)
 }
 
 [Flags]
@@ -197,7 +231,10 @@ public enum TargetTags
     INCLUDES_CASTER_SPACE   = (1 << 3),
     RECOMMENDS_SELF_TARGET  = (1 << 4),
     RECOMMNEDS_ALLY_TARGET  = (1 << 5),
-    RETARGETS_SAME_MONSTER  = (1 << 6)
+    RETARGETS_SAME_MONSTER  = (1 << 6),
+    REQUIRES_WALKABLE_POINT = (1 << 7),
+    EXITS_IF_NO_GOOD_TARGETS= (1 << 8),
+    RECOMMENDS_ENEMY_TARGET = (1 << 9)
 }
 
 public enum TargetPriority
@@ -216,4 +253,30 @@ public enum ItemRarity
     EPIC,
     LEGENDARY,
     UNIQUE
+}
+
+public enum LogPriority
+{
+    NONE,
+    EVERYTHING,
+    LOW,
+    HIGH
+}
+
+public enum LogDisplay
+{
+    NONE,
+    FLAVOR,
+    STANDARD,
+    ABILITY,
+    DANGER
+}
+
+[System.Flags]
+public enum OrientOption
+{
+    NONE,
+    FLIP_X  = (1 << 0),
+    FLIP_Y  = (1 << 1),
+    ROT_90  = (1 << 2)
 }

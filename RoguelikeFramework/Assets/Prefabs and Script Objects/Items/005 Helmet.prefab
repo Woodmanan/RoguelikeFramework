@@ -101,22 +101,45 @@ MonoBehaviour:
   minDepth: 1
   maxDepth: 30
   elevatesTo: 0
-  ID: 0
+  enchantment: 0
+  maxEnchantment: 0
+  maxElevationEffects: 1
+  currentRarity: 0
+  ID: 5
   stackable: 0
+  tags:
+    _keys: []
+    _vals: 
   color: {r: 0.9063208, g: 1, b: 0, a: 1}
   location: {x: 0, y: 0}
   held: 0
-  name: Helmet
-  plural: Helmets
+  friendlyName: Helmet
+  localName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   CanEquip: 0
-  CanApply: 0
-  CanTarget: 0
+  CanActivate: 0
   CanMelee: 0
   CanRanged: 0
-  effects: []
+  attachedEffects: []
+  baseEffects: []
   optionalEffects: []
-  applyable: {fileID: 0}
-  targetable: {fileID: 0}
+  activatable: {fileID: 0}
   equipable: {fileID: 0}
   melee: {fileID: 0}
   ranged: {fileID: 0}
@@ -139,15 +162,12 @@ MonoBehaviour:
   addedStats:
     _keys: 
     _vals: []
-  addedEffects:
-  - id: 0
+  statsPerEnchantment:
+    _keys: 
+    _vals: []
+  addedEffects: []
   isEquipped: 0
   removable: 1
+  blocksUnarmed: 1
   references:
     version: 1
-    00000000:
-      type: {class: DamageResistance, ns: , asm: Assembly-CSharp}
-      data:
-        ReadyToDelete: 0
-        credit: {fileID: 0}
-        numTurns: 5

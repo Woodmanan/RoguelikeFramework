@@ -2,11 +2,13 @@
 {
     Properties
     {
+        _MainTex("Texture", 2D) = "white" {}
         _fillColor("Main Fill Color", Color) = (1,1,1,1)
         _backgroundColor("Background Color", Color) = (0,0,0,1)
         _borderColor("Border Color", Color) = (0,0,0,1)
         _borderWidth("Border Width", float) = 0.05
         _fillAmount("FillAmount", float) = .5
+        _AACount("AA Count", int) = 5
     }
     SubShader
     {
@@ -36,10 +38,13 @@
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
             float _borderWidth;
             float _fillAmount;
             float4 _fillColor, _borderColor, _backgroundColor;
+
+            float _AACount, _Size;
+
+            sampler2D _MainTex;
 
             float Circle(float2 inPoint, float2 center, float radius)
             {
@@ -63,11 +68,11 @@
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Target
+            fixed4 sampleAt(float2 uv)
             {
                 float rad = .1f;
                 //float sdfVal = Circle(i.uv, float2(.5f, .5f), .5f);
-                float sdfVal = Capsule(i.uv, float2(.5f, rad), float2(.5f, 1 - rad), rad);
+                float sdfVal = Capsule(uv, float2(.5f, rad), float2(.5f, 1 - rad), rad);
 
                 if (sdfVal > 0)
                 {
@@ -82,7 +87,7 @@
                     }
                     else
                     {
-                        if (i.uv.y < _fillAmount)
+                        if (uv.y < _fillAmount)
                         {
                             return _fillColor;
                         }
@@ -92,6 +97,24 @@
                         }
                     }
                 }
+            }
+
+            fixed4 frag(v2f i) : SV_Target
+            {
+                fixed4 color = sampleAt(i.uv);
+                float2 offset = abs(float2(ddx(i.uv.x), ddy(i.uv.y))) / (_AACount);
+
+                int AABound = _AACount / 2;
+                for (int x = -AABound; x <= AABound; x++)
+                {
+                    for (int y = -AABound; y <= AABound; y++)
+                    {
+                        float2 coordOffset = float2(x * offset.x, y * offset.y);
+                        color += sampleAt(i.uv + coordOffset);
+                    }
+                }
+                color = color / ((_AACount * _AACount) + 1.0);
+                return color;
             }
             ENDCG
         }

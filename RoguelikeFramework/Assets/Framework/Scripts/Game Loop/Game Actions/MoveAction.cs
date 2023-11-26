@@ -10,15 +10,17 @@ public class MoveAction : GameAction
     public bool useStair;
     public bool animates;
     public bool didMove = false;
+    public bool picksUpItems;
 
     //Constuctor for the action
-    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true)
+    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true, bool picksUpItems = false)
     {
         //Construct me! Assigns caller by default in the base class
         intendedLocation = location;
         this.costs = costs;
         this.useStair = useStair;
-        this.animates = true;
+        this.animates = animates;
+        this.picksUpItems = picksUpItems;
     }
 
     //The main function! This EXACT coroutine will be executed, even across frames.
@@ -34,7 +36,18 @@ public class MoveAction : GameAction
             yield break;
         }
 
+        
+        if (!Map.current.ValidLocation(intendedLocation))
+        {
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.Log("Monster tried to move to null tile!");
+            caller.energy--;
+            #endif
+            yield break;
+        }
+
         RogueTile tile = Map.current.GetTile(intendedLocation);
+
         if (tile.IsInteractable())
         {
             InteractableTile interact = tile as InteractableTile;
@@ -51,12 +64,17 @@ public class MoveAction : GameAction
         }
         else if (tile.BlocksMovement())
         {
-            Debug.Log("Console Message: You don't can't do that.");
+            if (caller == Player.player)
+            {
+                RogueLog.singleton.Log("You don't can't do that.");
+            }
+            else
+            {
+                Debug.Log("Monster tried to move through a tile! Fix this!!!");
+            }
             yield break;
         }
         
-
-        caller.connections.OnMove.Invoke();
 
         if (tile.currentlyStanding != null)
         {
@@ -90,19 +108,22 @@ public class MoveAction : GameAction
 
                     if (animates && caller.renderer.enabled)
                     {
-                        AnimationController.AddAnimation(new MoveAnimation(caller, currentTile.location, otherTile.location, true));
-                        AnimationController.AddAnimation(new MoveAnimation(other, otherTile.location, currentTile.location, true));
+                        AnimationController.AddAnimationForMonster(new MoveAnimation(caller, currentTile.location, otherTile.location), caller);
+                        AnimationController.AddAnimationForMonster(new MoveAnimation(other, otherTile.location, currentTile.location), other);
                     }
                 }
                 else
                 {
                     //Don't swap with someone who's doing stuff.
                     caller.energy -= caller.energyPerStep * tile.movementCost;
+                    caller.willSwap = true;
                 }
 
                 yield break;
             }
         }
+
+        
 
         if (costs)
         {
@@ -117,19 +138,22 @@ public class MoveAction : GameAction
         caller.willSwap = true;
 
         caller.SetPosition(intendedLocation);
+        //caller.UpdateLOS();
 
         //Add the movement anim
         if (animates && caller.renderer.enabled)
         {
-            AnimationController.AddAnimation(new MoveAnimation(caller, oldLocation, intendedLocation));
+            AnimationController.AddAnimationForMonster(new MoveAnimation(caller, oldLocation, intendedLocation), caller);
         }
         else
         {
             caller.transform.position = new Vector3(intendedLocation.x, intendedLocation.y, Monster.monsterZPosition);
         }
 
+        caller.connections.OnMove.Invoke();
+
         Stair stair = tile as Stair;
-        if (stair && caller == Player.player && useStair)
+        if (stair && !stair.locked && caller == Player.player && useStair)
         {
             ChangeLevelAction act = new ChangeLevelAction(stair.up);
             act.Setup(caller);
@@ -139,8 +163,17 @@ public class MoveAction : GameAction
             }
             yield return GameAction.AbortAll;
         }
-
-        caller.UpdateLOS();
+        
+        //Logging items found (player only)
+        if (picksUpItems)
+        {
+            AutoPickupAction action = new AutoPickupAction();
+            action.Setup(caller);
+            while (action.action.MoveNext())
+            {
+                yield return action.action.Current;
+            }
+        }
     }
 
     //Called after construction, but before execution!

@@ -25,35 +25,47 @@ public class AbilityAction : GameAction
         if (toCast == null)
         {
             Debug.LogError($"Monster {caller.name} tried to cast a null ability.", caller);
-            caller.energy -= 100;
+            caller.energy -= 1;
             yield break;
         }
 
-        caller.other = toCast.connections;
-        bool keepCasting = true;
-        AbilityAction action = this;
-        caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
-
-        if (!keepCasting)
-        {
-            caller.other = null;
-            successful = false;
-            yield break;
-        }
-
-
+        caller.AddConnection(toCast.connections);
 
         if (toCast.currentCooldown > 0)
         {
-            Debug.Log($"You cannot cast {toCast.displayName}, it still has {toCast.currentCooldown} turns left.");
-            caller.other = null;
+            RogueLog.singleton.Log($"You cannot cast {toCast.GetName()}, it still has {toCast.currentCooldown} turns of cooldown.");
+            caller.RemoveConnection(toCast.connections);
             successful = false;
             yield break;
+        }
+
+        if (!toCast.castable)
+        {
+            RogueLog.singleton.Log($"You cannot cast {toCast.GetName()}.");
+            caller.RemoveConnection(toCast.connections);
+            successful = false;
+            yield break;
+        }
+
+        AbilityAction action = this;
+
+        { //Caller override check
+            
+            bool keepCasting = true;
+            
+            caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
+
+            if (!keepCasting)
+            {
+                caller.RemoveConnection(toCast.connections);
+                successful = false;
+                yield break;
+            }
         }
 
         bool canFire = false;
 
-        IEnumerator target = caller.controller.DetermineTarget(toCast.targeting, (b) => canFire = b);
+        IEnumerator target = caller.controller.DetermineTarget(toCast.targeting, (b) => canFire = b, toCast.IsValidTarget);
         while (target.MoveNext())
         {
             yield return target.Current;
@@ -76,8 +88,20 @@ public class AbilityAction : GameAction
 
             caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
-            Debug.Log($"Log: {caller.GetFormattedName()} cast {toCast.displayName}!");
-            toCast.Cast(caller);
+            if (!toCast.locName.IsEmpty)
+            {
+                string logString = LogFormatting.GetFormattedString("CastFullString", new { caster = caller.GetName(), singular = caller.singular, spell = toCast.GetName() });
+                RogueLog.singleton.Log(logString, priority: LogPriority.HIGH, display: LogDisplay.ABILITY);
+            }
+
+            GenerateAnimations(toCast);
+            
+            
+            IEnumerator castRoutine = toCast.Cast(caller);
+            while (castRoutine.MoveNext())
+            {
+                yield return castRoutine.Current;
+            }
 
             caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);
 
@@ -86,14 +110,14 @@ public class AbilityAction : GameAction
                 toCast.targeting.affected[i].connections.OnHitByAbility.Invoke(ref action);
             }
 
-            caller.energy -= 100;
+            caller.energy -= toCast.EnergyCost;
         }
         else
         {
             successful = false;
         }
 
-        caller.other = null;
+        caller.RemoveConnection(toCast.connections);
     }
 
     //Called after construction, but before execution!
@@ -109,6 +133,25 @@ public class AbilityAction : GameAction
         #else
         if (caller.abilities == null) return;
         #endif
-        toCast = caller.abilities[abilityIndex];
+        if (toCast == null)
+        {
+            if (caller.abilities.HasAbility(abilityIndex))
+            {
+                toCast = caller.abilities[abilityIndex];
+            }
+        }
+    }
+
+    public void GenerateAnimations(Ability toCast)
+    {
+        if (toCast.animations.Count > 0)
+        {
+            foreach (TargetingAnimation anim in toCast.animations)
+            {
+                TargetingAnimation copy = anim.Instantiate();
+                copy.GenerateFromTargeting(toCast.targeting, 0, caller);
+                AnimationController.AddAnimationSolo(copy);
+            }
+        }
     }
 }

@@ -30,12 +30,12 @@ public class LevelLoader : MonoBehaviour
     }
 
     public WorldGenerator worldGen;
-    [SerializeReference]
+    [HideInInspector]
     public List<DungeonGenerator> generators;
     [HideInInspector] public int current;
     public float msPerFrame;
     public bool randomSeed;
-    public int seed;
+    public uint seed;
     private bool setup = false;
 
     public static List<Map> maps;
@@ -76,6 +76,10 @@ public class LevelLoader : MonoBehaviour
 
         #if !UNITY_EDITOR
         startAt = "";
+        randomSeed = true;
+        #else
+        JITLoading = true;
+        preloadUpTo = 0;
         #endif
 
         if (singleton != this)
@@ -93,10 +97,12 @@ public class LevelLoader : MonoBehaviour
         
         if (randomSeed)
         {
-            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            seed = (uint)UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         }
 
-        UnityEngine.Random.InitState(seed);
+        UnityEngine.Debug.Log($"Creating game with seed {seed}");
+
+        UnityEngine.Random.InitState((int)seed);
 
         
         if (generators.Count > 0)
@@ -105,9 +111,12 @@ public class LevelLoader : MonoBehaviour
         }
         generators.Clear();
 
-        worldGen = Instantiate(worldGen);
         world = worldGen.Generate();
         world.PrepareLevelsForLoad(this);
+
+        //Pull in generator info to the spawning scripts
+        MonsterSpawner.singleton.SetMonsterPools(world);
+        ItemSpawner.singleton.SetItemPools(world);
 
         maps = new List<Map>(new Map[generators.Count]);
 
@@ -116,14 +125,10 @@ public class LevelLoader : MonoBehaviour
             generators[i].generation = generators[i].GenerateMap(i, UnityEngine.Random.Range(int.MinValue, int.MaxValue), world, transform);
         }
 
-        //Pull in generator info to the spawning scripts
-        MonsterSpawner.singleton.SetMonsterPools(world);
-        ItemSpawner.singleton.SetItemPools(world);
-
         #if !UNITY_EDITOR
         if (JITLoading)
         {
-            Debug.LogError("JIT Loading was left on! Don't do that!");
+            UnityEngine.Debug.LogError("JIT Loading was left on! Don't do that!");
             JITLoading = false;
         }
         #endif
@@ -206,7 +211,7 @@ public class LevelLoader : MonoBehaviour
         }
         for (int i = 0; i < generators.Count; i++)
         {
-            if (generators[i].name.Equals(levelName))
+            if (generators[i].name.Equals(levelName, System.StringComparison.OrdinalIgnoreCase))
             {
                 return i;
             }
@@ -242,7 +247,7 @@ public class LevelLoader : MonoBehaviour
     {
         for (int i = 0; i < generators.Count; i++)
         {
-            if (generators[i].name.Equals(name))
+            if (generators[i].name.Equals(name, System.StringComparison.OrdinalIgnoreCase))
             {
                 return i;
             }

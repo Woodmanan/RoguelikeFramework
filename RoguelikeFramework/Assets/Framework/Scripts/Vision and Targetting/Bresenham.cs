@@ -35,7 +35,7 @@ public class Bresenham
                 results.fullPath.Add(t);
             }
             //Check for movement block validity
-            if (tilesBlock && t.BlocksMovement())
+            if (tilesBlock && t.blocksProjectiles)
             {
                 beenBlocked = true;
                 break;
@@ -101,33 +101,60 @@ public class Bresenham
      * rely on setting things up to a quadrant to work correctly. Much nicer behavior, since all
      * lines now originate from x0, y0
      */
-    public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
+    /*public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
     {
         int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
         int dy = -Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-        int err = dx + dy, e2;                                  /* error value e_xy */
+        int err = dx + dy, e2;                                  /* error value e_xy 
 
 
         for (; ; )
-        {                                                        /* loop */
+        {                                                        /* loop 
             yield return new Vector2Int(x0, y0);
             e2 = 2 * err;
             if (e2 >= dy)
-            {                                       /* e_xy+e_x > 0 */
+            {                                       /* e_xy+e_x > 0 
                 if (x0 == x1) break;
                 err += dy; x0 += sx;
             }
             if (e2 <= dx)
-            {                                       /* e_xy+e_y < 0 */
+            {                                       /* e_xy+e_y < 0 
                 if (y0 == y1) break;
                 err += dx; y0 += sy;
             }
         }
+    }*/
+
+    private static void Swap<T>(ref T lhs, ref T rhs) { T temp; temp = lhs; lhs = rhs; rhs = temp; }
+
+    public static IEnumerable<Vector2Int> GetPointsOnLine(int x0, int y0, int x1, int y1)
+    {
+        return GetPointsOnLine(new Vector2Int(x0, y0), new Vector2Int(x1, y1));
     }
 
+    /* 4th? rebuild of the line drawing
+     * 
+     * Losing my mind - why are all line drawing algorithms so bad?
+     * Newest version runs off of Red Blob Games initial idea of just basing lines on Lerp
+     * I really like this, because it's simple and easy to think about. BUT It's not symmetric.
+     * This is a rebuild of that algorithm, with the main change being that we think entirely in relative space,
+     * and then bias our rounding towards 0. The result is that the algorithm is innaccurate to a very small scale,
+     * but symmettric for lines that are not extremely large. Yay! Algorithm is now fast, symmetric, and predictable.
+     */
+    
     public static IEnumerable<Vector2Int> GetPointsOnLine(Vector2Int start, Vector2Int end)
     {
-        return GetPointsOnLine(start.x, start.y, end.x, end.y);
+        Vector2Int offset = (end - start);
+        int dist = offset.ChebyshevDistance();
+        for (int step = 0; step <= dist; step++)
+        {
+            float t = (dist == 0) ? 0.0f : ((float) step) / dist;
+            Vector2 coord = Vector2.Lerp(Vector2Int.zero, offset, t);
+            float x = (coord.x < 0) ? coord.x + .5001f : coord.x + .4999f;
+            float y = (coord.y < 0) ? coord.y + .5001f : coord.y + .4999f;
+
+            yield return new Vector2Int(Mathf.FloorToInt(x + start.x), Mathf.FloorToInt(y + start.y));
+        }
     }
 
 }

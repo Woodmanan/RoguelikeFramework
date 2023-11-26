@@ -14,15 +14,24 @@ public class ItemStack
     [HideInInspector] public int position;
     [HideInInspector] public int lastUpdated; //Used to find what items should float to the top
 
-    public string GetName()
+    
+    //TODO: Articles for special weapons (a +5 sword vs the +5 sword of rebirth)
+    public string GetName(bool withArticles = false)
     {
         if (count == 1)
         {
-            return held[0].GetName();
+            if (withArticles)
+            {
+                return "a " + held[0].GetName();
+            }
+            else
+            {
+                return held[0].GetName();
+            }
         }
         else
         {
-            return $"{count} {held[0].GetPlural()}";
+            return $"{count} {held[0].GetName()}";
         }
     }
 }
@@ -31,10 +40,13 @@ public class Inventory : MonoBehaviour
 {
     //Regular variables
     public int capacity;
+    [HideInInspector]
     public int available;
 
     public event ActionRef<ItemStack> itemsAdded;
     public event ActionRef<ItemStack> itemsRemoved;
+
+    public List<Item> baseItems;
 
     Transform holder;
 
@@ -128,6 +140,12 @@ public class Inventory : MonoBehaviour
 
         Debug.Assert(holder != null, "Inventory wasn't attached to monster or tile? Make sure to update inventory logic if this is intentional.", this);
 
+        foreach (Item item in baseItems)
+        {
+            Item i = item.Instantiate();
+            i.Setup();
+            Add(i);
+        }
 
         //TODO: REWORK THIS
         this.enabled = false; //This is really, really dumb. I know. Gives us back 15 fps, though
@@ -406,5 +424,11 @@ public class Inventory : MonoBehaviour
 
         onFloor.Add(stack);
         RemoveAt(index);
+    }
+
+    public void ClearItems()
+    {
+        Items = new ItemStack[capacity];
+        available = capacity;
     }
 }
