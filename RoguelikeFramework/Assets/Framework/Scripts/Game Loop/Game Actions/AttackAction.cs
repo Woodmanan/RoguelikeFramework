@@ -48,7 +48,7 @@ public class AttackAction : GameAction
         unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].equipable.blocksUnarmed));
 
         string logString = LogFormatting.GetFormattedString("AttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defender = target.GetName() });
-        RogueLog.singleton.Log(logString, priority: LogPriority.HIGH);
+        RogueLog.singleton.Log(logString, priority: LogPriority.COMBAT);
 
         //Do we have any weapons equipped?
         if (slots.Count > 0 || unarmedSlots.Count > 0)
@@ -137,12 +137,12 @@ public class AttackAction : GameAction
 
         if (result == AttackResult.HIT)
         {
-            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with an unarmed attack!", priority: LogPriority.LOW);
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with an unarmed attack!", priority: LogPriority.COMBAT);
             Combat.Hit(attacker, defender, DamageSource.UNARMEDATTACK, slot.unarmedAttack);
         }
         else
         {
-            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses an unarmed attack!", priority: LogPriority.LOW);
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses an unarmed attack!", priority: LogPriority.COMBAT);
         }
 
         defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);

@@ -68,7 +68,7 @@ public class AutoExploreAction : GameAction
 
             if (goals.Count == 0)
             {
-                RogueLog.singleton.Log("There's nothing else to explore!", null, LogPriority.HIGH, LogDisplay.STANDARD);
+                RogueLog.singleton.Log("There's nothing else to explore!", null, LogPriority.IMPORTANT, LogDisplay.STANDARD);
 
                 yield break;
             }
@@ -120,7 +120,7 @@ public class AutoExploreAction : GameAction
                 //Copied to try and get ahead of the wait check.
                 if (caller.view.visibleEnemies.Count > 0)
                 {
-                    RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.HIGH);
+                    RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.IMPORTANT);
                     yield break;
                 }
 

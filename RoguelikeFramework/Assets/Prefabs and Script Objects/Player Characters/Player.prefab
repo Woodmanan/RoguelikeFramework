@@ -51,10 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    _keys: 0001
+    _keys: 000103
     _vals:
     - 100
     - 1000
+    - 100
   currentStats:
     _keys: 
     _vals: []

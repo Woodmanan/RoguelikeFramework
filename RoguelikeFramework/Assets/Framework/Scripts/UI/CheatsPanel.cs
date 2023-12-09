@@ -380,7 +380,7 @@ public class CheatsPanel : RogueUIPanel
         }
         else
         {
-            RogueLog.singleton.Log($"Could not move to level {levelName}, as it does not exist.", priority: LogPriority.HIGH, display: LogDisplay.ABILITY);
+            RogueLog.singleton.Log($"Could not move to level {levelName}, as it does not exist.", priority: LogPriority.IMPORTANT, display: LogDisplay.ABILITY);
         }    
     }
 

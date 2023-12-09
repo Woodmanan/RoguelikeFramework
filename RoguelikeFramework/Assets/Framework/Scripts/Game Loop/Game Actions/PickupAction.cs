@@ -53,7 +53,7 @@ public class PickupAction : GameAction
             caller.inventory.PickUp(index);
         }
 
-        RogueLog.singleton.LogTemplate("ItemPickup", new { monster = caller.GetName(), singular = caller.singular, items = itemNames }, null, LogPriority.HIGH);
+        RogueLog.singleton.LogTemplate("ItemPickup", new { monster = caller.GetName(), singular = caller.singular, items = itemNames }, null, LogPriority.IMPORTANT);
 
         caller.energy -= 100;
 

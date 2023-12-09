@@ -60,7 +60,7 @@ public class StatBar : MonoBehaviour, IDescribable
                 if (barImage.enabled)
                 {
                     barImage.enabled = false;
-                    transform.parent.gameObject.SetActive(false);
+                    //transform.parent.gameObject.SetActive(false);
                 }
             }
         }

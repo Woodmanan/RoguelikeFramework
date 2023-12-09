@@ -267,7 +267,8 @@ public class Monster : MonoBehaviour, IDescribable
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deals {Mathf.CeilToInt(damage)} {type} damage with {source}");
+            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deals {Mathf.CeilToInt(damage)} {type} damage with {source}",
+                null, LogPriority.DAMAGE);
         }
         
 
@@ -300,7 +301,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     protected virtual void Die(Monster killer)
     {
-        RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.HIGH);
+        RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.GENERIC);
 
         connections.OnPostDeath.BlendInvoke(other?.OnPostDeath, ref killer);
         if (baseStats[HEALTH] > 0)
@@ -351,7 +352,7 @@ public class Monster : MonoBehaviour, IDescribable
     {
         RogueLog.singleton.LogTemplate("XP",
             new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
-            priority: LogPriority.LOW
+            priority: LogPriority.GENERIC
             );
         connections.OnGainXP.BlendInvoke(other?.OnGainXP, ref amount);
         baseStats[XP] += amount;

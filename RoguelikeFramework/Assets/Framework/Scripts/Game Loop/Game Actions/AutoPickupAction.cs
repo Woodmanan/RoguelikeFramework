@@ -42,7 +42,7 @@ public class AutoPickupAction : GameAction
                 {
                     if (caller == Player.player)
                     {
-                        RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.HIGH);
+                        RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.IMPORTANT);
                     }
                     yield break;
                 }
@@ -98,7 +98,7 @@ public class AutoPickupAction : GameAction
             {
                 if (caller == Player.player)
                 {
-                    RogueLog.singleton.LogTemplate("ItemsSeen", new { items = stopIndices.Select(x => x.GetName(true)) }, null, LogPriority.HIGH);
+                    RogueLog.singleton.LogTemplate("ItemsSeen", new { items = stopIndices.Select(x => x.GetName(true)) }, null, LogPriority.IMPORTANT);
                 }
 
                 //If we could safely pick these up, mark them

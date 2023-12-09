@@ -54,12 +54,12 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.LOW);
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.COMBAT);
             Combat.Hit(attacker, defender, source, primary, enchantment: GetEnchantment());
         }
         else
         {
-            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.LOW);
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.COMBAT);
         }
 
         defender.connections.OnAfterPrimaryAttackTarget
@@ -93,12 +93,12 @@ public class Weapon : MonoBehaviour
 
         if (result == AttackResult.HIT)
         {
-            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.LOW);
+            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with its {item.GetNameClean()}!", priority: LogPriority.COMBAT);
             Combat.Hit(attacker, defender, source, secondary, enchantment: GetEnchantment());
         }
         else
         {
-            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.LOW);
+            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.COMBAT);
         }
 
         defender.connections.OnAfterSecondaryAttackTarget

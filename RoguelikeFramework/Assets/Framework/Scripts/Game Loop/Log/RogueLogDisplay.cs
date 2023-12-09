@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Text;
 
 public class RogueLogDisplay : MonoBehaviour
 {
-    List<TextMeshProUGUI> displayedMessages;
+    public TextMeshProUGUI messageBox;
 
     public LogPriority priorityToDisplay;
 
@@ -20,7 +21,6 @@ public class RogueLogDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        displayedMessages = new List<TextMeshProUGUI>();
         RogueLog.singleton.OnLogUpdated += SetDirty;
         UpdateMessageSize();
     }
@@ -43,13 +43,13 @@ public class RogueLogDisplay : MonoBehaviour
     {
         priorityToDisplay = (LogPriority)newPriority;
         dirty = true;
-        ScrollView.gameObject.SetActive(newPriority != 0);
+        ScrollView.gameObject.SetActive(priorityToDisplay != LogPriority.NONE);
     }
 
     void UpdateMessageSize()
     {
         //Add messages
-        while (displayedMessages.Count < RogueLog.singleton.storedMessageCount)
+        /*while (displayedMessages.Count < RogueLog.singleton.storedMessageCount)
         {
             GameObject newMessage = Instantiate(messageObject, contentBox);
             newMessage.transform.parent.gameObject.SetActive(true);
@@ -60,36 +60,38 @@ public class RogueLogDisplay : MonoBehaviour
         for (int i = RogueLog.singleton.storedMessageCount; i < displayedMessages.Count; i++)
         {
             displayedMessages[i].transform.parent.gameObject.SetActive(false);
-        }
+        }*/
 
         RefreshMessageContent();
     }
 
     void RefreshMessageContent()
     {
+        StringBuilder sb = new StringBuilder(100 * 40);
         int index = 0;
-        foreach (RogueLogMessage log in RogueLog.singleton.GetMessagesAbovePriority(priorityToDisplay))
+        foreach (RogueLogMessage log in RogueLog.singleton.GetMessagesWithPriority(priorityToDisplay))
         {
-            displayedMessages[index].text = log.message;
+            if (index != 0)
+            {
+                sb.Append("\n");
+            }
+            sb.Append(log.message);
             if (log.count > 1)
             {
+                sb.Append(" x");
                 if (log.count <= 99)
                 {
-                    displayedMessages[index].text += $" x{log.count}";
+                    sb.Append(log.count);
                 }
                 else
                 {
-                    displayedMessages[index].text += $" x99+";
+                    sb.Append("99+");
                 }
             }
-            displayedMessages[index].transform.parent.gameObject.SetActive(true);
             index++;
         }
 
-        for (int i = index; i < displayedMessages.Count; i++)
-        {
-            displayedMessages[i].transform.parent.gameObject.SetActive(false);
-        }
+        messageBox.text = sb.ToString();
 
         //Reset view on update!
         StartCoroutine(ResetScroll());

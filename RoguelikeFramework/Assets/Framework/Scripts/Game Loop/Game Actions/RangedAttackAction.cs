@@ -64,7 +64,7 @@ public class RangedAttackAction : AttackAction
                     GenerateAnimations(weapon);
 
                     string logString = LogFormatting.GetFormattedString("RangedAttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defenders = weapon.targeting.affected.Select(x => x.GetName()) });
-                    RogueLog.singleton.Log(logString, priority: LogPriority.HIGH);
+                    RogueLog.singleton.Log(logString, priority: LogPriority.COMBAT);
 
                     foreach (Monster m in weapon.targeting.affected)
                     {

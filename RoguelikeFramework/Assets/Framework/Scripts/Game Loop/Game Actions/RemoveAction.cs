@@ -38,7 +38,7 @@ public class RemoveAction : GameAction
     {
         if (slotsToRemove.Count == 0)
         {
-            RogueLog.singleton.Log("You can't remove nothing!", priority: LogPriority.HIGH);
+            RogueLog.singleton.Log("You can't remove nothing!", priority: LogPriority.IMPORTANT);
             yield break;
         }
 

@@ -61,14 +61,14 @@ public class Player : Monster
     {
         if (amount == 0)
         {
-            RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.LOW);
+            RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.GENERIC);
         }
 
         while (amount > 0)
         {
             if (source.level < level)
             {
-                RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.LOW);
+                RogueLog.singleton.LogTemplate("NoXP", null, priority: LogPriority.GENERIC);
                 return;
             }
 
@@ -82,7 +82,7 @@ public class Player : Monster
 
             RogueLog.singleton.LogTemplate("XP",
             new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
-            priority: LogPriority.LOW
+            priority: LogPriority.GENERIC
             );
 
             baseStats[XP] += amount;
@@ -92,7 +92,7 @@ public class Player : Monster
 
     public override void OnLevelUp()
     {
-        RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.HIGH, display: LogDisplay.STANDARD);
+        RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.IMPORTANT, display: LogDisplay.STANDARD);
     }
 
     protected override void Die(Monster killer)

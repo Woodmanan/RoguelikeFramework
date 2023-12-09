@@ -255,12 +255,15 @@ public enum ItemRarity
     UNIQUE
 }
 
+[System.Flags]
 public enum LogPriority
 {
-    NONE,
-    EVERYTHING,
-    LOW,
-    HIGH
+    NONE        = 0,
+    GENERIC     = 1 << 0,
+    DAMAGE      = 1 << 1,
+    COMBAT      = 1 << 2,
+    IMPORTANT   = 1 << 3,
+    EVERYTHING  = ~0
 }
 
 public enum LogDisplay

@@ -72,7 +72,7 @@ public class RogueLog : MonoBehaviour
 
     }
 
-    public void Log(string message, GameObject source = null, LogPriority priority = LogPriority.LOW, LogDisplay display = LogDisplay.NONE, object context = null)
+    public void Log(string message, GameObject source = null, LogPriority priority = LogPriority.GENERIC, LogDisplay display = LogDisplay.NONE, object context = null)
     {
         RogueLogMessage LogMessage = new RogueLogMessage();
         LogMessage.message = message.Capitalize();
@@ -84,7 +84,7 @@ public class RogueLog : MonoBehaviour
         Log(LogMessage);
     }
 
-    public void LogTemplate(string key, object args, GameObject source = null, LogPriority priority = LogPriority.LOW, LogDisplay display = LogDisplay.NONE, object context = null)
+    public void LogTemplate(string key, object args, GameObject source = null, LogPriority priority = LogPriority.GENERIC, LogDisplay display = LogDisplay.NONE, object context = null)
     {
         Log(LogFormatting.GetFormattedString(key, args), source, priority, display, context);
     }
@@ -119,15 +119,15 @@ public class RogueLog : MonoBehaviour
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         //Copy player logs over for maximum info
-        Debug.Log($"Console: {message.message}");
+        //Debug.Log($"Console: {message.message}");
         #endif
     }
 
-    public IEnumerable<RogueLogMessage> GetMessagesAbovePriority(LogPriority priority)
+    public IEnumerable<RogueLogMessage> GetMessagesWithPriority(LogPriority priority)
     {
         foreach (RogueLogMessage message in messages)
         {
-            if (message.priority >= priority)
+            if ((message.priority & priority) > 0)
             {
                 yield return message;
             }
