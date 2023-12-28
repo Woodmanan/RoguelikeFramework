@@ -33,7 +33,14 @@ public class AutoPickupAction : GameAction
         //Instant pickups don't move
         Vector2Int goalLocation = instantPickup ? caller.location : toPickup.location;
 
+        if (Map.current.GetTile(goalLocation).BlocksMovement())
+        {
+            Debug.LogError("Tried to pathfind to an item in a wall! Not allowed!");
+            yield break;
+        }
+
         { //Move to goal - action does not execute for instant pickups
+            //TODO: Move this logic into the pathfinding action.
             PathfindAction pathAction = new PathfindAction(goalLocation, false);
             pathAction.Setup(caller);
             while (pathAction.action.MoveNext())
@@ -108,11 +115,16 @@ public class AutoPickupAction : GameAction
                     {
                         SeenItems.Add(stack.held[0]);
                     }
-                }   
+                }
             }
 
             yield return AbortAll;
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return "Auto Pickup Action";
     }
 
     //Called after construction, but before execution!

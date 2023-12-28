@@ -20,6 +20,8 @@ public class TargetingAnimation : RogueAnimation
     [HideInInspector] public Monster owner;
     [HideInInspector] public List<Monster> targets;
 
+    private bool visible = false;
+
     public TargetingAnimation() : base(0.0f)
     {
     }
@@ -32,6 +34,28 @@ public class TargetingAnimation : RogueAnimation
             destination = targeting.points[point];
             radius = targeting.radius;
             this.targets = targeting.affected;
+
+            visible = ((owner.playerVisibility & Visibility.VISIBLE) > 0);
+            if (!visible)
+            {
+                for (int y = 0; y < 2 * radius + 1; y++)
+                {
+                    for (int x = 0; x < 2 * radius + 1; x++)
+                    {
+                        Vector2Int loc = new Vector2Int(x, y) - radius * Vector2Int.one;
+                        Vector2Int worldLoc = loc + targeting.origin;
+                        if (Map.current.GetTile(worldLoc).isPlayerVisible)
+                        {
+                            visible = true;
+                            break;
+                        }
+                    }
+                    if (visible)
+                    {
+                        break;
+                    }
+                }
+            }
         }
         this.owner = owner;
         OnVariablesGenerated(targeting);
@@ -57,5 +81,10 @@ public class TargetingAnimation : RogueAnimation
     public TargetingAnimation Instantiate()
     {
         return (TargetingAnimation) this.MemberwiseClone();
+    }
+
+    public override bool IsVisible()
+    {
+        return visible;
     }
 }

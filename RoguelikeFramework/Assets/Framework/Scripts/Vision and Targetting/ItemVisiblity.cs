@@ -30,24 +30,23 @@ public class ItemVisiblity : MonoBehaviour
         
     }
 
-    public void RebuildVisiblity(bool isVisible, bool isHidden)
+    public void RebuildVisiblity(Visibility visibility)
     {
         if (visible == null) return; //Cancel early for null, who cares
-        if (isHidden)
+        switch (visibility)
         {
-            visible.DisableSprite();
-        }
-        else
-        {
-            visible.EnableSprite();
-            if (isVisible)
-            {
-                visible.SetFullColor();
-            }
-            else
-            {
+            case Visibility.HIDDEN:
+                visible.DisableSprite();
+                break;
+            case Visibility.REVEALED:
+                visible.EnableSprite();
                 visible.SetGrayscale();
-            }
+                break;
+            case Visibility.VISIBLE:
+            case (Visibility.REVEALED | Visibility.VISIBLE):
+                visible.EnableSprite();
+                visible.SetFullColor();
+                break;
         }
     }
    

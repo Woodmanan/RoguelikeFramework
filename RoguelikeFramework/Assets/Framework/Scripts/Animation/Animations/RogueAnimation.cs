@@ -25,9 +25,17 @@ public class RogueAnimation
             OnStart();
         }
 
+        bool shouldFinish = false;
+        float clampedDelta = Mathf.Min(delta, MaxDuration - currentDuration);
         currentDuration += delta;
-        OnStep(delta);
         if (currentDuration >= MaxDuration)
+        {
+            shouldFinish = true;
+            currentDuration = MaxDuration;
+        }
+
+        OnStep(clampedDelta);
+        if (shouldFinish)
         {
             OnEnd();
         }
@@ -35,7 +43,7 @@ public class RogueAnimation
 
     public void Flush()
     {
-        Step(MaxDuration - currentDuration);
+        Step(MaxDuration);
     }
 
     public virtual void OnStart()
@@ -51,5 +59,11 @@ public class RogueAnimation
     public virtual void OnEnd()
     {
 
+    }
+
+    //Should this animation be played? Only visible animations get queued.
+    public virtual bool IsVisible()
+    {
+        return true;
     }
 }

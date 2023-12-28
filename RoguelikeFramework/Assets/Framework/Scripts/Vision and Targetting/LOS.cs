@@ -177,7 +177,7 @@ public class LOSData
         }
     }
 
-    public void Imprint(Map map)
+    public void ImprintGraphics(Map map)
     {
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < (radius * 2 + 1); i++)
@@ -186,20 +186,47 @@ public class LOSData
             {
                 if (definedArea[i, j])
                 {
-                    map.Reveal(new Vector2Int(i + start.x, j + start.y));
+                    map.RevealGraphics(new Vector2Int(i + start.x, j + start.y));
                 }
             }
         }
     }
 
-    public void Deprint(Map map)
+    public void DeprintGraphics(Map map)
     {
         Vector2Int start = origin - Vector2Int.one * radius;
         for (int i = 0; i < (radius * 2 + 1); i++)
         {
             for (int j = 0; j < (radius * 2 + 1); j++)
             {
-                map.ClearLOS(new Vector2Int(i + start.x, j + start.y));
+                map.ClearGraphics(new Vector2Int(i + start.x, j + start.y));
+            }
+        }
+    }
+
+    public void ImprintPlayerVisibility(Map map)
+    {
+        Vector2Int start = origin - Vector2Int.one * radius;
+        for (int i = 0; i < (radius * 2 + 1); i++)
+        {
+            for (int j = 0; j < (radius * 2 + 1); j++)
+            {
+                if (definedArea[i, j])
+                {
+                    map.RevealPlayerVisibility(new Vector2Int(i + start.x, j + start.y));
+                }
+            }
+        }
+    }
+
+    public void DeprintPlayerVisibility(Map map)
+    {
+        Vector2Int start = origin - Vector2Int.one * radius;
+        for (int i = 0; i < (radius * 2 + 1); i++)
+        {
+            for (int j = 0; j < (radius * 2 + 1); j++)
+            {
+                map.ClearPlayerVisibility(new Vector2Int(i + start.x, j + start.y));
             }
         }
     }
@@ -257,6 +284,7 @@ public class LOS : MonoBehaviour
 {
 
     public static LOSData lastCall;
+    public static LOSData lastGraphicsCall;
     
     public static fraction Slope(Vector2Int tile)
     {
@@ -357,19 +385,48 @@ public class LOS : MonoBehaviour
         }
     }
 
-    public static LOSData GeneratePlayerLOS(Map map, Vector2Int location, int radius)
+    public static void WritePlayerLOS()
+    {
+        WritePlayerLOS(Map.current, Player.player.location, Player.player.visionRadius);
+    }
+
+    public static void WritePlayerGraphics()
+    {
+        WritePlayerGraphics(Map.current, Player.player.location, Player.player.visionRadius);
+    }
+
+    public static void WritePlayerLOS(Map map, Vector2Int location, int radius)
     {
         if (lastCall != null)
         {
-            lastCall.Deprint(Map.current);
+            lastCall.DeprintPlayerVisibility(Map.current);
         }
-
         lastCall = LosAt(map, location, radius);
-        Player.player.view = lastCall;
-        Player.player.UpdateLOSPreCollection();
-        Player.player.view.CollectEntities(map, Player.player);
-        lastCall.Imprint(Map.current);
-        return lastCall;
+        lastCall.ImprintPlayerVisibility(Map.current);
     }
 
+    public static void WritePlayerGraphics(Map map, Vector2Int location, int radius)
+    {
+        if (lastGraphicsCall != null)
+        {
+            lastGraphicsCall.DeprintGraphics(Map.current);
+        }
+        lastGraphicsCall = LosAt(map, location, radius);
+        lastGraphicsCall.ImprintGraphics(Map.current);
+    }
+
+    public static void ClearAllLevelLOS(Map old)
+    {
+        if (lastCall != null)
+        {
+            lastCall.DeprintPlayerVisibility(old);
+            lastCall = null;
+        }
+
+        if (lastGraphicsCall != null)
+        {
+            lastGraphicsCall.DeprintGraphics(old);
+            lastGraphicsCall = null;
+        }
+    }
 }

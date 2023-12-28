@@ -10,18 +10,24 @@ public class MoveAnimation : RogueAnimation
     Vector3 midPoint;
     Monster monster;
 
+    Vector2Int oldLocation;
+    Vector2Int newLocation;
+
     public MoveAnimation(Monster monster, Vector2Int oldLocation, Vector2Int newLocation) : base(movementDuration)
     {
         this.monster = monster;
         startLocation = new Vector3(oldLocation.x, oldLocation.y, Monster.monsterZPosition);
         endLocation = new Vector3(newLocation.x, newLocation.y, Monster.monsterZPosition);
         midPoint = (startLocation + endLocation) / 2 + Vector3.up;
+        this.oldLocation = oldLocation;
+        this.newLocation = newLocation;
     }
 
     public override void OnStart()
     {
         //Enforce location on creation
         monster.transform.position = startLocation;
+        monster.ForceGraphicsVisibility(Visibility.VISIBLE);
     }
 
     public override void OnStep(float delta)
@@ -36,6 +42,12 @@ public class MoveAnimation : RogueAnimation
     public override void OnEnd()
     {
         monster.transform.position = endLocation;
+        monster.ForceGraphicsVisibility(Map.current.GetTile(newLocation).graphicsVisibility);
+    }
+
+    public override bool IsVisible()
+    {
+        return Map.current.GetTile(oldLocation).isPlayerVisible || Map.current.GetTile(newLocation).isPlayerVisible;
     }
 }
 
@@ -55,6 +67,15 @@ public class SnapAnimation : RogueAnimation
     public override void OnEnd()
     {
         monster.transform.position = new Vector3(location.x, location.y, Monster.monsterZPosition);
+        if (monster == Player.player)
+        {
+            LOS.WritePlayerGraphics(Map.current, location, monster.visionRadius);
+        }
+    }
+
+    public override bool IsVisible()
+    {
+        return Map.current.GetTile(location).isPlayerVisible;
     }
 }
 
@@ -103,6 +124,10 @@ public class AttackAnimation : RogueAnimation
         monster.transform.position = start;
     }
 
+    public override bool IsVisible()
+    {
+        return (monster.playerVisibility & Visibility.VISIBLE) > 0;
+    }
 }
 
 public class DeathAnimation : RogueAnimation
@@ -131,4 +156,36 @@ public class DeathAnimation : RogueAnimation
         monster.transform.localScale = Vector3.zero;
     }
 
+    public override bool IsVisible()
+    {
+        return (monster.playerVisibility & (Visibility.VISIBLE | Visibility.REVEALED)) > 0;
+    }
+}
+
+public class PlayerLOSAnimation : RogueAnimation
+{
+    public const float duration = 0.001f;
+    Vector2Int animLocation;
+    Monster monster;
+
+    public PlayerLOSAnimation(Monster monster) : base(duration)
+    {
+        this.monster = monster;
+        this.animLocation = monster.location;
+    }
+
+    public override void OnStart()
+    {
+
+    }
+
+    public override void OnStep(float delta)
+    {
+
+    }
+
+    public override void OnEnd()
+    {
+        LOS.WritePlayerGraphics(Map.current, animLocation, monster.visionRadius);
+    }
 }

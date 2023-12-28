@@ -21,13 +21,7 @@ public class FleeAction : GameAction
             if (enemies.Count == 0)
             {
                 Debug.Log("Monster is fleeing without seeing anyone. Resting instead.");
-                //TODO: Use rest action instead!
-                GameAction act = new WaitAction();
-                act.Setup(caller);
-                while (act.action.MoveNext())
-                {
-                    yield return act.action.Current;
-                }
+                yield return SubAction(new RestAction());
                 yield break;
             }
 
@@ -48,23 +42,12 @@ public class FleeAction : GameAction
 
                     Monster target = enemies[0];
 
-                    //TODO: attack instead!
-                    GameAction act = new AttackAction(target);
-                    act.Setup(caller);
-                    while (act.action.MoveNext())
-                    {
-                        yield return act.action.Current;
-                    }
+                    yield return SubAction(new AttackAction(target));
                     yield break;
                 }
                 else
                 {
-                    MoveAction act = new MoveAction(next);
-                    act.Setup(caller);
-                    while (act.action.MoveNext())
-                    {
-                        yield return act.action.Current;
-                    }
+                    yield return SubAction(new MoveAction(next));
                     yield return GameAction.StateCheck;
                 }
             }
@@ -106,6 +89,11 @@ public class FleeAction : GameAction
         }
 
         return next;
+    }
+
+    public override string GetDebugString()
+    {
+        return "Flee Action";
     }
 
     //Called after construction, but before execution!

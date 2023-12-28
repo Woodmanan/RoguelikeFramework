@@ -8,18 +8,16 @@ public class MoveAction : GameAction
     public Direction direction;
     public bool costs;
     public bool useStair;
-    public bool animates;
     public bool didMove = false;
     public bool picksUpItems;
 
     //Constuctor for the action
-    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool animates = true, bool picksUpItems = false)
+    public MoveAction(Vector2Int location, bool costs = true, bool useStair = true, bool picksUpItems = false)
     {
         //Construct me! Assigns caller by default in the base class
         intendedLocation = location;
         this.costs = costs;
         this.useStair = useStair;
-        this.animates = animates;
         this.picksUpItems = picksUpItems;
     }
 
@@ -53,12 +51,7 @@ public class MoveAction : GameAction
             InteractableTile interact = tile as InteractableTile;
             if (interact)
             {
-                GameAction interactAction = new InteractAction(interact);
-                interactAction.Setup(caller);
-                while (interactAction.action.MoveNext())
-                {
-                    yield return interactAction.action.Current;
-                }
+                yield return SubAction(new InteractAction(interact));
                 yield break;
             }
         }
@@ -80,12 +73,7 @@ public class MoveAction : GameAction
         {
             if (caller.GetComponent<Monster>().IsEnemy(tile.currentlyStanding))
             {
-                AttackAction attack = new AttackAction(tile.currentlyStanding);
-                attack.Setup(caller);
-                while (attack.action.MoveNext())
-                {
-                    yield return attack.action.Current;
-                }
+                yield return SubAction(new AttackAction(tile.currentlyStanding));
                 yield break;
             }
             else
@@ -106,11 +94,8 @@ public class MoveAction : GameAction
                     other.energy -= other.energyPerStep * currentTile.movementCost;
                     caller.energy -= caller.energyPerStep * otherTile.movementCost;
 
-                    if (animates && caller.renderer.enabled)
-                    {
-                        AnimationController.AddAnimationForMonster(new MoveAnimation(caller, currentTile.location, otherTile.location), caller);
-                        AnimationController.AddAnimationForMonster(new MoveAnimation(other, otherTile.location, currentTile.location), other);
-                    }
+                    AnimationController.AddAnimationForMonster(new MoveAnimation(caller, currentTile.location, otherTile.location), caller);
+                    AnimationController.AddAnimationForMonster(new MoveAnimation(other, otherTile.location, currentTile.location), other);
                 }
                 else
                 {
@@ -141,39 +126,27 @@ public class MoveAction : GameAction
         //caller.UpdateLOS();
 
         //Add the movement anim
-        if (animates && caller.renderer.enabled)
-        {
-            AnimationController.AddAnimationForMonster(new MoveAnimation(caller, oldLocation, intendedLocation), caller);
-        }
-        else
-        {
-            caller.transform.position = new Vector3(intendedLocation.x, intendedLocation.y, Monster.monsterZPosition);
-        }
+        AnimationController.AddAnimationForMonster(new MoveAnimation(caller, oldLocation, intendedLocation), caller);
 
         caller.connections.OnMove.Invoke();
 
         Stair stair = tile as Stair;
         if (stair && !stair.locked && caller == Player.player && useStair)
         {
-            ChangeLevelAction act = new ChangeLevelAction(stair.up);
-            act.Setup(caller);
-            while (act.action.MoveNext())
-            {
-                yield return act.action.Current;
-            }
+            yield return SubAction(new ChangeLevelAction(stair.up));
             yield return GameAction.AbortAll;
         }
         
         //Logging items found (player only)
         if (picksUpItems)
         {
-            AutoPickupAction action = new AutoPickupAction();
-            action.Setup(caller);
-            while (action.action.MoveNext())
-            {
-                yield return action.action.Current;
-            }
+            yield return SubAction(new AutoPickupAction());
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return $"Move Action to {intendedLocation}";
     }
 
     //Called after construction, but before execution!

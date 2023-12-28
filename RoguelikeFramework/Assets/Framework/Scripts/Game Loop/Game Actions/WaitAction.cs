@@ -27,4 +27,9 @@ public class WaitAction : GameAction
         caller.willSwap = true;
         yield break;
     }
+
+    public override string GetDebugString()
+    {
+        return "Wait Action";
+    }
 }

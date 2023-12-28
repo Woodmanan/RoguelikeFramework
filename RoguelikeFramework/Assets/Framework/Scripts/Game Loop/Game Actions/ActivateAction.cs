@@ -48,12 +48,7 @@ public class ActivateAction : GameAction
             abilityOnActivation.RegenerateStats(caller);
             if (abilityOnActivation.CheckAvailable(caller))
             {
-                AbilityAction castAction = new AbilityAction(abilityOnActivation);
-                castAction.Setup(caller);
-                while (castAction.action.MoveNext())
-                {
-                    yield return castAction.action.Current;
-                }
+                yield return SubAction(new AbilityAction(abilityOnActivation));
             }
             else
             {
@@ -77,6 +72,11 @@ public class ActivateAction : GameAction
                 caller.inventory.RemoveLastItemFromStack(index);
             }
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return $"ActivateAction on index {index}: {caller.inventory[index].held[0].friendlyName}";
     }
 
     //Called after construction, but before execution!

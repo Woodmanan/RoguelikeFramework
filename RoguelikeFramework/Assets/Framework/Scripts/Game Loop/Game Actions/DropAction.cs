@@ -79,6 +79,11 @@ public class DropAction : GameAction
         caller.inventory.GetFloor().Collapse();
     }
 
+    public override string GetDebugString()
+    {
+        return $"Drop Action on indicies: {string.Join(", ", indices.Select(x => x.ToString()))}";
+    }
+
     //Called after construction, but before execution!
     public override void OnSetup()
     {

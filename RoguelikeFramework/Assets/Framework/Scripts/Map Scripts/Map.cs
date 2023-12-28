@@ -70,7 +70,7 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                if (tiles[i, j].dirty)
+                if (tiles[i, j].graphicsDirty)
                 {
                     tiles[i, j].RebuildGraphics();
                 }
@@ -223,7 +223,7 @@ public class Map : MonoBehaviour
     {
         RogueTile tile = GetTile(location);
         if (tile.BlocksMovement()) return false;
-        if (tile.isHidden) return true;
+        if (tile.isPlayerHidden) return true;
 
         //Check the 8 directions!
         for (int i = -1; i <= 1; i++)
@@ -243,30 +243,50 @@ public class Map : MonoBehaviour
                     continue;
                 }
 
-                if (GetTile(newLoc).isHidden) return true;
+                if (GetTile(newLoc).isPlayerHidden) return true;
             }
         }
         return false;
     }
 
-    public void Reveal(Vector2Int loc)
+    public void RevealPlayerVisibility(Vector2Int loc)
     {
         if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
         {
             return;
         }
 
-        tiles[loc.x, loc.y].Reveal();
+        tiles[loc.x, loc.y].SetPlayerVisible();
     }
 
-    public void ClearLOS(Vector2Int loc)
+    public void RevealGraphics(Vector2Int loc)
     {
         if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
         {
             return;
         }
 
-        tiles[loc.x, loc.y].Clear();
+        tiles[loc.x, loc.y].SetGraphicsVisible();
+    }
+
+    public void ClearPlayerVisibility(Vector2Int loc)
+    {
+        if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
+        {
+            return;
+        }
+
+        tiles[loc.x, loc.y].ClearPlayerVisible();
+    }
+
+    public void ClearGraphics(Vector2Int loc)
+    {
+        if (loc.x < 0 || loc.x >= width || loc.y < 0 || loc.y >= height)
+        {
+            return;
+        }
+
+        tiles[loc.x, loc.y].ClearGraphicsVisible();
     }
 
     public bool BlocksSight(Vector2Int loc)

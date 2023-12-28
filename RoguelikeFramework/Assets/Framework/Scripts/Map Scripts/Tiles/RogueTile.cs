@@ -14,10 +14,11 @@ public class RogueTile : MonoBehaviour, IDescribable
 {
     //Stuff that will change a lot, and should be visible
     [Header("Active gameplay elements")]
-    public bool isVisible = false;
-    public bool isHidden = true;
-    public bool dirty = true;
-    private bool setup = false;
+    public Visibility playerVisibility = Visibility.HIDDEN;
+    public Visibility graphicsVisibility = Visibility.HIDDEN;
+    private Visibility oldGraphicsVisibility = Visibility.VISIBLE;
+    public bool graphicsDirty = true;
+    private bool setup = false; 
 
     public Vector2Int location;
 
@@ -31,6 +32,7 @@ public class RogueTile : MonoBehaviour, IDescribable
     public Color color = Color.white;
     public float minGreyAlpha;
     public Monster currentlyStanding;
+    public Monster ghostStanding;
 
     //Floor visualization
     public Inventory inventory;
@@ -78,6 +80,15 @@ public class RogueTile : MonoBehaviour, IDescribable
         itemVis = GetComponent<ItemVisiblity>();
         itemVis.Setup();
 
+        if (blocksVision)
+        {
+            render.sortingOrder = -location.y;
+        }
+        else
+        {
+            render.sortingOrder = -1000;
+        }
+
         RebuildGraphics();
         this.enabled = false;
         setup = true;
@@ -112,18 +123,46 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     }
 
-    public void Reveal()
+    public void SetPlayerVisibility(Visibility newVisibility)
     {
-        isVisible = true;
-        isHidden = false;
-        dirty = true;
+        playerVisibility = newVisibility;
     }
 
-    public void Clear()
+    public void SetPlayerVisible()
     {
-        isVisible = false;
-        dirty = true;
+        playerVisibility |= Visibility.REVEALED | Visibility.VISIBLE;
     }
+
+    public void ClearPlayerVisible()
+    {
+        playerVisibility &= ~Visibility.VISIBLE;
+    }
+
+    public void SetGraphicsVisibility(Visibility newVisibility)
+    {
+        graphicsVisibility = newVisibility;
+        graphicsDirty = true;
+    }
+
+    public void SetGraphicsVisible()
+    {
+        graphicsVisibility |= Visibility.REVEALED | Visibility.VISIBLE;
+        graphicsDirty = true;
+    }
+
+    public void ClearGraphicsVisible()
+    {
+        graphicsVisibility &= ~Visibility.VISIBLE;
+        graphicsDirty = true;
+    }    
+
+    public bool isHidden { get { return graphicsVisibility == Visibility.HIDDEN; } }
+    public bool isRevealed { get { return (graphicsVisibility & Visibility.REVEALED) > 0; } }
+    public bool isVisible { get { return (graphicsVisibility & Visibility.VISIBLE) > 0; } }
+
+    public bool isPlayerHidden { get { return playerVisibility == Visibility.HIDDEN; } }
+    public bool isPlayerRevealed { get { return (playerVisibility & Visibility.REVEALED) > 0; } }
+    public bool isPlayerVisible { get { return (playerVisibility & Visibility.VISIBLE) > 0; } }
 
     public void ClearMonster()
     {
@@ -173,7 +212,7 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     public void RebuildIfDirty()
     {
-        if (dirty)
+        if (graphicsDirty)
         {
             RebuildGraphics();
         }
@@ -181,46 +220,44 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     public void RebuildGraphics()
     {
-        if (isVisible)
+        graphicsDirty = false;
+        if (graphicsVisibility == oldGraphicsVisibility) return;
+
+        switch (graphicsVisibility)
         {
-            if (blocksVision)
-            {
-                render.sortingOrder = -location.y;
-            }
-            else
-            {
-                render.sortingOrder = -1000;
-            }
-            render.color = color;
-            if (render.enabled == false)
-            {
-                render.enabled = true;
-            }
-        }
-        else
-        {
-            //TODO: Item coloring on tiles that are not visible anymore
-            if (!isHidden)
-            {
+            case Visibility.HIDDEN:
+                render.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+                break;
+            case Visibility.REVEALED:
                 float gray = color.grayscale / 2;
                 render.color = new Color(gray, gray, gray, Mathf.Max(minGreyAlpha, color.a));
-            }
-            else
-            {
-                if (render == null)
+                ghostStanding = currentlyStanding;
+                break;
+            case Visibility.VISIBLE:
+            case (Visibility.VISIBLE | Visibility.REVEALED):
+                render.color = color;
+                if (ghostStanding)
                 {
-                    Debug.LogError("Someone didn't do something right!", this);
+                    //If a ghost is seen here, and it's the last time we saw it, make it disappear.
+                    if (Mathf.Approximately(Vector2.Distance(transform.position, ghostStanding.transform.position), 0))
+                    {
+                        ghostStanding.SetGraphicsVisibility(Visibility.HIDDEN);
+                    }
+                    ghostStanding = null;
                 }
-                render.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
-            }
+                break;
+            default:
+                Debug.LogError("Visibility state was not handled.");
+                break;
         }
-        
+
+        oldGraphicsVisibility = graphicsVisibility;
+
         //Let monsters know that this tile has switched
-        currentlyStanding?.SetGraphics(isVisible);
+        //currentlyStanding?.SetGraphics((graphicsVisibility & Visibility.VISIBLE) > 0);
+        currentlyStanding?.SetGraphicsVisibilityOnTile(this);
 
-        itemVis.RebuildVisiblity(isVisible, isHidden);
-
-        dirty = false;
+        itemVis.RebuildVisiblity(graphicsVisibility);
     }
 
     public virtual bool IsInteractable()

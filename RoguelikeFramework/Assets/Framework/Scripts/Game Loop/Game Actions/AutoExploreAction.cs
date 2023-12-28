@@ -15,9 +15,6 @@ public class AutoExploreAction : GameAction
     public override IEnumerator TakeAction()
     {
         Player player = caller as Player;
-        
-        //Push empty action to trick animation system into speeding up
-        InputTracking.PushAction(PlayerAction.NONE);
 
         while (true)
         {
@@ -30,25 +27,14 @@ public class AutoExploreAction : GameAction
             { //Check for auto actions before true exploration starts
 
                 //Rest action first!
-                GameAction restAct = new RestAction();
-                restAct.Setup(caller);
-                while (restAct.action.MoveNext())
-                {
-                    yield return restAct.action.Current;
-                }
+                yield return SubAction(new RestAction());
 
                 //Check for any items about
                 Item priorityItem = GetNextPriorityItem();
                 if (priorityItem != null)
                 {
-                    GameAction autoPickupAction = new AutoPickupAction(priorityItem);
-                    autoPickupAction.Setup(caller);
-                    while (autoPickupAction.action.MoveNext())
-                    {
-                        yield return autoPickupAction.action.Current;
-                    }
+                    yield return SubAction(new AutoPickupAction(priorityItem));
                 }
-
             }
             
 
@@ -68,7 +54,7 @@ public class AutoExploreAction : GameAction
 
             if (goals.Count == 0)
             {
-                RogueLog.singleton.Log("There's nothing else to explore!", null, LogPriority.IMPORTANT, LogDisplay.STANDARD);
+                RogueLog.singleton.Log("There's nothing else to explore!", null, LogPriority.IMPORTANT);
 
                 yield break;
             }
@@ -100,15 +86,10 @@ public class AutoExploreAction : GameAction
                     yield break;
                 }
                 Vector2Int next = path.Pop();
-                MoveAction act = new MoveAction(next, true, false);
 
                 caller.UpdateLOS();
 
-                act.Setup(caller);
-                while (act.action.MoveNext())
-                {
-                    yield return act.action.Current;
-                }
+                yield return SubAction(new MoveAction(next, true, false));
                 
                 //Check for player escape
                 if (InputTracking.NumOfUnmatchedActions(PlayerAction.NONE, PlayerAction.AUTO_EXPLORE) > 0)
@@ -128,12 +109,7 @@ public class AutoExploreAction : GameAction
                 Item priorityItem = GetNextPriorityItem();
                 if (priorityItem != null)
                 {
-                    GameAction autoPickupAction = new AutoPickupAction(priorityItem);
-                    autoPickupAction.Setup(caller);
-                    while (autoPickupAction.action.MoveNext())
-                    {
-                        yield return autoPickupAction.action.Current;
-                    }
+                    yield return SubAction(new AutoPickupAction(priorityItem));
                     break;
                 }
 
@@ -164,7 +140,10 @@ public class AutoExploreAction : GameAction
         return null;
     }
 
-    
+    public override string GetDebugString()
+    {
+        return "Auto Explore Action";
+    }
 
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.

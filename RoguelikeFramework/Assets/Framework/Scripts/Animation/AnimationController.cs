@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /*
  * Animation System
@@ -40,11 +41,11 @@ public class AnimGroup
         }
     }
 
-    public void StepAll()
+    public void StepAll(float animationSpeed)
     {
         for (int i = 0; i < animations.Count; i++)
         {
-            animations[i].Step(Time.deltaTime);
+            animations[i].Step(animationSpeed);
         }
 
         for (int i = animations.Count - 1; i >= 0; i--)
@@ -78,9 +79,20 @@ public class AnimGroup
     }
 }
 
+[System.Serializable]
+public struct AnimationSpeed
+{
+    public int groupCount;
+    public int inputCount;
+    public float speed;
+}
+
 public class AnimationController : MonoBehaviour
 {
     private static List<AnimGroup> animations;
+    public List<AnimationSpeed> speeds;
+    public float flushSpeed;
+    public static float animationSpeed;
 
     //The last animation group is considered "in progress" - it's the only modifiable one
     private static AnimGroup workingGroup
@@ -117,6 +129,16 @@ public class AnimationController : MonoBehaviour
     {
         get { return animations.Count > 0; }
     }
+
+    public static int numGroups
+    {
+        get { return animations.Count; }
+    }
+
+    public static int GetNumAnimsInGroup(int index)
+    {
+        return animations[index].animations.Count;
+    }
     
     public static void PushNewAnimGroup()
     {
@@ -125,12 +147,15 @@ public class AnimationController : MonoBehaviour
 
     public static void AddAnimation(RogueAnimation anim)
     {
-        workingGroup.AddAnim(anim);
+        if (anim.IsVisible())
+        {
+            workingGroup.AddAnim(anim);
+        }
     }
 
     public static void AddAnimationForMonster(RogueAnimation anim, Monster monster, params Monster[] secondary)
     {
-        if (monster.renderer.enabled && monster.currentTile != null && monster.currentTile.isVisible)
+        if (anim.IsVisible())
         {
             AddAnimationForObject(anim, monster);
             foreach (Monster blocked in secondary)
@@ -142,38 +167,56 @@ public class AnimationController : MonoBehaviour
 
     public static void AddAnimationForObject(RogueAnimation anim, Object pairedObject)
     {
-        if (!workingGroup.CanAddAnimForObject(pairedObject))
+        if (anim.IsVisible())
         {
-            PushNewAnimGroup();
+            if (!workingGroup.CanAddAnimForObject(pairedObject))
+            {
+                PushNewAnimGroup();
+            }
+            workingGroup.AddAnim(anim, pairedObject);
         }
-        workingGroup.AddAnim(anim, pairedObject);
     }
 
     public static void AddAnimationSolo(RogueAnimation anim)
     {
-        BeginSoloGroup();
-        workingGroup.AddAnim(anim);
-        EndSoloGroup();
+        if (anim.IsVisible())
+        {
+            BeginSoloGroup();
+            workingGroup.AddAnim(anim);
+            EndSoloGroup();
+        }
     }
 
     public static void AddAnimationSolo(params RogueAnimation[] anims)
     {
-        BeginSoloGroup();
-        foreach (RogueAnimation anim in anims)
+        if (anims.Any(x => x.IsVisible()))
         {
-            workingGroup.AddAnim(anim);
+            BeginSoloGroup();
+            foreach (RogueAnimation anim in anims)
+            {
+                if (anim.IsVisible())
+                {
+                    workingGroup.AddAnim(anim);
+                }
+            }
+            EndSoloGroup();
         }
-        EndSoloGroup();
     }
 
     public static void AddAnimationSolo(List<RogueAnimation> anims)
     {
-        BeginSoloGroup();
-        foreach (RogueAnimation anim in anims)
+        if (anims.Any(x => x.IsVisible()))
         {
-            workingGroup.AddAnim(anim);
+            BeginSoloGroup();
+            foreach (RogueAnimation anim in anims)
+            {
+                if (anim.IsVisible())
+                {
+                    workingGroup.AddAnim(anim);
+                }
+            }
+            EndSoloGroup();
         }
-        EndSoloGroup();
     }
 
     public static void BeginSoloGroup()
@@ -202,11 +245,11 @@ public class AnimationController : MonoBehaviour
         animations.RemoveAt(0);
     }
 
-    public static void StepAnimations()
+    public static void StepAnimations(float animationSpeed)
     {
         if (hasAnimations)
         {
-            activeGroup.StepAll();
+            activeGroup.StepAll(animationSpeed * Time.deltaTime);
             if (activeGroup.isEmpty)
             {
                 MoveToNextGroup();
@@ -223,25 +266,45 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    public static void FlushSingleAnimation()
+    {
+        if (hasAnimations)
+        {
+            activeGroup.Flush();
+        }    
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
         animations = new List<AnimGroup>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale = Mathf.Min(16, 1.0f * Mathf.Pow(1.5f, animations.Count) * Mathf.Pow(2f, InputTracking.actions.Count));
+        int inputCount = InputTracking.actions.Count;
+        int animationCount = animations.Count;
 
-        if (Time.timeScale > 10)
+        animationSpeed = 1;
+
+        for (int i = 0; i < speeds.Count; i++)
         {
-            Flush();
-            Time.timeScale = 10;
+            if (inputCount >= speeds[i].inputCount || animationCount >= speeds[i].groupCount)
+            {
+                animationSpeed = speeds[i].speed;
+            }
         }
 
-        StepAnimations();
+        if (animationSpeed < flushSpeed)
+        {
+            StepAnimations(animationSpeed);
+        }
+        else
+        {
+            FlushSingleAnimation();
+        }
+        
     }
 }

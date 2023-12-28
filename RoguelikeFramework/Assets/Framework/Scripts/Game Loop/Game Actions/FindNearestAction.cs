@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class FindNearestAction : GameAction
 {
@@ -39,7 +40,6 @@ public class FindNearestAction : GameAction
         while (path.Count() > 0)
         {
             Vector2Int next = path.Pop();
-            MoveAction act = new MoveAction(next);
 
             caller.UpdateLOS();
 
@@ -49,16 +49,17 @@ public class FindNearestAction : GameAction
                 yield break;
             }
 
-            act.Setup(caller);
-            while (act.action.MoveNext())
-            {
-                yield return act.action.Current;
-            }
+            yield return SubAction(new MoveAction(next));
 
             //yield return new WaitForSeconds(.05f);
 
             yield return GameAction.StateCheck;
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return $"Drop Action on indicies: {string.Join(", ", goals.Select(x => $"({x.x},{x.y})"))}";
     }
 
     //Called after construction, but before execution!

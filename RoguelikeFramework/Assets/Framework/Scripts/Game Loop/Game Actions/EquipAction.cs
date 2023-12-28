@@ -58,30 +58,26 @@ public class EquipAction : GameAction
         ItemStack item = caller.inventory[itemIndex];
         if (item.held[0].equipable.isEquipped)
         {
-            RemoveAction remove = new RemoveAction(item);
-            remove.Setup(caller);
-            while (remove.action.MoveNext())
-            {
-                yield return remove.action.Current;
-            }
+            yield return SubAction(new RemoveAction(item));
         }
 
         if (neededSlots.Count > 0)
         {
             //We need to remove those slots!
-            RemoveAction remove = new RemoveAction(neededSlots);
-            remove.Setup(caller);
-            while (remove.action.MoveNext())
-            {
-                yield return remove.action.Current;
-            }
+            yield return SubAction(new RemoveAction(neededSlots));
         }
 
         //We can now Equip!
         //TODO: Make this energy cost item dependent
         caller.equipment.Equip(itemIndex, equipIndex);
         caller.energy -= 100;
+    }
 
+    public override string GetDebugString()
+    {
+        Item item = caller.inventory[itemIndex].held[0];
+        EquipmentSlot slot = caller.equipment.equipmentSlots[equipIndex];
+        return $"Equip Action: Equiping index {itemIndex}:{item.friendlyName} to slot {equipIndex}: {slot.slotName}";
     }
 
     //Called after construction, but before execution!

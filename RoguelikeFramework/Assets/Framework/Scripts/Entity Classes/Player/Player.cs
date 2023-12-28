@@ -47,9 +47,9 @@ public class Player : Monster
     //Special case, because it affects the world around it through the player's view.
     public override void UpdateLOS()
     {
-        view = LOS.GeneratePlayerLOS(Map.current, location, visionRadius);
-        view.CollectEntities(Map.current, this);
-        UpdateLOSPostCollection();
+        base.UpdateLOS();
+        LOS.WritePlayerLOS();
+        AnimationController.AddAnimationForMonster(new PlayerLOSAnimation(this), this);
     }
 
     public override int XPTillNextLevel()
@@ -92,7 +92,7 @@ public class Player : Monster
 
     public override void OnLevelUp()
     {
-        RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.IMPORTANT, display: LogDisplay.STANDARD);
+        RogueLog.singleton.Log("You level up!", this.gameObject, LogPriority.IMPORTANT);
     }
 
     protected override void Die(Monster killer)

@@ -18,19 +18,18 @@ public class AutoAttackAction : GameAction
     {
         if (target)
         {
-            GameAction act = new PathfindAction(target.location);
-            act.Setup(caller);
-            
-            while (act.action.MoveNext())
-            {
-                yield return act.action.Current;
-            }
+            yield return SubAction(new PathfindAction(target.location));
         }
         else
         {
             Debug.Log("Console (player only): Can't auto-fight with no enemies in sight!");
             yield break;
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return $"Auto Attack action : {target}";
     }
 
     //Called after construction, but before execution!

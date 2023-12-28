@@ -15,6 +15,14 @@ public enum Direction
     SOUTH_EAST
 }
 
+[System.Flags]
+public enum Visibility : Byte
+{
+    HIDDEN = 0,
+    REVEALED = 1 << 0,
+    VISIBLE = 1 << 1
+}
+
 /*
  * Different types of space:
  * 1. Chebyshev: 8 way movement

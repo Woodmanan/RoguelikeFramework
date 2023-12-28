@@ -136,6 +136,11 @@ public class RangedAttackAction : AttackAction
         }
     }
 
+    public override string GetDebugString()
+    {
+        return "Ranged attack action";
+    }
+
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()

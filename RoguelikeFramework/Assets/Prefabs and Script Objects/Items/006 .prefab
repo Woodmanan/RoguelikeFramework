@@ -107,8 +107,9 @@ MonoBehaviour:
   ID: 7
   stackable: 1
   tags:
-    _keys: []
-    _vals: 
+    _keys:
+    - name: Item.Consumable
+    _vals: 01000000
   color: {r: 0.68301886, g: 0.8384018, b: 1, a: 1}
   location: {x: 45, y: 91}
   held: 0

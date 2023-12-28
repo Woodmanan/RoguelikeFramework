@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     [Header("Runtime variables")]
     //Constant variables: change depending on runtime!
     public float turnMSPerFrame = 5;
+    public bool waitForAnimations;
     
     public int turn;
 
@@ -109,6 +110,7 @@ public class GameController : MonoBehaviour
         //1 Frame pause to set up LOS
         yield return null;
         player.UpdateLOS();
+        LOS.WritePlayerGraphics();
         //LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
 
         //Monster setup, before the loop starts
@@ -165,11 +167,12 @@ public class GameController : MonoBehaviour
                 player.EndTurn();
             }
 
-
-            watch.Restart();
-            monsterWatch.Start();
+            if (waitForAnimations)
+            {
+                watch.Restart();
+                monsterWatch.Start();
+            }
             int splits = 1;
-            long current = monsterWatch.ElapsedMilliseconds;
             for (int i = 0; i < Map.current.monsters.Count; i++)
             {
                 //Local scope counter for stalling - prevent a monster from taking > 1000 sub-turns
@@ -232,16 +235,20 @@ public class GameController : MonoBehaviour
                     m.EndTurn();
                 }
             }
-
-            watch.Stop();
-            monsterWatch.Stop();
             
             CallTurnEndGlobal();
 
             turn++;
 
             //Wait for current frame to finish up
-            while (AnimationController.Count > 0)
+            if (waitForAnimations)
+            {
+                while (AnimationController.Count > 0)
+                {
+                    yield return null;
+                }
+            }
+            else
             {
                 yield return null;
             }
@@ -260,6 +267,7 @@ public class GameController : MonoBehaviour
 
             if (nextLevel != -1)
             {
+                yield return new WaitUntil(() => !AnimationController.hasAnimations);
                 MoveLevel();
             }
         }
@@ -354,11 +362,10 @@ public class GameController : MonoBehaviour
 
         nextLevel = -1;
 
-        LOS.lastCall.Deprint(old);
-        LOS.lastCall = null;
+        LOS.ClearAllLevelLOS(old);
         CameraTracking.singleton.JumpToPlayer();
-        LOS.GeneratePlayerLOS(Map.current, player.location, player.visionRadius);
-
+        player.UpdateLOS();
+        LOS.WritePlayerGraphics(Map.current, player.location, player.visionRadius);
     }
 
     public void CallTurnEndGlobal()

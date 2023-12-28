@@ -34,6 +34,12 @@ public class InteractAction : GameAction
         {
             yield return interactAction.Current;
         }
+        
+    }
+
+    public override string GetDebugString()
+    {
+        return $"Interact Action: {tile.name} at {tile.location}";
     }
 
     //Called after construction, but before execution!

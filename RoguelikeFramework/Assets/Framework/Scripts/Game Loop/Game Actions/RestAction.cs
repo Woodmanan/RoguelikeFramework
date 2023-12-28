@@ -20,32 +20,31 @@ public class RestAction : GameAction
             yield break;
         }
 
-        while (true)
+        while (!ReadyToStop())
         {
-
             if (caller.view.visibleEnemies.Count > 0)
             {
                 Debug.Log("Log: You cannot rest while enemies are in sight.");
                 yield break;
             }
 
-            //yield return null;
-
-            GameAction act = new WaitAction();
-            act.Setup(caller);
-            while (act.action.MoveNext())
+            //Check for player escape
+            if (InputTracking.NumOfUnmatchedActions(PlayerAction.NONE, PlayerAction.AUTO_EXPLORE) > 0)
             {
-                yield return act.action.Current;
+                InputTracking.Clear();
+                yield return GameAction.AbortAll;
             }
 
-            if (ReadyToStop())
-            {
-                Debug.Log("Console: You finish resting.");
-                yield break;
-            }
-
+            yield return SubAction(new WaitAction());
             yield return GameAction.StateCheck;
         }
+
+        Debug.Log("Console: You finish resting.");
+    }
+
+    public override string GetDebugString()
+    {
+        return "Rest Action";
     }
 
     //Called after construction, but before execution!

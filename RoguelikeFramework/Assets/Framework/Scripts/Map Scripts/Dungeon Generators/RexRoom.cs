@@ -65,9 +65,19 @@ public class RexRoom : Room
     public override int GetValueAt(int x, int y)
     {
         //Reorient for possible flips
-        Reorient(ref x, ref y);
+        Vector2Int dataPosition = Reorient(x, y);
 
-        char c = (char)image.Layers[0][x, y].Character;
+        if (dataPosition.x < 0 || dataPosition.x >= image.Layers[0].Width)
+        {
+            Debug.LogError("X");
+        }
+
+        if (dataPosition.y < 0 || dataPosition.y >= image.Layers[0].Height)
+        {
+            Debug.LogError("Y");
+        }
+
+        char c = (char)image.Layers[0][dataPosition.x, dataPosition.y].Character;
         if (conversionDict.ContainsKey(c))
         {
             return 1;
@@ -112,24 +122,29 @@ public class RexRoom : Room
 
     public override IEnumerator PostActivation(Map map, DungeonGenerator generator)
     {
+        Vector2Int adjustedSize = GetSize();
+
         //Perform floor overrides first
-        for (int i = 0; i < size.x; i++)
+        for (int i = 0; i < adjustedSize.x; i++)
         {
-            for (int j = 0; j < size.y; j++)
+            for (int j = 0; j < adjustedSize.y; j++)
             {
+                Vector2Int localPosition = new Vector2Int(i, j);
+                Vector2Int worldPosition = localPosition + start;
+                Vector2Int dataPosition = Reorient(localPosition);
+
                 Replacement r;
-                if (conversionDict.TryGetValue((char)image.Layers[0][i, j].Character, out r))
+                if (conversionDict.TryGetValue((char)image.Layers[0][dataPosition.x, dataPosition.y].Character, out r))
                 {
                     switch (r.option)
                     { 
                         case ReplacementOption.TILE:
-                            Vector2Int orientedPosition = OrientedPosition(i, j);
                             RogueTile tile = Instantiate(r.replacement).GetComponent<RogueTile>();
-                            RogueTile toReplace = map.GetTile(start + orientedPosition);
+                            RogueTile toReplace = map.GetTile(worldPosition);
                             tile.gameObject.name = toReplace.gameObject.name;
                             tile.location = toReplace.location;
                             Transform parent = toReplace.transform.parent;
-                            map.tiles[start.x + orientedPosition.x, start.y + orientedPosition.y] = tile;
+                            map.tiles[worldPosition.x, worldPosition.y] = tile;
                             Destroy(toReplace.gameObject);
                             tile.transform.parent = parent;
                             tile.transform.position = new Vector3(tile.location.x, tile.location.y, 0);
@@ -168,14 +183,18 @@ public class RexRoom : Room
                 }
             }
 
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < adjustedSize.x; i++)
             {
-                for (int j = 0; j < size.y; j++)
+                for (int j = 0; j < adjustedSize.y; j++)
                 {
-                    if (!image.Layers[1][i,j].IsTransparent())
+                    Vector2Int localPosition = new Vector2Int(i, j);
+                    Vector2Int worldPosition = localPosition + start;
+                    Vector2Int dataPosition = Reorient(localPosition);
+
+                    if (!image.Layers[1][dataPosition.x, dataPosition.y].IsTransparent())
                     {
                         Replacement r;
-                        if (conversionDict.TryGetValue((char)image.Layers[1][i, j].Character, out r))
+                        if (conversionDict.TryGetValue((char)image.Layers[1][dataPosition.x, dataPosition.y].Character, out r))
                         {
 
                             if (r.option == ReplacementOption.SINGLE_ITEM)
@@ -186,11 +205,16 @@ public class RexRoom : Room
                                     continue;
                                 }
                                 Item item = r.replacement.GetComponent<Item>().Instantiate();
-                                Vector2Int pos = start + OrientedPosition(i, j);
 
                                 //Place it in the world
                                 item.transform.parent = map.itemContainer;
-                                map.GetTile(pos).inventory.Add(item);
+                                if (map.GetTile(worldPosition).BlocksMovement())
+                                {
+                                    Debug.LogError("RexRoom tried to place an object in a wall. Wut?");
+                                    yield break;
+                                }
+
+                                map.GetTile(worldPosition).inventory.Add(item);
                                 yield return null;
                             }
                             else
@@ -212,9 +236,8 @@ public class RexRoom : Room
                                 }
 
                                 //Place item into world.
-                                Vector2Int pos = start + OrientedPosition(i, j);
                                 item.transform.parent = map.itemContainer;
-                                map.GetTile(pos).inventory.Add(item);
+                                map.GetTile(worldPosition).inventory.Add(item);
                                 yield return null;
 
                                 if (r.allSame)
@@ -243,14 +266,18 @@ public class RexRoom : Room
                 }
             }
 
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < adjustedSize.x; i++)
             {
-                for (int j = 0; j < size.y; j++)
+                for (int j = 0; j < adjustedSize.y; j++)
                 {
-                    if (!image.Layers[2][i, j].IsTransparent())
+                    Vector2Int localPosition = new Vector2Int(i, j);
+                    Vector2Int worldPosition = localPosition + start;
+                    Vector2Int dataPosition = Reorient(localPosition);
+
+                    if (!image.Layers[2][dataPosition.x, dataPosition.y].IsTransparent())
                     {
                         Replacement r;
-                        if (conversionDict.TryGetValue((char)image.Layers[2][i, j].Character, out r))
+                        if (conversionDict.TryGetValue((char)image.Layers[2][dataPosition.x, dataPosition.y].Character, out r))
                         {
                             if (r == null)
                             {
@@ -264,14 +291,13 @@ public class RexRoom : Room
                                     continue;
                                 }
                                 Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
-                                Vector2Int pos = start + OrientedPosition(i, j);
 
                                 //Place it in the world
                                 monster.transform.parent = map.monsterContainer;
                                 map.monsters.Add(monster);
-                                monster.location = pos;
-                                map.GetTile(pos).SetMonster(monster);
-                                monster.currentTile = map.GetTile(pos);
+                                monster.location = worldPosition;
+                                map.GetTile(worldPosition).SetMonster(monster);
+                                monster.currentTile = map.GetTile(worldPosition);
                                 monster.transform.parent = map.monsterContainer;
                                 monster.level = map.depth;
                                 monster.Setup();
@@ -291,12 +317,10 @@ public class RexRoom : Room
                                 Monster monster = pool.RandomMonsterByDepth(map.depth);
 
                                 //Place item into world.
-                                Vector2Int pos = start + OrientedPosition(i, j);
-
                                 map.monsters.Add(monster);
-                                monster.location = pos;
-                                map.GetTile(pos).SetMonster(monster);
-                                monster.currentTile = map.GetTile(pos);
+                                monster.location = worldPosition;
+                                map.GetTile(worldPosition).SetMonster(monster);
+                                monster.currentTile = map.GetTile(worldPosition);
                                 monster.transform.parent = map.monsterContainer;
 
                                 yield return null;
@@ -331,20 +355,26 @@ public class RexRoom : Room
         if ((appliedOrientation & OrientOption.ROT_90) > 0)
         {
             int hold = x;
-            x = (size.x - 1) - y;
+            x = (size.y - 1) - y;
             y = hold;
         }
 
         return new Vector2Int(x, y);
     }
 
-    public void Reorient(ref int x, ref int y)
+    public Vector2Int Reorient(Vector2Int localPosition)
     {
+        return Reorient(localPosition.x, localPosition.y);
+    }
+
+    public Vector2Int Reorient(int x, int y)
+    {
+        Vector2Int rotSize = GetSize();
         //Inputs will be asking in switched form - convert back to regular transform
         if ((appliedOrientation & OrientOption.ROT_90) > 0)
         {
             int hold = x;
-            x = (size.x - 1) - y;
+            x = (rotSize.y - 1) - y;
             y = hold;
         }
 
@@ -357,6 +387,8 @@ public class RexRoom : Room
         {
             y = (size.y - 1) - y;
         }
+
+        return new Vector2Int(x, y);
     }
 
 

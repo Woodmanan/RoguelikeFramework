@@ -26,9 +26,20 @@ public class MonsterAI : ActionController
     public Monster leader;
     PriorityQueue<int> choices = new PriorityQueue<int>(20);
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public bool debugFreezeMonster = false;
+#else
+    const bool debugFreezeMonster = false;
+#endif
+
     //The main loop for monster AI! This assumes 
     public override IEnumerator DetermineAction()
     {
+        if (debugFreezeMonster)
+        {
+            nextAction = new WaitAction();
+            yield break;
+        }
 
         if (monster.view == null)
         {

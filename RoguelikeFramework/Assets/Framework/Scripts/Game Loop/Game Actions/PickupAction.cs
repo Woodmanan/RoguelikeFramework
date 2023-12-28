@@ -60,6 +60,11 @@ public class PickupAction : GameAction
         caller.inventory.GetFloor().Collapse();
     }
 
+    public override string GetDebugString()
+    {
+        return $"Pickup Action on indicies: {string.Join(", ", indices.Select(x => x.ToString()))}";
+    }
+
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()

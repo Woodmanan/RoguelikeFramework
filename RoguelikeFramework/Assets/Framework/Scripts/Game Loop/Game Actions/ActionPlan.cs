@@ -24,17 +24,24 @@ public class ActionPlan : GameAction
     {
         for (int i = 0; i < actions.Count; i++)
         {
-            actions[i].Setup(caller);
-            while (actions[i].action.MoveNext())
-            {
-                yield return actions[i].action.Current;
-            }
+            GameAction subAction = actions[i];
+            yield return SubAction(subAction);
 
             if (!actions[i].successful)
             {
                 yield return GameAction.Abort;
             }
         }
+    }
+
+    public override string GetDebugString()
+    {
+        string outputString = $"Action Plan with {actions.Count} actions:";
+        foreach (GameAction action in actions)
+        {
+            outputString += $"\n\t{action.GetDebugString()}";
+        }
+        return outputString;
     }
 
     //Called after construction, but before execution!

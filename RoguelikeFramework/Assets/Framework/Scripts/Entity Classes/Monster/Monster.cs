@@ -70,7 +70,7 @@ public class Monster : MonoBehaviour, IDescribable
     public SpriteRenderer renderer;
     public List<GameObject> FXObjects;
 
-    public GameAction currentAction;
+    public List<GameAction> actionStack;
     public RogueTile currentTile;
 
     private bool setup = false;
@@ -81,9 +81,9 @@ public class Monster : MonoBehaviour, IDescribable
     public int XPFromKill;
     public int level;
 
-    private bool spriteDir;
-
     bool dead = false;
+
+    public Visibility graphicsVisibility;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -102,6 +102,8 @@ public class Monster : MonoBehaviour, IDescribable
 
         renderer = GetComponent<SpriteRenderer>();
 
+        actionStack = new List<GameAction>(4);
+
         connections = new Connections(this);
         baseStats[HEALTH] = baseStats[MAX_HEALTH];
         baseStats[MANA] = baseStats[MAX_MANA];
@@ -113,8 +115,6 @@ public class Monster : MonoBehaviour, IDescribable
         inventory?.Setup();
         equipment?.Setup();
         controller?.Setup();
-
-        spriteDir = GetComponent<SpriteRenderer>().flipX;
 
         AddEffectInstantiate(baseEffects.ToArray());
 
@@ -138,6 +138,7 @@ public class Monster : MonoBehaviour, IDescribable
         //Put us in that space, and build our initial LOS
         transform.position = new Vector3(location.x, location.y, monsterZPosition);
         SetPosition(map, location);
+        ForceGraphicsVisibility(currentTile.graphicsVisibility);
         UpdateLOS(map);
     }
 
@@ -442,7 +443,7 @@ public class Monster : MonoBehaviour, IDescribable
         UpdateLOS(Map.current);
     }
 
-    public virtual void UpdateLOS(Map map)
+    public void UpdateLOS(Map map)
     {
         this.view = LOS.LosAt(map, location, visionRadius);
         UpdateLOSPreCollection();
@@ -517,19 +518,25 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void SetAction(GameAction act)
     {
-        if (currentAction != null)
+        if (act == null)
         {
-            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({this.currentAction.GetType()}). Try SetActionOverride isntead!", this);
+            Debug.LogError("Can't SetAction with a null action!");
+            return;
         }
-        currentAction = act;
-        currentAction.Setup(this);
+        if (actionStack.Count > 0)
+        {
+            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({actionStack[0].GetType()}). Try SetActionOverride isntead!", this);
+            actionStack.Clear();
+        }
+        actionStack.Add(act);
+        actionStack[0].Setup(this);
     }
 
     //Currently identical, but split up to cover edge cases that might arise
     public void SetActionOverride(GameAction act)
     {
-        currentAction = act;
-        currentAction.Setup(this);
+        actionStack.Clear();
+        SetAction(act);
     }
 
     public virtual IEnumerator DetermineAction()
@@ -560,6 +567,7 @@ public class Monster : MonoBehaviour, IDescribable
     //Takes the local turn
     public IEnumerator LocalTurn()
     {
+        GameAction currentAction = GetBottomOfActionStack();
         if (view.visibleEnemies.Count > 0)
         {
             if (currentAction != null && currentAction.checksOnVisible && !currentAction.hasPreventedStop)
@@ -578,10 +586,12 @@ public class Monster : MonoBehaviour, IDescribable
             if (currentAction != null && currentAction.stopsOnVisible && !currentAction.hasPreventedStop)
             {
                 currentAction = null;
+                actionStack.Clear();
             }
         }
         while (energy > 0)
         {
+            currentAction = GetBottomOfActionStack();
             if (currentAction == null)
             {
                 IEnumerator actionDecision = DetermineAction();
@@ -589,6 +599,8 @@ public class Monster : MonoBehaviour, IDescribable
                 {
                     yield return actionDecision.Current;
                 }
+
+                currentAction = GetBottomOfActionStack();
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 //Expensive and unnessecary check, done in Editor only
@@ -618,14 +630,13 @@ public class Monster : MonoBehaviour, IDescribable
                 {
                     currentAction.successful = false;
                     currentAction.finished = true;
+                    actionStack.Clear();
                     break;
                 }
+                currentAction = GetBottomOfActionStack();
             }
 
-            if (currentAction.finished)
-            {
-                currentAction = null;
-            }
+            currentAction = GetBottomOfActionStack();
         }
     }
 
@@ -718,14 +729,14 @@ public class Monster : MonoBehaviour, IDescribable
         currentTile = map.GetTile(location);
         currentTile.SetMonster(this);
 
-        if (currentTile.isVisible)
+        /*if (currentTile.isVisible)
         {
             SetGraphics(true);
         }
         else
         {
             SetGraphics(false);
-        }
+        }*/
     }
 
     public void SetPositionNoGraphicsUpdate(Vector2Int newPosition)
@@ -804,6 +815,8 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void SetGraphics(bool state)
     {
+        renderer.enabled = true;
+        return;
         renderer.enabled = state;
         foreach (GameObject g in FXObjects)
         {
@@ -927,5 +940,76 @@ public class Monster : MonoBehaviour, IDescribable
                 effects[i].Disconnect();
             }
         }
+    }
+
+    public void AddSubAction(GameAction action)
+    {
+        actionStack.Add(action);
+    }
+
+    private GameAction GetBottomOfActionStack()
+    {
+        for (int i = actionStack.Count - 1; i >= 0; i--)
+        {
+            if (actionStack[i].finished || actionStack[i] == null)
+            {
+                actionStack.RemoveAt(i);
+            }
+            else
+            {
+                return actionStack[i];
+            }
+        }
+        return null;
+    }
+
+    public string GetActionDebug()
+    {
+        string debugString = "";
+        for (int i = 0; i < actionStack.Count; i++)
+        {
+            debugString += actionStack[i].GetDebugString() + "\n";
+        }
+        return debugString;
+    }
+
+    public Visibility playerVisibility
+    {
+        get { return currentTile.playerVisibility; }
+    }
+
+    public void ForceGraphicsVisibility(Visibility newVisibility)
+    {
+        graphicsVisibility = ~newVisibility;
+        SetGraphicsVisibility(newVisibility);
+    }
+
+    public void SetGraphicsVisibilityOnTile(RogueTile tile)
+    {
+        transform.position = new Vector3(tile.location.x, tile.location.y, monsterZPosition);
+        SetGraphicsVisibility(tile.graphicsVisibility);
+    }
+
+    public void SetGraphicsVisibility(Visibility newVisibility)
+    {
+        if (newVisibility == graphicsVisibility) return;
+
+        switch (newVisibility)
+        {
+            case Visibility.HIDDEN:
+                renderer.enabled = false;
+                break;
+            case Visibility.REVEALED:
+                renderer.enabled = true;
+                renderer.color = new Color(0.3f, 0.3f, 0.3f);
+                break;
+            case Visibility.VISIBLE:
+            case (Visibility.VISIBLE | Visibility.REVEALED):
+                renderer.enabled = true;
+                renderer.color = Color.white;
+                break;
+        }
+
+        graphicsVisibility = newVisibility;
     }
 }

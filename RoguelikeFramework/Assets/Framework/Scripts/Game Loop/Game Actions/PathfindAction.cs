@@ -59,11 +59,7 @@ public class PathfindAction : GameAction
                 yield break;
             }
 
-            act.Setup(caller);
-            while (act.action.MoveNext())
-            {
-                yield return act.action.Current;
-            }
+            yield return SubAction(act);
             firstTurn = false;
 
             //If we didn't move, we fought or interacted. Rebuild if we still think there's somewhere to go.
@@ -76,6 +72,11 @@ public class PathfindAction : GameAction
 
             yield return GameAction.StateCheck;
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return $"Pathfind Action to {goal}";
     }
 
     //Called after construction, but before execution!

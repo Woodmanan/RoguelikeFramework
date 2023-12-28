@@ -304,9 +304,8 @@ public class CheatsPanel : RogueUIPanel
         {
             for (int x = 0; x < map.width; x++)
             {
-                map.GetTile(x, y).isVisible = true;
-                map.GetTile(x, y).isHidden = false;
-                map.GetTile(x, y).dirty = true;
+                map.GetTile(x, y).SetGraphicsVisible();
+                map.GetTile(x, y).SetPlayerVisible();
             }
         }
     }
@@ -369,18 +368,19 @@ public class CheatsPanel : RogueUIPanel
         int index = LevelLoader.singleton.GetIndexOf(levelName);
         if (index >= 0)
         {
-            LOS.lastCall.Deprint(Map.current);
+            LOS.lastCall.DeprintGraphics(Map.current);
             GameController.singleton.LoadMap(index);
             Player.player.transform.parent = Map.current.monsterContainer;
             Player.player.SetPositionSnap(Map.current.GetRandomWalkableTile());
             
             LOS.lastCall = null;
             CameraTracking.singleton.JumpToPlayer();
-            LOS.GeneratePlayerLOS(Map.current, Player.player.location, Player.player.visionRadius);
+            Player.player.UpdateLOS();
+            LOS.WritePlayerGraphics(Map.current, Player.player.location, Player.player.visionRadius);
         }
         else
         {
-            RogueLog.singleton.Log($"Could not move to level {levelName}, as it does not exist.", priority: LogPriority.IMPORTANT, display: LogDisplay.ABILITY);
+            RogueLog.singleton.Log($"Could not move to level {levelName}, as it does not exist.", priority: LogPriority.IMPORTANT);
         }    
     }
 
@@ -524,6 +524,19 @@ public class CheatsPanel : RogueUIPanel
         }
 
         return options;
+    }
+
+    [Cheat]
+    public void FreezeMonsters()
+    {
+        foreach (Monster monster in Map.current.monsters)
+        {
+            MonsterAI ai = monster.GetComponent<MonsterAI>();
+            if (ai)
+            {
+                ai.debugFreezeMonster = !ai.debugFreezeMonster;
+            }
+        }
     }
 
 #endif

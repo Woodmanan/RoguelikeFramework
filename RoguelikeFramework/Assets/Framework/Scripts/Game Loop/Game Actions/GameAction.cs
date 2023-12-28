@@ -88,6 +88,18 @@ public class GameAction
 
     }
 
+    public virtual string GetDebugString()
+    {
+        return "No Debug String";
+    }
+
+    protected YieldInstruction SubAction(GameAction action)
+    {
+        action.Setup(caller);
+        caller.AddSubAction(action);
+        return null;
+    }
+
     public static bool IsSpecialInstruction(YieldInstruction instruction)
     {
         return instruction != GameAction.StateCheck &&

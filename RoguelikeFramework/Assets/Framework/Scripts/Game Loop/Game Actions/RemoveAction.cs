@@ -56,6 +56,11 @@ public class RemoveAction : GameAction
         caller.energy -= 100 * actualRemoves;
     }
 
+    public override string GetDebugString()
+    {
+        return $"Remove Action on indicies: {string.Join(", ", slotsToRemove.Select(x => x.ToString()))}";
+    }
+
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()

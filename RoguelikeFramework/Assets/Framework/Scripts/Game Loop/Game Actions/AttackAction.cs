@@ -148,11 +148,12 @@ public class AttackAction : GameAction
         defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);
 
         attacker.connections.OnEndUnarmedAttack.Invoke(ref slot, ref action, ref result);
-
-
     }
 
-
+    public override string GetDebugString()
+    {
+        return $"Attack Action: Hitting {target.name}";
+    }
 
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.

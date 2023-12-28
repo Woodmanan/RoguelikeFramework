@@ -108,6 +108,10 @@ public class WhipAttackAction : AttackAction
         return null;
     }
 
+    public override string GetDebugString()
+    {
+        return "Whip Attack Action";
+    }
 
     //Called after construction, but before execution!
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.

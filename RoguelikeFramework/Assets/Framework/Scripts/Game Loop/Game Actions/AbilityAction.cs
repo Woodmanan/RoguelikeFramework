@@ -91,7 +91,7 @@ public class AbilityAction : GameAction
             if (!toCast.locName.IsEmpty)
             {
                 string logString = LogFormatting.GetFormattedString("CastFullString", new { caster = caller.GetName(), singular = caller.singular, spell = toCast.GetName() });
-                RogueLog.singleton.Log(logString, priority: LogPriority.IMPORTANT, display: LogDisplay.ABILITY);
+                RogueLog.singleton.Log(logString, priority: LogPriority.IMPORTANT);
             }
 
             GenerateAnimations(toCast);
@@ -140,6 +140,11 @@ public class AbilityAction : GameAction
                 toCast = caller.abilities[abilityIndex];
             }
         }
+    }
+
+    public override string GetDebugString()
+    {
+        return string.Format("Ability Action: Casting {0}", toCast.friendlyName);
     }
 
     public void GenerateAnimations(Ability toCast)
