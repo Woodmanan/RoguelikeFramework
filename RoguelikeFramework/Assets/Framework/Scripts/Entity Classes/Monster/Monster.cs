@@ -55,8 +55,10 @@ public class Monster : MonoBehaviour, IDescribable
 
     public static readonly float monsterZPosition = -5f;
 
-    [HideInInspector] public Connections connections;
-    [HideInInspector] private Connections other = null;
+    [NonSerialized]
+    public Connections connections;
+    [NonSerialized]
+    private Connections other = null;
 
     [HideInInspector] public LOSData view;
 

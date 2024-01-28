@@ -89,10 +89,13 @@ MonoBehaviour:
   minDepth: 0
   maxDepth: 0
   tags:
-    _keys: []
-    _vals: 
+    _keys:
+    - name: Test.Tag
+    _vals: 01000000
   credit: {fileID: 0}
-  baseEffects: []
+  baseEffects:
+  - id: 0
+  - id: 1
   energy: 0
   location: {x: 30, y: 30}
   visionRadius: 8
@@ -108,6 +111,7 @@ MonoBehaviour:
   willSwap: 0
   XPFromKill: 0
   level: 0
+  graphicsVisibility: 0
   speciesName:
     m_TableReference:
       m_TableCollectionName: 
@@ -120,6 +124,63 @@ MonoBehaviour:
   chosenClass: {fileID: 0}
   references:
     version: 1
+    00000000:
+      type: {class: Masochism, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        counter: 0
+        triggersEvery: 1
+        efficiency: 34.6
+        grantedResource: 18
+    00000001:
+      type: {class: UnlockAchOnDeath, ns: , asm: RoguelikeFramework}
+      data:
+        credit: {fileID: 0}
+        name:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        description:
+          m_TableReference:
+            m_TableCollectionName: 
+          m_TableEntryReference:
+            m_KeyId: 0
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        image: {fileID: 0}
+        tags:
+          _keys: []
+          _vals: 
+        achievementName: Blah Test
 --- !u!114 &4311608207694994516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +259,7 @@ MonoBehaviour:
   capacity: 52
   available: 0
   baseItems: []
+  Items: []
 --- !u!114 &4311608207694994521
 MonoBehaviour:
   m_ObjectHideFlags: 0

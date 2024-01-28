@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
+using System.Linq;
 
 /*
  * A class (and helper classes) for doing recursive, symmetric shadowcasting on our map structure.
@@ -407,11 +408,18 @@ public class LOS : MonoBehaviour
 
     public static void WritePlayerGraphics(Map map, Vector2Int location, int radius)
     {
+        LOSData view = LosAt(map, location, radius);
+        Vector2Int[] locations = view.GetVisibleMonsters().Select(x => x.location).ToArray();
+        WritePlayerGraphics(view, locations);
+    }
+
+    public static void WritePlayerGraphics(LOSData view, Vector2Int[] monsterLocations)
+    {
         if (lastGraphicsCall != null)
         {
             lastGraphicsCall.DeprintGraphics(Map.current);
         }
-        lastGraphicsCall = LosAt(map, location, radius);
+        lastGraphicsCall = view;
         lastGraphicsCall.ImprintGraphics(Map.current);
     }
 

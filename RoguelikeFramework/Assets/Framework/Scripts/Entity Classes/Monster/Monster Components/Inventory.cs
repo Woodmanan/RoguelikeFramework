@@ -68,6 +68,8 @@ public class Inventory : MonoBehaviour
         get { return capacity - available; }
     }
 
+    [SerializeField]
+    [HideInInspector]
     private ItemStack[] Items; //Wish this wasn't hidden, but it unfortunately must be. Unity serialization removes the nulls
     public ItemStack[] items
     {

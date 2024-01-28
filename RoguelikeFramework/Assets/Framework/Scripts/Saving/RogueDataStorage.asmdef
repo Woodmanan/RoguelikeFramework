@@ -1,0 +1,15 @@
+{
+    "name": "RogueDataStorage",
+    "references": [
+        "GUID:7eb46ef44e58f9b231f75356259563d3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

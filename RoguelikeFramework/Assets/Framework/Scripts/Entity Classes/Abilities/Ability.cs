@@ -46,7 +46,6 @@ public class Ability : ScriptableObject, IDescribable
     public List<TargetingAnimation> animations;
 
     [ResourceGroup(ResourceType.Ability)]
-
     public Stats baseStats;
     [HideInInspector] public Stats currentStats;
 
@@ -76,7 +75,8 @@ public class Ability : ScriptableObject, IDescribable
 
     public AbilityTypes types;
     [SerializeReference] List<Effect> effects;
-    List<Effect> attachedEffects = new List<Effect>();
+    [SerializeField] List<Effect> attachedEffects = new List<Effect>();
+    [System.NonSerialized]
     public Connections connections = null;
     [HideInInspector] public Monster credit;
 

@@ -6,7 +6,8 @@
         "RogueRNG",
         "PathfindingRef",
         "Quadtree",
-        "RogueTag"
+        "RogueTag",
+        "RogueDataStorage"
     ],
     "includePlatforms": [
         "Editor"

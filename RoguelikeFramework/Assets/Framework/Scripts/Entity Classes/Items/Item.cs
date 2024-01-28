@@ -39,6 +39,7 @@ public class Item : MonoBehaviour, IDescribable
     [HideInInspector] public bool CanMelee;
     [HideInInspector] public bool CanRanged;
 
+    [System.NonSerialized]
     public Connections connections;
     [HideInInspector] public List<Effect> attachedEffects = new List<Effect>();
 

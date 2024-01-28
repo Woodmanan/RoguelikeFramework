@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     public WeaponBlock secondary;
 
     [HideInInspector] public DamageSource source;
+    [System.NonSerialized]
     public Connections connections;
 
     [HideInInspector] public Item item;

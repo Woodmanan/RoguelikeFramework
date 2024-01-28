@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MoveAnimation : RogueAnimation
 {
@@ -162,16 +163,29 @@ public class DeathAnimation : RogueAnimation
     }
 }
 
+
+/*
+ * Learnings from item vision attempts:
+ * 
+ * The constructor of this anim is the ONLY spot where
+ * live data and animation can meet. Tiles cannot reliably report who is 
+ * standing on them or what items contain, unless you ask the gameplay 
+ * objects the moment this animation is begun.
+ */
 public class PlayerLOSAnimation : RogueAnimation
 {
     public const float duration = 0.001f;
     Vector2Int animLocation;
     Monster monster;
+    LOSData view;
+    Vector2Int[] monsterLocations;
 
     public PlayerLOSAnimation(Monster monster) : base(duration)
     {
         this.monster = monster;
         this.animLocation = monster.location;
+        view = LOS.LosAt(Map.current, animLocation, monster.visionRadius);
+        monsterLocations = view.GetVisibleMonsters().Select(x => x.location).ToArray();
     }
 
     public override void OnStart()
@@ -186,6 +200,7 @@ public class PlayerLOSAnimation : RogueAnimation
 
     public override void OnEnd()
     {
-        LOS.WritePlayerGraphics(Map.current, animLocation, monster.visionRadius);
+        LOS.WritePlayerGraphics(view, monsterLocations);
+        //LOS.WritePlayerGraphics(Map.current, animLocation, monster.visionRadius);
     }
 }

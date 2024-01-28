@@ -218,7 +218,7 @@ public class RogueTile : MonoBehaviour, IDescribable
         }
     }
 
-    public void RebuildGraphics()
+    public void RebuildGraphics(Monster graphicStanding = null)
     {
         graphicsDirty = false;
         if (graphicsVisibility == oldGraphicsVisibility) return;
@@ -231,7 +231,7 @@ public class RogueTile : MonoBehaviour, IDescribable
             case Visibility.REVEALED:
                 float gray = color.grayscale / 2;
                 render.color = new Color(gray, gray, gray, Mathf.Max(minGreyAlpha, color.a));
-                ghostStanding = currentlyStanding;
+                ghostStanding = graphicStanding;
                 break;
             case Visibility.VISIBLE:
             case (Visibility.VISIBLE | Visibility.REVEALED):
@@ -255,7 +255,7 @@ public class RogueTile : MonoBehaviour, IDescribable
 
         //Let monsters know that this tile has switched
         //currentlyStanding?.SetGraphics((graphicsVisibility & Visibility.VISIBLE) > 0);
-        currentlyStanding?.SetGraphicsVisibilityOnTile(this);
+        graphicStanding?.SetGraphicsVisibilityOnTile(this);
 
         itemVis.RebuildVisiblity(graphicsVisibility);
     }
