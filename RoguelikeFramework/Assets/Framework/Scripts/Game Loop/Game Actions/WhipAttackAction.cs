@@ -5,7 +5,7 @@ using UnityEngine;
 public class WhipAttackAction : AttackAction
 {
 
-    public WhipAttackAction(Monster target)
+    public WhipAttackAction(RogueHandle<Monster> target)
     {
         //Construct me! Assigns caller by default in the base class
         this.target = target;
@@ -16,19 +16,19 @@ public class WhipAttackAction : AttackAction
     public override IEnumerator TakeAction()
     {
         //See if we have any weapons actively equipped, or unarmed slots that can attack
-        if (caller.equipment == null)
+        if (caller[0].equipment == null)
         {
             Debug.LogError("Armless things can't attack! Wasting its turn");
-            caller.energy -= 100;
+            caller[0].energy -= 100;
             yield break;
         }
 
-        int distance = GameplayExtensions.ChebyshevDistance(caller.location, target.location);
-        List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
+        int distance = GameplayExtensions.ChebyshevDistance(caller[0].location, target[0].location);
+        List<EquipmentSlot> slots = caller[0].equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
 
         if (distance <= 1)
         {
-            Debug.LogError($"{caller.friendlyName} performed a whip attack at range {distance}? This seems incorrect, but I'll let it slide.", caller);
+            Debug.LogError($"{caller[0].friendlyName} performed a whip attack at range {distance}? This seems incorrect, but I'll let it slide.", caller[0].unity);
         }
 
         //Do we have any whips equipped?
@@ -56,7 +56,7 @@ public class WhipAttackAction : AttackAction
 
             AttackAction action = this;
 
-            caller.connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
+            caller[0].connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
 
             if (animates)
             {
@@ -73,7 +73,7 @@ public class WhipAttackAction : AttackAction
                 w.SecondaryAttack(caller, target, this);
             }
 
-            caller.energy -= 100;
+            caller[0].energy -= 100;
         }
         else
         {
@@ -86,7 +86,7 @@ public class WhipAttackAction : AttackAction
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             Debug.LogError("Assuming a monster did this. Taking its turn as retribution! (PLS Fix)");
             #endif
-            caller.energy -= 100;
+            caller[0].energy -= 100;
 
             yield break;
         }

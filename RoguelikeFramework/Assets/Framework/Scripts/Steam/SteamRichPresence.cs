@@ -52,12 +52,12 @@ public class SteamRichPresence : Effect
         string branchName = Map.current.branch.branchName;
         string level = Map.current.level.ToString();
 
-        Player player = Player.player as Player;
+        Player player = Player.player.Get<Player>();
 
         //Set up variables
         if (SteamController.singleton)
         {
-            SteamController.singleton.UpdateRichPresence("characterLevel", Player.player.level.ToString());
+            SteamController.singleton.UpdateRichPresence("characterLevel", player.level.ToString());
             SteamController.singleton.UpdateRichPresence("species", player.speciesName.GetLocalizedString());
             SteamController.singleton.UpdateRichPresence("map", branchName);
             SteamController.singleton.UpdateRichPresence("dungeonLevel", level);
@@ -82,7 +82,7 @@ public class SteamRichPresence : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath(ref Monster killer)
+    public override void OnDeath(ref RogueHandle<Monster> killer)
     {
         SteamController.singleton?.UpdateRichPresence("steam_display", "#Status_CharacterSelect");
     }

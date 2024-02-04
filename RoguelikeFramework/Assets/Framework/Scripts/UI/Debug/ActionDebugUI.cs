@@ -17,6 +17,6 @@ public class ActionDebugUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = Player.player.GetActionDebug();
+        text.text = Player.player[0].GetActionDebug();
     }
 }

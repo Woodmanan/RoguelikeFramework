@@ -16,7 +16,15 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 945ae887988cc6749bd41969cbeb8ef6
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: b2122f7a4847ae94586e80a36293fec9
+    m_Address: Assets/Prefabs and Script Objects/Player Characters/BasePlayer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 58d05f5d5128e104f8ca3530955f3805
+    m_Address: Assets/Prefabs and Script Objects/Monsters/BaseUnityMonster.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: be0a14ddb09ed2944af4cb4acda145c2, type: 2}
   m_SchemaSet:

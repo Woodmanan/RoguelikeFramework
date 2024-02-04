@@ -40,7 +40,7 @@ public class Targeting
 
     public TargetPriority targetPriority;
 
-    Func<Monster, bool> validityCheck;
+    Func<RogueHandle<Monster>, bool> validityCheck;
 
     public Targeting ShallowCopy()
     {
@@ -64,8 +64,8 @@ public class Targeting
     [HideInInspector] public bool[,] area;
     private bool marking = false;
 
-    List<Monster> tempAffected; //Used for allowing overlap
-    [HideInInspector] public List<Monster> affected;
+    List<RogueHandle<Monster>> tempAffected; //Used for allowing overlap
+    [HideInInspector] public List<RogueHandle<Monster>> affected;
 
 
 
@@ -111,7 +111,7 @@ public class Targeting
         return false;
     }
 
-    public bool BeginTargetting(Vector2Int startPosition, LOSData los, Func<Monster, bool> targetCheckFunc = null)
+    public bool BeginTargetting(Vector2Int startPosition, LOSData los, Func<RogueHandle<Monster>, bool> targetCheckFunc = null)
     {
         origin = startPosition;
         target = startPosition;
@@ -144,8 +144,8 @@ public class Targeting
             area = new bool[length, length];
         }
 
-        affected = new List<Monster>();
-        tempAffected = new List<Monster>();
+        affected = new List<RogueHandle<Monster>>();
+        tempAffected = new List<RogueHandle<Monster>>();
 
         isValid = IsValid();
         
@@ -168,8 +168,8 @@ public class Targeting
 
         if (targetingType == TargetType.SINGLE_TARGET_LINES || targetingType == TargetType.SMITE_TARGET)
         {
-            Monster atTarget = Map.current.GetTile(target).currentlyStanding;
-            valid = valid && (atTarget != null) && (validityCheck(atTarget));
+            RogueHandle<Monster> atTarget = Map.current.GetTile(target).currentlyStanding;
+            valid = valid && (atTarget.IsValid()) && (validityCheck(atTarget));
         }
 
         if ((options & TargetTags.REQUIRES_WALKABLE_POINT) > 0)
@@ -221,7 +221,7 @@ public class Targeting
             if (options.HasFlag(TargetTags.POINTS_SHARE_OVERLAP))
             {
                 //Need to add uniquely
-                foreach (Monster m in tempAffected)
+                foreach (RogueHandle<Monster> m in tempAffected)
                 {
                     if (!affected.Contains(m))
                     {
@@ -231,7 +231,7 @@ public class Targeting
             }
             else
             {
-                foreach (Monster m in tempAffected)
+                foreach (RogueHandle<Monster> m in tempAffected)
                 {
                     affected.Add(m);
                 }
@@ -336,8 +336,8 @@ public class Targeting
             area[xSpot, ySpot] = val && !Map.current.GetTile(x, y).isHidden;
             if (marking)
             {
-                Monster m = Map.current.GetTile(x, y).currentlyStanding;
-                if (m != null)
+                RogueHandle<Monster> m = Map.current.GetTile(x, y).currentlyStanding;
+                if (m.IsValid())
                 {
                     bool contains = tempAffected.Contains(m);
                     //Need to affect a monster
@@ -405,17 +405,17 @@ public class Targeting
 
                 if ((options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
                 {
-                    foreach (Monster target in currentLOS.visibleFriends)
+                    foreach (RogueHandle<Monster> target in currentLOS.visibleFriends)
                     {
-                        BuildRange(target.location);
+                        BuildRange(target[0].location);
                     }
                 }
 
                 if ((options & TargetTags.RECOMMENDS_ENEMY_TARGET) > 0)
                 {
-                    foreach (Monster target in currentLOS.visibleEnemies)
+                    foreach (RogueHandle<Monster> target in currentLOS.visibleEnemies)
                     {
-                        BuildRange(target.location);
+                        BuildRange(target[0].location);
                     }
                 }
 

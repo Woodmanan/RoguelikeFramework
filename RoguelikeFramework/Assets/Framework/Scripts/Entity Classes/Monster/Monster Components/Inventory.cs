@@ -99,14 +99,14 @@ public class Inventory : MonoBehaviour
         get { return Items[index];  }
     }
 
-    private Monster _monster;
-    private Monster monster
+    private RogueHandle<Monster> _monster;
+    private RogueHandle<Monster> monster
     {
         get 
         { 
             if (!_monster)
             {
-                _monster = GetComponent<Monster>();
+                _monster = GetComponent<UnityMonster>().monsterHandle;
             }
             return _monster;
         }
@@ -126,18 +126,26 @@ public class Inventory : MonoBehaviour
         Items = new ItemStack[capacity];
 
         RogueTile tile = GetComponent<RogueTile>();
-        Monster monster = GetComponent<Monster>();
         
         if (tile)
         {
             holder = tile.transform.parent.parent.parent.GetComponent<Map>().itemContainer;
         }
-
-        if (monster)
+        else
         {
-            GameObject hold = new GameObject("Items");
-            hold.transform.parent = transform;
-            holder = hold.transform;
+            UnityMonster unityMonster = GetComponent<UnityMonster>();
+            RogueHandle<Monster> monster = RogueHandle<Monster>.Default;
+            if (unityMonster)
+            {
+                monster = unityMonster.monsterHandle;
+            }
+
+            if (monster)
+            {
+                GameObject hold = new GameObject("Items");
+                hold.transform.parent = transform;
+                holder = hold.transform;
+            }
         }
 
         Debug.Assert(holder != null, "Inventory wasn't attached to monster or tile? Make sure to update inventory logic if this is intentional.", this);
@@ -326,11 +334,12 @@ public class Inventory : MonoBehaviour
 
     public Inventory GetFloor()
     {
-        if (monster == null)
+        if (!monster.IsValid())
         {
             return this;
         }
-        return Map.current.GetTile(monster.location).GetComponent<Inventory>();
+
+        return monster[0].currentTile.inventory;
     }
 
     //Get stack index of an item, -1 if not found
@@ -379,7 +388,7 @@ public class Inventory : MonoBehaviour
 
     public void PickUpAll()
     {
-        RogueTile tile = Map.current.GetTile(monster.location);
+        RogueTile tile = monster[0].currentTile;
         for (int i = capacity - 1; i >= 0; i--)
         {
             FloorToMonster(i);
@@ -388,7 +397,7 @@ public class Inventory : MonoBehaviour
 
     public void FloorToMonster(int index)
     {
-        Inventory onFloor = Map.current.GetTile(monster.location).inventory;
+        Inventory onFloor = monster[0].currentTile.inventory;
 
         ItemStack stack = onFloor[index];
         if (stack == null) return; //Quick cutout
@@ -402,7 +411,7 @@ public class Inventory : MonoBehaviour
 
     public void MonsterToFloor(int index)
     {
-        Inventory onFloor = Map.current.GetTile(monster.location).inventory;
+        Inventory onFloor = monster[0].currentTile.inventory;
 
         ItemStack stack = Items[index];
 
@@ -421,7 +430,7 @@ public class Inventory : MonoBehaviour
         foreach (Item i in stack.held)
         {
             i.Drop();
-            i.SetLocation(monster.location);
+            i.SetLocation(monster[0].location);
         }
 
         onFloor.Add(stack);

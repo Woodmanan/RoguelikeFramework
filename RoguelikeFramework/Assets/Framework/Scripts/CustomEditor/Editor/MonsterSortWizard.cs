@@ -10,6 +10,7 @@ public class MonsterSortWizard
     [MenuItem("Tools/Dangerous/Sort Monsters")]
     static void SortItems()
     {
+        /*
         string path = GetPathToFolder("Monsters");
         Debug.Log($"Path to folder is {path}");
 
@@ -67,6 +68,7 @@ public class MonsterSortWizard
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
 
         AssetDatabase.Refresh();
+        */
     }
 
     static string GetPathToFolder(string folder)

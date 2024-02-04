@@ -17,7 +17,7 @@ public class FleeAction : GameAction
     {
         while (true)
         {
-            List<Monster> enemies = caller.view.visibleEnemies;
+            List<RogueHandle<Monster>> enemies = caller[0].view.visibleEnemies;
             if (enemies.Count == 0)
             {
                 Debug.Log("Monster is fleeing without seeing anyone. Resting instead.");
@@ -25,22 +25,22 @@ public class FleeAction : GameAction
                 yield break;
             }
 
-            float[,] fleeMap = Pathfinding.CreateFleeMap(enemies.Select(x => x.location).ToList());
+            float[,] fleeMap = Pathfinding.CreateFleeMap(enemies.Select(x => x[0].location).ToList());
 
             while (true)
             {
-                Vector2Int next = nextSpot(caller.location, fleeMap);
-                if (next == caller.location)
+                Vector2Int next = nextSpot(caller[0].location, fleeMap);
+                if (next == caller[0].location)
                 {
-                    Debug.Log($"{caller.GetLocalizedName()} has been cornered - stopping flee mode.");
+                    Debug.Log($"{caller[0].GetLocalizedName()} has been cornered - stopping flee mode.");
 
-                    enemies = caller.view.visibleEnemies;
+                    enemies = caller[0].view.visibleEnemies;
                     if (enemies.Count == 0)
                     {
                         yield break;
                     }
 
-                    Monster target = enemies[0];
+                    RogueHandle<Monster> target = enemies[0];
 
                     yield return SubAction(new AttackAction(target));
                     yield break;

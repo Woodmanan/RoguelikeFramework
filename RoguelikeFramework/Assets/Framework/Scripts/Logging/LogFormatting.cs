@@ -6,17 +6,17 @@ using UnityEngine.Localization.Settings;
 
 public class LogFormatting : MonoBehaviour
 { 
-    public static string FormatNameForMonster(Monster monster, bool definite = true)
+    public static string FormatNameForMonster(RogueHandle<Monster> monster, bool definite = true)
     {
-        if (monster)
+        if (monster.IsValid())
         {
-            if (monster.named)
+            if (monster[0].named)
             {
-                return monster.GetLocalizedName();
+                return monster[0].GetLocalizedName();
             }
             else
             {
-                return LocalizationSettings.StringDatabase.GetLocalizedString((definite ? "GenericNameDefinite" : "GenericNameIndefinite"), arguments: monster.GetLocalizedName());
+                return LocalizationSettings.StringDatabase.GetLocalizedString((definite ? "GenericNameDefinite" : "GenericNameIndefinite"), arguments: monster[0].GetLocalizedName());
             }
         }
         return "";

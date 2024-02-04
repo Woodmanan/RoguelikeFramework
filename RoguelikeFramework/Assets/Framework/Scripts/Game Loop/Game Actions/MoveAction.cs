@@ -27,7 +27,7 @@ public class MoveAction : GameAction
     {
         yield return GameAction.StateCheck;
         bool canMove = true;
-        caller.connections.OnMoveInitiated.Invoke(ref intendedLocation, ref canMove);
+        caller[0].connections.OnMoveInitiated.Invoke(ref intendedLocation, ref canMove);
 
         if (!canMove)
         {
@@ -39,7 +39,7 @@ public class MoveAction : GameAction
         {
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             Debug.Log("Monster tried to move to null tile!");
-            caller.energy--;
+            caller[0].energy--;
             #endif
             yield break;
         }
@@ -69,9 +69,9 @@ public class MoveAction : GameAction
         }
         
 
-        if (tile.currentlyStanding != null)
+        if (tile.currentlyStanding)
         {
-            if (caller.GetComponent<Monster>().IsEnemy(tile.currentlyStanding))
+            if (caller[0].IsEnemy(tile.currentlyStanding))
             {
                 yield return SubAction(new AttackAction(tile.currentlyStanding));
                 yield break;
@@ -84,7 +84,7 @@ public class MoveAction : GameAction
                 if (other.willSwap)
                 {
 
-                    RogueTile currentTile = caller.currentTile;
+                    RogueTile currentTile = caller[0].currentTile;
                     RogueTile otherTile = other.currentTile;
 
                     //Force a swap to happen
@@ -92,7 +92,7 @@ public class MoveAction : GameAction
 
                     //Drain some energy - prevents weird double-ups happening - faster monsters get to the front.
                     other.energy -= other.energyPerStep * currentTile.movementCost;
-                    caller.energy -= caller.energyPerStep * otherTile.movementCost;
+                    caller[0].energy -= caller[0].energyPerStep * otherTile.movementCost;
 
                     AnimationController.AddAnimationForMonster(new MoveAnimation(caller, currentTile.location, otherTile.location), caller);
                     AnimationController.AddAnimationForMonster(new MoveAnimation(other, otherTile.location, currentTile.location), other);
@@ -100,8 +100,8 @@ public class MoveAction : GameAction
                 else
                 {
                     //Don't swap with someone who's doing stuff.
-                    caller.energy -= caller.energyPerStep * tile.movementCost;
-                    caller.willSwap = true;
+                    caller[0].energy -= caller[0].energyPerStep * tile.movementCost;
+                    caller[0].willSwap = true;
                 }
 
                 yield break;
@@ -112,23 +112,23 @@ public class MoveAction : GameAction
 
         if (costs)
         {
-            caller.energy -= caller.energyPerStep * tile.movementCost;
+            caller[0].energy -= caller[0].energyPerStep * tile.movementCost;
         }
 
         //Pull out the old location for the animation
-        Vector2Int oldLocation = caller.location;
+        Vector2Int oldLocation = caller[0].location;
 
         //Set that we managed to change locations
         didMove = true;
-        caller.willSwap = true;
+        caller[0].willSwap = true;
 
-        caller.SetPosition(intendedLocation);
-        //caller.UpdateLOS();
+        caller[0].SetPosition(intendedLocation);
+        //caller[0].UpdateLOS();
 
         //Add the movement anim
         AnimationController.AddAnimationForMonster(new MoveAnimation(caller, oldLocation, intendedLocation), caller);
 
-        caller.connections.OnMove.Invoke();
+        caller[0].connections.OnMove.Invoke();
 
         Stair stair = tile as Stair;
         if (stair && !stair.locked && caller == Player.player && useStair)

@@ -143,16 +143,16 @@ public class SpearPassive : Effect
         if (result == AttackResult.HIT)
         {
             Vector3 pos = Vector3.one;
-            Vector2Int offset = (action.target.location - action.caller.location).ChebyshevNormalize();
+            Vector2Int offset = (action.target[0].location - action.caller[0].location).ChebyshevNormalize();
 
-            Vector2Int searchLocation = action.target.location;
+            Vector2Int searchLocation = action.target[0].location;
 
             for (int i = 0; i < numSquaresBehind; i++)
             {
                 searchLocation += offset;
                 if (!Map.current.ValidLocation(searchLocation)) break;
                 RogueTile tile = Map.current.GetTile(searchLocation);
-                if (tile.currentlyStanding && tile.currentlyStanding.IsEnemy(action.caller))
+                if (tile.currentlyStanding && tile.currentlyStanding[0].IsEnemy(action.caller))
                 {
                     Combat.Hit(action.caller, tile.currentlyStanding, DamageSource.ITEM & DamageSource.MELEEATTACK, weapon.primary, damageModifier: (percentDamage / 100f));
                 }

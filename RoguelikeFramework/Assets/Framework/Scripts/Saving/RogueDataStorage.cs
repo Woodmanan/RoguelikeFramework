@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
 public struct RogueHandle<T>
 {
     [SerializeField]
     private int offset;
 
-    public static RogueHandle<T> Default = new RogueHandle<T>();
+#if UNITY_EDITOR
+    [SerializeField]
+    public T serialValue;
+#endif
+
+    public static RogueHandle<T> Default = new RogueHandle<T>(-1);
 
     public static RogueHandle<T> Create()
     {
@@ -39,11 +45,40 @@ public struct RogueHandle<T>
     public RogueHandle(int offset = -1)
     {
         this.offset = offset;
+#if UNITY_EDITOR
+        this.serialValue = default(T);
+        SetSerialValue();
+#endif
     }
+
+#if UNITY_EDITOR
+    public void SetSerialValue()
+    {
+        if (IsValid())
+        {
+            serialValue = RogueDataArena<T>.arena[offset];
+        }
+        else
+        {
+            serialValue = default(T);
+        }
+    }
+
+#endif
 
     public bool IsValid()
     {
         return offset >= 0 && offset < RogueDataArena<T>.arena.Count;
+    }
+
+    public static implicit operator bool(RogueHandle<T> handle)
+    {
+        return handle.IsValid();
+    }
+
+    public static implicit operator T(RogueHandle<T> handle)
+    {
+        return handle.value;
     }
 
     public T Get()
@@ -76,6 +111,11 @@ public struct RogueHandle<T>
     {
         get { return RogueDataArena<T>.arena[offset]; }
         set { RogueDataArena<T>.arena[offset] = value; }
+    }
+
+    public int GetOffset()
+    {
+        return offset;
     }
 }
 

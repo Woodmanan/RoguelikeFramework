@@ -10,7 +10,7 @@ public class RogueTagContainer : ISerializationCallbackReceiver
     [HideInInspector] [SerializeField]
     List<int> _vals = new List<int>();
 
-    Dictionary<RogueTag, int> counts = new Dictionary<RogueTag, int>();
+    public Dictionary<RogueTag, int> counts;
 
     RogueTagContainer()
     {
@@ -34,6 +34,13 @@ public class RogueTagContainer : ISerializationCallbackReceiver
         {
             AddTag(tag);
         }
+    }
+
+    public RogueTagContainer Copy()
+    {
+        RogueTagContainer copy = new RogueTagContainer();
+        copy.counts = new Dictionary<RogueTag, int>(counts);
+        return copy;
     }
 
     public void OnBeforeSerialize()

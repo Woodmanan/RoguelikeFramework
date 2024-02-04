@@ -20,7 +20,7 @@ public class Effect : IDescribable
 {
     [NonSerialized] public Connections connectedTo;
     [NonSerialized] public bool ReadyToDelete = false;
-    [HideInInspector] public Monster credit;
+    [HideInInspector] public RogueHandle<Monster> credit = RogueHandle<Monster>.Default;
 
     [SerializeField] protected LocalizedString name;
     [SerializeField] protected LocalizedString description;
@@ -224,9 +224,9 @@ public class Effect : IDescribable
     public virtual void OnMoveInitiated(ref Vector2Int newLocation, ref bool canMove) {}
     public virtual void OnMove() {}
     public virtual void OnFullyHealed() {}
-    public virtual void OnPostDeath(ref Monster killer) {}
-    public virtual void OnDeath(ref Monster killer) {}
-    public virtual void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source) {}
+    public virtual void OnPostDeath(ref RogueHandle<Monster> killer) {}
+    public virtual void OnDeath(ref RogueHandle<Monster> killer) {}
+    public virtual void OnKillMonster(ref RogueHandle<Monster> monster, ref DamageType type, ref DamageSource source) {}
     public virtual void RegenerateStats(ref Stats stats) {}
     public virtual void OnEnergyGained(ref float energy) {}
     public virtual void OnAttacked(ref int pierce, ref int accuracy) {}
@@ -240,7 +240,7 @@ public class Effect : IDescribable
     public virtual void OnGainXP(ref float XPAmount) {}
     public virtual void OnLevelUp(ref int Level) {}
     public virtual void OnLoseResources(ref Stats resources) {}
-    public virtual void OnRegenerateAbilityStats(ref Monster caster, ref Stats abilityStats, ref Ability ability) {}
+    public virtual void OnRegenerateAbilityStats(ref RogueHandle<Monster> caster, ref Stats abilityStats, ref Ability ability) {}
     public virtual void OnCheckAvailability(ref Ability abilityToCheck, ref bool available) {}
     public virtual void OnTargetsSelected(ref Targeting targeting, ref Ability ability) {}
     public virtual void OnPreCast(ref Ability ability) {}

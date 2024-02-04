@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Connections
 {
-    public Monster monster;
+    public RogueHandle<Monster> monster = RogueHandle<Monster>.Default;
     public Item item;
     public Ability ability;
 
@@ -13,7 +13,7 @@ public class Connections
 
     }
 
-    public Connections(Monster monster)
+    public Connections(RogueHandle<Monster> monster)
     {
         this.monster = monster;
     }
@@ -38,9 +38,9 @@ public class Connections
     public OrderedEvent<Vector2Int, bool> OnMoveInitiated = new OrderedEvent<Vector2Int, bool>();
     public OrderedEvent OnMove = new OrderedEvent();
     public OrderedEvent OnFullyHealed = new OrderedEvent();
-    public OrderedEvent<Monster> OnPostDeath = new OrderedEvent<Monster>();
-    public OrderedEvent<Monster> OnDeath = new OrderedEvent<Monster>();
-    public OrderedEvent<Monster, DamageType, DamageSource> OnKillMonster = new OrderedEvent<Monster, DamageType, DamageSource>();
+    public OrderedEvent<RogueHandle<Monster>> OnPostDeath = new OrderedEvent<RogueHandle<Monster>>();
+    public OrderedEvent<RogueHandle<Monster>> OnDeath = new OrderedEvent<RogueHandle<Monster>>();
+    public OrderedEvent<RogueHandle<Monster>, DamageType, DamageSource> OnKillMonster = new OrderedEvent<RogueHandle<Monster>, DamageType, DamageSource>();
     public OrderedEvent<Stats> RegenerateStats = new OrderedEvent<Stats>();
     public OrderedEvent<float> OnEnergyGained = new OrderedEvent<float>();
     public OrderedEvent<int, int> OnAttacked = new OrderedEvent<int, int>();
@@ -54,7 +54,7 @@ public class Connections
     public OrderedEvent<float> OnGainXP = new OrderedEvent<float>();
     public OrderedEvent<int> OnLevelUp = new OrderedEvent<int>();
     public OrderedEvent<Stats> OnLoseResources = new OrderedEvent<Stats>();
-    public OrderedEvent<Monster, Stats, Ability> OnRegenerateAbilityStats = new OrderedEvent<Monster, Stats, Ability>();
+    public OrderedEvent<RogueHandle<Monster>, Stats, Ability> OnRegenerateAbilityStats = new OrderedEvent<RogueHandle<Monster>, Stats, Ability>();
     public OrderedEvent<Ability, bool> OnCheckAvailability = new OrderedEvent<Ability, bool>();
     public OrderedEvent<Targeting, Ability> OnTargetsSelected = new OrderedEvent<Targeting, Ability>();
     public OrderedEvent<Ability> OnPreCast = new OrderedEvent<Ability>();

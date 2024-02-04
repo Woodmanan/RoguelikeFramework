@@ -94,7 +94,7 @@ public class InventoryScreen : RogueUIPanel
             case ItemAction.EQUIP:
                 //TODO: Do this in a way that isn't dumb, and probably has item slots remember if they're equipabble
                 //Filter out toDisplay into items that can be equipped in this slot
-                EquipmentSlot slot = Player.player.equipment.equipmentSlots[queuedEquipmentIndex];
+                EquipmentSlot slot = Player.player[0].equipment.equipmentSlots[queuedEquipmentIndex];
                 title.text = $"Equip what to {slot.slotName}?";
                 toDisplay = available.FindAll(x => x.held[0].CanEquip); //Pretty cheap
                 toDisplay = toDisplay.FindAll(x => slot.type.Contains(x.held[0].equipable.primarySlot)); //Pretttttty expensive
@@ -181,7 +181,7 @@ public class InventoryScreen : RogueUIPanel
                     if (index < examinedInventory.capacity && examinedInventory[index] != null && index >= 0)
                     {
                         //Equip an item!
-                        Player.player.SetAction(new EquipAction(index, queuedEquipmentIndex));
+                        Player.player[0].SetAction(new EquipAction(index, queuedEquipmentIndex));
                         ExitAllWindows();
                         break;
                     }
@@ -266,7 +266,7 @@ public class InventoryScreen : RogueUIPanel
                     {
                         act = new PickupAction(indices);
                     }
-                    Player.player.SetAction(act);
+                    Player.player[0].SetAction(act);
                     ExitAllWindows();
                 }
                 else
@@ -298,7 +298,7 @@ public class InventoryScreen : RogueUIPanel
                     {
                         //Activate an item!
                         ActivateAction act = new ActivateAction(index);
-                        Player.player.SetAction(act);
+                        Player.player[0].SetAction(act);
                         ExitAllWindows();
                         break;
                     }
@@ -335,12 +335,12 @@ public class InventoryScreen : RogueUIPanel
             case ItemAction.EQUIP:
                 //TODO: Do something something different if item is already equipped
                 print($"Attaching item {index} to slot {queuedEquipmentIndex}");
-                Player.player.SetAction(new EquipAction(index, queuedEquipmentIndex));
+                Player.player[0].SetAction(new EquipAction(index, queuedEquipmentIndex));
                 ExitAllWindows(); //After equiping, just exit
                 break;
             case ItemAction.APPLY:
                 ActivateAction act = new ActivateAction(index);
-                Player.player.SetAction(act);
+                Player.player[0].SetAction(act);
                 ExitAllWindows();
                 break;
         }

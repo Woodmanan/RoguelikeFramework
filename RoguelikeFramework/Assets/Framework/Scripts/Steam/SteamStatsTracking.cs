@@ -62,10 +62,10 @@ public class SteamStatsTracking : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnDeath(ref Monster killer)
+    public override void OnDeath(ref RogueHandle<Monster> killer)
     {
         //Confirm actually dead
-        if (connectedTo.monster.baseStats[Resources.HEALTH] <= 0)
+        if (connectedTo.monster.value.baseStats[Resources.HEALTH] <= 0)
         {
             //Push stats on player death, so achievements pop instantly
             SteamController.singleton?.StoreStats();
@@ -73,7 +73,7 @@ public class SteamStatsTracking : Effect
     }
 
     //Called when a monster is killed by this unit.
-    public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
+    public override void OnKillMonster(ref RogueHandle<Monster> monster, ref DamageType type, ref DamageSource source)
     {
         SteamController.singleton?.AddStat("STAT_KILLS", 1);
     }

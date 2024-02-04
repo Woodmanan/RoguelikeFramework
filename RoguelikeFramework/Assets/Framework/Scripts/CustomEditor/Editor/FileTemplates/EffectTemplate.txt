@@ -20,7 +20,7 @@ public class Effect : IDescribable
 {
     [NonSerialized] public Connections connectedTo;
     [NonSerialized] public bool ReadyToDelete = false;
-    [HideInInspector] public Monster credit;
+    [HideInInspector] public RogueHandle<Monster> credit = RogueHandle<Monster>.Default;
 
     [SerializeField] protected LocalizedString name;
     [SerializeField] protected LocalizedString description;

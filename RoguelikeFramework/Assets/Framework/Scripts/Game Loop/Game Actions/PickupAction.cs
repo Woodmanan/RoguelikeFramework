@@ -31,33 +31,33 @@ public class PickupAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        if (caller.inventory == null)
+        if (caller[0].inventory == null)
         {
-            Debug.LogError($"{caller.GetLocalizedName()} cannot pickup without an inventory! Skipping turn to prevent deadlock.", caller);
-            caller.energy = 0;
+            Debug.LogError($"{caller[0].GetLocalizedName()} cannot pickup without an inventory! Skipping turn to prevent deadlock.", caller[0].unity);
+            caller[0].energy = 0;
             yield break;
         }
 
         if (indices.Count == 0)
         {
-            Debug.Log($"{caller.GetLocalizedName()} tried to pick up no items.");
+            Debug.Log($"{caller[0].GetLocalizedName()} tried to pick up no items.");
             yield break;
         }
 
         //Setup names
-        Inventory tileInventory = Map.current.GetTile(caller.location).inventory;
+        Inventory tileInventory = Map.current.GetTile(caller[0].location).inventory;
         List<string> itemNames = indices.Select(x => tileInventory[x].GetName(true)).ToList();
 
         foreach (int index in indices)
         {
-            caller.inventory.PickUp(index);
+            caller[0].inventory.PickUp(index);
         }
 
-        RogueLog.singleton.LogTemplate("ItemPickup", new { monster = caller.GetName(), singular = caller.singular, items = itemNames }, null, LogPriority.IMPORTANT);
+        RogueLog.singleton.LogTemplate("ItemPickup", new { monster = caller[0].GetName(), singular = caller[0].singular, items = itemNames }, null, LogPriority.IMPORTANT);
 
-        caller.energy -= 100;
+        caller[0].energy -= 100;
 
-        caller.inventory.GetFloor().Collapse();
+        caller[0].inventory.GetFloor().Collapse();
     }
 
     public override string GetDebugString()

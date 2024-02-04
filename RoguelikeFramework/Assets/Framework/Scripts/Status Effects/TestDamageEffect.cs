@@ -32,7 +32,7 @@ public class TestDamageEffect : Effect
     [Priority(6)]
     public override void OnTurnStartLocal() 
     {
-        target.Damage(null, damagePerTurn, DamageType.NONE, DamageSource.EFFECT); //Ah yes, potion of piercing damage
+        target.Damage(RogueHandle<Monster>.Default, damagePerTurn, DamageType.NONE, DamageSource.EFFECT); //Ah yes, potion of piercing damage
         numTurns--;
         if (numTurns == 0)
         {

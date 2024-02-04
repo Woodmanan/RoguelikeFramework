@@ -5,7 +5,7 @@ using System.Linq;
 
 public class AutoAttackAction : GameAction
 {
-    public Monster target;
+    public RogueHandle<Monster> target;
     //Constuctor for the action; must include caller!
     public AutoAttackAction()
     {
@@ -18,7 +18,7 @@ public class AutoAttackAction : GameAction
     {
         if (target)
         {
-            yield return SubAction(new PathfindAction(target.location));
+            yield return SubAction(new PathfindAction(target[0].location));
         }
         else
         {
@@ -36,14 +36,14 @@ public class AutoAttackAction : GameAction
     //This is THE FIRST spot where caller is not null! Heres a great spot to actually set things up.
     public override void OnSetup()
     {
-        List<Monster> enemies = caller.view.visibleEnemies;
+        List<RogueHandle<Monster>> enemies = caller[0].view.visibleEnemies;
         if (enemies.Count > 0)
         {
-            target = enemies.OrderBy(x => x.DistanceFrom(caller)).First();
+            target = enemies.OrderBy(x => x[0].DistanceFrom(caller)).First();
         }
         else
         {
-            target = null;
+            target = RogueHandle<Monster>.Default;
         }
     }
 }

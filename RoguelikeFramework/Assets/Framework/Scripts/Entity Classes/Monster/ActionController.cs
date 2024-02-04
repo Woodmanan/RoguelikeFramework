@@ -7,12 +7,7 @@ public class ActionController : MonoBehaviour
 {
     public GameAction nextAction = null;
     public IEnumerator selection;
-    [HideInInspector] public Monster monster;
-    // Start is called before the first frame update
-    protected void Awake()
-    {
-        monster = GetComponent<Monster>();
-    }
+    [HideInInspector] public RogueHandle<Monster> monster;
 
     public void ClearAction()
     {
@@ -22,7 +17,8 @@ public class ActionController : MonoBehaviour
 
     public virtual void Setup()
     {
-
+        monster = GetComponent<UnityMonster>().monsterHandle;
+        Debug.Assert(monster.IsValid());
     }
 
     public virtual IEnumerator DetermineAction()
@@ -32,7 +28,7 @@ public class ActionController : MonoBehaviour
         yield break;
     }
 
-    public virtual IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
+    public virtual IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<RogueHandle<Monster>, bool> TargetCheck = null)
     {
         Debug.Log("Action controllers need to override this method!");
         setValidityTo.Invoke(false);

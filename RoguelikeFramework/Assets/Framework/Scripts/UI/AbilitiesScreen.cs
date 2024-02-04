@@ -47,7 +47,7 @@ public class AbilitiesScreen : RogueUIPanel
             {
                 //Cast a spell
                 Debug.Log($"Button {index} was pressed. Casting {examinedAbilities[index].friendlyName}!");
-                Player.player.SetAction(new AbilityAction(index));
+                Player.player[0].SetAction(new AbilityAction(index));
                 ExitAllWindows();
                 break;
             }
@@ -113,7 +113,7 @@ public class AbilitiesScreen : RogueUIPanel
         if (displayed[index].clickable)
         {
             Debug.Log($"Button {index} was pressed. Casting {examinedAbilities[index].friendlyName}!");
-            Player.player.SetAction(new AbilityAction(index));
+            Player.player[0].SetAction(new AbilityAction(index));
             ExitAllWindows();
         }
     }

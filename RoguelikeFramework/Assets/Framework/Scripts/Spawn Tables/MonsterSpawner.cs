@@ -77,7 +77,7 @@ public class MonsterSpawner : MonoBehaviour
                 {
                     RogueTile tile = m.GetTile(i, j);
                     //Confirm that two monsters won't spawn on each other
-                    if (!tile.IsInteractable() && m.GetTile(i, j).currentlyStanding == null)
+                    if (!tile.IsInteractable() && !m.GetTile(i, j).currentlyStanding)
                     {
                         float dist = Mathf.Max(positions[i, j] - dontSpawnNearStairDist, 1);
                         dist = Mathf.Max(Mathf.Log(dist, 2), 0); //This number can't be negative, or monsters WILL spawn on each other.
@@ -99,12 +99,12 @@ public class MonsterSpawner : MonoBehaviour
         {
             yield return null;
 
-            Monster monster = GetMonsterFromBranchAndDepth(m.branch, m.depth);
-            while (monster == null)
+            MonsterSpawnParams toSpawn = GetMonsterFromBranchAndDepth(m.branch, m.depth);
+            while (toSpawn == null)
             {
                 yield return null;
                 Debug.LogWarning("Floor failed to spawn monster correctly. Retrying...");
-                monster = GetMonsterFromBranchAndDepth(m.branch, m.depth);
+                toSpawn = GetMonsterFromBranchAndDepth(m.branch, m.depth);
             }
 
             Vector2Int pos = new Vector2Int(-1, -1);
@@ -130,39 +130,42 @@ public class MonsterSpawner : MonoBehaviour
                 }
             }
 
-            SpawnMonster(monster, pos, m, postSetup: false);
+            SpawnMonster(toSpawn, pos, m, postSetup: false);
         }
     }
 
-    public Monster SpawnMonster(Monster monster, Vector2Int location, Map map, bool postSetup = true, Monster creditedTo = null)
+    public RogueHandle<Monster> SpawnMonster(MonsterSpawnParams spawnParams, Vector2Int location, Map map, bool postSetup = true)
     {
-        map.monsters.Add(monster);
+        return SpawnMonster(spawnParams, location, map, RogueHandle<Monster>.Default, postSetup);
+    }
+
+    public RogueHandle<Monster> SpawnMonster(MonsterSpawnParams spawnParams, Vector2Int location, Map map, RogueHandle<Monster> creditedTo, bool postSetup = true)
+    {
+        RogueHandle<Monster> spawnedHandle = spawnParams.SpawnMonster();
+        Monster monster = spawnedHandle;
+
+        map.monsters.Add(spawnedHandle);
         monster.location = location;
-        monster.transform.parent = map.monsterContainer;
+        monster.unity.transform.parent = map.monsterContainer;
         monster.level = map.depth;
         monster.credit = creditedTo;
-        PerformSetupForSpawningMonster(monster);
+
+        monster.AddEffectInstantiate(world.monsterPassives.ToArray());
+
+        if (!map.ValidLocation(location))
+        {
+            Debug.Log("Here!");
+        }
+
         monster.currentTile = map.GetTile(location);
         if (postSetup)
         {
             monster.PostSetup(Map.current);
         }
-        return monster;
+        return spawnedHandle;
     }
 
-    public void PerformSetupForSpawningMonster(Monster monster)
-    {
-        monster.Setup();
-        
-        monster.AddEffectInstantiate(world.monsterPassives.ToArray());
-    }
-
-    public Monster SpawnMonsterInstantiate(Monster monster, Vector2Int location, Map map, Monster creditedTo = null)
-    {
-        return SpawnMonster(monster.Instantiate(), location, map, creditedTo);
-    }
-
-    public Monster GetMonsterFromBranchAndDepth(Branch branch, int depth)
+    public MonsterSpawnParams GetMonsterFromBranchAndDepth(Branch branch, int depth)
     {
         //Do out-of-depth check
         if (Random.Range(0.0f, 99.99f) < branch.chanceForOutOfDepth)
@@ -181,13 +184,13 @@ public class MonsterSpawner : MonoBehaviour
         return options[Random.Range(0, options.Count)].RandomMonsterByDepth(depth);
     }
 
-    public void SpawnMonsterAt(Map map, Vector2Int location, Monster creditedTo = null)
+    public void SpawnMonsterAt(Map map, Vector2Int location, RogueHandle<Monster> creditedTo)
     {
         Branch branch = map.branch;
-        Monster toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
+        MonsterSpawnParams toSpawn = GetMonsterFromBranchAndDepth(branch, map.depth);
         if (toSpawn)
         {
-            SpawnMonster(toSpawn, location, map, postSetup: true, creditedTo);
+            SpawnMonster(toSpawn, location, map, creditedTo, postSetup: true);
         }
         else
         {

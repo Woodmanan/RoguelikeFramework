@@ -65,7 +65,7 @@ public class WhipPassive : Effect
                 if (adjacentTile.currentlyStanding != null || adjacentTile.blocksProjectiles) return;
 
                 //Search for whip attack option
-                Vector2Int offset = newLocation - connectedTo.monster.location;
+                Vector2Int offset = newLocation - connectedTo.monster[0].location;
                 Vector2Int searchLocation = newLocation;
                 for (int i = 2; i <= range; i++)
                 {
@@ -73,10 +73,10 @@ public class WhipPassive : Effect
                     if (Map.current.ValidLocation(searchLocation))
                     {
                         RogueTile tile = Map.current.GetTile(searchLocation);
-                        if (tile.currentlyStanding && tile.currentlyStanding.IsEnemy(connectedTo.monster))
+                        if (tile.currentlyStanding && tile.currentlyStanding[0].IsEnemy(connectedTo.monster))
                         {
                             AttackAction attack = new WhipAttackAction(tile.currentlyStanding);
-                            connectedTo.monster.SetActionOverride(attack);
+                            connectedTo.monster[0].SetActionOverride(attack);
                             canMove = false;
                             return;
                         }

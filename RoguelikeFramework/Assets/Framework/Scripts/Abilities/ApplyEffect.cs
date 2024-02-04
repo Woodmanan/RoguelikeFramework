@@ -18,48 +18,50 @@ public class ApplyEffect : Ability
     RogueTagContainer RequireTags;
 
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
-    public override bool OnCheckActivationSoft(Monster caster)
+    public override bool OnCheckActivationSoft(RogueHandle<Monster> caster)
     {
         return true;
     }
 
     //Check activation, but for requirements that MUST be present for the spell to launch correctly. (Status effects will never override)
-    public override bool OnCheckActivationHard(Monster caster)
+    public override bool OnCheckActivationHard(RogueHandle<Monster> caster)
     {
         return true;
     }
 
-    public override bool IsValidTarget(Monster target)
+    public override bool IsValidTarget(RogueHandle<Monster> target)
     {
         if (RequireTags.IsEmpty)
         {
             return true;
         }
-        return RequireTags.MatchAnyTags(target.tags, TagMatch.Parental);
+        return RequireTags.MatchAnyTags(target[0].tags, TagMatch.Parental);
     }
 
-    public override IEnumerator OnCast(Monster caster)
+    public override IEnumerator OnCast(RogueHandle<Monster> caster)
     {
-        foreach (Monster target in targeting.affected)
+        foreach (RogueHandle<Monster> target in targeting.affected)
         {
+            Monster monster = target.value;
             foreach (Effect e in effectsToApply)
             {
                 Effect toAdd = e.Instantiate();
                 toAdd.credit = caster;
-                target.AddEffect(toAdd);
+                monster.AddEffect(toAdd);
             }
 
             if (damage.damage.dice > 0 && damage.damage.rolls > 0)
             {
-                target.Damage(caster, damage.damage.evaluate(), damage.type, DamageSource.ABILITY);
+                monster.Damage(caster, damage.damage.evaluate(), damage.type, DamageSource.ABILITY);
             }
         }
 
+        Monster casterMonster = caster.value;
         foreach (Effect e in effectsToApplyToCaster)
         {
             Effect toAdd = e.Instantiate();
             toAdd.credit = caster;
-            caster.AddEffect(toAdd);
+            casterMonster.AddEffect(toAdd);
         }
         yield break;
     }

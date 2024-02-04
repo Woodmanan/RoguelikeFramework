@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses with its {item.GetNameClean()}!", priority: LogPriority.COMBAT);
+            RogueLog.singleton.Log($"The {attacker.GetName()} misses with its {item.GetNameClean()}!", priority: LogPriority.COMBAT);
         }
 
         defender.connections.OnAfterPrimaryAttackTarget

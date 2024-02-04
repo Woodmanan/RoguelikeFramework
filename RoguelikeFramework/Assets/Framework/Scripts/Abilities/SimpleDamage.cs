@@ -10,23 +10,23 @@ public class SimpleDamage : Ability
     public Sprite[] sprites;
 
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
-    public override bool OnCheckActivationSoft(Monster caster)
+    public override bool OnCheckActivationSoft(RogueHandle<Monster> caster)
     {
         return true;
     }
 
     //Check activation, but for requirements that MUST be present for the spell to launch correctly. (Status effects will never override)
-    public override bool OnCheckActivationHard(Monster caster)
+    public override bool OnCheckActivationHard(RogueHandle<Monster> caster)
     {
         return true;
     }
 
-    public override IEnumerator OnCast(Monster caster)
+    public override IEnumerator OnCast(RogueHandle<Monster> caster)
     {
         //Anim before damage so death animations line up
-        foreach (Monster target in targeting.affected)
+        foreach (RogueHandle<Monster> target in targeting.affected)
         {
-            target.Damage(credit, damage.damage.evaluate() + currentStats[Resources.POWER], damage.type, DamageSource.ABILITY);
+            target[0].Damage(credit, damage.damage.evaluate() + currentStats[Resources.POWER], damage.type, DamageSource.ABILITY);
         }
         yield break;
     }

@@ -14,11 +14,9 @@ public class AutoExploreAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        Player player = caller as Player;
-
         while (true)
         {
-            if (caller.view.visibleEnemies.Count > 0)
+            if (caller[0].view.visibleEnemies.Count > 0)
             {
                 RogueLog.singleton.Log("You cannot auto-explore while enemies are in sight.");
                 yield break;
@@ -59,7 +57,7 @@ public class AutoExploreAction : GameAction
                 yield break;
             }
 
-            Path path = Pathfinding.CreateDjikstraWithAstar(caller.location, goals);
+            Path path = Pathfinding.CreateDjikstraWithAstar(caller[0].location, goals);
 
             if (path.Count() == 0)
             {
@@ -70,7 +68,7 @@ public class AutoExploreAction : GameAction
             while (path.Count() > 0)
             {
                 //Did we get moved on our path? Great, skip one.
-                if(caller.location == path.Peek())
+                if(caller[0].location == path.Peek())
                 {
                     path.Pop();
                     if (path.Count() == 0)
@@ -79,7 +77,7 @@ public class AutoExploreAction : GameAction
                     }
                 }
 
-                if (Vector2Int.Distance(caller.location, path.Peek()) > 1.8f)
+                if (Vector2Int.Distance(caller[0].location, path.Peek()) > 1.8f)
                 {
                     Debug.Log("Not making any progress, aborting!");
                     this.successful = false;
@@ -87,7 +85,7 @@ public class AutoExploreAction : GameAction
                 }
                 Vector2Int next = path.Pop();
 
-                caller.UpdateLOS();
+                caller[0].UpdateLOS();
 
                 yield return SubAction(new MoveAction(next, true, false));
                 
@@ -99,9 +97,9 @@ public class AutoExploreAction : GameAction
                 }
 
                 //Copied to try and get ahead of the wait check.
-                if (caller.view.visibleEnemies.Count > 0)
+                if (caller[0].view.visibleEnemies.Count > 0)
                 {
-                    RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.IMPORTANT);
+                    RogueLog.singleton.Log($"You see a " + caller[0].view.visibleEnemies[0][0].GetLocalizedName() + " and stop.", priority: LogPriority.IMPORTANT);
                     yield break;
                 }
 
@@ -129,7 +127,7 @@ public class AutoExploreAction : GameAction
 
     private Item GetNextPriorityItem()
     {
-        foreach (Item item in caller.view.visibleItems)
+        foreach (Item item in caller[0].view.visibleItems)
         {
             if (AutoPickupAction.IsPriorityPickup(item) || !AutoPickupAction.SeenItems.Contains(item))
             {

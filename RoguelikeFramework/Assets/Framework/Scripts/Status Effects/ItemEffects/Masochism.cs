@@ -119,7 +119,7 @@ public class Masochism : Effect
         if (active)
         {
                 float actualEfficiency = efficiency / 100;
-            connectedTo.monster.AddBaseStat(grantedResource, damage * actualEfficiency);
+            connectedTo.monster[0].AddBaseStat(grantedResource, damage * actualEfficiency);
             damage *= (1 - actualEfficiency);
         }
     }

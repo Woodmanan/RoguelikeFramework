@@ -29,6 +29,7 @@ public class Replacement
     public char glyph;
     public ReplacementOption option;
     public GameObject replacement;
+    public MonsterSpawnParams monster;
     public ScriptableObject pool;
     public ItemType type;
     public ItemRarity rarity;
@@ -290,17 +291,19 @@ public class RexRoom : Room
                                 {
                                     continue;
                                 }
-                                Monster monster = r.replacement.GetComponent<Monster>().Instantiate();
+
+                                RogueHandle<Monster> monster = r.monster.SpawnMonster();
+                                Monster vMonster = monster;
 
                                 //Place it in the world
-                                monster.transform.parent = map.monsterContainer;
+                                vMonster.unity.transform.parent = map.monsterContainer;
                                 map.monsters.Add(monster);
-                                monster.location = worldPosition;
+                                vMonster.location = worldPosition;
                                 map.GetTile(worldPosition).SetMonster(monster);
-                                monster.currentTile = map.GetTile(worldPosition);
-                                monster.transform.parent = map.monsterContainer;
-                                monster.level = map.depth;
-                                monster.Setup();
+                                vMonster.currentTile = map.GetTile(worldPosition);
+                                vMonster.unity.transform.parent = map.monsterContainer;
+                                vMonster.level = map.depth;
+                                vMonster.Setup();
                                 yield return null;
                             }
                             else
@@ -314,22 +317,9 @@ public class RexRoom : Room
                                 yield return null;
 
                                 //Generate monster from table, based on depth
-                                Monster monster = pool.RandomMonsterByDepth(map.depth);
-
-                                //Place item into world.
-                                map.monsters.Add(monster);
-                                monster.location = worldPosition;
-                                map.GetTile(worldPosition).SetMonster(monster);
-                                monster.currentTile = map.GetTile(worldPosition);
-                                monster.transform.parent = map.monsterContainer;
+                                RogueHandle<Monster> monster = MonsterSpawner.singleton.SpawnMonster(pool.RandomMonsterByDepth(map.depth), worldPosition, map, false);
 
                                 yield return null;
-
-                                if (r.allSame)
-                                {
-                                    r.replacement = monster.gameObject;
-                                    r.option = ReplacementOption.SINGLE_MONSTER;
-                                }
                             }
                         }
                     }

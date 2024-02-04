@@ -69,8 +69,8 @@ public class StatBar : MonoBehaviour, IDescribable
     public string GetDescription()
     {
         Dictionary<string, string> values = new Dictionary<string, string>();
-        values.Add("current", Mathf.CeilToInt(Player.player.baseStats[main]).ToString());
-        values.Add("max", Mathf.CeilToInt(Player.player.currentStats[max]).ToString());
+        values.Add("current", Mathf.CeilToInt(Player.player[0].baseStats[main]).ToString());
+        values.Add("max", Mathf.CeilToInt(Player.player[0].currentStats[max]).ToString());
         return LocDescription.GetLocalizedString(values);
     }
 
@@ -82,8 +82,8 @@ public class StatBar : MonoBehaviour, IDescribable
     public string GetName(bool shorten = false)
     {
         Dictionary<string, string> values = new Dictionary<string, string>();
-        values.Add("current", Mathf.CeilToInt(Player.player.baseStats[main]).ToString());
-        values.Add("max", Mathf.CeilToInt(Player.player.currentStats[max]).ToString());
+        values.Add("current", Mathf.CeilToInt(Player.player[0].baseStats[main]).ToString());
+        values.Add("max", Mathf.CeilToInt(Player.player[0].currentStats[max]).ToString());
         return LocName.GetLocalizedString(values);
     }
 }

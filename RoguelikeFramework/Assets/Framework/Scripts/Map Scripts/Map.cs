@@ -34,8 +34,8 @@ public class Map : MonoBehaviour
 
     public Branch branch;
 
-    public List<Monster> monsters = new List<Monster>();
-    public List<Monster> spawnedMonsters = new List<Monster>();
+    public List<RogueHandle<Monster>> monsters = new List<RogueHandle<Monster>>();
+    public List<RogueHandle<Monster>> spawnedMonsters = new List<RogueHandle<Monster>>();
 
     public int numStairsUp;
     public int numStairsDown;
@@ -72,7 +72,7 @@ public class Map : MonoBehaviour
             {
                 if (tiles[i, j].graphicsDirty)
                 {
-                    tiles[i, j].RebuildGraphics();
+                    tiles[i, j].RebuildGraphics(RogueHandle<Monster>.Default);
                 }
             }
         }
@@ -100,7 +100,7 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                tiles[i, j].RebuildGraphics();
+                tiles[i, j].RebuildGraphics(RogueHandle<Monster>.Default);
             }
         }
     }
@@ -378,31 +378,31 @@ public class Map : MonoBehaviour
 
     public void SwapMonsters(RogueTile first, RogueTile second)
     {
-        Monster secondMonster = second.currentlyStanding;
-        Monster firstMonster = first.currentlyStanding;
+        RogueHandle<Monster> secondMonster = second.currentlyStanding;
+        RogueHandle<Monster> firstMonster = first.currentlyStanding;
 
         if (secondMonster)
         {
-            secondMonster.currentTile = null;
+            secondMonster[0].currentTile = null;
             
         }
 
         if (firstMonster)
         {
-            firstMonster.currentTile = null;
+            firstMonster[0].currentTile = null;
         }
 
-        second.currentlyStanding = null;
-        first.currentlyStanding = null;
+        second.currentlyStanding = RogueHandle<Monster>.Default;
+        first.currentlyStanding = RogueHandle<Monster>.Default;
 
         if (secondMonster)
         {
-            secondMonster.SetPosition(first.location);
+            secondMonster[0].SetPosition(first.location);
         }
 
         if (firstMonster)
         {
-            firstMonster.SetPosition(second.location);
+            firstMonster[0].SetPosition(second.location);
         }
     }
 

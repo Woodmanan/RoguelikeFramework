@@ -22,7 +22,7 @@ public class RestAction : GameAction
 
         while (!ReadyToStop())
         {
-            if (caller.view.visibleEnemies.Count > 0)
+            if (caller[0].view.visibleEnemies.Count > 0)
             {
                 Debug.Log("Log: You cannot rest while enemies are in sight.");
                 yield break;
@@ -56,17 +56,17 @@ public class RestAction : GameAction
 
     public bool ReadyToStop()
     {
-        if (caller.baseStats[HEALTH] != caller.currentStats[MAX_HEALTH])
+        if (caller[0].baseStats[HEALTH] != caller[0].currentStats[MAX_HEALTH])
         {
             return false;
         }
 
-        if (caller.baseStats[MANA] != caller.currentStats[MAX_MANA])
+        if (caller[0].baseStats[MANA] != caller[0].currentStats[MAX_MANA])
         {
             return false;
         }
 
-        if (caller.baseStats[HEAT] > 0)
+        if (caller[0].baseStats[HEAT] > 0)
         {
             return false;
         }

@@ -74,12 +74,12 @@ public class PersonalAttributePanel : RogueUIPanel
     {
         //Exit first, in case the attibute wants to open a window on its connection
         ExitAllWindows();
-        Player.player.AddEffectInstantiate(attribute);
+        Player.player[0].AddEffectInstantiate(attribute);
     }
 
     public void RejectAttribute()
     {
         ExitAllWindows();
-        Player.player.AddEffectInstantiate(backup);
+        Player.player[0].AddEffectInstantiate(backup);
     }
 }

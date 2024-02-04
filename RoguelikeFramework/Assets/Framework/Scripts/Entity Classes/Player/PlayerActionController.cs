@@ -12,34 +12,34 @@ public class PlayerActionController : ActionController
     {
         if (InputTracking.HasNextAction())
         {
-            Player.player.view.CollectEntities(Map.current, Player.player);
+            Player.player[0].view.CollectEntities(Map.current, Player.player);
             (PlayerAction action, string inputString) = InputTracking.PopNextPair();
             switch (action)
             {
                 //Handle Movement code
                 case PlayerAction.MOVE_UP:
-                    nextAction = new MoveAction(monster.location + Vector2Int.up, picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + Vector2Int.up, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN:
-                    nextAction = new MoveAction(monster.location + Vector2Int.down, picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + Vector2Int.down, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_LEFT:
-                    nextAction = new MoveAction(monster.location + Vector2Int.left, picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + Vector2Int.left, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_RIGHT:
-                    nextAction = new MoveAction(monster.location + Vector2Int.right, picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + Vector2Int.right, picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_UP_LEFT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, 1), picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + new Vector2Int(-1, 1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_UP_RIGHT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(1, 1), picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + new Vector2Int(1, 1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN_LEFT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(-1, -1), picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + new Vector2Int(-1, -1), picksUpItems: true);
                     break;
                 case PlayerAction.MOVE_DOWN_RIGHT:
-                    nextAction = new MoveAction(monster.location + new Vector2Int(1, -1), picksUpItems: true);
+                    nextAction = new MoveAction(monster[0].location + new Vector2Int(1, -1), picksUpItems: true);
                     break;
                 case PlayerAction.WAIT:
                     nextAction = new WaitAction();
@@ -163,7 +163,7 @@ public class PlayerActionController : ActionController
 
     private bool AutoStairs(bool up)
     {
-        Stair stair = Map.current.GetTile(monster.location) as Stair;
+        Stair stair = Map.current.GetTile(monster[0].location) as Stair;
         return (stair && !(stair.up ^ up));
     }
 
@@ -204,7 +204,7 @@ public class PlayerActionController : ActionController
     //Item pickup, but with a little logic for determining if a UI needs to get involved.
     private void PickupSmartDetection()
     {
-        RogueTile tile = Map.current.GetTile(monster.location);
+        RogueTile tile = Map.current.GetTile(monster[0].location);
         Inventory onFloor = tile.GetComponent<Inventory>();
         switch (onFloor.Count)
         {
@@ -223,7 +223,7 @@ public class PlayerActionController : ActionController
         }
     }
 
-    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<Monster, bool> TargetCheck = null)
+    public override IEnumerator DetermineTarget(Targeting targeting, BoolDelegate setValidityTo, Func<RogueHandle<Monster>, bool> TargetCheck = null)
     {
         if (targetingPanel.Setup(targeting, setValidityTo, TargetCheck))
         {

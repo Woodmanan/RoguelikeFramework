@@ -78,7 +78,7 @@ public class Ability : ScriptableObject, IDescribable
     [SerializeField] List<Effect> attachedEffects = new List<Effect>();
     [System.NonSerialized]
     public Connections connections = null;
-    [HideInInspector] public Monster credit;
+    [HideInInspector] public RogueHandle<Monster> credit;
 
     public Ability Instantiate()
     {
@@ -130,7 +130,7 @@ public class Ability : ScriptableObject, IDescribable
     }
 
     //TODO: Set this up in a nice way
-    public void RegenerateStats(Monster m)
+    public void RegenerateStats(RogueHandle<Monster> m)
     {
         //I am losing my fucking mind
         targeting = baseTargeting.ShallowCopy();
@@ -139,24 +139,24 @@ public class Ability : ScriptableObject, IDescribable
 
         OnRegenerateStats(m);
 
-        connections.OnRegenerateAbilityStats.BlendInvoke(m?.connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
+        connections.OnRegenerateAbilityStats.BlendInvoke(m[0].connections?.OnRegenerateAbilityStats, ref m, ref currentStats, ref ability);
         targeting.range += Mathf.RoundToInt(currentStats[RANGE]);
         targeting.radius += Mathf.RoundToInt(currentStats[RADIUS]);
     }
 
-    public virtual void OnRegenerateStats(Monster caster)
+    public virtual void OnRegenerateStats(RogueHandle<Monster> caster)
     {
 
     }
 
     public virtual void OnSetup() { }
 
-    public virtual bool IsValidTarget(Monster target)
+    public virtual bool IsValidTarget(RogueHandle<Monster> target)
     {
         return true;
     }
 
-    public bool CheckAvailable(Monster caster)
+    public bool CheckAvailable(RogueHandle<Monster> caster)
     {
         bool canCast = true;
         if (currentCooldown != 0)
@@ -167,7 +167,7 @@ public class Ability : ScriptableObject, IDescribable
         {
             foreach (Resources r in costs.dictionary.Keys)
             {
-                if (caster.currentStats[r] < costs[r])
+                if (caster.value.currentStats[r] < costs[r])
                 {
                     canCast = false;
                     break;
@@ -184,8 +184,8 @@ public class Ability : ScriptableObject, IDescribable
 
         //Link in status effects for this system
         connections.monster = caster;
-        caster.connections.OnCheckAvailability.BlendInvoke(connections.OnCheckAvailability, ref casting, ref canCast);
-        connections.monster = null;
+        caster[0].connections.OnCheckAvailability.BlendInvoke(connections.OnCheckAvailability, ref casting, ref canCast);
+        connections.monster = RogueHandle<Monster>.Default;
 
         if (canCast)
         {
@@ -197,20 +197,20 @@ public class Ability : ScriptableObject, IDescribable
     }
 
     //Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
-    public virtual bool OnCheckActivationSoft(Monster caster)
+    public virtual bool OnCheckActivationSoft(RogueHandle<Monster> caster)
     {
         return true;
     }
 
     //Check activation, but for requirements that MUST be present for the spell to launch correctly. (Status effects will never override)
-    public virtual bool OnCheckActivationHard(Monster caster)
+    public virtual bool OnCheckActivationHard(RogueHandle<Monster> caster)
     {
         return true;
     }
 
     
 
-    public IEnumerator Cast(Monster caster)
+    public IEnumerator Cast(RogueHandle<Monster> caster)
     {
         if (credit == null)
         {
@@ -225,7 +225,7 @@ public class Ability : ScriptableObject, IDescribable
         }
     }
 
-    public virtual IEnumerator OnCast(Monster caster)
+    public virtual IEnumerator OnCast(RogueHandle<Monster> caster)
     {
         Debug.Log("Ability did not override basic call", this);
         yield break;

@@ -3848,7 +3848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a677cb429786043922672affd624a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenSpecies: {fileID: 4311608207694994517, guid: c9b88d90c5229ac488186984a6cba063, type: 3}
+  chosenSpecies: {fileID: 11400000, guid: f1ff6a9aba471024aa07d8a7608b40bb, type: 2}
   classGenerator: {fileID: 776659126}
   chosenGenerator: {fileID: 11400000, guid: 33d5507a13ce4a7469f93c0dc555f7b7, type: 2}
   generationOptions: []

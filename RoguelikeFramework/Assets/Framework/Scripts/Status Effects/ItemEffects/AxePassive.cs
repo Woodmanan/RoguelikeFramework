@@ -144,13 +144,13 @@ public class AxePassive : Effect
         if (result == AttackResult.HIT)
         {
             //We hit! Perform the AOE attack.
-            List<Monster> nearbyTargets = Map.current.GetNeighboringTiles(action.caller.location)
-                                                     .Where(x => x.currentlyStanding != null)
+            List<RogueHandle<Monster>> nearbyTargets = Map.current.GetNeighboringTiles(action.caller[0].location)
+                                                     .Where(x => x.currentlyStanding.IsValid())
                                                      .Select(x => x.currentlyStanding)
                                                      .ToList();
             nearbyTargets.Remove(action.target);
 
-            foreach (Monster monster in nearbyTargets)
+            foreach (RogueHandle<Monster> monster in nearbyTargets)
             {
                 Combat.Hit(action.caller, monster, DamageSource.ITEM & DamageSource.MELEEATTACK, weapon.primary, damageModifier : (percentDamage / 100f));
             }
@@ -169,13 +169,13 @@ public class AxePassive : Effect
         if (result == AttackResult.HIT)
         {
             //We hit! Perform the AOE attack.
-            List<Monster> nearbyTargets = Map.current.GetNeighboringTiles(action.caller.location)
-                                                     .Where(x => x.currentlyStanding != null)
+            List<RogueHandle<Monster>> nearbyTargets = Map.current.GetNeighboringTiles(action.caller[0].location)
+                                                     .Where(x => x.currentlyStanding.IsValid())
                                                      .Select(x => x.currentlyStanding)
                                                      .ToList();
             nearbyTargets.Remove(action.target);
 
-            foreach (Monster monster in nearbyTargets)
+            foreach (RogueHandle<Monster> monster in nearbyTargets)
             {
                 Combat.Hit(action.caller, action.target, DamageSource.ITEM, weapon.secondary, damageModifier : (percentDamage / 100f));
             }

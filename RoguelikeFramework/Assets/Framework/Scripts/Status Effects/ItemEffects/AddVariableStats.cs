@@ -74,7 +74,7 @@ public class AddVariableStats : Effect
     //Called often, whenever a monster needs up-to-date stats.
     public override void RegenerateStats(ref Stats stats)
     {
-        float lerpAmount = Mathf.InverseLerp(lowerPercent / 100, higherPercent / 100, connectedTo.monster.currentStats[amount] / connectedTo.monster.currentStats[fromMax]);
+        float lerpAmount = Mathf.InverseLerp(lowerPercent / 100, higherPercent / 100, connectedTo.monster[0].currentStats[amount] / connectedTo.monster[0].currentStats[fromMax]);
         lerpAmount = Mathf.Clamp(lerpAmount, 0, 1);
 
         stats = stats & lowerStats * (1 - lerpAmount) & higherStats * (lerpAmount);

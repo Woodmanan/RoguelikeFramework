@@ -18,13 +18,13 @@ public class WaitAction : GameAction
         //but the other might give better gameplay results.
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(Map.current.GetTile(caller.location).currentlyStanding == caller, "Waiting monster thinks that it is not on it's tile. Some other system has incorrectly set the currentTile.", caller);
+        Debug.AssertFormat(Map.current.GetTile(caller[0].location).currentlyStanding == caller, "Waiting monster thinks that it is not on it's tile. Some other system has incorrectly set the currentTile.", caller[0].unity);
         #endif
 
-        caller.SetPosition(caller.location);
+        caller[0].SetPosition(caller[0].location);
         //caller.view.CollectEntities(Map.current);
-        caller.energy -= 100f;
-        caller.willSwap = true;
+        caller[0].energy -= 100f;
+        caller[0].willSwap = true;
         yield break;
     }
 

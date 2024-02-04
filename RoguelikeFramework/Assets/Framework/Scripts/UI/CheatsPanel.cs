@@ -281,19 +281,19 @@ public class CheatsPanel : RogueUIPanel
     [Cheat]
     public void KillPlayer()
     {
-        Player.player.Damage(Player.player, 9999, DamageType.TRUE, DamageSource.EFFECT);
+        Player.player[0].Damage(Player.player, 9999, DamageType.TRUE, DamageSource.EFFECT);
     }
 
     [Cheat]
     public void GiveHealth(int health)
     {
-        Player.player.Heal(health);
+        Player.player[0].Heal(health);
     }
 
     [Cheat]
     public void SetLevel(int level)
     {
-        Player.player.level = level;
+        Player.player[0].level = level;
     }
 
     [Cheat]
@@ -313,11 +313,11 @@ public class CheatsPanel : RogueUIPanel
     [Cheat]
     public void KillAllMonsters()
     {
-        foreach (Monster monster in Map.current.monsters)
+        foreach (RogueHandle<Monster> monster in Map.current.monsters)
         {
             if (monster != Player.player)
             {
-                monster.Damage(Player.player, 9999, DamageType.TRUE, DamageSource.MONSTER);
+                monster[0].Damage(Player.player, 9999, DamageType.TRUE, DamageSource.MONSTER);
             }
         }
     }
@@ -370,13 +370,13 @@ public class CheatsPanel : RogueUIPanel
         {
             LOS.lastCall.DeprintGraphics(Map.current);
             GameController.singleton.LoadMap(index);
-            Player.player.transform.parent = Map.current.monsterContainer;
-            Player.player.SetPositionSnap(Map.current.GetRandomWalkableTile());
+            Player.player[0].unity.transform.parent = Map.current.monsterContainer;
+            Player.player[0].SetPositionSnap(Map.current.GetRandomWalkableTile());
             
             LOS.lastCall = null;
             CameraTracking.singleton.JumpToPlayer();
-            Player.player.UpdateLOS();
-            LOS.WritePlayerGraphics(Map.current, Player.player.location, Player.player.visionRadius);
+            Player.player[0].UpdateLOS();
+            LOS.WritePlayerGraphics(Map.current, Player.player[0].location, Player.player[0].visionRadius);
         }
         else
         {
@@ -398,13 +398,13 @@ public class CheatsPanel : RogueUIPanel
     [Cheat]
     public void SetFriendly()
     {
-        Player.player.faction = (Faction) (-1);
+        Player.player[0].faction = (Faction) (-1);
     }
 
     [Cheat]
     public void SetUnfriendly()
     {
-        Player.player.faction = Faction.PLAYER;
+        Player.player[0].faction = Faction.PLAYER;
     }
 
     [Cheat]
@@ -434,7 +434,7 @@ public class CheatsPanel : RogueUIPanel
         }
         Debug.Log($"Generating item with id {id} and rarity {rarity}");
         Item toSpawn = ItemSpawner.singleton.GetItemByID(id);
-        ItemSpawner.singleton.SpawnItem(toSpawn, Player.player.location, Map.current, rarity);
+        ItemSpawner.singleton.SpawnItem(toSpawn, Player.player[0].location, Map.current, rarity);
     }
 
     public List<string> SpawnItem_AutoComplete()
@@ -512,7 +512,7 @@ public class CheatsPanel : RogueUIPanel
     [Cheat(true)]
     public void AddDamage(DamageType type, float amount)
     {
-        Player.player.Damage(Player.player, amount, type, DamageSource.ABILITY);
+        Player.player[0].Damage(Player.player, amount, type, DamageSource.ABILITY);
     }
 
     public List<string> AddDamage_AutoComplete()
@@ -529,9 +529,9 @@ public class CheatsPanel : RogueUIPanel
     [Cheat]
     public void FreezeMonsters()
     {
-        foreach (Monster monster in Map.current.monsters)
+        foreach (RogueHandle<Monster> monster in Map.current.monsters)
         {
-            MonsterAI ai = monster.GetComponent<MonsterAI>();
+            MonsterAI ai = monster[0].unity.GetComponent<MonsterAI>();
             if (ai)
             {
                 ai.debugFreezeMonster = !ai.debugFreezeMonster;

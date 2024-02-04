@@ -24,17 +24,17 @@ public class AbilityAction : GameAction
     {
         if (toCast == null)
         {
-            Debug.LogError($"Monster {caller.name} tried to cast a null ability.", caller);
-            caller.energy -= 1;
+            Debug.LogError($"Monster {caller[0].friendlyName} tried to cast a null ability.", caller[0].unity);
+            caller[0].energy -= 1;
             yield break;
         }
 
-        caller.AddConnection(toCast.connections);
+        caller[0].AddConnection(toCast.connections);
 
         if (toCast.currentCooldown > 0)
         {
             RogueLog.singleton.Log($"You cannot cast {toCast.GetName()}, it still has {toCast.currentCooldown} turns of cooldown.");
-            caller.RemoveConnection(toCast.connections);
+            caller[0].RemoveConnection(toCast.connections);
             successful = false;
             yield break;
         }
@@ -42,7 +42,7 @@ public class AbilityAction : GameAction
         if (!toCast.castable)
         {
             RogueLog.singleton.Log($"You cannot cast {toCast.GetName()}.");
-            caller.RemoveConnection(toCast.connections);
+            caller[0].RemoveConnection(toCast.connections);
             successful = false;
             yield break;
         }
@@ -53,11 +53,11 @@ public class AbilityAction : GameAction
             
             bool keepCasting = true;
             
-            caller.connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
+            caller[0].connections.OnCastAbility.BlendInvoke(toCast.connections.OnCastAbility, ref action, ref keepCasting);
 
             if (!keepCasting)
             {
-                caller.RemoveConnection(toCast.connections);
+                caller[0].RemoveConnection(toCast.connections);
                 successful = false;
                 yield break;
             }
@@ -65,7 +65,7 @@ public class AbilityAction : GameAction
 
         bool canFire = false;
 
-        IEnumerator target = caller.controller.DetermineTarget(toCast.targeting, (b) => canFire = b, toCast.IsValidTarget);
+        IEnumerator target = caller[0].controller.DetermineTarget(toCast.targeting, (b) => canFire = b, toCast.IsValidTarget);
         while (target.MoveNext())
         {
             yield return target.Current;
@@ -75,22 +75,22 @@ public class AbilityAction : GameAction
         if (canFire)
         {
             //Ready to cast!
-            caller.connections.OnTargetsSelected.BlendInvoke(toCast.connections.OnTargetsSelected, ref toCast.targeting, ref toCast);
+            caller[0].connections.OnTargetsSelected.BlendInvoke(toCast.connections.OnTargetsSelected, ref toCast.targeting, ref toCast);
 
             //Backwards, since they might remove themselves during this call.
             for (int i = toCast.targeting.affected.Count - 1; i >= 0; i--)
             {
-                toCast.targeting.affected[i].connections.OnTargetedByAbility.Invoke(ref action);
+                toCast.targeting.affected[i][0].connections.OnTargetedByAbility.Invoke(ref action);
             }
 
             //Take out the costs
-            caller.LoseResources(toCast.costs);
+            caller[0].LoseResources(toCast.costs);
 
-            caller.connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
+            caller[0].connections.OnPreCast.BlendInvoke(toCast.connections.OnPreCast, ref toCast);
 
             if (!toCast.locName.IsEmpty)
             {
-                string logString = LogFormatting.GetFormattedString("CastFullString", new { caster = caller.GetName(), singular = caller.singular, spell = toCast.GetName() });
+                string logString = LogFormatting.GetFormattedString("CastFullString", new { caster = caller[0].GetName(), singular = caller[0].singular, spell = toCast.GetName() });
                 RogueLog.singleton.Log(logString, priority: LogPriority.IMPORTANT);
             }
 
@@ -103,21 +103,21 @@ public class AbilityAction : GameAction
                 yield return castRoutine.Current;
             }
 
-            caller.connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);
+            caller[0].connections.OnPostCast.BlendInvoke(toCast.connections.OnPostCast, ref toCast);
 
             for (int i = toCast.targeting.affected.Count - 1; i >= 0; i--)
             {
-                toCast.targeting.affected[i].connections.OnHitByAbility.Invoke(ref action);
+                toCast.targeting.affected[i][0].connections.OnHitByAbility.Invoke(ref action);
             }
 
-            caller.energy -= toCast.EnergyCost;
+            caller[0].energy -= toCast.EnergyCost;
         }
         else
         {
             successful = false;
         }
 
-        caller.RemoveConnection(toCast.connections);
+        caller[0].RemoveConnection(toCast.connections);
     }
 
     //Called after construction, but before execution!
@@ -125,19 +125,19 @@ public class AbilityAction : GameAction
     public override void OnSetup()
     {
         #if UNITY_EDITOR
-        if (caller.abilities == null)
+        if (caller[0].abilities == null)
         {
-            Debug.LogError($"A monster without abilites tried to activate ability {abilityIndex}", caller);
+            Debug.LogError($"A monster without abilites tried to activate ability {abilityIndex}", caller[0].unity);
             return;
         }
         #else
-        if (caller.abilities == null) return;
+        if (caller[0].abilities == null) return;
         #endif
         if (toCast == null)
         {
-            if (caller.abilities.HasAbility(abilityIndex))
+            if (caller[0].abilities.HasAbility(abilityIndex))
             {
-                toCast = caller.abilities[abilityIndex];
+                toCast = caller[0].abilities[abilityIndex];
             }
         }
     }

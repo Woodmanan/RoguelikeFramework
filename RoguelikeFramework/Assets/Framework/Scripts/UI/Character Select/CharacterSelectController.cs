@@ -23,7 +23,7 @@ public class CharacterSelectController : MonoBehaviour
 
     private static CharacterSelectController Singleton;
 
-    public Monster chosenSpecies;
+    public MonsterSpawnParams chosenSpecies;
     public ClassGenerator classGenerator;
     public WorldGenerator chosenGenerator;
     public List<string> generationOptions;
@@ -69,21 +69,20 @@ public class CharacterSelectController : MonoBehaviour
         Debug.Assert(LevelLoader.singleton.generators.Count == 0, "Level loader was not set up!");
         chosenGenerator = Instantiate(chosenGenerator);
 
-        Player.player = Instantiate(chosenSpecies);
+        Player.player = chosenSpecies.SpawnPlayer();
+        Player castPlayer = Player.player.Get<Player>();
 
         if (classGenerator.IsChoicePendingUnlock())
         {
             //TODO: Yield wait for unlock screen!
         }
+        /*
         Class chosenClass = classGenerator.GenerateClass();
         chosenClass.Apply(Player.player);
-        if (Player.player is Player player)
-        {
-            player.chosenClass = chosenClass;
-        }
+        castPlayer.chosenClass = chosenClass;*/
 
-        Player.player.AddEffectInstantiate(chosenGenerator.playerPassives.ToArray());
-        Player castPlayer = Player.player as Player;
+        castPlayer.AddEffectInstantiate(chosenGenerator.playerPassives.ToArray());
+        
 
         foreach (string s in generationOptions)
         {

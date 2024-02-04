@@ -40,12 +40,12 @@ public class EquipAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        if (!caller.equipment.CanEquip(itemIndex, equipIndex)) {
+        if (!caller[0].equipment.CanEquip(itemIndex, equipIndex)) {
             yield break;
         }
 
         //Quick check: Are we trying to do something redundant?
-        if (!caller.equipment.RequiresReequip(itemIndex, equipIndex))
+        if (!caller[0].equipment.RequiresReequip(itemIndex, equipIndex))
         {
             Debug.Log("You can't re-equip an item to its own slot. Why would you want to do this?");
             yield break;
@@ -53,9 +53,9 @@ public class EquipAction : GameAction
 
 
         //We can attempt to move forward here!
-        List<int> neededSlots = caller.equipment.SlotsNeededToEquip(itemIndex, equipIndex);
+        List<int> neededSlots = caller[0].equipment.SlotsNeededToEquip(itemIndex, equipIndex);
 
-        ItemStack item = caller.inventory[itemIndex];
+        ItemStack item = caller[0].inventory[itemIndex];
         if (item.held[0].equipable.isEquipped)
         {
             yield return SubAction(new RemoveAction(item));
@@ -69,14 +69,14 @@ public class EquipAction : GameAction
 
         //We can now Equip!
         //TODO: Make this energy cost item dependent
-        caller.equipment.Equip(itemIndex, equipIndex);
-        caller.energy -= 100;
+        caller[0].equipment.Equip(itemIndex, equipIndex);
+        caller[0].energy -= 100;
     }
 
     public override string GetDebugString()
     {
-        Item item = caller.inventory[itemIndex].held[0];
-        EquipmentSlot slot = caller.equipment.equipmentSlots[equipIndex];
+        Item item = caller[0].inventory[itemIndex].held[0];
+        EquipmentSlot slot = caller[0].equipment.equipmentSlots[equipIndex];
         return $"Equip Action: Equiping index {itemIndex}:{item.friendlyName} to slot {equipIndex}: {slot.slotName}";
     }
 

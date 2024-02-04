@@ -56,9 +56,9 @@ public class UnlockAchOnDeath : Effect
     //public override void OnFullyHealed() {}
 
     //Called when the connected monster dies
-    public override void OnPostDeath(ref Monster killer)
+    public override void OnPostDeath(ref RogueHandle<Monster> killer)
     {
-        if (connectedTo.monster.baseStats[HEALTH] <= 0)
+        if (connectedTo.monster.value.baseStats[HEALTH] <= 0)
         {
             SteamController.singleton?.GiveAchievement(achievementName);
         }

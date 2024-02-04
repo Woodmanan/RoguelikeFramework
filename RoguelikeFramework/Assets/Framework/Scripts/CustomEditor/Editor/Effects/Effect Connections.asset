@@ -54,19 +54,19 @@ MonoBehaviour:
     priority: 6
   - name: OnPostDeath
     types:
-    - type: Monster
+    - type: RogueHandle<Monster>
       name: killer
     description: Called after this monster has registered its death.
     priority: 7
   - name: OnDeath
     types:
-    - type: Monster
+    - type: RogueHandle<Monster>
       name: killer
     description: Called when the connected monster dies
     priority: 7
   - name: OnKillMonster
     types:
-    - type: Monster
+    - type: RogueHandle<Monster>
       name: monster
     - type: DamageType
       name: type
@@ -174,7 +174,7 @@ MonoBehaviour:
     priority: 17
   - name: OnRegenerateAbilityStats
     types:
-    - type: Monster
+    - type: RogueHandle<Monster>
       name: caster
     - type: Stats
       name: abilityStats

@@ -17,7 +17,7 @@ public class ChangeLevelAction : GameAction
     public override IEnumerator TakeAction()
     {
         Debug.Log("Moving levels!");
-        Stair stair = Map.current.GetTile(caller.location) as Stair;
+        Stair stair = Map.current.GetTile(caller[0].location) as Stair;
         if (stair && !stair.locked)
         {
             if (stair.up ^ up)
@@ -33,7 +33,7 @@ public class ChangeLevelAction : GameAction
             if (LevelToChange >= 0)
             {
                 GameController.singleton.MoveToLevel(stair.GetMatchingLevel());
-                caller.energy -= 100;
+                caller[0].energy -= 100;
             }
             else
             {

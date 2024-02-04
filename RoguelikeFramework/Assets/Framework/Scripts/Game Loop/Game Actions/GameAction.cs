@@ -16,7 +16,7 @@ public class GameAction
     public static YieldInstruction StateCheckNoExit = new WaitForSeconds(5.0f); //Willing to stop for a turn, but NOT willing to stop for visible enemies.
 
     //----------Shared variables per instance---------------------
-    public Monster caller;
+    public RogueHandle<Monster> caller;
     public IEnumerator action;
     public bool finished;
     public bool successful = true;
@@ -49,8 +49,8 @@ public class GameAction
      */
     public virtual IEnumerator TakeAction()
     {
-        Debug.LogError("You forgot to override the TakeAction function! Skipping their turn for it.", caller.gameObject);
-        caller.energy -= 100;
+        Debug.LogError("You forgot to override the TakeAction function! Skipping their turn for it.", caller[0].unity.gameObject);
+        caller[0].energy -= 100;
         yield break; //This is stupid, but it's needed for the compiler to count this.
     }
 
@@ -76,7 +76,7 @@ public class GameAction
         finished = true;
     }
 
-    public void Setup(Monster caller)
+    public void Setup(RogueHandle<Monster> caller)
     {
         this.caller = caller;
         OnSetup();
@@ -96,7 +96,7 @@ public class GameAction
     protected YieldInstruction SubAction(GameAction action)
     {
         action.Setup(caller);
-        caller.AddSubAction(action);
+        caller[0].AddSubAction(action);
         return null;
     }
 

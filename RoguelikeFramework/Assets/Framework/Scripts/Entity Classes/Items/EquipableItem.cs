@@ -19,7 +19,7 @@ public class EquipableItem : MonoBehaviour
     public bool removable = true;
     public bool blocksUnarmed = true;
 
-    Monster equippedTo;
+    RogueHandle<Monster> equippedTo;
     int equippedIndex; //Primary index
     Item item;
 
@@ -43,19 +43,19 @@ public class EquipableItem : MonoBehaviour
     //Removes this item from the monster it's attached to
     public void Unequip()
     {
-        if (equippedTo)
+        if (equippedTo.IsValid())
         {
-            equippedTo.equipment.Unequip(item);
+            equippedTo[0].equipment.Unequip(item);
         }
     }
 
-    public void OnEquip(Monster m)
+    public void OnEquip(RogueHandle<Monster> m)
     {
         item.Setup();
         isEquipped = true;
         equippedTo = m;
-        m.currentStats &= GetStats(); //Immediate stat benefit
-        m.connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
+        m[0].currentStats &= GetStats(); //Immediate stat benefit
+        m[0].connections.RegenerateStats.AddListener(0, RegenerateStats); //Hook up for next regen
 
         //Clone effects, so they can reapply
         clonedEffects.Clear();
@@ -64,23 +64,23 @@ public class EquipableItem : MonoBehaviour
             clonedEffects.Add(e.Instantiate());
         }
 
-        m.AddEffect(clonedEffects.ToArray()); //Immediate status effect add
+        m[0].AddEffect(clonedEffects.ToArray()); //Immediate status effect add
     }
 
 
 
     public void OnUnequip()
     {
-        equippedTo.currentStats ^= addedStats;
+        equippedTo[0].currentStats ^= addedStats;
 
         //Disconnect all old effects
         foreach (Effect e in clonedEffects)
         {
             e.Disconnect();
         }
-        equippedTo.connections.RegenerateStats.RemoveListener(RegenerateStats);
+        equippedTo[0].connections.RegenerateStats.RemoveListener(RegenerateStats);
         isEquipped = false;
-        equippedTo = null;
+        equippedTo = RogueHandle<Monster>.Default;
     }
 
     public void RegenerateStats(ref Stats block)

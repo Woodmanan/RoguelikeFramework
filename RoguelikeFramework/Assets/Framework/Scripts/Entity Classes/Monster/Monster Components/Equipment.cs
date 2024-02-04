@@ -26,7 +26,7 @@ public class EquipmentSlot
 public class Equipment : MonoBehaviour
 {
     public bool CanUnequip = true;
-    [HideInInspector] public Monster monster;
+    [HideInInspector] public RogueHandle<Monster> monster;
     private Inventory inventory;
 
     public List<EquipmentSlot> equipmentSlots;
@@ -44,7 +44,7 @@ public class Equipment : MonoBehaviour
     // Start is called before the first frame update
     public void Setup()
     {
-        monster = GetComponent<Monster>();
+        monster = GetComponent<UnityMonster>().monsterHandle;
         inventory = GetComponent<Inventory>();
         this.enabled = false; //Shuts off expensive events
 
@@ -449,7 +449,7 @@ public class Equipment : MonoBehaviour
     public void Equip(Item i)
     {
         //Get item index
-        int index = monster.inventory.GetIndexOf(i);
+        int index = monster[0].inventory.GetIndexOf(i);
         if (index == -1)
         {
             Debug.LogError("Something has gone very wrong. An item thinks it was equipped, but it's monster did not hold it.", this);
@@ -473,7 +473,7 @@ public class Equipment : MonoBehaviour
     //Has to search inventory for item stack number, try to avoid
     public void Unequip(Item i)
     {
-        int index = monster.inventory.GetIndexOf(i);
+        int index = monster[0].inventory.GetIndexOf(i);
         if (index == -1)
         {
             Debug.LogError("Something has gone very wrong. An item thinks it was equipped, but it's monster did not hold it.", this);

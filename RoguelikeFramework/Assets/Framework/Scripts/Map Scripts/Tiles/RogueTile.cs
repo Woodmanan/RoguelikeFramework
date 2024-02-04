@@ -31,8 +31,10 @@ public class RogueTile : MonoBehaviour, IDescribable
     public bool blocksProjectiles;
     public Color color = Color.white;
     public float minGreyAlpha;
-    public Monster currentlyStanding;
-    public Monster ghostStanding;
+    [NonSerialized]
+    public RogueHandle<Monster> currentlyStanding = RogueHandle<Monster>.Default;
+    [NonSerialized]
+    public RogueHandle<Monster> ghostStanding = RogueHandle<Monster>.Default;
 
     //Floor visualization
     public Inventory inventory;
@@ -40,7 +42,7 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     private SpriteRenderer render;
 
-    public event Action<Monster> MonsterEntered;
+    public event Action<RogueHandle<Monster>> MonsterEntered;
 
     //Stuff used for convenience editor hacking, and should never be seen.
     
@@ -89,7 +91,7 @@ public class RogueTile : MonoBehaviour, IDescribable
             render.sortingOrder = -1000;
         }
 
-        RebuildGraphics();
+        RebuildGraphics(RogueHandle<Monster>.Default);
         this.enabled = false;
         setup = true;
 
@@ -166,19 +168,19 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     public void ClearMonster()
     {
-        currentlyStanding = null;
+        currentlyStanding = RogueHandle<Monster>.Default;
     }
 
     public bool IsOpen()
     {
-        return !BlocksMovement() && currentlyStanding == null;
+        return !BlocksMovement() && !currentlyStanding.IsValid();
     }
 
-    public void SetMonster(Monster m)
+    public void SetMonster(RogueHandle<Monster> m)
     {
-        if (currentlyStanding != m && currentlyStanding != null)
+        if (currentlyStanding != m && currentlyStanding.IsValid())
         {
-            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.friendlyName} is there.", this);
+            Debug.LogError($"Monster set itself as standing on tile ({location}), but {currentlyStanding.value.friendlyName} is there.", this);
         }
         currentlyStanding = m;
         MonsterEntered?.Invoke(m);
@@ -207,18 +209,18 @@ public class RogueTile : MonoBehaviour, IDescribable
     
     public void StopHighlight()
     {
-        RebuildGraphics();
+        RebuildGraphics(RogueHandle<Monster>.Default);
     }
 
     public void RebuildIfDirty()
     {
         if (graphicsDirty)
         {
-            RebuildGraphics();
+            RebuildGraphics(RogueHandle<Monster>.Default);
         }
     }
 
-    public void RebuildGraphics(Monster graphicStanding = null)
+    public void RebuildGraphics(RogueHandle<Monster> graphicStanding)
     {
         graphicsDirty = false;
         if (graphicsVisibility == oldGraphicsVisibility) return;
@@ -236,14 +238,14 @@ public class RogueTile : MonoBehaviour, IDescribable
             case Visibility.VISIBLE:
             case (Visibility.VISIBLE | Visibility.REVEALED):
                 render.color = color;
-                if (ghostStanding)
+                if (ghostStanding.IsValid())
                 {
                     //If a ghost is seen here, and it's the last time we saw it, make it disappear.
-                    if (Mathf.Approximately(Vector2.Distance(transform.position, ghostStanding.transform.position), 0))
+                    if (Mathf.Approximately(Vector2.Distance(transform.position, ghostStanding.value.unity.transform.position), 0))
                     {
-                        ghostStanding.SetGraphicsVisibility(Visibility.HIDDEN);
+                        ghostStanding.value.SetGraphicsVisibility(Visibility.HIDDEN);
                     }
-                    ghostStanding = null;
+                    ghostStanding = RogueHandle<Monster>.Default;
                 }
                 break;
             default:
@@ -255,7 +257,11 @@ public class RogueTile : MonoBehaviour, IDescribable
 
         //Let monsters know that this tile has switched
         //currentlyStanding?.SetGraphics((graphicsVisibility & Visibility.VISIBLE) > 0);
-        graphicStanding?.SetGraphicsVisibilityOnTile(this);
+        if (graphicStanding.IsValid())
+        {
+            graphicStanding.value.SetGraphicsVisibilityOnTile(this);
+        }
+        
 
         itemVis.RebuildVisiblity(graphicsVisibility);
     }
@@ -273,7 +279,7 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     public virtual float GetMovementCost()
     {
-        if (currentlyStanding)
+        if (currentlyStanding.IsValid())
         {
             return movementCost * 5;
         }
@@ -311,11 +317,11 @@ public class RogueTile : MonoBehaviour, IDescribable
 
     public void AnimUpdateMonsterPosition(Vector3 newPosition)
     {
-        if (currentlyStanding)
+        if (currentlyStanding.IsValid())
         {
             Vector3 monsterPosition = newPosition;
             monsterPosition.z = Monster.monsterZPosition;
-            currentlyStanding.transform.position = monsterPosition;
+            currentlyStanding.value.unity.transform.position = monsterPosition;
         }
     }
 

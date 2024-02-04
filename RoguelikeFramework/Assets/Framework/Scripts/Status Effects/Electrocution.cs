@@ -121,7 +121,7 @@ public class Electrocution : Effect
         if (result == AttackResult.HIT)
         {
             Debug.Log("Electrocuting monster!");
-            action.target.Damage(action.caller, damagePerHit, DamageType.ELECTRICAL, weapon.source);
+            action.target[0].Damage(action.caller, damagePerHit, DamageType.ELECTRICAL, weapon.source);
         }
     }
 
@@ -137,7 +137,7 @@ public class Electrocution : Effect
         if (result == AttackResult.HIT)
         {
             Debug.Log("Electrocuting monster!");
-            action.target.Damage(action.caller, damagePerHit, DamageType.PHYSICAL, weapon.source);
+            action.target[0].Damage(action.caller, damagePerHit, DamageType.PHYSICAL, weapon.source);
         }
     }
 

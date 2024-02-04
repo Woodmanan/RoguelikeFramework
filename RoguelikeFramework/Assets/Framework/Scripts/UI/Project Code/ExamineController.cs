@@ -56,9 +56,10 @@ public class ExamineController : MonoBehaviour
                     shortHoverTitle.text = desc.GetName(true);
                     shortHoverDesc.text = desc.GetDescription();
 
-                    Monster monster = target.GetComponent<Monster>();
-                    if (monster)
+                    UnityMonster unityMonster = target.GetComponent<UnityMonster>();
+                    if (unityMonster)
                     {
+                        Monster monster = unityMonster.monsterHandle;
                         shortHoverTitle.text += $" ({monster.baseStats[Resources.HEALTH]}/{monster.currentStats[Resources.MAX_HEALTH]})";
                     }
                 }
@@ -116,7 +117,7 @@ public class ExamineController : MonoBehaviour
                 RogueTile tile = Map.current.GetTile(gameLoc);
                 if (tile.isVisible && tile.currentlyStanding)
                 {
-                    objects.Add(tile.currentlyStanding.gameObject);
+                    objects.Add(tile.currentlyStanding[0].unity.gameObject);
                 }
 
                 if (!tile.isHidden && tile.inventory.Count > 0)

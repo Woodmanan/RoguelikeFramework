@@ -86,7 +86,7 @@ public class Query
     public int outOf = 1;
     public List<QueryTerm> terms;
     
-    public float Evaluate(Monster owner, Ability ability, ItemStack item)
+    public float Evaluate(RogueHandle<Monster> owner, Ability ability, ItemStack item)
     {
         if (outOf == 0) return 0.0f;
 
@@ -117,13 +117,13 @@ public class QueryTerm
 
     public int weight = 1;
 
-    public float Evaluate(Monster owner, Ability ability, ItemStack item)
+    public float Evaluate(RogueHandle<Monster> owner, Ability ability, ItemStack item)
     {
-        return (weight * PerformEvaluation(owner, owner.view, ability, item));
+        return (weight * PerformEvaluation(owner, owner[0].view, ability, item));
     }
 
     //Actual Evaluation funciton! Returns a number between 1 and 0.
-    private float PerformEvaluation(Monster owner, LOSData view, Ability ability, ItemStack item)
+    private float PerformEvaluation(RogueHandle<Monster> owner, LOSData view, Ability ability, ItemStack item)
     {
         switch (subject)
         {
@@ -159,7 +159,7 @@ public class QueryTerm
         }
     }
 
-    public float EvaluateAbility(Monster owner, Ability ability)
+    public float EvaluateAbility(RogueHandle<Monster> owner, Ability ability)
     {
         switch (property)
         {
@@ -173,7 +173,7 @@ public class QueryTerm
         }
     }
 
-    public float EvaluateItem(Monster owner, ItemStack stack)
+    public float EvaluateItem(RogueHandle<Monster> owner, ItemStack stack)
     {
         switch (property)
         {
@@ -185,7 +185,7 @@ public class QueryTerm
         }
     }
 
-    public float EvaluateManyMonsters(Monster owner, List<Monster> monsters)
+    public float EvaluateManyMonsters(RogueHandle<Monster> owner, List<RogueHandle<Monster>> monsters)
     {
         if (monsters.Count == 0) { return 0.0f; }
         float val;
@@ -193,7 +193,7 @@ public class QueryTerm
         switch (subjectMod)
         {
             case QuerySubjectModifier.ANY:
-                foreach (Monster m in monsters)
+                foreach (RogueHandle<Monster> m in monsters)
                 {
                     if (EvaluateSingleMonster(owner, m) > .99f)
                     {
@@ -202,13 +202,13 @@ public class QueryTerm
                 }
                 return 0.0f;
             case QuerySubjectModifier.NEAREST:
-                monsters = monsters.OrderBy(x => Vector2Int.Distance(owner.location, x.location)).ToList();
+                monsters = monsters.OrderBy(x => Vector2Int.Distance(owner[0].location, x[0].location)).ToList();
                 return EvaluateSingleMonster(owner, monsters[0]);
             case QuerySubjectModifier.FARTHEST:
-                monsters = monsters.OrderBy(x => Vector2Int.Distance(owner.location, x.location)).ToList();
+                monsters = monsters.OrderBy(x => Vector2Int.Distance(owner[0].location, x[0].location)).ToList();
                 return EvaluateSingleMonster(owner, monsters[monsters.Count - 1]);
             case QuerySubjectModifier.ALL:
-                foreach (Monster m in monsters)
+                foreach (RogueHandle<Monster> m in monsters)
                 {
                     if (EvaluateSingleMonster(owner, m) < .99f)
                     {
@@ -218,28 +218,28 @@ public class QueryTerm
                 return 1.0f;
             case QuerySubjectModifier.MORE_THAN:
                 val = 0.0f;
-                foreach (Monster m in monsters)
+                foreach (RogueHandle<Monster> m in monsters)
                 {
                     val += EvaluateSingleMonster(owner, m);
                 }
                 return (val > subjectCount) ? 1.0f : 0.0f;
             case QuerySubjectModifier.LESS_THAN:
                 val = 0.0f;
-                foreach (Monster m in monsters)
+                foreach (RogueHandle<Monster> m in monsters)
                 {
                     val += EvaluateSingleMonster(owner, m);
                 }
                 return (val < subjectCount) ? 1.0f : 0.0f;
             case QuerySubjectModifier.PERCENT_TOTAL:
                 val = 0.0f;
-                foreach (Monster m in monsters)
+                foreach (RogueHandle<Monster> m in monsters)
                 {
                     val += EvaluateSingleMonster(owner, m);
                 }
                 return val / monsters.Count;
             case QuerySubjectModifier.PERCENT_OF:
                 val = 0.0f;
-                foreach (Monster m in monsters)
+                foreach (RogueHandle<Monster> m in monsters)
                 {
                     val += EvaluateSingleMonster(owner, m);
                 }
@@ -251,7 +251,7 @@ public class QueryTerm
         }
     }
 
-    public float EvaluateSingleMonster(Monster owner, Monster other)
+    public float EvaluateSingleMonster(RogueHandle<Monster> owner, RogueHandle<Monster> other)
     {
         switch (property)
         {
@@ -259,21 +259,21 @@ public class QueryTerm
                 return EvaluateMonsterResource(other);
             case QueryProperty.DISTANCE:
                 //TODO: Use the map distance type to filter this better.
-                return EvaluateDistance(Vector2Int.Distance(owner.location, other.location));
+                return EvaluateDistance(Vector2Int.Distance(owner[0].location, other[0].location)); ;
             default:
                 UnityEngine.Debug.LogError($"You cannot use comparison type {property} on a monster!");
                 return 0.0f;
         }
     }
 
-    public float EvaluateMonsterResource(Monster m)
+    public float EvaluateMonsterResource(RogueHandle<Monster> m)
     {
-        float comp = m.currentStats[resource];
+        float comp = m[0].currentStats[resource];
         float valueCopy = value;
         switch (valueMod)
         {
             case QueryValueModifier.PERCENT:
-                comp = comp / m.currentStats[resource];
+                comp = comp / m[0].currentStats[resource];
                 valueCopy = value / 100;
                 break;
             case QueryValueModifier.NEAREST_INT:

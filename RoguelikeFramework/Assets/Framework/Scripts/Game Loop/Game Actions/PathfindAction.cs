@@ -17,27 +17,27 @@ public class PathfindAction : GameAction
 
     public override IEnumerator TakeAction()
     {
-        Path path = Pathfinding.FindPath(caller.location, goal);
+        Path path = Pathfinding.FindPath(caller[0].location, goal);
         if (path.Cost() < 0)
         {
             Debug.LogWarning("Monster cannot find path to location! Aborting");
-            caller.energy -= 100;
+            caller[0].energy -= 100;
             yield return GameAction.Abort;
         }
 
         while (path.Count() > 0)
         {
             Vector2Int next = path.Pop();
-            if (Mathf.RoundToInt(Vector2Int.Distance(caller.location, next)) != 1)
+            if (Mathf.RoundToInt(Vector2Int.Distance(caller[0].location, next)) != 1)
             {
-                if (caller.location == next)
+                if (caller[0].location == next)
                 {
                     //We ended up on ourselves - skip one round, next one should be a movement from here.
                     continue;
                 }
                 else
                 {
-                    path = Pathfinding.FindPath(caller.location, goal);
+                    path = Pathfinding.FindPath(caller[0].location, goal);
                     continue;
                 }
             }
@@ -52,9 +52,9 @@ public class PathfindAction : GameAction
                 act = new MoveAction(next, true, false);
             }
 
-            caller.UpdateLOS();
+            caller[0].UpdateLOS();
 
-            if (!firstTurn && caller.view.visibleEnemies.Count > 0)
+            if (!firstTurn && caller[0].view.visibleEnemies.Count > 0)
             {
                 yield break;
             }
@@ -65,7 +65,7 @@ public class PathfindAction : GameAction
             //If we didn't move, we fought or interacted. Rebuild if we still think there's somewhere to go.
             if (!act.didMove && path.Count() > 0)
             {
-                path = Pathfinding.FindPath(caller.location, goal);
+                path = Pathfinding.FindPath(caller[0].location, goal);
             }
 
             //yield return new WaitForSeconds(.05f);

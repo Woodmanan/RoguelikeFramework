@@ -385,14 +385,49 @@ namespace Tests
             RogueSaveSystem.BeginReadSaveFile("CircularTest");
             RogueSaveSystem.Read(out handles);
             RogueDataStorage.RetrieveArenas();
-            RogueSaveSystem.CloseSaveFile();
+            RogueSaveSystem.CloseSaveFile(false);
 
             for (int i = 0; i < 1000; i++)
             {
                 Assert.IsTrue(handles[i].IsValid());
                 Assert.IsTrue(handles[i].value.CheckCircular());
             }
+        }
 
+        [Test]
+        public void CompressedHandleTest()
+        {
+            RogueDataStorage.ReleaseAll();
+
+            List<RogueHandle<Monster>> handles = new List<RogueHandle<Monster>>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                handles.Add(RogueHandle<Monster>.Create());
+                handles[i].value.ID = i;
+                handles[i].value.baseStats = new Stats();
+                handles[i].value.baseStats[Resources.MR] = i;
+            }
+
+            RogueSaveSystem.BeginWriteSaveFile("CompressedHandleTest");
+            RogueSaveSystem.Write(handles);
+            RogueDataStorage.SaveArenas();
+            RogueSaveSystem.CloseSaveFile();
+
+            handles = null;
+            RogueDataStorage.ReleaseAll();
+
+            RogueSaveSystem.BeginReadSaveFile("CompressedHandleTest");
+            RogueSaveSystem.Read(out handles);
+            RogueDataStorage.RetrieveArenas();
+            RogueSaveSystem.CloseSaveFile(false);
+
+            for (int i = 0; i < 1000; i++)
+            {
+                Assert.IsTrue(handles[i].IsValid());
+                Assert.IsTrue(handles[i].value.ID == i);
+                Assert.IsTrue(handles[i].value.baseStats[Resources.MR] == i);
+            }
         }
 
         [System.Serializable]

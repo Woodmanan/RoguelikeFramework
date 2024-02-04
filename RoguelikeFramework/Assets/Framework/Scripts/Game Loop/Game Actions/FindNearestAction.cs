@@ -23,13 +23,13 @@ public class FindNearestAction : GameAction
             if (caller != Player.player)
             {
                 Debug.LogError("Monster should never take movement action with NO goals!");
-                caller.energy -= 10;
+                caller[0].energy -= 10;
             }
             #endif
             yield break;
         }
 
-        Path path = Pathfinding.CreateDjikstraWithAstar(caller.location, goals);
+        Path path = Pathfinding.CreateDjikstraWithAstar(caller[0].location, goals);
 
         if (path.Cost() < 0)
         {
@@ -41,9 +41,9 @@ public class FindNearestAction : GameAction
         {
             Vector2Int next = path.Pop();
 
-            caller.UpdateLOS();
+            caller[0].UpdateLOS();
 
-            if (caller.view.visibleEnemies.Count > 0)
+            if (caller[0].view.visibleEnemies.Count > 0)
             {
                 Debug.Log($"Monster came into sight, so don't auto move!");
                 yield break;

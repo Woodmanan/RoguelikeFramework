@@ -20,17 +20,17 @@ public class SlideAnimation : RogueAnimation
     public override void OnStart()
     {
         //Enforce location on creation
-        monster.transform.position = startLocation;
+        monster.unity.transform.position = startLocation;
     }
 
     public override void OnStep(float delta)
     {
         float t = currentDuration / MaxDuration;
-        monster.transform.position = Vector3.Lerp(startLocation, endLocation, t);
+        monster.unity.transform.position = Vector3.Lerp(startLocation, endLocation, t);
     }
 
     public override void OnEnd()
     {
-        monster.transform.position = endLocation;
+        monster.unity.transform.position = endLocation;
     }
 }

@@ -19,7 +19,7 @@ public class TargetingPanel : RogueUIPanel
     [SerializeField] Sprite pointLocked;
     SpriteGrid grid;
 
-    public Monster lastTarget;
+    public RogueHandle<Monster> lastTarget;
 
     BoolDelegate returnCall;
 
@@ -35,7 +35,7 @@ public class TargetingPanel : RogueUIPanel
 
     }
 
-    public bool Setup(Targeting t, BoolDelegate endResult, Func<Monster, bool> TargetCheck = null)
+    public bool Setup(Targeting t, BoolDelegate endResult, Func<RogueHandle<Monster>, bool> TargetCheck = null)
     {
         //Establish grid if it doesn't exist
         if (!grid)
@@ -44,29 +44,29 @@ public class TargetingPanel : RogueUIPanel
             grid.transform.parent = transform;
         }
 
-        Func<Monster, bool> isValidTarget = TargetCheck != null ? TargetCheck : (x) => true;
+        Func<RogueHandle<Monster>, bool> isValidTarget = TargetCheck != null ? TargetCheck : (x) => true;
 
         current = t;
         returnCall = endResult;
-        Vector2Int startLocation = Player.player.location;
+        Vector2Int startLocation = Player.player[0].location;
 
         if ((lastTarget == Player.player && !t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET)) ||
             (lastTarget != null && !isValidTarget(lastTarget)))
         {
-            lastTarget = null;
+            lastTarget = RogueHandle<Monster>.Default;
         }
 
         //Perform setup and correctness check for last time
-        if (lastTarget != null)
+        if (lastTarget.IsValid())
         {
-            int dist = Mathf.Max(Mathf.Abs(lastTarget.location.x - startLocation.x), Mathf.Abs(lastTarget.location.y - startLocation.y));
-            if (dist > t.range || !Player.player.view.GetVisibleMonsters(Player.player).Contains(lastTarget))
+            int dist = Mathf.Max(Mathf.Abs(lastTarget[0].location.x - startLocation.x), Mathf.Abs(lastTarget[0].location.y - startLocation.y));
+            if (dist > t.range || !Player.player[0].view.GetVisibleMonsters(Player.player).Contains(lastTarget))
             {
-                lastTarget = null;
+                lastTarget = RogueHandle<Monster>.Default;
             }
             else
             {
-                startLocation = lastTarget.location;
+                startLocation = lastTarget[0].location;
             }
         }
 
@@ -76,40 +76,40 @@ public class TargetingPanel : RogueUIPanel
 
             if ((t.options & TargetTags.RECOMMNEDS_ALLY_TARGET) > 0)
             {
-                List<Monster> player = new List<Monster>();
+                List<RogueHandle<Monster>> player = new List<RogueHandle<Monster>>();
                 if (t.options.HasFlag(TargetTags.RECOMMENDS_SELF_TARGET))
                 {
                     player.Add(Player.player);
                 }
 
-                Monster target = Player.player.view.visibleFriends
+                RogueHandle<Monster> target = Player.player[0].view.visibleFriends
                                  .Concat(player)
                                  .Where(isValidTarget)
-                                 .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
+                                 .OrderBy(x => Mathf.Max(Mathf.Abs(x[0].location.x - startLocation.x), Mathf.Abs(x[0].location.y - startLocation.y)))
                                  .FirstOrDefault();
 
-                if (target != null && Mathf.Max(Mathf.Abs(target.location.x - startLocation.x), Mathf.Abs(target.location.y - startLocation.y)) <= t.range)
+                if (target != null && Mathf.Max(Mathf.Abs(target[0].location.x - startLocation.x), Mathf.Abs(target[0].location.y - startLocation.y)) <= t.range)
                 {
-                    startLocation = target.location;
+                    startLocation = target[0].location;
                     lastTarget = target;
                 }
             }
             else
             {
-                Monster target = Player.player.view.visibleEnemies
+                RogueHandle<Monster> target = Player.player[0].view.visibleEnemies
                                  .Where(isValidTarget)
-                                 .OrderBy(x => Mathf.Max(Mathf.Abs(x.location.x - startLocation.x), Mathf.Abs(x.location.y - startLocation.y)))
+                                 .OrderBy(x => Mathf.Max(Mathf.Abs(x[0].location.x - startLocation.x), Mathf.Abs(x[0].location.y - startLocation.y)))
                                  .FirstOrDefault();
 
-                if (target != null && Mathf.Max(Mathf.Abs(target.location.x - startLocation.x), Mathf.Abs(target.location.y - startLocation.y)) <= t.range)
+                if (target.IsValid() && Mathf.Max(Mathf.Abs(target[0].location.x - startLocation.x), Mathf.Abs(target[0].location.y - startLocation.y)) <= t.range)
                 {
-                    startLocation = target.location;
+                    startLocation = target[0].location;
                     lastTarget = target;
                 }
             }
         }
 
-        if (lastTarget == null && t.options.HasFlag(TargetTags.EXITS_IF_NO_GOOD_TARGETS))
+        if (!lastTarget.IsValid() && t.options.HasFlag(TargetTags.EXITS_IF_NO_GOOD_TARGETS))
         {
             RogueLog.singleton.Log("No targets in range!");
             return false;
@@ -117,7 +117,7 @@ public class TargetingPanel : RogueUIPanel
 
 
         //current = t.Initialize();
-            if (current.BeginTargetting(Player.player.location, LOS.lastCall, TargetCheck))
+            if (current.BeginTargetting(Player.player[0].location, LOS.lastCall, TargetCheck))
         {
             if (grid != null)
             {
@@ -131,7 +131,7 @@ public class TargetingPanel : RogueUIPanel
                 BuildArea();
             }
 
-            grid.SetCenter(Player.player.location);
+            grid.SetCenter(Player.player[0].location);
 
             current.MoveTarget(startLocation);
             return true;

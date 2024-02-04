@@ -8,18 +8,6 @@ using System.IO;
 using UnityEngine;
 using OdinSerializer;
 
-//Wrapper for JSON serializer - it can't handle simple values that aren't in a struct
-[System.Serializable]
-public struct JSONValueWrapper<T>
-{
-    public JSONValueWrapper(T inValue)
-    {
-        value = inValue;
-    }
-
-    public T value;
-}
-
 public class RogueSaveSystem
 {
     const string fileMagic = "RSFL"; //Rogue SaveFile
@@ -34,9 +22,21 @@ public class RogueSaveSystem
     public static bool isSaving => (iWriter != null);
     public static bool isReading => (iReader != null);
 
+    public static bool isDebug
+    {
+        get
+        {
+#if JSON
+            return true;
+#else
+            return false;
+#endif
+        }
+    }
+
     public static void BeginWriteSaveFile(string fileName)
     {
-        savePath = Path.Combine(Application.persistentDataPath, fileName + ".rsf");
+        savePath = System.IO.Path.Combine(Application.persistentDataPath, fileName + ".rsf");
         Debug.Log("Begin writing save file at " + savePath);
         //writer = new BinaryWriter(File.Open(savePath, FileMode.Create));
         stream = File.Open(savePath, FileMode.Create);
@@ -51,7 +51,7 @@ public class RogueSaveSystem
 
     public static void BeginReadSaveFile(string fileName)
     {
-        savePath = Path.Combine(Application.persistentDataPath, fileName + ".rsf");
+        savePath = System.IO.Path.Combine(Application.persistentDataPath, fileName + ".rsf");
         Debug.Log("Begin reading save file at " + savePath);
         //reader = new BinaryReader(File.Open(savePath, FileMode.Open));
         stream = File.Open(savePath, FileMode.Open);
@@ -119,5 +119,14 @@ public class RogueSaveSystem
     public static T TestDeserialization<T>(T value)
     {
         return SerializationUtility.DeserializeValue<T>(SerializationUtility.SerializeValue<T>(value, DataFormat.Binary), DataFormat.Binary);
+    }
+
+    public static void WriteValue<T>(string name, T value, Serializer<T> serializer, IDataWriter writer)
+    {
+#if JSON
+        serializer.WriteValue(name, value, writer);
+#else
+        serializer.WriteValue(value, writer);
+#endif
     }
 }

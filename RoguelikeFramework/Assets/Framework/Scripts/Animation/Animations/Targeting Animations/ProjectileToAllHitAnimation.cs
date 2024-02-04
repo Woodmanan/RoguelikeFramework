@@ -12,9 +12,9 @@ public class ProjectileToAllHitAnimation : TargetingAnimation
 
     public override void OnVariablesGenerated(Targeting targeting)
     {
-        foreach (Monster target in targets)
+        foreach (RogueHandle<Monster> target in targets)
         {
-            MaxDuration = Mathf.Max((target.location - origin).magnitude / speed, MaxDuration);
+            MaxDuration = Mathf.Max((target[0].location - origin).magnitude / speed, MaxDuration);
         }
         
         activeProjectiles = new GameObject[targets.Count];
@@ -27,7 +27,7 @@ public class ProjectileToAllHitAnimation : TargetingAnimation
         {
             activeProjectiles[i] = GameObject.Instantiate(projectile);
             activeProjectiles[i].transform.position = origin;
-            activeProjectiles[i].transform.right = ((Vector2) targets[i].transform.position) - origin;
+            activeProjectiles[i].transform.right = ((Vector2) targets[i][0].unity.transform.position) - origin;
         }
     }
 
@@ -35,7 +35,7 @@ public class ProjectileToAllHitAnimation : TargetingAnimation
     {
         for (int i = 0; i < targets.Count; i++)
         {
-            Vector2 destination = targets[i].transform.position;
+            Vector2 destination = targets[i][0].unity.transform.position;
 
             activeProjectiles[i].transform.position = Vector2.Lerp(origin, destination, currentDuration / MaxDuration);
             activeProjectiles[i].transform.right = (destination - origin);

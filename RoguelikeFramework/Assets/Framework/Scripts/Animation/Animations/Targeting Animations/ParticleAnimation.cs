@@ -30,7 +30,7 @@ public class ParticleAnimation : TargetingAnimation
         if (useTextureForShape)
         {
             ParticleSystem.ShapeModule shape = instance.shape;
-            shape.texture = owner.renderer.sprite.texture;
+            shape.texture = owner[0].unity.renderer.sprite.texture;
             shape.textureColorAffectsParticles = textureBlendsColor;
         }
 

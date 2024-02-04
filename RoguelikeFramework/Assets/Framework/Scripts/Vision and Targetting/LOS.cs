@@ -30,8 +30,8 @@ public class LOSData
     public bool[,] precalculatedSight;
 
     //public List<Monster> visibleMonsters;
-    public List<Monster> visibleEnemies;
-    public List<Monster> visibleFriends;
+    public List<RogueHandle<Monster>> visibleEnemies;
+    public List<RogueHandle<Monster>> visibleFriends;
     public List<Item> visibleItems;
 
     private Vector2Int startsAt;
@@ -46,24 +46,24 @@ public class LOSData
         startsAt = origin - Vector2Int.one * radius; //Inclusive
         endsAt = origin + Vector2Int.one * (radius + 1); //Exclusive
 
-        visibleFriends = new List<Monster>();
-        visibleEnemies = new List<Monster>();
+        visibleFriends = new List<RogueHandle<Monster>>();
+        visibleEnemies = new List<RogueHandle<Monster>>();
         visibleItems = new List<Item>();
     }
 
-    public IEnumerable<Monster> GetVisibleMonsters(Monster viewer = null)
+    public IEnumerable<RogueHandle<Monster>> GetVisibleMonsters(RogueHandle<Monster> viewer)
     {
-        foreach (Monster monster in visibleEnemies)
+        foreach (RogueHandle<Monster> monster in visibleEnemies)
         {
             yield return monster;
         }
 
-        foreach (Monster monster in visibleFriends)
+        foreach (RogueHandle<Monster> monster in visibleFriends)
         {
             yield return monster;
         }
 
-        if (viewer)
+        if (viewer.IsValid())
         {
             yield return viewer;
         }
@@ -141,7 +141,7 @@ public class LOSData
         return (x >= startsAt.x && x < endsAt.x && y >= startsAt.y && y < endsAt.y);
     }
 
-    public void CollectEntities(Map map, Monster viewer)
+    public void CollectEntities(Map map, RogueHandle<Monster> viewer)
     {
         visibleEnemies.Clear();
         visibleFriends.Clear();
@@ -157,11 +157,11 @@ public class LOSData
                     if (loc.x >= 0 && loc.x < map.width && loc.y >= 0 && loc.y < map.height)
                     {
                         RogueTile tile = map.GetTile(new Vector2Int(i + start.x, j + start.y));
-                        if (tile.currentlyStanding)
+                        if (tile.currentlyStanding.IsValid())
                         {
                             if (viewer != null && tile.currentlyStanding != viewer)
                             {
-                                if (tile.currentlyStanding.IsEnemy(viewer))
+                                if (tile.currentlyStanding[0].IsEnemy(viewer))
                                 {
                                     visibleEnemies.Add(tile.currentlyStanding);
                                 }
@@ -388,12 +388,12 @@ public class LOS : MonoBehaviour
 
     public static void WritePlayerLOS()
     {
-        WritePlayerLOS(Map.current, Player.player.location, Player.player.visionRadius);
+        WritePlayerLOS(Map.current, Player.player[0].location, Player.player[0].visionRadius);
     }
 
     public static void WritePlayerGraphics()
     {
-        WritePlayerGraphics(Map.current, Player.player.location, Player.player.visionRadius);
+        WritePlayerGraphics(Map.current, Player.player[0].location, Player.player[0].visionRadius);
     }
 
     public static void WritePlayerLOS(Map map, Vector2Int location, int radius)
@@ -409,7 +409,7 @@ public class LOS : MonoBehaviour
     public static void WritePlayerGraphics(Map map, Vector2Int location, int radius)
     {
         LOSData view = LosAt(map, location, radius);
-        Vector2Int[] locations = view.GetVisibleMonsters().Select(x => x.location).ToArray();
+        Vector2Int[] locations = view.GetVisibleMonsters(RogueHandle<Monster>.Default).Select(x => x[0].location).ToArray();
         WritePlayerGraphics(view, locations);
     }
 

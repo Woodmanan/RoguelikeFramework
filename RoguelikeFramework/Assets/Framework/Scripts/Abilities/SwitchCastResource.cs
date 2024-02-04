@@ -51,7 +51,7 @@ public class SwitchCastResource : Ability
     }
 
     //Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
-    public override bool OnCheckActivationSoft(Monster caster)
+    public override bool OnCheckActivationSoft(RogueHandle<Monster> caster)
     {
         if (isBelow)
         {
@@ -64,7 +64,7 @@ public class SwitchCastResource : Ability
     }
 
     //Check activation, but for requirements that MUST be present for the spell to launch correctly. (Status effects will never override)
-    public override bool OnCheckActivationHard(Monster caster)
+    public override bool OnCheckActivationHard(RogueHandle<Monster> caster)
     {
         if (isBelow)
         {
@@ -76,10 +76,10 @@ public class SwitchCastResource : Ability
         }
     }
 
-    public override void OnRegenerateStats(Monster caster)
+    public override void OnRegenerateStats(RogueHandle<Monster> caster)
     {
         bool previous = isBelow;
-        if (caster && caster.currentStats[resource] < checkAmount)
+        if (caster.IsValid() && caster[0].currentStats[resource] < checkAmount)
         {
             below.RegenerateStats(caster);
             //Below!
@@ -113,7 +113,7 @@ public class SwitchCastResource : Ability
         above = above.Instantiate();
     }
 
-    public override IEnumerator OnCast(Monster caster)
+    public override IEnumerator OnCast(RogueHandle<Monster> caster)
     {
         IEnumerator subroutine;
         if (isBelow)

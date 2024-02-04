@@ -147,7 +147,7 @@ public class TeleportAnimation : RogueAnimation
 
         foreach (Monster target in targets)
         {
-            Vector2 visibleLocation = (Vector2)target.transform.position;
+            Vector2 visibleLocation = (Vector2)target.unity.transform.position;
             visibleLocation -= center;
             int rad = Mathf.RoundToInt(Mathf.Max(Mathf.Abs(visibleLocation.x), Mathf.Abs(visibleLocation.y)));
             if (rad == step)

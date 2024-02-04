@@ -25,18 +25,18 @@ public class EffectUIPanel : MonoBehaviour
     {
         if (Player.player)
         {
-            while (Player.player.effects.Count > transform.childCount)
+            while (Player.player[0].effects.Count > transform.childCount)
             {
                 widgets.Add(Instantiate(widgetPrefab, transform).GetComponent<EffectUIWidget>());
             }
 
             int numActive = 0;
 
-            for (int i = 0; i < Player.player.effects.Count; i++)
+            for (int i = 0; i < Player.player[0].effects.Count; i++)
             {
-                if (!Player.player.effects[i].ReadyToDelete && Player.player.effects[i].ShouldDisplay())
+                if (!Player.player[0].effects[i].ReadyToDelete && Player.player[0].effects[i].ShouldDisplay())
                 {
-                    widgets[numActive].ShowEffect(Player.player.effects[i]);
+                    widgets[numActive].ShowEffect(Player.player[0].effects[i]);
                     numActive++;
                 }
             }

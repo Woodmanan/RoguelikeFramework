@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackAction : GameAction
 {
-    public Monster target;
+    public RogueHandle<Monster> target;
     public List<Weapon> primaryWeapons = new List<Weapon>();
     public List<Weapon> secondaryWeapons = new List<Weapon>();
 
@@ -17,7 +17,7 @@ public class AttackAction : GameAction
 
     }
 
-    public AttackAction(Monster target)
+    public AttackAction(RogueHandle<Monster> target)
     {
         //Construct me! Assigns caller by default in the base class
         this.target = target;
@@ -29,25 +29,25 @@ public class AttackAction : GameAction
     {
         AttackAction reference = this;
         bool canContinue = true;
-        caller.connections.OnStartAttack.Invoke(ref reference, ref canContinue);
-        target.connections.OnStartAttackTarget.Invoke(ref reference, ref canContinue);
+        caller[0].connections.OnStartAttack.Invoke(ref reference, ref canContinue);
+        target[0].connections.OnStartAttackTarget.Invoke(ref reference, ref canContinue);
         if (canContinue == false)
         {
             yield break;
         }
 
         //See if we have any weapons actively equipped, or unarmed slots that can attack
-        if (caller.equipment == null)
+        if (caller[0].equipment == null)
         {
             Debug.LogError("Armless things can't attack! Wasting its turn");
-            caller.energy -= 100;
+            caller[0].energy -= 100;
             yield break;
         }
-        List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
-        unarmedSlots = caller.equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed);
+        List<EquipmentSlot> slots = caller[0].equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.MELEE_WEAPON);
+        unarmedSlots = caller[0].equipment.equipmentSlots.FindAll(x => x.CanAttackUnarmed);
         unarmedSlots = unarmedSlots.FindAll(x => !x.active || (!x.equipped.held[0].equipable.blocksUnarmed));
 
-        string logString = LogFormatting.GetFormattedString("AttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defender = target.GetName() });
+        string logString = LogFormatting.GetFormattedString("AttackFullString", new { attacker = caller[0].GetName(), singular = caller[0].singular, defender = target[0].GetName() });
         RogueLog.singleton.Log(logString, priority: LogPriority.COMBAT);
 
         //Do we have any weapons equipped?
@@ -74,7 +74,7 @@ public class AttackAction : GameAction
 
             AttackAction action = this;
 
-            caller.connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
+            caller[0].connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
 
             if (animates)
             {
@@ -93,7 +93,7 @@ public class AttackAction : GameAction
                 energyCost = Mathf.Max(energyCost, w.secondary.energyCost);
             }
 
-            caller.connections.OnGenerateUnarmedAttacks.Invoke(ref action, ref unarmedSlots);
+            caller[0].connections.OnGenerateUnarmedAttacks.Invoke(ref action, ref unarmedSlots);
 
             foreach (EquipmentSlot slot in unarmedSlots)
             {
@@ -101,7 +101,7 @@ public class AttackAction : GameAction
                 energyCost = Mathf.Max(energyCost, slot.unarmedAttack.energyCost);
             }
 
-            caller.energy -= energyCost;
+            caller[0].energy -= energyCost;
 
             
         }
@@ -116,43 +116,45 @@ public class AttackAction : GameAction
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             Debug.LogError("Assuming a monster did this. Taking its turn as retribution! (PLS Fix)");
             #endif
-            caller.energy -= 100;
+            caller[0].energy -= 100;
 
             yield break;
         }
     }
 
-    public void UnarmedAttack(Monster attacker, Monster defender, EquipmentSlot slot)
+    public void UnarmedAttack(RogueHandle<Monster> attacker, RogueHandle<Monster> defender, EquipmentSlot slot)
     {
-        if (attacker.IsDead() || defender.IsDead()) return;
+        Monster vAttacker = attacker;
+        Monster vDefender = defender;
+        if (vAttacker.IsDead() || vDefender.IsDead()) return;
 
         AttackAction action = this;
-        attacker.connections.OnBeginUnarmedAttack.Invoke(ref slot, ref action);
+        vAttacker.connections.OnBeginUnarmedAttack.Invoke(ref slot, ref action);
 
         AttackResult result = Combat.DetermineHit(defender, slot.unarmedAttack);
 
-        defender.connections.OnBeforeUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);
+        vDefender.connections.OnBeforeUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);
 
-        attacker.connections.OnUnarmedAttackResult.Invoke(ref slot, ref action, ref result);
+        vAttacker.connections.OnUnarmedAttackResult.Invoke(ref slot, ref action, ref result);
 
         if (result == AttackResult.HIT)
         {
-            RogueLog.singleton.Log($"{attacker.GetName()} hits {defender.GetName()} with an unarmed attack!", priority: LogPriority.COMBAT);
+            RogueLog.singleton.Log($"{vAttacker.GetName()} hits {vDefender.GetName()} with an unarmed attack!", priority: LogPriority.COMBAT);
             Combat.Hit(attacker, defender, DamageSource.UNARMEDATTACK, slot.unarmedAttack);
         }
         else
         {
-            RogueLog.singleton.Log($"The {attacker.GetLocalizedName()} misses an unarmed attack!", priority: LogPriority.COMBAT);
+            RogueLog.singleton.Log($"The {vAttacker.GetLocalizedName()} misses an unarmed attack!", priority: LogPriority.COMBAT);
         }
 
-        defender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);
+        vDefender.connections.OnAfterUnarmedAttackTarget.Invoke(ref slot, ref action, ref result);
 
-        attacker.connections.OnEndUnarmedAttack.Invoke(ref slot, ref action, ref result);
+        vAttacker.connections.OnEndUnarmedAttack.Invoke(ref slot, ref action, ref result);
     }
 
     public override string GetDebugString()
     {
-        return $"Attack Action: Hitting {target.name}";
+        return $"Attack Action: Hitting {target[0].friendlyName}";
     }
 
     //Called after construction, but before execution!

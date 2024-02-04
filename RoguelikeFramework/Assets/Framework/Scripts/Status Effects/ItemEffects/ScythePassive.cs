@@ -143,11 +143,11 @@ public class ScythePassive : Effect
     {
         if (result == AttackResult.HIT)
         {
-            Vector2Int pos = action.target.location;
+            Vector2Int pos = action.target[0].location;
             //We hit! Perform the AOE attack.
-            List<Monster> nearbyTargets = Map.current.GetNeighboringTiles(action.caller.location)
+            List<RogueHandle<Monster>> nearbyTargets = Map.current.GetNeighboringTiles(action.caller[0].location)
                                                      .Where(x => Vector2Int.Distance(pos, x.location) < 1.1f)
-                                                     .Where(x => x.currentlyStanding != null)
+                                                     .Where(x => x.currentlyStanding.IsValid())
                                                      .Select(x => x.currentlyStanding)
                                                      .ToList();
             nearbyTargets.Remove(action.target);
@@ -171,8 +171,8 @@ public class ScythePassive : Effect
         if (result == AttackResult.HIT)
         {
             //We hit! Perform the AOE attack.
-            List<Monster> nearbyTargets = Map.current.GetNeighboringTiles(action.caller.location)
-                                                     .Where(x => x.currentlyStanding != null)
+            List<RogueHandle<Monster>> nearbyTargets = Map.current.GetNeighboringTiles(action.caller[0].location)
+                                                     .Where(x => x.currentlyStanding.IsValid())
                                                      .Select(x => x.currentlyStanding)
                                                      .ToList();
             nearbyTargets.Remove(action.target);

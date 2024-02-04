@@ -79,13 +79,13 @@ public class AbilityButton : MonoBehaviour, IDescribable
     void Update()
     {
         //Check for setup
-        if (Player.player != null && Player.player.abilities.HasAbility(index))
+        if (Player.player != null && Player.player[0].abilities.HasAbility(index))
         {
-            Ability abilityToCheck = Player.player.abilities[index];
+            Ability abilityToCheck = Player.player[0].abilities[index];
             if (abilityToCheck.IsDirty())
             {
-                backgroundImage.sprite = Player.player.abilities[index].GetImage();
-                backgroundImage.color = Player.player.abilities[index].color;
+                backgroundImage.sprite = Player.player[0].abilities[index].GetImage();
+                backgroundImage.color = Player.player[0].abilities[index].color;
                 //description.locName = new LocalizedString()
                 abilityToCheck.ClearDirty();
             }
@@ -104,7 +104,7 @@ public class AbilityButton : MonoBehaviour, IDescribable
         }
         
 
-        if (locked && Player.player.level >= (index + 1))
+        if (locked && Player.player[0].level >= (index + 1))
         {
             locked = false;
             //cooldownImage.enabled = true;
@@ -116,7 +116,7 @@ public class AbilityButton : MonoBehaviour, IDescribable
         if (!locked)
         {
 
-            ability = Player.player.abilities[index];
+            ability = Player.player[0].abilities[index];
 
 
             if (ability.castable)
@@ -184,6 +184,6 @@ public class AbilityButton : MonoBehaviour, IDescribable
 
     public void Cast()
     {
-        Player.player.SetAction(new AbilityAction(index));
+        Player.player[0].SetAction(new AbilityAction(index));
     }
 }

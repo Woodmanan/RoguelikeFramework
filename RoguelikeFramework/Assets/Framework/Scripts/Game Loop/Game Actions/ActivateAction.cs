@@ -16,25 +16,25 @@ public class ActivateAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        ItemStack stack = caller.inventory[index];
+        ItemStack stack = caller[0].inventory[index];
         if (stack == null)
         {
-            caller.energy -= 100;
-            Debug.LogError("Someone an empty stack. Draining to prevent softlock.", caller);
+            caller[0].energy -= 100;
+            Debug.LogError("Someone an empty stack. Draining to prevent softlock.", caller[0].unity);
             yield break;
         }
 
         ActivatableItem item = stack.held[stack.count - 1].activatable;
         if (item == null)
         {
-            caller.energy -= 100;
-            Debug.LogError("Someone activate an item with no activatable? Draining to prevent softlock.", caller);
+            caller[0].energy -= 100;
+            Debug.LogError("Someone activate an item with no activatable? Draining to prevent softlock.", caller[0].unity);
             yield break;
         }
 
         bool keepActivating = true;
         Item itemRef = stack.held[stack.count - 1];
-        caller.connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
+        caller[0].connections.OnActivateItem.Invoke(ref itemRef, ref keepActivating);
 
         if (!keepActivating)
         {
@@ -59,24 +59,24 @@ public class ActivateAction : GameAction
 
         if ((item.activateType & ActivateType.Effect) > 0)
         {
-            caller.AddEffectInstantiate(item.activationEffects.ToArray());
+            caller[0].AddEffectInstantiate(item.activationEffects.ToArray());
         }
 
         if (this.successful)
         {
             RogueLog.singleton.Log($"You use the {item.GetComponent<Item>().GetName()}!", priority: LogPriority.GENERIC);
-            caller.energy -= 100;
+            caller[0].energy -= 100;
             //Remove the item!
             if (item.ConsumedOnUse)
             {
-                caller.inventory.RemoveLastItemFromStack(index);
+                caller[0].inventory.RemoveLastItemFromStack(index);
             }
         }
     }
 
     public override string GetDebugString()
     {
-        return $"ActivateAction on index {index}: {caller.inventory[index].held[0].friendlyName}";
+        return $"ActivateAction on index {index}: {caller[0].inventory[index].held[0].friendlyName}";
     }
 
     //Called after construction, but before execution!

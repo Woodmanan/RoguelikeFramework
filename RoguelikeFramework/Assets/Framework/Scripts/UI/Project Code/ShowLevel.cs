@@ -20,9 +20,9 @@ public class ShowLevel : MonoBehaviour
     {
         if (Player.player)
         {
-            if (cachedLevel != Player.player.level)
+            if (cachedLevel != Player.player[0].level)
             {
-                cachedLevel = Player.player.level;
+                cachedLevel = Player.player[0].level;
                 text.text = $"{cachedLevel}";
             }
         }

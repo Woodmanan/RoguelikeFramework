@@ -7,7 +7,7 @@ using System.Linq;
 public class Abilities : MonoBehaviour
 {
     public int maxAbilities = 10;
-    Monster connectedTo;
+    RogueHandle<Monster> connectedTo;
     public List<Ability> baseAbilities;
     List<Ability> abilities = new List<Ability>();
 
@@ -18,7 +18,7 @@ public class Abilities : MonoBehaviour
 
     private void Awake()
     {
-        connectedTo = GetComponent<Monster>();
+        connectedTo = GetComponent<UnityMonster>().monsterHandle;
         foreach (Ability ability in baseAbilities)
         {
             AddAbilityInstantiate(ability);
@@ -45,7 +45,7 @@ public class Abilities : MonoBehaviour
         //Force no casting on abilites lower than your level
         for (int i = 0; i < abilities.Count; i++)
         {
-            if ((i+1) > connectedTo.level && HasAbility(i))
+            if ((i+1) > connectedTo[0].level && HasAbility(i))
             {
                 abilities[i].castable = false;
             }
@@ -113,19 +113,19 @@ public class Abilities : MonoBehaviour
         float bestValue = -1;
 
         //Construct allies, sort by distance.
-        List<Monster> allies = connectedTo.view.visibleFriends;
+        List<RogueHandle<Monster>> allies = connectedTo[0].view.visibleFriends;
         List<int> allyDistances = allies.Select(x =>
         {
-            return Mathf.Max(Mathf.Abs(x.location.x - connectedTo.location.x),
-                             Mathf.Abs(x.location.y - connectedTo.location.y));
+            return Mathf.Max(Mathf.Abs(x[0].location.x - connectedTo[0].location.x),
+                             Mathf.Abs(x[0].location.y - connectedTo[0].location.y));
         }).ToList();
 
 
-        List<Monster> enemies = connectedTo.view.visibleEnemies;
+        List<RogueHandle<Monster>> enemies = connectedTo[0].view.visibleEnemies;
         List<int> enemyDistances = enemies.Select(x =>
         {
-            return Mathf.Max(Mathf.Abs(x.location.x - connectedTo.location.x),
-                             Mathf.Abs(x.location.y - connectedTo.location.y));
+            return Mathf.Max(Mathf.Abs(x[0].location.x - connectedTo[0].location.x),
+                             Mathf.Abs(x[0].location.y - connectedTo[0].location.y));
         }).ToList();
 
         for (int i = 0; i < abilities.Count; i++)

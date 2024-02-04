@@ -17,10 +17,10 @@ public class Class : ScriptableObject
     [SerializeReference]
     public List<Effect> effects;
 
-    public void Apply(Monster m, bool giveItems = true)
+    public void Apply(RogueHandle<Monster> m, bool giveItems = true)
     {
         //Attempt setup, in case the monster hasn't been configured yet.
-        m.Setup();
+        m.value.Setup();
 
         if (giveItems)
         {
@@ -31,13 +31,13 @@ public class Class : ScriptableObject
                 if (equip)
                 {
                     //Item is equipable, so try to equip it. Otherwise, dumpt it.
-                    int equipSlot = m.equipment.CanSafelyEquip(equip);
+                    int equipSlot = m.value.equipment.CanSafelyEquip(equip);
                     if (equipSlot >= 0)
                     {
                         Item i = item.Instantiate();
                         i.Setup();
-                        int itemSlot = m.inventory.Add(i);
-                        m.equipment.Equip(itemSlot, equipSlot);
+                        int itemSlot = m.value.inventory.Add(i);
+                        m.value.equipment.Equip(itemSlot, equipSlot);
                     }
                     else
                     {
@@ -47,7 +47,7 @@ public class Class : ScriptableObject
                 else
                 {
                     //Item is a consumable / usable thing, so let the monster keep it!
-                    m.inventory.Add(item.Instantiate());
+                    m.value.inventory.Add(item.Instantiate());
                 }
             }
         }
@@ -55,10 +55,10 @@ public class Class : ScriptableObject
         //Atttach abilities
         foreach (Ability ability in abilities)
         {
-            m.abilities.AddAbilityInstantiate(ability.Instantiate());
+            m.value.abilities.AddAbilityInstantiate(ability.Instantiate());
         }
 
-        m.AddEffectInstantiate(effects.ToArray());
+        m.value.AddEffectInstantiate(effects.ToArray());
     }
 
     //Assumes both classes are instantiated!

@@ -53,7 +53,7 @@ public class ItemInspectionPanel : RogueUIPanel
         switch (action)
         {
             case PlayerAction.DROP_ITEMS:
-                Player.player.inventory.Drop(inspecting.position);
+                Player.player[0].inventory.Drop(inspecting.position);
                 ExitAllWindows();
                 break;
             case PlayerAction.EQUIP:
@@ -71,7 +71,7 @@ public class ItemInspectionPanel : RogueUIPanel
                 EquipableItem equip = inspecting.held[0].equipable;
                 if (equip != null && equip.isEquipped)
                 {
-                    Player.player.equipment.UnequipItem(inspecting.position); //Faster method, doesn't need a search
+                    Player.player[0].equipment.UnequipItem(inspecting.position); //Faster method, doesn't need a search
                     ExitAllWindows();
                 }
                 break;

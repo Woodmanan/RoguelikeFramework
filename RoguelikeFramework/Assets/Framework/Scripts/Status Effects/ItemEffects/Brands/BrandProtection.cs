@@ -80,7 +80,7 @@ public class BrandProtection : Effect
     //public override void OnDeath() {}
 
     //Called when a monster is killed by this unit.
-    public override void OnKillMonster(ref Monster monster, ref DamageType type, ref DamageSource source)
+    public override void OnKillMonster(ref RogueHandle<Monster> monster, ref DamageType type, ref DamageSource source)
     {
         numKills = Mathf.Clamp(numKills + 1, 0, maxKills);
     }

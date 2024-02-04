@@ -151,7 +151,7 @@ public class ElementalBrand : Effect
     {
         if (result == AttackResult.HIT)
         {
-            action.target.Damage(action.caller, primaryDamage.damage.evaluate() + EnchantDamage(), primaryDamage.type, DamageSource.ITEM);
+            action.target[0].Damage(action.caller, primaryDamage.damage.evaluate() + EnchantDamage(), primaryDamage.type, DamageSource.ITEM);
         }
     }
 
@@ -172,7 +172,7 @@ public class ElementalBrand : Effect
     {
         if (result == AttackResult.HIT)
         {
-            action.target.Damage(action.caller, secondaryDamage.damage.evaluate() + EnchantDamage(), secondaryDamage.type, DamageSource.ITEM);
+            action.target[0].Damage(action.caller, secondaryDamage.damage.evaluate() + EnchantDamage(), secondaryDamage.type, DamageSource.ITEM);
         }
     }
 

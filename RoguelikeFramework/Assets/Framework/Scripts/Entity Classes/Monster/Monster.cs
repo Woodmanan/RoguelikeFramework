@@ -6,11 +6,18 @@ using UnityEngine;
 using System.Text.RegularExpressions; //Oh god oh fuck (so true)
 using System.Linq;
 using UnityEngine.Localization;
-
+using UnityEngine.AddressableAssets;
 using static Resources;
 
-public class Monster : MonoBehaviour, IDescribable
+[System.Serializable]
+public class Monster : IDescribable
 {
+    public AssetReference spawnParams;
+    //public MonsterSpawnParams spawnParams;
+
+    [HideInInspector]
+    public RogueHandle<Monster> selfHandle;
+
     [Header("Setup Variables")]
     [ResourceGroup(ResourceType.Monster)]
     public Stats baseStats;
@@ -34,12 +41,10 @@ public class Monster : MonoBehaviour, IDescribable
 
     public Faction faction = Faction.STANDARD;
     public int ID;
-    public int minDepth;
-    public int maxDepth;
-    //public RogueTag rogueTag;
+
     public RogueTagContainer tags = new RogueTagContainer();
     [HideInInspector]
-    public Monster credit;
+    public RogueHandle<Monster> credit;
 
     [SerializeReference]
     public List<Effect> baseEffects;
@@ -66,10 +71,10 @@ public class Monster : MonoBehaviour, IDescribable
     [HideInInspector] public Inventory inventory;
     [HideInInspector] public Equipment equipment;
     [HideInInspector] public Abilities abilities;
+    [HideInInspector] public UnityMonster unity;
 
     [HideInInspector] public ActionController controller;
 
-    public SpriteRenderer renderer;
     public List<GameObject> FXObjects;
 
     public List<GameAction> actionStack;
@@ -97,16 +102,16 @@ public class Monster : MonoBehaviour, IDescribable
     public void Setup()
     {
         if (setup) return;
-        inventory = GetComponent<Inventory>();
-        equipment = GetComponent<Equipment>();
-        abilities = GetComponent<Abilities>();
-        controller = GetComponent<ActionController>();
-
-        renderer = GetComponent<SpriteRenderer>();
+        inventory = unity.GetComponent<Inventory>();
+        equipment = unity.GetComponent<Equipment>();
+        abilities = unity.GetComponent<Abilities>();
+        controller = unity.GetComponent<ActionController>();
 
         actionStack = new List<GameAction>(4);
 
-        connections = new Connections(this);
+        effects = new List<Effect>();
+
+        connections = new Connections(selfHandle);
         baseStats[HEALTH] = baseStats[MAX_HEALTH];
         baseStats[MANA] = baseStats[MAX_MANA];
         baseStats[STAMINA] = baseStats[MAX_STAMINA];
@@ -118,16 +123,7 @@ public class Monster : MonoBehaviour, IDescribable
         equipment?.Setup();
         controller?.Setup();
 
-        AddEffectInstantiate(baseEffects.ToArray());
-
         setup = true;
-    }
-
-    public Monster Instantiate()
-    {
-        Monster newMonster = Instantiate(gameObject).GetComponent<Monster>(); //Should be guaranteed to work, unless things are incredibly borked
-        //newMonster.Setup();
-        return newMonster;
     }
 
     //Called right before the main loop, when the rest of the game has been set up.
@@ -135,10 +131,10 @@ public class Monster : MonoBehaviour, IDescribable
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         //Confirm that we got our own unique space
-        Debug.Assert(map.GetTile(location).currentlyStanding == this || map.GetTile(location).currentlyStanding == null, "Generator placed two monsters together", this);
+        Debug.AssertFormat(map.GetTile(location).currentlyStanding == selfHandle || !map.GetTile(location).currentlyStanding.IsValid(), "Generator placed two monsters together", this);
         #endif
         //Put us in that space, and build our initial LOS
-        transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        unity.transform.position = new Vector3(location.x, location.y, monsterZPosition);
         SetPosition(map, location);
         ForceGraphicsVisibility(currentTile.graphicsVisibility);
         UpdateLOS(map);
@@ -158,7 +154,7 @@ public class Monster : MonoBehaviour, IDescribable
         }
         else
         {
-            return LogFormatting.FormatNameForMonster(this, definite);
+            return LogFormatting.FormatNameForMonster(selfHandle, definite);
         }    
     }
 
@@ -183,7 +179,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     public Sprite GetImage()
     {
-        return renderer.sprite;
+        return unity.renderer.sprite;
     }
 
     public void Heal(float healthReturned, bool shouldLog = false)
@@ -234,7 +230,7 @@ public class Monster : MonoBehaviour, IDescribable
         return true;
     }
 
-    public void Damage(Monster dealer, float damage, DamageType type, DamageSource source)
+    public void Damage(RogueHandle<Monster> dealer, float damage, DamageType type, DamageSource source)
     {
         float damageMod = 1f;
         if ((resistances & type) > 0)
@@ -262,7 +258,11 @@ public class Monster : MonoBehaviour, IDescribable
             Debug.LogError("Dealer was null! Fix me you fool!!!");
         }
         #endif*/
-        dealer?.connections.OnDealDamage.BlendInvoke(dealer.other?.OnDealDamage, ref damage, ref type, ref source);
+        if (dealer.IsValid())
+        {
+            dealer.value.connections.OnDealDamage.BlendInvoke(dealer.value.other?.OnDealDamage, ref damage, ref type, ref source);
+        }
+        
 
         connections.OnTakeDamage.BlendInvoke(other?.OnTakeDamage, ref damage, ref type, ref source);
         baseStats[HEALTH] -= damage;
@@ -270,7 +270,7 @@ public class Monster : MonoBehaviour, IDescribable
         //Quick hacky fix - Make this always true!
         if (dealer != null)
         {
-            RogueLog.singleton.Log($"{dealer.GetFormattedName()} deals {Mathf.CeilToInt(damage)} {type} damage with {source}",
+            RogueLog.singleton.Log($"{dealer.value.GetFormattedName()} deals {Mathf.CeilToInt(damage)} {type} damage with {source}",
                 null, LogPriority.DAMAGE);
         }
         
@@ -282,7 +282,11 @@ public class Monster : MonoBehaviour, IDescribable
             connections.OnDeath.BlendInvoke(other?.OnDeath, ref dealer);
             if (baseStats[HEALTH] <= 0) //Check done for respawn mechanics to take effect
             {
-                dealer?.KillMonster(this, type, source);
+                if (dealer.IsValid())
+                {
+                    dealer.value.KillMonster(selfHandle, type, source);
+                }
+                
                 Die(dealer);
                 
             }
@@ -296,15 +300,15 @@ public class Monster : MonoBehaviour, IDescribable
     //Kills this monster, without damage
     public void DestroyMonster()
     {
-        Monster killerStandin = null;
-        connections.OnDeath.BlendInvoke(other?.OnDeath, ref killerStandin);
-        Die(killerStandin);
+        RogueHandle<Monster> standin = RogueHandle<Monster>.Default;
+        connections.OnDeath.BlendInvoke(other?.OnDeath, ref standin);
+        Die(standin);
     }
 
 
-    protected virtual void Die(Monster killer)
+    protected virtual void Die(RogueHandle<Monster> killer)
     {
-        RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, this.gameObject, priority: LogPriority.GENERIC);
+        RogueLog.singleton.LogTemplate("DeathString", new { monster = GetName(), singular = singular }, unity.gameObject, priority: LogPriority.GENERIC);
 
         connections.OnPostDeath.BlendInvoke(other?.OnPostDeath, ref killer);
         if (baseStats[HEALTH] > 0)
@@ -321,37 +325,37 @@ public class Monster : MonoBehaviour, IDescribable
         }
 
         //Clear tile, so other systems don't try to use a dead monster
-        if (currentTile.currentlyStanding == this)
-            currentTile.currentlyStanding = null;
+        if (currentTile.currentlyStanding == selfHandle)
+            currentTile.currentlyStanding = RogueHandle<Monster>.Default;
 
         //Clear inventory, if it exists
         if (inventory)
         {
             GameAction dropAll = new DropAction(inventory.AllIndices());
-            dropAll.Setup(this);
+            dropAll.Setup(selfHandle);
             while (dropAll.action.MoveNext()) { }
         }
 
         AnimationController.AddAnimationForMonster(new DeathAnimation(this), this);
     }
 
-    public void KillMonster(Monster target, DamageType type, DamageSource source)
+    public void KillMonster(RogueHandle<Monster> target, DamageType type, DamageSource source)
     {
         if (!dead)
         {
             connections.OnKillMonster.BlendInvoke(other?.OnKillMonster, ref target, ref type, ref source);
-            if (target.IsEnemy(this))
+            if (target.value.IsEnemy(selfHandle))
             {
-                GainXP(target, target.XPFromKill);
+                GainXP(target, target.value.XPFromKill);
             }
         }
         if (credit)
         {
-            credit.KillMonster(target, type, source);
+            credit[0].KillMonster(target, type, source);
         }
     }
 
-    public virtual void GainXP(Monster source, float amount)
+    public virtual void GainXP(RogueHandle<Monster> source, float amount)
     {
         RogueLog.singleton.LogTemplate("XP",
             new { monster = GetName(), singular = singular, amount = Mathf.RoundToInt(amount) },
@@ -449,7 +453,7 @@ public class Monster : MonoBehaviour, IDescribable
     {
         this.view = LOS.LosAt(map, location, visionRadius);
         UpdateLOSPreCollection();
-        view.CollectEntities(map, this);
+        view.CollectEntities(map, selfHandle);
         UpdateLOSPostCollection();
     }
 
@@ -527,11 +531,11 @@ public class Monster : MonoBehaviour, IDescribable
         }
         if (actionStack.Count > 0)
         {
-            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({actionStack[0].GetType()}). Try SetActionOverride isntead!", this);
+            Debug.LogError($"{friendlyName} had an action {act.GetType()} set, but it already had an action ({actionStack[0].GetType()}). Try SetActionOverride isntead!", unity);
             actionStack.Clear();
         }
         actionStack.Add(act);
-        actionStack[0].Setup(this);
+        actionStack[0].Setup(selfHandle);
     }
 
     //Currently identical, but split up to cover edge cases that might arise
@@ -558,7 +562,7 @@ public class Monster : MonoBehaviour, IDescribable
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
         {
-            if (this != Player.player)
+            if (selfHandle != Player.player)
             {
                 Debug.LogError("Monster AI returned null! That should NEVER happen!");
             }
@@ -574,7 +578,7 @@ public class Monster : MonoBehaviour, IDescribable
         {
             if (currentAction != null && currentAction.checksOnVisible && !currentAction.hasPreventedStop)
             {
-                if (this == Player.player)
+                if (selfHandle == Player.player)
                 {
                     UIController.singleton.OpenConfirmation("You see an enemy. Would you like to stop?", x => currentAction.stopsOnVisible = x);
                     yield return new WaitUntil(() => !UIController.WindowsOpen);
@@ -606,9 +610,9 @@ public class Monster : MonoBehaviour, IDescribable
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 //Expensive and unnessecary check, done in Editor only
-                if (currentAction == null && this != Player.player)
+                if (currentAction == null && selfHandle != Player.player)
                 {
-                    Debug.LogError("A monster returned a null action. Please force all monster AI systems to always return an action.", this);
+                    Debug.LogError("A monster returned a null action. Please force all monster AI systems to always return an action.", unity);
                     Debug.LogError("This error will NOT be caught in build, so please fix it now!!!!");
                     this.energy -= 10; //Breaks the game state, but prevents our coroutine from running forever
                 }
@@ -726,10 +730,10 @@ public class Monster : MonoBehaviour, IDescribable
         //transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
 
         //Update sprite sorting
-        renderer.sortingOrder = -location.y;
+        unity.renderer.sortingOrder = -location.y;
 
         currentTile = map.GetTile(location);
-        currentTile.SetMonster(this);
+        currentTile.SetMonster(selfHandle);
 
         /*if (currentTile.isVisible)
         {
@@ -748,7 +752,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void SetPositionNoGraphicsUpdate(Map map, Vector2Int newPosition)
     {
-        bool rendering = renderer.enabled;
+        bool rendering = unity.renderer.enabled;
         SetPosition(map, newPosition);
         SetGraphics(rendering);
     }
@@ -756,7 +760,7 @@ public class Monster : MonoBehaviour, IDescribable
     public void SetPositionSnap(Map map, Vector2Int newPosition)
     {
         SetPosition(map, newPosition);
-        transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
+        unity.transform.position = new Vector3(newPosition.x, newPosition.y, monsterZPosition);
         //UpdateLOS();
     }
 
@@ -805,21 +809,21 @@ public class Monster : MonoBehaviour, IDescribable
     }
 
     //Checks faction flags for matches. If none, return true!
-    public bool IsEnemy(Monster other)
+    public bool IsEnemy(RogueHandle<Monster> other)
     {
-        return (faction & other.faction) == 0;
+        return (faction & other[0].faction) == 0;
     }
 
-    public float DistanceFrom(Monster other)
+    public float DistanceFrom(RogueHandle<Monster> other)
     {
-        return Vector2Int.Distance(location, other.location);
+        return Vector2Int.Distance(location, other[0].location);
     }
 
     public void SetGraphics(bool state)
     {
-        renderer.enabled = true;
+        unity.renderer.enabled = true;
         return;
-        renderer.enabled = state;
+        unity.renderer.enabled = state;
         foreach (GameObject g in FXObjects)
         {
             g.SetActive(state);
@@ -828,7 +832,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void UpdatePositionToLocation(Vector2Int location)
     {
-        transform.position = new Vector3(location.x, location.y, monsterZPosition);
+        unity.transform.position = new Vector3(location.x, location.y, monsterZPosition);
         SetGraphics(Map.current.GetTile(location).isVisible);
     }
 
@@ -838,7 +842,7 @@ public class Monster : MonoBehaviour, IDescribable
         {
             RemoveConnection(other);
         }
-        toAdd.monster = this;
+        toAdd.monster = selfHandle;
         other = toAdd;
     }
 
@@ -846,7 +850,7 @@ public class Monster : MonoBehaviour, IDescribable
     {
         if (toRemove != null)
         {
-            toRemove.monster = null;
+            toRemove.monster = selfHandle;
             other = null;
         }
     }
@@ -988,7 +992,7 @@ public class Monster : MonoBehaviour, IDescribable
 
     public void SetGraphicsVisibilityOnTile(RogueTile tile)
     {
-        transform.position = new Vector3(tile.location.x, tile.location.y, monsterZPosition);
+        unity.transform.position = new Vector3(tile.location.x, tile.location.y, monsterZPosition);
         SetGraphicsVisibility(tile.graphicsVisibility);
     }
 
@@ -999,16 +1003,16 @@ public class Monster : MonoBehaviour, IDescribable
         switch (newVisibility)
         {
             case Visibility.HIDDEN:
-                renderer.enabled = false;
+                unity.renderer.enabled = false;
                 break;
             case Visibility.REVEALED:
-                renderer.enabled = true;
-                renderer.color = new Color(0.3f, 0.3f, 0.3f);
+                unity.renderer.enabled = true;
+                unity.renderer.color = new Color(0.3f, 0.3f, 0.3f);
                 break;
             case Visibility.VISIBLE:
             case (Visibility.VISIBLE | Visibility.REVEALED):
-                renderer.enabled = true;
-                renderer.color = Color.white;
+                unity.renderer.enabled = true;
+                unity.renderer.color = Color.white;
                 break;
         }
 

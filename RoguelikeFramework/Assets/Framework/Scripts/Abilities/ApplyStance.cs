@@ -11,7 +11,7 @@ using UnityEngine;
 public class ApplyStance : Ability
 {
     //The dictionary that is used to track which monsters have which effects
-    public static Dictionary<Monster, Effect> currentStances = new Dictionary<Monster, Effect>();
+    public static Dictionary<RogueHandle<Monster>, Effect> currentStances = new Dictionary<RogueHandle<Monster>, Effect>();
 
     [SerializeReference]
     public Effect stance;
@@ -19,13 +19,13 @@ public class ApplyStance : Ability
     Effect lastGivenStance;
 
 	//Check activation, but for requirements that you are willing to override (IE, needs some amount of gold to cast)
-    public override bool OnCheckActivationSoft(Monster caster)
+    public override bool OnCheckActivationSoft(RogueHandle<Monster> caster)
     {
         return true;
     }
 
     //Check activation, but for requirements that MUST be present for the spell to launch correctly. (Status effects will never override)
-    public override bool OnCheckActivationHard(Monster caster)
+    public override bool OnCheckActivationHard(RogueHandle<Monster> caster)
     {
         Effect casterCurrentStance = null;
         if (currentStances.TryGetValue(caster, out casterCurrentStance))
@@ -41,7 +41,7 @@ public class ApplyStance : Ability
         return true;
     }
 
-    public override IEnumerator OnCast(Monster caster)
+    public override IEnumerator OnCast(RogueHandle<Monster> caster)
     {
         Effect casterCurrentStance = null;
         if (currentStances.TryGetValue(caster, out casterCurrentStance))
@@ -51,7 +51,7 @@ public class ApplyStance : Ability
         }
 
         lastGivenStance = stance.Instantiate();
-        caster.AddEffect(lastGivenStance);
+        caster.value.AddEffect(lastGivenStance);
         currentStances.Add(caster, lastGivenStance);
 
         yield break;

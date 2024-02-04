@@ -27,7 +27,7 @@ public class MoveAnimation : RogueAnimation
     public override void OnStart()
     {
         //Enforce location on creation
-        monster.transform.position = startLocation;
+        monster.unity.transform.position = startLocation;
         monster.ForceGraphicsVisibility(Visibility.VISIBLE);
     }
 
@@ -37,12 +37,12 @@ public class MoveAnimation : RogueAnimation
         Vector3 a = Vector3.Lerp(startLocation, midPoint, t);
         Vector3 b = Vector3.Lerp(midPoint, endLocation, t);
 
-        monster.transform.position = Vector3.Lerp(a, b, t);
+        monster.unity.transform.position = Vector3.Lerp(a, b, t);
     }
 
     public override void OnEnd()
     {
-        monster.transform.position = endLocation;
+        monster.unity.transform.position = endLocation;
         monster.ForceGraphicsVisibility(Map.current.GetTile(newLocation).graphicsVisibility);
     }
 
@@ -59,7 +59,7 @@ public class SnapAnimation : RogueAnimation
     Monster monster;
     Vector2Int location;
 
-    public SnapAnimation(Monster monster, Vector2Int location) : base(duration)
+    public SnapAnimation(RogueHandle<Monster> monster, Vector2Int location) : base(duration)
     {
         this.monster = monster;
         this.location = location;
@@ -67,8 +67,8 @@ public class SnapAnimation : RogueAnimation
 
     public override void OnEnd()
     {
-        monster.transform.position = new Vector3(location.x, location.y, Monster.monsterZPosition);
-        if (monster == Player.player)
+        monster.unity.transform.position = new Vector3(location.x, location.y, Monster.monsterZPosition);
+        if (monster == Player.player.value)
         {
             LOS.WritePlayerGraphics(Map.current, location, monster.visionRadius);
         }
@@ -98,7 +98,7 @@ public class AttackAnimation : RogueAnimation
     public override void OnStart()
     {
         //Enforce location on creation
-        monster.transform.position = start;
+        monster.unity.transform.position = start;
     }
 
     public override void OnStep(float delta)
@@ -110,19 +110,19 @@ public class AttackAnimation : RogueAnimation
         if (currentDuration < half)
         {
             t = currentDuration / half;
-            monster.transform.position = Vector3.Lerp(start, midpoint, t);
+            monster.unity.transform.position = Vector3.Lerp(start, midpoint, t);
         }
         else
         {
             t = (currentDuration - half) / half;
-            monster.transform.position = Vector3.Lerp(midpoint, start, t);
+            monster.unity.transform.position = Vector3.Lerp(midpoint, start, t);
 
         }
     }
 
     public override void OnEnd()
     {
-        monster.transform.position = start;
+        monster.unity.transform.position = start;
     }
 
     public override bool IsVisible()
@@ -149,12 +149,12 @@ public class DeathAnimation : RogueAnimation
 
     public override void OnStep(float delta)
     {
-        monster.transform.localScale = Vector3.one * (1f - (currentDuration / MaxDuration));
+        monster.unity.transform.localScale = Vector3.one * (1f - (currentDuration / MaxDuration));
     }
 
     public override void OnEnd()
     {
-        monster.transform.localScale = Vector3.zero;
+        monster.unity.transform.localScale = Vector3.zero;
     }
 
     public override bool IsVisible()
@@ -176,16 +176,16 @@ public class PlayerLOSAnimation : RogueAnimation
 {
     public const float duration = 0.001f;
     Vector2Int animLocation;
-    Monster monster;
+    RogueHandle<Monster> monster;
     LOSData view;
     Vector2Int[] monsterLocations;
 
-    public PlayerLOSAnimation(Monster monster) : base(duration)
+    public PlayerLOSAnimation(RogueHandle<Monster> monster) : base(duration)
     {
         this.monster = monster;
-        this.animLocation = monster.location;
-        view = LOS.LosAt(Map.current, animLocation, monster.visionRadius);
-        monsterLocations = view.GetVisibleMonsters().Select(x => x.location).ToArray();
+        this.animLocation = monster[0].location;
+        view = LOS.LosAt(Map.current, animLocation, monster[0].visionRadius);
+        monsterLocations = view.GetVisibleMonsters(RogueHandle<Monster>.Default).Select(x => x[0].location).ToArray();
     }
 
     public override void OnStart()

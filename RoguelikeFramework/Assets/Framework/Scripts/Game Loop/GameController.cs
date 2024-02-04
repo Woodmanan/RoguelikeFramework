@@ -102,10 +102,9 @@ public class GameController : MonoBehaviour
         }
 
         //Set starting position
-        Player.player.transform.parent = Map.current.monsterContainer;
-        Player.player.location = Map.current.entrances[0].toLocation;
-        player = Player.player;
-        player.Setup();
+        Player.player.value.unity.transform.parent = Map.current.monsterContainer;
+        Player.player.value.location = Map.current.entrances[0].toLocation;
+        player = Player.player.value;
 
         //1 Frame pause to set up LOS
         yield return null;
@@ -188,7 +187,7 @@ public class GameController : MonoBehaviour
                     watch.Restart();
                 }
 
-                Monster m = Map.current.monsters[i];
+                Monster m = Map.current.monsters[i].value;
 
                 m.AddEnergy(energyPerTurn);
                 while (m.energy > 0 && !m.IsDead())
@@ -224,7 +223,7 @@ public class GameController : MonoBehaviour
                         stallCount++;
                         if (stallCount > 1000)
                         {
-                            UnityEngine.Debug.LogError($"Main loop stalled during the turn of {m.friendlyName}, recovering...", m);
+                            UnityEngine.Debug.LogError($"Main loop stalled during the turn of {m.friendlyName}, recovering...", m.unity);
                             m.energy = 0;
                             break;
                         }
@@ -256,11 +255,11 @@ public class GameController : MonoBehaviour
             //Clean up anybody who's dead
             for (int i = Map.current.monsters.Count - 1; i >= 0; i--)
             {
-                Monster monster = Map.current.monsters[i];
+                Monster monster = Map.current.monsters[i].value;
                 if (monster.IsDead())
                 {
-                    Map.current.monsters.RemoveAt(i);
-                    monster.gameObject.SetActive(false);
+                    //Map.current.monsters.RemoveAt(i);
+                    monster.unity.gameObject.SetActive(false);
                     //Destroy(monster.gameObject);
                 }
             }
@@ -276,9 +275,13 @@ public class GameController : MonoBehaviour
     public void CallTurnStartGlobal()
     {
         player.OnTurnStartGlobalCall();
-        foreach (Monster m in Map.current.monsters)
+        for (int i = 0; i < Map.current.monsters.Count; i++)
         {
-            m.OnTurnStartGlobalCall();
+            Monster m = Map.current.monsters[i].value;
+            if (!m.IsDead())
+            {
+                m.OnTurnStartGlobalCall();
+            }
         }
 
         foreach (DungeonSystem system in world.systems)
@@ -301,43 +304,43 @@ public class GameController : MonoBehaviour
         nextLevel = newLevel;
     }
 
-    void RemoveMonstersFromLevel(List<Monster> monsters)
+    void RemoveMonstersFromLevel(List<RogueHandle<Monster>> monsters)
     {
-        foreach (Monster m in monsters)
+        foreach (RogueHandle<Monster> m in monsters)
         {
             Map.current.monsters.Remove(m);
         }
     }
 
-    List<Monster> CollectMonstersForTransition(Monster m, int friendlyDistance, int enemyDistance)
+    List<RogueHandle<Monster>> CollectMonstersForTransition(RogueHandle<Monster> m, int friendlyDistance, int enemyDistance)
     {
-        List<Monster> monsters = new List<Monster>();
-        monsters.AddRange(m.view.visibleFriends.Where(x => x.location.GameDistance(m.location) <= friendlyDistance));
-        monsters.AddRange(m.view.visibleEnemies.Where(x => x.location.GameDistance(m.location) <= enemyDistance));
-        return monsters.Where(x => !x.tags.HasTag("Monster.CannotLeaveLevel")).ToList();
+        List<RogueHandle<Monster>> monsters = new List<RogueHandle<Monster>>();
+        monsters.AddRange(m.value.view.visibleFriends.Where(x => x.value.location.GameDistance(m.value.location) <= friendlyDistance));
+        monsters.AddRange(m.value.view.visibleEnemies.Where(x => x.value.location.GameDistance(m.value.location) <= enemyDistance));
+        return monsters.Where(x => !x.value.tags.HasTag("Monster.CannotLeaveLevel")).ToList();
     }
 
     //TODO: Determine how monsters get placed if they don't have space to be placed
-    public void MoveMonsters(Monster m, Stair stair, List<Monster> monstersToMove, Map map)
+    public void MoveMonsters(Monster m, Stair stair, List<RogueHandle<Monster>> monstersToMove, Map map)
     {
-        m.transform.parent = map.monsterContainer;
+        m.unity.transform.parent = map.monsterContainer;
         Vector2Int center = stair.GetMatchingLocation();
         m.SetPositionSnap(stair.GetMatchingLocation());
 
         IEnumerator<Vector2Int> tiles = map.GetWalkableTilesByRange(stair.GetMatchingLocation(), 1, 16);
 
-        foreach (Monster monster in monstersToMove.OrderBy(x => Random.value))
+        foreach (RogueHandle<Monster> monster in monstersToMove.OrderBy(x => Random.value))
         {
-            monster.transform.parent = map.monsterContainer;
+            monster.value.unity.transform.parent = map.monsterContainer;
             map.monsters.Add(monster);
             if (tiles.MoveNext())
             {
-                monster.SetPositionSnap(tiles.Current);
+                monster.value.SetPositionSnap(tiles.Current);
             }
             else
             {
-                UnityEngine.Debug.LogWarning("No space around stair - Monster dumped into the ether!", monster);
-                monster.SetPositionSnap(map.GetRandomWalkableTile());
+                UnityEngine.Debug.LogWarning("No space around stair - Monster dumped into the ether!");
+                monster.value.SetPositionSnap(map.GetRandomWalkableTile());
             }
         }
     }
@@ -349,7 +352,7 @@ public class GameController : MonoBehaviour
         if (stair)
         {
             SystemExitLevel();
-            List<Monster> toMove = CollectMonstersForTransition(Player.player, 5, 1);
+            List<RogueHandle<Monster>> toMove = CollectMonstersForTransition(Player.player, 5, 1);
             RemoveMonstersFromLevel(toMove);
             LoadMap(nextLevel);
             MoveMonsters(player, stair, toMove, Map.current);
@@ -373,7 +376,7 @@ public class GameController : MonoBehaviour
         player.OnTurnEndGlobalCall();
         for (int i = 0; i < Map.current.monsters.Count; i++)
         {
-            Monster m = Map.current.monsters[i];
+            Monster m = Map.current.monsters[i].value;
             if (!m.IsDead())
             {
                 m.OnTurnEndGlobalCall();
@@ -395,7 +398,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AddMonster(Monster m)
+    public void AddMonster(RogueHandle<Monster> m)
     {
         Map.current.monsters.Add(m);
     }

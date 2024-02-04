@@ -21,21 +21,21 @@ using System.Linq;
 public class AnimGroup
 {
     public List<RogueAnimation> animations = new List<RogueAnimation>();
-    public HashSet<Object> blockedObjects = new HashSet<Object>();
+    public HashSet<object> blockedObjects = new HashSet<object>();
     public bool isEmpty
     {
         get { return animations.Count == 0; }
     }
 
-    public bool CanAddAnimForObject(Object toAdd)
+    public bool CanAddAnimForObject(object toAdd)
     {
         return !blockedObjects.Contains(toAdd);
     }
 
-    public void AddAnim(RogueAnimation anim, Object pairedObject = null)
+    public void AddAnim(RogueAnimation anim, object pairedObject = null)
     {
         animations.Add(anim);
-        if (pairedObject)
+        if (pairedObject != null)
         {
             blockedObjects.Add(pairedObject);
         }
@@ -165,7 +165,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
-    public static void AddAnimationForObject(RogueAnimation anim, Object pairedObject)
+    public static void AddAnimationForObject(RogueAnimation anim, object pairedObject)
     {
         if (anim.IsVisible())
         {

@@ -93,7 +93,7 @@ public class EquipmentScreen : RogueUIPanel
                                     return;
                                 }
                             }
-                            examinedEquipment.monster.SetAction(new EquipAction(queuedItem.position, index));
+                            examinedEquipment.monster[0].SetAction(new EquipAction(queuedItem.position, index));
                             ExitAllWindows();
                             break;
                         }
@@ -115,7 +115,7 @@ public class EquipmentScreen : RogueUIPanel
                         EquipmentSlot e = examinedEquipment.equipmentSlots[index];
                         if (e.active)
                         {
-                            Player.player.SetAction(new RemoveAction(e.position));
+                            Player.player[0].SetAction(new RemoveAction(e.position));
                             //examinedEquipment.Unequip(e.equipped);
                         }
                         else
@@ -162,7 +162,7 @@ public class EquipmentScreen : RogueUIPanel
                 else if (displayed.Count == 1)
                 {
                     //You probably just want to equip this? We'll just go ahead and do it
-                    examinedEquipment.monster.SetAction(new EquipAction(queuedItem.position, displayed[0].position));
+                    examinedEquipment.monster[0].SetAction(new EquipAction(queuedItem.position, displayed[0].position));
                     //examinedEquipment.Equip(queuedItem.position, displayed[0].position);
                     ExitAllWindows();
                     break;
@@ -191,14 +191,14 @@ public class EquipmentScreen : RogueUIPanel
         switch (queuedAction)
         {
             case ItemAction.EQUIP:
-                Player.player.SetAction(new EquipAction(index, queuedItem.position));
+                Player.player[0].SetAction(new EquipAction(index, queuedItem.position));
                 break;
             case ItemAction.INSPECT:
                 //Wow that's gross
                 if (examinedEquipment.equipmentSlots[index].active && !examinedEquipment.equipmentSlots[index].equipped.held[0].equipable.removable)
                 {
                     //Inspect a held item
-                    UIController.singleton.OpenItemInspect(examinedEquipment.monster.inventory, examinedEquipment.equipmentSlots[index].equipped.position);
+                    UIController.singleton.OpenItemInspect(examinedEquipment.monster[0].inventory, examinedEquipment.equipmentSlots[index].equipped.position);
                 }
                 else
                 {
@@ -208,7 +208,7 @@ public class EquipmentScreen : RogueUIPanel
                 break;
 
             case ItemAction.UNEQUIP:
-                Player.player.SetAction(new RemoveAction(index));
+                Player.player[0].SetAction(new RemoveAction(index));
                 break;
             default:
                 Debug.LogError($"Unhandled action type of type {queuedAction}");

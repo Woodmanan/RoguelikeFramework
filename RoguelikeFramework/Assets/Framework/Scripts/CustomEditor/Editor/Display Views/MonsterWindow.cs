@@ -5,6 +5,7 @@ using UnityEditor;
 using System.IO;
 using System.Linq;
 
+/*
 public class MonsterWindow : EditorWindow
 {
     static Monster[] monsters;
@@ -255,4 +256,4 @@ public class MonsterWindow : EditorWindow
             edit.serializedObject.ApplyModifiedProperties();
         }
     }
-}
+}*/

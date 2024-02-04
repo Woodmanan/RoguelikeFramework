@@ -31,16 +31,16 @@ public class DropAction : GameAction
     //See GameAction.cs for more information on how this function should work!
     public override IEnumerator TakeAction()
     {
-        if (caller.inventory == null)
+        if (caller[0].inventory == null)
         {
-            Debug.LogError($"{caller.GetLocalizedName()} cannot drop without an inventory! Skipping turn to prevent deadlock.", caller);
-            caller.energy = 0;
+            Debug.LogError($"{caller[0].GetLocalizedName()} cannot drop without an inventory! Skipping turn to prevent deadlock.", caller[0].unity);
+            caller[0].energy = 0;
             yield break;
         }
 
         if (indices.Count == 0)
         {
-            Debug.Log($"{caller.GetLocalizedName()} tried to drop no items.");
+            Debug.Log($"{caller[0].GetLocalizedName()} tried to drop no items.");
             yield break;
         }
 
@@ -48,9 +48,9 @@ public class DropAction : GameAction
         List<int> needsToBeRemoved = new List<int>();
         foreach (int index in indices)
         {
-            if (index < 0 || index > caller.inventory.capacity) continue;
+            if (index < 0 || index > caller[0].inventory.capacity) continue;
             //For each item, check if it's equipped. If so, remove it.
-            ItemStack item = caller.inventory[index];
+            ItemStack item = caller[0].inventory[index];
             if (item == null) continue;
             EquipableItem equip = item.held[0].equipable;
             if (equip && equip.isEquipped)
@@ -71,12 +71,12 @@ public class DropAction : GameAction
 
         foreach (int index in indices)
         {
-            caller.inventory.Drop(index);
+            caller[0].inventory.Drop(index);
         }
 
-        caller.energy -= 100;
+        caller[0].energy -= 100;
 
-        caller.inventory.GetFloor().Collapse();
+        caller[0].inventory.GetFloor().Collapse();
     }
 
     public override string GetDebugString()

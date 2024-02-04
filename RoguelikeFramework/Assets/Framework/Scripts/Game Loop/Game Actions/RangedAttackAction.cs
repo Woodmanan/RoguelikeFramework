@@ -16,7 +16,7 @@ public class RangedAttackAction : AttackAction
     public override IEnumerator TakeAction()
     {
         //See if we have any weapons actively equipped
-        List<EquipmentSlot> slots = caller.equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.RANGED_WEAPON);
+        List<EquipmentSlot> slots = caller[0].equipment.equipmentSlots.FindAll(x => x.active && x.equipped.held[0].type == ItemType.RANGED_WEAPON);
 
         //Do we have any weapons equipped?
         if (slots.Count > 0)
@@ -42,7 +42,7 @@ public class RangedAttackAction : AttackAction
 
             AttackAction action = this;
 
-            caller.connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
+            caller[0].connections.OnGenerateArmedAttacks.Invoke(ref action, ref primaryWeapons, ref secondaryWeapons);
             int numShots = 0;
             bool canFire = false; //Assume we CANNOT fire by default.
 
@@ -50,7 +50,7 @@ public class RangedAttackAction : AttackAction
             {
                 RangedWeapon weapon = (RangedWeapon)w;
                 canFire = false;
-                IEnumerator targeting = caller.controller.DetermineTarget(weapon.targeting, (b) => canFire = b);
+                IEnumerator targeting = caller[0].controller.DetermineTarget(weapon.targeting, (b) => canFire = b);
 
                 while (targeting.MoveNext())
                 {
@@ -63,10 +63,10 @@ public class RangedAttackAction : AttackAction
 
                     GenerateAnimations(weapon);
 
-                    string logString = LogFormatting.GetFormattedString("RangedAttackFullString", new { attacker = caller.GetName(), singular = caller.singular, defenders = weapon.targeting.affected.Select(x => x.GetName()) });
+                    string logString = LogFormatting.GetFormattedString("RangedAttackFullString", new { attacker = caller[0].GetName(), singular = caller[0].singular, defenders = weapon.targeting.affected.Select(x => x[0].GetName()) });
                     RogueLog.singleton.Log(logString, priority: LogPriority.COMBAT);
 
-                    foreach (Monster m in weapon.targeting.affected)
+                    foreach (RogueHandle<Monster> m in weapon.targeting.affected)
                     {
                         target = m;
                         w.PrimaryAttack(caller, m, this);
@@ -94,7 +94,7 @@ public class RangedAttackAction : AttackAction
                 RangedWeapon weapon = (RangedWeapon)w;
 
                 canFire = false;
-                IEnumerator targeting = caller.controller.DetermineTarget(weapon.targeting, (b) => canFire = b);
+                IEnumerator targeting = caller[0].controller.DetermineTarget(weapon.targeting, (b) => canFire = b);
                 while (targeting.MoveNext())
                 {
                     yield return targeting.Current;
@@ -106,7 +106,7 @@ public class RangedAttackAction : AttackAction
 
                     GenerateAnimations(weapon);
 
-                    foreach (Monster m in weapon.targeting.affected)
+                    foreach (RogueHandle<Monster> m in weapon.targeting.affected)
                     {
                         target = m;
                         w.SecondaryAttack(caller, m, this);
@@ -127,7 +127,7 @@ public class RangedAttackAction : AttackAction
                 yield break;
             }
 
-            caller.energy -= energyCost;
+            caller[0].energy -= energyCost;
         }
         else
         {

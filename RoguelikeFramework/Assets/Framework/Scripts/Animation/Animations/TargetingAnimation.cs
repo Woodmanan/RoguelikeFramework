@@ -17,8 +17,8 @@ public class TargetingAnimation : RogueAnimation
     [HideInInspector] public Vector2 origin;
     [HideInInspector] public Vector2 destination;
     [HideInInspector] public int radius;
-    [HideInInspector] public Monster owner;
-    [HideInInspector] public List<Monster> targets;
+    [HideInInspector] public RogueHandle<Monster> owner;
+    [HideInInspector] public List<RogueHandle<Monster>> targets;
 
     private bool visible = false;
 
@@ -26,7 +26,7 @@ public class TargetingAnimation : RogueAnimation
     {
     }
 
-    public void GenerateFromTargeting(Targeting targeting, int point, Monster owner)
+    public void GenerateFromTargeting(Targeting targeting, int point, RogueHandle<Monster> owner)
     {
         if (targeting != null)
         {
@@ -35,7 +35,7 @@ public class TargetingAnimation : RogueAnimation
             radius = targeting.radius;
             this.targets = targeting.affected;
 
-            visible = ((owner.playerVisibility & Visibility.VISIBLE) > 0);
+            visible = ((owner[0].playerVisibility & Visibility.VISIBLE) > 0);
             if (!visible)
             {
                 for (int y = 0; y < 2 * radius + 1; y++)

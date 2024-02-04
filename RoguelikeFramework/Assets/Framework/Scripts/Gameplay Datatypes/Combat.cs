@@ -35,7 +35,7 @@ public class Combat
                 magiceShave = GetMagicDamageShave(defender);
             }
 
-            defender.Damage(attacker, damageModifier * armorShave * magiceShave * (damage.damage.evaluate() + enchantment), damage.type, source);
+            defender.Damage(attacker.selfHandle, damageModifier * armorShave * magiceShave * (damage.damage.evaluate() + enchantment), damage.type, source);
         }
     }
 

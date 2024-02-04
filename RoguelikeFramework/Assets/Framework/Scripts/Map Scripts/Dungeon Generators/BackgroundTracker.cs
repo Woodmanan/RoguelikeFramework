@@ -29,7 +29,7 @@ public class BackgroundTracker : MonoBehaviour
         {
             Vector3 pos = new Vector3();
             pos.x = Map.current.width / 2;
-            pos.y = Mathf.RoundToInt((Player.player.location.y / offset) +.5f) * offset;
+            pos.y = Mathf.RoundToInt((Player.player[0].location.y / offset) +.5f) * offset;
             pos.z = 0;
             transform.position = pos;
 

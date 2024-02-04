@@ -31,7 +31,7 @@ public class AutoPickupAction : GameAction
         }
 
         //Instant pickups don't move
-        Vector2Int goalLocation = instantPickup ? caller.location : toPickup.location;
+        Vector2Int goalLocation = instantPickup ? caller[0].location : toPickup.location;
 
         if (Map.current.GetTile(goalLocation).BlocksMovement())
         {
@@ -45,11 +45,11 @@ public class AutoPickupAction : GameAction
             pathAction.Setup(caller);
             while (pathAction.action.MoveNext())
             {
-                if (caller.view.visibleEnemies.Count > 0)
+                if (caller[0].view.visibleEnemies.Count > 0)
                 {
                     if (caller == Player.player)
                     {
-                        RogueLog.singleton.Log($"You see a " + caller.view.visibleEnemies[0].GetLocalizedName() + " and stop.", priority: LogPriority.IMPORTANT);
+                        RogueLog.singleton.Log($"You see a " + caller[0].view.visibleEnemies[0][0].GetLocalizedName() + " and stop.", priority: LogPriority.IMPORTANT);
                     }
                     yield break;
                 }
@@ -57,7 +57,7 @@ public class AutoPickupAction : GameAction
             }
         }
 
-        if (caller.location == goalLocation)
+        if (caller[0].location == goalLocation)
         {
             List<int> pickupIndices = new List<int>();
             List<ItemStack> stopIndices = new List<ItemStack>();
@@ -79,7 +79,7 @@ public class AutoPickupAction : GameAction
 
             //If enemies are visible, move all items into stop indices
             //This stops the pickup, but still gets them read out.
-            if (caller.view.visibleEnemies.Count > 0)
+            if (caller[0].view.visibleEnemies.Count > 0)
             {
 
                 foreach (int index in pickupIndices)
@@ -109,7 +109,7 @@ public class AutoPickupAction : GameAction
                 }
 
                 //If we could safely pick these up, mark them
-                if (caller.view.visibleEnemies.Count == 0)
+                if (caller[0].view.visibleEnemies.Count == 0)
                 {
                     foreach (ItemStack stack in stopIndices)
                     {

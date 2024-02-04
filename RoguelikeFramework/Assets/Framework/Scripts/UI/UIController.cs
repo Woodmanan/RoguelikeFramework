@@ -63,32 +63,32 @@ public class UIController : MonoBehaviour
 
     public void OpenInventoryInspect()
     {
-        inventory.Setup(Player.player.inventory, ItemAction.INSPECT);
+        inventory.Setup(Player.player[0].inventory, ItemAction.INSPECT);
         inventory.Activate();
     }
 
     public void OpenInventoryDrop()
     {
-        inventory.Setup(Player.player.inventory, ItemAction.DROP);
+        inventory.Setup(Player.player[0].inventory, ItemAction.DROP);
         inventory.Activate();
     }
 
     public void OpenInventoryPickup()
     {
-        RogueTile tile = Map.current.GetTile(Player.player.location);
+        RogueTile tile = Map.current.GetTile(Player.player[0].location);
         inventory.Setup(tile.inventory, ItemAction.PICK_UP);
         inventory.Activate();
     }
 
     public void OpenInventoryEquip(int index)
     {
-        inventory.Setup(Player.player.inventory, ItemAction.EQUIP, index);
+        inventory.Setup(Player.player[0].inventory, ItemAction.EQUIP, index);
         inventory.Activate();
     }
 
     public void OpenEquipmentInspect()
     {
-        equipment.Setup(Player.player.equipment, ItemAction.INSPECT, null);
+        equipment.Setup(Player.player[0].equipment, ItemAction.INSPECT, null);
         equipment.Activate();
     }
 
@@ -101,31 +101,31 @@ public class UIController : MonoBehaviour
 
     public void OpenEquipmentEquip(ItemStack stack)
     {
-        equipment.Setup(Player.player.equipment, ItemAction.EQUIP, stack);
+        equipment.Setup(Player.player[0].equipment, ItemAction.EQUIP, stack);
         equipment.Activate();
     }
 
     public void OpenEquipmentUnequip()
     {
-        equipment.Setup(Player.player.equipment, ItemAction.UNEQUIP, null);
+        equipment.Setup(Player.player[0].equipment, ItemAction.UNEQUIP, null);
         equipment.Activate();
     }
 
     public void OpenInventoryActivate()
     {
-        inventory.Setup(Player.player.inventory, ItemAction.APPLY);
+        inventory.Setup(Player.player[0].inventory, ItemAction.APPLY);
         inventory.Activate();
     }
 
     public void OpenInventorySelect(Predicate<ItemStack> filter, Action<List<int>> OnFound, int numItems = 52)
     {
-        inventory.Setup(Player.player.inventory, ItemAction.SELECT, filter, OnFound, numItems);
+        inventory.Setup(Player.player[0].inventory, ItemAction.SELECT, filter, OnFound, numItems);
         inventory.Activate();
     }
 
     public void OpenAbilities()
     {
-        abilities.Setup(Player.player.abilities);
+        abilities.Setup(Player.player[0].abilities);
         abilities.Activate();
     }
 

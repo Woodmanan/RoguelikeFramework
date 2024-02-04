@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement;
+
+using MonsterHandle = RogueHandle<Monster>;
 
 public class SaveController : MonoBehaviour
 {
@@ -20,10 +25,26 @@ public class SaveController : MonoBehaviour
         if (trigger)
         {
             trigger = false;
-            RogueSaveSystem.BeginWriteSaveFile(fileName);
-            RogueSaveSystem.Write(GameController.singleton);
-            RogueSaveSystem.Write(Map.current);
-            RogueSaveSystem.CloseSaveFile();
+
+            DemoSave();
         }
+    }
+
+    public void DemoSave()
+    {
+        RogueSaveSystem.BeginWriteSaveFile(fileName);
+        RogueSaveSystem.Write(LevelLoader.singleton.seed);
+        RogueSaveSystem.Write(GameController.singleton.turn);
+        RogueDataStorage.SaveArenas();
+        RogueSaveSystem.Write(LevelLoader.maps);
+
+        RogueSaveSystem.Write(Player.player);
+
+
+        RogueSaveSystem.CloseSaveFile();
+
+        RogueSaveSystem.BeginReadSaveFile(fileName);
+
+        RogueSaveSystem.CloseSaveFile(false);
     }
 }

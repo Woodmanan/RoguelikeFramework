@@ -108,7 +108,7 @@ public class ClassPanel : RogueUIPanel
 
     public void CheckValid()
     {
-        if (selected.Count + Player.player.abilities.Count > Player.player.abilities.maxAbilities)
+        if (selected.Count + Player.player[0].abilities.Count > Player.player[0].abilities.maxAbilities)
         {
             button.interactable = false;
             errorMessage.enabled = true;
@@ -125,11 +125,11 @@ public class ClassPanel : RogueUIPanel
         selected.Sort();
         foreach (int index in selected)
         {
-            Player.player.abilities.AddAbilityInstantiate(current.abilities[index].Instantiate());
+            Player.player[0].abilities.AddAbilityInstantiate(current.abilities[index].Instantiate());
         }
         if (selected.Count > 0)
         {
-            Player.player.AddEffectInstantiate(current.effects.ToArray());
+            Player.player[0].AddEffectInstantiate(current.effects.ToArray());
         }
 
         ExitAllWindows();

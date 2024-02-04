@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Connections
 {
-    public Monster monster;
+    public RogueHandle<Monster> monster = RogueHandle<Monster>.Default;
     public Item item;
     public Ability ability;
 
@@ -13,7 +13,7 @@ public class Connections
 
     }
 
-    public Connections(Monster monster)
+    public Connections(RogueHandle<Monster> monster)
     {
         this.monster = monster;
     }
